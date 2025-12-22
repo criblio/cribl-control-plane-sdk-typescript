@@ -4,26 +4,87 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
-import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
+
+export type InputJournalFilesConnection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputJournalFilesMode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputJournalFilesMode = OpenEnum<typeof InputJournalFilesMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputJournalFilesCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputJournalFilesCompression = OpenEnum<
+  typeof InputJournalFilesCompression
+>;
+
+export type InputJournalFilesPqControls = {};
+
+export type InputJournalFilesPq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputJournalFilesMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputJournalFilesCompression | undefined;
+  pqControls?: InputJournalFilesPqControls | undefined;
+};
 
 export type InputJournalFilesRule = {
   /**
@@ -34,6 +95,14 @@ export type InputJournalFilesRule = {
    * Optional description of this rule's purpose
    */
   description?: string | undefined;
+};
+
+export type InputJournalFilesMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputJournalFiles = {
@@ -66,8 +135,8 @@ export type InputJournalFiles = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputJournalFilesConnection> | undefined;
+  pq?: InputJournalFilesPq | undefined;
   /**
    * Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
    */
@@ -95,9 +164,176 @@ export type InputJournalFiles = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputJournalFilesMetadatum> | undefined;
   description?: string | undefined;
 };
+
+/** @internal */
+export const InputJournalFilesConnection$inboundSchema: z.ZodType<
+  InputJournalFilesConnection,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputJournalFilesConnection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputJournalFilesConnection$outboundSchema: z.ZodType<
+  InputJournalFilesConnection$Outbound,
+  z.ZodTypeDef,
+  InputJournalFilesConnection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputJournalFilesConnectionToJSON(
+  inputJournalFilesConnection: InputJournalFilesConnection,
+): string {
+  return JSON.stringify(
+    InputJournalFilesConnection$outboundSchema.parse(
+      inputJournalFilesConnection,
+    ),
+  );
+}
+export function inputJournalFilesConnectionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputJournalFilesConnection, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputJournalFilesConnection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputJournalFilesConnection' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputJournalFilesMode$inboundSchema: z.ZodType<
+  InputJournalFilesMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputJournalFilesMode);
+/** @internal */
+export const InputJournalFilesMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputJournalFilesMode
+> = openEnums.outboundSchema(InputJournalFilesMode);
+
+/** @internal */
+export const InputJournalFilesCompression$inboundSchema: z.ZodType<
+  InputJournalFilesCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputJournalFilesCompression);
+/** @internal */
+export const InputJournalFilesCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputJournalFilesCompression
+> = openEnums.outboundSchema(InputJournalFilesCompression);
+
+/** @internal */
+export const InputJournalFilesPqControls$inboundSchema: z.ZodType<
+  InputJournalFilesPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputJournalFilesPqControls$Outbound = {};
+
+/** @internal */
+export const InputJournalFilesPqControls$outboundSchema: z.ZodType<
+  InputJournalFilesPqControls$Outbound,
+  z.ZodTypeDef,
+  InputJournalFilesPqControls
+> = z.object({});
+
+export function inputJournalFilesPqControlsToJSON(
+  inputJournalFilesPqControls: InputJournalFilesPqControls,
+): string {
+  return JSON.stringify(
+    InputJournalFilesPqControls$outboundSchema.parse(
+      inputJournalFilesPqControls,
+    ),
+  );
+}
+export function inputJournalFilesPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputJournalFilesPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputJournalFilesPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputJournalFilesPqControls' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputJournalFilesPq$inboundSchema: z.ZodType<
+  InputJournalFilesPq,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputJournalFilesMode$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputJournalFilesCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputJournalFilesPqControls$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type InputJournalFilesPq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputJournalFilesPqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputJournalFilesPq$outboundSchema: z.ZodType<
+  InputJournalFilesPq$Outbound,
+  z.ZodTypeDef,
+  InputJournalFilesPq
+> = z.object({
+  mode: InputJournalFilesMode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputJournalFilesCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputJournalFilesPqControls$outboundSchema)
+    .optional(),
+});
+
+export function inputJournalFilesPqToJSON(
+  inputJournalFilesPq: InputJournalFilesPq,
+): string {
+  return JSON.stringify(
+    InputJournalFilesPq$outboundSchema.parse(inputJournalFilesPq),
+  );
+}
+export function inputJournalFilesPqFromJSON(
+  jsonString: string,
+): SafeParseResult<InputJournalFilesPq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputJournalFilesPq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputJournalFilesPq' from JSON`,
+  );
+}
 
 /** @internal */
 export const InputJournalFilesRule$inboundSchema: z.ZodType<
@@ -142,6 +378,48 @@ export function inputJournalFilesRuleFromJSON(
 }
 
 /** @internal */
+export const InputJournalFilesMetadatum$inboundSchema: z.ZodType<
+  InputJournalFilesMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputJournalFilesMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputJournalFilesMetadatum$outboundSchema: z.ZodType<
+  InputJournalFilesMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputJournalFilesMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputJournalFilesMetadatumToJSON(
+  inputJournalFilesMetadatum: InputJournalFilesMetadatum,
+): string {
+  return JSON.stringify(
+    InputJournalFilesMetadatum$outboundSchema.parse(inputJournalFilesMetadatum),
+  );
+}
+export function inputJournalFilesMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputJournalFilesMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputJournalFilesMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputJournalFilesMetadatum' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputJournalFiles$inboundSchema: z.ZodType<
   InputJournalFiles,
   z.ZodTypeDef,
@@ -155,15 +433,17 @@ export const InputJournalFiles$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputJournalFilesConnection$inboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputJournalFilesPq$inboundSchema).optional(),
   path: z.string(),
   interval: z.number().default(10),
   journals: z.array(z.string()),
   rules: z.array(z.lazy(() => InputJournalFilesRule$inboundSchema)).optional(),
   currentBoot: z.boolean().default(false),
   maxAgeDur: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputJournalFilesMetadatum$inboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -176,15 +456,15 @@ export type InputJournalFiles$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputJournalFilesConnection$Outbound> | undefined;
+  pq?: InputJournalFilesPq$Outbound | undefined;
   path: string;
   interval: number;
   journals: Array<string>;
   rules?: Array<InputJournalFilesRule$Outbound> | undefined;
   currentBoot: boolean;
   maxAgeDur?: string | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<InputJournalFilesMetadatum$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -202,15 +482,17 @@ export const InputJournalFiles$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputJournalFilesConnection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputJournalFilesPq$outboundSchema).optional(),
   path: z.string(),
   interval: z.number().default(10),
   journals: z.array(z.string()),
   rules: z.array(z.lazy(() => InputJournalFilesRule$outboundSchema)).optional(),
   currentBoot: z.boolean().default(false),
   maxAgeDur: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputJournalFilesMetadatum$outboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 

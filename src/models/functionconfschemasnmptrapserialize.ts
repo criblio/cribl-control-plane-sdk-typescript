@@ -4,17 +4,49 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  AuthenticationProtocolOptionsV3User,
-  AuthenticationProtocolOptionsV3User$inboundSchema,
-  AuthenticationProtocolOptionsV3User$outboundSchema,
-} from "./authenticationprotocoloptionsv3user.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+
+export const FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * MD5
+   */
+  Md5: "md5",
+  /**
+   * SHA1
+   */
+  Sha: "sha",
+  /**
+   * SHA224
+   */
+  Sha224: "sha224",
+  /**
+   * SHA256
+   */
+  Sha256: "sha256",
+  /**
+   * SHA384
+   */
+  Sha384: "sha384",
+  /**
+   * SHA512
+   */
+  Sha512: "sha512",
+} as const;
+export type FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol =
+  OpenEnum<typeof FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol>;
 
 export type FunctionConfSchemaSnmpTrapSerializeV3User = {
   name?: string | undefined;
-  authProtocol?: AuthenticationProtocolOptionsV3User | undefined;
+  authProtocol?:
+    | FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol
+    | undefined;
   authKey?: any | undefined;
   privProtocol?: string | undefined;
 };
@@ -32,15 +64,34 @@ export type FunctionConfSchemaSnmpTrapSerialize = {
 };
 
 /** @internal */
+export const FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol$inboundSchema:
+  z.ZodType<
+    FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(
+    FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol,
+  );
+/** @internal */
+export const FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol
+  > = openEnums.outboundSchema(
+    FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol,
+  );
+
+/** @internal */
 export const FunctionConfSchemaSnmpTrapSerializeV3User$inboundSchema: z.ZodType<
   FunctionConfSchemaSnmpTrapSerializeV3User,
   z.ZodTypeDef,
   unknown
 > = z.object({
   name: z.string().optional(),
-  authProtocol: AuthenticationProtocolOptionsV3User$inboundSchema.default(
-    "none",
-  ),
+  authProtocol:
+    FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol$inboundSchema
+      .default("none"),
   authKey: z.any().optional(),
   privProtocol: z.string().default("none"),
 });
@@ -60,9 +111,9 @@ export const FunctionConfSchemaSnmpTrapSerializeV3User$outboundSchema:
     FunctionConfSchemaSnmpTrapSerializeV3User
   > = z.object({
     name: z.string().optional(),
-    authProtocol: AuthenticationProtocolOptionsV3User$outboundSchema.default(
-      "none",
-    ),
+    authProtocol:
+      FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol$outboundSchema
+        .default("none"),
     authKey: z.any().optional(),
     privProtocol: z.string().default("none"),
   });

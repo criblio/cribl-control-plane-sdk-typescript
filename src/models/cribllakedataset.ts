@@ -4,6 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   CacheConnection,
@@ -12,11 +14,6 @@ import {
   CacheConnection$outboundSchema,
 } from "./cacheconnection.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FormatOptionsCriblLakeDataset,
-  FormatOptionsCriblLakeDataset$inboundSchema,
-  FormatOptionsCriblLakeDataset$outboundSchema,
-} from "./formatoptionscribllakedataset.js";
 import {
   LakeDatasetMetrics,
   LakeDatasetMetrics$inboundSchema,
@@ -30,13 +27,20 @@ import {
   LakeDatasetSearchConfig$outboundSchema,
 } from "./lakedatasetsearchconfig.js";
 
+export const CriblLakeDatasetFormat = {
+  Json: "json",
+  Parquet: "parquet",
+  Ddss: "ddss",
+} as const;
+export type CriblLakeDatasetFormat = OpenEnum<typeof CriblLakeDatasetFormat>;
+
 export type CriblLakeDataset = {
   acceleratedFields?: Array<string> | undefined;
   bucketName?: string | undefined;
   cacheConnection?: CacheConnection | undefined;
   deletionStartedAt?: number | undefined;
   description?: string | undefined;
-  format?: FormatOptionsCriblLakeDataset | undefined;
+  format?: CriblLakeDatasetFormat | undefined;
   httpDAUsed?: boolean | undefined;
   id: string;
   metrics?: LakeDatasetMetrics | undefined;
@@ -45,6 +49,19 @@ export type CriblLakeDataset = {
   storageLocationId?: string | undefined;
   viewName?: string | undefined;
 };
+
+/** @internal */
+export const CriblLakeDatasetFormat$inboundSchema: z.ZodType<
+  CriblLakeDatasetFormat,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CriblLakeDatasetFormat);
+/** @internal */
+export const CriblLakeDatasetFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CriblLakeDatasetFormat
+> = openEnums.outboundSchema(CriblLakeDatasetFormat);
 
 /** @internal */
 export const CriblLakeDataset$inboundSchema: z.ZodType<
@@ -57,7 +74,7 @@ export const CriblLakeDataset$inboundSchema: z.ZodType<
   cacheConnection: CacheConnection$inboundSchema.optional(),
   deletionStartedAt: z.number().optional(),
   description: z.string().optional(),
-  format: FormatOptionsCriblLakeDataset$inboundSchema.optional(),
+  format: CriblLakeDatasetFormat$inboundSchema.optional(),
   httpDAUsed: z.boolean().optional(),
   id: z.string(),
   metrics: LakeDatasetMetrics$inboundSchema.optional(),
@@ -94,7 +111,7 @@ export const CriblLakeDataset$outboundSchema: z.ZodType<
   cacheConnection: CacheConnection$outboundSchema.optional(),
   deletionStartedAt: z.number().optional(),
   description: z.string().optional(),
-  format: FormatOptionsCriblLakeDataset$outboundSchema.optional(),
+  format: CriblLakeDatasetFormat$outboundSchema.optional(),
   httpDAUsed: z.boolean().optional(),
   id: z.string(),
   metrics: LakeDatasetMetrics$outboundSchema.optional(),

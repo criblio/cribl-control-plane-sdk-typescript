@@ -7,63 +7,21 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  BackpressureBehaviorOptions1,
-  BackpressureBehaviorOptions1$inboundSchema,
-  BackpressureBehaviorOptions1$outboundSchema,
-} from "./backpressurebehavioroptions1.js";
-import {
-  CompressionLevelOptions,
-  CompressionLevelOptions$inboundSchema,
-  CompressionLevelOptions$outboundSchema,
-} from "./compressionleveloptions.js";
-import {
-  CompressionOptions2,
-  CompressionOptions2$inboundSchema,
-  CompressionOptions2$outboundSchema,
-} from "./compressionoptions2.js";
-import {
-  DataFormatOptions,
-  DataFormatOptions$inboundSchema,
-  DataFormatOptions$outboundSchema,
-} from "./dataformatoptions.js";
-import {
-  DataPageVersionOptions,
-  DataPageVersionOptions$inboundSchema,
-  DataPageVersionOptions$outboundSchema,
-} from "./datapageversionoptions.js";
-import {
-  DiskSpaceProtectionOptions,
-  DiskSpaceProtectionOptions$inboundSchema,
-  DiskSpaceProtectionOptions$outboundSchema,
-} from "./diskspaceprotectionoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeKeyValueMetadata,
-  ItemsTypeKeyValueMetadata$inboundSchema,
-  ItemsTypeKeyValueMetadata$Outbound,
-  ItemsTypeKeyValueMetadata$outboundSchema,
-} from "./itemstypekeyvaluemetadata.js";
-import {
-  ObjectAclOptions1,
-  ObjectAclOptions1$inboundSchema,
-  ObjectAclOptions1$outboundSchema,
-} from "./objectacloptions1.js";
-import {
-  ParquetVersionOptions,
-  ParquetVersionOptions$inboundSchema,
-  ParquetVersionOptions$outboundSchema,
-} from "./parquetversionoptions.js";
-import {
-  SignatureVersionOptions5,
-  SignatureVersionOptions5$inboundSchema,
-  SignatureVersionOptions5$outboundSchema,
-} from "./signatureversionoptions5.js";
-import {
-  StorageClassOptions1,
-  StorageClassOptions1$inboundSchema,
-  StorageClassOptions1$outboundSchema,
-} from "./storageclassoptions1.js";
+
+/**
+ * Signature version to use for signing Google Cloud Storage requests
+ */
+export const OutputGoogleCloudStorageSignatureVersion = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing Google Cloud Storage requests
+ */
+export type OutputGoogleCloudStorageSignatureVersion = OpenEnum<
+  typeof OutputGoogleCloudStorageSignatureVersion
+>;
 
 export const OutputGoogleCloudStorageAuthenticationMethod = {
   /**
@@ -82,6 +40,221 @@ export const OutputGoogleCloudStorageAuthenticationMethod = {
 export type OutputGoogleCloudStorageAuthenticationMethod = OpenEnum<
   typeof OutputGoogleCloudStorageAuthenticationMethod
 >;
+
+/**
+ * Object ACL to assign to uploaded objects
+ */
+export const OutputGoogleCloudStorageObjectACL = {
+  /**
+   * private
+   */
+  Private: "private",
+  /**
+   * bucket-owner-read
+   */
+  BucketOwnerRead: "bucket-owner-read",
+  /**
+   * bucket-owner-full-control
+   */
+  BucketOwnerFullControl: "bucket-owner-full-control",
+  /**
+   * project-private
+   */
+  ProjectPrivate: "project-private",
+  /**
+   * authenticated-read
+   */
+  AuthenticatedRead: "authenticated-read",
+  /**
+   * public-read
+   */
+  PublicRead: "public-read",
+} as const;
+/**
+ * Object ACL to assign to uploaded objects
+ */
+export type OutputGoogleCloudStorageObjectACL = OpenEnum<
+  typeof OutputGoogleCloudStorageObjectACL
+>;
+
+/**
+ * Storage class to select for uploaded objects
+ */
+export const OutputGoogleCloudStorageStorageClass = {
+  /**
+   * Standard Storage
+   */
+  Standard: "STANDARD",
+  /**
+   * Nearline Storage
+   */
+  Nearline: "NEARLINE",
+  /**
+   * Coldline Storage
+   */
+  Coldline: "COLDLINE",
+  /**
+   * Archive Storage
+   */
+  Archive: "ARCHIVE",
+} as const;
+/**
+ * Storage class to select for uploaded objects
+ */
+export type OutputGoogleCloudStorageStorageClass = OpenEnum<
+  typeof OutputGoogleCloudStorageStorageClass
+>;
+
+/**
+ * Format of the output data
+ */
+export const OutputGoogleCloudStorageDataFormat = {
+  /**
+   * JSON
+   */
+  Json: "json",
+  /**
+   * Raw
+   */
+  Raw: "raw",
+  /**
+   * Parquet
+   */
+  Parquet: "parquet",
+} as const;
+/**
+ * Format of the output data
+ */
+export type OutputGoogleCloudStorageDataFormat = OpenEnum<
+  typeof OutputGoogleCloudStorageDataFormat
+>;
+
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export const OutputGoogleCloudStorageBackpressureBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export type OutputGoogleCloudStorageBackpressureBehavior = OpenEnum<
+  typeof OutputGoogleCloudStorageBackpressureBehavior
+>;
+
+/**
+ * How to handle events when disk space is below the global 'Min free disk space' limit
+ */
+export const OutputGoogleCloudStorageDiskSpaceProtection = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when disk space is below the global 'Min free disk space' limit
+ */
+export type OutputGoogleCloudStorageDiskSpaceProtection = OpenEnum<
+  typeof OutputGoogleCloudStorageDiskSpaceProtection
+>;
+
+/**
+ * Data compression format to apply to HTTP content before it is delivered
+ */
+export const OutputGoogleCloudStorageCompression = {
+  None: "none",
+  Gzip: "gzip",
+} as const;
+/**
+ * Data compression format to apply to HTTP content before it is delivered
+ */
+export type OutputGoogleCloudStorageCompression = OpenEnum<
+  typeof OutputGoogleCloudStorageCompression
+>;
+
+/**
+ * Compression level to apply before moving files to final destination
+ */
+export const OutputGoogleCloudStorageCompressionLevel = {
+  /**
+   * Best Speed
+   */
+  BestSpeed: "best_speed",
+  /**
+   * Normal
+   */
+  Normal: "normal",
+  /**
+   * Best Compression
+   */
+  BestCompression: "best_compression",
+} as const;
+/**
+ * Compression level to apply before moving files to final destination
+ */
+export type OutputGoogleCloudStorageCompressionLevel = OpenEnum<
+  typeof OutputGoogleCloudStorageCompressionLevel
+>;
+
+/**
+ * Determines which data types are supported and how they are represented
+ */
+export const OutputGoogleCloudStorageParquetVersion = {
+  /**
+   * 1.0
+   */
+  Parquet10: "PARQUET_1_0",
+  /**
+   * 2.4
+   */
+  Parquet24: "PARQUET_2_4",
+  /**
+   * 2.6
+   */
+  Parquet26: "PARQUET_2_6",
+} as const;
+/**
+ * Determines which data types are supported and how they are represented
+ */
+export type OutputGoogleCloudStorageParquetVersion = OpenEnum<
+  typeof OutputGoogleCloudStorageParquetVersion
+>;
+
+/**
+ * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+ */
+export const OutputGoogleCloudStorageDataPageVersion = {
+  /**
+   * V1
+   */
+  DataPageV1: "DATA_PAGE_V1",
+  /**
+   * V2
+   */
+  DataPageV2: "DATA_PAGE_V2",
+} as const;
+/**
+ * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+ */
+export type OutputGoogleCloudStorageDataPageVersion = OpenEnum<
+  typeof OutputGoogleCloudStorageDataPageVersion
+>;
+
+export type OutputGoogleCloudStorageKeyValueMetadatum = {
+  key?: string | undefined;
+  value: string;
+};
 
 export type OutputGoogleCloudStorage = {
   /**
@@ -120,7 +293,7 @@ export type OutputGoogleCloudStorage = {
   /**
    * Signature version to use for signing Google Cloud Storage requests
    */
-  signatureVersion?: SignatureVersionOptions5 | undefined;
+  signatureVersion?: OutputGoogleCloudStorageSignatureVersion | undefined;
   awsAuthenticationMethod?:
     | OutputGoogleCloudStorageAuthenticationMethod
     | undefined;
@@ -139,11 +312,11 @@ export type OutputGoogleCloudStorage = {
   /**
    * Object ACL to assign to uploaded objects
    */
-  objectACL?: ObjectAclOptions1 | undefined;
+  objectACL?: OutputGoogleCloudStorageObjectACL | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: StorageClassOptions1 | undefined;
+  storageClass?: OutputGoogleCloudStorageStorageClass | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -167,7 +340,7 @@ export type OutputGoogleCloudStorage = {
   /**
    * Format of the output data
    */
-  format?: DataFormatOptions | undefined;
+  format?: OutputGoogleCloudStorageDataFormat | undefined;
   /**
    * JavaScript expression to define the output filename prefix (can be constant)
    */
@@ -203,7 +376,7 @@ export type OutputGoogleCloudStorage = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: OutputGoogleCloudStorageBackpressureBehavior | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -211,7 +384,9 @@ export type OutputGoogleCloudStorage = {
   /**
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
-  onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
+  onDiskFullBackpressure?:
+    | OutputGoogleCloudStorageDiskSpaceProtection
+    | undefined;
   /**
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
@@ -220,11 +395,11 @@ export type OutputGoogleCloudStorage = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: CompressionOptions2 | undefined;
+  compress?: OutputGoogleCloudStorageCompression | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
-  compressionLevel?: CompressionLevelOptions | undefined;
+  compressionLevel?: OutputGoogleCloudStorageCompressionLevel | undefined;
   /**
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
@@ -236,11 +411,11 @@ export type OutputGoogleCloudStorage = {
   /**
    * Determines which data types are supported and how they are represented
    */
-  parquetVersion?: ParquetVersionOptions | undefined;
+  parquetVersion?: OutputGoogleCloudStorageParquetVersion | undefined;
   /**
    * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
    */
-  parquetDataPageVersion?: DataPageVersionOptions | undefined;
+  parquetDataPageVersion?: OutputGoogleCloudStorageDataPageVersion | undefined;
   /**
    * The number of rows that every group will contain. The final group can contain a smaller number of rows.
    */
@@ -256,7 +431,9 @@ export type OutputGoogleCloudStorage = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?:
+    | Array<OutputGoogleCloudStorageKeyValueMetadatum>
+    | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -300,6 +477,19 @@ export type OutputGoogleCloudStorage = {
 };
 
 /** @internal */
+export const OutputGoogleCloudStorageSignatureVersion$inboundSchema: z.ZodType<
+  OutputGoogleCloudStorageSignatureVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputGoogleCloudStorageSignatureVersion);
+/** @internal */
+export const OutputGoogleCloudStorageSignatureVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputGoogleCloudStorageSignatureVersion
+> = openEnums.outboundSchema(OutputGoogleCloudStorageSignatureVersion);
+
+/** @internal */
 export const OutputGoogleCloudStorageAuthenticationMethod$inboundSchema:
   z.ZodType<
     OutputGoogleCloudStorageAuthenticationMethod,
@@ -313,6 +503,176 @@ export const OutputGoogleCloudStorageAuthenticationMethod$outboundSchema:
     z.ZodTypeDef,
     OutputGoogleCloudStorageAuthenticationMethod
   > = openEnums.outboundSchema(OutputGoogleCloudStorageAuthenticationMethod);
+
+/** @internal */
+export const OutputGoogleCloudStorageObjectACL$inboundSchema: z.ZodType<
+  OutputGoogleCloudStorageObjectACL,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputGoogleCloudStorageObjectACL);
+/** @internal */
+export const OutputGoogleCloudStorageObjectACL$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputGoogleCloudStorageObjectACL
+> = openEnums.outboundSchema(OutputGoogleCloudStorageObjectACL);
+
+/** @internal */
+export const OutputGoogleCloudStorageStorageClass$inboundSchema: z.ZodType<
+  OutputGoogleCloudStorageStorageClass,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputGoogleCloudStorageStorageClass);
+/** @internal */
+export const OutputGoogleCloudStorageStorageClass$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputGoogleCloudStorageStorageClass
+> = openEnums.outboundSchema(OutputGoogleCloudStorageStorageClass);
+
+/** @internal */
+export const OutputGoogleCloudStorageDataFormat$inboundSchema: z.ZodType<
+  OutputGoogleCloudStorageDataFormat,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputGoogleCloudStorageDataFormat);
+/** @internal */
+export const OutputGoogleCloudStorageDataFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputGoogleCloudStorageDataFormat
+> = openEnums.outboundSchema(OutputGoogleCloudStorageDataFormat);
+
+/** @internal */
+export const OutputGoogleCloudStorageBackpressureBehavior$inboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageBackpressureBehavior,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(OutputGoogleCloudStorageBackpressureBehavior);
+/** @internal */
+export const OutputGoogleCloudStorageBackpressureBehavior$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    OutputGoogleCloudStorageBackpressureBehavior
+  > = openEnums.outboundSchema(OutputGoogleCloudStorageBackpressureBehavior);
+
+/** @internal */
+export const OutputGoogleCloudStorageDiskSpaceProtection$inboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageDiskSpaceProtection,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(OutputGoogleCloudStorageDiskSpaceProtection);
+/** @internal */
+export const OutputGoogleCloudStorageDiskSpaceProtection$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, OutputGoogleCloudStorageDiskSpaceProtection> =
+    openEnums.outboundSchema(OutputGoogleCloudStorageDiskSpaceProtection);
+
+/** @internal */
+export const OutputGoogleCloudStorageCompression$inboundSchema: z.ZodType<
+  OutputGoogleCloudStorageCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputGoogleCloudStorageCompression);
+/** @internal */
+export const OutputGoogleCloudStorageCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputGoogleCloudStorageCompression
+> = openEnums.outboundSchema(OutputGoogleCloudStorageCompression);
+
+/** @internal */
+export const OutputGoogleCloudStorageCompressionLevel$inboundSchema: z.ZodType<
+  OutputGoogleCloudStorageCompressionLevel,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputGoogleCloudStorageCompressionLevel);
+/** @internal */
+export const OutputGoogleCloudStorageCompressionLevel$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputGoogleCloudStorageCompressionLevel
+> = openEnums.outboundSchema(OutputGoogleCloudStorageCompressionLevel);
+
+/** @internal */
+export const OutputGoogleCloudStorageParquetVersion$inboundSchema: z.ZodType<
+  OutputGoogleCloudStorageParquetVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputGoogleCloudStorageParquetVersion);
+/** @internal */
+export const OutputGoogleCloudStorageParquetVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputGoogleCloudStorageParquetVersion
+> = openEnums.outboundSchema(OutputGoogleCloudStorageParquetVersion);
+
+/** @internal */
+export const OutputGoogleCloudStorageDataPageVersion$inboundSchema: z.ZodType<
+  OutputGoogleCloudStorageDataPageVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputGoogleCloudStorageDataPageVersion);
+/** @internal */
+export const OutputGoogleCloudStorageDataPageVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputGoogleCloudStorageDataPageVersion
+> = openEnums.outboundSchema(OutputGoogleCloudStorageDataPageVersion);
+
+/** @internal */
+export const OutputGoogleCloudStorageKeyValueMetadatum$inboundSchema: z.ZodType<
+  OutputGoogleCloudStorageKeyValueMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  key: z.string().default(""),
+  value: z.string(),
+});
+/** @internal */
+export type OutputGoogleCloudStorageKeyValueMetadatum$Outbound = {
+  key: string;
+  value: string;
+};
+
+/** @internal */
+export const OutputGoogleCloudStorageKeyValueMetadatum$outboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageKeyValueMetadatum$Outbound,
+    z.ZodTypeDef,
+    OutputGoogleCloudStorageKeyValueMetadatum
+  > = z.object({
+    key: z.string().default(""),
+    value: z.string(),
+  });
+
+export function outputGoogleCloudStorageKeyValueMetadatumToJSON(
+  outputGoogleCloudStorageKeyValueMetadatum:
+    OutputGoogleCloudStorageKeyValueMetadatum,
+): string {
+  return JSON.stringify(
+    OutputGoogleCloudStorageKeyValueMetadatum$outboundSchema.parse(
+      outputGoogleCloudStorageKeyValueMetadatum,
+    ),
+  );
+}
+export function outputGoogleCloudStorageKeyValueMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputGoogleCloudStorageKeyValueMetadatum,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleCloudStorageKeyValueMetadatum$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputGoogleCloudStorageKeyValueMetadatum' from JSON`,
+  );
+}
 
 /** @internal */
 export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
@@ -329,7 +689,8 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string(),
   endpoint: z.string().default("https://storage.googleapis.com"),
-  signatureVersion: SignatureVersionOptions5$inboundSchema.default("v4"),
+  signatureVersion: OutputGoogleCloudStorageSignatureVersion$inboundSchema
+    .default("v4"),
   awsAuthenticationMethod:
     OutputGoogleCloudStorageAuthenticationMethod$inboundSchema.default(
       "manual",
@@ -337,8 +698,8 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   destPath: z.string().default(""),
   verifyPermissions: z.boolean().default(true),
-  objectACL: ObjectAclOptions1$inboundSchema.default("private"),
-  storageClass: StorageClassOptions1$inboundSchema.optional(),
+  objectACL: OutputGoogleCloudStorageObjectACL$inboundSchema.default("private"),
+  storageClass: OutputGoogleCloudStorageStorageClass$inboundSchema.optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   addIdToStagePath: z.boolean().default(true),
@@ -346,7 +707,7 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: DataFormatOptions$inboundSchema.default("json"),
+  format: OutputGoogleCloudStorageDataFormat$inboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -357,25 +718,29 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.default("block"),
+  onBackpressure: OutputGoogleCloudStorageBackpressureBehavior$inboundSchema
+    .default("block"),
   deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.default(
-    "block",
-  ),
+  onDiskFullBackpressure:
+    OutputGoogleCloudStorageDiskSpaceProtection$inboundSchema.default("block"),
   forceCloseOnShutdown: z.boolean().default(false),
   description: z.string().optional(),
-  compress: CompressionOptions2$inboundSchema.default("gzip"),
-  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  compress: OutputGoogleCloudStorageCompression$inboundSchema.default("gzip"),
+  compressionLevel: OutputGoogleCloudStorageCompressionLevel$inboundSchema
+    .default("best_speed"),
   automaticSchema: z.boolean().default(false),
   parquetSchema: z.string().optional(),
-  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
-  parquetDataPageVersion: DataPageVersionOptions$inboundSchema.default(
-    "DATA_PAGE_V2",
+  parquetVersion: OutputGoogleCloudStorageParquetVersion$inboundSchema.default(
+    "PARQUET_2_6",
   ),
+  parquetDataPageVersion: OutputGoogleCloudStorageDataPageVersion$inboundSchema
+    .default("DATA_PAGE_V2"),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
+  keyValueMetadata: z.array(
+    z.lazy(() => OutputGoogleCloudStorageKeyValueMetadatum$inboundSchema),
+  ).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -433,7 +798,9 @@ export type OutputGoogleCloudStorage$Outbound = {
   parquetRowGroupLength: number;
   parquetPageSize: string;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  keyValueMetadata?:
+    | Array<OutputGoogleCloudStorageKeyValueMetadatum$Outbound>
+    | undefined;
   enableStatistics: boolean;
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
@@ -461,7 +828,8 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string(),
   endpoint: z.string().default("https://storage.googleapis.com"),
-  signatureVersion: SignatureVersionOptions5$outboundSchema.default("v4"),
+  signatureVersion: OutputGoogleCloudStorageSignatureVersion$outboundSchema
+    .default("v4"),
   awsAuthenticationMethod:
     OutputGoogleCloudStorageAuthenticationMethod$outboundSchema.default(
       "manual",
@@ -469,8 +837,10 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   destPath: z.string().default(""),
   verifyPermissions: z.boolean().default(true),
-  objectACL: ObjectAclOptions1$outboundSchema.default("private"),
-  storageClass: StorageClassOptions1$outboundSchema.optional(),
+  objectACL: OutputGoogleCloudStorageObjectACL$outboundSchema.default(
+    "private",
+  ),
+  storageClass: OutputGoogleCloudStorageStorageClass$outboundSchema.optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   addIdToStagePath: z.boolean().default(true),
@@ -478,7 +848,7 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: DataFormatOptions$outboundSchema.default("json"),
+  format: OutputGoogleCloudStorageDataFormat$outboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -489,28 +859,29 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.default("block"),
+  onBackpressure: OutputGoogleCloudStorageBackpressureBehavior$outboundSchema
+    .default("block"),
   deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.default(
-    "block",
-  ),
+  onDiskFullBackpressure:
+    OutputGoogleCloudStorageDiskSpaceProtection$outboundSchema.default("block"),
   forceCloseOnShutdown: z.boolean().default(false),
   description: z.string().optional(),
-  compress: CompressionOptions2$outboundSchema.default("gzip"),
-  compressionLevel: CompressionLevelOptions$outboundSchema.default(
-    "best_speed",
-  ),
+  compress: OutputGoogleCloudStorageCompression$outboundSchema.default("gzip"),
+  compressionLevel: OutputGoogleCloudStorageCompressionLevel$outboundSchema
+    .default("best_speed"),
   automaticSchema: z.boolean().default(false),
   parquetSchema: z.string().optional(),
-  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
-  parquetDataPageVersion: DataPageVersionOptions$outboundSchema.default(
-    "DATA_PAGE_V2",
+  parquetVersion: OutputGoogleCloudStorageParquetVersion$outboundSchema.default(
+    "PARQUET_2_6",
   ),
+  parquetDataPageVersion: OutputGoogleCloudStorageDataPageVersion$outboundSchema
+    .default("DATA_PAGE_V2"),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema)
-    .optional(),
+  keyValueMetadata: z.array(
+    z.lazy(() => OutputGoogleCloudStorageKeyValueMetadatum$outboundSchema),
+  ).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),

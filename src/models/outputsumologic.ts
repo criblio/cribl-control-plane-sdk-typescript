@@ -7,50 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
-  BackpressureBehaviorOptions$outboundSchema,
-} from "./backpressurebehavioroptions.js";
-import {
-  CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
-  CompressionOptionsPq$outboundSchema,
-} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
-  FailedRequestLoggingModeOptions$outboundSchema,
-} from "./failedrequestloggingmodeoptions.js";
-import {
-  ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
-  ItemsTypeExtraHttpHeaders$Outbound,
-  ItemsTypeExtraHttpHeaders$outboundSchema,
-} from "./itemstypeextrahttpheaders.js";
-import {
-  ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
-  ItemsTypeResponseRetrySettings$Outbound,
-  ItemsTypeResponseRetrySettings$outboundSchema,
-} from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
-import {
-  QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
-  QueueFullBehaviorOptions$outboundSchema,
-} from "./queuefullbehavioroptions.js";
-import {
-  TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
-  TimeoutRetrySettingsType$Outbound,
-  TimeoutRetrySettingsType$outboundSchema,
-} from "./timeoutretrysettingstype.js";
 
 /**
  * Preserve the raw event format instead of JSONifying it
@@ -70,6 +27,156 @@ export const OutputSumoLogicDataFormat = {
  */
 export type OutputSumoLogicDataFormat = OpenEnum<
   typeof OutputSumoLogicDataFormat
+>;
+
+export type OutputSumoLogicExtraHttpHeader = {
+  name?: string | undefined;
+  value: string;
+};
+
+/**
+ * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+ */
+export const OutputSumoLogicFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
+  Payload: "payload",
+  /**
+   * Payload + Headers
+   */
+  PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
+  None: "none",
+} as const;
+/**
+ * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+ */
+export type OutputSumoLogicFailedRequestLoggingMode = OpenEnum<
+  typeof OutputSumoLogicFailedRequestLoggingMode
+>;
+
+export type OutputSumoLogicResponseRetrySetting = {
+  /**
+   * The HTTP response status code that will trigger retries
+   */
+  httpStatus: number;
+  /**
+   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackoff?: number | undefined;
+};
+
+export type OutputSumoLogicTimeoutRetrySettings = {
+  timeoutRetry?: boolean | undefined;
+  /**
+   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackoff?: number | undefined;
+};
+
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export const OutputSumoLogicBackpressureBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+  /**
+   * Persistent Queue
+   */
+  Queue: "queue",
+} as const;
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export type OutputSumoLogicBackpressureBehavior = OpenEnum<
+  typeof OutputSumoLogicBackpressureBehavior
+>;
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputSumoLogicMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputSumoLogicMode = OpenEnum<typeof OutputSumoLogicMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const OutputSumoLogicCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type OutputSumoLogicCompression = OpenEnum<
+  typeof OutputSumoLogicCompression
+>;
+
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export const OutputSumoLogicQueueFullBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop new data
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export type OutputSumoLogicQueueFullBehavior = OpenEnum<
+  typeof OutputSumoLogicQueueFullBehavior
 >;
 
 export type OutputSumoLogicPqControls = {};
@@ -147,7 +254,7 @@ export type OutputSumoLogic = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<OutputSumoLogicExtraHttpHeader> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -155,7 +262,9 @@ export type OutputSumoLogic = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  failedRequestLoggingMode?:
+    | OutputSumoLogicFailedRequestLoggingMode
+    | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -163,8 +272,10 @@ export type OutputSumoLogic = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
-  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  responseRetrySettings?:
+    | Array<OutputSumoLogicResponseRetrySetting>
+    | undefined;
+  timeoutRetrySettings?: OutputSumoLogicTimeoutRetrySettings | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -172,7 +283,7 @@ export type OutputSumoLogic = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions | undefined;
+  onBackpressure?: OutputSumoLogicBackpressureBehavior | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -189,7 +300,7 @@ export type OutputSumoLogic = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: ModeOptions | undefined;
+  pqMode?: OutputSumoLogicMode | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -213,11 +324,11 @@ export type OutputSumoLogic = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: CompressionOptionsPq | undefined;
+  pqCompress?: OutputSumoLogicCompression | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  pqOnBackpressure?: OutputSumoLogicQueueFullBehavior | undefined;
   pqControls?: OutputSumoLogicPqControls | undefined;
 };
 
@@ -233,6 +344,217 @@ export const OutputSumoLogicDataFormat$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputSumoLogicDataFormat
 > = openEnums.outboundSchema(OutputSumoLogicDataFormat);
+
+/** @internal */
+export const OutputSumoLogicExtraHttpHeader$inboundSchema: z.ZodType<
+  OutputSumoLogicExtraHttpHeader,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+/** @internal */
+export type OutputSumoLogicExtraHttpHeader$Outbound = {
+  name?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const OutputSumoLogicExtraHttpHeader$outboundSchema: z.ZodType<
+  OutputSumoLogicExtraHttpHeader$Outbound,
+  z.ZodTypeDef,
+  OutputSumoLogicExtraHttpHeader
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+
+export function outputSumoLogicExtraHttpHeaderToJSON(
+  outputSumoLogicExtraHttpHeader: OutputSumoLogicExtraHttpHeader,
+): string {
+  return JSON.stringify(
+    OutputSumoLogicExtraHttpHeader$outboundSchema.parse(
+      outputSumoLogicExtraHttpHeader,
+    ),
+  );
+}
+export function outputSumoLogicExtraHttpHeaderFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSumoLogicExtraHttpHeader, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSumoLogicExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSumoLogicExtraHttpHeader' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSumoLogicFailedRequestLoggingMode$inboundSchema: z.ZodType<
+  OutputSumoLogicFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSumoLogicFailedRequestLoggingMode);
+/** @internal */
+export const OutputSumoLogicFailedRequestLoggingMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSumoLogicFailedRequestLoggingMode
+> = openEnums.outboundSchema(OutputSumoLogicFailedRequestLoggingMode);
+
+/** @internal */
+export const OutputSumoLogicResponseRetrySetting$inboundSchema: z.ZodType<
+  OutputSumoLogicResponseRetrySetting,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  httpStatus: z.number(),
+  initialBackoff: z.number().default(1000),
+  backoffRate: z.number().default(2),
+  maxBackoff: z.number().default(10000),
+});
+/** @internal */
+export type OutputSumoLogicResponseRetrySetting$Outbound = {
+  httpStatus: number;
+  initialBackoff: number;
+  backoffRate: number;
+  maxBackoff: number;
+};
+
+/** @internal */
+export const OutputSumoLogicResponseRetrySetting$outboundSchema: z.ZodType<
+  OutputSumoLogicResponseRetrySetting$Outbound,
+  z.ZodTypeDef,
+  OutputSumoLogicResponseRetrySetting
+> = z.object({
+  httpStatus: z.number(),
+  initialBackoff: z.number().default(1000),
+  backoffRate: z.number().default(2),
+  maxBackoff: z.number().default(10000),
+});
+
+export function outputSumoLogicResponseRetrySettingToJSON(
+  outputSumoLogicResponseRetrySetting: OutputSumoLogicResponseRetrySetting,
+): string {
+  return JSON.stringify(
+    OutputSumoLogicResponseRetrySetting$outboundSchema.parse(
+      outputSumoLogicResponseRetrySetting,
+    ),
+  );
+}
+export function outputSumoLogicResponseRetrySettingFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSumoLogicResponseRetrySetting, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputSumoLogicResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSumoLogicResponseRetrySetting' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSumoLogicTimeoutRetrySettings$inboundSchema: z.ZodType<
+  OutputSumoLogicTimeoutRetrySettings,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  timeoutRetry: z.boolean().default(false),
+  initialBackoff: z.number().default(1000),
+  backoffRate: z.number().default(2),
+  maxBackoff: z.number().default(10000),
+});
+/** @internal */
+export type OutputSumoLogicTimeoutRetrySettings$Outbound = {
+  timeoutRetry: boolean;
+  initialBackoff: number;
+  backoffRate: number;
+  maxBackoff: number;
+};
+
+/** @internal */
+export const OutputSumoLogicTimeoutRetrySettings$outboundSchema: z.ZodType<
+  OutputSumoLogicTimeoutRetrySettings$Outbound,
+  z.ZodTypeDef,
+  OutputSumoLogicTimeoutRetrySettings
+> = z.object({
+  timeoutRetry: z.boolean().default(false),
+  initialBackoff: z.number().default(1000),
+  backoffRate: z.number().default(2),
+  maxBackoff: z.number().default(10000),
+});
+
+export function outputSumoLogicTimeoutRetrySettingsToJSON(
+  outputSumoLogicTimeoutRetrySettings: OutputSumoLogicTimeoutRetrySettings,
+): string {
+  return JSON.stringify(
+    OutputSumoLogicTimeoutRetrySettings$outboundSchema.parse(
+      outputSumoLogicTimeoutRetrySettings,
+    ),
+  );
+}
+export function outputSumoLogicTimeoutRetrySettingsFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSumoLogicTimeoutRetrySettings, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputSumoLogicTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSumoLogicTimeoutRetrySettings' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSumoLogicBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputSumoLogicBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSumoLogicBackpressureBehavior);
+/** @internal */
+export const OutputSumoLogicBackpressureBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSumoLogicBackpressureBehavior
+> = openEnums.outboundSchema(OutputSumoLogicBackpressureBehavior);
+
+/** @internal */
+export const OutputSumoLogicMode$inboundSchema: z.ZodType<
+  OutputSumoLogicMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSumoLogicMode);
+/** @internal */
+export const OutputSumoLogicMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSumoLogicMode
+> = openEnums.outboundSchema(OutputSumoLogicMode);
+
+/** @internal */
+export const OutputSumoLogicCompression$inboundSchema: z.ZodType<
+  OutputSumoLogicCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSumoLogicCompression);
+/** @internal */
+export const OutputSumoLogicCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSumoLogicCompression
+> = openEnums.outboundSchema(OutputSumoLogicCompression);
+
+/** @internal */
+export const OutputSumoLogicQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputSumoLogicQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSumoLogicQueueFullBehavior);
+/** @internal */
+export const OutputSumoLogicQueueFullBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSumoLogicQueueFullBehavior
+> = openEnums.outboundSchema(OutputSumoLogicQueueFullBehavior);
 
 /** @internal */
 export const OutputSumoLogicPqControls$inboundSchema: z.ZodType<
@@ -290,28 +612,37 @@ export const OutputSumoLogic$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
+  extraHttpHeaders: z.array(
+    z.lazy(() => OutputSumoLogicExtraHttpHeader$inboundSchema),
+  ).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
-    .default("none"),
+  failedRequestLoggingMode:
+    OutputSumoLogicFailedRequestLoggingMode$inboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
-    .optional(),
-  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseRetrySettings: z.array(
+    z.lazy(() => OutputSumoLogicResponseRetrySetting$inboundSchema),
+  ).optional(),
+  timeoutRetrySettings: z.lazy(() =>
+    OutputSumoLogicTimeoutRetrySettings$inboundSchema
+  ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  onBackpressure: OutputSumoLogicBackpressureBehavior$inboundSchema.default(
+    "block",
+  ),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
+  pqMode: OutputSumoLogicMode$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqCompress: OutputSumoLogicCompression$inboundSchema.default("none"),
+  pqOnBackpressure: OutputSumoLogicQueueFullBehavior$inboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputSumoLogicPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -333,14 +664,16 @@ export type OutputSumoLogic$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  extraHttpHeaders?: Array<OutputSumoLogicExtraHttpHeader$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<OutputSumoLogicResponseRetrySetting$Outbound>
     | undefined;
-  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  timeoutRetrySettings?:
+    | OutputSumoLogicTimeoutRetrySettings$Outbound
+    | undefined;
   responseHonorRetryAfterHeader: boolean;
   onBackpressure: string;
   totalMemoryLimitKB?: number | undefined;
@@ -381,29 +714,37 @@ export const OutputSumoLogic$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
+  extraHttpHeaders: z.array(
+    z.lazy(() => OutputSumoLogicExtraHttpHeader$outboundSchema),
+  ).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
-    .default("none"),
+  failedRequestLoggingMode:
+    OutputSumoLogicFailedRequestLoggingMode$outboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
-  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseRetrySettings: z.array(
+    z.lazy(() => OutputSumoLogicResponseRetrySetting$outboundSchema),
+  ).optional(),
+  timeoutRetrySettings: z.lazy(() =>
+    OutputSumoLogicTimeoutRetrySettings$outboundSchema
+  ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  onBackpressure: OutputSumoLogicBackpressureBehavior$outboundSchema.default(
+    "block",
+  ),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
+  pqMode: OutputSumoLogicMode$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqCompress: OutputSumoLogicCompression$outboundSchema.default("none"),
+  pqOnBackpressure: OutputSumoLogicQueueFullBehavior$outboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputSumoLogicPqControls$outboundSchema).optional(),
 });
 

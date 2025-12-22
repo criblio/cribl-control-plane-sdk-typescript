@@ -29,15 +29,15 @@ const value: models.OutputGrafanaCloudGrafanaCloud1 = {
   prometheusAuth: {
     token: "<value>",
     textSecret: "<value>",
-    username: "Keshaun.Pagac",
-    password: "6tVmZtXY_Yorgje",
+    username: "Shakira_Wisozk",
+    password: "B0RWaZFIYeYi4FE",
     credentialsSecret: "<value>",
   },
   lokiAuth: {
     token: "<value>",
     textSecret: "<value>",
-    username: "Assunta_Kris",
-    password: "pv19FDqWjIgMACL",
+    username: "Myles.Durgan",
+    password: "2zPSMZhEVhRBQno",
     credentialsSecret: "<value>",
   },
   extraHttpHeaders: [
@@ -53,11 +53,11 @@ const value: models.OutputGrafanaCloudGrafanaCloud1 = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 2643.26,
     },
   ],
   timeoutRetrySettings: {},
-  description: "huzzah cleaner when baseboard within analyse league gosh",
+  description: "ignorant who where iterate eek keenly frantically gadzooks",
   pqControls: {},
 };
 ```
@@ -113,7 +113,7 @@ const value: models.OutputGrafanaCloudGrafanaCloud2 = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 6825.33,
     },
   ],
   timeoutRetrySettings: {},

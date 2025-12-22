@@ -8,35 +8,85 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
-import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
-import {
-  RetryRulesType1,
-  RetryRulesType1$inboundSchema,
-  RetryRulesType1$Outbound,
-  RetryRulesType1$outboundSchema,
-} from "./retryrulestype1.js";
-import {
-  SubscriptionPlanOptions,
-  SubscriptionPlanOptions$inboundSchema,
-  SubscriptionPlanOptions$outboundSchema,
-} from "./subscriptionplanoptions.js";
+
+export type InputOffice365MsgTraceConnection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputOffice365MsgTraceMode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputOffice365MsgTraceMode = OpenEnum<
+  typeof InputOffice365MsgTraceMode
+>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputOffice365MsgTraceCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputOffice365MsgTraceCompression = OpenEnum<
+  typeof InputOffice365MsgTraceCompression
+>;
+
+export type InputOffice365MsgTracePqControls = {};
+
+export type InputOffice365MsgTracePq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputOffice365MsgTraceMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputOffice365MsgTraceCompression | undefined;
+  pqControls?: InputOffice365MsgTracePqControls | undefined;
+};
 
 /**
  * Select authentication method.
@@ -70,6 +120,101 @@ export const InputOffice365MsgTraceLogLevel = {
  */
 export type InputOffice365MsgTraceLogLevel = OpenEnum<
   typeof InputOffice365MsgTraceLogLevel
+>;
+
+export type InputOffice365MsgTraceMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+/**
+ * The algorithm to use when performing HTTP retries
+ */
+export const InputOffice365MsgTraceRetryType = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * The algorithm to use when performing HTTP retries
+ */
+export type InputOffice365MsgTraceRetryType = OpenEnum<
+  typeof InputOffice365MsgTraceRetryType
+>;
+
+export type InputOffice365MsgTraceRetryRules = {
+  /**
+   * The algorithm to use when performing HTTP retries
+   */
+  type?: InputOffice365MsgTraceRetryType | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of http codes that trigger a retry. Leave empty to use the default list of 429, 500, and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
+};
+
+/**
+ * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+ */
+export const InputOffice365MsgTraceSubscriptionPlan = {
+  /**
+   * Office 365 Enterprise
+   */
+  EnterpriseGcc: "enterprise_gcc",
+  /**
+   * Office 365 GCC
+   */
+  Gcc: "gcc",
+  /**
+   * Office 365 GCC High
+   */
+  GccHigh: "gcc_high",
+  /**
+   * Office 365 DoD
+   */
+  Dod: "dod",
+} as const;
+/**
+ * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+ */
+export type InputOffice365MsgTraceSubscriptionPlan = OpenEnum<
+  typeof InputOffice365MsgTraceSubscriptionPlan
 >;
 
 export type CertOptions = {
@@ -121,8 +266,8 @@ export type InputOffice365MsgTrace = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputOffice365MsgTraceConnection> | undefined;
+  pq?: InputOffice365MsgTracePq | undefined;
   /**
    * URL to use when retrieving report data.
    */
@@ -186,8 +331,8 @@ export type InputOffice365MsgTrace = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  retryRules?: RetryRulesType1 | undefined;
+  metadata?: Array<InputOffice365MsgTraceMetadatum> | undefined;
+  retryRules?: InputOffice365MsgTraceRetryRules | undefined;
   description?: string | undefined;
   /**
    * Username to run Message Trace API call.
@@ -220,13 +365,180 @@ export type InputOffice365MsgTrace = {
   /**
    * Office 365 subscription plan for your organization, typically Office 365 Enterprise
    */
-  planType?: SubscriptionPlanOptions | undefined;
+  planType?: InputOffice365MsgTraceSubscriptionPlan | undefined;
   /**
    * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
    */
   textSecret?: string | undefined;
   certOptions?: CertOptions | undefined;
 };
+
+/** @internal */
+export const InputOffice365MsgTraceConnection$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceConnection,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputOffice365MsgTraceConnection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputOffice365MsgTraceConnection$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceConnection$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceConnection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputOffice365MsgTraceConnectionToJSON(
+  inputOffice365MsgTraceConnection: InputOffice365MsgTraceConnection,
+): string {
+  return JSON.stringify(
+    InputOffice365MsgTraceConnection$outboundSchema.parse(
+      inputOffice365MsgTraceConnection,
+    ),
+  );
+}
+export function inputOffice365MsgTraceConnectionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputOffice365MsgTraceConnection, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOffice365MsgTraceConnection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOffice365MsgTraceConnection' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceMode$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputOffice365MsgTraceMode);
+/** @internal */
+export const InputOffice365MsgTraceMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceMode
+> = openEnums.outboundSchema(InputOffice365MsgTraceMode);
+
+/** @internal */
+export const InputOffice365MsgTraceCompression$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputOffice365MsgTraceCompression);
+/** @internal */
+export const InputOffice365MsgTraceCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceCompression
+> = openEnums.outboundSchema(InputOffice365MsgTraceCompression);
+
+/** @internal */
+export const InputOffice365MsgTracePqControls$inboundSchema: z.ZodType<
+  InputOffice365MsgTracePqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputOffice365MsgTracePqControls$Outbound = {};
+
+/** @internal */
+export const InputOffice365MsgTracePqControls$outboundSchema: z.ZodType<
+  InputOffice365MsgTracePqControls$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MsgTracePqControls
+> = z.object({});
+
+export function inputOffice365MsgTracePqControlsToJSON(
+  inputOffice365MsgTracePqControls: InputOffice365MsgTracePqControls,
+): string {
+  return JSON.stringify(
+    InputOffice365MsgTracePqControls$outboundSchema.parse(
+      inputOffice365MsgTracePqControls,
+    ),
+  );
+}
+export function inputOffice365MsgTracePqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputOffice365MsgTracePqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOffice365MsgTracePqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOffice365MsgTracePqControls' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTracePq$inboundSchema: z.ZodType<
+  InputOffice365MsgTracePq,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputOffice365MsgTraceMode$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputOffice365MsgTraceCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputOffice365MsgTracePqControls$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type InputOffice365MsgTracePq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputOffice365MsgTracePqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputOffice365MsgTracePq$outboundSchema: z.ZodType<
+  InputOffice365MsgTracePq$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MsgTracePq
+> = z.object({
+  mode: InputOffice365MsgTraceMode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputOffice365MsgTraceCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputOffice365MsgTracePqControls$outboundSchema)
+    .optional(),
+});
+
+export function inputOffice365MsgTracePqToJSON(
+  inputOffice365MsgTracePq: InputOffice365MsgTracePq,
+): string {
+  return JSON.stringify(
+    InputOffice365MsgTracePq$outboundSchema.parse(inputOffice365MsgTracePq),
+  );
+}
+export function inputOffice365MsgTracePqFromJSON(
+  jsonString: string,
+): SafeParseResult<InputOffice365MsgTracePq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOffice365MsgTracePq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOffice365MsgTracePq' from JSON`,
+  );
+}
 
 /** @internal */
 export const InputOffice365MsgTraceAuthenticationMethod$inboundSchema:
@@ -249,6 +561,138 @@ export const InputOffice365MsgTraceLogLevel$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputOffice365MsgTraceLogLevel
 > = openEnums.outboundSchema(InputOffice365MsgTraceLogLevel);
+
+/** @internal */
+export const InputOffice365MsgTraceMetadatum$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputOffice365MsgTraceMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputOffice365MsgTraceMetadatum$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputOffice365MsgTraceMetadatumToJSON(
+  inputOffice365MsgTraceMetadatum: InputOffice365MsgTraceMetadatum,
+): string {
+  return JSON.stringify(
+    InputOffice365MsgTraceMetadatum$outboundSchema.parse(
+      inputOffice365MsgTraceMetadatum,
+    ),
+  );
+}
+export function inputOffice365MsgTraceMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputOffice365MsgTraceMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOffice365MsgTraceMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOffice365MsgTraceMetadatum' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceRetryType$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceRetryType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputOffice365MsgTraceRetryType);
+/** @internal */
+export const InputOffice365MsgTraceRetryType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceRetryType
+> = openEnums.outboundSchema(InputOffice365MsgTraceRetryType);
+
+/** @internal */
+export const InputOffice365MsgTraceRetryRules$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceRetryRules,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: InputOffice365MsgTraceRetryType$inboundSchema.default("backoff"),
+  interval: z.number().default(1000),
+  limit: z.number().default(5),
+  multiplier: z.number().default(2),
+  codes: z.array(z.number()).optional(),
+  enableHeader: z.boolean().default(true),
+  retryConnectTimeout: z.boolean().default(false),
+  retryConnectReset: z.boolean().default(false),
+});
+/** @internal */
+export type InputOffice365MsgTraceRetryRules$Outbound = {
+  type: string;
+  interval: number;
+  limit: number;
+  multiplier: number;
+  codes?: Array<number> | undefined;
+  enableHeader: boolean;
+  retryConnectTimeout: boolean;
+  retryConnectReset: boolean;
+};
+
+/** @internal */
+export const InputOffice365MsgTraceRetryRules$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceRetryRules$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceRetryRules
+> = z.object({
+  type: InputOffice365MsgTraceRetryType$outboundSchema.default("backoff"),
+  interval: z.number().default(1000),
+  limit: z.number().default(5),
+  multiplier: z.number().default(2),
+  codes: z.array(z.number()).optional(),
+  enableHeader: z.boolean().default(true),
+  retryConnectTimeout: z.boolean().default(false),
+  retryConnectReset: z.boolean().default(false),
+});
+
+export function inputOffice365MsgTraceRetryRulesToJSON(
+  inputOffice365MsgTraceRetryRules: InputOffice365MsgTraceRetryRules,
+): string {
+  return JSON.stringify(
+    InputOffice365MsgTraceRetryRules$outboundSchema.parse(
+      inputOffice365MsgTraceRetryRules,
+    ),
+  );
+}
+export function inputOffice365MsgTraceRetryRulesFromJSON(
+  jsonString: string,
+): SafeParseResult<InputOffice365MsgTraceRetryRules, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOffice365MsgTraceRetryRules$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOffice365MsgTraceRetryRules' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceSubscriptionPlan$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceSubscriptionPlan,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputOffice365MsgTraceSubscriptionPlan);
+/** @internal */
+export const InputOffice365MsgTraceSubscriptionPlan$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceSubscriptionPlan
+> = openEnums.outboundSchema(InputOffice365MsgTraceSubscriptionPlan);
 
 /** @internal */
 export const CertOptions$inboundSchema: z.ZodType<
@@ -308,8 +752,10 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(
+    z.lazy(() => InputOffice365MsgTraceConnection$inboundSchema),
+  ).optional(),
+  pq: z.lazy(() => InputOffice365MsgTracePq$inboundSchema).optional(),
   url: z.string().default(
     "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
   ),
@@ -329,8 +775,10 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().default(3),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  retryRules: RetryRulesType1$inboundSchema.optional(),
+  metadata: z.array(z.lazy(() => InputOffice365MsgTraceMetadatum$inboundSchema))
+    .optional(),
+  retryRules: z.lazy(() => InputOffice365MsgTraceRetryRules$inboundSchema)
+    .optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -339,7 +787,9 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   tenantId: z.string().optional(),
   clientId: z.string().optional(),
   resource: z.string().default("https://outlook.office365.com"),
-  planType: SubscriptionPlanOptions$inboundSchema.default("enterprise_gcc"),
+  planType: InputOffice365MsgTraceSubscriptionPlan$inboundSchema.default(
+    "enterprise_gcc",
+  ),
   textSecret: z.string().optional(),
   certOptions: z.lazy(() => CertOptions$inboundSchema).optional(),
 });
@@ -353,8 +803,8 @@ export type InputOffice365MsgTrace$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputOffice365MsgTraceConnection$Outbound> | undefined;
+  pq?: InputOffice365MsgTracePq$Outbound | undefined;
   url: string;
   interval: number;
   startDate?: string | undefined;
@@ -370,8 +820,8 @@ export type InputOffice365MsgTrace$Outbound = {
   maxMissedKeepAlives: number;
   ttl: string;
   ignoreGroupJobsLimit: boolean;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  retryRules?: RetryRulesType1$Outbound | undefined;
+  metadata?: Array<InputOffice365MsgTraceMetadatum$Outbound> | undefined;
+  retryRules?: InputOffice365MsgTraceRetryRules$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -399,8 +849,10 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(
+    z.lazy(() => InputOffice365MsgTraceConnection$outboundSchema),
+  ).optional(),
+  pq: z.lazy(() => InputOffice365MsgTracePq$outboundSchema).optional(),
   url: z.string().default(
     "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
   ),
@@ -420,8 +872,11 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().default(3),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  retryRules: RetryRulesType1$outboundSchema.optional(),
+  metadata: z.array(
+    z.lazy(() => InputOffice365MsgTraceMetadatum$outboundSchema),
+  ).optional(),
+  retryRules: z.lazy(() => InputOffice365MsgTraceRetryRules$outboundSchema)
+    .optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -430,7 +885,9 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   tenantId: z.string().optional(),
   clientId: z.string().optional(),
   resource: z.string().default("https://outlook.office365.com"),
-  planType: SubscriptionPlanOptions$outboundSchema.default("enterprise_gcc"),
+  planType: InputOffice365MsgTraceSubscriptionPlan$outboundSchema.default(
+    "enterprise_gcc",
+  ),
   textSecret: z.string().optional(),
   certOptions: z.lazy(() => CertOptions$outboundSchema).optional(),
 });

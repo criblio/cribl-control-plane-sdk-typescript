@@ -4,33 +4,120 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
-  BackpressureBehaviorOptions$outboundSchema,
-} from "./backpressurebehavioroptions.js";
-import {
-  CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
-  CompressionOptionsPq$outboundSchema,
-} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  GoogleAuthenticationMethodOptions,
-  GoogleAuthenticationMethodOptions$inboundSchema,
-  GoogleAuthenticationMethodOptions$outboundSchema,
-} from "./googleauthenticationmethodoptions.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
-import {
-  QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
-  QueueFullBehaviorOptions$outboundSchema,
-} from "./queuefullbehavioroptions.js";
+
+/**
+ * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+ */
+export const OutputGooglePubsubGoogleAuthenticationMethod = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret
+   */
+  Secret: "secret",
+} as const;
+/**
+ * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+ */
+export type OutputGooglePubsubGoogleAuthenticationMethod = OpenEnum<
+  typeof OutputGooglePubsubGoogleAuthenticationMethod
+>;
+
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export const OutputGooglePubsubBackpressureBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+  /**
+   * Persistent Queue
+   */
+  Queue: "queue",
+} as const;
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export type OutputGooglePubsubBackpressureBehavior = OpenEnum<
+  typeof OutputGooglePubsubBackpressureBehavior
+>;
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputGooglePubsubMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputGooglePubsubMode = OpenEnum<typeof OutputGooglePubsubMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const OutputGooglePubsubCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type OutputGooglePubsubCompression = OpenEnum<
+  typeof OutputGooglePubsubCompression
+>;
+
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export const OutputGooglePubsubQueueFullBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop new data
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export type OutputGooglePubsubQueueFullBehavior = OpenEnum<
+  typeof OutputGooglePubsubQueueFullBehavior
+>;
 
 export type OutputGooglePubsubPqControls = {};
 
@@ -75,7 +162,7 @@ export type OutputGooglePubsub = {
   /**
    * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
    */
-  googleAuthMethod?: GoogleAuthenticationMethodOptions | undefined;
+  googleAuthMethod?: OutputGooglePubsubGoogleAuthenticationMethod | undefined;
   /**
    * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
    */
@@ -111,7 +198,7 @@ export type OutputGooglePubsub = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions | undefined;
+  onBackpressure?: OutputGooglePubsubBackpressureBehavior | undefined;
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -124,7 +211,7 @@ export type OutputGooglePubsub = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: ModeOptions | undefined;
+  pqMode?: OutputGooglePubsubMode | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -148,13 +235,80 @@ export type OutputGooglePubsub = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: CompressionOptionsPq | undefined;
+  pqCompress?: OutputGooglePubsubCompression | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  pqOnBackpressure?: OutputGooglePubsubQueueFullBehavior | undefined;
   pqControls?: OutputGooglePubsubPqControls | undefined;
 };
+
+/** @internal */
+export const OutputGooglePubsubGoogleAuthenticationMethod$inboundSchema:
+  z.ZodType<
+    OutputGooglePubsubGoogleAuthenticationMethod,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(OutputGooglePubsubGoogleAuthenticationMethod);
+/** @internal */
+export const OutputGooglePubsubGoogleAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    OutputGooglePubsubGoogleAuthenticationMethod
+  > = openEnums.outboundSchema(OutputGooglePubsubGoogleAuthenticationMethod);
+
+/** @internal */
+export const OutputGooglePubsubBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputGooglePubsubBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputGooglePubsubBackpressureBehavior);
+/** @internal */
+export const OutputGooglePubsubBackpressureBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputGooglePubsubBackpressureBehavior
+> = openEnums.outboundSchema(OutputGooglePubsubBackpressureBehavior);
+
+/** @internal */
+export const OutputGooglePubsubMode$inboundSchema: z.ZodType<
+  OutputGooglePubsubMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputGooglePubsubMode);
+/** @internal */
+export const OutputGooglePubsubMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputGooglePubsubMode
+> = openEnums.outboundSchema(OutputGooglePubsubMode);
+
+/** @internal */
+export const OutputGooglePubsubCompression$inboundSchema: z.ZodType<
+  OutputGooglePubsubCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputGooglePubsubCompression);
+/** @internal */
+export const OutputGooglePubsubCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputGooglePubsubCompression
+> = openEnums.outboundSchema(OutputGooglePubsubCompression);
+
+/** @internal */
+export const OutputGooglePubsubQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputGooglePubsubQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputGooglePubsubQueueFullBehavior);
+/** @internal */
+export const OutputGooglePubsubQueueFullBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputGooglePubsubQueueFullBehavior
+> = openEnums.outboundSchema(OutputGooglePubsubQueueFullBehavior);
 
 /** @internal */
 export const OutputGooglePubsubPqControls$inboundSchema: z.ZodType<
@@ -207,9 +361,8 @@ export const OutputGooglePubsub$inboundSchema: z.ZodType<
   createTopic: z.boolean().default(false),
   orderedDelivery: z.boolean().default(false),
   region: z.string().optional(),
-  googleAuthMethod: GoogleAuthenticationMethodOptions$inboundSchema.default(
-    "manual",
-  ),
+  googleAuthMethod: OutputGooglePubsubGoogleAuthenticationMethod$inboundSchema
+    .default("manual"),
   serviceAccountCredentials: z.string().optional(),
   secret: z.string().optional(),
   batchSize: z.number().default(1000),
@@ -218,18 +371,22 @@ export const OutputGooglePubsub$inboundSchema: z.ZodType<
   maxRecordSizeKB: z.number().default(256),
   flushPeriod: z.number().default(1),
   maxInProgress: z.number().default(10),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  onBackpressure: OutputGooglePubsubBackpressureBehavior$inboundSchema.default(
+    "block",
+  ),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
+  pqMode: OutputGooglePubsubMode$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqCompress: OutputGooglePubsubCompression$inboundSchema.default("none"),
+  pqOnBackpressure: OutputGooglePubsubQueueFullBehavior$inboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputGooglePubsubPqControls$inboundSchema)
     .optional(),
 });
@@ -285,9 +442,8 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
   createTopic: z.boolean().default(false),
   orderedDelivery: z.boolean().default(false),
   region: z.string().optional(),
-  googleAuthMethod: GoogleAuthenticationMethodOptions$outboundSchema.default(
-    "manual",
-  ),
+  googleAuthMethod: OutputGooglePubsubGoogleAuthenticationMethod$outboundSchema
+    .default("manual"),
   serviceAccountCredentials: z.string().optional(),
   secret: z.string().optional(),
   batchSize: z.number().default(1000),
@@ -296,18 +452,22 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
   maxRecordSizeKB: z.number().default(256),
   flushPeriod: z.number().default(1),
   maxInProgress: z.number().default(10),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  onBackpressure: OutputGooglePubsubBackpressureBehavior$outboundSchema.default(
+    "block",
+  ),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
+  pqMode: OutputGooglePubsubMode$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqCompress: OutputGooglePubsubCompression$outboundSchema.default("none"),
+  pqOnBackpressure: OutputGooglePubsubQueueFullBehavior$outboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputGooglePubsubPqControls$outboundSchema)
     .optional(),
 });

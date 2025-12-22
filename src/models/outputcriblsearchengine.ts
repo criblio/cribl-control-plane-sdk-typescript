@@ -4,74 +4,259 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
-  BackpressureBehaviorOptions$outboundSchema,
-} from "./backpressurebehavioroptions.js";
-import {
-  CompressionOptions1,
-  CompressionOptions1$inboundSchema,
-  CompressionOptions1$outboundSchema,
-} from "./compressionoptions1.js";
-import {
-  CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
-  CompressionOptionsPq$outboundSchema,
-} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
-  FailedRequestLoggingModeOptions$outboundSchema,
-} from "./failedrequestloggingmodeoptions.js";
-import {
-  ItemsTypeAuthTokens1,
-  ItemsTypeAuthTokens1$inboundSchema,
-  ItemsTypeAuthTokens1$Outbound,
-  ItemsTypeAuthTokens1$outboundSchema,
-} from "./itemstypeauthtokens1.js";
-import {
-  ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
-  ItemsTypeExtraHttpHeaders$Outbound,
-  ItemsTypeExtraHttpHeaders$outboundSchema,
-} from "./itemstypeextrahttpheaders.js";
-import {
-  ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
-  ItemsTypeResponseRetrySettings$Outbound,
-  ItemsTypeResponseRetrySettings$outboundSchema,
-} from "./itemstyperesponseretrysettings.js";
-import {
-  ItemsTypeUrls,
-  ItemsTypeUrls$inboundSchema,
-  ItemsTypeUrls$Outbound,
-  ItemsTypeUrls$outboundSchema,
-} from "./itemstypeurls.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
-import {
-  QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
-  QueueFullBehaviorOptions$outboundSchema,
-} from "./queuefullbehavioroptions.js";
-import {
-  TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
-  TimeoutRetrySettingsType$Outbound,
-  TimeoutRetrySettingsType$outboundSchema,
-} from "./timeoutretrysettingstype.js";
-import {
-  TlsSettingsClientSideTypeKafkaSchemaRegistry,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
-} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
+
+export const OutputCriblSearchEngineMinimumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type OutputCriblSearchEngineMinimumTLSVersion = OpenEnum<
+  typeof OutputCriblSearchEngineMinimumTLSVersion
+>;
+
+export const OutputCriblSearchEngineMaximumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type OutputCriblSearchEngineMaximumTLSVersion = OpenEnum<
+  typeof OutputCriblSearchEngineMaximumTLSVersion
+>;
+
+export type OutputCriblSearchEngineTLSSettingsClientSide = {
+  disabled?: boolean | undefined;
+  /**
+   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+   *
+   * @remarks
+   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+   */
+  servername?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  /**
+   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  minVersion?: OutputCriblSearchEngineMinimumTLSVersion | undefined;
+  maxVersion?: OutputCriblSearchEngineMaximumTLSVersion | undefined;
+};
+
+/**
+ * Codec to use to compress the data before sending
+ */
+export const OutputCriblSearchEngineCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the data before sending
+ */
+export type OutputCriblSearchEngineCompression = OpenEnum<
+  typeof OutputCriblSearchEngineCompression
+>;
+
+export type OutputCriblSearchEngineExtraHttpHeader = {
+  name?: string | undefined;
+  value: string;
+};
+
+/**
+ * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+ */
+export const OutputCriblSearchEngineFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
+  Payload: "payload",
+  /**
+   * Payload + Headers
+   */
+  PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
+  None: "none",
+} as const;
+/**
+ * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+ */
+export type OutputCriblSearchEngineFailedRequestLoggingMode = OpenEnum<
+  typeof OutputCriblSearchEngineFailedRequestLoggingMode
+>;
+
+export type OutputCriblSearchEngineResponseRetrySetting = {
+  /**
+   * The HTTP response status code that will trigger retries
+   */
+  httpStatus: number;
+  /**
+   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackoff?: number | undefined;
+};
+
+export type OutputCriblSearchEngineTimeoutRetrySettings = {
+  timeoutRetry?: boolean | undefined;
+  /**
+   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackoff?: number | undefined;
+};
+
+export type OutputCriblSearchEngineAuthToken = {
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret: string;
+  enabled?: boolean | undefined;
+  description?: string | undefined;
+};
+
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export const OutputCriblSearchEngineBackpressureBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+  /**
+   * Persistent Queue
+   */
+  Queue: "queue",
+} as const;
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export type OutputCriblSearchEngineBackpressureBehavior = OpenEnum<
+  typeof OutputCriblSearchEngineBackpressureBehavior
+>;
+
+export type OutputCriblSearchEngineUrl = {
+  /**
+   * URL of a Cribl Worker to send events to, such as http://localhost:10200
+   */
+  url: string;
+  /**
+   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+   */
+  weight?: number | undefined;
+};
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputCriblSearchEngineMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputCriblSearchEngineMode = OpenEnum<
+  typeof OutputCriblSearchEngineMode
+>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const OutputCriblSearchEnginePqCompressCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type OutputCriblSearchEnginePqCompressCompression = OpenEnum<
+  typeof OutputCriblSearchEnginePqCompressCompression
+>;
+
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export const OutputCriblSearchEngineQueueFullBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop new data
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export type OutputCriblSearchEngineQueueFullBehavior = OpenEnum<
+  typeof OutputCriblSearchEngineQueueFullBehavior
+>;
 
 export type OutputCriblSearchEnginePqControls = {};
 
@@ -101,7 +286,7 @@ export type OutputCriblSearchEngine = {
    * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
    */
   loadBalanced?: boolean | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: OutputCriblSearchEngineTLSSettingsClientSide | undefined;
   /**
    * The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
    */
@@ -113,7 +298,7 @@ export type OutputCriblSearchEngine = {
   /**
    * Codec to use to compress the data before sending
    */
-  compression?: CompressionOptions1 | undefined;
+  compression?: OutputCriblSearchEngineCompression | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -145,11 +330,13 @@ export type OutputCriblSearchEngine = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<OutputCriblSearchEngineExtraHttpHeader> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  failedRequestLoggingMode?:
+    | OutputCriblSearchEngineFailedRequestLoggingMode
+    | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -161,8 +348,12 @@ export type OutputCriblSearchEngine = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
-  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  responseRetrySettings?:
+    | Array<OutputCriblSearchEngineResponseRetrySetting>
+    | undefined;
+  timeoutRetrySettings?:
+    | OutputCriblSearchEngineTimeoutRetrySettings
+    | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -170,11 +361,11 @@ export type OutputCriblSearchEngine = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
    */
-  authTokens?: Array<ItemsTypeAuthTokens1> | undefined;
+  authTokens?: Array<OutputCriblSearchEngineAuthToken> | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions | undefined;
+  onBackpressure?: OutputCriblSearchEngineBackpressureBehavior | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -188,7 +379,7 @@ export type OutputCriblSearchEngine = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<ItemsTypeUrls> | undefined;
+  urls?: Array<OutputCriblSearchEngineUrl> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -208,7 +399,7 @@ export type OutputCriblSearchEngine = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: ModeOptions | undefined;
+  pqMode?: OutputCriblSearchEngineMode | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -232,13 +423,454 @@ export type OutputCriblSearchEngine = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: CompressionOptionsPq | undefined;
+  pqCompress?: OutputCriblSearchEnginePqCompressCompression | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  pqOnBackpressure?: OutputCriblSearchEngineQueueFullBehavior | undefined;
   pqControls?: OutputCriblSearchEnginePqControls | undefined;
 };
+
+/** @internal */
+export const OutputCriblSearchEngineMinimumTLSVersion$inboundSchema: z.ZodType<
+  OutputCriblSearchEngineMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCriblSearchEngineMinimumTLSVersion);
+/** @internal */
+export const OutputCriblSearchEngineMinimumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCriblSearchEngineMinimumTLSVersion
+> = openEnums.outboundSchema(OutputCriblSearchEngineMinimumTLSVersion);
+
+/** @internal */
+export const OutputCriblSearchEngineMaximumTLSVersion$inboundSchema: z.ZodType<
+  OutputCriblSearchEngineMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCriblSearchEngineMaximumTLSVersion);
+/** @internal */
+export const OutputCriblSearchEngineMaximumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCriblSearchEngineMaximumTLSVersion
+> = openEnums.outboundSchema(OutputCriblSearchEngineMaximumTLSVersion);
+
+/** @internal */
+export const OutputCriblSearchEngineTLSSettingsClientSide$inboundSchema:
+  z.ZodType<
+    OutputCriblSearchEngineTLSSettingsClientSide,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    disabled: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    servername: z.string().optional(),
+    certificateName: z.string().optional(),
+    caPath: z.string().optional(),
+    privKeyPath: z.string().optional(),
+    certPath: z.string().optional(),
+    passphrase: z.string().optional(),
+    minVersion: OutputCriblSearchEngineMinimumTLSVersion$inboundSchema
+      .optional(),
+    maxVersion: OutputCriblSearchEngineMaximumTLSVersion$inboundSchema
+      .optional(),
+  });
+/** @internal */
+export type OutputCriblSearchEngineTLSSettingsClientSide$Outbound = {
+  disabled: boolean;
+  rejectUnauthorized: boolean;
+  servername?: string | undefined;
+  certificateName?: string | undefined;
+  caPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  certPath?: string | undefined;
+  passphrase?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const OutputCriblSearchEngineTLSSettingsClientSide$outboundSchema:
+  z.ZodType<
+    OutputCriblSearchEngineTLSSettingsClientSide$Outbound,
+    z.ZodTypeDef,
+    OutputCriblSearchEngineTLSSettingsClientSide
+  > = z.object({
+    disabled: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    servername: z.string().optional(),
+    certificateName: z.string().optional(),
+    caPath: z.string().optional(),
+    privKeyPath: z.string().optional(),
+    certPath: z.string().optional(),
+    passphrase: z.string().optional(),
+    minVersion: OutputCriblSearchEngineMinimumTLSVersion$outboundSchema
+      .optional(),
+    maxVersion: OutputCriblSearchEngineMaximumTLSVersion$outboundSchema
+      .optional(),
+  });
+
+export function outputCriblSearchEngineTLSSettingsClientSideToJSON(
+  outputCriblSearchEngineTLSSettingsClientSide:
+    OutputCriblSearchEngineTLSSettingsClientSide,
+): string {
+  return JSON.stringify(
+    OutputCriblSearchEngineTLSSettingsClientSide$outboundSchema.parse(
+      outputCriblSearchEngineTLSSettingsClientSide,
+    ),
+  );
+}
+export function outputCriblSearchEngineTLSSettingsClientSideFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputCriblSearchEngineTLSSettingsClientSide,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputCriblSearchEngineTLSSettingsClientSide$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputCriblSearchEngineTLSSettingsClientSide' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblSearchEngineCompression$inboundSchema: z.ZodType<
+  OutputCriblSearchEngineCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCriblSearchEngineCompression);
+/** @internal */
+export const OutputCriblSearchEngineCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCriblSearchEngineCompression
+> = openEnums.outboundSchema(OutputCriblSearchEngineCompression);
+
+/** @internal */
+export const OutputCriblSearchEngineExtraHttpHeader$inboundSchema: z.ZodType<
+  OutputCriblSearchEngineExtraHttpHeader,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+/** @internal */
+export type OutputCriblSearchEngineExtraHttpHeader$Outbound = {
+  name?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const OutputCriblSearchEngineExtraHttpHeader$outboundSchema: z.ZodType<
+  OutputCriblSearchEngineExtraHttpHeader$Outbound,
+  z.ZodTypeDef,
+  OutputCriblSearchEngineExtraHttpHeader
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+
+export function outputCriblSearchEngineExtraHttpHeaderToJSON(
+  outputCriblSearchEngineExtraHttpHeader:
+    OutputCriblSearchEngineExtraHttpHeader,
+): string {
+  return JSON.stringify(
+    OutputCriblSearchEngineExtraHttpHeader$outboundSchema.parse(
+      outputCriblSearchEngineExtraHttpHeader,
+    ),
+  );
+}
+export function outputCriblSearchEngineExtraHttpHeaderFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblSearchEngineExtraHttpHeader, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputCriblSearchEngineExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblSearchEngineExtraHttpHeader' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblSearchEngineFailedRequestLoggingMode$inboundSchema:
+  z.ZodType<
+    OutputCriblSearchEngineFailedRequestLoggingMode,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(OutputCriblSearchEngineFailedRequestLoggingMode);
+/** @internal */
+export const OutputCriblSearchEngineFailedRequestLoggingMode$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    OutputCriblSearchEngineFailedRequestLoggingMode
+  > = openEnums.outboundSchema(OutputCriblSearchEngineFailedRequestLoggingMode);
+
+/** @internal */
+export const OutputCriblSearchEngineResponseRetrySetting$inboundSchema:
+  z.ZodType<
+    OutputCriblSearchEngineResponseRetrySetting,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    httpStatus: z.number(),
+    initialBackoff: z.number().default(1000),
+    backoffRate: z.number().default(2),
+    maxBackoff: z.number().default(10000),
+  });
+/** @internal */
+export type OutputCriblSearchEngineResponseRetrySetting$Outbound = {
+  httpStatus: number;
+  initialBackoff: number;
+  backoffRate: number;
+  maxBackoff: number;
+};
+
+/** @internal */
+export const OutputCriblSearchEngineResponseRetrySetting$outboundSchema:
+  z.ZodType<
+    OutputCriblSearchEngineResponseRetrySetting$Outbound,
+    z.ZodTypeDef,
+    OutputCriblSearchEngineResponseRetrySetting
+  > = z.object({
+    httpStatus: z.number(),
+    initialBackoff: z.number().default(1000),
+    backoffRate: z.number().default(2),
+    maxBackoff: z.number().default(10000),
+  });
+
+export function outputCriblSearchEngineResponseRetrySettingToJSON(
+  outputCriblSearchEngineResponseRetrySetting:
+    OutputCriblSearchEngineResponseRetrySetting,
+): string {
+  return JSON.stringify(
+    OutputCriblSearchEngineResponseRetrySetting$outboundSchema.parse(
+      outputCriblSearchEngineResponseRetrySetting,
+    ),
+  );
+}
+export function outputCriblSearchEngineResponseRetrySettingFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputCriblSearchEngineResponseRetrySetting,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputCriblSearchEngineResponseRetrySetting$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputCriblSearchEngineResponseRetrySetting' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblSearchEngineTimeoutRetrySettings$inboundSchema:
+  z.ZodType<
+    OutputCriblSearchEngineTimeoutRetrySettings,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    timeoutRetry: z.boolean().default(false),
+    initialBackoff: z.number().default(1000),
+    backoffRate: z.number().default(2),
+    maxBackoff: z.number().default(10000),
+  });
+/** @internal */
+export type OutputCriblSearchEngineTimeoutRetrySettings$Outbound = {
+  timeoutRetry: boolean;
+  initialBackoff: number;
+  backoffRate: number;
+  maxBackoff: number;
+};
+
+/** @internal */
+export const OutputCriblSearchEngineTimeoutRetrySettings$outboundSchema:
+  z.ZodType<
+    OutputCriblSearchEngineTimeoutRetrySettings$Outbound,
+    z.ZodTypeDef,
+    OutputCriblSearchEngineTimeoutRetrySettings
+  > = z.object({
+    timeoutRetry: z.boolean().default(false),
+    initialBackoff: z.number().default(1000),
+    backoffRate: z.number().default(2),
+    maxBackoff: z.number().default(10000),
+  });
+
+export function outputCriblSearchEngineTimeoutRetrySettingsToJSON(
+  outputCriblSearchEngineTimeoutRetrySettings:
+    OutputCriblSearchEngineTimeoutRetrySettings,
+): string {
+  return JSON.stringify(
+    OutputCriblSearchEngineTimeoutRetrySettings$outboundSchema.parse(
+      outputCriblSearchEngineTimeoutRetrySettings,
+    ),
+  );
+}
+export function outputCriblSearchEngineTimeoutRetrySettingsFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputCriblSearchEngineTimeoutRetrySettings,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputCriblSearchEngineTimeoutRetrySettings$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputCriblSearchEngineTimeoutRetrySettings' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblSearchEngineAuthToken$inboundSchema: z.ZodType<
+  OutputCriblSearchEngineAuthToken,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+/** @internal */
+export type OutputCriblSearchEngineAuthToken$Outbound = {
+  tokenSecret: string;
+  enabled: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const OutputCriblSearchEngineAuthToken$outboundSchema: z.ZodType<
+  OutputCriblSearchEngineAuthToken$Outbound,
+  z.ZodTypeDef,
+  OutputCriblSearchEngineAuthToken
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+
+export function outputCriblSearchEngineAuthTokenToJSON(
+  outputCriblSearchEngineAuthToken: OutputCriblSearchEngineAuthToken,
+): string {
+  return JSON.stringify(
+    OutputCriblSearchEngineAuthToken$outboundSchema.parse(
+      outputCriblSearchEngineAuthToken,
+    ),
+  );
+}
+export function outputCriblSearchEngineAuthTokenFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblSearchEngineAuthToken, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCriblSearchEngineAuthToken$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblSearchEngineAuthToken' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblSearchEngineBackpressureBehavior$inboundSchema:
+  z.ZodType<
+    OutputCriblSearchEngineBackpressureBehavior,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(OutputCriblSearchEngineBackpressureBehavior);
+/** @internal */
+export const OutputCriblSearchEngineBackpressureBehavior$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, OutputCriblSearchEngineBackpressureBehavior> =
+    openEnums.outboundSchema(OutputCriblSearchEngineBackpressureBehavior);
+
+/** @internal */
+export const OutputCriblSearchEngineUrl$inboundSchema: z.ZodType<
+  OutputCriblSearchEngineUrl,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  url: z.string(),
+  weight: z.number().default(1),
+});
+/** @internal */
+export type OutputCriblSearchEngineUrl$Outbound = {
+  url: string;
+  weight: number;
+};
+
+/** @internal */
+export const OutputCriblSearchEngineUrl$outboundSchema: z.ZodType<
+  OutputCriblSearchEngineUrl$Outbound,
+  z.ZodTypeDef,
+  OutputCriblSearchEngineUrl
+> = z.object({
+  url: z.string(),
+  weight: z.number().default(1),
+});
+
+export function outputCriblSearchEngineUrlToJSON(
+  outputCriblSearchEngineUrl: OutputCriblSearchEngineUrl,
+): string {
+  return JSON.stringify(
+    OutputCriblSearchEngineUrl$outboundSchema.parse(outputCriblSearchEngineUrl),
+  );
+}
+export function outputCriblSearchEngineUrlFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblSearchEngineUrl, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCriblSearchEngineUrl$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblSearchEngineUrl' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblSearchEngineMode$inboundSchema: z.ZodType<
+  OutputCriblSearchEngineMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCriblSearchEngineMode);
+/** @internal */
+export const OutputCriblSearchEngineMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCriblSearchEngineMode
+> = openEnums.outboundSchema(OutputCriblSearchEngineMode);
+
+/** @internal */
+export const OutputCriblSearchEnginePqCompressCompression$inboundSchema:
+  z.ZodType<
+    OutputCriblSearchEnginePqCompressCompression,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(OutputCriblSearchEnginePqCompressCompression);
+/** @internal */
+export const OutputCriblSearchEnginePqCompressCompression$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    OutputCriblSearchEnginePqCompressCompression
+  > = openEnums.outboundSchema(OutputCriblSearchEnginePqCompressCompression);
+
+/** @internal */
+export const OutputCriblSearchEngineQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputCriblSearchEngineQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCriblSearchEngineQueueFullBehavior);
+/** @internal */
+export const OutputCriblSearchEngineQueueFullBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCriblSearchEngineQueueFullBehavior
+> = openEnums.outboundSchema(OutputCriblSearchEngineQueueFullBehavior);
 
 /** @internal */
 export const OutputCriblSearchEnginePqControls$inboundSchema: z.ZodType<
@@ -288,44 +920,58 @@ export const OutputCriblSearchEngine$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   loadBalanced: z.boolean().default(false),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
+  tls: z.lazy(() => OutputCriblSearchEngineTLSSettingsClientSide$inboundSchema)
+    .optional(),
   tokenTTLMinutes: z.number().default(60),
   excludeFields: z.array(z.string()).optional(),
-  compression: CompressionOptions1$inboundSchema.default("gzip"),
+  compression: OutputCriblSearchEngineCompression$inboundSchema.default("gzip"),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
-  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
-    .default("none"),
+  extraHttpHeaders: z.array(
+    z.lazy(() => OutputCriblSearchEngineExtraHttpHeader$inboundSchema),
+  ).optional(),
+  failedRequestLoggingMode:
+    OutputCriblSearchEngineFailedRequestLoggingMode$inboundSchema.default(
+      "none",
+    ),
   safeHeaders: z.array(z.string()).optional(),
   throttleRatePerSec: z.string().default("0"),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
-    .optional(),
-  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseRetrySettings: z.array(
+    z.lazy(() => OutputCriblSearchEngineResponseRetrySetting$inboundSchema),
+  ).optional(),
+  timeoutRetrySettings: z.lazy(() =>
+    OutputCriblSearchEngineTimeoutRetrySettings$inboundSchema
+  ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  authTokens: z.array(ItemsTypeAuthTokens1$inboundSchema).optional(),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  authTokens: z.array(
+    z.lazy(() => OutputCriblSearchEngineAuthToken$inboundSchema),
+  ).optional(),
+  onBackpressure: OutputCriblSearchEngineBackpressureBehavior$inboundSchema
+    .default("block"),
   useRoundRobinDns: z.boolean().default(false),
   description: z.string().optional(),
   url: z.string().optional(),
   excludeSelf: z.boolean().default(false),
-  urls: z.array(ItemsTypeUrls$inboundSchema).optional(),
+  urls: z.array(z.lazy(() => OutputCriblSearchEngineUrl$inboundSchema))
+    .optional(),
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
+  pqMode: OutputCriblSearchEngineMode$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqCompress: OutputCriblSearchEnginePqCompressCompression$inboundSchema
+    .default("none"),
+  pqOnBackpressure: OutputCriblSearchEngineQueueFullBehavior$inboundSchema
+    .default("block"),
   pqControls: z.lazy(() => OutputCriblSearchEnginePqControls$inboundSchema)
     .optional(),
 });
@@ -338,7 +984,7 @@ export type OutputCriblSearchEngine$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   loadBalanced: boolean;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  tls?: OutputCriblSearchEngineTLSSettingsClientSide$Outbound | undefined;
   tokenTTLMinutes: number;
   excludeFields?: Array<string> | undefined;
   compression: string;
@@ -348,22 +994,26 @@ export type OutputCriblSearchEngine$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  extraHttpHeaders?:
+    | Array<OutputCriblSearchEngineExtraHttpHeader$Outbound>
+    | undefined;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   throttleRatePerSec: string;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<OutputCriblSearchEngineResponseRetrySetting$Outbound>
     | undefined;
-  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  timeoutRetrySettings?:
+    | OutputCriblSearchEngineTimeoutRetrySettings$Outbound
+    | undefined;
   responseHonorRetryAfterHeader: boolean;
-  authTokens?: Array<ItemsTypeAuthTokens1$Outbound> | undefined;
+  authTokens?: Array<OutputCriblSearchEngineAuthToken$Outbound> | undefined;
   onBackpressure: string;
   useRoundRobinDns: boolean;
   description?: string | undefined;
   url?: string | undefined;
   excludeSelf: boolean;
-  urls?: Array<ItemsTypeUrls$Outbound> | undefined;
+  urls?: Array<OutputCriblSearchEngineUrl$Outbound> | undefined;
   dnsResolvePeriodSec: number;
   loadBalanceStatsPeriodSec: number;
   pqStrictOrdering: boolean;
@@ -392,45 +1042,60 @@ export const OutputCriblSearchEngine$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   loadBalanced: z.boolean().default(false),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  tls: z.lazy(() => OutputCriblSearchEngineTLSSettingsClientSide$outboundSchema)
+    .optional(),
   tokenTTLMinutes: z.number().default(60),
   excludeFields: z.array(z.string()).optional(),
-  compression: CompressionOptions1$outboundSchema.default("gzip"),
+  compression: OutputCriblSearchEngineCompression$outboundSchema.default(
+    "gzip",
+  ),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
-  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
-    .default("none"),
+  extraHttpHeaders: z.array(
+    z.lazy(() => OutputCriblSearchEngineExtraHttpHeader$outboundSchema),
+  ).optional(),
+  failedRequestLoggingMode:
+    OutputCriblSearchEngineFailedRequestLoggingMode$outboundSchema.default(
+      "none",
+    ),
   safeHeaders: z.array(z.string()).optional(),
   throttleRatePerSec: z.string().default("0"),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
-  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseRetrySettings: z.array(
+    z.lazy(() => OutputCriblSearchEngineResponseRetrySetting$outboundSchema),
+  ).optional(),
+  timeoutRetrySettings: z.lazy(() =>
+    OutputCriblSearchEngineTimeoutRetrySettings$outboundSchema
+  ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  authTokens: z.array(ItemsTypeAuthTokens1$outboundSchema).optional(),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  authTokens: z.array(
+    z.lazy(() => OutputCriblSearchEngineAuthToken$outboundSchema),
+  ).optional(),
+  onBackpressure: OutputCriblSearchEngineBackpressureBehavior$outboundSchema
+    .default("block"),
   useRoundRobinDns: z.boolean().default(false),
   description: z.string().optional(),
   url: z.string().optional(),
   excludeSelf: z.boolean().default(false),
-  urls: z.array(ItemsTypeUrls$outboundSchema).optional(),
+  urls: z.array(z.lazy(() => OutputCriblSearchEngineUrl$outboundSchema))
+    .optional(),
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
+  pqMode: OutputCriblSearchEngineMode$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqCompress: OutputCriblSearchEnginePqCompressCompression$outboundSchema
+    .default("none"),
+  pqOnBackpressure: OutputCriblSearchEngineQueueFullBehavior$outboundSchema
+    .default("block"),
   pqControls: z.lazy(() => OutputCriblSearchEnginePqControls$outboundSchema)
     .optional(),
 });

@@ -6,7 +6,6 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { ItemsTypeAdd, ItemsTypeAdd$inboundSchema } from "./itemstypeadd.js";
 
 export type FunctionConfSchemaMaskRule = {
   /**
@@ -23,6 +22,14 @@ export type FunctionConfSchemaMaskRule = {
   disabled?: boolean | undefined;
 };
 
+export type FunctionConfSchemaMaskFlag = {
+  name?: string | undefined;
+  /**
+   * JavaScript expression to compute the value (can be constant)
+   */
+  value: string;
+};
+
 export type FunctionConfSchemaMask = {
   rules?: Array<FunctionConfSchemaMaskRule> | undefined;
   /**
@@ -36,7 +43,7 @@ export type FunctionConfSchemaMask = {
   /**
    * Fields to evaluate if one or more masking rules are matched
    */
-  flags?: Array<ItemsTypeAdd> | undefined;
+  flags?: Array<FunctionConfSchemaMaskFlag> | undefined;
 };
 
 /** @internal */
@@ -61,6 +68,26 @@ export function functionConfSchemaMaskRuleFromJSON(
 }
 
 /** @internal */
+export const FunctionConfSchemaMaskFlag$inboundSchema: z.ZodType<
+  FunctionConfSchemaMaskFlag,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+
+export function functionConfSchemaMaskFlagFromJSON(
+  jsonString: string,
+): SafeParseResult<FunctionConfSchemaMaskFlag, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => FunctionConfSchemaMaskFlag$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'FunctionConfSchemaMaskFlag' from JSON`,
+  );
+}
+
+/** @internal */
 export const FunctionConfSchemaMask$inboundSchema: z.ZodType<
   FunctionConfSchemaMask,
   z.ZodTypeDef,
@@ -70,7 +97,8 @@ export const FunctionConfSchemaMask$inboundSchema: z.ZodType<
     .optional(),
   fields: z.array(z.string()).optional(),
   depth: z.number().int().default(5),
-  flags: z.array(ItemsTypeAdd$inboundSchema).optional(),
+  flags: z.array(z.lazy(() => FunctionConfSchemaMaskFlag$inboundSchema))
+    .optional(),
 });
 
 export function functionConfSchemaMaskFromJSON(

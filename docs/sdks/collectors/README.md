@@ -73,21 +73,18 @@ async function run() {
       ],
       workerAffinity: false,
       collector: {
-        type: "<value>",
+        type: "database",
         conf: {
-          type: "script",
-          discoverScript: "<value>",
-          collectScript: "<value>",
-          shell: "/bin/bash",
-          envVars: [
-            {
-              name: "<value>",
-              value: "<value>",
+          connectionId: "<id>",
+          query: "<value>",
+          queryValidationEnabled: true,
+          defaultBreakers: "Cribl",
+          scheduling: {
+            stateTracking: {
+              enabled: true,
             },
-          ],
+          },
         },
-        destructive: false,
-        encoding: "<value>",
       },
       input: {
         type: "collection",
@@ -183,21 +180,18 @@ async function run() {
       ],
       workerAffinity: false,
       collector: {
-        type: "<value>",
+        type: "database",
         conf: {
-          type: "script",
-          discoverScript: "<value>",
-          collectScript: "<value>",
-          shell: "/bin/bash",
-          envVars: [
-            {
-              name: "<value>",
-              value: "<value>",
+          connectionId: "<id>",
+          query: "<value>",
+          queryValidationEnabled: true,
+          defaultBreakers: "Cribl",
+          scheduling: {
+            stateTracking: {
+              enabled: true,
             },
-          ],
+          },
         },
-        destructive: false,
-        encoding: "<value>",
       },
       input: {
         type: "collection",
@@ -568,70 +562,18 @@ async function run() {
       ],
       workerAffinity: false,
       collector: {
-        type: "<value>",
+        type: "database",
         conf: {
-          collectMethod: "get",
-          collectRequestParams: [
-            {
-              name: "<value>",
-              value: "<value>",
-            },
-          ],
-          discovery: {
-            discoverType: "none",
-          },
-          collectUrl: "https://shameful-vicinity.com/",
-          collectBody: "`{ }`",
-          collectRequestHeaders: [
-            {
-              name: "<value>",
-              value: "<value>",
-            },
-          ],
-          authenticateCollect: false,
-          authentication: "none",
-          timeout: 30,
-          rejectUnauthorized: false,
+          connectionId: "<id>",
+          query: "<value>",
+          queryValidationEnabled: true,
           defaultBreakers: "Cribl",
-          safeHeaders: [
-            "<value 1>",
-            "<value 2>",
-            "<value 3>",
-          ],
-          retryRules: {
-            type: "backoff",
-            interval: "<value>",
-            limit: "<value>",
-            multiplier: "<value>",
-            codes: "<value>",
-            enableHeader: "<value>",
+          scheduling: {
+            stateTracking: {
+              enabled: false,
+            },
           },
-          username: "Daphnee_Schimmel-Wolf26",
-          password: "qwZ927mZOVqnV8W",
-          credentialsSecret: "<value>",
-          loginUrl: "",
-          loginBody: "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-          tokenRespAttribute: "<value>",
-          authHeaderExpr: "`Bearer ${token}`",
-          authRequestHeaders: [
-            {
-              name: "<value>",
-              value: "<value>",
-            },
-          ],
-          clientSecretParamName: "client_secret",
-          clientSecretParamValue: "<value>",
-          authRequestParams: [
-            {
-              name: "<value>",
-              value: "<value>",
-            },
-          ],
-          textSecret: "<value>",
-          type: "health_check",
         },
-        destructive: false,
-        encoding: "<value>",
       },
       input: {
         type: "collection",
@@ -731,70 +673,18 @@ async function run() {
       ],
       workerAffinity: false,
       collector: {
-        type: "<value>",
+        type: "database",
         conf: {
-          collectMethod: "get",
-          collectRequestParams: [
-            {
-              name: "<value>",
-              value: "<value>",
-            },
-          ],
-          discovery: {
-            discoverType: "none",
-          },
-          collectUrl: "https://shameful-vicinity.com/",
-          collectBody: "`{ }`",
-          collectRequestHeaders: [
-            {
-              name: "<value>",
-              value: "<value>",
-            },
-          ],
-          authenticateCollect: false,
-          authentication: "none",
-          timeout: 30,
-          rejectUnauthorized: false,
+          connectionId: "<id>",
+          query: "<value>",
+          queryValidationEnabled: true,
           defaultBreakers: "Cribl",
-          safeHeaders: [
-            "<value 1>",
-            "<value 2>",
-            "<value 3>",
-          ],
-          retryRules: {
-            type: "backoff",
-            interval: "<value>",
-            limit: "<value>",
-            multiplier: "<value>",
-            codes: "<value>",
-            enableHeader: "<value>",
+          scheduling: {
+            stateTracking: {
+              enabled: false,
+            },
           },
-          username: "Daphnee_Schimmel-Wolf26",
-          password: "qwZ927mZOVqnV8W",
-          credentialsSecret: "<value>",
-          loginUrl: "",
-          loginBody: "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-          tokenRespAttribute: "<value>",
-          authHeaderExpr: "`Bearer ${token}`",
-          authRequestHeaders: [
-            {
-              name: "<value>",
-              value: "<value>",
-            },
-          ],
-          clientSecretParamName: "client_secret",
-          clientSecretParamValue: "<value>",
-          authRequestParams: [
-            {
-              name: "<value>",
-              value: "<value>",
-            },
-          ],
-          textSecret: "<value>",
-          type: "health_check",
         },
-        destructive: false,
-        encoding: "<value>",
       },
       input: {
         type: "collection",

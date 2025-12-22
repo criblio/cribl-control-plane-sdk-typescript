@@ -7,39 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
-  BackpressureBehaviorOptions$outboundSchema,
-} from "./backpressurebehavioroptions.js";
-import {
-  CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
-  CompressionOptionsPq$outboundSchema,
-} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeHosts,
-  ItemsTypeHosts$inboundSchema,
-  ItemsTypeHosts$Outbound,
-  ItemsTypeHosts$outboundSchema,
-} from "./itemstypehosts.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
-import {
-  QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
-  QueueFullBehaviorOptions$outboundSchema,
-} from "./queuefullbehavioroptions.js";
-import {
-  TlsSettingsClientSideTypeKafkaSchemaRegistry,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
-} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
 
 /**
  * The network protocol to use for sending out syslog messages
@@ -136,7 +104,7 @@ export type OutputSyslogSeverity = OpenEnum<typeof OutputSyslogSeverity>;
 /**
  * The syslog message format depending on the receiver's support
  */
-export const MessageFormat = {
+export const OutputSyslogMessageFormat = {
   /**
    * RFC3164
    */
@@ -149,7 +117,9 @@ export const MessageFormat = {
 /**
  * The syslog message format depending on the receiver's support
  */
-export type MessageFormat = OpenEnum<typeof MessageFormat>;
+export type OutputSyslogMessageFormat = OpenEnum<
+  typeof OutputSyslogMessageFormat
+>;
 
 /**
  * Timestamp format to use when serializing event's time field
@@ -168,6 +138,182 @@ export const TimestampFormat = {
  * Timestamp format to use when serializing event's time field
  */
 export type TimestampFormat = OpenEnum<typeof TimestampFormat>;
+
+/**
+ * Whether to inherit TLS configs from group setting or disable TLS
+ */
+export const OutputSyslogTLS = {
+  Inherit: "inherit",
+  Off: "off",
+} as const;
+/**
+ * Whether to inherit TLS configs from group setting or disable TLS
+ */
+export type OutputSyslogTLS = OpenEnum<typeof OutputSyslogTLS>;
+
+export type OutputSyslogHost = {
+  /**
+   * The hostname of the receiver
+   */
+  host: string;
+  /**
+   * The port to connect to on the provided host
+   */
+  port: number;
+  /**
+   * Whether to inherit TLS configs from group setting or disable TLS
+   */
+  tls?: OutputSyslogTLS | undefined;
+  /**
+   * Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings.
+   */
+  servername?: string | undefined;
+  /**
+   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+   */
+  weight?: number | undefined;
+};
+
+export const OutputSyslogMinimumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type OutputSyslogMinimumTLSVersion = OpenEnum<
+  typeof OutputSyslogMinimumTLSVersion
+>;
+
+export const OutputSyslogMaximumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type OutputSyslogMaximumTLSVersion = OpenEnum<
+  typeof OutputSyslogMaximumTLSVersion
+>;
+
+export type OutputSyslogTLSSettingsClientSide = {
+  disabled?: boolean | undefined;
+  /**
+   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+   *
+   * @remarks
+   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+   */
+  servername?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  /**
+   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  minVersion?: OutputSyslogMinimumTLSVersion | undefined;
+  maxVersion?: OutputSyslogMaximumTLSVersion | undefined;
+};
+
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export const OutputSyslogBackpressureBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+  /**
+   * Persistent Queue
+   */
+  Queue: "queue",
+} as const;
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export type OutputSyslogBackpressureBehavior = OpenEnum<
+  typeof OutputSyslogBackpressureBehavior
+>;
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputSyslogMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputSyslogMode = OpenEnum<typeof OutputSyslogMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const OutputSyslogCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type OutputSyslogCompression = OpenEnum<typeof OutputSyslogCompression>;
+
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export const OutputSyslogQueueFullBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop new data
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export type OutputSyslogQueueFullBehavior = OpenEnum<
+  typeof OutputSyslogQueueFullBehavior
+>;
 
 export type OutputSyslogPqControls = {};
 
@@ -212,7 +358,7 @@ export type OutputSyslog = {
   /**
    * The syslog message format depending on the receiver's support
    */
-  messageFormat?: MessageFormat | undefined;
+  messageFormat?: OutputSyslogMessageFormat | undefined;
   /**
    * Timestamp format to use when serializing event's time field
    */
@@ -249,7 +395,7 @@ export type OutputSyslog = {
   /**
    * Set of hosts to load-balance data to
    */
-  hosts?: Array<ItemsTypeHosts> | undefined;
+  hosts?: Array<OutputSyslogHost> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -270,11 +416,11 @@ export type OutputSyslog = {
    * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
    */
   writeTimeout?: number | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: OutputSyslogTLSSettingsClientSide | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions | undefined;
+  onBackpressure?: OutputSyslogBackpressureBehavior | undefined;
   /**
    * Maximum size of syslog messages. Make sure this value is less than or equal to the MTU to avoid UDP packet fragmentation.
    */
@@ -298,7 +444,7 @@ export type OutputSyslog = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: ModeOptions | undefined;
+  pqMode?: OutputSyslogMode | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -322,11 +468,11 @@ export type OutputSyslog = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: CompressionOptionsPq | undefined;
+  pqCompress?: OutputSyslogCompression | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  pqOnBackpressure?: OutputSyslogQueueFullBehavior | undefined;
   pqControls?: OutputSyslogPqControls | undefined;
 };
 
@@ -370,17 +516,17 @@ export const OutputSyslogSeverity$outboundSchema: z.ZodType<
 > = openEnums.outboundSchemaInt(OutputSyslogSeverity);
 
 /** @internal */
-export const MessageFormat$inboundSchema: z.ZodType<
-  MessageFormat,
+export const OutputSyslogMessageFormat$inboundSchema: z.ZodType<
+  OutputSyslogMessageFormat,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(MessageFormat);
+> = openEnums.inboundSchema(OutputSyslogMessageFormat);
 /** @internal */
-export const MessageFormat$outboundSchema: z.ZodType<
+export const OutputSyslogMessageFormat$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  MessageFormat
-> = openEnums.outboundSchema(MessageFormat);
+  OutputSyslogMessageFormat
+> = openEnums.outboundSchema(OutputSyslogMessageFormat);
 
 /** @internal */
 export const TimestampFormat$inboundSchema: z.ZodType<
@@ -394,6 +540,216 @@ export const TimestampFormat$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   TimestampFormat
 > = openEnums.outboundSchema(TimestampFormat);
+
+/** @internal */
+export const OutputSyslogTLS$inboundSchema: z.ZodType<
+  OutputSyslogTLS,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSyslogTLS);
+/** @internal */
+export const OutputSyslogTLS$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSyslogTLS
+> = openEnums.outboundSchema(OutputSyslogTLS);
+
+/** @internal */
+export const OutputSyslogHost$inboundSchema: z.ZodType<
+  OutputSyslogHost,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  host: z.string(),
+  port: z.number(),
+  tls: OutputSyslogTLS$inboundSchema.default("inherit"),
+  servername: z.string().optional(),
+  weight: z.number().default(1),
+});
+/** @internal */
+export type OutputSyslogHost$Outbound = {
+  host: string;
+  port: number;
+  tls: string;
+  servername?: string | undefined;
+  weight: number;
+};
+
+/** @internal */
+export const OutputSyslogHost$outboundSchema: z.ZodType<
+  OutputSyslogHost$Outbound,
+  z.ZodTypeDef,
+  OutputSyslogHost
+> = z.object({
+  host: z.string(),
+  port: z.number(),
+  tls: OutputSyslogTLS$outboundSchema.default("inherit"),
+  servername: z.string().optional(),
+  weight: z.number().default(1),
+});
+
+export function outputSyslogHostToJSON(
+  outputSyslogHost: OutputSyslogHost,
+): string {
+  return JSON.stringify(
+    OutputSyslogHost$outboundSchema.parse(outputSyslogHost),
+  );
+}
+export function outputSyslogHostFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSyslogHost, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSyslogHost$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSyslogHost' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSyslogMinimumTLSVersion$inboundSchema: z.ZodType<
+  OutputSyslogMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSyslogMinimumTLSVersion);
+/** @internal */
+export const OutputSyslogMinimumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSyslogMinimumTLSVersion
+> = openEnums.outboundSchema(OutputSyslogMinimumTLSVersion);
+
+/** @internal */
+export const OutputSyslogMaximumTLSVersion$inboundSchema: z.ZodType<
+  OutputSyslogMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSyslogMaximumTLSVersion);
+/** @internal */
+export const OutputSyslogMaximumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSyslogMaximumTLSVersion
+> = openEnums.outboundSchema(OutputSyslogMaximumTLSVersion);
+
+/** @internal */
+export const OutputSyslogTLSSettingsClientSide$inboundSchema: z.ZodType<
+  OutputSyslogTLSSettingsClientSide,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  servername: z.string().optional(),
+  certificateName: z.string().optional(),
+  caPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  certPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  minVersion: OutputSyslogMinimumTLSVersion$inboundSchema.optional(),
+  maxVersion: OutputSyslogMaximumTLSVersion$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSyslogTLSSettingsClientSide$Outbound = {
+  disabled: boolean;
+  rejectUnauthorized: boolean;
+  servername?: string | undefined;
+  certificateName?: string | undefined;
+  caPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  certPath?: string | undefined;
+  passphrase?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const OutputSyslogTLSSettingsClientSide$outboundSchema: z.ZodType<
+  OutputSyslogTLSSettingsClientSide$Outbound,
+  z.ZodTypeDef,
+  OutputSyslogTLSSettingsClientSide
+> = z.object({
+  disabled: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  servername: z.string().optional(),
+  certificateName: z.string().optional(),
+  caPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  certPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  minVersion: OutputSyslogMinimumTLSVersion$outboundSchema.optional(),
+  maxVersion: OutputSyslogMaximumTLSVersion$outboundSchema.optional(),
+});
+
+export function outputSyslogTLSSettingsClientSideToJSON(
+  outputSyslogTLSSettingsClientSide: OutputSyslogTLSSettingsClientSide,
+): string {
+  return JSON.stringify(
+    OutputSyslogTLSSettingsClientSide$outboundSchema.parse(
+      outputSyslogTLSSettingsClientSide,
+    ),
+  );
+}
+export function outputSyslogTLSSettingsClientSideFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSyslogTLSSettingsClientSide, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSyslogTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSyslogTLSSettingsClientSide' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSyslogBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputSyslogBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSyslogBackpressureBehavior);
+/** @internal */
+export const OutputSyslogBackpressureBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSyslogBackpressureBehavior
+> = openEnums.outboundSchema(OutputSyslogBackpressureBehavior);
+
+/** @internal */
+export const OutputSyslogMode$inboundSchema: z.ZodType<
+  OutputSyslogMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSyslogMode);
+/** @internal */
+export const OutputSyslogMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSyslogMode
+> = openEnums.outboundSchema(OutputSyslogMode);
+
+/** @internal */
+export const OutputSyslogCompression$inboundSchema: z.ZodType<
+  OutputSyslogCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSyslogCompression);
+/** @internal */
+export const OutputSyslogCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSyslogCompression
+> = openEnums.outboundSchema(OutputSyslogCompression);
+
+/** @internal */
+export const OutputSyslogQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputSyslogQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSyslogQueueFullBehavior);
+/** @internal */
+export const OutputSyslogQueueFullBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSyslogQueueFullBehavior
+> = openEnums.outboundSchema(OutputSyslogQueueFullBehavior);
 
 /** @internal */
 export const OutputSyslogPqControls$inboundSchema: z.ZodType<
@@ -444,7 +800,7 @@ export const OutputSyslog$inboundSchema: z.ZodType<
   facility: Facility$inboundSchema.default(1),
   severity: OutputSyslogSeverity$inboundSchema.default(5),
   appName: z.string().default("Cribl"),
-  messageFormat: MessageFormat$inboundSchema.default("rfc3164"),
+  messageFormat: OutputSyslogMessageFormat$inboundSchema.default("rfc3164"),
   timestampFormat: TimestampFormat$inboundSchema.default("syslog"),
   throttleRatePerSec: z.string().default("0"),
   octetCountFraming: z.boolean().optional(),
@@ -454,27 +810,31 @@ export const OutputSyslog$inboundSchema: z.ZodType<
   host: z.string().optional(),
   port: z.number().optional(),
   excludeSelf: z.boolean().default(false),
-  hosts: z.array(ItemsTypeHosts$inboundSchema).optional(),
+  hosts: z.array(z.lazy(() => OutputSyslogHost$inboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   maxConcurrentSenders: z.number().default(0),
   connectionTimeout: z.number().default(10000),
   writeTimeout: z.number().default(60000),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  tls: z.lazy(() => OutputSyslogTLSSettingsClientSide$inboundSchema).optional(),
+  onBackpressure: OutputSyslogBackpressureBehavior$inboundSchema.default(
+    "block",
+  ),
   maxRecordSize: z.number().default(1500),
   udpDnsResolvePeriodSec: z.number().default(0),
   enableIpSpoofing: z.boolean().default(false),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
+  pqMode: OutputSyslogMode$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqCompress: OutputSyslogCompression$inboundSchema.default("none"),
+  pqOnBackpressure: OutputSyslogQueueFullBehavior$inboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputSyslogPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -499,13 +859,13 @@ export type OutputSyslog$Outbound = {
   host?: string | undefined;
   port?: number | undefined;
   excludeSelf: boolean;
-  hosts?: Array<ItemsTypeHosts$Outbound> | undefined;
+  hosts?: Array<OutputSyslogHost$Outbound> | undefined;
   dnsResolvePeriodSec: number;
   loadBalanceStatsPeriodSec: number;
   maxConcurrentSenders: number;
   connectionTimeout: number;
   writeTimeout: number;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  tls?: OutputSyslogTLSSettingsClientSide$Outbound | undefined;
   onBackpressure: string;
   maxRecordSize: number;
   udpDnsResolvePeriodSec: number;
@@ -539,7 +899,7 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   facility: Facility$outboundSchema.default(1),
   severity: OutputSyslogSeverity$outboundSchema.default(5),
   appName: z.string().default("Cribl"),
-  messageFormat: MessageFormat$outboundSchema.default("rfc3164"),
+  messageFormat: OutputSyslogMessageFormat$outboundSchema.default("rfc3164"),
   timestampFormat: TimestampFormat$outboundSchema.default("syslog"),
   throttleRatePerSec: z.string().default("0"),
   octetCountFraming: z.boolean().optional(),
@@ -549,27 +909,32 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   host: z.string().optional(),
   port: z.number().optional(),
   excludeSelf: z.boolean().default(false),
-  hosts: z.array(ItemsTypeHosts$outboundSchema).optional(),
+  hosts: z.array(z.lazy(() => OutputSyslogHost$outboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   maxConcurrentSenders: z.number().default(0),
   connectionTimeout: z.number().default(10000),
   writeTimeout: z.number().default(60000),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  tls: z.lazy(() => OutputSyslogTLSSettingsClientSide$outboundSchema)
+    .optional(),
+  onBackpressure: OutputSyslogBackpressureBehavior$outboundSchema.default(
+    "block",
+  ),
   maxRecordSize: z.number().default(1500),
   udpDnsResolvePeriodSec: z.number().default(0),
   enableIpSpoofing: z.boolean().default(false),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
+  pqMode: OutputSyslogMode$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqCompress: OutputSyslogCompression$outboundSchema.default("none"),
+  pqOnBackpressure: OutputSyslogQueueFullBehavior$outboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputSyslogPqControls$outboundSchema).optional(),
 });
 

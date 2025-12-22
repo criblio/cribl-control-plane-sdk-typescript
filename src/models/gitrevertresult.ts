@@ -6,13 +6,16 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FilesTypeGitCommitSummary,
-  FilesTypeGitCommitSummary$inboundSchema,
-} from "./filestypegitcommitsummary.js";
+
+export type GitRevertResultFiles = {
+  created?: Array<string> | undefined;
+  deleted?: Array<string> | undefined;
+  modified?: Array<string> | undefined;
+  renamed?: Array<string> | undefined;
+};
 
 export type Audit = {
-  files?: FilesTypeGitCommitSummary | undefined;
+  files?: GitRevertResultFiles | undefined;
   group?: string | undefined;
   id: string;
 };
@@ -23,9 +26,31 @@ export type GitRevertResult = {
 };
 
 /** @internal */
+export const GitRevertResultFiles$inboundSchema: z.ZodType<
+  GitRevertResultFiles,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  created: z.array(z.string()).optional(),
+  deleted: z.array(z.string()).optional(),
+  modified: z.array(z.string()).optional(),
+  renamed: z.array(z.string()).optional(),
+});
+
+export function gitRevertResultFilesFromJSON(
+  jsonString: string,
+): SafeParseResult<GitRevertResultFiles, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GitRevertResultFiles$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GitRevertResultFiles' from JSON`,
+  );
+}
+
+/** @internal */
 export const Audit$inboundSchema: z.ZodType<Audit, z.ZodTypeDef, unknown> = z
   .object({
-    files: FilesTypeGitCommitSummary$inboundSchema.optional(),
+    files: z.lazy(() => GitRevertResultFiles$inboundSchema).optional(),
     group: z.string().optional(),
     id: z.string(),
   });

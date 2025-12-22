@@ -4,62 +4,162 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  AuthenticationMethodOptionsAuthTokensItems,
-  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
-} from "./authenticationmethodoptionsauthtokensitems.js";
-import {
-  BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
-  BackpressureBehaviorOptions$outboundSchema,
-} from "./backpressurebehavioroptions.js";
-import {
-  CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
-  CompressionOptionsPq$outboundSchema,
-} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
-  FailedRequestLoggingModeOptions$outboundSchema,
-} from "./failedrequestloggingmodeoptions.js";
-import {
-  ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
-  ItemsTypeExtraHttpHeaders$Outbound,
-  ItemsTypeExtraHttpHeaders$outboundSchema,
-} from "./itemstypeextrahttpheaders.js";
-import {
-  ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
-  ItemsTypeResponseRetrySettings$Outbound,
-  ItemsTypeResponseRetrySettings$outboundSchema,
-} from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
-import {
-  QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
-  QueueFullBehaviorOptions$outboundSchema,
-} from "./queuefullbehavioroptions.js";
-import {
-  TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
-  TimeoutRetrySettingsType$Outbound,
-  TimeoutRetrySettingsType$outboundSchema,
-} from "./timeoutretrysettingstype.js";
-import {
-  TlsSettingsClientSideType2,
-  TlsSettingsClientSideType2$inboundSchema,
-  TlsSettingsClientSideType2$Outbound,
-  TlsSettingsClientSideType2$outboundSchema,
-} from "./tlssettingsclientsidetype2.js";
+
+export const OutputSplunkHecMinimumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type OutputSplunkHecMinimumTLSVersion = OpenEnum<
+  typeof OutputSplunkHecMinimumTLSVersion
+>;
+
+export const OutputSplunkHecMaximumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type OutputSplunkHecMaximumTLSVersion = OpenEnum<
+  typeof OutputSplunkHecMaximumTLSVersion
+>;
+
+export type OutputSplunkHecTLSSettingsClientSide = {
+  disabled?: boolean | undefined;
+  /**
+   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+   */
+  servername?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  /**
+   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  minVersion?: OutputSplunkHecMinimumTLSVersion | undefined;
+  maxVersion?: OutputSplunkHecMaximumTLSVersion | undefined;
+};
+
+export type OutputSplunkHecExtraHttpHeader = {
+  name?: string | undefined;
+  value: string;
+};
+
+/**
+ * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+ */
+export const OutputSplunkHecFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
+  Payload: "payload",
+  /**
+   * Payload + Headers
+   */
+  PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
+  None: "none",
+} as const;
+/**
+ * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+ */
+export type OutputSplunkHecFailedRequestLoggingMode = OpenEnum<
+  typeof OutputSplunkHecFailedRequestLoggingMode
+>;
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const OutputSplunkHecAuthenticationMethod = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type OutputSplunkHecAuthenticationMethod = OpenEnum<
+  typeof OutputSplunkHecAuthenticationMethod
+>;
+
+export type OutputSplunkHecResponseRetrySetting = {
+  /**
+   * The HTTP response status code that will trigger retries
+   */
+  httpStatus: number;
+  /**
+   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackoff?: number | undefined;
+};
+
+export type OutputSplunkHecTimeoutRetrySettings = {
+  timeoutRetry?: boolean | undefined;
+  /**
+   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackoff?: number | undefined;
+};
+
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export const OutputSplunkHecBackpressureBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+  /**
+   * Persistent Queue
+   */
+  Queue: "queue",
+} as const;
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export type OutputSplunkHecBackpressureBehavior = OpenEnum<
+  typeof OutputSplunkHecBackpressureBehavior
+>;
 
 export type OutputSplunkHecUrl = {
   /**
@@ -71,6 +171,68 @@ export type OutputSplunkHecUrl = {
    */
   weight?: number | undefined;
 };
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputSplunkHecMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputSplunkHecMode = OpenEnum<typeof OutputSplunkHecMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const OutputSplunkHecCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type OutputSplunkHecCompression = OpenEnum<
+  typeof OutputSplunkHecCompression
+>;
+
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export const OutputSplunkHecQueueFullBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop new data
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export type OutputSplunkHecQueueFullBehavior = OpenEnum<
+  typeof OutputSplunkHecQueueFullBehavior
+>;
 
 export type OutputSplunkHecPqControls = {};
 
@@ -108,7 +270,7 @@ export type OutputSplunkHec = {
    * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
    */
   tcpRouting?: string | undefined;
-  tls?: TlsSettingsClientSideType2 | undefined;
+  tls?: OutputSplunkHecTLSSettingsClientSide | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -144,11 +306,13 @@ export type OutputSplunkHec = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<OutputSplunkHecExtraHttpHeader> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  failedRequestLoggingMode?:
+    | OutputSplunkHecFailedRequestLoggingMode
+    | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -160,12 +324,14 @@ export type OutputSplunkHec = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
+  authType?: OutputSplunkHecAuthenticationMethod | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
-  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  responseRetrySettings?:
+    | Array<OutputSplunkHecResponseRetrySetting>
+    | undefined;
+  timeoutRetrySettings?: OutputSplunkHecTimeoutRetrySettings | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -173,7 +339,7 @@ export type OutputSplunkHec = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions | undefined;
+  onBackpressure?: OutputSplunkHecBackpressureBehavior | undefined;
   description?: string | undefined;
   /**
    * URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
@@ -215,7 +381,7 @@ export type OutputSplunkHec = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: ModeOptions | undefined;
+  pqMode?: OutputSplunkHecMode | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -239,13 +405,290 @@ export type OutputSplunkHec = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: CompressionOptionsPq | undefined;
+  pqCompress?: OutputSplunkHecCompression | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  pqOnBackpressure?: OutputSplunkHecQueueFullBehavior | undefined;
   pqControls?: OutputSplunkHecPqControls | undefined;
 };
+
+/** @internal */
+export const OutputSplunkHecMinimumTLSVersion$inboundSchema: z.ZodType<
+  OutputSplunkHecMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSplunkHecMinimumTLSVersion);
+/** @internal */
+export const OutputSplunkHecMinimumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSplunkHecMinimumTLSVersion
+> = openEnums.outboundSchema(OutputSplunkHecMinimumTLSVersion);
+
+/** @internal */
+export const OutputSplunkHecMaximumTLSVersion$inboundSchema: z.ZodType<
+  OutputSplunkHecMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSplunkHecMaximumTLSVersion);
+/** @internal */
+export const OutputSplunkHecMaximumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSplunkHecMaximumTLSVersion
+> = openEnums.outboundSchema(OutputSplunkHecMaximumTLSVersion);
+
+/** @internal */
+export const OutputSplunkHecTLSSettingsClientSide$inboundSchema: z.ZodType<
+  OutputSplunkHecTLSSettingsClientSide,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  servername: z.string().optional(),
+  certificateName: z.string().optional(),
+  caPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  certPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  minVersion: OutputSplunkHecMinimumTLSVersion$inboundSchema.optional(),
+  maxVersion: OutputSplunkHecMaximumTLSVersion$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSplunkHecTLSSettingsClientSide$Outbound = {
+  disabled: boolean;
+  servername?: string | undefined;
+  certificateName?: string | undefined;
+  caPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  certPath?: string | undefined;
+  passphrase?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkHecTLSSettingsClientSide$outboundSchema: z.ZodType<
+  OutputSplunkHecTLSSettingsClientSide$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkHecTLSSettingsClientSide
+> = z.object({
+  disabled: z.boolean().default(true),
+  servername: z.string().optional(),
+  certificateName: z.string().optional(),
+  caPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  certPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  minVersion: OutputSplunkHecMinimumTLSVersion$outboundSchema.optional(),
+  maxVersion: OutputSplunkHecMaximumTLSVersion$outboundSchema.optional(),
+});
+
+export function outputSplunkHecTLSSettingsClientSideToJSON(
+  outputSplunkHecTLSSettingsClientSide: OutputSplunkHecTLSSettingsClientSide,
+): string {
+  return JSON.stringify(
+    OutputSplunkHecTLSSettingsClientSide$outboundSchema.parse(
+      outputSplunkHecTLSSettingsClientSide,
+    ),
+  );
+}
+export function outputSplunkHecTLSSettingsClientSideFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkHecTLSSettingsClientSide, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputSplunkHecTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkHecTLSSettingsClientSide' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkHecExtraHttpHeader$inboundSchema: z.ZodType<
+  OutputSplunkHecExtraHttpHeader,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+/** @internal */
+export type OutputSplunkHecExtraHttpHeader$Outbound = {
+  name?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const OutputSplunkHecExtraHttpHeader$outboundSchema: z.ZodType<
+  OutputSplunkHecExtraHttpHeader$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkHecExtraHttpHeader
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+
+export function outputSplunkHecExtraHttpHeaderToJSON(
+  outputSplunkHecExtraHttpHeader: OutputSplunkHecExtraHttpHeader,
+): string {
+  return JSON.stringify(
+    OutputSplunkHecExtraHttpHeader$outboundSchema.parse(
+      outputSplunkHecExtraHttpHeader,
+    ),
+  );
+}
+export function outputSplunkHecExtraHttpHeaderFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkHecExtraHttpHeader, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkHecExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkHecExtraHttpHeader' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkHecFailedRequestLoggingMode$inboundSchema: z.ZodType<
+  OutputSplunkHecFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSplunkHecFailedRequestLoggingMode);
+/** @internal */
+export const OutputSplunkHecFailedRequestLoggingMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSplunkHecFailedRequestLoggingMode
+> = openEnums.outboundSchema(OutputSplunkHecFailedRequestLoggingMode);
+
+/** @internal */
+export const OutputSplunkHecAuthenticationMethod$inboundSchema: z.ZodType<
+  OutputSplunkHecAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSplunkHecAuthenticationMethod);
+/** @internal */
+export const OutputSplunkHecAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSplunkHecAuthenticationMethod
+> = openEnums.outboundSchema(OutputSplunkHecAuthenticationMethod);
+
+/** @internal */
+export const OutputSplunkHecResponseRetrySetting$inboundSchema: z.ZodType<
+  OutputSplunkHecResponseRetrySetting,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  httpStatus: z.number(),
+  initialBackoff: z.number().default(1000),
+  backoffRate: z.number().default(2),
+  maxBackoff: z.number().default(10000),
+});
+/** @internal */
+export type OutputSplunkHecResponseRetrySetting$Outbound = {
+  httpStatus: number;
+  initialBackoff: number;
+  backoffRate: number;
+  maxBackoff: number;
+};
+
+/** @internal */
+export const OutputSplunkHecResponseRetrySetting$outboundSchema: z.ZodType<
+  OutputSplunkHecResponseRetrySetting$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkHecResponseRetrySetting
+> = z.object({
+  httpStatus: z.number(),
+  initialBackoff: z.number().default(1000),
+  backoffRate: z.number().default(2),
+  maxBackoff: z.number().default(10000),
+});
+
+export function outputSplunkHecResponseRetrySettingToJSON(
+  outputSplunkHecResponseRetrySetting: OutputSplunkHecResponseRetrySetting,
+): string {
+  return JSON.stringify(
+    OutputSplunkHecResponseRetrySetting$outboundSchema.parse(
+      outputSplunkHecResponseRetrySetting,
+    ),
+  );
+}
+export function outputSplunkHecResponseRetrySettingFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkHecResponseRetrySetting, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputSplunkHecResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkHecResponseRetrySetting' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkHecTimeoutRetrySettings$inboundSchema: z.ZodType<
+  OutputSplunkHecTimeoutRetrySettings,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  timeoutRetry: z.boolean().default(false),
+  initialBackoff: z.number().default(1000),
+  backoffRate: z.number().default(2),
+  maxBackoff: z.number().default(10000),
+});
+/** @internal */
+export type OutputSplunkHecTimeoutRetrySettings$Outbound = {
+  timeoutRetry: boolean;
+  initialBackoff: number;
+  backoffRate: number;
+  maxBackoff: number;
+};
+
+/** @internal */
+export const OutputSplunkHecTimeoutRetrySettings$outboundSchema: z.ZodType<
+  OutputSplunkHecTimeoutRetrySettings$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkHecTimeoutRetrySettings
+> = z.object({
+  timeoutRetry: z.boolean().default(false),
+  initialBackoff: z.number().default(1000),
+  backoffRate: z.number().default(2),
+  maxBackoff: z.number().default(10000),
+});
+
+export function outputSplunkHecTimeoutRetrySettingsToJSON(
+  outputSplunkHecTimeoutRetrySettings: OutputSplunkHecTimeoutRetrySettings,
+): string {
+  return JSON.stringify(
+    OutputSplunkHecTimeoutRetrySettings$outboundSchema.parse(
+      outputSplunkHecTimeoutRetrySettings,
+    ),
+  );
+}
+export function outputSplunkHecTimeoutRetrySettingsFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkHecTimeoutRetrySettings, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputSplunkHecTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkHecTimeoutRetrySettings' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkHecBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputSplunkHecBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSplunkHecBackpressureBehavior);
+/** @internal */
+export const OutputSplunkHecBackpressureBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSplunkHecBackpressureBehavior
+> = openEnums.outboundSchema(OutputSplunkHecBackpressureBehavior);
 
 /** @internal */
 export const OutputSplunkHecUrl$inboundSchema: z.ZodType<
@@ -288,6 +731,45 @@ export function outputSplunkHecUrlFromJSON(
     `Failed to parse 'OutputSplunkHecUrl' from JSON`,
   );
 }
+
+/** @internal */
+export const OutputSplunkHecMode$inboundSchema: z.ZodType<
+  OutputSplunkHecMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSplunkHecMode);
+/** @internal */
+export const OutputSplunkHecMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSplunkHecMode
+> = openEnums.outboundSchema(OutputSplunkHecMode);
+
+/** @internal */
+export const OutputSplunkHecCompression$inboundSchema: z.ZodType<
+  OutputSplunkHecCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSplunkHecCompression);
+/** @internal */
+export const OutputSplunkHecCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSplunkHecCompression
+> = openEnums.outboundSchema(OutputSplunkHecCompression);
+
+/** @internal */
+export const OutputSplunkHecQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputSplunkHecQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputSplunkHecQueueFullBehavior);
+/** @internal */
+export const OutputSplunkHecQueueFullBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputSplunkHecQueueFullBehavior
+> = openEnums.outboundSchema(OutputSplunkHecQueueFullBehavior);
 
 /** @internal */
 export const OutputSplunkHecPqControls$inboundSchema: z.ZodType<
@@ -337,7 +819,8 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
   loadBalanced: z.boolean().default(true),
   nextQueue: z.string().default("indexQueue"),
   tcpRouting: z.string().default("nowhere"),
-  tls: TlsSettingsClientSideType2$inboundSchema.optional(),
+  tls: z.lazy(() => OutputSplunkHecTLSSettingsClientSide$inboundSchema)
+    .optional(),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
@@ -345,19 +828,24 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
-  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
-    .default("none"),
+  extraHttpHeaders: z.array(
+    z.lazy(() => OutputSplunkHecExtraHttpHeader$inboundSchema),
+  ).optional(),
+  failedRequestLoggingMode:
+    OutputSplunkHecFailedRequestLoggingMode$inboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
   enableMultiMetrics: z.boolean().default(false),
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-    "manual",
-  ),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
-    .optional(),
-  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  authType: OutputSplunkHecAuthenticationMethod$inboundSchema.default("manual"),
+  responseRetrySettings: z.array(
+    z.lazy(() => OutputSplunkHecResponseRetrySetting$inboundSchema),
+  ).optional(),
+  timeoutRetrySettings: z.lazy(() =>
+    OutputSplunkHecTimeoutRetrySettings$inboundSchema
+  ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  onBackpressure: OutputSplunkHecBackpressureBehavior$inboundSchema.default(
+    "block",
+  ),
   description: z.string().optional(),
   url: z.string().default("http://localhost:8088/services/collector/event"),
   useRoundRobinDns: z.boolean().default(false),
@@ -369,14 +857,16 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
   textSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
+  pqMode: OutputSplunkHecMode$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqCompress: OutputSplunkHecCompression$inboundSchema.default("none"),
+  pqOnBackpressure: OutputSplunkHecQueueFullBehavior$inboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputSplunkHecPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -390,7 +880,7 @@ export type OutputSplunkHec$Outbound = {
   loadBalanced: boolean;
   nextQueue: string;
   tcpRouting: string;
-  tls?: TlsSettingsClientSideType2$Outbound | undefined;
+  tls?: OutputSplunkHecTLSSettingsClientSide$Outbound | undefined;
   concurrency: number;
   maxPayloadSizeKB: number;
   maxPayloadEvents: number;
@@ -398,15 +888,17 @@ export type OutputSplunkHec$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  extraHttpHeaders?: Array<OutputSplunkHecExtraHttpHeader$Outbound> | undefined;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   enableMultiMetrics: boolean;
   authType: string;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<OutputSplunkHecResponseRetrySetting$Outbound>
     | undefined;
-  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  timeoutRetrySettings?:
+    | OutputSplunkHecTimeoutRetrySettings$Outbound
+    | undefined;
   responseHonorRetryAfterHeader: boolean;
   onBackpressure: string;
   description?: string | undefined;
@@ -446,7 +938,8 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   loadBalanced: z.boolean().default(true),
   nextQueue: z.string().default("indexQueue"),
   tcpRouting: z.string().default("nowhere"),
-  tls: TlsSettingsClientSideType2$outboundSchema.optional(),
+  tls: z.lazy(() => OutputSplunkHecTLSSettingsClientSide$outboundSchema)
+    .optional(),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
@@ -454,20 +947,26 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
-  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
-    .default("none"),
+  extraHttpHeaders: z.array(
+    z.lazy(() => OutputSplunkHecExtraHttpHeader$outboundSchema),
+  ).optional(),
+  failedRequestLoggingMode:
+    OutputSplunkHecFailedRequestLoggingMode$outboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
   enableMultiMetrics: z.boolean().default(false),
-  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
+  authType: OutputSplunkHecAuthenticationMethod$outboundSchema.default(
     "manual",
   ),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
-  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseRetrySettings: z.array(
+    z.lazy(() => OutputSplunkHecResponseRetrySetting$outboundSchema),
+  ).optional(),
+  timeoutRetrySettings: z.lazy(() =>
+    OutputSplunkHecTimeoutRetrySettings$outboundSchema
+  ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  onBackpressure: OutputSplunkHecBackpressureBehavior$outboundSchema.default(
+    "block",
+  ),
   description: z.string().optional(),
   url: z.string().default("http://localhost:8088/services/collector/event"),
   useRoundRobinDns: z.boolean().default(false),
@@ -479,14 +978,16 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
+  pqMode: OutputSplunkHecMode$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqCompress: OutputSplunkHecCompression$outboundSchema.default("none"),
+  pqOnBackpressure: OutputSplunkHecQueueFullBehavior$outboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputSplunkHecPqControls$outboundSchema).optional(),
 });
 

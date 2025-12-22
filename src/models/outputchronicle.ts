@@ -7,50 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
-  BackpressureBehaviorOptions$outboundSchema,
-} from "./backpressurebehavioroptions.js";
-import {
-  CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
-  CompressionOptionsPq$outboundSchema,
-} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
-  FailedRequestLoggingModeOptions$outboundSchema,
-} from "./failedrequestloggingmodeoptions.js";
-import {
-  ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
-  ItemsTypeExtraHttpHeaders$Outbound,
-  ItemsTypeExtraHttpHeaders$outboundSchema,
-} from "./itemstypeextrahttpheaders.js";
-import {
-  ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
-  ItemsTypeResponseRetrySettings$Outbound,
-  ItemsTypeResponseRetrySettings$outboundSchema,
-} from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
-import {
-  QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
-  QueueFullBehaviorOptions$outboundSchema,
-} from "./queuefullbehavioroptions.js";
-import {
-  TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
-  TimeoutRetrySettingsType$Outbound,
-  TimeoutRetrySettingsType$outboundSchema,
-} from "./timeoutretrysettingstype.js";
 
 export const OutputChronicleAuthenticationMethod = {
   ServiceAccount: "serviceAccount",
@@ -58,6 +15,94 @@ export const OutputChronicleAuthenticationMethod = {
 } as const;
 export type OutputChronicleAuthenticationMethod = OpenEnum<
   typeof OutputChronicleAuthenticationMethod
+>;
+
+export type OutputChronicleResponseRetrySetting = {
+  /**
+   * The HTTP response status code that will trigger retries
+   */
+  httpStatus: number;
+  /**
+   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackoff?: number | undefined;
+};
+
+export type OutputChronicleTimeoutRetrySettings = {
+  timeoutRetry?: boolean | undefined;
+  /**
+   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackoff?: number | undefined;
+};
+
+export type OutputChronicleExtraHttpHeader = {
+  name?: string | undefined;
+  value: string;
+};
+
+/**
+ * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+ */
+export const OutputChronicleFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
+  Payload: "payload",
+  /**
+   * Payload + Headers
+   */
+  PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
+  None: "none",
+} as const;
+/**
+ * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+ */
+export type OutputChronicleFailedRequestLoggingMode = OpenEnum<
+  typeof OutputChronicleFailedRequestLoggingMode
+>;
+
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export const OutputChronicleBackpressureBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+  /**
+   * Persistent Queue
+   */
+  Queue: "queue",
+} as const;
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export type OutputChronicleBackpressureBehavior = OpenEnum<
+  typeof OutputChronicleBackpressureBehavior
 >;
 
 export type OutputChronicleCustomLabel = {
@@ -68,6 +113,68 @@ export type OutputChronicleCustomLabel = {
    */
   rbacEnabled?: boolean | undefined;
 };
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputChronicleMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputChronicleMode = OpenEnum<typeof OutputChronicleMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const OutputChronicleCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type OutputChronicleCompression = OpenEnum<
+  typeof OutputChronicleCompression
+>;
+
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export const OutputChronicleQueueFullBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop new data
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export type OutputChronicleQueueFullBehavior = OpenEnum<
+  typeof OutputChronicleQueueFullBehavior
+>;
 
 export type OutputChroniclePqControls = {};
 
@@ -98,8 +205,10 @@ export type OutputChronicle = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
-  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  responseRetrySettings?:
+    | Array<OutputChronicleResponseRetrySetting>
+    | undefined;
+  timeoutRetrySettings?: OutputChronicleTimeoutRetrySettings | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -143,11 +252,13 @@ export type OutputChronicle = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<OutputChronicleExtraHttpHeader> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  failedRequestLoggingMode?:
+    | OutputChronicleFailedRequestLoggingMode
+    | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -159,7 +270,7 @@ export type OutputChronicle = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions | undefined;
+  onBackpressure?: OutputChronicleBackpressureBehavior | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -209,7 +320,7 @@ export type OutputChronicle = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: ModeOptions | undefined;
+  pqMode?: OutputChronicleMode | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -233,11 +344,11 @@ export type OutputChronicle = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: CompressionOptionsPq | undefined;
+  pqCompress?: OutputChronicleCompression | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  pqOnBackpressure?: OutputChronicleQueueFullBehavior | undefined;
   pqControls?: OutputChroniclePqControls | undefined;
 };
 
@@ -253,6 +364,178 @@ export const OutputChronicleAuthenticationMethod$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputChronicleAuthenticationMethod
 > = openEnums.outboundSchema(OutputChronicleAuthenticationMethod);
+
+/** @internal */
+export const OutputChronicleResponseRetrySetting$inboundSchema: z.ZodType<
+  OutputChronicleResponseRetrySetting,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  httpStatus: z.number(),
+  initialBackoff: z.number().default(1000),
+  backoffRate: z.number().default(2),
+  maxBackoff: z.number().default(10000),
+});
+/** @internal */
+export type OutputChronicleResponseRetrySetting$Outbound = {
+  httpStatus: number;
+  initialBackoff: number;
+  backoffRate: number;
+  maxBackoff: number;
+};
+
+/** @internal */
+export const OutputChronicleResponseRetrySetting$outboundSchema: z.ZodType<
+  OutputChronicleResponseRetrySetting$Outbound,
+  z.ZodTypeDef,
+  OutputChronicleResponseRetrySetting
+> = z.object({
+  httpStatus: z.number(),
+  initialBackoff: z.number().default(1000),
+  backoffRate: z.number().default(2),
+  maxBackoff: z.number().default(10000),
+});
+
+export function outputChronicleResponseRetrySettingToJSON(
+  outputChronicleResponseRetrySetting: OutputChronicleResponseRetrySetting,
+): string {
+  return JSON.stringify(
+    OutputChronicleResponseRetrySetting$outboundSchema.parse(
+      outputChronicleResponseRetrySetting,
+    ),
+  );
+}
+export function outputChronicleResponseRetrySettingFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputChronicleResponseRetrySetting, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputChronicleResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputChronicleResponseRetrySetting' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputChronicleTimeoutRetrySettings$inboundSchema: z.ZodType<
+  OutputChronicleTimeoutRetrySettings,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  timeoutRetry: z.boolean().default(false),
+  initialBackoff: z.number().default(1000),
+  backoffRate: z.number().default(2),
+  maxBackoff: z.number().default(10000),
+});
+/** @internal */
+export type OutputChronicleTimeoutRetrySettings$Outbound = {
+  timeoutRetry: boolean;
+  initialBackoff: number;
+  backoffRate: number;
+  maxBackoff: number;
+};
+
+/** @internal */
+export const OutputChronicleTimeoutRetrySettings$outboundSchema: z.ZodType<
+  OutputChronicleTimeoutRetrySettings$Outbound,
+  z.ZodTypeDef,
+  OutputChronicleTimeoutRetrySettings
+> = z.object({
+  timeoutRetry: z.boolean().default(false),
+  initialBackoff: z.number().default(1000),
+  backoffRate: z.number().default(2),
+  maxBackoff: z.number().default(10000),
+});
+
+export function outputChronicleTimeoutRetrySettingsToJSON(
+  outputChronicleTimeoutRetrySettings: OutputChronicleTimeoutRetrySettings,
+): string {
+  return JSON.stringify(
+    OutputChronicleTimeoutRetrySettings$outboundSchema.parse(
+      outputChronicleTimeoutRetrySettings,
+    ),
+  );
+}
+export function outputChronicleTimeoutRetrySettingsFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputChronicleTimeoutRetrySettings, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputChronicleTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputChronicleTimeoutRetrySettings' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputChronicleExtraHttpHeader$inboundSchema: z.ZodType<
+  OutputChronicleExtraHttpHeader,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+/** @internal */
+export type OutputChronicleExtraHttpHeader$Outbound = {
+  name?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const OutputChronicleExtraHttpHeader$outboundSchema: z.ZodType<
+  OutputChronicleExtraHttpHeader$Outbound,
+  z.ZodTypeDef,
+  OutputChronicleExtraHttpHeader
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+
+export function outputChronicleExtraHttpHeaderToJSON(
+  outputChronicleExtraHttpHeader: OutputChronicleExtraHttpHeader,
+): string {
+  return JSON.stringify(
+    OutputChronicleExtraHttpHeader$outboundSchema.parse(
+      outputChronicleExtraHttpHeader,
+    ),
+  );
+}
+export function outputChronicleExtraHttpHeaderFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputChronicleExtraHttpHeader, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputChronicleExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputChronicleExtraHttpHeader' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputChronicleFailedRequestLoggingMode$inboundSchema: z.ZodType<
+  OutputChronicleFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputChronicleFailedRequestLoggingMode);
+/** @internal */
+export const OutputChronicleFailedRequestLoggingMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputChronicleFailedRequestLoggingMode
+> = openEnums.outboundSchema(OutputChronicleFailedRequestLoggingMode);
+
+/** @internal */
+export const OutputChronicleBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputChronicleBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputChronicleBackpressureBehavior);
+/** @internal */
+export const OutputChronicleBackpressureBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputChronicleBackpressureBehavior
+> = openEnums.outboundSchema(OutputChronicleBackpressureBehavior);
 
 /** @internal */
 export const OutputChronicleCustomLabel$inboundSchema: z.ZodType<
@@ -298,6 +581,45 @@ export function outputChronicleCustomLabelFromJSON(
     `Failed to parse 'OutputChronicleCustomLabel' from JSON`,
   );
 }
+
+/** @internal */
+export const OutputChronicleMode$inboundSchema: z.ZodType<
+  OutputChronicleMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputChronicleMode);
+/** @internal */
+export const OutputChronicleMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputChronicleMode
+> = openEnums.outboundSchema(OutputChronicleMode);
+
+/** @internal */
+export const OutputChronicleCompression$inboundSchema: z.ZodType<
+  OutputChronicleCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputChronicleCompression);
+/** @internal */
+export const OutputChronicleCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputChronicleCompression
+> = openEnums.outboundSchema(OutputChronicleCompression);
+
+/** @internal */
+export const OutputChronicleQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputChronicleQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputChronicleQueueFullBehavior);
+/** @internal */
+export const OutputChronicleQueueFullBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputChronicleQueueFullBehavior
+> = openEnums.outboundSchema(OutputChronicleQueueFullBehavior);
 
 /** @internal */
 export const OutputChroniclePqControls$inboundSchema: z.ZodType<
@@ -347,9 +669,12 @@ export const OutputChronicle$inboundSchema: z.ZodType<
   apiVersion: z.string().default("v1alpha"),
   authenticationMethod: OutputChronicleAuthenticationMethod$inboundSchema
     .default("serviceAccount"),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
-    .optional(),
-  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseRetrySettings: z.array(
+    z.lazy(() => OutputChronicleResponseRetrySetting$inboundSchema),
+  ).optional(),
+  timeoutRetrySettings: z.lazy(() =>
+    OutputChronicleTimeoutRetrySettings$inboundSchema
+  ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
   region: z.string(),
   concurrency: z.number().default(5),
@@ -359,12 +684,16 @@ export const OutputChronicle$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(90),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
-  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
-    .default("none"),
+  extraHttpHeaders: z.array(
+    z.lazy(() => OutputChronicleExtraHttpHeader$inboundSchema),
+  ).optional(),
+  failedRequestLoggingMode:
+    OutputChronicleFailedRequestLoggingMode$inboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  onBackpressure: OutputChronicleBackpressureBehavior$inboundSchema.default(
+    "block",
+  ),
   totalMemoryLimitKB: z.number().optional(),
   ingestionMethod: z.string().default("ImportLogs"),
   namespace: z.string().optional(),
@@ -379,14 +708,16 @@ export const OutputChronicle$inboundSchema: z.ZodType<
   serviceAccountCredentialsSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
+  pqMode: OutputChronicleMode$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqCompress: OutputChronicleCompression$inboundSchema.default("none"),
+  pqOnBackpressure: OutputChronicleQueueFullBehavior$inboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputChroniclePqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -400,9 +731,11 @@ export type OutputChronicle$Outbound = {
   apiVersion: string;
   authenticationMethod: string;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<OutputChronicleResponseRetrySetting$Outbound>
     | undefined;
-  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  timeoutRetrySettings?:
+    | OutputChronicleTimeoutRetrySettings$Outbound
+    | undefined;
   responseHonorRetryAfterHeader: boolean;
   region: string;
   concurrency: number;
@@ -412,7 +745,7 @@ export type OutputChronicle$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  extraHttpHeaders?: Array<OutputChronicleExtraHttpHeader$Outbound> | undefined;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   useRoundRobinDns: boolean;
@@ -456,9 +789,12 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   apiVersion: z.string().default("v1alpha"),
   authenticationMethod: OutputChronicleAuthenticationMethod$outboundSchema
     .default("serviceAccount"),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
-  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseRetrySettings: z.array(
+    z.lazy(() => OutputChronicleResponseRetrySetting$outboundSchema),
+  ).optional(),
+  timeoutRetrySettings: z.lazy(() =>
+    OutputChronicleTimeoutRetrySettings$outboundSchema
+  ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
   region: z.string(),
   concurrency: z.number().default(5),
@@ -468,13 +804,16 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(90),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
-  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
-    .default("none"),
+  extraHttpHeaders: z.array(
+    z.lazy(() => OutputChronicleExtraHttpHeader$outboundSchema),
+  ).optional(),
+  failedRequestLoggingMode:
+    OutputChronicleFailedRequestLoggingMode$outboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  onBackpressure: OutputChronicleBackpressureBehavior$outboundSchema.default(
+    "block",
+  ),
   totalMemoryLimitKB: z.number().optional(),
   ingestionMethod: z.string().default("ImportLogs"),
   namespace: z.string().optional(),
@@ -489,14 +828,16 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   serviceAccountCredentialsSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
+  pqMode: OutputChronicleMode$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqCompress: OutputChronicleCompression$outboundSchema.default("none"),
+  pqOnBackpressure: OutputChronicleQueueFullBehavior$outboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputChroniclePqControls$outboundSchema).optional(),
 });
 

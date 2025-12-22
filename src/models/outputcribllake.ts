@@ -7,42 +7,159 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  BackpressureBehaviorOptions1,
-  BackpressureBehaviorOptions1$inboundSchema,
-  BackpressureBehaviorOptions1$outboundSchema,
-} from "./backpressurebehavioroptions1.js";
-import {
-  DiskSpaceProtectionOptions,
-  DiskSpaceProtectionOptions$inboundSchema,
-  DiskSpaceProtectionOptions$outboundSchema,
-} from "./diskspaceprotectionoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FormatOptionsCriblLakeDataset,
-  FormatOptionsCriblLakeDataset$inboundSchema,
-  FormatOptionsCriblLakeDataset$outboundSchema,
-} from "./formatoptionscribllakedataset.js";
-import {
-  ObjectAclOptions,
-  ObjectAclOptions$inboundSchema,
-  ObjectAclOptions$outboundSchema,
-} from "./objectacloptions.js";
-import {
-  ServerSideEncryptionForUploadedObjectsOptions,
-  ServerSideEncryptionForUploadedObjectsOptions$inboundSchema,
-  ServerSideEncryptionForUploadedObjectsOptions$outboundSchema,
-} from "./serversideencryptionforuploadedobjectsoptions.js";
-import {
-  SignatureVersionOptions,
-  SignatureVersionOptions$inboundSchema,
-  SignatureVersionOptions$outboundSchema,
-} from "./signatureversionoptions.js";
-import {
-  StorageClassOptions,
-  StorageClassOptions$inboundSchema,
-  StorageClassOptions$outboundSchema,
-} from "./storageclassoptions.js";
+
+/**
+ * Signature version to use for signing S3 requests
+ */
+export const OutputCriblLakeSignatureVersion = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing S3 requests
+ */
+export type OutputCriblLakeSignatureVersion = OpenEnum<
+  typeof OutputCriblLakeSignatureVersion
+>;
+
+/**
+ * Object ACL to assign to uploaded objects
+ */
+export const OutputCriblLakeObjectACL = {
+  /**
+   * Private
+   */
+  Private: "private",
+  /**
+   * Public Read Only
+   */
+  PublicRead: "public-read",
+  /**
+   * Public Read/Write
+   */
+  PublicReadWrite: "public-read-write",
+  /**
+   * Authenticated Read Only
+   */
+  AuthenticatedRead: "authenticated-read",
+  /**
+   * AWS EC2 AMI Read Only
+   */
+  AwsExecRead: "aws-exec-read",
+  /**
+   * Bucket Owner Read Only
+   */
+  BucketOwnerRead: "bucket-owner-read",
+  /**
+   * Bucket Owner Full Control
+   */
+  BucketOwnerFullControl: "bucket-owner-full-control",
+} as const;
+/**
+ * Object ACL to assign to uploaded objects
+ */
+export type OutputCriblLakeObjectACL = OpenEnum<
+  typeof OutputCriblLakeObjectACL
+>;
+
+/**
+ * Storage class to select for uploaded objects
+ */
+export const OutputCriblLakeStorageClass = {
+  /**
+   * Standard
+   */
+  Standard: "STANDARD",
+  /**
+   * Reduced Redundancy Storage
+   */
+  ReducedRedundancy: "REDUCED_REDUNDANCY",
+  /**
+   * Standard, Infrequent Access
+   */
+  StandardIa: "STANDARD_IA",
+  /**
+   * One Zone, Infrequent Access
+   */
+  OnezoneIa: "ONEZONE_IA",
+  /**
+   * Intelligent Tiering
+   */
+  IntelligentTiering: "INTELLIGENT_TIERING",
+  /**
+   * Glacier Flexible Retrieval
+   */
+  Glacier: "GLACIER",
+  /**
+   * Glacier Instant Retrieval
+   */
+  GlacierIr: "GLACIER_IR",
+  /**
+   * Glacier Deep Archive
+   */
+  DeepArchive: "DEEP_ARCHIVE",
+} as const;
+/**
+ * Storage class to select for uploaded objects
+ */
+export type OutputCriblLakeStorageClass = OpenEnum<
+  typeof OutputCriblLakeStorageClass
+>;
+
+export const OutputCriblLakeServerSideEncryptionForUploadedObjects = {
+  /**
+   * Amazon S3 Managed Key
+   */
+  Aes256: "AES256",
+  /**
+   * AWS KMS Managed Key
+   */
+  AwsKms: "aws:kms",
+} as const;
+export type OutputCriblLakeServerSideEncryptionForUploadedObjects = OpenEnum<
+  typeof OutputCriblLakeServerSideEncryptionForUploadedObjects
+>;
+
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export const OutputCriblLakeBackpressureBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export type OutputCriblLakeBackpressureBehavior = OpenEnum<
+  typeof OutputCriblLakeBackpressureBehavior
+>;
+
+/**
+ * How to handle events when disk space is below the global 'Min free disk space' limit
+ */
+export const OutputCriblLakeDiskSpaceProtection = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when disk space is below the global 'Min free disk space' limit
+ */
+export type OutputCriblLakeDiskSpaceProtection = OpenEnum<
+  typeof OutputCriblLakeDiskSpaceProtection
+>;
 
 export const AwsAuthenticationMethod = {
   Auto: "auto",
@@ -50,6 +167,13 @@ export const AwsAuthenticationMethod = {
   Manual: "manual",
 } as const;
 export type AwsAuthenticationMethod = OpenEnum<typeof AwsAuthenticationMethod>;
+
+export const OutputCriblLakeFormat = {
+  Json: "json",
+  Parquet: "parquet",
+  Ddss: "ddss",
+} as const;
+export type OutputCriblLakeFormat = OpenEnum<typeof OutputCriblLakeFormat>;
 
 export type OutputCriblLake = {
   /**
@@ -92,7 +216,7 @@ export type OutputCriblLake = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: SignatureVersionOptions | undefined;
+  signatureVersion?: OutputCriblLakeSignatureVersion | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -132,13 +256,13 @@ export type OutputCriblLake = {
   /**
    * Object ACL to assign to uploaded objects
    */
-  objectACL?: ObjectAclOptions | undefined;
+  objectACL?: OutputCriblLakeObjectACL | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: StorageClassOptions | undefined;
+  storageClass?: OutputCriblLakeStorageClass | undefined;
   serverSideEncryption?:
-    | ServerSideEncryptionForUploadedObjectsOptions
+    | OutputCriblLakeServerSideEncryptionForUploadedObjects
     | undefined;
   /**
    * ID or ARN of the KMS customer-managed key to use for encryption
@@ -175,7 +299,7 @@ export type OutputCriblLake = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: OutputCriblLakeBackpressureBehavior | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -183,7 +307,7 @@ export type OutputCriblLake = {
   /**
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
-  onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
+  onDiskFullBackpressure?: OutputCriblLakeDiskSpaceProtection | undefined;
   /**
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
@@ -205,7 +329,7 @@ export type OutputCriblLake = {
    */
   maxClosingFilesToBackpressure?: number | undefined;
   awsAuthenticationMethod?: AwsAuthenticationMethod | undefined;
-  format?: FormatOptionsCriblLakeDataset | undefined;
+  format?: OutputCriblLakeFormat | undefined;
   /**
    * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
    */
@@ -230,6 +354,90 @@ export type OutputCriblLake = {
 };
 
 /** @internal */
+export const OutputCriblLakeSignatureVersion$inboundSchema: z.ZodType<
+  OutputCriblLakeSignatureVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCriblLakeSignatureVersion);
+/** @internal */
+export const OutputCriblLakeSignatureVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCriblLakeSignatureVersion
+> = openEnums.outboundSchema(OutputCriblLakeSignatureVersion);
+
+/** @internal */
+export const OutputCriblLakeObjectACL$inboundSchema: z.ZodType<
+  OutputCriblLakeObjectACL,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCriblLakeObjectACL);
+/** @internal */
+export const OutputCriblLakeObjectACL$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCriblLakeObjectACL
+> = openEnums.outboundSchema(OutputCriblLakeObjectACL);
+
+/** @internal */
+export const OutputCriblLakeStorageClass$inboundSchema: z.ZodType<
+  OutputCriblLakeStorageClass,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCriblLakeStorageClass);
+/** @internal */
+export const OutputCriblLakeStorageClass$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCriblLakeStorageClass
+> = openEnums.outboundSchema(OutputCriblLakeStorageClass);
+
+/** @internal */
+export const OutputCriblLakeServerSideEncryptionForUploadedObjects$inboundSchema:
+  z.ZodType<
+    OutputCriblLakeServerSideEncryptionForUploadedObjects,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(
+    OutputCriblLakeServerSideEncryptionForUploadedObjects,
+  );
+/** @internal */
+export const OutputCriblLakeServerSideEncryptionForUploadedObjects$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    OutputCriblLakeServerSideEncryptionForUploadedObjects
+  > = openEnums.outboundSchema(
+    OutputCriblLakeServerSideEncryptionForUploadedObjects,
+  );
+
+/** @internal */
+export const OutputCriblLakeBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputCriblLakeBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCriblLakeBackpressureBehavior);
+/** @internal */
+export const OutputCriblLakeBackpressureBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCriblLakeBackpressureBehavior
+> = openEnums.outboundSchema(OutputCriblLakeBackpressureBehavior);
+
+/** @internal */
+export const OutputCriblLakeDiskSpaceProtection$inboundSchema: z.ZodType<
+  OutputCriblLakeDiskSpaceProtection,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCriblLakeDiskSpaceProtection);
+/** @internal */
+export const OutputCriblLakeDiskSpaceProtection$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCriblLakeDiskSpaceProtection
+> = openEnums.outboundSchema(OutputCriblLakeDiskSpaceProtection);
+
+/** @internal */
 export const AwsAuthenticationMethod$inboundSchema: z.ZodType<
   AwsAuthenticationMethod,
   z.ZodTypeDef,
@@ -241,6 +449,19 @@ export const AwsAuthenticationMethod$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AwsAuthenticationMethod
 > = openEnums.outboundSchema(AwsAuthenticationMethod);
+
+/** @internal */
+export const OutputCriblLakeFormat$inboundSchema: z.ZodType<
+  OutputCriblLakeFormat,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCriblLakeFormat);
+/** @internal */
+export const OutputCriblLakeFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCriblLakeFormat
+> = openEnums.outboundSchema(OutputCriblLakeFormat);
 
 /** @internal */
 export const OutputCriblLake$inboundSchema: z.ZodType<
@@ -258,7 +479,7 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   region: z.string().optional(),
   awsSecretKey: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  signatureVersion: OutputCriblLakeSignatureVersion$inboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -268,10 +489,11 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
   destPath: z.string().optional(),
-  objectACL: ObjectAclOptions$inboundSchema.default("private"),
-  storageClass: StorageClassOptions$inboundSchema.optional(),
+  objectACL: OutputCriblLakeObjectACL$inboundSchema.default("private"),
+  storageClass: OutputCriblLakeStorageClass$inboundSchema.optional(),
   serverSideEncryption:
-    ServerSideEncryptionForUploadedObjectsOptions$inboundSchema.optional(),
+    OutputCriblLakeServerSideEncryptionForUploadedObjects$inboundSchema
+      .optional(),
   kmsKeyId: z.string().optional(),
   removeEmptyDirs: z.boolean().default(true),
   baseFileName: z.string().default("`CriblOut`"),
@@ -282,11 +504,12 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.default("block"),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.default(
+  onBackpressure: OutputCriblLakeBackpressureBehavior$inboundSchema.default(
     "block",
   ),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: OutputCriblLakeDiskSpaceProtection$inboundSchema
+    .default("block"),
   forceCloseOnShutdown: z.boolean().default(false),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(300),
@@ -295,7 +518,7 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   awsAuthenticationMethod: AwsAuthenticationMethod$inboundSchema.default(
     "auto",
   ),
-  format: FormatOptionsCriblLakeDataset$inboundSchema.optional(),
+  format: OutputCriblLakeFormat$inboundSchema.optional(),
   maxConcurrentFileParts: z.number().default(1),
   description: z.string().optional(),
   emptyDirCleanupSec: z.number().default(300),
@@ -370,7 +593,9 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   region: z.string().optional(),
   awsSecretKey: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  signatureVersion: OutputCriblLakeSignatureVersion$outboundSchema.default(
+    "v4",
+  ),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -380,10 +605,11 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
   destPath: z.string().optional(),
-  objectACL: ObjectAclOptions$outboundSchema.default("private"),
-  storageClass: StorageClassOptions$outboundSchema.optional(),
+  objectACL: OutputCriblLakeObjectACL$outboundSchema.default("private"),
+  storageClass: OutputCriblLakeStorageClass$outboundSchema.optional(),
   serverSideEncryption:
-    ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
+    OutputCriblLakeServerSideEncryptionForUploadedObjects$outboundSchema
+      .optional(),
   kmsKeyId: z.string().optional(),
   removeEmptyDirs: z.boolean().default(true),
   baseFileName: z.string().default("`CriblOut`"),
@@ -394,11 +620,12 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.default("block"),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.default(
+  onBackpressure: OutputCriblLakeBackpressureBehavior$outboundSchema.default(
     "block",
   ),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: OutputCriblLakeDiskSpaceProtection$outboundSchema
+    .default("block"),
   forceCloseOnShutdown: z.boolean().default(false),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(300),
@@ -407,7 +634,7 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   awsAuthenticationMethod: AwsAuthenticationMethod$outboundSchema.default(
     "auto",
   ),
-  format: FormatOptionsCriblLakeDataset$outboundSchema.optional(),
+  format: OutputCriblLakeFormat$outboundSchema.optional(),
   maxConcurrentFileParts: z.number().default(1),
   description: z.string().optional(),
   emptyDirCleanupSec: z.number().default(300),

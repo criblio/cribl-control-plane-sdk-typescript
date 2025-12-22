@@ -36,8 +36,8 @@ const value: operations.InputSyslogSyslog1 = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
   },
   metadata: [
     {
@@ -45,8 +45,8 @@ const value: operations.InputSyslogSyslog1 = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 5244.25,
-  description: "via as plus publicity aw corny narrow",
+  udpSocketRxBufSize: 7137.89,
+  description: "phew fedora ew round",
   enableEnhancedProxyHeaderParsing: true,
 };
 ```
@@ -86,7 +86,7 @@ const value: operations.InputSyslogSyslog2 = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.1",
+    minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
   metadata: [
@@ -95,8 +95,8 @@ const value: operations.InputSyslogSyslog2 = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 181.3,
-  description: "eek roger whoever humidity",
+  udpSocketRxBufSize: 8958.81,
+  description: "likely dish vengeful carnival gah",
   enableEnhancedProxyHeaderParsing: false,
 };
 ```

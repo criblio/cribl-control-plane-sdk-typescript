@@ -7,63 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  BackpressureBehaviorOptions1,
-  BackpressureBehaviorOptions1$inboundSchema,
-  BackpressureBehaviorOptions1$outboundSchema,
-} from "./backpressurebehavioroptions1.js";
-import {
-  CompressionLevelOptions,
-  CompressionLevelOptions$inboundSchema,
-  CompressionLevelOptions$outboundSchema,
-} from "./compressionleveloptions.js";
-import {
-  CompressionOptions2,
-  CompressionOptions2$inboundSchema,
-  CompressionOptions2$outboundSchema,
-} from "./compressionoptions2.js";
-import {
-  DataFormatOptions,
-  DataFormatOptions$inboundSchema,
-  DataFormatOptions$outboundSchema,
-} from "./dataformatoptions.js";
-import {
-  DataPageVersionOptions,
-  DataPageVersionOptions$inboundSchema,
-  DataPageVersionOptions$outboundSchema,
-} from "./datapageversionoptions.js";
-import {
-  DiskSpaceProtectionOptions,
-  DiskSpaceProtectionOptions$inboundSchema,
-  DiskSpaceProtectionOptions$outboundSchema,
-} from "./diskspaceprotectionoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeKeyValueMetadata,
-  ItemsTypeKeyValueMetadata$inboundSchema,
-  ItemsTypeKeyValueMetadata$Outbound,
-  ItemsTypeKeyValueMetadata$outboundSchema,
-} from "./itemstypekeyvaluemetadata.js";
-import {
-  ParquetVersionOptions,
-  ParquetVersionOptions$inboundSchema,
-  ParquetVersionOptions$outboundSchema,
-} from "./parquetversionoptions.js";
-import {
-  ServerSideEncryptionOptions,
-  ServerSideEncryptionOptions$inboundSchema,
-  ServerSideEncryptionOptions$outboundSchema,
-} from "./serversideencryptionoptions.js";
-import {
-  SignatureVersionOptions6,
-  SignatureVersionOptions6$inboundSchema,
-  SignatureVersionOptions6$outboundSchema,
-} from "./signatureversionoptions6.js";
-import {
-  StorageClassOptions2,
-  StorageClassOptions2$inboundSchema,
-  StorageClassOptions2$outboundSchema,
-} from "./storageclassoptions2.js";
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -79,6 +23,207 @@ export const OutputCloudflareR2AuthenticationMethod = {
 export type OutputCloudflareR2AuthenticationMethod = OpenEnum<
   typeof OutputCloudflareR2AuthenticationMethod
 >;
+
+/**
+ * Signature version to use for signing MinIO requests
+ */
+export const OutputCloudflareR2SignatureVersion = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing MinIO requests
+ */
+export type OutputCloudflareR2SignatureVersion = OpenEnum<
+  typeof OutputCloudflareR2SignatureVersion
+>;
+
+/**
+ * Storage class to select for uploaded objects
+ */
+export const OutputCloudflareR2StorageClass = {
+  /**
+   * Standard
+   */
+  Standard: "STANDARD",
+  /**
+   * Reduced Redundancy Storage
+   */
+  ReducedRedundancy: "REDUCED_REDUNDANCY",
+} as const;
+/**
+ * Storage class to select for uploaded objects
+ */
+export type OutputCloudflareR2StorageClass = OpenEnum<
+  typeof OutputCloudflareR2StorageClass
+>;
+
+/**
+ * Server-side encryption for uploaded objects
+ */
+export const OutputCloudflareR2ServerSideEncryption = {
+  /**
+   * Amazon S3 Managed Key
+   */
+  Aes256: "AES256",
+} as const;
+/**
+ * Server-side encryption for uploaded objects
+ */
+export type OutputCloudflareR2ServerSideEncryption = OpenEnum<
+  typeof OutputCloudflareR2ServerSideEncryption
+>;
+
+/**
+ * Format of the output data
+ */
+export const OutputCloudflareR2DataFormat = {
+  /**
+   * JSON
+   */
+  Json: "json",
+  /**
+   * Raw
+   */
+  Raw: "raw",
+  /**
+   * Parquet
+   */
+  Parquet: "parquet",
+} as const;
+/**
+ * Format of the output data
+ */
+export type OutputCloudflareR2DataFormat = OpenEnum<
+  typeof OutputCloudflareR2DataFormat
+>;
+
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export const OutputCloudflareR2BackpressureBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export type OutputCloudflareR2BackpressureBehavior = OpenEnum<
+  typeof OutputCloudflareR2BackpressureBehavior
+>;
+
+/**
+ * How to handle events when disk space is below the global 'Min free disk space' limit
+ */
+export const OutputCloudflareR2DiskSpaceProtection = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when disk space is below the global 'Min free disk space' limit
+ */
+export type OutputCloudflareR2DiskSpaceProtection = OpenEnum<
+  typeof OutputCloudflareR2DiskSpaceProtection
+>;
+
+/**
+ * Data compression format to apply to HTTP content before it is delivered
+ */
+export const OutputCloudflareR2Compression = {
+  None: "none",
+  Gzip: "gzip",
+} as const;
+/**
+ * Data compression format to apply to HTTP content before it is delivered
+ */
+export type OutputCloudflareR2Compression = OpenEnum<
+  typeof OutputCloudflareR2Compression
+>;
+
+/**
+ * Compression level to apply before moving files to final destination
+ */
+export const OutputCloudflareR2CompressionLevel = {
+  /**
+   * Best Speed
+   */
+  BestSpeed: "best_speed",
+  /**
+   * Normal
+   */
+  Normal: "normal",
+  /**
+   * Best Compression
+   */
+  BestCompression: "best_compression",
+} as const;
+/**
+ * Compression level to apply before moving files to final destination
+ */
+export type OutputCloudflareR2CompressionLevel = OpenEnum<
+  typeof OutputCloudflareR2CompressionLevel
+>;
+
+/**
+ * Determines which data types are supported and how they are represented
+ */
+export const OutputCloudflareR2ParquetVersion = {
+  /**
+   * 1.0
+   */
+  Parquet10: "PARQUET_1_0",
+  /**
+   * 2.4
+   */
+  Parquet24: "PARQUET_2_4",
+  /**
+   * 2.6
+   */
+  Parquet26: "PARQUET_2_6",
+} as const;
+/**
+ * Determines which data types are supported and how they are represented
+ */
+export type OutputCloudflareR2ParquetVersion = OpenEnum<
+  typeof OutputCloudflareR2ParquetVersion
+>;
+
+/**
+ * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+ */
+export const OutputCloudflareR2DataPageVersion = {
+  /**
+   * V1
+   */
+  DataPageV1: "DATA_PAGE_V1",
+  /**
+   * V2
+   */
+  DataPageV2: "DATA_PAGE_V2",
+} as const;
+/**
+ * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+ */
+export type OutputCloudflareR2DataPageVersion = OpenEnum<
+  typeof OutputCloudflareR2DataPageVersion
+>;
+
+export type OutputCloudflareR2KeyValueMetadatum = {
+  key?: string | undefined;
+  value: string;
+};
 
 export type OutputCloudflareR2 = {
   /**
@@ -134,16 +279,16 @@ export type OutputCloudflareR2 = {
   /**
    * Signature version to use for signing MinIO requests
    */
-  signatureVersion?: SignatureVersionOptions6 | undefined;
+  signatureVersion?: OutputCloudflareR2SignatureVersion | undefined;
   objectACL?: any | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: StorageClassOptions2 | undefined;
+  storageClass?: OutputCloudflareR2StorageClass | undefined;
   /**
    * Server-side encryption for uploaded objects
    */
-  serverSideEncryption?: ServerSideEncryptionOptions | undefined;
+  serverSideEncryption?: OutputCloudflareR2ServerSideEncryption | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -167,7 +312,7 @@ export type OutputCloudflareR2 = {
   /**
    * Format of the output data
    */
-  format?: DataFormatOptions | undefined;
+  format?: OutputCloudflareR2DataFormat | undefined;
   /**
    * JavaScript expression to define the output filename prefix (can be constant)
    */
@@ -195,7 +340,7 @@ export type OutputCloudflareR2 = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: OutputCloudflareR2BackpressureBehavior | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -203,7 +348,7 @@ export type OutputCloudflareR2 = {
   /**
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
-  onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
+  onDiskFullBackpressure?: OutputCloudflareR2DiskSpaceProtection | undefined;
   /**
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
@@ -232,11 +377,11 @@ export type OutputCloudflareR2 = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: CompressionOptions2 | undefined;
+  compress?: OutputCloudflareR2Compression | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
-  compressionLevel?: CompressionLevelOptions | undefined;
+  compressionLevel?: OutputCloudflareR2CompressionLevel | undefined;
   /**
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
@@ -248,11 +393,11 @@ export type OutputCloudflareR2 = {
   /**
    * Determines which data types are supported and how they are represented
    */
-  parquetVersion?: ParquetVersionOptions | undefined;
+  parquetVersion?: OutputCloudflareR2ParquetVersion | undefined;
   /**
    * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
    */
-  parquetDataPageVersion?: DataPageVersionOptions | undefined;
+  parquetDataPageVersion?: OutputCloudflareR2DataPageVersion | undefined;
   /**
    * The number of rows that every group will contain. The final group can contain a smaller number of rows.
    */
@@ -268,7 +413,7 @@ export type OutputCloudflareR2 = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<OutputCloudflareR2KeyValueMetadatum> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -313,6 +458,181 @@ export const OutputCloudflareR2AuthenticationMethod$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputCloudflareR2AuthenticationMethod);
 
 /** @internal */
+export const OutputCloudflareR2SignatureVersion$inboundSchema: z.ZodType<
+  OutputCloudflareR2SignatureVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCloudflareR2SignatureVersion);
+/** @internal */
+export const OutputCloudflareR2SignatureVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCloudflareR2SignatureVersion
+> = openEnums.outboundSchema(OutputCloudflareR2SignatureVersion);
+
+/** @internal */
+export const OutputCloudflareR2StorageClass$inboundSchema: z.ZodType<
+  OutputCloudflareR2StorageClass,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCloudflareR2StorageClass);
+/** @internal */
+export const OutputCloudflareR2StorageClass$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCloudflareR2StorageClass
+> = openEnums.outboundSchema(OutputCloudflareR2StorageClass);
+
+/** @internal */
+export const OutputCloudflareR2ServerSideEncryption$inboundSchema: z.ZodType<
+  OutputCloudflareR2ServerSideEncryption,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCloudflareR2ServerSideEncryption);
+/** @internal */
+export const OutputCloudflareR2ServerSideEncryption$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCloudflareR2ServerSideEncryption
+> = openEnums.outboundSchema(OutputCloudflareR2ServerSideEncryption);
+
+/** @internal */
+export const OutputCloudflareR2DataFormat$inboundSchema: z.ZodType<
+  OutputCloudflareR2DataFormat,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCloudflareR2DataFormat);
+/** @internal */
+export const OutputCloudflareR2DataFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCloudflareR2DataFormat
+> = openEnums.outboundSchema(OutputCloudflareR2DataFormat);
+
+/** @internal */
+export const OutputCloudflareR2BackpressureBehavior$inboundSchema: z.ZodType<
+  OutputCloudflareR2BackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCloudflareR2BackpressureBehavior);
+/** @internal */
+export const OutputCloudflareR2BackpressureBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCloudflareR2BackpressureBehavior
+> = openEnums.outboundSchema(OutputCloudflareR2BackpressureBehavior);
+
+/** @internal */
+export const OutputCloudflareR2DiskSpaceProtection$inboundSchema: z.ZodType<
+  OutputCloudflareR2DiskSpaceProtection,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCloudflareR2DiskSpaceProtection);
+/** @internal */
+export const OutputCloudflareR2DiskSpaceProtection$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCloudflareR2DiskSpaceProtection
+> = openEnums.outboundSchema(OutputCloudflareR2DiskSpaceProtection);
+
+/** @internal */
+export const OutputCloudflareR2Compression$inboundSchema: z.ZodType<
+  OutputCloudflareR2Compression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCloudflareR2Compression);
+/** @internal */
+export const OutputCloudflareR2Compression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCloudflareR2Compression
+> = openEnums.outboundSchema(OutputCloudflareR2Compression);
+
+/** @internal */
+export const OutputCloudflareR2CompressionLevel$inboundSchema: z.ZodType<
+  OutputCloudflareR2CompressionLevel,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCloudflareR2CompressionLevel);
+/** @internal */
+export const OutputCloudflareR2CompressionLevel$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCloudflareR2CompressionLevel
+> = openEnums.outboundSchema(OutputCloudflareR2CompressionLevel);
+
+/** @internal */
+export const OutputCloudflareR2ParquetVersion$inboundSchema: z.ZodType<
+  OutputCloudflareR2ParquetVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCloudflareR2ParquetVersion);
+/** @internal */
+export const OutputCloudflareR2ParquetVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCloudflareR2ParquetVersion
+> = openEnums.outboundSchema(OutputCloudflareR2ParquetVersion);
+
+/** @internal */
+export const OutputCloudflareR2DataPageVersion$inboundSchema: z.ZodType<
+  OutputCloudflareR2DataPageVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCloudflareR2DataPageVersion);
+/** @internal */
+export const OutputCloudflareR2DataPageVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCloudflareR2DataPageVersion
+> = openEnums.outboundSchema(OutputCloudflareR2DataPageVersion);
+
+/** @internal */
+export const OutputCloudflareR2KeyValueMetadatum$inboundSchema: z.ZodType<
+  OutputCloudflareR2KeyValueMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  key: z.string().default(""),
+  value: z.string(),
+});
+/** @internal */
+export type OutputCloudflareR2KeyValueMetadatum$Outbound = {
+  key: string;
+  value: string;
+};
+
+/** @internal */
+export const OutputCloudflareR2KeyValueMetadatum$outboundSchema: z.ZodType<
+  OutputCloudflareR2KeyValueMetadatum$Outbound,
+  z.ZodTypeDef,
+  OutputCloudflareR2KeyValueMetadatum
+> = z.object({
+  key: z.string().default(""),
+  value: z.string(),
+});
+
+export function outputCloudflareR2KeyValueMetadatumToJSON(
+  outputCloudflareR2KeyValueMetadatum: OutputCloudflareR2KeyValueMetadatum,
+): string {
+  return JSON.stringify(
+    OutputCloudflareR2KeyValueMetadatum$outboundSchema.parse(
+      outputCloudflareR2KeyValueMetadatum,
+    ),
+  );
+}
+export function outputCloudflareR2KeyValueMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCloudflareR2KeyValueMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputCloudflareR2KeyValueMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCloudflareR2KeyValueMetadatum' from JSON`,
+  );
+}
+
+/** @internal */
 export const OutputCloudflareR2$inboundSchema: z.ZodType<
   OutputCloudflareR2,
   z.ZodTypeDef,
@@ -333,10 +653,13 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
   destPath: z.string().optional(),
-  signatureVersion: SignatureVersionOptions6$inboundSchema.default("v4"),
+  signatureVersion: OutputCloudflareR2SignatureVersion$inboundSchema.default(
+    "v4",
+  ),
   objectACL: z.any().optional(),
-  storageClass: StorageClassOptions2$inboundSchema.optional(),
-  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema.optional(),
+  storageClass: OutputCloudflareR2StorageClass$inboundSchema.optional(),
+  serverSideEncryption: OutputCloudflareR2ServerSideEncryption$inboundSchema
+    .optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   verifyPermissions: z.boolean().default(true),
@@ -344,7 +667,7 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: DataFormatOptions$inboundSchema.default("json"),
+  format: OutputCloudflareR2DataFormat$inboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -353,11 +676,12 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.default("block"),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.default(
+  onBackpressure: OutputCloudflareR2BackpressureBehavior$inboundSchema.default(
     "block",
   ),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: OutputCloudflareR2DiskSpaceProtection$inboundSchema
+    .default("block"),
   forceCloseOnShutdown: z.boolean().default(false),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
@@ -365,18 +689,23 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: CompressionOptions2$inboundSchema.default("gzip"),
-  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  compress: OutputCloudflareR2Compression$inboundSchema.default("gzip"),
+  compressionLevel: OutputCloudflareR2CompressionLevel$inboundSchema.default(
+    "best_speed",
+  ),
   automaticSchema: z.boolean().default(false),
   parquetSchema: z.string().optional(),
-  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
-  parquetDataPageVersion: DataPageVersionOptions$inboundSchema.default(
-    "DATA_PAGE_V2",
+  parquetVersion: OutputCloudflareR2ParquetVersion$inboundSchema.default(
+    "PARQUET_2_6",
   ),
+  parquetDataPageVersion: OutputCloudflareR2DataPageVersion$inboundSchema
+    .default("DATA_PAGE_V2"),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
+  keyValueMetadata: z.array(
+    z.lazy(() => OutputCloudflareR2KeyValueMetadatum$inboundSchema),
+  ).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -436,7 +765,9 @@ export type OutputCloudflareR2$Outbound = {
   parquetRowGroupLength: number;
   parquetPageSize: string;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  keyValueMetadata?:
+    | Array<OutputCloudflareR2KeyValueMetadatum$Outbound>
+    | undefined;
   enableStatistics: boolean;
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
@@ -467,10 +798,13 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
   destPath: z.string().optional(),
-  signatureVersion: SignatureVersionOptions6$outboundSchema.default("v4"),
+  signatureVersion: OutputCloudflareR2SignatureVersion$outboundSchema.default(
+    "v4",
+  ),
   objectACL: z.any().optional(),
-  storageClass: StorageClassOptions2$outboundSchema.optional(),
-  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
+  storageClass: OutputCloudflareR2StorageClass$outboundSchema.optional(),
+  serverSideEncryption: OutputCloudflareR2ServerSideEncryption$outboundSchema
+    .optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   verifyPermissions: z.boolean().default(true),
@@ -478,7 +812,7 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: DataFormatOptions$outboundSchema.default("json"),
+  format: OutputCloudflareR2DataFormat$outboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -487,11 +821,12 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.default("block"),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.default(
+  onBackpressure: OutputCloudflareR2BackpressureBehavior$outboundSchema.default(
     "block",
   ),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: OutputCloudflareR2DiskSpaceProtection$outboundSchema
+    .default("block"),
   forceCloseOnShutdown: z.boolean().default(false),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
@@ -499,21 +834,23 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: CompressionOptions2$outboundSchema.default("gzip"),
-  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+  compress: OutputCloudflareR2Compression$outboundSchema.default("gzip"),
+  compressionLevel: OutputCloudflareR2CompressionLevel$outboundSchema.default(
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
   parquetSchema: z.string().optional(),
-  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
-  parquetDataPageVersion: DataPageVersionOptions$outboundSchema.default(
-    "DATA_PAGE_V2",
+  parquetVersion: OutputCloudflareR2ParquetVersion$outboundSchema.default(
+    "PARQUET_2_6",
   ),
+  parquetDataPageVersion: OutputCloudflareR2DataPageVersion$outboundSchema
+    .default("DATA_PAGE_V2"),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema)
-    .optional(),
+  keyValueMetadata: z.array(
+    z.lazy(() => OutputCloudflareR2KeyValueMetadatum$outboundSchema),
+  ).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),

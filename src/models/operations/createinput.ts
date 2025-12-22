@@ -3,29 +3,114 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
 import * as openEnums from "../../types/enums.js";
 import { ClosedEnum, OpenEnum } from "../../types/enums.js";
-import * as models from "../index.js";
+
+export type ConnectionCloudflareHec = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeCloudflareHec = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeCloudflareHec = OpenEnum<typeof ModeCloudflareHec>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionCloudflareHec = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionCloudflareHec = OpenEnum<
+  typeof CompressionCloudflareHec
+>;
+
+export type PqControlsCloudflareHec = {};
+
+export type PqCloudflareHec = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeCloudflareHec | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionCloudflareHec | undefined;
+  pqControls?: PqControlsCloudflareHec | undefined;
+};
 
 /**
  * Select Secret to use a text secret to authenticate
  */
-export const AuthTokenAuthenticationMethod = {
+export const AuthenticationMethodCloudflareHec = {
   Secret: "secret",
   Manual: "manual",
 } as const;
 /**
  * Select Secret to use a text secret to authenticate
  */
-export type AuthTokenAuthenticationMethod = OpenEnum<
-  typeof AuthTokenAuthenticationMethod
+export type AuthenticationMethodCloudflareHec = OpenEnum<
+  typeof AuthenticationMethodCloudflareHec
 >;
+
+export type AuthTokenMetadatumCloudflareHec = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
 
 export type AuthTokenCloudflareHec = {
   /**
    * Select Secret to use a text secret to authenticate
    */
-  authType?: AuthTokenAuthenticationMethod | undefined;
+  authType?: AuthenticationMethodCloudflareHec | undefined;
   /**
    * Select or create a stored text secret
    */
@@ -43,7 +128,73 @@ export type AuthTokenCloudflareHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<AuthTokenMetadatumCloudflareHec> | undefined;
+};
+
+export const MinimumTLSVersionCloudflareHec = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MinimumTLSVersionCloudflareHec = OpenEnum<
+  typeof MinimumTLSVersionCloudflareHec
+>;
+
+export const MaximumTLSVersionCloudflareHec = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MaximumTLSVersionCloudflareHec = OpenEnum<
+  typeof MaximumTLSVersionCloudflareHec
+>;
+
+export type TLSSettingsServerSideCloudflareHec = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: MinimumTLSVersionCloudflareHec | undefined;
+  maxVersion?: MaximumTLSVersionCloudflareHec | undefined;
+};
+
+export type MetadatumCloudflareHec = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputCloudflareHec = {
@@ -76,8 +227,8 @@ export type InputCloudflareHec = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionCloudflareHec> | undefined;
+  pq?: PqCloudflareHec | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -90,7 +241,7 @@ export type InputCloudflareHec = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<AuthTokenCloudflareHec> | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideCloudflareHec | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -139,7 +290,7 @@ export type InputCloudflareHec = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumCloudflareHec> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -167,11 +318,108 @@ export type InputCloudflareHec = {
   description?: string | undefined;
 };
 
+export type ConnectionZscalerHec = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeZscalerHec = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeZscalerHec = OpenEnum<typeof ModeZscalerHec>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionZscalerHec = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionZscalerHec = OpenEnum<typeof CompressionZscalerHec>;
+
+export type PqControlsZscalerHec = {};
+
+export type PqZscalerHec = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeZscalerHec | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionZscalerHec | undefined;
+  pqControls?: PqControlsZscalerHec | undefined;
+};
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const AuthenticationMethodZscalerHec = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type AuthenticationMethodZscalerHec = OpenEnum<
+  typeof AuthenticationMethodZscalerHec
+>;
+
+export type AuthTokenMetadatumZscalerHec = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
 export type AuthTokenZscalerHec = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  authType?: AuthenticationMethodZscalerHec | undefined;
   /**
    * Select or create a stored text secret
    */
@@ -189,7 +437,73 @@ export type AuthTokenZscalerHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<AuthTokenMetadatumZscalerHec> | undefined;
+};
+
+export const MinimumTLSVersionZscalerHec = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MinimumTLSVersionZscalerHec = OpenEnum<
+  typeof MinimumTLSVersionZscalerHec
+>;
+
+export const MaximumTLSVersionZscalerHec = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MaximumTLSVersionZscalerHec = OpenEnum<
+  typeof MaximumTLSVersionZscalerHec
+>;
+
+export type TLSSettingsServerSideZscalerHec = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: MinimumTLSVersionZscalerHec | undefined;
+  maxVersion?: MaximumTLSVersionZscalerHec | undefined;
+};
+
+export type MetadatumZscalerHec = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputZscalerHec = {
@@ -222,8 +536,8 @@ export type InputZscalerHec = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionZscalerHec> | undefined;
+  pq?: PqZscalerHec | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -236,7 +550,7 @@ export type InputZscalerHec = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<AuthTokenZscalerHec> | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideZscalerHec | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -285,7 +599,7 @@ export type InputZscalerHec = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumZscalerHec> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -308,6 +622,158 @@ export type InputZscalerHec = {
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
 };
+
+export type ConnectionSecurityLake = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeSecurityLake = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeSecurityLake = OpenEnum<typeof ModeSecurityLake>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionSecurityLake = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionSecurityLake = OpenEnum<typeof CompressionSecurityLake>;
+
+export type PqControlsSecurityLake = {};
+
+export type PqSecurityLake = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeSecurityLake | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionSecurityLake | undefined;
+  pqControls?: PqControlsSecurityLake | undefined;
+};
+
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const CreateInputAuthenticationMethodSecurityLake = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type CreateInputAuthenticationMethodSecurityLake = OpenEnum<
+  typeof CreateInputAuthenticationMethodSecurityLake
+>;
+
+/**
+ * Signature version to use for signing S3 requests
+ */
+export const CreateInputSignatureVersionSecurityLake = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing S3 requests
+ */
+export type CreateInputSignatureVersionSecurityLake = OpenEnum<
+  typeof CreateInputSignatureVersionSecurityLake
+>;
+
+export type PreprocessSecurityLake = {
+  disabled?: boolean | undefined;
+  /**
+   * Command to feed the data through (via stdin) and process its output (stdout)
+   */
+  command?: string | undefined;
+  /**
+   * Arguments to be added to the custom command
+   */
+  args?: Array<string> | undefined;
+};
+
+export type MetadatumSecurityLake = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type CheckpointingSecurityLake = {
+  /**
+   * Resume processing files after an interruption
+   */
+  enabled?: boolean | undefined;
+  /**
+   * The number of times to retry processing when a processing error occurs. If Skip file on error is enabled, this setting is ignored.
+   */
+  retries?: number | undefined;
+};
+
+export const TagAfterProcessingSecurityLake = {
+  False: "false",
+  True: "true",
+} as const;
+export type TagAfterProcessingSecurityLake = OpenEnum<
+  typeof TagAfterProcessingSecurityLake
+>;
 
 export type InputSecurityLake = {
   /**
@@ -339,8 +805,8 @@ export type InputSecurityLake = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionSecurityLake> | undefined;
+  pq?: PqSecurityLake | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -356,7 +822,9 @@ export type InputSecurityLake = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?:
+    | CreateInputAuthenticationMethodSecurityLake
+    | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -369,7 +837,7 @@ export type InputSecurityLake = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: models.SignatureVersionOptions | undefined;
+  signatureVersion?: CreateInputSignatureVersionSecurityLake | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -430,11 +898,11 @@ export type InputSecurityLake = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: PreprocessSecurityLake | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumSecurityLake> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -443,7 +911,7 @@ export type InputSecurityLake = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  checkpointing?: models.CheckpointingType | undefined;
+  checkpointing?: CheckpointingSecurityLake | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -458,7 +926,7 @@ export type InputSecurityLake = {
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
-  tagAfterProcessing?: models.TagAfterProcessingOptions | undefined;
+  tagAfterProcessing?: TagAfterProcessingSecurityLake | undefined;
   /**
    * The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
@@ -467,6 +935,89 @@ export type InputSecurityLake = {
    * The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
   processedTagValue?: string | undefined;
+};
+
+export type ConnectionNetflow = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeNetflow = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeNetflow = OpenEnum<typeof ModeNetflow>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionNetflow = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionNetflow = OpenEnum<typeof CompressionNetflow>;
+
+export type PqControlsNetflow = {};
+
+export type PqNetflow = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeNetflow | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionNetflow | undefined;
+  pqControls?: PqControlsNetflow | undefined;
+};
+
+export type MetadatumNetflow = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputNetflow = {
@@ -499,8 +1050,8 @@ export type InputNetflow = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionNetflow> | undefined;
+  pq?: PqNetflow | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -544,8 +1095,169 @@ export type InputNetflow = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumNetflow> | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionWizWebhook = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeWizWebhook = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeWizWebhook = OpenEnum<typeof ModeWizWebhook>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionWizWebhook = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionWizWebhook = OpenEnum<typeof CompressionWizWebhook>;
+
+export type PqControlsWizWebhook = {};
+
+export type PqWizWebhook = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeWizWebhook | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionWizWebhook | undefined;
+  pqControls?: PqControlsWizWebhook | undefined;
+};
+
+export const MinimumTLSVersionWizWebhook = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MinimumTLSVersionWizWebhook = OpenEnum<
+  typeof MinimumTLSVersionWizWebhook
+>;
+
+export const MaximumTLSVersionWizWebhook = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MaximumTLSVersionWizWebhook = OpenEnum<
+  typeof MaximumTLSVersionWizWebhook
+>;
+
+export type TLSSettingsServerSideWizWebhook = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: MinimumTLSVersionWizWebhook | undefined;
+  maxVersion?: MaximumTLSVersionWizWebhook | undefined;
+};
+
+export type MetadatumWizWebhook = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type AuthTokensExtMetadatumWizWebhook = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type AuthTokensExtWizWebhook = {
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token: string;
+  description?: string | undefined;
+  /**
+   * Fields to add to events referencing this token
+   */
+  metadata?: Array<AuthTokensExtMetadatumWizWebhook> | undefined;
 };
 
 export type InputWizWebhook = {
@@ -578,8 +1290,8 @@ export type InputWizWebhook = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionWizWebhook> | undefined;
+  pq?: PqWizWebhook | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -592,7 +1304,7 @@ export type InputWizWebhook = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideWizWebhook | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -648,7 +1360,7 @@ export type InputWizWebhook = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumWizWebhook> | undefined;
   /**
    * List of URI paths accepted by this input. Wildcards are supported (such as /api/v* /hook). Defaults to allow all.
    */
@@ -660,8 +1372,83 @@ export type InputWizWebhook = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokensExt?: Array<models.ItemsTypeAuthTokensExt> | undefined;
+  authTokensExt?: Array<AuthTokensExtWizWebhook> | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionWiz = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeWiz = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeWiz = OpenEnum<typeof ModeWiz>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionWiz = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionWiz = OpenEnum<typeof CompressionWiz>;
+
+export type PqControlsWiz = {};
+
+export type PqWiz = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeWiz | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionWiz | undefined;
+  pqControls?: PqControlsWiz | undefined;
 };
 
 export type ManageState = {};
@@ -669,7 +1456,7 @@ export type ManageState = {};
 /**
  * Collector runtime log level
  */
-export const ContentConfigLogLevel = {
+export const LogLevelWiz = {
   Error: "error",
   Warn: "warn",
   Info: "info",
@@ -679,7 +1466,7 @@ export const ContentConfigLogLevel = {
 /**
  * Collector runtime log level
  */
-export type ContentConfigLogLevel = OpenEnum<typeof ContentConfigLogLevel>;
+export type LogLevelWiz = OpenEnum<typeof LogLevelWiz>;
 
 export type ContentConfigWiz = {
   /**
@@ -724,12 +1511,89 @@ export type ContentConfigWiz = {
   /**
    * Collector runtime log level
    */
-  logLevel?: ContentConfigLogLevel | undefined;
+  logLevel?: LogLevelWiz | undefined;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 0. Set to 0 to retrieve all pages.
    */
   maxPages?: number | undefined;
 };
+
+export type MetadatumWiz = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+/**
+ * The algorithm to use when performing HTTP retries
+ */
+export const RetryTypeWiz = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * The algorithm to use when performing HTTP retries
+ */
+export type RetryTypeWiz = OpenEnum<typeof RetryTypeWiz>;
+
+export type RetryRulesWiz = {
+  /**
+   * The algorithm to use when performing HTTP retries
+   */
+  type?: RetryTypeWiz | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
+};
+
+/**
+ * Enter client secret directly, or select a stored secret
+ */
+export const AuthenticationMethodWiz = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter client secret directly, or select a stored secret
+ */
+export type AuthenticationMethodWiz = OpenEnum<typeof AuthenticationMethodWiz>;
 
 export type InputWiz = {
   /**
@@ -761,8 +1625,8 @@ export type InputWiz = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionWiz> | undefined;
+  pq?: PqWiz | undefined;
   /**
    * The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
    */
@@ -803,12 +1667,12 @@ export type InputWiz = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
-  retryRules?: models.RetryRulesType | undefined;
+  metadata?: Array<MetadatumWiz> | undefined;
+  retryRules?: RetryRulesWiz | undefined;
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: AuthenticationMethodWiz | undefined;
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -820,6 +1684,83 @@ export type InputWiz = {
   textSecret?: string | undefined;
 };
 
+export type InputJournalFilesConnection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputJournalFilesMode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputJournalFilesMode = OpenEnum<typeof InputJournalFilesMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputJournalFilesCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputJournalFilesCompression = OpenEnum<
+  typeof InputJournalFilesCompression
+>;
+
+export type InputJournalFilesPqControls = {};
+
+export type InputJournalFilesPq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputJournalFilesMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputJournalFilesCompression | undefined;
+  pqControls?: InputJournalFilesPqControls | undefined;
+};
+
 export type InputJournalFilesRule = {
   /**
    * JavaScript expression applied to Journal objects. Return 'true' to include it.
@@ -829,6 +1770,14 @@ export type InputJournalFilesRule = {
    * Optional description of this rule's purpose
    */
   description?: string | undefined;
+};
+
+export type InputJournalFilesMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputJournalFiles = {
@@ -861,8 +1810,8 @@ export type InputJournalFiles = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<InputJournalFilesConnection> | undefined;
+  pq?: InputJournalFilesPq | undefined;
   /**
    * Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
    */
@@ -890,8 +1839,91 @@ export type InputJournalFiles = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputJournalFilesMetadatum> | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionRawUDP = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeRawUDP = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeRawUDP = OpenEnum<typeof ModeRawUDP>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionRawUDP = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionRawUDP = OpenEnum<typeof CompressionRawUDP>;
+
+export type PqControlsRawUDP = {};
+
+export type PqRawUDP = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeRawUDP | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionRawUDP | undefined;
+  pqControls?: PqControlsRawUDP | undefined;
+};
+
+export type MetadatumRawUDP = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputRawUdp = {
@@ -924,8 +1956,8 @@ export type InputRawUdp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionRawUDP> | undefined;
+  pq?: PqRawUDP | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -957,8 +1989,83 @@ export type InputRawUdp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumRawUDP> | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionWinEventLogs = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeWinEventLogs = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeWinEventLogs = OpenEnum<typeof ModeWinEventLogs>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionWinEventLogs = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionWinEventLogs = OpenEnum<typeof CompressionWinEventLogs>;
+
+export type PqControlsWinEventLogs = {};
+
+export type PqWinEventLogs = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeWinEventLogs | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionWinEventLogs | undefined;
+  pqControls?: PqControlsWinEventLogs | undefined;
 };
 
 /**
@@ -997,6 +2104,14 @@ export const EventFormat = {
  */
 export type EventFormat = OpenEnum<typeof EventFormat>;
 
+export type MetadatumWinEventLogs = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
 export type InputWinEventLogs = {
   /**
    * Unique ID for this input
@@ -1027,8 +2142,8 @@ export type InputWinEventLogs = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionWinEventLogs> | undefined;
+  pq?: PqWinEventLogs | undefined;
   /**
    * Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
    */
@@ -1056,7 +2171,7 @@ export type InputWinEventLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumWinEventLogs> | undefined;
   /**
    * The maximum number of bytes in an event before it is flushed to the pipelines
    */
@@ -1070,6 +2185,81 @@ export type InputWinEventLogs = {
    * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
    */
   disableXmlRendering?: boolean | undefined;
+};
+
+export type ConnectionWef = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeWef = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeWef = OpenEnum<typeof ModeWef>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionWef = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionWef = OpenEnum<typeof CompressionWef>;
+
+export type PqControlsWef = {};
+
+export type PqWef = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeWef | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionWef | undefined;
+  pqControls?: PqControlsWef | undefined;
 };
 
 /**
@@ -1091,6 +2281,22 @@ export const AuthMethodAuthenticationMethod = {
 export type AuthMethodAuthenticationMethod = OpenEnum<
   typeof AuthMethodAuthenticationMethod
 >;
+
+export const MinimumTLSVersionWef = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MinimumTLSVersionWef = OpenEnum<typeof MinimumTLSVersionWef>;
+
+export const MaximumTLSVersionWef = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MaximumTLSVersionWef = OpenEnum<typeof MaximumTLSVersionWef>;
 
 export type MTLSSettings = {
   /**
@@ -1129,12 +2335,8 @@ export type MTLSSettings = {
    * Regex matching allowable common names in peer certificates' subject attribute
    */
   commonNameRegex?: string | undefined;
-  minVersion?:
-    | models.MinimumTlsVersionOptionsKafkaSchemaRegistryTls
-    | undefined;
-  maxVersion?:
-    | models.MaximumTlsVersionOptionsKafkaSchemaRegistryTls
-    | undefined;
+  minVersion?: MinimumTLSVersionWef | undefined;
+  maxVersion?: MaximumTLSVersionWef | undefined;
   /**
    * Enable OCSP check of certificate
    */
@@ -1164,6 +2366,14 @@ export const QueryBuilderMode = {
   Xml: "xml",
 } as const;
 export type QueryBuilderMode = OpenEnum<typeof QueryBuilderMode>;
+
+export type SubscriptionMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
 
 export type Query = {
   /**
@@ -1218,12 +2428,20 @@ export type Subscription = {
   /**
    * Fields to add to events ingested under this subscription
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<SubscriptionMetadatum> | undefined;
   queries?: Array<Query> | undefined;
   /**
    * The XPath query to use for selecting events
    */
   xmlQuery?: string | undefined;
+};
+
+export type MetadatumWef = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputWef = {
@@ -1256,8 +2474,8 @@ export type InputWef = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionWef> | undefined;
+  pq?: PqWef | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -1330,12 +2548,95 @@ export type InputWef = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumWef> | undefined;
   description?: string | undefined;
   /**
    * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
    */
   logFingerprintMismatch?: boolean | undefined;
+};
+
+export type ConnectionAppscope = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeAppscope = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeAppscope = OpenEnum<typeof ModeAppscope>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionAppscope = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionAppscope = OpenEnum<typeof CompressionAppscope>;
+
+export type PqControlsAppscope = {};
+
+export type PqAppscope = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeAppscope | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionAppscope | undefined;
+  pqControls?: PqControlsAppscope | undefined;
+};
+
+export type MetadatumAppscope = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type Allow = {
@@ -1364,6 +2665,14 @@ export type FilterAppscope = {
   transportURL?: string | undefined;
 };
 
+export const DataCompressionFormatAppscope = {
+  None: "none",
+  Gzip: "gzip",
+} as const;
+export type DataCompressionFormatAppscope = OpenEnum<
+  typeof DataCompressionFormatAppscope
+>;
+
 export type PersistenceAppscope = {
   /**
    * Spool events and metrics on disk for Cribl Edge and Search
@@ -1381,11 +2690,83 @@ export type PersistenceAppscope = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: models.DataCompressionFormatOptionsPersistence | undefined;
+  compress?: DataCompressionFormatAppscope | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/appscope
    */
   destPath?: string | undefined;
+};
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const AuthenticationMethodAppscope = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type AuthenticationMethodAppscope = OpenEnum<
+  typeof AuthenticationMethodAppscope
+>;
+
+export const MinimumTLSVersionAppscope = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MinimumTLSVersionAppscope = OpenEnum<
+  typeof MinimumTLSVersionAppscope
+>;
+
+export const MaximumTLSVersionAppscope = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MaximumTLSVersionAppscope = OpenEnum<
+  typeof MaximumTLSVersionAppscope
+>;
+
+export type TLSSettingsServerSideAppscope = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: MinimumTLSVersionAppscope | undefined;
+  maxVersion?: MaximumTLSVersionAppscope | undefined;
 };
 
 export type InputAppscope = {
@@ -1418,8 +2799,8 @@ export type InputAppscope = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionAppscope> | undefined;
+  pq?: PqAppscope | undefined;
   /**
    * Regex matching IP addresses that are allowed to establish a connection
    */
@@ -1447,7 +2828,7 @@ export type InputAppscope = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumAppscope> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -1465,7 +2846,7 @@ export type InputAppscope = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  authType?: AuthenticationMethodAppscope | undefined;
   description?: string | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -1475,7 +2856,7 @@ export type InputAppscope = {
    * Port to listen on
    */
   port?: number | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideAppscope | undefined;
   /**
    * Path to the UNIX domain socket to listen on.
    */
@@ -1493,6 +2874,167 @@ export type InputAppscope = {
    */
   textSecret?: string | undefined;
 };
+
+export type ConnectionTCP = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeTCP = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeTCP = OpenEnum<typeof ModeTCP>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionTCP = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionTCP = OpenEnum<typeof CompressionTCP>;
+
+export type PqControlsTCP = {};
+
+export type PqTCP = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeTCP | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionTCP | undefined;
+  pqControls?: PqControlsTCP | undefined;
+};
+
+export const MinimumTLSVersionTCP = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MinimumTLSVersionTCP = OpenEnum<typeof MinimumTLSVersionTCP>;
+
+export const MaximumTLSVersionTCP = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MaximumTLSVersionTCP = OpenEnum<typeof MaximumTLSVersionTCP>;
+
+export type TLSSettingsServerSideTCP = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: MinimumTLSVersionTCP | undefined;
+  maxVersion?: MaximumTLSVersionTCP | undefined;
+};
+
+export type MetadatumTCP = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type PreprocessTCP = {
+  disabled?: boolean | undefined;
+  /**
+   * Command to feed the data through (via stdin) and process its output (stdout)
+   */
+  command?: string | undefined;
+  /**
+   * Arguments to be added to the custom command
+   */
+  args?: Array<string> | undefined;
+};
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const AuthenticationMethodTCP = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type AuthenticationMethodTCP = OpenEnum<typeof AuthenticationMethodTCP>;
 
 export type InputTcp = {
   /**
@@ -1524,8 +3066,8 @@ export type InputTcp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionTCP> | undefined;
+  pq?: PqTCP | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -1534,7 +3076,7 @@ export type InputTcp = {
    * Port to listen on
    */
   port: number;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideTCP | undefined;
   /**
    * Regex matching IP addresses that are allowed to establish a connection
    */
@@ -1562,7 +3104,7 @@ export type InputTcp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumTCP> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -1575,7 +3117,7 @@ export type InputTcp = {
    * Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
    */
   enableHeader?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: PreprocessTCP | undefined;
   description?: string | undefined;
   /**
    * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
@@ -1584,11 +3126,86 @@ export type InputTcp = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  authType?: AuthenticationMethodTCP | undefined;
   /**
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+};
+
+export type InputFileConnection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputFilePqMode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputFilePqMode = OpenEnum<typeof InputFilePqMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputFileCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputFileCompression = OpenEnum<typeof InputFileCompression>;
+
+export type InputFilePqControls = {};
+
+export type InputFilePq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputFilePqMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputFileCompression | undefined;
+  pqControls?: InputFilePqControls | undefined;
 };
 
 /**
@@ -1608,6 +3225,14 @@ export const InputFileMode = {
  * Choose how to discover files to monitor
  */
 export type InputFileMode = OpenEnum<typeof InputFileMode>;
+
+export type InputFileMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
 
 export type InputFile = {
   /**
@@ -1639,8 +3264,8 @@ export type InputFile = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<InputFileConnection> | undefined;
+  pq?: InputFilePq | undefined;
   /**
    * Choose how to discover files to monitor
    */
@@ -1688,7 +3313,7 @@ export type InputFile = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputFileMetadatum> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -1722,6 +3347,147 @@ export const InputSyslogType2 = {
 } as const;
 export type InputSyslogType2 = ClosedEnum<typeof InputSyslogType2>;
 
+export type InputSyslogConnection2 = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputSyslogMode2 = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputSyslogMode2 = OpenEnum<typeof InputSyslogMode2>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputSyslogCompression2 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputSyslogCompression2 = OpenEnum<typeof InputSyslogCompression2>;
+
+export type InputSyslogPqControls2 = {};
+
+export type InputSyslogPq2 = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputSyslogMode2 | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputSyslogCompression2 | undefined;
+  pqControls?: InputSyslogPqControls2 | undefined;
+};
+
+export const InputSyslogMinimumTLSVersion2 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputSyslogMinimumTLSVersion2 = OpenEnum<
+  typeof InputSyslogMinimumTLSVersion2
+>;
+
+export const InputSyslogMaximumTLSVersion2 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputSyslogMaximumTLSVersion2 = OpenEnum<
+  typeof InputSyslogMaximumTLSVersion2
+>;
+
+export type InputSyslogTLSSettingsServerSide2 = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: InputSyslogMinimumTLSVersion2 | undefined;
+  maxVersion?: InputSyslogMaximumTLSVersion2 | undefined;
+};
+
+export type InputSyslogMetadatum2 = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
 export type InputSyslogSyslog2 = {
   /**
    * Unique ID for this input
@@ -1752,8 +3518,8 @@ export type InputSyslogSyslog2 = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<InputSyslogConnection2> | undefined;
+  pq?: InputSyslogPq2 | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -1822,11 +3588,11 @@ export type InputSyslogSyslog2 = {
    * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
    */
   socketMaxLifespan?: number | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: InputSyslogTLSSettingsServerSide2 | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputSyslogMetadatum2> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -1846,6 +3612,147 @@ export const InputSyslogType1 = {
   Syslog: "syslog",
 } as const;
 export type InputSyslogType1 = ClosedEnum<typeof InputSyslogType1>;
+
+export type InputSyslogConnection1 = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputSyslogMode1 = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputSyslogMode1 = OpenEnum<typeof InputSyslogMode1>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputSyslogCompression1 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputSyslogCompression1 = OpenEnum<typeof InputSyslogCompression1>;
+
+export type InputSyslogPqControls1 = {};
+
+export type InputSyslogPq1 = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputSyslogMode1 | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputSyslogCompression1 | undefined;
+  pqControls?: InputSyslogPqControls1 | undefined;
+};
+
+export const InputSyslogMinimumTLSVersion1 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputSyslogMinimumTLSVersion1 = OpenEnum<
+  typeof InputSyslogMinimumTLSVersion1
+>;
+
+export const InputSyslogMaximumTLSVersion1 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputSyslogMaximumTLSVersion1 = OpenEnum<
+  typeof InputSyslogMaximumTLSVersion1
+>;
+
+export type InputSyslogTLSSettingsServerSide1 = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: InputSyslogMinimumTLSVersion1 | undefined;
+  maxVersion?: InputSyslogMaximumTLSVersion1 | undefined;
+};
+
+export type InputSyslogMetadatum1 = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
 
 export type InputSyslogSyslog1 = {
   /**
@@ -1877,8 +3784,8 @@ export type InputSyslogSyslog1 = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<InputSyslogConnection1> | undefined;
+  pq?: InputSyslogPq1 | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -1947,11 +3854,11 @@ export type InputSyslogSyslog1 = {
    * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
    */
   socketMaxLifespan?: number | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: InputSyslogTLSSettingsServerSide1 | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputSyslogMetadatum1> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -1968,6 +3875,81 @@ export type InputSyslogSyslog1 = {
 };
 
 export type InputSyslog = InputSyslogSyslog1 | InputSyslogSyslog2;
+
+export type ConnectionSqs = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModeSqs = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModeSqs = OpenEnum<typeof PqModeSqs>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionSqs = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionSqs = OpenEnum<typeof PqCompressionSqs>;
+
+export type CreateInputPqControlsSqs = {};
+
+export type PqSqs = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModeSqs | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionSqs | undefined;
+  pqControls?: CreateInputPqControlsSqs | undefined;
+};
 
 /**
  * The queue type used (or created)
@@ -1986,6 +3968,52 @@ export const CreateInputQueueType = {
  * The queue type used (or created)
  */
 export type CreateInputQueueType = OpenEnum<typeof CreateInputQueueType>;
+
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const CreateInputAuthenticationMethodSqs = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type CreateInputAuthenticationMethodSqs = OpenEnum<
+  typeof CreateInputAuthenticationMethodSqs
+>;
+
+/**
+ * Signature version to use for signing SQS requests
+ */
+export const CreateInputSignatureVersionSqs = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing SQS requests
+ */
+export type CreateInputSignatureVersionSqs = OpenEnum<
+  typeof CreateInputSignatureVersionSqs
+>;
+
+export type MetadatumSqs = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
 
 export type InputSqs = {
   /**
@@ -2017,8 +4045,8 @@ export type InputSqs = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionSqs> | undefined;
+  pq?: PqSqs | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -2038,7 +4066,7 @@ export type InputSqs = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: CreateInputAuthenticationMethodSqs | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -2051,7 +4079,7 @@ export type InputSqs = {
   /**
    * Signature version to use for signing SQS requests
    */
-  signatureVersion?: models.SignatureVersionOptions4 | undefined;
+  signatureVersion?: CreateInputSignatureVersionSqs | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -2087,7 +4115,7 @@ export type InputSqs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumSqs> | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -2102,6 +4130,151 @@ export type InputSqs = {
    * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
    */
   numReceivers?: number | undefined;
+};
+
+export type ConnectionModelDrivenTelemetry = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeModelDrivenTelemetry = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeModelDrivenTelemetry = OpenEnum<
+  typeof ModeModelDrivenTelemetry
+>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionModelDrivenTelemetry = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionModelDrivenTelemetry = OpenEnum<
+  typeof CompressionModelDrivenTelemetry
+>;
+
+export type PqControlsModelDrivenTelemetry = {};
+
+export type PqModelDrivenTelemetry = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeModelDrivenTelemetry | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionModelDrivenTelemetry | undefined;
+  pqControls?: PqControlsModelDrivenTelemetry | undefined;
+};
+
+export const MinimumTLSVersionModelDrivenTelemetry = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MinimumTLSVersionModelDrivenTelemetry = OpenEnum<
+  typeof MinimumTLSVersionModelDrivenTelemetry
+>;
+
+export const MaximumTLSVersionModelDrivenTelemetry = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MaximumTLSVersionModelDrivenTelemetry = OpenEnum<
+  typeof MaximumTLSVersionModelDrivenTelemetry
+>;
+
+export type TLSSettingsServerSideModelDrivenTelemetry = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: MinimumTLSVersionModelDrivenTelemetry | undefined;
+  maxVersion?: MaximumTLSVersionModelDrivenTelemetry | undefined;
+};
+
+export type MetadatumModelDrivenTelemetry = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputModelDrivenTelemetry = {
@@ -2134,8 +4307,8 @@ export type InputModelDrivenTelemetry = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionModelDrivenTelemetry> | undefined;
+  pq?: PqModelDrivenTelemetry | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -2144,11 +4317,11 @@ export type InputModelDrivenTelemetry = {
    * Port to listen on
    */
   port?: number | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideModelDrivenTelemetry | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumModelDrivenTelemetry> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -2160,10 +4333,145 @@ export type InputModelDrivenTelemetry = {
   description?: string | undefined;
 };
 
+export type ConnectionOpenTelemetry = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModeOpenTelemetry = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModeOpenTelemetry = OpenEnum<typeof PqModeOpenTelemetry>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionOpenTelemetry = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionOpenTelemetry = OpenEnum<
+  typeof PqCompressionOpenTelemetry
+>;
+
+export type CreateInputPqControlsOpenTelemetry = {};
+
+export type PqOpenTelemetry = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModeOpenTelemetry | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionOpenTelemetry | undefined;
+  pqControls?: CreateInputPqControlsOpenTelemetry | undefined;
+};
+
+export const CreateInputMinimumTLSVersionOpenTelemetry = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMinimumTLSVersionOpenTelemetry = OpenEnum<
+  typeof CreateInputMinimumTLSVersionOpenTelemetry
+>;
+
+export const CreateInputMaximumTLSVersionOpenTelemetry = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMaximumTLSVersionOpenTelemetry = OpenEnum<
+  typeof CreateInputMaximumTLSVersionOpenTelemetry
+>;
+
+export type TLSSettingsServerSideOpenTelemetry = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: CreateInputMinimumTLSVersionOpenTelemetry | undefined;
+  maxVersion?: CreateInputMaximumTLSVersionOpenTelemetry | undefined;
+};
+
 /**
  * Select whether to leverage gRPC or HTTP for OpenTelemetry
  */
-export const CreateInputProtocol = {
+export const CreateInputProtocolOpenTelemetry = {
   /**
    * gRPC
    */
@@ -2176,7 +4484,9 @@ export const CreateInputProtocol = {
 /**
  * Select whether to leverage gRPC or HTTP for OpenTelemetry
  */
-export type CreateInputProtocol = OpenEnum<typeof CreateInputProtocol>;
+export type CreateInputProtocolOpenTelemetry = OpenEnum<
+  typeof CreateInputProtocolOpenTelemetry
+>;
 
 /**
  * The version of OTLP Protobuf definitions to use when interpreting received data
@@ -2195,6 +4505,54 @@ export const CreateInputOTLPVersion = {
  * The version of OTLP Protobuf definitions to use when interpreting received data
  */
 export type CreateInputOTLPVersion = OpenEnum<typeof CreateInputOTLPVersion>;
+
+/**
+ * OpenTelemetry authentication type
+ */
+export const CreateInputAuthenticationTypeOpenTelemetry = {
+  None: "none",
+  Basic: "basic",
+  CredentialsSecret: "credentialsSecret",
+  Token: "token",
+  TextSecret: "textSecret",
+  Oauth: "oauth",
+} as const;
+/**
+ * OpenTelemetry authentication type
+ */
+export type CreateInputAuthenticationTypeOpenTelemetry = OpenEnum<
+  typeof CreateInputAuthenticationTypeOpenTelemetry
+>;
+
+export type CreateInputMetadatumOpenTelemetry = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type CreateInputOauthParamOpenTelemetry = {
+  /**
+   * OAuth parameter name
+   */
+  name: string;
+  /**
+   * OAuth parameter value
+   */
+  value: string;
+};
+
+export type CreateInputOauthHeaderOpenTelemetry = {
+  /**
+   * OAuth header name
+   */
+  name: string;
+  /**
+   * OAuth header value
+   */
+  value: string;
+};
 
 export type InputOpenTelemetry = {
   /**
@@ -2226,8 +4584,8 @@ export type InputOpenTelemetry = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionOpenTelemetry> | undefined;
+  pq?: PqOpenTelemetry | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -2236,7 +4594,7 @@ export type InputOpenTelemetry = {
    * Port to listen on
    */
   port?: number | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideOpenTelemetry | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -2275,7 +4633,7 @@ export type InputOpenTelemetry = {
   /**
    * Select whether to leverage gRPC or HTTP for OpenTelemetry
    */
-  protocol?: CreateInputProtocol | undefined;
+  protocol?: CreateInputProtocolOpenTelemetry | undefined;
   /**
    * Enable to extract each incoming span to a separate event
    */
@@ -2291,11 +4649,11 @@ export type InputOpenTelemetry = {
   /**
    * OpenTelemetry authentication type
    */
-  authType?: models.AuthenticationTypeOptions | undefined;
+  authType?: CreateInputAuthenticationTypeOpenTelemetry | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<CreateInputMetadatumOpenTelemetry> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -2342,16 +4700,123 @@ export type InputOpenTelemetry = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<CreateInputOauthParamOpenTelemetry> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<CreateInputOauthHeaderOpenTelemetry> | undefined;
   /**
    * Enable to extract each incoming log record to a separate event
    */
   extractLogs?: boolean | undefined;
 };
+
+export type ConnectionSnmp = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeSnmp = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeSnmp = OpenEnum<typeof ModeSnmp>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionSnmp = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionSnmp = OpenEnum<typeof CompressionSnmp>;
+
+export type PqControlsSnmp = {};
+
+export type PqSnmp = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeSnmp | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionSnmp | undefined;
+  pqControls?: PqControlsSnmp | undefined;
+};
+
+export const AuthenticationProtocol = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * MD5
+   */
+  Md5: "md5",
+  /**
+   * SHA1
+   */
+  Sha: "sha",
+  /**
+   * SHA224
+   */
+  Sha224: "sha224",
+  /**
+   * SHA256
+   */
+  Sha256: "sha256",
+  /**
+   * SHA384
+   */
+  Sha384: "sha384",
+  /**
+   * SHA512
+   */
+  Sha512: "sha512",
+} as const;
+export type AuthenticationProtocol = OpenEnum<typeof AuthenticationProtocol>;
 
 export const PrivacyProtocol = {
   /**
@@ -2379,7 +4844,7 @@ export type PrivacyProtocol = OpenEnum<typeof PrivacyProtocol>;
 
 export type V3User = {
   name: string;
-  authProtocol?: models.AuthenticationProtocolOptionsV3User | undefined;
+  authProtocol?: AuthenticationProtocol | undefined;
   authKey?: string | undefined;
   privProtocol?: PrivacyProtocol | undefined;
   privKey?: string | undefined;
@@ -2398,6 +4863,14 @@ export type SNMPv3Authentication = {
    * User credentials for receiving v3 traps
    */
   v3Users?: Array<V3User> | undefined;
+};
+
+export type MetadatumSnmp = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputSnmp = {
@@ -2430,8 +4903,8 @@ export type InputSnmp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionSnmp> | undefined;
+  pq?: PqSnmp | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -2455,7 +4928,7 @@ export type InputSnmp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumSnmp> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -2470,6 +4943,158 @@ export type InputSnmp = {
   bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
 };
+
+export type ConnectionS3Inventory = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeS3Inventory = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeS3Inventory = OpenEnum<typeof ModeS3Inventory>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionS3Inventory = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionS3Inventory = OpenEnum<typeof CompressionS3Inventory>;
+
+export type PqControlsS3Inventory = {};
+
+export type PqS3Inventory = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeS3Inventory | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionS3Inventory | undefined;
+  pqControls?: PqControlsS3Inventory | undefined;
+};
+
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const AuthenticationMethodS3Inventory = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type AuthenticationMethodS3Inventory = OpenEnum<
+  typeof AuthenticationMethodS3Inventory
+>;
+
+/**
+ * Signature version to use for signing S3 requests
+ */
+export const SignatureVersionS3Inventory = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing S3 requests
+ */
+export type SignatureVersionS3Inventory = OpenEnum<
+  typeof SignatureVersionS3Inventory
+>;
+
+export type PreprocessS3Inventory = {
+  disabled?: boolean | undefined;
+  /**
+   * Command to feed the data through (via stdin) and process its output (stdout)
+   */
+  command?: string | undefined;
+  /**
+   * Arguments to be added to the custom command
+   */
+  args?: Array<string> | undefined;
+};
+
+export type MetadatumS3Inventory = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type CheckpointingS3Inventory = {
+  /**
+   * Resume processing files after an interruption
+   */
+  enabled?: boolean | undefined;
+  /**
+   * The number of times to retry processing when a processing error occurs. If Skip file on error is enabled, this setting is ignored.
+   */
+  retries?: number | undefined;
+};
+
+export const TagAfterProcessingS3Inventory = {
+  False: "false",
+  True: "true",
+} as const;
+export type TagAfterProcessingS3Inventory = OpenEnum<
+  typeof TagAfterProcessingS3Inventory
+>;
 
 export type InputS3Inventory = {
   /**
@@ -2501,8 +5126,8 @@ export type InputS3Inventory = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionS3Inventory> | undefined;
+  pq?: PqS3Inventory | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -2518,7 +5143,7 @@ export type InputS3Inventory = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodS3Inventory | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -2531,7 +5156,7 @@ export type InputS3Inventory = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: models.SignatureVersionOptions | undefined;
+  signatureVersion?: SignatureVersionS3Inventory | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -2592,11 +5217,11 @@ export type InputS3Inventory = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: PreprocessS3Inventory | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumS3Inventory> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -2605,7 +5230,7 @@ export type InputS3Inventory = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  checkpointing?: models.CheckpointingType | undefined;
+  checkpointing?: CheckpointingS3Inventory | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -2628,7 +5253,7 @@ export type InputS3Inventory = {
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
-  tagAfterProcessing?: models.TagAfterProcessingOptions | undefined;
+  tagAfterProcessing?: TagAfterProcessingS3Inventory | undefined;
   /**
    * The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
@@ -2637,6 +5262,150 @@ export type InputS3Inventory = {
    * The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
   processedTagValue?: string | undefined;
+};
+
+export type ConnectionS3 = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeS3 = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeS3 = OpenEnum<typeof ModeS3>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionS3 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionS3 = OpenEnum<typeof PqCompressionS3>;
+
+export type PqControlsS3 = {};
+
+export type PqS3 = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeS3 | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionS3 | undefined;
+  pqControls?: PqControlsS3 | undefined;
+};
+
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const CreateInputAuthenticationMethodS3 = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type CreateInputAuthenticationMethodS3 = OpenEnum<
+  typeof CreateInputAuthenticationMethodS3
+>;
+
+/**
+ * Signature version to use for signing S3 requests
+ */
+export const CreateInputSignatureVersionS3 = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing S3 requests
+ */
+export type CreateInputSignatureVersionS3 = OpenEnum<
+  typeof CreateInputSignatureVersionS3
+>;
+
+export type PreprocessS3 = {
+  disabled?: boolean | undefined;
+  /**
+   * Command to feed the data through (via stdin) and process its output (stdout)
+   */
+  command?: string | undefined;
+  /**
+   * Arguments to be added to the custom command
+   */
+  args?: Array<string> | undefined;
+};
+
+export type MetadatumS3 = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type CheckpointingS3 = {
+  /**
+   * Resume processing files after an interruption
+   */
+  enabled?: boolean | undefined;
+  /**
+   * The number of times to retry processing when a processing error occurs. If Skip file on error is enabled, this setting is ignored.
+   */
+  retries?: number | undefined;
 };
 
 export type InputS3 = {
@@ -2669,8 +5438,8 @@ export type InputS3 = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionS3> | undefined;
+  pq?: PqS3 | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -2686,7 +5455,7 @@ export type InputS3 = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: CreateInputAuthenticationMethodS3 | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -2699,7 +5468,7 @@ export type InputS3 = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: models.SignatureVersionOptions | undefined;
+  signatureVersion?: CreateInputSignatureVersionS3 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -2760,11 +5529,11 @@ export type InputS3 = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: PreprocessS3 | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumS3> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -2773,7 +5542,7 @@ export type InputS3 = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  checkpointing?: models.CheckpointingType | undefined;
+  checkpointing?: CheckpointingS3 | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -2800,6 +5569,147 @@ export type InputS3 = {
    * The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
   processedTagValue?: string | undefined;
+};
+
+export type ConnectionMetrics = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeMetrics = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeMetrics = OpenEnum<typeof ModeMetrics>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionMetrics = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionMetrics = OpenEnum<typeof CompressionMetrics>;
+
+export type PqControlsMetrics = {};
+
+export type PqMetrics = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeMetrics | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionMetrics | undefined;
+  pqControls?: PqControlsMetrics | undefined;
+};
+
+export const MinimumTLSVersionMetrics = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MinimumTLSVersionMetrics = OpenEnum<
+  typeof MinimumTLSVersionMetrics
+>;
+
+export const MaximumTLSVersionMetrics = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MaximumTLSVersionMetrics = OpenEnum<
+  typeof MaximumTLSVersionMetrics
+>;
+
+export type TLSSettingsServerSideMetrics = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: MinimumTLSVersionMetrics | undefined;
+  maxVersion?: MaximumTLSVersionMetrics | undefined;
+};
+
+export type MetadatumMetrics = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputMetrics = {
@@ -2832,8 +5742,8 @@ export type InputMetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionMetrics> | undefined;
+  pq?: PqMetrics | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -2858,16 +5768,99 @@ export type InputMetrics = {
    * Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
    */
   enableProxyHeader?: boolean | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideMetrics | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumMetrics> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
   udpSocketRxBufSize?: number | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionCriblmetrics = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeCriblmetrics = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeCriblmetrics = OpenEnum<typeof ModeCriblmetrics>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionCriblmetrics = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionCriblmetrics = OpenEnum<typeof CompressionCriblmetrics>;
+
+export type PqControlsCriblmetrics = {};
+
+export type PqCriblmetrics = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeCriblmetrics | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionCriblmetrics | undefined;
+  pqControls?: PqControlsCriblmetrics | undefined;
+};
+
+export type MetadatumCriblmetrics = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputCriblmetrics = {
@@ -2900,8 +5893,8 @@ export type InputCriblmetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionCriblmetrics> | undefined;
+  pq?: PqCriblmetrics | undefined;
   /**
    * A prefix that is applied to the metrics provided by Cribl Stream
    */
@@ -2913,8 +5906,83 @@ export type InputCriblmetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumCriblmetrics> | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionKinesis = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModeKinesis = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModeKinesis = OpenEnum<typeof PqModeKinesis>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionKinesis = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionKinesis = OpenEnum<typeof PqCompressionKinesis>;
+
+export type CreateInputPqControlsKinesis = {};
+
+export type PqKinesis = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModeKinesis | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionKinesis | undefined;
+  pqControls?: CreateInputPqControlsKinesis | undefined;
 };
 
 /**
@@ -2938,7 +6006,7 @@ export type ShardIteratorStart = OpenEnum<typeof ShardIteratorStart>;
 /**
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export const RecordDataFormat = {
+export const CreateInputRecordDataFormat = {
   /**
    * Cribl
    */
@@ -2959,7 +6027,9 @@ export const RecordDataFormat = {
 /**
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export type RecordDataFormat = OpenEnum<typeof RecordDataFormat>;
+export type CreateInputRecordDataFormat = OpenEnum<
+  typeof CreateInputRecordDataFormat
+>;
 
 /**
  * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
@@ -2978,6 +6048,52 @@ export const ShardLoadBalancing = {
  * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
  */
 export type ShardLoadBalancing = OpenEnum<typeof ShardLoadBalancing>;
+
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const CreateInputAuthenticationMethodKinesis = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type CreateInputAuthenticationMethodKinesis = OpenEnum<
+  typeof CreateInputAuthenticationMethodKinesis
+>;
+
+/**
+ * Signature version to use for signing Kinesis stream requests
+ */
+export const CreateInputSignatureVersionKinesis = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing Kinesis stream requests
+ */
+export type CreateInputSignatureVersionKinesis = OpenEnum<
+  typeof CreateInputSignatureVersionKinesis
+>;
+
+export type MetadatumKinesis = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
 
 export type InputKinesis = {
   /**
@@ -3009,8 +6125,8 @@ export type InputKinesis = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionKinesis> | undefined;
+  pq?: PqKinesis | undefined;
   /**
    * Kinesis Data Stream to read data from
    */
@@ -3030,7 +6146,7 @@ export type InputKinesis = {
   /**
    * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
    */
-  payloadFormat?: RecordDataFormat | undefined;
+  payloadFormat?: CreateInputRecordDataFormat | undefined;
   /**
    * Maximum number of records per getRecords call
    */
@@ -3046,7 +6162,7 @@ export type InputKinesis = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: CreateInputAuthenticationMethodKinesis | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the Kinesis stream is located
@@ -3059,7 +6175,7 @@ export type InputKinesis = {
   /**
    * Signature version to use for signing Kinesis stream requests
    */
-  signatureVersion?: models.SignatureVersionOptions3 | undefined;
+  signatureVersion?: CreateInputSignatureVersionKinesis | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -3095,13 +6211,174 @@ export type InputKinesis = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumKinesis> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
+};
+
+export type ConnectionHTTPRaw = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeHTTPRaw = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeHTTPRaw = OpenEnum<typeof ModeHTTPRaw>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionHTTPRaw = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionHTTPRaw = OpenEnum<typeof CompressionHTTPRaw>;
+
+export type PqControlsHTTPRaw = {};
+
+export type PqHTTPRaw = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeHTTPRaw | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionHTTPRaw | undefined;
+  pqControls?: PqControlsHTTPRaw | undefined;
+};
+
+export const MinimumTLSVersionHTTPRaw = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MinimumTLSVersionHTTPRaw = OpenEnum<
+  typeof MinimumTLSVersionHTTPRaw
+>;
+
+export const MaximumTLSVersionHTTPRaw = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MaximumTLSVersionHTTPRaw = OpenEnum<
+  typeof MaximumTLSVersionHTTPRaw
+>;
+
+export type TLSSettingsServerSideHTTPRaw = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: MinimumTLSVersionHTTPRaw | undefined;
+  maxVersion?: MaximumTLSVersionHTTPRaw | undefined;
+};
+
+export type MetadatumHTTPRaw = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type AuthTokensExtMetadatumHTTPRaw = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type AuthTokensExtHTTPRaw = {
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token: string;
+  description?: string | undefined;
+  /**
+   * Fields to add to events referencing this token
+   */
+  metadata?: Array<AuthTokensExtMetadatumHTTPRaw> | undefined;
 };
 
 export type InputHttpRaw = {
@@ -3134,8 +6411,8 @@ export type InputHttpRaw = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionHTTPRaw> | undefined;
+  pq?: PqHTTPRaw | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -3148,7 +6425,7 @@ export type InputHttpRaw = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideHTTPRaw | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -3204,7 +6481,7 @@ export type InputHttpRaw = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumHTTPRaw> | undefined;
   /**
    * List of URI paths accepted by this input, wildcards are supported, e.g /api/v* /hook. Defaults to allow all.
    */
@@ -3216,8 +6493,83 @@ export type InputHttpRaw = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokensExt?: Array<models.ItemsTypeAuthTokensExt> | undefined;
+  authTokensExt?: Array<AuthTokensExtHTTPRaw> | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionDatagen = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeDatagen = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeDatagen = OpenEnum<typeof ModeDatagen>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionDatagen = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionDatagen = OpenEnum<typeof CompressionDatagen>;
+
+export type PqControlsDatagen = {};
+
+export type PqDatagen = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeDatagen | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionDatagen | undefined;
+  pqControls?: PqControlsDatagen | undefined;
 };
 
 export type Sample = {
@@ -3226,6 +6578,14 @@ export type Sample = {
    * Maximum number of events to generate per second per Worker Node. Defaults to 10.
    */
   eventsPerSec?: number | undefined;
+};
+
+export type MetadatumDatagen = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputDatagen = {
@@ -3258,14 +6618,155 @@ export type InputDatagen = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionDatagen> | undefined;
+  pq?: PqDatagen | undefined;
   samples: Array<Sample>;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumDatagen> | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionDatadogAgent = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeDatadogAgent = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeDatadogAgent = OpenEnum<typeof ModeDatadogAgent>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionDatadogAgent = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionDatadogAgent = OpenEnum<typeof CompressionDatadogAgent>;
+
+export type PqControlsDatadogAgent = {};
+
+export type PqDatadogAgent = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeDatadogAgent | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionDatadogAgent | undefined;
+  pqControls?: PqControlsDatadogAgent | undefined;
+};
+
+export const MinimumTLSVersionDatadogAgent = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MinimumTLSVersionDatadogAgent = OpenEnum<
+  typeof MinimumTLSVersionDatadogAgent
+>;
+
+export const MaximumTLSVersionDatadogAgent = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MaximumTLSVersionDatadogAgent = OpenEnum<
+  typeof MaximumTLSVersionDatadogAgent
+>;
+
+export type TLSSettingsServerSideDatadogAgent = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: MinimumTLSVersionDatadogAgent | undefined;
+  maxVersion?: MaximumTLSVersionDatadogAgent | undefined;
+};
+
+export type MetadatumDatadogAgent = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type ProxyModeDatadogAgent = {
@@ -3309,8 +6810,8 @@ export type InputDatadogAgent = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionDatadogAgent> | undefined;
+  pq?: PqDatadogAgent | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -3319,7 +6820,7 @@ export type InputDatadogAgent = {
    * Port to listen on
    */
   port: number;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideDatadogAgent | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -3371,10 +6872,162 @@ export type InputDatadogAgent = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumDatadogAgent> | undefined;
   proxyMode?: ProxyModeDatadogAgent | undefined;
   description?: string | undefined;
 };
+
+export type ConnectionCrowdstrike = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeCrowdstrike = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeCrowdstrike = OpenEnum<typeof ModeCrowdstrike>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionCrowdstrike = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionCrowdstrike = OpenEnum<typeof CompressionCrowdstrike>;
+
+export type PqControlsCrowdstrike = {};
+
+export type PqCrowdstrike = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeCrowdstrike | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionCrowdstrike | undefined;
+  pqControls?: PqControlsCrowdstrike | undefined;
+};
+
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const AuthenticationMethodCrowdstrike = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type AuthenticationMethodCrowdstrike = OpenEnum<
+  typeof AuthenticationMethodCrowdstrike
+>;
+
+/**
+ * Signature version to use for signing S3 requests
+ */
+export const SignatureVersionCrowdstrike = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing S3 requests
+ */
+export type SignatureVersionCrowdstrike = OpenEnum<
+  typeof SignatureVersionCrowdstrike
+>;
+
+export type PreprocessCrowdstrike = {
+  disabled?: boolean | undefined;
+  /**
+   * Command to feed the data through (via stdin) and process its output (stdout)
+   */
+  command?: string | undefined;
+  /**
+   * Arguments to be added to the custom command
+   */
+  args?: Array<string> | undefined;
+};
+
+export type MetadatumCrowdstrike = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type CheckpointingCrowdstrike = {
+  /**
+   * Resume processing files after an interruption
+   */
+  enabled?: boolean | undefined;
+  /**
+   * The number of times to retry processing when a processing error occurs. If Skip file on error is enabled, this setting is ignored.
+   */
+  retries?: number | undefined;
+};
+
+export const TagAfterProcessingCrowdstrike = {
+  False: "false",
+  True: "true",
+} as const;
+export type TagAfterProcessingCrowdstrike = OpenEnum<
+  typeof TagAfterProcessingCrowdstrike
+>;
 
 export type InputCrowdstrike = {
   /**
@@ -3406,8 +7059,8 @@ export type InputCrowdstrike = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionCrowdstrike> | undefined;
+  pq?: PqCrowdstrike | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -3423,7 +7076,7 @@ export type InputCrowdstrike = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodCrowdstrike | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -3436,7 +7089,7 @@ export type InputCrowdstrike = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: models.SignatureVersionOptions | undefined;
+  signatureVersion?: SignatureVersionCrowdstrike | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -3497,12 +7150,12 @@ export type InputCrowdstrike = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: PreprocessCrowdstrike | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
-  checkpointing?: models.CheckpointingType | undefined;
+  metadata?: Array<MetadatumCrowdstrike> | undefined;
+  checkpointing?: CheckpointingCrowdstrike | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -3517,7 +7170,7 @@ export type InputCrowdstrike = {
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
-  tagAfterProcessing?: models.TagAfterProcessingOptions | undefined;
+  tagAfterProcessing?: TagAfterProcessingCrowdstrike | undefined;
   /**
    * The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
@@ -3527,6 +7180,109 @@ export type InputCrowdstrike = {
    */
   processedTagValue?: string | undefined;
 };
+
+export type ConnectionWindowsMetrics = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModeWindowsMetrics = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModeWindowsMetrics = OpenEnum<typeof PqModeWindowsMetrics>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionWindowsMetrics = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionWindowsMetrics = OpenEnum<
+  typeof CompressionWindowsMetrics
+>;
+
+export type PqControlsWindowsMetrics = {};
+
+export type PqWindowsMetrics = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModeWindowsMetrics | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionWindowsMetrics | undefined;
+  pqControls?: PqControlsWindowsMetrics | undefined;
+};
+
+/**
+ * Select level of detail for host metrics
+ */
+export const HostModeWindowsMetrics = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select level of detail for host metrics
+ */
+export type HostModeWindowsMetrics = OpenEnum<typeof HostModeWindowsMetrics>;
 
 /**
  * Select the level of details for system metrics
@@ -3759,9 +7515,38 @@ export type HostWindowsMetrics = {
   /**
    * Select level of detail for host metrics
    */
-  mode?: models.ModeOptionsHost | undefined;
+  mode?: HostModeWindowsMetrics | undefined;
   custom?: CustomWindowsMetrics | undefined;
 };
+
+export type SetWindowsMetrics = {
+  name: string;
+  filter: string;
+  includeChildren?: boolean | undefined;
+};
+
+export type ProcessWindowsMetrics = {
+  /**
+   * Configure sets to collect process metrics
+   */
+  sets?: Array<SetWindowsMetrics> | undefined;
+};
+
+export type MetadatumWindowsMetrics = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export const DataCompressionFormatWindowsMetrics = {
+  None: "none",
+  Gzip: "gzip",
+} as const;
+export type DataCompressionFormatWindowsMetrics = OpenEnum<
+  typeof DataCompressionFormatWindowsMetrics
+>;
 
 export type PersistenceWindowsMetrics = {
   /**
@@ -3780,7 +7565,7 @@ export type PersistenceWindowsMetrics = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: models.DataCompressionFormatOptionsPersistence | undefined;
+  compress?: DataCompressionFormatWindowsMetrics | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/windows_metrics
    */
@@ -3817,24 +7602,118 @@ export type InputWindowsMetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionWindowsMetrics> | undefined;
+  pq?: PqWindowsMetrics | undefined;
   /**
    * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
    */
   interval?: number | undefined;
   host?: HostWindowsMetrics | undefined;
-  process?: models.ProcessType | undefined;
+  process?: ProcessWindowsMetrics | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumWindowsMetrics> | undefined;
   persistence?: PersistenceWindowsMetrics | undefined;
   /**
    * Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
    */
   disableNativeModule?: boolean | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionKubeEvents = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeKubeEvents = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeKubeEvents = OpenEnum<typeof ModeKubeEvents>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionKubeEvents = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionKubeEvents = OpenEnum<typeof CompressionKubeEvents>;
+
+export type PqControlsKubeEvents = {};
+
+export type PqKubeEvents = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeKubeEvents | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionKubeEvents | undefined;
+  pqControls?: PqControlsKubeEvents | undefined;
+};
+
+export type RuleKubeEvents = {
+  /**
+   * JavaScript expression applied to Kubernetes objects. Return 'true' to include it.
+   */
+  filter: string;
+  /**
+   * Optional description of this rule's purpose
+   */
+  description?: string | undefined;
+};
+
+export type MetadatumKubeEvents = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputKubeEvents = {
@@ -3867,17 +7746,92 @@ export type InputKubeEvents = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionKubeEvents> | undefined;
+  pq?: PqKubeEvents | undefined;
   /**
    * Filtering on event fields
    */
-  rules?: Array<models.ItemsTypeRules> | undefined;
+  rules?: Array<RuleKubeEvents> | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumKubeEvents> | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionKubeLogs = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeKubeLogs = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeKubeLogs = OpenEnum<typeof ModeKubeLogs>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionKubeLogs = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionKubeLogs = OpenEnum<typeof PqCompressionKubeLogs>;
+
+export type PqControlsKubeLogs = {};
+
+export type PqKubeLogs = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeKubeLogs | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionKubeLogs | undefined;
+  pqControls?: PqControlsKubeLogs | undefined;
 };
 
 export type RuleKubeLogs = {
@@ -3889,6 +7843,51 @@ export type RuleKubeLogs = {
    * Optional description of this rule's purpose
    */
   description?: string | undefined;
+};
+
+export type MetadatumKubeLogs = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+/**
+ * Data compression format. Default is gzip.
+ */
+export const PersistenceCompressionKubeLogs = {
+  None: "none",
+  Gzip: "gzip",
+} as const;
+/**
+ * Data compression format. Default is gzip.
+ */
+export type PersistenceCompressionKubeLogs = OpenEnum<
+  typeof PersistenceCompressionKubeLogs
+>;
+
+export type DiskSpoolingKubeLogs = {
+  /**
+   * Spool events on disk for Cribl Edge and Search. Default is disabled.
+   */
+  enable?: boolean | undefined;
+  /**
+   * Time period for grouping spooled events. Default is 10m.
+   */
+  timeWindow?: string | undefined;
+  /**
+   * Maximum disk space that can be consumed before older buckets are deleted. Examples: 420MB, 4GB. Default is 1GB.
+   */
+  maxDataSize?: string | undefined;
+  /**
+   * Maximum amount of time to retain data before older buckets are deleted. Examples: 2h, 4d. Default is 24h.
+   */
+  maxDataTime?: string | undefined;
+  /**
+   * Data compression format. Default is gzip.
+   */
+  compress?: PersistenceCompressionKubeLogs | undefined;
 };
 
 export type InputKubeLogs = {
@@ -3921,8 +7920,8 @@ export type InputKubeLogs = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionKubeLogs> | undefined;
+  pq?: PqKubeLogs | undefined;
   /**
    * Time, in seconds, between checks for new containers. Default is 15 secs.
    */
@@ -3938,8 +7937,8 @@ export type InputKubeLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
-  persistence?: models.DiskSpoolingType | undefined;
+  metadata?: Array<MetadatumKubeLogs> | undefined;
+  persistence?: DiskSpoolingKubeLogs | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -3954,6 +7953,108 @@ export type InputKubeLogs = {
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
 };
+
+export type ConnectionKubeMetrics = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeKubeMetrics = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeKubeMetrics = OpenEnum<typeof ModeKubeMetrics>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionKubeMetrics = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionKubeMetrics = OpenEnum<typeof CompressionKubeMetrics>;
+
+export type PqControlsKubeMetrics = {};
+
+export type PqKubeMetrics = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeKubeMetrics | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionKubeMetrics | undefined;
+  pqControls?: PqControlsKubeMetrics | undefined;
+};
+
+export type RuleKubeMetrics = {
+  /**
+   * JavaScript expression applied to Kubernetes objects. Return 'true' to include it.
+   */
+  filter: string;
+  /**
+   * Optional description of this rule's purpose
+   */
+  description?: string | undefined;
+};
+
+export type MetadatumKubeMetrics = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export const DataCompressionFormatKubeMetrics = {
+  None: "none",
+  Gzip: "gzip",
+} as const;
+export type DataCompressionFormatKubeMetrics = OpenEnum<
+  typeof DataCompressionFormatKubeMetrics
+>;
 
 export type PersistenceKubeMetrics = {
   /**
@@ -3972,7 +8073,7 @@ export type PersistenceKubeMetrics = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: models.DataCompressionFormatOptionsPersistence | undefined;
+  compress?: DataCompressionFormatKubeMetrics | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/<id>
    */
@@ -4009,8 +8110,8 @@ export type InputKubeMetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionKubeMetrics> | undefined;
+  pq?: PqKubeMetrics | undefined;
   /**
    * Time, in seconds, between consecutive metrics collections. Default is 15 secs.
    */
@@ -4018,13 +8119,96 @@ export type InputKubeMetrics = {
   /**
    * Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
    */
-  rules?: Array<models.ItemsTypeRules> | undefined;
+  rules?: Array<RuleKubeMetrics> | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumKubeMetrics> | undefined;
   persistence?: PersistenceKubeMetrics | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionSystemState = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeSystemState = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeSystemState = OpenEnum<typeof ModeSystemState>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionSystemState = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionSystemState = OpenEnum<typeof CompressionSystemState>;
+
+export type PqControlsSystemState = {};
+
+export type PqSystemState = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeSystemState | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionSystemState | undefined;
+  pqControls?: PqControlsSystemState | undefined;
+};
+
+export type MetadatumSystemState = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 /**
@@ -4151,11 +8335,13 @@ export type Collectors = {
   loginUsers?: LoggedInUsers | undefined;
 };
 
-export const DataCompressionFormat = {
+export const DataCompressionFormatSystemState = {
   None: "none",
   Gzip: "gzip",
 } as const;
-export type DataCompressionFormat = OpenEnum<typeof DataCompressionFormat>;
+export type DataCompressionFormatSystemState = OpenEnum<
+  typeof DataCompressionFormatSystemState
+>;
 
 export type PersistenceSystemState = {
   /**
@@ -4174,7 +8360,7 @@ export type PersistenceSystemState = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: DataCompressionFormat | undefined;
+  compress?: DataCompressionFormatSystemState | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
    */
@@ -4211,8 +8397,8 @@ export type InputSystemState = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionSystemState> | undefined;
+  pq?: PqSystemState | undefined;
   /**
    * Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
    */
@@ -4220,7 +8406,7 @@ export type InputSystemState = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumSystemState> | undefined;
   collectors?: Collectors | undefined;
   persistence?: PersistenceSystemState | undefined;
   /**
@@ -4229,6 +8415,109 @@ export type InputSystemState = {
   disableNativeModule?: boolean | undefined;
   description?: string | undefined;
 };
+
+export type ConnectionSystemMetrics = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModeSystemMetrics = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModeSystemMetrics = OpenEnum<typeof PqModeSystemMetrics>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionSystemMetrics = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionSystemMetrics = OpenEnum<
+  typeof CompressionSystemMetrics
+>;
+
+export type PqControlsSystemMetrics = {};
+
+export type PqSystemMetrics = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModeSystemMetrics | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionSystemMetrics | undefined;
+  pqControls?: PqControlsSystemMetrics | undefined;
+};
+
+/**
+ * Select level of detail for host metrics
+ */
+export const HostModeSystemMetrics = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select level of detail for host metrics
+ */
+export type HostModeSystemMetrics = OpenEnum<typeof HostModeSystemMetrics>;
 
 /**
  * Select the level of detail for system metrics
@@ -4469,8 +8758,21 @@ export type HostSystemMetrics = {
   /**
    * Select level of detail for host metrics
    */
-  mode?: models.ModeOptionsHost | undefined;
+  mode?: HostModeSystemMetrics | undefined;
   custom?: CustomSystemMetrics | undefined;
+};
+
+export type SetSystemMetrics = {
+  name: string;
+  filter: string;
+  includeChildren?: boolean | undefined;
+};
+
+export type ProcessSystemMetrics = {
+  /**
+   * Configure sets to collect process metrics
+   */
+  sets?: Array<SetSystemMetrics> | undefined;
 };
 
 /**
@@ -4534,6 +8836,22 @@ export type Container = {
   detail?: boolean | undefined;
 };
 
+export type MetadatumSystemMetrics = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export const DataCompressionFormatSystemMetrics = {
+  None: "none",
+  Gzip: "gzip",
+} as const;
+export type DataCompressionFormatSystemMetrics = OpenEnum<
+  typeof DataCompressionFormatSystemMetrics
+>;
+
 export type PersistenceSystemMetrics = {
   /**
    * Spool metrics to disk for Cribl Edge and Search
@@ -4551,7 +8869,7 @@ export type PersistenceSystemMetrics = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: models.DataCompressionFormatOptionsPersistence | undefined;
+  compress?: DataCompressionFormatSystemMetrics | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_metrics
    */
@@ -4588,22 +8906,177 @@ export type InputSystemMetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionSystemMetrics> | undefined;
+  pq?: PqSystemMetrics | undefined;
   /**
    * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
    */
   interval?: number | undefined;
   host?: HostSystemMetrics | undefined;
-  process?: models.ProcessType | undefined;
+  process?: ProcessSystemMetrics | undefined;
   container?: Container | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumSystemMetrics> | undefined;
   persistence?: PersistenceSystemMetrics | undefined;
   description?: string | undefined;
 };
+
+export type ConnectionTcpjson = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModeTcpjson = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModeTcpjson = OpenEnum<typeof PqModeTcpjson>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionTcpjson = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionTcpjson = OpenEnum<typeof PqCompressionTcpjson>;
+
+export type CreateInputPqControlsTcpjson = {};
+
+export type PqTcpjson = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModeTcpjson | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionTcpjson | undefined;
+  pqControls?: CreateInputPqControlsTcpjson | undefined;
+};
+
+export const CreateInputMinimumTLSVersionTcpjson = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMinimumTLSVersionTcpjson = OpenEnum<
+  typeof CreateInputMinimumTLSVersionTcpjson
+>;
+
+export const CreateInputMaximumTLSVersionTcpjson = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMaximumTLSVersionTcpjson = OpenEnum<
+  typeof CreateInputMaximumTLSVersionTcpjson
+>;
+
+export type TLSSettingsServerSideTcpjson = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: CreateInputMinimumTLSVersionTcpjson | undefined;
+  maxVersion?: CreateInputMaximumTLSVersionTcpjson | undefined;
+};
+
+export type MetadatumTcpjson = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const CreateInputAuthenticationMethodTcpjson = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type CreateInputAuthenticationMethodTcpjson = OpenEnum<
+  typeof CreateInputAuthenticationMethodTcpjson
+>;
 
 export type InputTcpjson = {
   /**
@@ -4635,8 +9108,8 @@ export type InputTcpjson = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionTcpjson> | undefined;
+  pq?: PqTcpjson | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -4645,7 +9118,7 @@ export type InputTcpjson = {
    * Port to listen on
    */
   port: number;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideTcpjson | undefined;
   /**
    * Regex matching IP addresses that are allowed to establish a connection
    */
@@ -4673,7 +9146,7 @@ export type InputTcpjson = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumTcpjson> | undefined;
   /**
    * Load balance traffic across all Worker Processes
    */
@@ -4681,7 +9154,7 @@ export type InputTcpjson = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  authType?: CreateInputAuthenticationMethodTcpjson | undefined;
   description?: string | undefined;
   /**
    * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
@@ -4691,6 +9164,157 @@ export type InputTcpjson = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+};
+
+export type ConnectionCriblLakeHTTP = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeCriblLakeHTTP = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeCriblLakeHTTP = OpenEnum<typeof ModeCriblLakeHTTP>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionCriblLakeHTTP = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionCriblLakeHTTP = OpenEnum<
+  typeof CompressionCriblLakeHTTP
+>;
+
+export type PqControlsCriblLakeHTTP = {};
+
+export type PqCriblLakeHTTP = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeCriblLakeHTTP | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionCriblLakeHTTP | undefined;
+  pqControls?: PqControlsCriblLakeHTTP | undefined;
+};
+
+export const MinimumTLSVersionCriblLakeHTTP = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MinimumTLSVersionCriblLakeHTTP = OpenEnum<
+  typeof MinimumTLSVersionCriblLakeHTTP
+>;
+
+export const MaximumTLSVersionCriblLakeHTTP = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MaximumTLSVersionCriblLakeHTTP = OpenEnum<
+  typeof MaximumTLSVersionCriblLakeHTTP
+>;
+
+export type TLSSettingsServerSideCriblLakeHTTP = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: MinimumTLSVersionCriblLakeHTTP | undefined;
+  maxVersion?: MaximumTLSVersionCriblLakeHTTP | undefined;
+};
+
+export type MetadatumCriblLakeHTTP = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type AuthTokensExtMetadatumCriblLakeHTTP = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type SplunkHecMetadata = {
@@ -4704,13 +9328,13 @@ export type ElasticsearchMetadata = {
   defaultDataset?: string | undefined;
 };
 
-export type AuthTokensExt = {
+export type AuthTokensExtCriblLakeHTTP = {
   token: string;
   description?: string | undefined;
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<AuthTokensExtMetadatumCriblLakeHTTP> | undefined;
   splunkHecMetadata?: SplunkHecMetadata | undefined;
   elasticsearchMetadata?: ElasticsearchMetadata | undefined;
 };
@@ -4745,8 +9369,8 @@ export type InputCriblLakeHttp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionCriblLakeHTTP> | undefined;
+  pq?: PqCriblLakeHTTP | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -4759,7 +9383,7 @@ export type InputCriblLakeHttp = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideCriblLakeHTTP | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -4820,9 +9444,162 @@ export type InputCriblLakeHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
-  authTokensExt?: Array<AuthTokensExt> | undefined;
+  metadata?: Array<MetadatumCriblLakeHTTP> | undefined;
+  authTokensExt?: Array<AuthTokensExtCriblLakeHTTP> | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionCriblHTTP = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModeCriblHTTP = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModeCriblHTTP = OpenEnum<typeof PqModeCriblHTTP>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionCriblHTTP = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionCriblHTTP = OpenEnum<typeof PqCompressionCriblHTTP>;
+
+export type CreateInputPqControlsCriblHTTP = {};
+
+export type PqCriblHTTP = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModeCriblHTTP | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionCriblHTTP | undefined;
+  pqControls?: CreateInputPqControlsCriblHTTP | undefined;
+};
+
+export type CreateInputAuthTokenCriblHTTP = {
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret: string;
+  enabled?: boolean | undefined;
+  /**
+   * Optional token description
+   */
+  description?: string | undefined;
+};
+
+export const CreateInputMinimumTLSVersionCriblHTTP = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMinimumTLSVersionCriblHTTP = OpenEnum<
+  typeof CreateInputMinimumTLSVersionCriblHTTP
+>;
+
+export const CreateInputMaximumTLSVersionCriblHTTP = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMaximumTLSVersionCriblHTTP = OpenEnum<
+  typeof CreateInputMaximumTLSVersionCriblHTTP
+>;
+
+export type TLSSettingsServerSideCriblHTTP = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: CreateInputMinimumTLSVersionCriblHTTP | undefined;
+  maxVersion?: CreateInputMaximumTLSVersionCriblHTTP | undefined;
+};
+
+export type MetadatumCriblHTTP = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputCriblHttp = {
@@ -4855,8 +9632,8 @@ export type InputCriblHttp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionCriblHTTP> | undefined;
+  pq?: PqCriblHTTP | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -4868,8 +9645,8 @@ export type InputCriblHttp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
    */
-  authTokens?: Array<models.ItemsTypeAuthTokens> | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  authTokens?: Array<CreateInputAuthTokenCriblHTTP> | undefined;
+  tls?: TLSSettingsServerSideCriblHTTP | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -4917,7 +9694,160 @@ export type InputCriblHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumCriblHTTP> | undefined;
+  description?: string | undefined;
+};
+
+export type ConnectionCriblTCP = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModeCriblTCP = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModeCriblTCP = OpenEnum<typeof PqModeCriblTCP>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionCriblTCP = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionCriblTCP = OpenEnum<typeof PqCompressionCriblTCP>;
+
+export type CreateInputPqControlsCriblTCP = {};
+
+export type PqCriblTCP = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModeCriblTCP | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionCriblTCP | undefined;
+  pqControls?: CreateInputPqControlsCriblTCP | undefined;
+};
+
+export const CreateInputMinimumTLSVersionCriblTCP = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMinimumTLSVersionCriblTCP = OpenEnum<
+  typeof CreateInputMinimumTLSVersionCriblTCP
+>;
+
+export const CreateInputMaximumTLSVersionCriblTCP = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMaximumTLSVersionCriblTCP = OpenEnum<
+  typeof CreateInputMaximumTLSVersionCriblTCP
+>;
+
+export type TLSSettingsServerSideCriblTCP = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: CreateInputMinimumTLSVersionCriblTCP | undefined;
+  maxVersion?: CreateInputMaximumTLSVersionCriblTCP | undefined;
+};
+
+export type MetadatumCriblTCP = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type CreateInputAuthTokenCriblTCP = {
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret: string;
+  enabled?: boolean | undefined;
+  /**
+   * Optional token description
+   */
   description?: string | undefined;
 };
 
@@ -4951,8 +9881,8 @@ export type InputCriblTcp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionCriblTCP> | undefined;
+  pq?: PqCriblTCP | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -4961,7 +9891,7 @@ export type InputCriblTcp = {
    * Port to listen on
    */
   port: number;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideCriblTCP | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -4985,7 +9915,7 @@ export type InputCriblTcp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumCriblTCP> | undefined;
   /**
    * Load balance traffic across all Worker Processes
    */
@@ -4993,8 +9923,91 @@ export type InputCriblTcp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
    */
-  authTokens?: Array<models.ItemsTypeAuthTokens> | undefined;
+  authTokens?: Array<CreateInputAuthTokenCriblTCP> | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionCribl = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeCribl = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeCribl = OpenEnum<typeof ModeCribl>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionCribl = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionCribl = OpenEnum<typeof CompressionCribl>;
+
+export type PqControlsCribl = {};
+
+export type PqCribl = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeCribl | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionCribl | undefined;
+  pqControls?: PqControlsCribl | undefined;
+};
+
+export type MetadatumCribl = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputCribl = {
@@ -5027,14 +10040,123 @@ export type InputCribl = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionCribl> | undefined;
+  pq?: PqCribl | undefined;
   filter?: string | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumCribl> | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionGooglePubsub = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModeGooglePubsub = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModeGooglePubsub = OpenEnum<typeof PqModeGooglePubsub>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionGooglePubsub = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionGooglePubsub = OpenEnum<
+  typeof PqCompressionGooglePubsub
+>;
+
+export type CreateInputPqControlsGooglePubsub = {};
+
+export type PqGooglePubsub = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModeGooglePubsub | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionGooglePubsub | undefined;
+  pqControls?: CreateInputPqControlsGooglePubsub | undefined;
+};
+
+/**
+ * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+ */
+export const CreateInputGoogleAuthenticationMethod = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret
+   */
+  Secret: "secret",
+} as const;
+/**
+ * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+ */
+export type CreateInputGoogleAuthenticationMethod = OpenEnum<
+  typeof CreateInputGoogleAuthenticationMethod
+>;
+
+export type MetadatumGooglePubsub = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputGooglePubsub = {
@@ -5067,8 +10189,8 @@ export type InputGooglePubsub = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionGooglePubsub> | undefined;
+  pq?: PqGooglePubsub | undefined;
   /**
    * ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
    */
@@ -5096,7 +10218,7 @@ export type InputGooglePubsub = {
   /**
    * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
    */
-  googleAuthMethod?: models.GoogleAuthenticationMethodOptions | undefined;
+  googleAuthMethod?: CreateInputGoogleAuthenticationMethod | undefined;
   /**
    * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
    */
@@ -5120,12 +10242,153 @@ export type InputGooglePubsub = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumGooglePubsub> | undefined;
   description?: string | undefined;
   /**
    * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
    */
   orderedDelivery?: boolean | undefined;
+};
+
+export type ConnectionFirehose = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeFirehose = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeFirehose = OpenEnum<typeof ModeFirehose>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionFirehose = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionFirehose = OpenEnum<typeof CompressionFirehose>;
+
+export type PqControlsFirehose = {};
+
+export type PqFirehose = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeFirehose | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionFirehose | undefined;
+  pqControls?: PqControlsFirehose | undefined;
+};
+
+export const MinimumTLSVersionFirehose = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MinimumTLSVersionFirehose = OpenEnum<
+  typeof MinimumTLSVersionFirehose
+>;
+
+export const MaximumTLSVersionFirehose = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MaximumTLSVersionFirehose = OpenEnum<
+  typeof MaximumTLSVersionFirehose
+>;
+
+export type TLSSettingsServerSideFirehose = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: MinimumTLSVersionFirehose | undefined;
+  maxVersion?: MaximumTLSVersionFirehose | undefined;
+};
+
+export type MetadatumFirehose = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputFirehose = {
@@ -5158,8 +10421,8 @@ export type InputFirehose = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionFirehose> | undefined;
+  pq?: PqFirehose | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -5172,7 +10435,7 @@ export type InputFirehose = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideFirehose | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -5220,8 +10483,83 @@ export type InputFirehose = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumFirehose> | undefined;
   description?: string | undefined;
+};
+
+export type InputExecConnection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputExecMode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputExecMode = OpenEnum<typeof InputExecMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputExecCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputExecCompression = OpenEnum<typeof InputExecCompression>;
+
+export type InputExecPqControls = {};
+
+export type InputExecPq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputExecMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputExecCompression | undefined;
+  pqControls?: InputExecPqControls | undefined;
 };
 
 /**
@@ -5235,6 +10573,14 @@ export const ScheduleType = {
  * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
  */
 export type ScheduleType = OpenEnum<typeof ScheduleType>;
+
+export type InputExecMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
 
 export type InputExec = {
   /**
@@ -5266,8 +10612,8 @@ export type InputExec = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<InputExecConnection> | undefined;
+  pq?: InputExecPq | undefined;
   /**
    * Command to execute; supports Bourne shell (or CMD on Windows) syntax
    */
@@ -5291,7 +10637,7 @@ export type InputExec = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputExecMetadatum> | undefined;
   description?: string | undefined;
   /**
    * Interval between command executions in seconds.
@@ -5301,6 +10647,206 @@ export type InputExec = {
    * Cron schedule to execute the command on.
    */
   cronSchedule?: string | undefined;
+};
+
+export type ConnectionEventhub = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeEventhub = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeEventhub = OpenEnum<typeof ModeEventhub>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionEventhub = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionEventhub = OpenEnum<typeof CompressionEventhub>;
+
+export type PqControlsEventhub = {};
+
+export type PqEventhub = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeEventhub | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionEventhub | undefined;
+  pqControls?: PqControlsEventhub | undefined;
+};
+
+/**
+ * Enter password directly, or select a stored secret
+ */
+export const AuthTypeAuthenticationMethodEventhub = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter password directly, or select a stored secret
+ */
+export type AuthTypeAuthenticationMethodEventhub = OpenEnum<
+  typeof AuthTypeAuthenticationMethodEventhub
+>;
+
+export const SASLMechanismEventhub = {
+  /**
+   * PLAIN
+   */
+  Plain: "plain",
+  /**
+   * OAUTHBEARER
+   */
+  Oauthbearer: "oauthbearer",
+} as const;
+export type SASLMechanismEventhub = OpenEnum<typeof SASLMechanismEventhub>;
+
+export const ClientSecretAuthTypeAuthenticationMethodEventhub = {
+  Manual: "manual",
+  Secret: "secret",
+  Certificate: "certificate",
+} as const;
+export type ClientSecretAuthTypeAuthenticationMethodEventhub = OpenEnum<
+  typeof ClientSecretAuthTypeAuthenticationMethodEventhub
+>;
+
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export const CreateInputMicrosoftEntraIDAuthenticationEndpoint = {
+  HttpsLoginMicrosoftonlineCom: "https://login.microsoftonline.com",
+  HttpsLoginMicrosoftonlineUs: "https://login.microsoftonline.us",
+  HttpsLoginPartnerMicrosoftonlineCn:
+    "https://login.partner.microsoftonline.cn",
+} as const;
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export type CreateInputMicrosoftEntraIDAuthenticationEndpoint = OpenEnum<
+  typeof CreateInputMicrosoftEntraIDAuthenticationEndpoint
+>;
+
+/**
+ * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+ */
+export type AuthenticationEventhub = {
+  disabled?: boolean | undefined;
+  /**
+   * Enter password directly, or select a stored secret
+   */
+  authType?: AuthTypeAuthenticationMethodEventhub | undefined;
+  /**
+   * Connection-string primary key, or connection-string secondary key, from the Event Hubs workspace
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  mechanism?: SASLMechanismEventhub | undefined;
+  /**
+   * The username for authentication. For Event Hubs, this should always be $ConnectionString.
+   */
+  username?: string | undefined;
+  clientSecretAuthType?:
+    | ClientSecretAuthTypeAuthenticationMethodEventhub
+    | undefined;
+  /**
+   * client_secret to pass in the OAuth request parameter
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  /**
+   * Select or create a stored certificate
+   */
+  certificateName?: string | undefined;
+  certPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint?: CreateInputMicrosoftEntraIDAuthenticationEndpoint | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId?: string | undefined;
+  /**
+   * Scope to pass in the OAuth request parameter
+   */
+  scope?: string | undefined;
+};
+
+export type TLSSettingsClientSideEventhub = {
+  disabled?: boolean | undefined;
+  /**
+   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+};
+
+export type MetadatumEventhub = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputEventhub = {
@@ -5333,8 +10879,8 @@ export type InputEventhub = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionEventhub> | undefined;
+  pq?: PqEventhub | undefined;
   /**
    * List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
    */
@@ -5386,8 +10932,8 @@ export type InputEventhub = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: models.AuthenticationType1 | undefined;
-  tls?: models.TlsSettingsClientSideType | undefined;
+  sasl?: AuthenticationEventhub | undefined;
+  tls?: TLSSettingsClientSideEventhub | undefined;
   /**
    *       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
    *
@@ -5440,8 +10986,85 @@ export type InputEventhub = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumEventhub> | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionOffice365MsgTrace = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeOffice365MsgTrace = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeOffice365MsgTrace = OpenEnum<typeof ModeOffice365MsgTrace>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionOffice365MsgTrace = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionOffice365MsgTrace = OpenEnum<
+  typeof CompressionOffice365MsgTrace
+>;
+
+export type PqControlsOffice365MsgTrace = {};
+
+export type PqOffice365MsgTrace = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeOffice365MsgTrace | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionOffice365MsgTrace | undefined;
+  pqControls?: PqControlsOffice365MsgTrace | undefined;
 };
 
 /**
@@ -5476,6 +11099,101 @@ export const LogLevelOffice365MsgTrace = {
  */
 export type LogLevelOffice365MsgTrace = OpenEnum<
   typeof LogLevelOffice365MsgTrace
+>;
+
+export type MetadatumOffice365MsgTrace = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+/**
+ * The algorithm to use when performing HTTP retries
+ */
+export const RetryTypeOffice365MsgTrace = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * The algorithm to use when performing HTTP retries
+ */
+export type RetryTypeOffice365MsgTrace = OpenEnum<
+  typeof RetryTypeOffice365MsgTrace
+>;
+
+export type RetryRulesOffice365MsgTrace = {
+  /**
+   * The algorithm to use when performing HTTP retries
+   */
+  type?: RetryTypeOffice365MsgTrace | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of http codes that trigger a retry. Leave empty to use the default list of 429, 500, and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
+};
+
+/**
+ * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+ */
+export const SubscriptionPlanOffice365MsgTrace = {
+  /**
+   * Office 365 Enterprise
+   */
+  EnterpriseGcc: "enterprise_gcc",
+  /**
+   * Office 365 GCC
+   */
+  Gcc: "gcc",
+  /**
+   * Office 365 GCC High
+   */
+  GccHigh: "gcc_high",
+  /**
+   * Office 365 DoD
+   */
+  Dod: "dod",
+} as const;
+/**
+ * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+ */
+export type SubscriptionPlanOffice365MsgTrace = OpenEnum<
+  typeof SubscriptionPlanOffice365MsgTrace
 >;
 
 export type CertOptions = {
@@ -5527,8 +11245,8 @@ export type InputOffice365MsgTrace = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionOffice365MsgTrace> | undefined;
+  pq?: PqOffice365MsgTrace | undefined;
   /**
    * URL to use when retrieving report data.
    */
@@ -5592,8 +11310,8 @@ export type InputOffice365MsgTrace = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
-  retryRules?: models.RetryRulesType1 | undefined;
+  metadata?: Array<MetadatumOffice365MsgTrace> | undefined;
+  retryRules?: RetryRulesOffice365MsgTrace | undefined;
   description?: string | undefined;
   /**
    * Username to run Message Trace API call.
@@ -5626,13 +11344,142 @@ export type InputOffice365MsgTrace = {
   /**
    * Office 365 subscription plan for your organization, typically Office 365 Enterprise
    */
-  planType?: models.SubscriptionPlanOptions | undefined;
+  planType?: SubscriptionPlanOffice365MsgTrace | undefined;
   /**
    * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
    */
   textSecret?: string | undefined;
   certOptions?: CertOptions | undefined;
 };
+
+export type ConnectionOffice365Service = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeOffice365Service = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeOffice365Service = OpenEnum<typeof ModeOffice365Service>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionOffice365Service = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionOffice365Service = OpenEnum<
+  typeof CompressionOffice365Service
+>;
+
+export type PqControlsOffice365Service = {};
+
+export type PqOffice365Service = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeOffice365Service | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionOffice365Service | undefined;
+  pqControls?: PqControlsOffice365Service | undefined;
+};
+
+/**
+ * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+ */
+export const SubscriptionPlanOffice365Service = {
+  /**
+   * Office 365 Enterprise
+   */
+  EnterpriseGcc: "enterprise_gcc",
+  /**
+   * Office 365 GCC
+   */
+  Gcc: "gcc",
+  /**
+   * Office 365 GCC High
+   */
+  GccHigh: "gcc_high",
+  /**
+   * Office 365 DoD
+   */
+  Dod: "dod",
+} as const;
+/**
+ * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+ */
+export type SubscriptionPlanOffice365Service = OpenEnum<
+  typeof SubscriptionPlanOffice365Service
+>;
+
+export type MetadatumOffice365Service = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+/**
+ * Collector runtime Log Level
+ */
+export const LogLevelOffice365Service = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+} as const;
+/**
+ * Collector runtime Log Level
+ */
+export type LogLevelOffice365Service = OpenEnum<
+  typeof LogLevelOffice365Service
+>;
 
 export type ContentConfigOffice365Service = {
   /**
@@ -5647,9 +11494,82 @@ export type ContentConfigOffice365Service = {
   /**
    * Collector runtime Log Level
    */
-  logLevel?: models.LogLevelOptionsContentConfigItems | undefined;
+  logLevel?: LogLevelOffice365Service | undefined;
   enabled?: boolean | undefined;
 };
+
+/**
+ * The algorithm to use when performing HTTP retries
+ */
+export const RetryTypeOffice365Service = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * The algorithm to use when performing HTTP retries
+ */
+export type RetryTypeOffice365Service = OpenEnum<
+  typeof RetryTypeOffice365Service
+>;
+
+export type RetryRulesOffice365Service = {
+  /**
+   * The algorithm to use when performing HTTP retries
+   */
+  type?: RetryTypeOffice365Service | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of http codes that trigger a retry. Leave empty to use the default list of 429, 500, and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
+};
+
+/**
+ * Enter client secret directly, or select a stored secret
+ */
+export const AuthenticationMethodOffice365Service = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter client secret directly, or select a stored secret
+ */
+export type AuthenticationMethodOffice365Service = OpenEnum<
+  typeof AuthenticationMethodOffice365Service
+>;
 
 export type InputOffice365Service = {
   /**
@@ -5681,12 +11601,12 @@ export type InputOffice365Service = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionOffice365Service> | undefined;
+  pq?: PqOffice365Service | undefined;
   /**
    * Office 365 subscription plan for your organization, typically Office 365 Enterprise
    */
-  planType?: models.SubscriptionPlanOptions | undefined;
+  planType?: SubscriptionPlanOffice365Service | undefined;
   /**
    * Office 365 Azure Tenant ID
    */
@@ -5722,16 +11642,16 @@ export type InputOffice365Service = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumOffice365Service> | undefined;
   /**
    * Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
    */
   contentConfig?: Array<ContentConfigOffice365Service> | undefined;
-  retryRules?: models.RetryRulesType1 | undefined;
+  retryRules?: RetryRulesOffice365Service | undefined;
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: AuthenticationMethodOffice365Service | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -5742,6 +11662,133 @@ export type InputOffice365Service = {
    */
   textSecret?: string | undefined;
 };
+
+export type ConnectionOffice365Mgmt = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeOffice365Mgmt = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeOffice365Mgmt = OpenEnum<typeof ModeOffice365Mgmt>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionOffice365Mgmt = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionOffice365Mgmt = OpenEnum<
+  typeof CompressionOffice365Mgmt
+>;
+
+export type PqControlsOffice365Mgmt = {};
+
+export type PqOffice365Mgmt = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeOffice365Mgmt | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionOffice365Mgmt | undefined;
+  pqControls?: PqControlsOffice365Mgmt | undefined;
+};
+
+/**
+ * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+ */
+export const SubscriptionPlanOffice365Mgmt = {
+  /**
+   * Office 365 Enterprise
+   */
+  EnterpriseGcc: "enterprise_gcc",
+  /**
+   * Office 365 GCC
+   */
+  Gcc: "gcc",
+  /**
+   * Office 365 GCC High
+   */
+  GccHigh: "gcc_high",
+  /**
+   * Office 365 DoD
+   */
+  Dod: "dod",
+} as const;
+/**
+ * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+ */
+export type SubscriptionPlanOffice365Mgmt = OpenEnum<
+  typeof SubscriptionPlanOffice365Mgmt
+>;
+
+export type MetadatumOffice365Mgmt = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+/**
+ * Collector runtime Log Level
+ */
+export const LogLevelOffice365Mgmt = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+} as const;
+/**
+ * Collector runtime Log Level
+ */
+export type LogLevelOffice365Mgmt = OpenEnum<typeof LogLevelOffice365Mgmt>;
 
 export type ContentConfigOffice365Mgmt = {
   /**
@@ -5756,9 +11803,80 @@ export type ContentConfigOffice365Mgmt = {
   /**
    * Collector runtime Log Level
    */
-  logLevel?: models.LogLevelOptionsContentConfigItems | undefined;
+  logLevel?: LogLevelOffice365Mgmt | undefined;
   enabled?: boolean | undefined;
 };
+
+/**
+ * The algorithm to use when performing HTTP retries
+ */
+export const RetryTypeOffice365Mgmt = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * The algorithm to use when performing HTTP retries
+ */
+export type RetryTypeOffice365Mgmt = OpenEnum<typeof RetryTypeOffice365Mgmt>;
+
+export type RetryRulesOffice365Mgmt = {
+  /**
+   * The algorithm to use when performing HTTP retries
+   */
+  type?: RetryTypeOffice365Mgmt | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of http codes that trigger a retry. Leave empty to use the default list of 429, 500, and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
+};
+
+/**
+ * Enter client secret directly, or select a stored secret
+ */
+export const AuthenticationMethodOffice365Mgmt = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter client secret directly, or select a stored secret
+ */
+export type AuthenticationMethodOffice365Mgmt = OpenEnum<
+  typeof AuthenticationMethodOffice365Mgmt
+>;
 
 export type InputOffice365Mgmt = {
   /**
@@ -5790,12 +11908,12 @@ export type InputOffice365Mgmt = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionOffice365Mgmt> | undefined;
+  pq?: PqOffice365Mgmt | undefined;
   /**
    * Office 365 subscription plan for your organization, typically Office 365 Enterprise
    */
-  planType?: models.SubscriptionPlanOptions | undefined;
+  planType?: SubscriptionPlanOffice365Mgmt | undefined;
   /**
    * Office 365 Azure Tenant ID
    */
@@ -5831,7 +11949,7 @@ export type InputOffice365Mgmt = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumOffice365Mgmt> | undefined;
   /**
    * Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
    */
@@ -5844,11 +11962,11 @@ export type InputOffice365Mgmt = {
    * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
    */
   ingestionLag?: number | undefined;
-  retryRules?: models.RetryRulesType1 | undefined;
+  retryRules?: RetryRulesOffice365Mgmt | undefined;
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: AuthenticationMethodOffice365Mgmt | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -5858,6 +11976,83 @@ export type InputOffice365Mgmt = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+};
+
+export type ConnectionEdgePrometheus = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeEdgePrometheus = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeEdgePrometheus = OpenEnum<typeof ModeEdgePrometheus>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionEdgePrometheus = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionEdgePrometheus = OpenEnum<
+  typeof PqCompressionEdgePrometheus
+>;
+
+export type PqControlsEdgePrometheus = {};
+
+export type PqEdgePrometheus = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeEdgePrometheus | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionEdgePrometheus | undefined;
+  pqControls?: PqControlsEdgePrometheus | undefined;
 };
 
 /**
@@ -5893,9 +12088,54 @@ export type DiscoveryTypeEdgePrometheus = OpenEnum<
 >;
 
 /**
+ * Data compression format. Default is gzip.
+ */
+export const PersistenceCompressionEdgePrometheus = {
+  None: "none",
+  Gzip: "gzip",
+} as const;
+/**
+ * Data compression format. Default is gzip.
+ */
+export type PersistenceCompressionEdgePrometheus = OpenEnum<
+  typeof PersistenceCompressionEdgePrometheus
+>;
+
+export type DiskSpoolingEdgePrometheus = {
+  /**
+   * Spool events on disk for Cribl Edge and Search. Default is disabled.
+   */
+  enable?: boolean | undefined;
+  /**
+   * Time period for grouping spooled events. Default is 10m.
+   */
+  timeWindow?: string | undefined;
+  /**
+   * Maximum disk space that can be consumed before older buckets are deleted. Examples: 420MB, 4GB. Default is 1GB.
+   */
+  maxDataSize?: string | undefined;
+  /**
+   * Maximum amount of time to retain data before older buckets are deleted. Examples: 2h, 4d. Default is 24h.
+   */
+  maxDataTime?: string | undefined;
+  /**
+   * Data compression format. Default is gzip.
+   */
+  compress?: PersistenceCompressionEdgePrometheus | undefined;
+};
+
+export type MetadatumEdgePrometheus = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+/**
  * Enter credentials directly, or select a stored secret
  */
-export const AuthenticationMethodEdgePrometheus = {
+export const AuthTypeAuthenticationMethodEdgePrometheus = {
   Manual: "manual",
   Secret: "secret",
   Kubernetes: "kubernetes",
@@ -5903,15 +12143,27 @@ export const AuthenticationMethodEdgePrometheus = {
 /**
  * Enter credentials directly, or select a stored secret
  */
-export type AuthenticationMethodEdgePrometheus = OpenEnum<
-  typeof AuthenticationMethodEdgePrometheus
+export type AuthTypeAuthenticationMethodEdgePrometheus = OpenEnum<
+  typeof AuthTypeAuthenticationMethodEdgePrometheus
 >;
+
+/**
+ * Protocol to use when collecting metrics
+ */
+export const TargetProtocol = {
+  Http: "http",
+  Https: "https",
+} as const;
+/**
+ * Protocol to use when collecting metrics
+ */
+export type TargetProtocol = OpenEnum<typeof TargetProtocol>;
 
 export type Target = {
   /**
    * Protocol to use when collecting metrics
    */
-  protocol?: models.ProtocolOptionsTargetsItems | undefined;
+  protocol?: TargetProtocol | undefined;
   /**
    * Name of host from which to pull metrics.
    */
@@ -5925,6 +12177,81 @@ export type Target = {
    */
   path?: string | undefined;
 };
+
+/**
+ * DNS record type to resolve
+ */
+export const RecordTypeEdgePrometheus = {
+  Srv: "SRV",
+  A: "A",
+  Aaaa: "AAAA",
+} as const;
+/**
+ * DNS record type to resolve
+ */
+export type RecordTypeEdgePrometheus = OpenEnum<
+  typeof RecordTypeEdgePrometheus
+>;
+
+/**
+ * Protocol to use when collecting metrics
+ */
+export const ScrapeProtocolProtocol = {
+  Http: "http",
+  Https: "https",
+} as const;
+/**
+ * Protocol to use when collecting metrics
+ */
+export type ScrapeProtocolProtocol = OpenEnum<typeof ScrapeProtocolProtocol>;
+
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const AwsAuthenticationMethodAuthenticationMethodEdgePrometheus = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type AwsAuthenticationMethodAuthenticationMethodEdgePrometheus =
+  OpenEnum<typeof AwsAuthenticationMethodAuthenticationMethodEdgePrometheus>;
+
+export type SearchFilterEdgePrometheus = {
+  /**
+   * See https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for information. Attributes can be manually entered if not present in the list.
+   */
+  name: string;
+  /**
+   * Values to match within this row's attribute. If empty, search will return only running EC2 instances.
+   */
+  values: Array<string>;
+};
+
+/**
+ * Signature version to use for signing EC2 requests
+ */
+export const SignatureVersionEdgePrometheus = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing EC2 requests
+ */
+export type SignatureVersionEdgePrometheus = OpenEnum<
+  typeof SignatureVersionEdgePrometheus
+>;
 
 export type PodFilter = {
   /**
@@ -5967,8 +12294,8 @@ export type InputEdgePrometheus = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionEdgePrometheus> | undefined;
+  pq?: PqEdgePrometheus | undefined;
   /**
    * Other dimensions to include in events
    */
@@ -5985,21 +12312,21 @@ export type InputEdgePrometheus = {
    * Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
    */
   timeout?: number | undefined;
-  persistence?: models.DiskSpoolingType | undefined;
+  persistence?: DiskSpoolingEdgePrometheus | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumEdgePrometheus> | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
-  authType?: AuthenticationMethodEdgePrometheus | undefined;
+  authType?: AuthTypeAuthenticationMethodEdgePrometheus | undefined;
   description?: string | undefined;
   targets?: Array<Target> | undefined;
   /**
    * DNS record type to resolve
    */
-  recordType?: models.RecordTypeOptions | undefined;
+  recordType?: RecordTypeEdgePrometheus | undefined;
   /**
    * The port number in the metrics URL for discovered targets.
    */
@@ -6011,7 +12338,7 @@ export type InputEdgePrometheus = {
   /**
    * Protocol to use when collecting metrics
    */
-  scrapeProtocol?: models.ProtocolOptionsTargetsItems | undefined;
+  scrapeProtocol?: ScrapeProtocolProtocol | undefined;
   /**
    * Path to use when collecting metrics from discovered targets
    */
@@ -6019,7 +12346,9 @@ export type InputEdgePrometheus = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?:
+    | AwsAuthenticationMethodAuthenticationMethodEdgePrometheus
+    | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -6032,7 +12361,7 @@ export type InputEdgePrometheus = {
   /**
    * Filter to apply when searching for EC2 instances
    */
-  searchFilter?: Array<models.ItemsTypeSearchFilter> | undefined;
+  searchFilter?: Array<SearchFilterEdgePrometheus> | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the EC2 is located
@@ -6045,7 +12374,7 @@ export type InputEdgePrometheus = {
   /**
    * Signature version to use for signing EC2 requests
    */
-  signatureVersion?: models.SignatureVersionOptions2 | undefined;
+  signatureVersion?: SignatureVersionEdgePrometheus | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -6104,6 +12433,81 @@ export type InputEdgePrometheus = {
   credentialsSecret?: string | undefined;
 };
 
+export type ConnectionPrometheus = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModePrometheus = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModePrometheus = OpenEnum<typeof PqModePrometheus>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionPrometheus = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionPrometheus = OpenEnum<typeof PqCompressionPrometheus>;
+
+export type CreateInputPqControlsPrometheus = {};
+
+export type PqPrometheus = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModePrometheus | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionPrometheus | undefined;
+  pqControls?: CreateInputPqControlsPrometheus | undefined;
+};
+
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
  */
@@ -6140,6 +12544,41 @@ export const LogLevelPrometheus = {
  */
 export type LogLevelPrometheus = OpenEnum<typeof LogLevelPrometheus>;
 
+export type MetadatumPrometheus = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export const AuthTypeAuthenticationMethodPrometheus = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type AuthTypeAuthenticationMethodPrometheus = OpenEnum<
+  typeof AuthTypeAuthenticationMethodPrometheus
+>;
+
+/**
+ * DNS record type to resolve
+ */
+export const RecordTypePrometheus = {
+  Srv: "SRV",
+  A: "A",
+  Aaaa: "AAAA",
+} as const;
+/**
+ * DNS record type to resolve
+ */
+export type RecordTypePrometheus = OpenEnum<typeof RecordTypePrometheus>;
+
 /**
  * Protocol to use when collecting metrics
  */
@@ -6151,6 +12590,55 @@ export const MetricsProtocol = {
  * Protocol to use when collecting metrics
  */
 export type MetricsProtocol = OpenEnum<typeof MetricsProtocol>;
+
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const AwsAuthenticationMethodAuthenticationMethodPrometheus = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type AwsAuthenticationMethodAuthenticationMethodPrometheus = OpenEnum<
+  typeof AwsAuthenticationMethodAuthenticationMethodPrometheus
+>;
+
+export type SearchFilterPrometheus = {
+  /**
+   * See https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for information. Attributes can be manually entered if not present in the list.
+   */
+  name: string;
+  /**
+   * Values to match within this row's attribute. If empty, search will return only running EC2 instances.
+   */
+  values: Array<string>;
+};
+
+/**
+ * Signature version to use for signing EC2 requests
+ */
+export const SignatureVersionPrometheus = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing EC2 requests
+ */
+export type SignatureVersionPrometheus = OpenEnum<
+  typeof SignatureVersionPrometheus
+>;
 
 export type InputPrometheus = {
   /**
@@ -6182,8 +12670,8 @@ export type InputPrometheus = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionPrometheus> | undefined;
+  pq?: PqPrometheus | undefined;
   /**
    * Other dimensions to include in events
    */
@@ -6231,11 +12719,11 @@ export type InputPrometheus = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumPrometheus> | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptionsSasl | undefined;
+  authType?: AuthTypeAuthenticationMethodPrometheus | undefined;
   description?: string | undefined;
   /**
    * List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
@@ -6244,7 +12732,7 @@ export type InputPrometheus = {
   /**
    * DNS record type to resolve
    */
-  recordType?: models.RecordTypeOptions | undefined;
+  recordType?: RecordTypePrometheus | undefined;
   /**
    * The port number in the metrics URL for discovered targets
    */
@@ -6264,7 +12752,9 @@ export type InputPrometheus = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?:
+    | AwsAuthenticationMethodAuthenticationMethodPrometheus
+    | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -6277,7 +12767,7 @@ export type InputPrometheus = {
   /**
    * Filter to apply when searching for EC2 instances
    */
-  searchFilter?: Array<models.ItemsTypeSearchFilter> | undefined;
+  searchFilter?: Array<SearchFilterPrometheus> | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the EC2 is located
@@ -6290,7 +12780,7 @@ export type InputPrometheus = {
   /**
    * Signature version to use for signing EC2 requests
    */
-  signatureVersion?: models.SignatureVersionOptions2 | undefined;
+  signatureVersion?: SignatureVersionPrometheus | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -6325,6 +12815,187 @@ export type InputPrometheus = {
   credentialsSecret?: string | undefined;
 };
 
+export type ConnectionPrometheusRw = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModePrometheusRw = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModePrometheusRw = OpenEnum<typeof ModePrometheusRw>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionPrometheusRw = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionPrometheusRw = OpenEnum<typeof CompressionPrometheusRw>;
+
+export type PqControlsPrometheusRw = {};
+
+export type PqPrometheusRw = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModePrometheusRw | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionPrometheusRw | undefined;
+  pqControls?: PqControlsPrometheusRw | undefined;
+};
+
+export const MinimumTLSVersionPrometheusRw = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MinimumTLSVersionPrometheusRw = OpenEnum<
+  typeof MinimumTLSVersionPrometheusRw
+>;
+
+export const MaximumTLSVersionPrometheusRw = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MaximumTLSVersionPrometheusRw = OpenEnum<
+  typeof MaximumTLSVersionPrometheusRw
+>;
+
+export type TLSSettingsServerSidePrometheusRw = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: MinimumTLSVersionPrometheusRw | undefined;
+  maxVersion?: MaximumTLSVersionPrometheusRw | undefined;
+};
+
+/**
+ * Remote Write authentication type
+ */
+export const AuthenticationTypePrometheusRw = {
+  None: "none",
+  Basic: "basic",
+  CredentialsSecret: "credentialsSecret",
+  Token: "token",
+  TextSecret: "textSecret",
+  Oauth: "oauth",
+} as const;
+/**
+ * Remote Write authentication type
+ */
+export type AuthenticationTypePrometheusRw = OpenEnum<
+  typeof AuthenticationTypePrometheusRw
+>;
+
+export type MetadatumPrometheusRw = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type OauthParamPrometheusRw = {
+  /**
+   * OAuth parameter name
+   */
+  name: string;
+  /**
+   * OAuth parameter value
+   */
+  value: string;
+};
+
+export type OauthHeaderPrometheusRw = {
+  /**
+   * OAuth header name
+   */
+  name: string;
+  /**
+   * OAuth header value
+   */
+  value: string;
+};
+
 export type InputPrometheusRw = {
   /**
    * Unique ID for this input
@@ -6355,8 +13026,8 @@ export type InputPrometheusRw = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionPrometheusRw> | undefined;
+  pq?: PqPrometheusRw | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -6365,7 +13036,7 @@ export type InputPrometheusRw = {
    * Port to listen on
    */
   port: number;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSidePrometheusRw | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -6417,11 +13088,11 @@ export type InputPrometheusRw = {
   /**
    * Remote Write authentication type
    */
-  authType?: models.AuthenticationTypeOptionsPrometheusAuth | undefined;
+  authType?: AuthenticationTypePrometheusRw | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumPrometheusRw> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -6464,11 +13135,188 @@ export type InputPrometheusRw = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<OauthParamPrometheusRw> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<OauthHeaderPrometheusRw> | undefined;
+};
+
+export type ConnectionLoki = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModeLoki = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModeLoki = OpenEnum<typeof PqModeLoki>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionLoki = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionLoki = OpenEnum<typeof PqCompressionLoki>;
+
+export type CreateInputPqControlsLoki = {};
+
+export type PqLoki = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModeLoki | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionLoki | undefined;
+  pqControls?: CreateInputPqControlsLoki | undefined;
+};
+
+export const MinimumTLSVersionLoki = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MinimumTLSVersionLoki = OpenEnum<typeof MinimumTLSVersionLoki>;
+
+export const MaximumTLSVersionLoki = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MaximumTLSVersionLoki = OpenEnum<typeof MaximumTLSVersionLoki>;
+
+export type TLSSettingsServerSideLoki = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: MinimumTLSVersionLoki | undefined;
+  maxVersion?: MaximumTLSVersionLoki | undefined;
+};
+
+/**
+ * Loki logs authentication type
+ */
+export const CreateInputAuthenticationTypeLoki = {
+  None: "none",
+  Basic: "basic",
+  CredentialsSecret: "credentialsSecret",
+  Token: "token",
+  TextSecret: "textSecret",
+  Oauth: "oauth",
+} as const;
+/**
+ * Loki logs authentication type
+ */
+export type CreateInputAuthenticationTypeLoki = OpenEnum<
+  typeof CreateInputAuthenticationTypeLoki
+>;
+
+export type MetadatumLoki = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type OauthParamLoki = {
+  /**
+   * OAuth parameter name
+   */
+  name: string;
+  /**
+   * OAuth parameter value
+   */
+  value: string;
+};
+
+export type OauthHeaderLoki = {
+  /**
+   * OAuth header name
+   */
+  name: string;
+  /**
+   * OAuth header value
+   */
+  value: string;
 };
 
 export type InputLoki = {
@@ -6501,8 +13349,8 @@ export type InputLoki = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionLoki> | undefined;
+  pq?: PqLoki | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -6511,7 +13359,7 @@ export type InputLoki = {
    * Port to listen on
    */
   port: number;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideLoki | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -6563,11 +13411,11 @@ export type InputLoki = {
   /**
    * Loki logs authentication type
    */
-  authType?: models.AuthenticationTypeOptionsLokiAuth | undefined;
+  authType?: CreateInputAuthenticationTypeLoki | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumLoki> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -6610,11 +13458,11 @@ export type InputLoki = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<OauthParamLoki> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<OauthHeaderLoki> | undefined;
 };
 
 export const InputGrafanaType2 = {
@@ -6622,11 +13470,186 @@ export const InputGrafanaType2 = {
 } as const;
 export type InputGrafanaType2 = ClosedEnum<typeof InputGrafanaType2>;
 
-export type PrometheusAuth2 = {
+export type InputGrafanaConnection2 = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputGrafanaMode2 = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputGrafanaMode2 = OpenEnum<typeof InputGrafanaMode2>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputGrafanaCompression2 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputGrafanaCompression2 = OpenEnum<
+  typeof InputGrafanaCompression2
+>;
+
+export type InputGrafanaPqControls2 = {};
+
+export type InputGrafanaPq2 = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputGrafanaMode2 | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputGrafanaCompression2 | undefined;
+  pqControls?: InputGrafanaPqControls2 | undefined;
+};
+
+export const InputGrafanaMinimumTLSVersion2 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputGrafanaMinimumTLSVersion2 = OpenEnum<
+  typeof InputGrafanaMinimumTLSVersion2
+>;
+
+export const InputGrafanaMaximumTLSVersion2 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputGrafanaMaximumTLSVersion2 = OpenEnum<
+  typeof InputGrafanaMaximumTLSVersion2
+>;
+
+export type InputGrafanaTLSSettingsServerSide2 = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: InputGrafanaMinimumTLSVersion2 | undefined;
+  maxVersion?: InputGrafanaMaximumTLSVersion2 | undefined;
+};
+
+/**
+ * Remote Write authentication type
+ */
+export const InputGrafanaPrometheusAuthAuthenticationType2 = {
+  None: "none",
+  Basic: "basic",
+  CredentialsSecret: "credentialsSecret",
+  Token: "token",
+  TextSecret: "textSecret",
+  Oauth: "oauth",
+} as const;
+/**
+ * Remote Write authentication type
+ */
+export type InputGrafanaPrometheusAuthAuthenticationType2 = OpenEnum<
+  typeof InputGrafanaPrometheusAuthAuthenticationType2
+>;
+
+export type PrometheusAuthOauthParam2 = {
+  /**
+   * OAuth parameter name
+   */
+  name: string;
+  /**
+   * OAuth parameter value
+   */
+  value: string;
+};
+
+export type PrometheusAuthOauthHeader2 = {
+  /**
+   * OAuth header name
+   */
+  name: string;
+  /**
+   * OAuth header value
+   */
+  value: string;
+};
+
+export type CreateInputPrometheusAuth2 = {
   /**
    * Remote Write authentication type
    */
-  authType?: models.AuthenticationTypeOptionsPrometheusAuth | undefined;
+  authType?: InputGrafanaPrometheusAuthAuthenticationType2 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -6668,18 +13691,58 @@ export type PrometheusAuth2 = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<PrometheusAuthOauthParam2> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<PrometheusAuthOauthHeader2> | undefined;
 };
 
-export type LokiAuth2 = {
+/**
+ * Loki logs authentication type
+ */
+export const InputGrafanaLokiAuthAuthenticationType2 = {
+  None: "none",
+  Basic: "basic",
+  CredentialsSecret: "credentialsSecret",
+  Token: "token",
+  TextSecret: "textSecret",
+  Oauth: "oauth",
+} as const;
+/**
+ * Loki logs authentication type
+ */
+export type InputGrafanaLokiAuthAuthenticationType2 = OpenEnum<
+  typeof InputGrafanaLokiAuthAuthenticationType2
+>;
+
+export type LokiAuthOauthParam2 = {
+  /**
+   * OAuth parameter name
+   */
+  name: string;
+  /**
+   * OAuth parameter value
+   */
+  value: string;
+};
+
+export type LokiAuthOauthHeader2 = {
+  /**
+   * OAuth header name
+   */
+  name: string;
+  /**
+   * OAuth header value
+   */
+  value: string;
+};
+
+export type CreateInputLokiAuth2 = {
   /**
    * Loki logs authentication type
    */
-  authType?: models.AuthenticationTypeOptionsLokiAuth | undefined;
+  authType?: InputGrafanaLokiAuthAuthenticationType2 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -6721,11 +13784,19 @@ export type LokiAuth2 = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<LokiAuthOauthParam2> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<LokiAuthOauthHeader2> | undefined;
+};
+
+export type InputGrafanaMetadatum2 = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputGrafanaGrafana2 = {
@@ -6758,8 +13829,8 @@ export type InputGrafanaGrafana2 = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<InputGrafanaConnection2> | undefined;
+  pq?: InputGrafanaPq2 | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -6768,7 +13839,7 @@ export type InputGrafanaGrafana2 = {
    * Port to listen on
    */
   port: number;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: InputGrafanaTLSSettingsServerSide2 | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -6821,12 +13892,12 @@ export type InputGrafanaGrafana2 = {
    * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
    */
   lokiAPI?: string | undefined;
-  prometheusAuth?: PrometheusAuth2 | undefined;
-  lokiAuth?: LokiAuth2 | undefined;
+  prometheusAuth?: CreateInputPrometheusAuth2 | undefined;
+  lokiAuth?: CreateInputLokiAuth2 | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputGrafanaMetadatum2> | undefined;
   description?: string | undefined;
 };
 
@@ -6835,11 +13906,186 @@ export const InputGrafanaType1 = {
 } as const;
 export type InputGrafanaType1 = ClosedEnum<typeof InputGrafanaType1>;
 
-export type PrometheusAuth1 = {
+export type InputGrafanaConnection1 = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputGrafanaMode1 = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputGrafanaMode1 = OpenEnum<typeof InputGrafanaMode1>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputGrafanaCompression1 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputGrafanaCompression1 = OpenEnum<
+  typeof InputGrafanaCompression1
+>;
+
+export type InputGrafanaPqControls1 = {};
+
+export type InputGrafanaPq1 = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputGrafanaMode1 | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputGrafanaCompression1 | undefined;
+  pqControls?: InputGrafanaPqControls1 | undefined;
+};
+
+export const InputGrafanaMinimumTLSVersion1 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputGrafanaMinimumTLSVersion1 = OpenEnum<
+  typeof InputGrafanaMinimumTLSVersion1
+>;
+
+export const InputGrafanaMaximumTLSVersion1 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputGrafanaMaximumTLSVersion1 = OpenEnum<
+  typeof InputGrafanaMaximumTLSVersion1
+>;
+
+export type InputGrafanaTLSSettingsServerSide1 = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: InputGrafanaMinimumTLSVersion1 | undefined;
+  maxVersion?: InputGrafanaMaximumTLSVersion1 | undefined;
+};
+
+/**
+ * Remote Write authentication type
+ */
+export const InputGrafanaPrometheusAuthAuthenticationType1 = {
+  None: "none",
+  Basic: "basic",
+  CredentialsSecret: "credentialsSecret",
+  Token: "token",
+  TextSecret: "textSecret",
+  Oauth: "oauth",
+} as const;
+/**
+ * Remote Write authentication type
+ */
+export type InputGrafanaPrometheusAuthAuthenticationType1 = OpenEnum<
+  typeof InputGrafanaPrometheusAuthAuthenticationType1
+>;
+
+export type PrometheusAuthOauthParam1 = {
+  /**
+   * OAuth parameter name
+   */
+  name: string;
+  /**
+   * OAuth parameter value
+   */
+  value: string;
+};
+
+export type PrometheusAuthOauthHeader1 = {
+  /**
+   * OAuth header name
+   */
+  name: string;
+  /**
+   * OAuth header value
+   */
+  value: string;
+};
+
+export type CreateInputPrometheusAuth1 = {
   /**
    * Remote Write authentication type
    */
-  authType?: models.AuthenticationTypeOptionsPrometheusAuth | undefined;
+  authType?: InputGrafanaPrometheusAuthAuthenticationType1 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -6881,18 +14127,58 @@ export type PrometheusAuth1 = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<PrometheusAuthOauthParam1> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<PrometheusAuthOauthHeader1> | undefined;
 };
 
-export type LokiAuth1 = {
+/**
+ * Loki logs authentication type
+ */
+export const InputGrafanaLokiAuthAuthenticationType1 = {
+  None: "none",
+  Basic: "basic",
+  CredentialsSecret: "credentialsSecret",
+  Token: "token",
+  TextSecret: "textSecret",
+  Oauth: "oauth",
+} as const;
+/**
+ * Loki logs authentication type
+ */
+export type InputGrafanaLokiAuthAuthenticationType1 = OpenEnum<
+  typeof InputGrafanaLokiAuthAuthenticationType1
+>;
+
+export type LokiAuthOauthParam1 = {
+  /**
+   * OAuth parameter name
+   */
+  name: string;
+  /**
+   * OAuth parameter value
+   */
+  value: string;
+};
+
+export type LokiAuthOauthHeader1 = {
+  /**
+   * OAuth header name
+   */
+  name: string;
+  /**
+   * OAuth header value
+   */
+  value: string;
+};
+
+export type CreateInputLokiAuth1 = {
   /**
    * Loki logs authentication type
    */
-  authType?: models.AuthenticationTypeOptionsLokiAuth | undefined;
+  authType?: InputGrafanaLokiAuthAuthenticationType1 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -6934,11 +14220,19 @@ export type LokiAuth1 = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<LokiAuthOauthParam1> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<LokiAuthOauthHeader1> | undefined;
+};
+
+export type InputGrafanaMetadatum1 = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputGrafanaGrafana1 = {
@@ -6971,8 +14265,8 @@ export type InputGrafanaGrafana1 = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<InputGrafanaConnection1> | undefined;
+  pq?: InputGrafanaPq1 | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -6981,7 +14275,7 @@ export type InputGrafanaGrafana1 = {
    * Port to listen on
    */
   port: number;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: InputGrafanaTLSSettingsServerSide1 | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -7034,16 +14328,361 @@ export type InputGrafanaGrafana1 = {
    * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
    */
   lokiAPI?: string | undefined;
-  prometheusAuth?: PrometheusAuth1 | undefined;
-  lokiAuth?: LokiAuth1 | undefined;
+  prometheusAuth?: CreateInputPrometheusAuth1 | undefined;
+  lokiAuth?: CreateInputLokiAuth1 | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputGrafanaMetadatum1> | undefined;
   description?: string | undefined;
 };
 
 export type InputGrafana = InputGrafanaGrafana1 | InputGrafanaGrafana2;
+
+export type ConnectionConfluentCloud = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModeConfluentCloud = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModeConfluentCloud = OpenEnum<typeof PqModeConfluentCloud>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionConfluentCloud = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionConfluentCloud = OpenEnum<
+  typeof PqCompressionConfluentCloud
+>;
+
+export type CreateInputPqControlsConfluentCloud = {};
+
+export type PqConfluentCloud = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModeConfluentCloud | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionConfluentCloud | undefined;
+  pqControls?: CreateInputPqControlsConfluentCloud | undefined;
+};
+
+export const CreateInputMinimumTLSVersionConfluentCloud = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMinimumTLSVersionConfluentCloud = OpenEnum<
+  typeof CreateInputMinimumTLSVersionConfluentCloud
+>;
+
+export const CreateInputMaximumTLSVersionConfluentCloud = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMaximumTLSVersionConfluentCloud = OpenEnum<
+  typeof CreateInputMaximumTLSVersionConfluentCloud
+>;
+
+export type CreateInputTLSSettingsClientSideConfluentCloud = {
+  disabled?: boolean | undefined;
+  /**
+   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+   *
+   * @remarks
+   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+   */
+  servername?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  /**
+   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  minVersion?: CreateInputMinimumTLSVersionConfluentCloud | undefined;
+  maxVersion?: CreateInputMaximumTLSVersionConfluentCloud | undefined;
+};
+
+/**
+ * Credentials to use when authenticating with the schema registry using basic HTTP authentication
+ */
+export type CreateInputAuthConfluentCloud = {
+  disabled?: boolean | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+};
+
+export const CreateInputKafkaSchemaRegistryMinimumTLSVersionConfluentCloud = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputKafkaSchemaRegistryMinimumTLSVersionConfluentCloud =
+  OpenEnum<
+    typeof CreateInputKafkaSchemaRegistryMinimumTLSVersionConfluentCloud
+  >;
+
+export const CreateInputKafkaSchemaRegistryMaximumTLSVersionConfluentCloud = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputKafkaSchemaRegistryMaximumTLSVersionConfluentCloud =
+  OpenEnum<
+    typeof CreateInputKafkaSchemaRegistryMaximumTLSVersionConfluentCloud
+  >;
+
+export type CreateInputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud =
+  {
+    disabled?: boolean | undefined;
+    /**
+     * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+     *
+     * @remarks
+     *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+     */
+    rejectUnauthorized?: boolean | undefined;
+    /**
+     * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+     */
+    servername?: string | undefined;
+    /**
+     * The name of the predefined certificate
+     */
+    certificateName?: string | undefined;
+    /**
+     * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+     */
+    caPath?: string | undefined;
+    /**
+     * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+     */
+    privKeyPath?: string | undefined;
+    /**
+     * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+     */
+    certPath?: string | undefined;
+    /**
+     * Passphrase to use to decrypt private key
+     */
+    passphrase?: string | undefined;
+    minVersion?:
+      | CreateInputKafkaSchemaRegistryMinimumTLSVersionConfluentCloud
+      | undefined;
+    maxVersion?:
+      | CreateInputKafkaSchemaRegistryMaximumTLSVersionConfluentCloud
+      | undefined;
+  };
+
+export type CreateInputKafkaSchemaRegistryAuthenticationConfluentCloud = {
+  disabled?: boolean | undefined;
+  /**
+   * URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
+   */
+  schemaRegistryURL?: string | undefined;
+  /**
+   * Maximum time to wait for a Schema Registry connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for the Schema Registry to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * Maximum number of times to try fetching schemas from the Schema Registry
+   */
+  maxRetries?: number | undefined;
+  /**
+   * Credentials to use when authenticating with the schema registry using basic HTTP authentication
+   */
+  auth?: CreateInputAuthConfluentCloud | undefined;
+  tls?:
+    | CreateInputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud
+    | undefined;
+};
+
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export const CreateInputAuthenticationMethodConfluentCloud = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type CreateInputAuthenticationMethodConfluentCloud = OpenEnum<
+  typeof CreateInputAuthenticationMethodConfluentCloud
+>;
+
+export const CreateInputSASLMechanismConfluentCloud = {
+  /**
+   * PLAIN
+   */
+  Plain: "plain",
+  /**
+   * SCRAM-SHA-256
+   */
+  ScramSha256: "scram-sha-256",
+  /**
+   * SCRAM-SHA-512
+   */
+  ScramSha512: "scram-sha-512",
+  /**
+   * GSSAPI/Kerberos
+   */
+  Kerberos: "kerberos",
+} as const;
+export type CreateInputSASLMechanismConfluentCloud = OpenEnum<
+  typeof CreateInputSASLMechanismConfluentCloud
+>;
+
+export type CreateInputOauthParamConfluentCloud = {
+  name: string;
+  value: string;
+};
+
+export type CreateInputSaslExtensionConfluentCloud = {
+  name: string;
+  value: string;
+};
+
+/**
+ * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+ */
+export type CreateInputAuthenticationConfluentCloud = {
+  disabled?: boolean | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: CreateInputAuthenticationMethodConfluentCloud | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  mechanism?: CreateInputSASLMechanismConfluentCloud | undefined;
+  /**
+   * Location of keytab file for authentication principal
+   */
+  keytabLocation?: string | undefined;
+  /**
+   * Authentication principal, such as `kafka_user@example.com`
+   */
+  principal?: string | undefined;
+  /**
+   * Kerberos service class for Kafka brokers, such as `kafka`
+   */
+  brokerServiceClass?: string | undefined;
+  /**
+   * Enable OAuth authentication
+   */
+  oauthEnabled?: boolean | undefined;
+  /**
+   * URL of the token endpoint to use for OAuth authentication
+   */
+  tokenUrl?: string | undefined;
+  /**
+   * Client ID to use for OAuth authentication
+   */
+  clientId?: string | undefined;
+  oauthSecretType?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  /**
+   * Additional fields to send to the token endpoint, such as scope or audience
+   */
+  oauthParams?: Array<CreateInputOauthParamConfluentCloud> | undefined;
+  /**
+   * Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
+   */
+  saslExtensions?: Array<CreateInputSaslExtensionConfluentCloud> | undefined;
+};
+
+export type MetadatumConfluentCloud = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
 
 export type InputConfluentCloud = {
   /**
@@ -7075,13 +14714,13 @@ export type InputConfluentCloud = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionConfluentCloud> | undefined;
+  pq?: PqConfluentCloud | undefined;
   /**
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
    */
   brokers: Array<string>;
-  tls?: models.TlsSettingsClientSideType1 | undefined;
+  tls?: CreateInputTLSSettingsClientSideConfluentCloud | undefined;
   /**
    * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
    */
@@ -7095,7 +14734,7 @@ export type InputConfluentCloud = {
    */
   fromBeginning?: boolean | undefined;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationType
+    | CreateInputKafkaSchemaRegistryAuthenticationConfluentCloud
     | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
@@ -7132,7 +14771,7 @@ export type InputConfluentCloud = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: models.AuthenticationType | undefined;
+  sasl?: CreateInputAuthenticationConfluentCloud | undefined;
   /**
    * @remarks
    *       Timeout used to detect client failures when using Kafka's group-management facilities.
@@ -7181,8 +14820,141 @@ export type InputConfluentCloud = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumConfluentCloud> | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionElastic = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModeElastic = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModeElastic = OpenEnum<typeof PqModeElastic>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionElastic = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionElastic = OpenEnum<typeof PqCompressionElastic>;
+
+export type CreateInputPqControlsElastic = {};
+
+export type PqElastic = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModeElastic | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionElastic | undefined;
+  pqControls?: CreateInputPqControlsElastic | undefined;
+};
+
+export const MinimumTLSVersionElastic = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MinimumTLSVersionElastic = OpenEnum<
+  typeof MinimumTLSVersionElastic
+>;
+
+export const MaximumTLSVersionElastic = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MaximumTLSVersionElastic = OpenEnum<
+  typeof MaximumTLSVersionElastic
+>;
+
+export type TLSSettingsServerSideElastic = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: MinimumTLSVersionElastic | undefined;
+  maxVersion?: MaximumTLSVersionElastic | undefined;
 };
 
 export const AuthenticationTypeElastic = {
@@ -7228,6 +15000,19 @@ export const CreateInputAPIVersion = {
  * The API version to use for communicating with the server
  */
 export type CreateInputAPIVersion = OpenEnum<typeof CreateInputAPIVersion>;
+
+export type CreateInputExtraHttpHeader = {
+  name?: string | undefined;
+  value: string;
+};
+
+export type MetadatumElastic = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
 
 /**
  * Enter credentials directly, or select a stored secret
@@ -7307,8 +15092,8 @@ export type InputElastic = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionElastic> | undefined;
+  pq?: PqElastic | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -7317,7 +15102,7 @@ export type InputElastic = {
    * Port to listen on
    */
   port: number;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideElastic | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -7374,11 +15159,11 @@ export type InputElastic = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<CreateInputExtraHttpHeader> | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumElastic> | undefined;
   proxyMode?: ProxyModeElastic | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -7395,6 +15180,106 @@ export type InputElastic = {
    * Custom version information to respond to requests
    */
   customAPIVersion?: string | undefined;
+};
+
+export type ConnectionAzureBlob = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeAzureBlob = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeAzureBlob = OpenEnum<typeof ModeAzureBlob>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionAzureBlob = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionAzureBlob = OpenEnum<typeof PqCompressionAzureBlob>;
+
+export type PqControlsAzureBlob = {};
+
+export type PqAzureBlob = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeAzureBlob | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionAzureBlob | undefined;
+  pqControls?: PqControlsAzureBlob | undefined;
+};
+
+export type MetadatumAzureBlob = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export const CreateInputAuthenticationMethodAzureBlob = {
+  Manual: "manual",
+  Secret: "secret",
+  ClientSecret: "clientSecret",
+  ClientCert: "clientCert",
+} as const;
+export type CreateInputAuthenticationMethodAzureBlob = OpenEnum<
+  typeof CreateInputAuthenticationMethodAzureBlob
+>;
+
+export type CreateInputCertificate = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName: string;
 };
 
 export type InputAzureBlob = {
@@ -7427,8 +15312,8 @@ export type InputAzureBlob = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionAzureBlob> | undefined;
+  pq?: PqAzureBlob | undefined;
   /**
    * The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
    */
@@ -7460,7 +15345,7 @@ export type InputAzureBlob = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumAzureBlob> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -7477,7 +15362,7 @@ export type InputAzureBlob = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: CreateInputAuthenticationMethodAzureBlob | undefined;
   description?: string | undefined;
   /**
    * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -7511,14 +15396,111 @@ export type InputAzureBlob = {
    * Select or create a stored text secret
    */
   clientTextSecret?: string | undefined;
-  certificate?: models.CertificateType | undefined;
+  certificate?: CreateInputCertificate | undefined;
+};
+
+export type ConnectionSplunkHec = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModeSplunkHec = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModeSplunkHec = OpenEnum<typeof PqModeSplunkHec>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionSplunkHec = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionSplunkHec = OpenEnum<typeof PqCompressionSplunkHec>;
+
+export type CreateInputPqControlsSplunkHec = {};
+
+export type PqSplunkHec = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModeSplunkHec | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionSplunkHec | undefined;
+  pqControls?: CreateInputPqControlsSplunkHec | undefined;
+};
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const AuthTokenAuthenticationMethodSplunkHec = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type AuthTokenAuthenticationMethodSplunkHec = OpenEnum<
+  typeof AuthTokenAuthenticationMethodSplunkHec
+>;
+
+export type AuthTokenMetadatumSplunkHec = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type AuthTokenSplunkHec = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  authType?: AuthTokenAuthenticationMethodSplunkHec | undefined;
   /**
    * Select or create a stored text secret
    */
@@ -7539,7 +15521,73 @@ export type AuthTokenSplunkHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<AuthTokenMetadatumSplunkHec> | undefined;
+};
+
+export const CreateInputMinimumTLSVersionSplunkHec = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMinimumTLSVersionSplunkHec = OpenEnum<
+  typeof CreateInputMinimumTLSVersionSplunkHec
+>;
+
+export const CreateInputMaximumTLSVersionSplunkHec = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMaximumTLSVersionSplunkHec = OpenEnum<
+  typeof CreateInputMaximumTLSVersionSplunkHec
+>;
+
+export type TLSSettingsServerSideSplunkHec = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: CreateInputMinimumTLSVersionSplunkHec | undefined;
+  maxVersion?: CreateInputMaximumTLSVersionSplunkHec | undefined;
+};
+
+export type MetadatumSplunkHec = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputSplunkHec = {
@@ -7572,8 +15620,8 @@ export type InputSplunkHec = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionSplunkHec> | undefined;
+  pq?: PqSplunkHec | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -7586,7 +15634,7 @@ export type InputSplunkHec = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<AuthTokenSplunkHec> | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideSplunkHec | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -7635,7 +15683,7 @@ export type InputSplunkHec = {
   /**
    * Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumSplunkHec> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -7679,6 +15727,93 @@ export type InputSplunkHec = {
   description?: string | undefined;
 };
 
+export type ConnectionSplunkSearch = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeSplunkSearch = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeSplunkSearch = OpenEnum<typeof ModeSplunkSearch>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionSplunkSearch = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionSplunkSearch = OpenEnum<typeof CompressionSplunkSearch>;
+
+export type PqControlsSplunkSearch = {};
+
+export type PqSplunkSearch = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeSplunkSearch | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionSplunkSearch | undefined;
+  pqControls?: PqControlsSplunkSearch | undefined;
+};
+
+/**
+ * Format of the returned output
+ */
+export const OutputMode = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type OutputMode = OpenEnum<typeof OutputMode>;
+
 export type EndpointParam = {
   name: string;
   /**
@@ -7709,6 +15844,71 @@ export const LogLevelSplunkSearch = {
  */
 export type LogLevelSplunkSearch = OpenEnum<typeof LogLevelSplunkSearch>;
 
+export type MetadatumSplunkSearch = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+/**
+ * The algorithm to use when performing HTTP retries
+ */
+export const RetryTypeSplunkSearch = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * The algorithm to use when performing HTTP retries
+ */
+export type RetryTypeSplunkSearch = OpenEnum<typeof RetryTypeSplunkSearch>;
+
+export type RetryRulesSplunkSearch = {
+  /**
+   * The algorithm to use when performing HTTP retries
+   */
+  type?: RetryTypeSplunkSearch | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
+};
+
 /**
  * Splunk Search authentication type
  */
@@ -7726,6 +15926,28 @@ export const AuthenticationTypeSplunkSearch = {
 export type AuthenticationTypeSplunkSearch = OpenEnum<
   typeof AuthenticationTypeSplunkSearch
 >;
+
+export type OauthParamSplunkSearch = {
+  /**
+   * OAuth parameter name
+   */
+  name: string;
+  /**
+   * OAuth parameter value
+   */
+  value: string;
+};
+
+export type OauthHeaderSplunkSearch = {
+  /**
+   * OAuth header name
+   */
+  name: string;
+  /**
+   * OAuth header value
+   */
+  value: string;
+};
 
 export type InputSplunkSearch = {
   /**
@@ -7757,8 +15979,8 @@ export type InputSplunkSearch = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionSplunkSearch> | undefined;
+  pq?: PqSplunkSearch | undefined;
   /**
    * Search head base URL. Can be an expression. Default is https://localhost:8089.
    */
@@ -7786,7 +16008,7 @@ export type InputSplunkSearch = {
   /**
    * Format of the returned output
    */
-  outputMode?: models.OutputModeOptions | undefined;
+  outputMode?: OutputMode | undefined;
   /**
    * Optional request parameters to send to the endpoint
    */
@@ -7838,8 +16060,8 @@ export type InputSplunkSearch = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
-  retryRules?: models.RetryRulesType | undefined;
+  metadata?: Array<MetadatumSplunkSearch> | undefined;
+  retryRules?: RetryRulesSplunkSearch | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -7894,11 +16116,152 @@ export type InputSplunkSearch = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<OauthParamSplunkSearch> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<OauthHeaderSplunkSearch> | undefined;
+};
+
+export type ConnectionSplunk = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModeSplunk = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModeSplunk = OpenEnum<typeof PqModeSplunk>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionSplunk = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionSplunk = OpenEnum<typeof PqCompressionSplunk>;
+
+export type CreateInputPqControlsSplunk = {};
+
+export type PqSplunk = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModeSplunk | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionSplunk | undefined;
+  pqControls?: CreateInputPqControlsSplunk | undefined;
+};
+
+export const CreateInputMinimumTLSVersionSplunk = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMinimumTLSVersionSplunk = OpenEnum<
+  typeof CreateInputMinimumTLSVersionSplunk
+>;
+
+export const CreateInputMaximumTLSVersionSplunk = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMaximumTLSVersionSplunk = OpenEnum<
+  typeof CreateInputMaximumTLSVersionSplunk
+>;
+
+export type TLSSettingsServerSideSplunk = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: CreateInputMinimumTLSVersionSplunk | undefined;
+  maxVersion?: CreateInputMaximumTLSVersionSplunk | undefined;
+};
+
+export type MetadatumSplunk = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type AuthTokenSplunk = {
@@ -7912,7 +16275,7 @@ export type AuthTokenSplunk = {
 /**
  * The highest S2S protocol version to advertise during handshake
  */
-export const MaxS2SVersion = {
+export const CreateInputMaxS2SVersion = {
   /**
    * v3
    */
@@ -7925,12 +16288,14 @@ export const MaxS2SVersion = {
 /**
  * The highest S2S protocol version to advertise during handshake
  */
-export type MaxS2SVersion = OpenEnum<typeof MaxS2SVersion>;
+export type CreateInputMaxS2SVersion = OpenEnum<
+  typeof CreateInputMaxS2SVersion
+>;
 
 /**
  * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
  */
-export const CreateInputCompression = {
+export const CreateInputCompressionSplunk = {
   /**
    * Disabled
    */
@@ -7947,7 +16312,9 @@ export const CreateInputCompression = {
 /**
  * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
  */
-export type CreateInputCompression = OpenEnum<typeof CreateInputCompression>;
+export type CreateInputCompressionSplunk = OpenEnum<
+  typeof CreateInputCompressionSplunk
+>;
 
 export type InputSplunk = {
   /**
@@ -7979,8 +16346,8 @@ export type InputSplunk = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionSplunk> | undefined;
+  pq?: PqSplunk | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -7989,7 +16356,7 @@ export type InputSplunk = {
    * Port to listen on
    */
   port: number;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideSplunk | undefined;
   /**
    * Regex matching IP addresses that are allowed to establish a connection
    */
@@ -8017,7 +16384,7 @@ export type InputSplunk = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumSplunk> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -8033,7 +16400,7 @@ export type InputSplunk = {
   /**
    * The highest S2S protocol version to advertise during handshake
    */
-  maxS2Sversion?: MaxS2SVersion | undefined;
+  maxS2Sversion?: CreateInputMaxS2SVersion | undefined;
   description?: string | undefined;
   /**
    * Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
@@ -8050,7 +16417,164 @@ export type InputSplunk = {
   /**
    * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
    */
-  compress?: CreateInputCompression | undefined;
+  compress?: CreateInputCompressionSplunk | undefined;
+};
+
+export type ConnectionHTTP = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeHTTP = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeHTTP = OpenEnum<typeof ModeHTTP>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionHTTP = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionHTTP = OpenEnum<typeof CompressionHTTP>;
+
+export type PqControlsHTTP = {};
+
+export type PqHTTP = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeHTTP | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionHTTP | undefined;
+  pqControls?: PqControlsHTTP | undefined;
+};
+
+export const MinimumTLSVersionHTTP = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MinimumTLSVersionHTTP = OpenEnum<typeof MinimumTLSVersionHTTP>;
+
+export const MaximumTLSVersionHTTP = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type MaximumTLSVersionHTTP = OpenEnum<typeof MaximumTLSVersionHTTP>;
+
+export type TLSSettingsServerSideHTTP = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: MinimumTLSVersionHTTP | undefined;
+  maxVersion?: MaximumTLSVersionHTTP | undefined;
+};
+
+export type MetadatumHTTP = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type AuthTokensExtMetadatumHTTP = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type AuthTokensExtHTTP = {
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token: string;
+  description?: string | undefined;
+  /**
+   * Fields to add to events referencing this token
+   */
+  metadata?: Array<AuthTokensExtMetadatumHTTP> | undefined;
 };
 
 export type InputHttp = {
@@ -8083,8 +16607,8 @@ export type InputHttp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionHTTP> | undefined;
+  pq?: PqHTTP | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -8097,7 +16621,7 @@ export type InputHttp = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSideHTTP | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -8158,12 +16682,283 @@ export type InputHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumHTTP> | undefined;
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokensExt?: Array<models.ItemsTypeAuthTokensExt> | undefined;
+  authTokensExt?: Array<AuthTokensExtHTTP> | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionMsk = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModeMsk = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModeMsk = OpenEnum<typeof PqModeMsk>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionMsk = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionMsk = OpenEnum<typeof PqCompressionMsk>;
+
+export type CreateInputPqControlsMsk = {};
+
+export type PqMsk = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModeMsk | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionMsk | undefined;
+  pqControls?: CreateInputPqControlsMsk | undefined;
+};
+
+export type MetadatumMsk = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+/**
+ * Credentials to use when authenticating with the schema registry using basic HTTP authentication
+ */
+export type CreateInputAuthMsk = {
+  disabled?: boolean | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+};
+
+export const CreateInputKafkaSchemaRegistryMinimumTLSVersionMsk = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputKafkaSchemaRegistryMinimumTLSVersionMsk = OpenEnum<
+  typeof CreateInputKafkaSchemaRegistryMinimumTLSVersionMsk
+>;
+
+export const CreateInputKafkaSchemaRegistryMaximumTLSVersionMsk = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputKafkaSchemaRegistryMaximumTLSVersionMsk = OpenEnum<
+  typeof CreateInputKafkaSchemaRegistryMaximumTLSVersionMsk
+>;
+
+export type CreateInputKafkaSchemaRegistryTLSSettingsClientSideMsk = {
+  disabled?: boolean | undefined;
+  /**
+   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+   *
+   * @remarks
+   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+   */
+  servername?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  /**
+   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  minVersion?: CreateInputKafkaSchemaRegistryMinimumTLSVersionMsk | undefined;
+  maxVersion?: CreateInputKafkaSchemaRegistryMaximumTLSVersionMsk | undefined;
+};
+
+export type CreateInputKafkaSchemaRegistryAuthenticationMsk = {
+  disabled?: boolean | undefined;
+  /**
+   * URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
+   */
+  schemaRegistryURL?: string | undefined;
+  /**
+   * Maximum time to wait for a Schema Registry connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for the Schema Registry to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * Maximum number of times to try fetching schemas from the Schema Registry
+   */
+  maxRetries?: number | undefined;
+  /**
+   * Credentials to use when authenticating with the schema registry using basic HTTP authentication
+   */
+  auth?: CreateInputAuthMsk | undefined;
+  tls?: CreateInputKafkaSchemaRegistryTLSSettingsClientSideMsk | undefined;
+};
+
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const CreateInputAuthenticationMethodMsk = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type CreateInputAuthenticationMethodMsk = OpenEnum<
+  typeof CreateInputAuthenticationMethodMsk
+>;
+
+/**
+ * Signature version to use for signing MSK cluster requests
+ */
+export const CreateInputSignatureVersionMsk = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing MSK cluster requests
+ */
+export type CreateInputSignatureVersionMsk = OpenEnum<
+  typeof CreateInputSignatureVersionMsk
+>;
+
+export const CreateInputMinimumTLSVersionMsk = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMinimumTLSVersionMsk = OpenEnum<
+  typeof CreateInputMinimumTLSVersionMsk
+>;
+
+export const CreateInputMaximumTLSVersionMsk = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMaximumTLSVersionMsk = OpenEnum<
+  typeof CreateInputMaximumTLSVersionMsk
+>;
+
+export type CreateInputTLSSettingsClientSideMsk = {
+  disabled?: boolean | undefined;
+  /**
+   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+   *
+   * @remarks
+   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+   */
+  servername?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  /**
+   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  minVersion?: CreateInputMinimumTLSVersionMsk | undefined;
+  maxVersion?: CreateInputMaximumTLSVersionMsk | undefined;
 };
 
 export type InputMsk = {
@@ -8196,8 +16991,8 @@ export type InputMsk = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionMsk> | undefined;
+  pq?: PqMsk | undefined;
   /**
    * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
    */
@@ -8242,9 +17037,9 @@ export type InputMsk = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumMsk> | undefined;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationType
+    | CreateInputKafkaSchemaRegistryAuthenticationMsk
     | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
@@ -8281,7 +17076,7 @@ export type InputMsk = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: CreateInputAuthenticationMethodMsk | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -8294,7 +17089,7 @@ export type InputMsk = {
   /**
    * Signature version to use for signing MSK cluster requests
    */
-  signatureVersion?: models.SignatureVersionOptions1 | undefined;
+  signatureVersion?: CreateInputSignatureVersionMsk | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -8319,7 +17114,7 @@ export type InputMsk = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
-  tls?: models.TlsSettingsClientSideType1 | undefined;
+  tls?: CreateInputTLSSettingsClientSideMsk | undefined;
   /**
    * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
    */
@@ -8346,6 +17141,340 @@ export type InputMsk = {
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
+};
+
+export type ConnectionKafka = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const PqModeKafka = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type PqModeKafka = OpenEnum<typeof PqModeKafka>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const PqCompressionKafka = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type PqCompressionKafka = OpenEnum<typeof PqCompressionKafka>;
+
+export type CreateInputPqControlsKafka = {};
+
+export type PqKafka = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: PqModeKafka | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressionKafka | undefined;
+  pqControls?: CreateInputPqControlsKafka | undefined;
+};
+
+/**
+ * Credentials to use when authenticating with the schema registry using basic HTTP authentication
+ */
+export type CreateInputAuthKafka = {
+  disabled?: boolean | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+};
+
+export const CreateInputKafkaSchemaRegistryMinimumTLSVersionKafka = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputKafkaSchemaRegistryMinimumTLSVersionKafka = OpenEnum<
+  typeof CreateInputKafkaSchemaRegistryMinimumTLSVersionKafka
+>;
+
+export const CreateInputKafkaSchemaRegistryMaximumTLSVersionKafka = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputKafkaSchemaRegistryMaximumTLSVersionKafka = OpenEnum<
+  typeof CreateInputKafkaSchemaRegistryMaximumTLSVersionKafka
+>;
+
+export type CreateInputKafkaSchemaRegistryTLSSettingsClientSideKafka = {
+  disabled?: boolean | undefined;
+  /**
+   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+   *
+   * @remarks
+   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+   */
+  servername?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  /**
+   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  minVersion?: CreateInputKafkaSchemaRegistryMinimumTLSVersionKafka | undefined;
+  maxVersion?: CreateInputKafkaSchemaRegistryMaximumTLSVersionKafka | undefined;
+};
+
+export type CreateInputKafkaSchemaRegistryAuthenticationKafka = {
+  disabled?: boolean | undefined;
+  /**
+   * URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
+   */
+  schemaRegistryURL?: string | undefined;
+  /**
+   * Maximum time to wait for a Schema Registry connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for the Schema Registry to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * Maximum number of times to try fetching schemas from the Schema Registry
+   */
+  maxRetries?: number | undefined;
+  /**
+   * Credentials to use when authenticating with the schema registry using basic HTTP authentication
+   */
+  auth?: CreateInputAuthKafka | undefined;
+  tls?: CreateInputKafkaSchemaRegistryTLSSettingsClientSideKafka | undefined;
+};
+
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export const CreateInputAuthenticationMethodKafka = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type CreateInputAuthenticationMethodKafka = OpenEnum<
+  typeof CreateInputAuthenticationMethodKafka
+>;
+
+export const CreateInputSASLMechanismKafka = {
+  /**
+   * PLAIN
+   */
+  Plain: "plain",
+  /**
+   * SCRAM-SHA-256
+   */
+  ScramSha256: "scram-sha-256",
+  /**
+   * SCRAM-SHA-512
+   */
+  ScramSha512: "scram-sha-512",
+  /**
+   * GSSAPI/Kerberos
+   */
+  Kerberos: "kerberos",
+} as const;
+export type CreateInputSASLMechanismKafka = OpenEnum<
+  typeof CreateInputSASLMechanismKafka
+>;
+
+export type CreateInputOauthParamKafka = {
+  name: string;
+  value: string;
+};
+
+export type CreateInputSaslExtensionKafka = {
+  name: string;
+  value: string;
+};
+
+/**
+ * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+ */
+export type CreateInputAuthenticationKafka = {
+  disabled?: boolean | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: CreateInputAuthenticationMethodKafka | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  mechanism?: CreateInputSASLMechanismKafka | undefined;
+  /**
+   * Location of keytab file for authentication principal
+   */
+  keytabLocation?: string | undefined;
+  /**
+   * Authentication principal, such as `kafka_user@example.com`
+   */
+  principal?: string | undefined;
+  /**
+   * Kerberos service class for Kafka brokers, such as `kafka`
+   */
+  brokerServiceClass?: string | undefined;
+  /**
+   * Enable OAuth authentication
+   */
+  oauthEnabled?: boolean | undefined;
+  /**
+   * URL of the token endpoint to use for OAuth authentication
+   */
+  tokenUrl?: string | undefined;
+  /**
+   * Client ID to use for OAuth authentication
+   */
+  clientId?: string | undefined;
+  oauthSecretType?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  /**
+   * Additional fields to send to the token endpoint, such as scope or audience
+   */
+  oauthParams?: Array<CreateInputOauthParamKafka> | undefined;
+  /**
+   * Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
+   */
+  saslExtensions?: Array<CreateInputSaslExtensionKafka> | undefined;
+};
+
+export const CreateInputMinimumTLSVersionKafka = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMinimumTLSVersionKafka = OpenEnum<
+  typeof CreateInputMinimumTLSVersionKafka
+>;
+
+export const CreateInputMaximumTLSVersionKafka = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type CreateInputMaximumTLSVersionKafka = OpenEnum<
+  typeof CreateInputMaximumTLSVersionKafka
+>;
+
+export type CreateInputTLSSettingsClientSideKafka = {
+  disabled?: boolean | undefined;
+  /**
+   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+   *
+   * @remarks
+   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+   */
+  servername?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  /**
+   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  minVersion?: CreateInputMinimumTLSVersionKafka | undefined;
+  maxVersion?: CreateInputMaximumTLSVersionKafka | undefined;
+};
+
+export type MetadatumKafka = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputKafka = {
@@ -8378,8 +17507,8 @@ export type InputKafka = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionKafka> | undefined;
+  pq?: PqKafka | undefined;
   /**
    * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
    */
@@ -8397,7 +17526,7 @@ export type InputKafka = {
    */
   fromBeginning?: boolean | undefined;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationType
+    | CreateInputKafkaSchemaRegistryAuthenticationKafka
     | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
@@ -8434,8 +17563,8 @@ export type InputKafka = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: models.AuthenticationType | undefined;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  sasl?: CreateInputAuthenticationKafka | undefined;
+  tls?: CreateInputTLSSettingsClientSideKafka | undefined;
   /**
    * @remarks
    *       Timeout used to detect client failures when using Kafka's group-management facilities.
@@ -8484,8 +17613,103 @@ export type InputKafka = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumKafka> | undefined;
   description?: string | undefined;
+};
+
+export type ConnectionCollection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const ModeCollection = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type ModeCollection = OpenEnum<typeof ModeCollection>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const CompressionCollection = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type CompressionCollection = OpenEnum<typeof CompressionCollection>;
+
+export type PqControlsCollection = {};
+
+export type PqCollection = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: ModeCollection | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: CompressionCollection | undefined;
+  pqControls?: PqControlsCollection | undefined;
+};
+
+export type PreprocessCollection = {
+  disabled?: boolean | undefined;
+  /**
+   * Command to feed the data through (via stdin) and process its output (stdout)
+   */
+  command?: string | undefined;
+  /**
+   * Arguments to be added to the custom command
+   */
+  args?: Array<string> | undefined;
+};
+
+export type MetadatumCollection = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputCollection = {
@@ -8518,8 +17742,8 @@ export type InputCollection = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.ItemsTypeConnections> | undefined;
-  pq?: models.PqType | undefined;
+  connections?: Array<ConnectionCollection> | undefined;
+  pq?: PqCollection | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -8528,7 +17752,7 @@ export type InputCollection = {
    * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
    */
   staleChannelFlushMs?: number | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: PreprocessCollection | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
@@ -8536,7 +17760,7 @@ export type InputCollection = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<MetadatumCollection> | undefined;
   /**
    * Destination to send results to
    */
@@ -8609,11 +17833,127 @@ export type CreateInputRequest =
   | InputCloudflareHec;
 
 /** @internal */
-export const AuthTokenAuthenticationMethod$outboundSchema: z.ZodType<
+export type ConnectionCloudflareHec$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionCloudflareHec$outboundSchema: z.ZodType<
+  ConnectionCloudflareHec$Outbound,
+  z.ZodTypeDef,
+  ConnectionCloudflareHec
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionCloudflareHecToJSON(
+  connectionCloudflareHec: ConnectionCloudflareHec,
+): string {
+  return JSON.stringify(
+    ConnectionCloudflareHec$outboundSchema.parse(connectionCloudflareHec),
+  );
+}
+
+/** @internal */
+export const ModeCloudflareHec$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  AuthTokenAuthenticationMethod
-> = openEnums.outboundSchema(AuthTokenAuthenticationMethod);
+  ModeCloudflareHec
+> = openEnums.outboundSchema(ModeCloudflareHec);
+
+/** @internal */
+export const CompressionCloudflareHec$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionCloudflareHec
+> = openEnums.outboundSchema(CompressionCloudflareHec);
+
+/** @internal */
+export type PqControlsCloudflareHec$Outbound = {};
+
+/** @internal */
+export const PqControlsCloudflareHec$outboundSchema: z.ZodType<
+  PqControlsCloudflareHec$Outbound,
+  z.ZodTypeDef,
+  PqControlsCloudflareHec
+> = z.object({});
+
+export function pqControlsCloudflareHecToJSON(
+  pqControlsCloudflareHec: PqControlsCloudflareHec,
+): string {
+  return JSON.stringify(
+    PqControlsCloudflareHec$outboundSchema.parse(pqControlsCloudflareHec),
+  );
+}
+
+/** @internal */
+export type PqCloudflareHec$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsCloudflareHec$Outbound | undefined;
+};
+
+/** @internal */
+export const PqCloudflareHec$outboundSchema: z.ZodType<
+  PqCloudflareHec$Outbound,
+  z.ZodTypeDef,
+  PqCloudflareHec
+> = z.object({
+  mode: ModeCloudflareHec$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionCloudflareHec$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsCloudflareHec$outboundSchema).optional(),
+});
+
+export function pqCloudflareHecToJSON(
+  pqCloudflareHec: PqCloudflareHec,
+): string {
+  return JSON.stringify(PqCloudflareHec$outboundSchema.parse(pqCloudflareHec));
+}
+
+/** @internal */
+export const AuthenticationMethodCloudflareHec$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodCloudflareHec
+> = openEnums.outboundSchema(AuthenticationMethodCloudflareHec);
+
+/** @internal */
+export type AuthTokenMetadatumCloudflareHec$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const AuthTokenMetadatumCloudflareHec$outboundSchema: z.ZodType<
+  AuthTokenMetadatumCloudflareHec$Outbound,
+  z.ZodTypeDef,
+  AuthTokenMetadatumCloudflareHec
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function authTokenMetadatumCloudflareHecToJSON(
+  authTokenMetadatumCloudflareHec: AuthTokenMetadatumCloudflareHec,
+): string {
+  return JSON.stringify(
+    AuthTokenMetadatumCloudflareHec$outboundSchema.parse(
+      authTokenMetadatumCloudflareHec,
+    ),
+  );
+}
 
 /** @internal */
 export type AuthTokenCloudflareHec$Outbound = {
@@ -8623,7 +17963,7 @@ export type AuthTokenCloudflareHec$Outbound = {
   enabled: boolean;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<AuthTokenMetadatumCloudflareHec$Outbound> | undefined;
 };
 
 /** @internal */
@@ -8632,14 +17972,15 @@ export const AuthTokenCloudflareHec$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AuthTokenCloudflareHec
 > = z.object({
-  authType: AuthTokenAuthenticationMethod$outboundSchema.default("secret"),
+  authType: AuthenticationMethodCloudflareHec$outboundSchema.default("secret"),
   tokenSecret: z.string().optional(),
   token: z.string().optional(),
   enabled: z.boolean().default(true),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(
+    z.lazy(() => AuthTokenMetadatumCloudflareHec$outboundSchema),
+  ).optional(),
 });
 
 export function authTokenCloudflareHecToJSON(
@@ -8647,6 +17988,88 @@ export function authTokenCloudflareHecToJSON(
 ): string {
   return JSON.stringify(
     AuthTokenCloudflareHec$outboundSchema.parse(authTokenCloudflareHec),
+  );
+}
+
+/** @internal */
+export const MinimumTLSVersionCloudflareHec$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MinimumTLSVersionCloudflareHec
+> = openEnums.outboundSchema(MinimumTLSVersionCloudflareHec);
+
+/** @internal */
+export const MaximumTLSVersionCloudflareHec$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaximumTLSVersionCloudflareHec
+> = openEnums.outboundSchema(MaximumTLSVersionCloudflareHec);
+
+/** @internal */
+export type TLSSettingsServerSideCloudflareHec$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideCloudflareHec$outboundSchema: z.ZodType<
+  TLSSettingsServerSideCloudflareHec$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideCloudflareHec
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: MinimumTLSVersionCloudflareHec$outboundSchema.optional(),
+  maxVersion: MaximumTLSVersionCloudflareHec$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideCloudflareHecToJSON(
+  tlsSettingsServerSideCloudflareHec: TLSSettingsServerSideCloudflareHec,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideCloudflareHec$outboundSchema.parse(
+      tlsSettingsServerSideCloudflareHec,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumCloudflareHec$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumCloudflareHec$outboundSchema: z.ZodType<
+  MetadatumCloudflareHec$Outbound,
+  z.ZodTypeDef,
+  MetadatumCloudflareHec
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumCloudflareHecToJSON(
+  metadatumCloudflareHec: MetadatumCloudflareHec,
+): string {
+  return JSON.stringify(
+    MetadatumCloudflareHec$outboundSchema.parse(metadatumCloudflareHec),
   );
 }
 
@@ -8660,12 +18083,12 @@ export type InputCloudflareHec$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionCloudflareHec$Outbound> | undefined;
+  pq?: PqCloudflareHec$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<AuthTokenCloudflareHec$Outbound> | undefined;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideCloudflareHec$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -8678,7 +18101,7 @@ export type InputCloudflareHec$Outbound = {
   ipAllowlistRegex: string;
   ipDenylistRegex: string;
   hecAPI: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumCloudflareHec$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
@@ -8702,13 +18125,15 @@ export const InputCloudflareHec$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionCloudflareHec$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqCloudflareHec$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.lazy(() => AuthTokenCloudflareHec$outboundSchema))
     .optional(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideCloudflareHec$outboundSchema)
+    .optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -8721,7 +18146,7 @@ export const InputCloudflareHec$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   hecAPI: z.string(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumCloudflareHec$outboundSchema))
     .optional(),
   allowedIndexes: z.array(z.string()).optional(),
   breakerRulesets: z.array(z.string()).optional(),
@@ -8741,6 +18166,127 @@ export function inputCloudflareHecToJSON(
 }
 
 /** @internal */
+export type ConnectionZscalerHec$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionZscalerHec$outboundSchema: z.ZodType<
+  ConnectionZscalerHec$Outbound,
+  z.ZodTypeDef,
+  ConnectionZscalerHec
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionZscalerHecToJSON(
+  connectionZscalerHec: ConnectionZscalerHec,
+): string {
+  return JSON.stringify(
+    ConnectionZscalerHec$outboundSchema.parse(connectionZscalerHec),
+  );
+}
+
+/** @internal */
+export const ModeZscalerHec$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeZscalerHec
+> = openEnums.outboundSchema(ModeZscalerHec);
+
+/** @internal */
+export const CompressionZscalerHec$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionZscalerHec
+> = openEnums.outboundSchema(CompressionZscalerHec);
+
+/** @internal */
+export type PqControlsZscalerHec$Outbound = {};
+
+/** @internal */
+export const PqControlsZscalerHec$outboundSchema: z.ZodType<
+  PqControlsZscalerHec$Outbound,
+  z.ZodTypeDef,
+  PqControlsZscalerHec
+> = z.object({});
+
+export function pqControlsZscalerHecToJSON(
+  pqControlsZscalerHec: PqControlsZscalerHec,
+): string {
+  return JSON.stringify(
+    PqControlsZscalerHec$outboundSchema.parse(pqControlsZscalerHec),
+  );
+}
+
+/** @internal */
+export type PqZscalerHec$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsZscalerHec$Outbound | undefined;
+};
+
+/** @internal */
+export const PqZscalerHec$outboundSchema: z.ZodType<
+  PqZscalerHec$Outbound,
+  z.ZodTypeDef,
+  PqZscalerHec
+> = z.object({
+  mode: ModeZscalerHec$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionZscalerHec$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsZscalerHec$outboundSchema).optional(),
+});
+
+export function pqZscalerHecToJSON(pqZscalerHec: PqZscalerHec): string {
+  return JSON.stringify(PqZscalerHec$outboundSchema.parse(pqZscalerHec));
+}
+
+/** @internal */
+export const AuthenticationMethodZscalerHec$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodZscalerHec
+> = openEnums.outboundSchema(AuthenticationMethodZscalerHec);
+
+/** @internal */
+export type AuthTokenMetadatumZscalerHec$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const AuthTokenMetadatumZscalerHec$outboundSchema: z.ZodType<
+  AuthTokenMetadatumZscalerHec$Outbound,
+  z.ZodTypeDef,
+  AuthTokenMetadatumZscalerHec
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function authTokenMetadatumZscalerHecToJSON(
+  authTokenMetadatumZscalerHec: AuthTokenMetadatumZscalerHec,
+): string {
+  return JSON.stringify(
+    AuthTokenMetadatumZscalerHec$outboundSchema.parse(
+      authTokenMetadatumZscalerHec,
+    ),
+  );
+}
+
+/** @internal */
 export type AuthTokenZscalerHec$Outbound = {
   authType: string;
   tokenSecret?: string | undefined;
@@ -8748,7 +18294,7 @@ export type AuthTokenZscalerHec$Outbound = {
   enabled: boolean;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<AuthTokenMetadatumZscalerHec$Outbound> | undefined;
 };
 
 /** @internal */
@@ -8757,14 +18303,13 @@ export const AuthTokenZscalerHec$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AuthTokenZscalerHec
 > = z.object({
-  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
+  authType: AuthenticationMethodZscalerHec$outboundSchema.default("manual"),
   tokenSecret: z.string().optional(),
   token: z.string(),
   enabled: z.boolean().default(true),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => AuthTokenMetadatumZscalerHec$outboundSchema))
     .optional(),
 });
 
@@ -8773,6 +18318,88 @@ export function authTokenZscalerHecToJSON(
 ): string {
   return JSON.stringify(
     AuthTokenZscalerHec$outboundSchema.parse(authTokenZscalerHec),
+  );
+}
+
+/** @internal */
+export const MinimumTLSVersionZscalerHec$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MinimumTLSVersionZscalerHec
+> = openEnums.outboundSchema(MinimumTLSVersionZscalerHec);
+
+/** @internal */
+export const MaximumTLSVersionZscalerHec$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaximumTLSVersionZscalerHec
+> = openEnums.outboundSchema(MaximumTLSVersionZscalerHec);
+
+/** @internal */
+export type TLSSettingsServerSideZscalerHec$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideZscalerHec$outboundSchema: z.ZodType<
+  TLSSettingsServerSideZscalerHec$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideZscalerHec
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: MinimumTLSVersionZscalerHec$outboundSchema.optional(),
+  maxVersion: MaximumTLSVersionZscalerHec$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideZscalerHecToJSON(
+  tlsSettingsServerSideZscalerHec: TLSSettingsServerSideZscalerHec,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideZscalerHec$outboundSchema.parse(
+      tlsSettingsServerSideZscalerHec,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumZscalerHec$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumZscalerHec$outboundSchema: z.ZodType<
+  MetadatumZscalerHec$Outbound,
+  z.ZodTypeDef,
+  MetadatumZscalerHec
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumZscalerHecToJSON(
+  metadatumZscalerHec: MetadatumZscalerHec,
+): string {
+  return JSON.stringify(
+    MetadatumZscalerHec$outboundSchema.parse(metadatumZscalerHec),
   );
 }
 
@@ -8786,12 +18413,12 @@ export type InputZscalerHec$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionZscalerHec$Outbound> | undefined;
+  pq?: PqZscalerHec$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<AuthTokenZscalerHec$Outbound> | undefined;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideZscalerHec$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -8804,7 +18431,7 @@ export type InputZscalerHec$Outbound = {
   ipAllowlistRegex: string;
   ipDenylistRegex: string;
   hecAPI: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumZscalerHec$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   hecAcks: boolean;
   accessControlAllowOrigin?: Array<string> | undefined;
@@ -8827,13 +18454,14 @@ export const InputZscalerHec$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionZscalerHec$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqZscalerHec$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.lazy(() => AuthTokenZscalerHec$outboundSchema))
     .optional(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideZscalerHec$outboundSchema).optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -8846,7 +18474,7 @@ export const InputZscalerHec$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   hecAPI: z.string().default("/services/collector"),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumZscalerHec$outboundSchema))
     .optional(),
   allowedIndexes: z.array(z.string()).optional(),
   hecAcks: z.boolean().default(false),
@@ -8863,6 +18491,187 @@ export function inputZscalerHecToJSON(
 }
 
 /** @internal */
+export type ConnectionSecurityLake$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionSecurityLake$outboundSchema: z.ZodType<
+  ConnectionSecurityLake$Outbound,
+  z.ZodTypeDef,
+  ConnectionSecurityLake
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionSecurityLakeToJSON(
+  connectionSecurityLake: ConnectionSecurityLake,
+): string {
+  return JSON.stringify(
+    ConnectionSecurityLake$outboundSchema.parse(connectionSecurityLake),
+  );
+}
+
+/** @internal */
+export const ModeSecurityLake$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeSecurityLake
+> = openEnums.outboundSchema(ModeSecurityLake);
+
+/** @internal */
+export const CompressionSecurityLake$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionSecurityLake
+> = openEnums.outboundSchema(CompressionSecurityLake);
+
+/** @internal */
+export type PqControlsSecurityLake$Outbound = {};
+
+/** @internal */
+export const PqControlsSecurityLake$outboundSchema: z.ZodType<
+  PqControlsSecurityLake$Outbound,
+  z.ZodTypeDef,
+  PqControlsSecurityLake
+> = z.object({});
+
+export function pqControlsSecurityLakeToJSON(
+  pqControlsSecurityLake: PqControlsSecurityLake,
+): string {
+  return JSON.stringify(
+    PqControlsSecurityLake$outboundSchema.parse(pqControlsSecurityLake),
+  );
+}
+
+/** @internal */
+export type PqSecurityLake$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsSecurityLake$Outbound | undefined;
+};
+
+/** @internal */
+export const PqSecurityLake$outboundSchema: z.ZodType<
+  PqSecurityLake$Outbound,
+  z.ZodTypeDef,
+  PqSecurityLake
+> = z.object({
+  mode: ModeSecurityLake$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionSecurityLake$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsSecurityLake$outboundSchema).optional(),
+});
+
+export function pqSecurityLakeToJSON(pqSecurityLake: PqSecurityLake): string {
+  return JSON.stringify(PqSecurityLake$outboundSchema.parse(pqSecurityLake));
+}
+
+/** @internal */
+export const CreateInputAuthenticationMethodSecurityLake$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateInputAuthenticationMethodSecurityLake> =
+    openEnums.outboundSchema(CreateInputAuthenticationMethodSecurityLake);
+
+/** @internal */
+export const CreateInputSignatureVersionSecurityLake$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSignatureVersionSecurityLake
+> = openEnums.outboundSchema(CreateInputSignatureVersionSecurityLake);
+
+/** @internal */
+export type PreprocessSecurityLake$Outbound = {
+  disabled: boolean;
+  command?: string | undefined;
+  args?: Array<string> | undefined;
+};
+
+/** @internal */
+export const PreprocessSecurityLake$outboundSchema: z.ZodType<
+  PreprocessSecurityLake$Outbound,
+  z.ZodTypeDef,
+  PreprocessSecurityLake
+> = z.object({
+  disabled: z.boolean().default(true),
+  command: z.string().optional(),
+  args: z.array(z.string()).optional(),
+});
+
+export function preprocessSecurityLakeToJSON(
+  preprocessSecurityLake: PreprocessSecurityLake,
+): string {
+  return JSON.stringify(
+    PreprocessSecurityLake$outboundSchema.parse(preprocessSecurityLake),
+  );
+}
+
+/** @internal */
+export type MetadatumSecurityLake$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumSecurityLake$outboundSchema: z.ZodType<
+  MetadatumSecurityLake$Outbound,
+  z.ZodTypeDef,
+  MetadatumSecurityLake
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumSecurityLakeToJSON(
+  metadatumSecurityLake: MetadatumSecurityLake,
+): string {
+  return JSON.stringify(
+    MetadatumSecurityLake$outboundSchema.parse(metadatumSecurityLake),
+  );
+}
+
+/** @internal */
+export type CheckpointingSecurityLake$Outbound = {
+  enabled: boolean;
+  retries: number;
+};
+
+/** @internal */
+export const CheckpointingSecurityLake$outboundSchema: z.ZodType<
+  CheckpointingSecurityLake$Outbound,
+  z.ZodTypeDef,
+  CheckpointingSecurityLake
+> = z.object({
+  enabled: z.boolean().default(false),
+  retries: z.number().default(5),
+});
+
+export function checkpointingSecurityLakeToJSON(
+  checkpointingSecurityLake: CheckpointingSecurityLake,
+): string {
+  return JSON.stringify(
+    CheckpointingSecurityLake$outboundSchema.parse(checkpointingSecurityLake),
+  );
+}
+
+/** @internal */
+export const TagAfterProcessingSecurityLake$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  TagAfterProcessingSecurityLake
+> = openEnums.outboundSchema(TagAfterProcessingSecurityLake);
+
+/** @internal */
 export type InputSecurityLake$Outbound = {
   id: string;
   type: "security_lake";
@@ -8872,8 +18681,8 @@ export type InputSecurityLake$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionSecurityLake$Outbound> | undefined;
+  pq?: PqSecurityLake$Outbound | undefined;
   queueName: string;
   fileFilter: string;
   awsAccountId?: string | undefined;
@@ -8897,13 +18706,11 @@ export type InputSecurityLake$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds: number;
   enableSQSAssumeRole: boolean;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: PreprocessSecurityLake$Outbound | undefined;
+  metadata?: Array<MetadatumSecurityLake$Outbound> | undefined;
   parquetChunkSizeMB: number;
   parquetChunkDownloadTimeout: number;
-  checkpointing?: models.CheckpointingType$Outbound | undefined;
+  checkpointing?: CheckpointingSecurityLake$Outbound | undefined;
   pollTimeout: number;
   encoding?: string | undefined;
   description?: string | undefined;
@@ -8928,17 +18735,19 @@ export const InputSecurityLake$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionSecurityLake$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqSecurityLake$outboundSchema).optional(),
   queueName: z.string(),
   fileFilter: z.string().default("/.*/"),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
-    .default("auto"),
+  awsAuthenticationMethod:
+    CreateInputAuthenticationMethodSecurityLake$outboundSchema.default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions$outboundSchema.default("v4"),
+  signatureVersion: CreateInputSignatureVersionSecurityLake$outboundSchema
+    .default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   breakerRulesets: z.array(z.string()).optional(),
@@ -8954,20 +18763,19 @@ export const InputSecurityLake$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
   enableSQSAssumeRole: z.boolean().default(false),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  preprocess: z.lazy(() => PreprocessSecurityLake$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => MetadatumSecurityLake$outboundSchema))
     .optional(),
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
-  checkpointing: models.CheckpointingType$outboundSchema.optional(),
+  checkpointing: z.lazy(() => CheckpointingSecurityLake$outboundSchema)
+    .optional(),
   pollTimeout: z.number().default(10),
   encoding: z.string().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  tagAfterProcessing: models.TagAfterProcessingOptions$outboundSchema
-    .optional(),
+  tagAfterProcessing: TagAfterProcessingSecurityLake$outboundSchema.optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
 });
@@ -8981,6 +18789,118 @@ export function inputSecurityLakeToJSON(
 }
 
 /** @internal */
+export type ConnectionNetflow$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionNetflow$outboundSchema: z.ZodType<
+  ConnectionNetflow$Outbound,
+  z.ZodTypeDef,
+  ConnectionNetflow
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionNetflowToJSON(
+  connectionNetflow: ConnectionNetflow,
+): string {
+  return JSON.stringify(
+    ConnectionNetflow$outboundSchema.parse(connectionNetflow),
+  );
+}
+
+/** @internal */
+export const ModeNetflow$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeNetflow
+> = openEnums.outboundSchema(ModeNetflow);
+
+/** @internal */
+export const CompressionNetflow$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionNetflow
+> = openEnums.outboundSchema(CompressionNetflow);
+
+/** @internal */
+export type PqControlsNetflow$Outbound = {};
+
+/** @internal */
+export const PqControlsNetflow$outboundSchema: z.ZodType<
+  PqControlsNetflow$Outbound,
+  z.ZodTypeDef,
+  PqControlsNetflow
+> = z.object({});
+
+export function pqControlsNetflowToJSON(
+  pqControlsNetflow: PqControlsNetflow,
+): string {
+  return JSON.stringify(
+    PqControlsNetflow$outboundSchema.parse(pqControlsNetflow),
+  );
+}
+
+/** @internal */
+export type PqNetflow$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsNetflow$Outbound | undefined;
+};
+
+/** @internal */
+export const PqNetflow$outboundSchema: z.ZodType<
+  PqNetflow$Outbound,
+  z.ZodTypeDef,
+  PqNetflow
+> = z.object({
+  mode: ModeNetflow$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionNetflow$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsNetflow$outboundSchema).optional(),
+});
+
+export function pqNetflowToJSON(pqNetflow: PqNetflow): string {
+  return JSON.stringify(PqNetflow$outboundSchema.parse(pqNetflow));
+}
+
+/** @internal */
+export type MetadatumNetflow$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumNetflow$outboundSchema: z.ZodType<
+  MetadatumNetflow$Outbound,
+  z.ZodTypeDef,
+  MetadatumNetflow
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumNetflowToJSON(
+  metadatumNetflow: MetadatumNetflow,
+): string {
+  return JSON.stringify(
+    MetadatumNetflow$outboundSchema.parse(metadatumNetflow),
+  );
+}
+
+/** @internal */
 export type InputNetflow$Outbound = {
   id: string;
   type: "netflow";
@@ -8990,8 +18910,8 @@ export type InputNetflow$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionNetflow$Outbound> | undefined;
+  pq?: PqNetflow$Outbound | undefined;
   host: string;
   port: number;
   enablePassThrough: boolean;
@@ -9002,7 +18922,7 @@ export type InputNetflow$Outbound = {
   v5Enabled: boolean;
   v9Enabled: boolean;
   ipfixEnabled: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumNetflow$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -9020,8 +18940,9 @@ export const InputNetflow$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionNetflow$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqNetflow$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(2055),
   enablePassThrough: z.boolean().default(false),
@@ -9032,13 +18953,236 @@ export const InputNetflow$outboundSchema: z.ZodType<
   v5Enabled: z.boolean().default(true),
   v9Enabled: z.boolean().default(true),
   ipfixEnabled: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumNetflow$outboundSchema)).optional(),
   description: z.string().optional(),
 });
 
 export function inputNetflowToJSON(inputNetflow: InputNetflow): string {
   return JSON.stringify(InputNetflow$outboundSchema.parse(inputNetflow));
+}
+
+/** @internal */
+export type ConnectionWizWebhook$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionWizWebhook$outboundSchema: z.ZodType<
+  ConnectionWizWebhook$Outbound,
+  z.ZodTypeDef,
+  ConnectionWizWebhook
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionWizWebhookToJSON(
+  connectionWizWebhook: ConnectionWizWebhook,
+): string {
+  return JSON.stringify(
+    ConnectionWizWebhook$outboundSchema.parse(connectionWizWebhook),
+  );
+}
+
+/** @internal */
+export const ModeWizWebhook$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeWizWebhook
+> = openEnums.outboundSchema(ModeWizWebhook);
+
+/** @internal */
+export const CompressionWizWebhook$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionWizWebhook
+> = openEnums.outboundSchema(CompressionWizWebhook);
+
+/** @internal */
+export type PqControlsWizWebhook$Outbound = {};
+
+/** @internal */
+export const PqControlsWizWebhook$outboundSchema: z.ZodType<
+  PqControlsWizWebhook$Outbound,
+  z.ZodTypeDef,
+  PqControlsWizWebhook
+> = z.object({});
+
+export function pqControlsWizWebhookToJSON(
+  pqControlsWizWebhook: PqControlsWizWebhook,
+): string {
+  return JSON.stringify(
+    PqControlsWizWebhook$outboundSchema.parse(pqControlsWizWebhook),
+  );
+}
+
+/** @internal */
+export type PqWizWebhook$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsWizWebhook$Outbound | undefined;
+};
+
+/** @internal */
+export const PqWizWebhook$outboundSchema: z.ZodType<
+  PqWizWebhook$Outbound,
+  z.ZodTypeDef,
+  PqWizWebhook
+> = z.object({
+  mode: ModeWizWebhook$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionWizWebhook$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsWizWebhook$outboundSchema).optional(),
+});
+
+export function pqWizWebhookToJSON(pqWizWebhook: PqWizWebhook): string {
+  return JSON.stringify(PqWizWebhook$outboundSchema.parse(pqWizWebhook));
+}
+
+/** @internal */
+export const MinimumTLSVersionWizWebhook$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MinimumTLSVersionWizWebhook
+> = openEnums.outboundSchema(MinimumTLSVersionWizWebhook);
+
+/** @internal */
+export const MaximumTLSVersionWizWebhook$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaximumTLSVersionWizWebhook
+> = openEnums.outboundSchema(MaximumTLSVersionWizWebhook);
+
+/** @internal */
+export type TLSSettingsServerSideWizWebhook$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideWizWebhook$outboundSchema: z.ZodType<
+  TLSSettingsServerSideWizWebhook$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideWizWebhook
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: MinimumTLSVersionWizWebhook$outboundSchema.optional(),
+  maxVersion: MaximumTLSVersionWizWebhook$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideWizWebhookToJSON(
+  tlsSettingsServerSideWizWebhook: TLSSettingsServerSideWizWebhook,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideWizWebhook$outboundSchema.parse(
+      tlsSettingsServerSideWizWebhook,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumWizWebhook$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumWizWebhook$outboundSchema: z.ZodType<
+  MetadatumWizWebhook$Outbound,
+  z.ZodTypeDef,
+  MetadatumWizWebhook
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumWizWebhookToJSON(
+  metadatumWizWebhook: MetadatumWizWebhook,
+): string {
+  return JSON.stringify(
+    MetadatumWizWebhook$outboundSchema.parse(metadatumWizWebhook),
+  );
+}
+
+/** @internal */
+export type AuthTokensExtMetadatumWizWebhook$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const AuthTokensExtMetadatumWizWebhook$outboundSchema: z.ZodType<
+  AuthTokensExtMetadatumWizWebhook$Outbound,
+  z.ZodTypeDef,
+  AuthTokensExtMetadatumWizWebhook
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function authTokensExtMetadatumWizWebhookToJSON(
+  authTokensExtMetadatumWizWebhook: AuthTokensExtMetadatumWizWebhook,
+): string {
+  return JSON.stringify(
+    AuthTokensExtMetadatumWizWebhook$outboundSchema.parse(
+      authTokensExtMetadatumWizWebhook,
+    ),
+  );
+}
+
+/** @internal */
+export type AuthTokensExtWizWebhook$Outbound = {
+  token: string;
+  description?: string | undefined;
+  metadata?: Array<AuthTokensExtMetadatumWizWebhook$Outbound> | undefined;
+};
+
+/** @internal */
+export const AuthTokensExtWizWebhook$outboundSchema: z.ZodType<
+  AuthTokensExtWizWebhook$Outbound,
+  z.ZodTypeDef,
+  AuthTokensExtWizWebhook
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(
+    z.lazy(() => AuthTokensExtMetadatumWizWebhook$outboundSchema),
+  ).optional(),
+});
+
+export function authTokensExtWizWebhookToJSON(
+  authTokensExtWizWebhook: AuthTokensExtWizWebhook,
+): string {
+  return JSON.stringify(
+    AuthTokensExtWizWebhook$outboundSchema.parse(authTokensExtWizWebhook),
+  );
 }
 
 /** @internal */
@@ -9051,12 +19195,12 @@ export type InputWizWebhook$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionWizWebhook$Outbound> | undefined;
+  pq?: PqWizWebhook$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<string> | undefined;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideWizWebhook$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -9070,10 +19214,10 @@ export type InputWizWebhook$Outbound = {
   ipDenylistRegex: string;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumWizWebhook$Outbound> | undefined;
   allowedPaths?: Array<string> | undefined;
   allowedMethods?: Array<string> | undefined;
-  authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExtWizWebhook$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -9091,12 +19235,13 @@ export const InputWizWebhook$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionWizWebhook$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqWizWebhook$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideWizWebhook$outboundSchema).optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -9110,11 +19255,11 @@ export const InputWizWebhook$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumWizWebhook$outboundSchema))
     .optional(),
   allowedPaths: z.array(z.string()).optional(),
   allowedMethods: z.array(z.string()).optional(),
-  authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
+  authTokensExt: z.array(z.lazy(() => AuthTokensExtWizWebhook$outboundSchema))
     .optional(),
   description: z.string().optional(),
 });
@@ -9123,6 +19268,83 @@ export function inputWizWebhookToJSON(
   inputWizWebhook: InputWizWebhook,
 ): string {
   return JSON.stringify(InputWizWebhook$outboundSchema.parse(inputWizWebhook));
+}
+
+/** @internal */
+export type ConnectionWiz$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionWiz$outboundSchema: z.ZodType<
+  ConnectionWiz$Outbound,
+  z.ZodTypeDef,
+  ConnectionWiz
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionWizToJSON(connectionWiz: ConnectionWiz): string {
+  return JSON.stringify(ConnectionWiz$outboundSchema.parse(connectionWiz));
+}
+
+/** @internal */
+export const ModeWiz$outboundSchema: z.ZodType<string, z.ZodTypeDef, ModeWiz> =
+  openEnums.outboundSchema(ModeWiz);
+
+/** @internal */
+export const CompressionWiz$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionWiz
+> = openEnums.outboundSchema(CompressionWiz);
+
+/** @internal */
+export type PqControlsWiz$Outbound = {};
+
+/** @internal */
+export const PqControlsWiz$outboundSchema: z.ZodType<
+  PqControlsWiz$Outbound,
+  z.ZodTypeDef,
+  PqControlsWiz
+> = z.object({});
+
+export function pqControlsWizToJSON(pqControlsWiz: PqControlsWiz): string {
+  return JSON.stringify(PqControlsWiz$outboundSchema.parse(pqControlsWiz));
+}
+
+/** @internal */
+export type PqWiz$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsWiz$Outbound | undefined;
+};
+
+/** @internal */
+export const PqWiz$outboundSchema: z.ZodType<
+  PqWiz$Outbound,
+  z.ZodTypeDef,
+  PqWiz
+> = z.object({
+  mode: ModeWiz$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionWiz$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsWiz$outboundSchema).optional(),
+});
+
+export function pqWizToJSON(pqWiz: PqWiz): string {
+  return JSON.stringify(PqWiz$outboundSchema.parse(pqWiz));
 }
 
 /** @internal */
@@ -9140,11 +19362,11 @@ export function manageStateToJSON(manageState: ManageState): string {
 }
 
 /** @internal */
-export const ContentConfigLogLevel$outboundSchema: z.ZodType<
+export const LogLevelWiz$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  ContentConfigLogLevel
-> = openEnums.outboundSchema(ContentConfigLogLevel);
+  LogLevelWiz
+> = openEnums.outboundSchema(LogLevelWiz);
 
 /** @internal */
 export type ContentConfigWiz$Outbound = {
@@ -9186,7 +19408,7 @@ export const ContentConfigWiz$outboundSchema: z.ZodType<
   earliest: z.string().default("-12h@h"),
   latest: z.string().default("now"),
   jobTimeout: z.string().default("0"),
-  logLevel: ContentConfigLogLevel$outboundSchema.default("info"),
+  logLevel: LogLevelWiz$outboundSchema.default("info"),
   maxPages: z.number().default(0),
 });
 
@@ -9199,6 +19421,72 @@ export function contentConfigWizToJSON(
 }
 
 /** @internal */
+export type MetadatumWiz$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumWiz$outboundSchema: z.ZodType<
+  MetadatumWiz$Outbound,
+  z.ZodTypeDef,
+  MetadatumWiz
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumWizToJSON(metadatumWiz: MetadatumWiz): string {
+  return JSON.stringify(MetadatumWiz$outboundSchema.parse(metadatumWiz));
+}
+
+/** @internal */
+export const RetryTypeWiz$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RetryTypeWiz
+> = openEnums.outboundSchema(RetryTypeWiz);
+
+/** @internal */
+export type RetryRulesWiz$Outbound = {
+  type: string;
+  interval: number;
+  limit: number;
+  multiplier: number;
+  codes?: Array<number> | undefined;
+  enableHeader: boolean;
+  retryConnectTimeout: boolean;
+  retryConnectReset: boolean;
+};
+
+/** @internal */
+export const RetryRulesWiz$outboundSchema: z.ZodType<
+  RetryRulesWiz$Outbound,
+  z.ZodTypeDef,
+  RetryRulesWiz
+> = z.object({
+  type: RetryTypeWiz$outboundSchema.default("backoff"),
+  interval: z.number().default(1000),
+  limit: z.number().default(5),
+  multiplier: z.number().default(2),
+  codes: z.array(z.number()).optional(),
+  enableHeader: z.boolean().default(true),
+  retryConnectTimeout: z.boolean().default(false),
+  retryConnectReset: z.boolean().default(false),
+});
+
+export function retryRulesWizToJSON(retryRulesWiz: RetryRulesWiz): string {
+  return JSON.stringify(RetryRulesWiz$outboundSchema.parse(retryRulesWiz));
+}
+
+/** @internal */
+export const AuthenticationMethodWiz$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodWiz
+> = openEnums.outboundSchema(AuthenticationMethodWiz);
+
+/** @internal */
 export type InputWiz$Outbound = {
   id: string;
   type: "wiz";
@@ -9208,8 +19496,8 @@ export type InputWiz$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionWiz$Outbound> | undefined;
+  pq?: PqWiz$Outbound | undefined;
   endpoint: string;
   authUrl: string;
   authAudienceOverride?: string | undefined;
@@ -9220,8 +19508,8 @@ export type InputWiz$Outbound = {
   maxMissedKeepAlives: number;
   ttl: string;
   ignoreGroupJobsLimit: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  retryRules?: models.RetryRulesType$Outbound | undefined;
+  metadata?: Array<MetadatumWiz$Outbound> | undefined;
+  retryRules?: RetryRulesWiz$Outbound | undefined;
   authType: string;
   description?: string | undefined;
   clientSecret?: string | undefined;
@@ -9242,8 +19530,8 @@ export const InputWiz$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionWiz$outboundSchema)).optional(),
+  pq: z.lazy(() => PqWiz$outboundSchema).optional(),
   endpoint: z.string().default("https://api.<region>.app.wiz.io/graphql"),
   authUrl: z.string(),
   authAudienceOverride: z.string().optional(),
@@ -9254,12 +19542,9 @@ export const InputWiz$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().default(3),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
-  retryRules: models.RetryRulesType$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.default(
-    "manual",
-  ),
+  metadata: z.array(z.lazy(() => MetadatumWiz$outboundSchema)).optional(),
+  retryRules: z.lazy(() => RetryRulesWiz$outboundSchema).optional(),
+  authType: AuthenticationMethodWiz$outboundSchema.default("manual"),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
@@ -9267,6 +19552,103 @@ export const InputWiz$outboundSchema: z.ZodType<
 
 export function inputWizToJSON(inputWiz: InputWiz): string {
   return JSON.stringify(InputWiz$outboundSchema.parse(inputWiz));
+}
+
+/** @internal */
+export type InputJournalFilesConnection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputJournalFilesConnection$outboundSchema: z.ZodType<
+  InputJournalFilesConnection$Outbound,
+  z.ZodTypeDef,
+  InputJournalFilesConnection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputJournalFilesConnectionToJSON(
+  inputJournalFilesConnection: InputJournalFilesConnection,
+): string {
+  return JSON.stringify(
+    InputJournalFilesConnection$outboundSchema.parse(
+      inputJournalFilesConnection,
+    ),
+  );
+}
+
+/** @internal */
+export const InputJournalFilesMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputJournalFilesMode
+> = openEnums.outboundSchema(InputJournalFilesMode);
+
+/** @internal */
+export const InputJournalFilesCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputJournalFilesCompression
+> = openEnums.outboundSchema(InputJournalFilesCompression);
+
+/** @internal */
+export type InputJournalFilesPqControls$Outbound = {};
+
+/** @internal */
+export const InputJournalFilesPqControls$outboundSchema: z.ZodType<
+  InputJournalFilesPqControls$Outbound,
+  z.ZodTypeDef,
+  InputJournalFilesPqControls
+> = z.object({});
+
+export function inputJournalFilesPqControlsToJSON(
+  inputJournalFilesPqControls: InputJournalFilesPqControls,
+): string {
+  return JSON.stringify(
+    InputJournalFilesPqControls$outboundSchema.parse(
+      inputJournalFilesPqControls,
+    ),
+  );
+}
+
+/** @internal */
+export type InputJournalFilesPq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputJournalFilesPqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputJournalFilesPq$outboundSchema: z.ZodType<
+  InputJournalFilesPq$Outbound,
+  z.ZodTypeDef,
+  InputJournalFilesPq
+> = z.object({
+  mode: InputJournalFilesMode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputJournalFilesCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputJournalFilesPqControls$outboundSchema)
+    .optional(),
+});
+
+export function inputJournalFilesPqToJSON(
+  inputJournalFilesPq: InputJournalFilesPq,
+): string {
+  return JSON.stringify(
+    InputJournalFilesPq$outboundSchema.parse(inputJournalFilesPq),
+  );
 }
 
 /** @internal */
@@ -9294,6 +19676,30 @@ export function inputJournalFilesRuleToJSON(
 }
 
 /** @internal */
+export type InputJournalFilesMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputJournalFilesMetadatum$outboundSchema: z.ZodType<
+  InputJournalFilesMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputJournalFilesMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputJournalFilesMetadatumToJSON(
+  inputJournalFilesMetadatum: InputJournalFilesMetadatum,
+): string {
+  return JSON.stringify(
+    InputJournalFilesMetadatum$outboundSchema.parse(inputJournalFilesMetadatum),
+  );
+}
+
+/** @internal */
 export type InputJournalFiles$Outbound = {
   id: string;
   type: "journal_files";
@@ -9303,15 +19709,15 @@ export type InputJournalFiles$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<InputJournalFilesConnection$Outbound> | undefined;
+  pq?: InputJournalFilesPq$Outbound | undefined;
   path: string;
   interval: number;
   journals: Array<string>;
   rules?: Array<InputJournalFilesRule$Outbound> | undefined;
   currentBoot: boolean;
   maxAgeDur?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<InputJournalFilesMetadatum$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -9329,15 +19735,16 @@ export const InputJournalFiles$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputJournalFilesConnection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputJournalFilesPq$outboundSchema).optional(),
   path: z.string(),
   interval: z.number().default(10),
   journals: z.array(z.string()),
   rules: z.array(z.lazy(() => InputJournalFilesRule$outboundSchema)).optional(),
   currentBoot: z.boolean().default(false),
   maxAgeDur: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => InputJournalFilesMetadatum$outboundSchema))
     .optional(),
   description: z.string().optional(),
 });
@@ -9351,6 +19758,116 @@ export function inputJournalFilesToJSON(
 }
 
 /** @internal */
+export type ConnectionRawUDP$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionRawUDP$outboundSchema: z.ZodType<
+  ConnectionRawUDP$Outbound,
+  z.ZodTypeDef,
+  ConnectionRawUDP
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionRawUDPToJSON(
+  connectionRawUDP: ConnectionRawUDP,
+): string {
+  return JSON.stringify(
+    ConnectionRawUDP$outboundSchema.parse(connectionRawUDP),
+  );
+}
+
+/** @internal */
+export const ModeRawUDP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeRawUDP
+> = openEnums.outboundSchema(ModeRawUDP);
+
+/** @internal */
+export const CompressionRawUDP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionRawUDP
+> = openEnums.outboundSchema(CompressionRawUDP);
+
+/** @internal */
+export type PqControlsRawUDP$Outbound = {};
+
+/** @internal */
+export const PqControlsRawUDP$outboundSchema: z.ZodType<
+  PqControlsRawUDP$Outbound,
+  z.ZodTypeDef,
+  PqControlsRawUDP
+> = z.object({});
+
+export function pqControlsRawUDPToJSON(
+  pqControlsRawUDP: PqControlsRawUDP,
+): string {
+  return JSON.stringify(
+    PqControlsRawUDP$outboundSchema.parse(pqControlsRawUDP),
+  );
+}
+
+/** @internal */
+export type PqRawUDP$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsRawUDP$Outbound | undefined;
+};
+
+/** @internal */
+export const PqRawUDP$outboundSchema: z.ZodType<
+  PqRawUDP$Outbound,
+  z.ZodTypeDef,
+  PqRawUDP
+> = z.object({
+  mode: ModeRawUDP$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionRawUDP$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsRawUDP$outboundSchema).optional(),
+});
+
+export function pqRawUDPToJSON(pqRawUDP: PqRawUDP): string {
+  return JSON.stringify(PqRawUDP$outboundSchema.parse(pqRawUDP));
+}
+
+/** @internal */
+export type MetadatumRawUDP$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumRawUDP$outboundSchema: z.ZodType<
+  MetadatumRawUDP$Outbound,
+  z.ZodTypeDef,
+  MetadatumRawUDP
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumRawUDPToJSON(
+  metadatumRawUDP: MetadatumRawUDP,
+): string {
+  return JSON.stringify(MetadatumRawUDP$outboundSchema.parse(metadatumRawUDP));
+}
+
+/** @internal */
 export type InputRawUdp$Outbound = {
   id: string;
   type: "raw_udp";
@@ -9360,8 +19877,8 @@ export type InputRawUdp$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionRawUDP$Outbound> | undefined;
+  pq?: PqRawUDP$Outbound | undefined;
   host: string;
   port: number;
   maxBufferSize: number;
@@ -9369,7 +19886,7 @@ export type InputRawUdp$Outbound = {
   singleMsgUdpPackets: boolean;
   ingestRawBytes: boolean;
   udpSocketRxBufSize?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumRawUDP$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -9387,8 +19904,9 @@ export const InputRawUdp$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionRawUDP$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqRawUDP$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   maxBufferSize: z.number().default(1000),
@@ -9396,13 +19914,100 @@ export const InputRawUdp$outboundSchema: z.ZodType<
   singleMsgUdpPackets: z.boolean().default(false),
   ingestRawBytes: z.boolean().default(false),
   udpSocketRxBufSize: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumRawUDP$outboundSchema)).optional(),
   description: z.string().optional(),
 });
 
 export function inputRawUdpToJSON(inputRawUdp: InputRawUdp): string {
   return JSON.stringify(InputRawUdp$outboundSchema.parse(inputRawUdp));
+}
+
+/** @internal */
+export type ConnectionWinEventLogs$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionWinEventLogs$outboundSchema: z.ZodType<
+  ConnectionWinEventLogs$Outbound,
+  z.ZodTypeDef,
+  ConnectionWinEventLogs
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionWinEventLogsToJSON(
+  connectionWinEventLogs: ConnectionWinEventLogs,
+): string {
+  return JSON.stringify(
+    ConnectionWinEventLogs$outboundSchema.parse(connectionWinEventLogs),
+  );
+}
+
+/** @internal */
+export const ModeWinEventLogs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeWinEventLogs
+> = openEnums.outboundSchema(ModeWinEventLogs);
+
+/** @internal */
+export const CompressionWinEventLogs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionWinEventLogs
+> = openEnums.outboundSchema(CompressionWinEventLogs);
+
+/** @internal */
+export type PqControlsWinEventLogs$Outbound = {};
+
+/** @internal */
+export const PqControlsWinEventLogs$outboundSchema: z.ZodType<
+  PqControlsWinEventLogs$Outbound,
+  z.ZodTypeDef,
+  PqControlsWinEventLogs
+> = z.object({});
+
+export function pqControlsWinEventLogsToJSON(
+  pqControlsWinEventLogs: PqControlsWinEventLogs,
+): string {
+  return JSON.stringify(
+    PqControlsWinEventLogs$outboundSchema.parse(pqControlsWinEventLogs),
+  );
+}
+
+/** @internal */
+export type PqWinEventLogs$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsWinEventLogs$Outbound | undefined;
+};
+
+/** @internal */
+export const PqWinEventLogs$outboundSchema: z.ZodType<
+  PqWinEventLogs$Outbound,
+  z.ZodTypeDef,
+  PqWinEventLogs
+> = z.object({
+  mode: ModeWinEventLogs$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionWinEventLogs$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsWinEventLogs$outboundSchema).optional(),
+});
+
+export function pqWinEventLogsToJSON(pqWinEventLogs: PqWinEventLogs): string {
+  return JSON.stringify(PqWinEventLogs$outboundSchema.parse(pqWinEventLogs));
 }
 
 /** @internal */
@@ -9420,6 +20025,30 @@ export const EventFormat$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(EventFormat);
 
 /** @internal */
+export type MetadatumWinEventLogs$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumWinEventLogs$outboundSchema: z.ZodType<
+  MetadatumWinEventLogs$Outbound,
+  z.ZodTypeDef,
+  MetadatumWinEventLogs
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumWinEventLogsToJSON(
+  metadatumWinEventLogs: MetadatumWinEventLogs,
+): string {
+  return JSON.stringify(
+    MetadatumWinEventLogs$outboundSchema.parse(metadatumWinEventLogs),
+  );
+}
+
+/** @internal */
 export type InputWinEventLogs$Outbound = {
   id: string;
   type: "win_event_logs";
@@ -9429,15 +20058,15 @@ export type InputWinEventLogs$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionWinEventLogs$Outbound> | undefined;
+  pq?: PqWinEventLogs$Outbound | undefined;
   logNames: Array<string>;
   readMode: string;
   eventFormat: string;
   disableNativeModule: boolean;
   interval: number;
   batchSize: number;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumWinEventLogs$Outbound> | undefined;
   maxEventBytes: number;
   description?: string | undefined;
   disableJsonRendering: boolean;
@@ -9458,15 +20087,16 @@ export const InputWinEventLogs$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionWinEventLogs$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqWinEventLogs$outboundSchema).optional(),
   logNames: z.array(z.string()),
   readMode: ReadMode$outboundSchema.default("newest"),
   eventFormat: EventFormat$outboundSchema.default("json"),
   disableNativeModule: z.boolean().default(false),
   interval: z.number().default(10),
   batchSize: z.number().default(500),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumWinEventLogs$outboundSchema))
     .optional(),
   maxEventBytes: z.number().default(51200),
   description: z.string().optional(),
@@ -9483,11 +20113,102 @@ export function inputWinEventLogsToJSON(
 }
 
 /** @internal */
+export type ConnectionWef$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionWef$outboundSchema: z.ZodType<
+  ConnectionWef$Outbound,
+  z.ZodTypeDef,
+  ConnectionWef
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionWefToJSON(connectionWef: ConnectionWef): string {
+  return JSON.stringify(ConnectionWef$outboundSchema.parse(connectionWef));
+}
+
+/** @internal */
+export const ModeWef$outboundSchema: z.ZodType<string, z.ZodTypeDef, ModeWef> =
+  openEnums.outboundSchema(ModeWef);
+
+/** @internal */
+export const CompressionWef$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionWef
+> = openEnums.outboundSchema(CompressionWef);
+
+/** @internal */
+export type PqControlsWef$Outbound = {};
+
+/** @internal */
+export const PqControlsWef$outboundSchema: z.ZodType<
+  PqControlsWef$Outbound,
+  z.ZodTypeDef,
+  PqControlsWef
+> = z.object({});
+
+export function pqControlsWefToJSON(pqControlsWef: PqControlsWef): string {
+  return JSON.stringify(PqControlsWef$outboundSchema.parse(pqControlsWef));
+}
+
+/** @internal */
+export type PqWef$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsWef$Outbound | undefined;
+};
+
+/** @internal */
+export const PqWef$outboundSchema: z.ZodType<
+  PqWef$Outbound,
+  z.ZodTypeDef,
+  PqWef
+> = z.object({
+  mode: ModeWef$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionWef$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsWef$outboundSchema).optional(),
+});
+
+export function pqWefToJSON(pqWef: PqWef): string {
+  return JSON.stringify(PqWef$outboundSchema.parse(pqWef));
+}
+
+/** @internal */
 export const AuthMethodAuthenticationMethod$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   AuthMethodAuthenticationMethod
 > = openEnums.outboundSchema(AuthMethodAuthenticationMethod);
+
+/** @internal */
+export const MinimumTLSVersionWef$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MinimumTLSVersionWef
+> = openEnums.outboundSchema(MinimumTLSVersionWef);
+
+/** @internal */
+export const MaximumTLSVersionWef$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaximumTLSVersionWef
+> = openEnums.outboundSchema(MaximumTLSVersionWef);
 
 /** @internal */
 export type MTLSSettings$Outbound = {
@@ -9523,10 +20244,8 @@ export const MTLSSettings$outboundSchema: z.ZodType<
   certPath: z.string(),
   caPath: z.string(),
   commonNameRegex: z.string().default("/.*/"),
-  minVersion: models
-    .MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
-  maxVersion: models
-    .MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
+  minVersion: MinimumTLSVersionWef$outboundSchema.optional(),
+  maxVersion: MaximumTLSVersionWef$outboundSchema.optional(),
   ocspCheck: z.boolean().default(false),
   keytab: z.any().optional(),
   principal: z.any().optional(),
@@ -9550,6 +20269,30 @@ export const QueryBuilderMode$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   QueryBuilderMode
 > = openEnums.outboundSchema(QueryBuilderMode);
+
+/** @internal */
+export type SubscriptionMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const SubscriptionMetadatum$outboundSchema: z.ZodType<
+  SubscriptionMetadatum$Outbound,
+  z.ZodTypeDef,
+  SubscriptionMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function subscriptionMetadatumToJSON(
+  subscriptionMetadatum: SubscriptionMetadatum,
+): string {
+  return JSON.stringify(
+    SubscriptionMetadatum$outboundSchema.parse(subscriptionMetadatum),
+  );
+}
 
 /** @internal */
 export type Query$Outbound = {
@@ -9584,7 +20327,7 @@ export type Subscription$Outbound = {
   targets: Array<string>;
   locale: string;
   querySelector: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<SubscriptionMetadatum$Outbound> | undefined;
   queries?: Array<Query$Outbound> | undefined;
   xmlQuery?: string | undefined;
 };
@@ -9606,7 +20349,7 @@ export const Subscription$outboundSchema: z.ZodType<
   targets: z.array(z.string()),
   locale: z.string().default("en-US"),
   querySelector: QueryBuilderMode$outboundSchema.default("simple"),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => SubscriptionMetadatum$outboundSchema))
     .optional(),
   queries: z.array(z.lazy(() => Query$outboundSchema)).optional(),
   xmlQuery: z.string().optional(),
@@ -9614,6 +20357,26 @@ export const Subscription$outboundSchema: z.ZodType<
 
 export function subscriptionToJSON(subscription: Subscription): string {
   return JSON.stringify(Subscription$outboundSchema.parse(subscription));
+}
+
+/** @internal */
+export type MetadatumWef$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumWef$outboundSchema: z.ZodType<
+  MetadatumWef$Outbound,
+  z.ZodTypeDef,
+  MetadatumWef
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumWefToJSON(metadatumWef: MetadatumWef): string {
+  return JSON.stringify(MetadatumWef$outboundSchema.parse(metadatumWef));
 }
 
 /** @internal */
@@ -9626,8 +20389,8 @@ export type InputWef$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionWef$Outbound> | undefined;
+  pq?: PqWef$Outbound | undefined;
   host: string;
   port: number;
   authMethod: string;
@@ -9646,7 +20409,7 @@ export type InputWef$Outbound = {
   principal?: string | undefined;
   allowMachineIdMismatch: boolean;
   subscriptions: Array<Subscription$Outbound>;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumWef$Outbound> | undefined;
   description?: string | undefined;
   logFingerprintMismatch: boolean;
 };
@@ -9665,8 +20428,8 @@ export const InputWef$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionWef$outboundSchema)).optional(),
+  pq: z.lazy(() => PqWef$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(5986),
   authMethod: AuthMethodAuthenticationMethod$outboundSchema.default(
@@ -9687,14 +20450,125 @@ export const InputWef$outboundSchema: z.ZodType<
   principal: z.string().optional(),
   allowMachineIdMismatch: z.boolean().default(false),
   subscriptions: z.array(z.lazy(() => Subscription$outboundSchema)),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumWef$outboundSchema)).optional(),
   description: z.string().optional(),
   logFingerprintMismatch: z.boolean().default(false),
 });
 
 export function inputWefToJSON(inputWef: InputWef): string {
   return JSON.stringify(InputWef$outboundSchema.parse(inputWef));
+}
+
+/** @internal */
+export type ConnectionAppscope$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionAppscope$outboundSchema: z.ZodType<
+  ConnectionAppscope$Outbound,
+  z.ZodTypeDef,
+  ConnectionAppscope
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionAppscopeToJSON(
+  connectionAppscope: ConnectionAppscope,
+): string {
+  return JSON.stringify(
+    ConnectionAppscope$outboundSchema.parse(connectionAppscope),
+  );
+}
+
+/** @internal */
+export const ModeAppscope$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeAppscope
+> = openEnums.outboundSchema(ModeAppscope);
+
+/** @internal */
+export const CompressionAppscope$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionAppscope
+> = openEnums.outboundSchema(CompressionAppscope);
+
+/** @internal */
+export type PqControlsAppscope$Outbound = {};
+
+/** @internal */
+export const PqControlsAppscope$outboundSchema: z.ZodType<
+  PqControlsAppscope$Outbound,
+  z.ZodTypeDef,
+  PqControlsAppscope
+> = z.object({});
+
+export function pqControlsAppscopeToJSON(
+  pqControlsAppscope: PqControlsAppscope,
+): string {
+  return JSON.stringify(
+    PqControlsAppscope$outboundSchema.parse(pqControlsAppscope),
+  );
+}
+
+/** @internal */
+export type PqAppscope$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsAppscope$Outbound | undefined;
+};
+
+/** @internal */
+export const PqAppscope$outboundSchema: z.ZodType<
+  PqAppscope$Outbound,
+  z.ZodTypeDef,
+  PqAppscope
+> = z.object({
+  mode: ModeAppscope$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionAppscope$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsAppscope$outboundSchema).optional(),
+});
+
+export function pqAppscopeToJSON(pqAppscope: PqAppscope): string {
+  return JSON.stringify(PqAppscope$outboundSchema.parse(pqAppscope));
+}
+
+/** @internal */
+export type MetadatumAppscope$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumAppscope$outboundSchema: z.ZodType<
+  MetadatumAppscope$Outbound,
+  z.ZodTypeDef,
+  MetadatumAppscope
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumAppscopeToJSON(
+  metadatumAppscope: MetadatumAppscope,
+): string {
+  return JSON.stringify(
+    MetadatumAppscope$outboundSchema.parse(metadatumAppscope),
+  );
 }
 
 /** @internal */
@@ -9740,6 +20614,13 @@ export function filterAppscopeToJSON(filterAppscope: FilterAppscope): string {
 }
 
 /** @internal */
+export const DataCompressionFormatAppscope$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  DataCompressionFormatAppscope
+> = openEnums.outboundSchema(DataCompressionFormatAppscope);
+
+/** @internal */
 export type PersistenceAppscope$Outbound = {
   enable: boolean;
   timeWindow: string;
@@ -9759,8 +20640,7 @@ export const PersistenceAppscope$outboundSchema: z.ZodType<
   timeWindow: z.string().default("10m"),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
-    .default("gzip"),
+  compress: DataCompressionFormatAppscope$outboundSchema.default("gzip"),
   destPath: z.string().default("$CRIBL_HOME/state/appscope"),
 });
 
@@ -9769,6 +20649,71 @@ export function persistenceAppscopeToJSON(
 ): string {
   return JSON.stringify(
     PersistenceAppscope$outboundSchema.parse(persistenceAppscope),
+  );
+}
+
+/** @internal */
+export const AuthenticationMethodAppscope$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodAppscope
+> = openEnums.outboundSchema(AuthenticationMethodAppscope);
+
+/** @internal */
+export const MinimumTLSVersionAppscope$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MinimumTLSVersionAppscope
+> = openEnums.outboundSchema(MinimumTLSVersionAppscope);
+
+/** @internal */
+export const MaximumTLSVersionAppscope$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaximumTLSVersionAppscope
+> = openEnums.outboundSchema(MaximumTLSVersionAppscope);
+
+/** @internal */
+export type TLSSettingsServerSideAppscope$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideAppscope$outboundSchema: z.ZodType<
+  TLSSettingsServerSideAppscope$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideAppscope
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: MinimumTLSVersionAppscope$outboundSchema.optional(),
+  maxVersion: MaximumTLSVersionAppscope$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideAppscopeToJSON(
+  tlsSettingsServerSideAppscope: TLSSettingsServerSideAppscope,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideAppscope$outboundSchema.parse(
+      tlsSettingsServerSideAppscope,
+    ),
   );
 }
 
@@ -9782,15 +20727,15 @@ export type InputAppscope$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionAppscope$Outbound> | undefined;
+  pq?: PqAppscope$Outbound | undefined;
   ipWhitelistRegex: string;
   maxActiveCxn: number;
   socketIdleTimeout: number;
   socketEndingMaxWait: number;
   socketMaxLifespan: number;
   enableProxyHeader: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumAppscope$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
   enableUnixPath: boolean;
@@ -9800,7 +20745,7 @@ export type InputAppscope$Outbound = {
   description?: string | undefined;
   host?: string | undefined;
   port?: number | undefined;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideAppscope$Outbound | undefined;
   unixSocketPath: string;
   unixSocketPerms?: string | undefined;
   authToken: string;
@@ -9821,27 +20766,26 @@ export const InputAppscope$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionAppscope$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqAppscope$outboundSchema).optional(),
   ipWhitelistRegex: z.string().default("/.*/"),
   maxActiveCxn: z.number().default(1000),
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
   enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumAppscope$outboundSchema)).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   enableUnixPath: z.boolean().default(false),
   filter: z.lazy(() => FilterAppscope$outboundSchema).optional(),
   persistence: z.lazy(() => PersistenceAppscope$outboundSchema).optional(),
-  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
+  authType: AuthenticationMethodAppscope$outboundSchema.default("manual"),
   description: z.string().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideAppscope$outboundSchema).optional(),
   unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
   unixSocketPerms: z.string().optional(),
   authToken: z.string().default(""),
@@ -9853,6 +20797,188 @@ export function inputAppscopeToJSON(inputAppscope: InputAppscope): string {
 }
 
 /** @internal */
+export type ConnectionTCP$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionTCP$outboundSchema: z.ZodType<
+  ConnectionTCP$Outbound,
+  z.ZodTypeDef,
+  ConnectionTCP
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionTCPToJSON(connectionTCP: ConnectionTCP): string {
+  return JSON.stringify(ConnectionTCP$outboundSchema.parse(connectionTCP));
+}
+
+/** @internal */
+export const ModeTCP$outboundSchema: z.ZodType<string, z.ZodTypeDef, ModeTCP> =
+  openEnums.outboundSchema(ModeTCP);
+
+/** @internal */
+export const CompressionTCP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionTCP
+> = openEnums.outboundSchema(CompressionTCP);
+
+/** @internal */
+export type PqControlsTCP$Outbound = {};
+
+/** @internal */
+export const PqControlsTCP$outboundSchema: z.ZodType<
+  PqControlsTCP$Outbound,
+  z.ZodTypeDef,
+  PqControlsTCP
+> = z.object({});
+
+export function pqControlsTCPToJSON(pqControlsTCP: PqControlsTCP): string {
+  return JSON.stringify(PqControlsTCP$outboundSchema.parse(pqControlsTCP));
+}
+
+/** @internal */
+export type PqTCP$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsTCP$Outbound | undefined;
+};
+
+/** @internal */
+export const PqTCP$outboundSchema: z.ZodType<
+  PqTCP$Outbound,
+  z.ZodTypeDef,
+  PqTCP
+> = z.object({
+  mode: ModeTCP$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionTCP$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsTCP$outboundSchema).optional(),
+});
+
+export function pqTCPToJSON(pqTCP: PqTCP): string {
+  return JSON.stringify(PqTCP$outboundSchema.parse(pqTCP));
+}
+
+/** @internal */
+export const MinimumTLSVersionTCP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MinimumTLSVersionTCP
+> = openEnums.outboundSchema(MinimumTLSVersionTCP);
+
+/** @internal */
+export const MaximumTLSVersionTCP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaximumTLSVersionTCP
+> = openEnums.outboundSchema(MaximumTLSVersionTCP);
+
+/** @internal */
+export type TLSSettingsServerSideTCP$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideTCP$outboundSchema: z.ZodType<
+  TLSSettingsServerSideTCP$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideTCP
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: MinimumTLSVersionTCP$outboundSchema.optional(),
+  maxVersion: MaximumTLSVersionTCP$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideTCPToJSON(
+  tlsSettingsServerSideTCP: TLSSettingsServerSideTCP,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideTCP$outboundSchema.parse(tlsSettingsServerSideTCP),
+  );
+}
+
+/** @internal */
+export type MetadatumTCP$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumTCP$outboundSchema: z.ZodType<
+  MetadatumTCP$Outbound,
+  z.ZodTypeDef,
+  MetadatumTCP
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumTCPToJSON(metadatumTCP: MetadatumTCP): string {
+  return JSON.stringify(MetadatumTCP$outboundSchema.parse(metadatumTCP));
+}
+
+/** @internal */
+export type PreprocessTCP$Outbound = {
+  disabled: boolean;
+  command?: string | undefined;
+  args?: Array<string> | undefined;
+};
+
+/** @internal */
+export const PreprocessTCP$outboundSchema: z.ZodType<
+  PreprocessTCP$Outbound,
+  z.ZodTypeDef,
+  PreprocessTCP
+> = z.object({
+  disabled: z.boolean().default(true),
+  command: z.string().optional(),
+  args: z.array(z.string()).optional(),
+});
+
+export function preprocessTCPToJSON(preprocessTCP: PreprocessTCP): string {
+  return JSON.stringify(PreprocessTCP$outboundSchema.parse(preprocessTCP));
+}
+
+/** @internal */
+export const AuthenticationMethodTCP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodTCP
+> = openEnums.outboundSchema(AuthenticationMethodTCP);
+
+/** @internal */
 export type InputTcp$Outbound = {
   id: string;
   type: "tcp";
@@ -9862,24 +20988,22 @@ export type InputTcp$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionTCP$Outbound> | undefined;
+  pq?: PqTCP$Outbound | undefined;
   host: string;
   port: number;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideTCP$Outbound | undefined;
   ipWhitelistRegex: string;
   maxActiveCxn: number;
   socketIdleTimeout: number;
   socketEndingMaxWait: number;
   socketMaxLifespan: number;
   enableProxyHeader: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumTCP$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
   enableHeader: boolean;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
+  preprocess?: PreprocessTCP$Outbound | undefined;
   description?: string | undefined;
   authToken: string;
   authType: string;
@@ -9900,28 +21024,25 @@ export const InputTcp$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionTCP$outboundSchema)).optional(),
+  pq: z.lazy(() => PqTCP$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideTCP$outboundSchema).optional(),
   ipWhitelistRegex: z.string().default("/.*/"),
   maxActiveCxn: z.number().default(1000),
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
   enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumTCP$outboundSchema)).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   enableHeader: z.boolean().default(false),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
+  preprocess: z.lazy(() => PreprocessTCP$outboundSchema).optional(),
   description: z.string().optional(),
   authToken: z.string().default(""),
-  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
+  authType: AuthenticationMethodTCP$outboundSchema.default("manual"),
   textSecret: z.string().optional(),
 });
 
@@ -9930,11 +21051,123 @@ export function inputTcpToJSON(inputTcp: InputTcp): string {
 }
 
 /** @internal */
+export type InputFileConnection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputFileConnection$outboundSchema: z.ZodType<
+  InputFileConnection$Outbound,
+  z.ZodTypeDef,
+  InputFileConnection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputFileConnectionToJSON(
+  inputFileConnection: InputFileConnection,
+): string {
+  return JSON.stringify(
+    InputFileConnection$outboundSchema.parse(inputFileConnection),
+  );
+}
+
+/** @internal */
+export const InputFilePqMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputFilePqMode
+> = openEnums.outboundSchema(InputFilePqMode);
+
+/** @internal */
+export const InputFileCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputFileCompression
+> = openEnums.outboundSchema(InputFileCompression);
+
+/** @internal */
+export type InputFilePqControls$Outbound = {};
+
+/** @internal */
+export const InputFilePqControls$outboundSchema: z.ZodType<
+  InputFilePqControls$Outbound,
+  z.ZodTypeDef,
+  InputFilePqControls
+> = z.object({});
+
+export function inputFilePqControlsToJSON(
+  inputFilePqControls: InputFilePqControls,
+): string {
+  return JSON.stringify(
+    InputFilePqControls$outboundSchema.parse(inputFilePqControls),
+  );
+}
+
+/** @internal */
+export type InputFilePq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputFilePqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputFilePq$outboundSchema: z.ZodType<
+  InputFilePq$Outbound,
+  z.ZodTypeDef,
+  InputFilePq
+> = z.object({
+  mode: InputFilePqMode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputFileCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputFilePqControls$outboundSchema).optional(),
+});
+
+export function inputFilePqToJSON(inputFilePq: InputFilePq): string {
+  return JSON.stringify(InputFilePq$outboundSchema.parse(inputFilePq));
+}
+
+/** @internal */
 export const InputFileMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   InputFileMode
 > = openEnums.outboundSchema(InputFileMode);
+
+/** @internal */
+export type InputFileMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputFileMetadatum$outboundSchema: z.ZodType<
+  InputFileMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputFileMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputFileMetadatumToJSON(
+  inputFileMetadatum: InputFileMetadatum,
+): string {
+  return JSON.stringify(
+    InputFileMetadatum$outboundSchema.parse(inputFileMetadatum),
+  );
+}
 
 /** @internal */
 export type InputFile$Outbound = {
@@ -9946,8 +21179,8 @@ export type InputFile$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<InputFileConnection$Outbound> | undefined;
+  pq?: InputFilePq$Outbound | undefined;
   mode: string;
   interval: number;
   filenames?: Array<string> | undefined;
@@ -9959,7 +21192,7 @@ export type InputFile$Outbound = {
   checkFileModTime: boolean;
   forceText: boolean;
   hashLen: number;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<InputFileMetadatum$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
   description?: string | undefined;
@@ -9984,8 +21217,9 @@ export const InputFile$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputFileConnection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputFilePq$outboundSchema).optional(),
   mode: InputFileMode$outboundSchema.default("manual"),
   interval: z.number().default(10),
   filenames: z.array(z.string()).optional(),
@@ -9997,8 +21231,7 @@ export const InputFile$outboundSchema: z.ZodType<
   checkFileModTime: z.boolean().default(false),
   forceText: z.boolean().default(false),
   hashLen: z.number().default(256),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => InputFileMetadatum$outboundSchema)).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   description: z.string().optional(),
@@ -10019,6 +21252,176 @@ export const InputSyslogType2$outboundSchema: z.ZodNativeEnum<
 > = z.nativeEnum(InputSyslogType2);
 
 /** @internal */
+export type InputSyslogConnection2$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputSyslogConnection2$outboundSchema: z.ZodType<
+  InputSyslogConnection2$Outbound,
+  z.ZodTypeDef,
+  InputSyslogConnection2
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputSyslogConnection2ToJSON(
+  inputSyslogConnection2: InputSyslogConnection2,
+): string {
+  return JSON.stringify(
+    InputSyslogConnection2$outboundSchema.parse(inputSyslogConnection2),
+  );
+}
+
+/** @internal */
+export const InputSyslogMode2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSyslogMode2
+> = openEnums.outboundSchema(InputSyslogMode2);
+
+/** @internal */
+export const InputSyslogCompression2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSyslogCompression2
+> = openEnums.outboundSchema(InputSyslogCompression2);
+
+/** @internal */
+export type InputSyslogPqControls2$Outbound = {};
+
+/** @internal */
+export const InputSyslogPqControls2$outboundSchema: z.ZodType<
+  InputSyslogPqControls2$Outbound,
+  z.ZodTypeDef,
+  InputSyslogPqControls2
+> = z.object({});
+
+export function inputSyslogPqControls2ToJSON(
+  inputSyslogPqControls2: InputSyslogPqControls2,
+): string {
+  return JSON.stringify(
+    InputSyslogPqControls2$outboundSchema.parse(inputSyslogPqControls2),
+  );
+}
+
+/** @internal */
+export type InputSyslogPq2$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputSyslogPqControls2$Outbound | undefined;
+};
+
+/** @internal */
+export const InputSyslogPq2$outboundSchema: z.ZodType<
+  InputSyslogPq2$Outbound,
+  z.ZodTypeDef,
+  InputSyslogPq2
+> = z.object({
+  mode: InputSyslogMode2$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputSyslogCompression2$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSyslogPqControls2$outboundSchema).optional(),
+});
+
+export function inputSyslogPq2ToJSON(inputSyslogPq2: InputSyslogPq2): string {
+  return JSON.stringify(InputSyslogPq2$outboundSchema.parse(inputSyslogPq2));
+}
+
+/** @internal */
+export const InputSyslogMinimumTLSVersion2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSyslogMinimumTLSVersion2
+> = openEnums.outboundSchema(InputSyslogMinimumTLSVersion2);
+
+/** @internal */
+export const InputSyslogMaximumTLSVersion2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSyslogMaximumTLSVersion2
+> = openEnums.outboundSchema(InputSyslogMaximumTLSVersion2);
+
+/** @internal */
+export type InputSyslogTLSSettingsServerSide2$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const InputSyslogTLSSettingsServerSide2$outboundSchema: z.ZodType<
+  InputSyslogTLSSettingsServerSide2$Outbound,
+  z.ZodTypeDef,
+  InputSyslogTLSSettingsServerSide2
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputSyslogMinimumTLSVersion2$outboundSchema.optional(),
+  maxVersion: InputSyslogMaximumTLSVersion2$outboundSchema.optional(),
+});
+
+export function inputSyslogTLSSettingsServerSide2ToJSON(
+  inputSyslogTLSSettingsServerSide2: InputSyslogTLSSettingsServerSide2,
+): string {
+  return JSON.stringify(
+    InputSyslogTLSSettingsServerSide2$outboundSchema.parse(
+      inputSyslogTLSSettingsServerSide2,
+    ),
+  );
+}
+
+/** @internal */
+export type InputSyslogMetadatum2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputSyslogMetadatum2$outboundSchema: z.ZodType<
+  InputSyslogMetadatum2$Outbound,
+  z.ZodTypeDef,
+  InputSyslogMetadatum2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputSyslogMetadatum2ToJSON(
+  inputSyslogMetadatum2: InputSyslogMetadatum2,
+): string {
+  return JSON.stringify(
+    InputSyslogMetadatum2$outboundSchema.parse(inputSyslogMetadatum2),
+  );
+}
+
+/** @internal */
 export type InputSyslogSyslog2$Outbound = {
   id: string;
   type: string;
@@ -10028,8 +21431,8 @@ export type InputSyslogSyslog2$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<InputSyslogConnection2$Outbound> | undefined;
+  pq?: InputSyslogPq2$Outbound | undefined;
   host: string;
   udpPort?: number | undefined;
   tcpPort: number;
@@ -10047,8 +21450,8 @@ export type InputSyslogSyslog2$Outbound = {
   socketIdleTimeout: number;
   socketEndingMaxWait: number;
   socketMaxLifespan: number;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  tls?: InputSyslogTLSSettingsServerSide2$Outbound | undefined;
+  metadata?: Array<InputSyslogMetadatum2$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   enableLoadBalancing: boolean;
   description?: string | undefined;
@@ -10069,8 +21472,9 @@ export const InputSyslogSyslog2$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputSyslogConnection2$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputSyslogPq2$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   udpPort: z.number().optional(),
   tcpPort: z.number(),
@@ -10088,8 +21492,9 @@ export const InputSyslogSyslog2$outboundSchema: z.ZodType<
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  tls: z.lazy(() => InputSyslogTLSSettingsServerSide2$outboundSchema)
+    .optional(),
+  metadata: z.array(z.lazy(() => InputSyslogMetadatum2$outboundSchema))
     .optional(),
   udpSocketRxBufSize: z.number().optional(),
   enableLoadBalancing: z.boolean().default(false),
@@ -10111,6 +21516,176 @@ export const InputSyslogType1$outboundSchema: z.ZodNativeEnum<
 > = z.nativeEnum(InputSyslogType1);
 
 /** @internal */
+export type InputSyslogConnection1$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputSyslogConnection1$outboundSchema: z.ZodType<
+  InputSyslogConnection1$Outbound,
+  z.ZodTypeDef,
+  InputSyslogConnection1
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputSyslogConnection1ToJSON(
+  inputSyslogConnection1: InputSyslogConnection1,
+): string {
+  return JSON.stringify(
+    InputSyslogConnection1$outboundSchema.parse(inputSyslogConnection1),
+  );
+}
+
+/** @internal */
+export const InputSyslogMode1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSyslogMode1
+> = openEnums.outboundSchema(InputSyslogMode1);
+
+/** @internal */
+export const InputSyslogCompression1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSyslogCompression1
+> = openEnums.outboundSchema(InputSyslogCompression1);
+
+/** @internal */
+export type InputSyslogPqControls1$Outbound = {};
+
+/** @internal */
+export const InputSyslogPqControls1$outboundSchema: z.ZodType<
+  InputSyslogPqControls1$Outbound,
+  z.ZodTypeDef,
+  InputSyslogPqControls1
+> = z.object({});
+
+export function inputSyslogPqControls1ToJSON(
+  inputSyslogPqControls1: InputSyslogPqControls1,
+): string {
+  return JSON.stringify(
+    InputSyslogPqControls1$outboundSchema.parse(inputSyslogPqControls1),
+  );
+}
+
+/** @internal */
+export type InputSyslogPq1$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputSyslogPqControls1$Outbound | undefined;
+};
+
+/** @internal */
+export const InputSyslogPq1$outboundSchema: z.ZodType<
+  InputSyslogPq1$Outbound,
+  z.ZodTypeDef,
+  InputSyslogPq1
+> = z.object({
+  mode: InputSyslogMode1$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputSyslogCompression1$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSyslogPqControls1$outboundSchema).optional(),
+});
+
+export function inputSyslogPq1ToJSON(inputSyslogPq1: InputSyslogPq1): string {
+  return JSON.stringify(InputSyslogPq1$outboundSchema.parse(inputSyslogPq1));
+}
+
+/** @internal */
+export const InputSyslogMinimumTLSVersion1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSyslogMinimumTLSVersion1
+> = openEnums.outboundSchema(InputSyslogMinimumTLSVersion1);
+
+/** @internal */
+export const InputSyslogMaximumTLSVersion1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSyslogMaximumTLSVersion1
+> = openEnums.outboundSchema(InputSyslogMaximumTLSVersion1);
+
+/** @internal */
+export type InputSyslogTLSSettingsServerSide1$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const InputSyslogTLSSettingsServerSide1$outboundSchema: z.ZodType<
+  InputSyslogTLSSettingsServerSide1$Outbound,
+  z.ZodTypeDef,
+  InputSyslogTLSSettingsServerSide1
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputSyslogMinimumTLSVersion1$outboundSchema.optional(),
+  maxVersion: InputSyslogMaximumTLSVersion1$outboundSchema.optional(),
+});
+
+export function inputSyslogTLSSettingsServerSide1ToJSON(
+  inputSyslogTLSSettingsServerSide1: InputSyslogTLSSettingsServerSide1,
+): string {
+  return JSON.stringify(
+    InputSyslogTLSSettingsServerSide1$outboundSchema.parse(
+      inputSyslogTLSSettingsServerSide1,
+    ),
+  );
+}
+
+/** @internal */
+export type InputSyslogMetadatum1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputSyslogMetadatum1$outboundSchema: z.ZodType<
+  InputSyslogMetadatum1$Outbound,
+  z.ZodTypeDef,
+  InputSyslogMetadatum1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputSyslogMetadatum1ToJSON(
+  inputSyslogMetadatum1: InputSyslogMetadatum1,
+): string {
+  return JSON.stringify(
+    InputSyslogMetadatum1$outboundSchema.parse(inputSyslogMetadatum1),
+  );
+}
+
+/** @internal */
 export type InputSyslogSyslog1$Outbound = {
   id: string;
   type: string;
@@ -10120,8 +21695,8 @@ export type InputSyslogSyslog1$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<InputSyslogConnection1$Outbound> | undefined;
+  pq?: InputSyslogPq1$Outbound | undefined;
   host: string;
   udpPort: number;
   tcpPort?: number | undefined;
@@ -10139,8 +21714,8 @@ export type InputSyslogSyslog1$Outbound = {
   socketIdleTimeout: number;
   socketEndingMaxWait: number;
   socketMaxLifespan: number;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  tls?: InputSyslogTLSSettingsServerSide1$Outbound | undefined;
+  metadata?: Array<InputSyslogMetadatum1$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   enableLoadBalancing: boolean;
   description?: string | undefined;
@@ -10161,8 +21736,9 @@ export const InputSyslogSyslog1$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputSyslogConnection1$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputSyslogPq1$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   udpPort: z.number(),
   tcpPort: z.number().optional(),
@@ -10180,8 +21756,9 @@ export const InputSyslogSyslog1$outboundSchema: z.ZodType<
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  tls: z.lazy(() => InputSyslogTLSSettingsServerSide1$outboundSchema)
+    .optional(),
+  metadata: z.array(z.lazy(() => InputSyslogMetadatum1$outboundSchema))
     .optional(),
   udpSocketRxBufSize: z.number().optional(),
   enableLoadBalancing: z.boolean().default(false),
@@ -10217,11 +21794,129 @@ export function inputSyslogToJSON(inputSyslog: InputSyslog): string {
 }
 
 /** @internal */
+export type ConnectionSqs$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionSqs$outboundSchema: z.ZodType<
+  ConnectionSqs$Outbound,
+  z.ZodTypeDef,
+  ConnectionSqs
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionSqsToJSON(connectionSqs: ConnectionSqs): string {
+  return JSON.stringify(ConnectionSqs$outboundSchema.parse(connectionSqs));
+}
+
+/** @internal */
+export const PqModeSqs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqModeSqs
+> = openEnums.outboundSchema(PqModeSqs);
+
+/** @internal */
+export const PqCompressionSqs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionSqs
+> = openEnums.outboundSchema(PqCompressionSqs);
+
+/** @internal */
+export type CreateInputPqControlsSqs$Outbound = {};
+
+/** @internal */
+export const CreateInputPqControlsSqs$outboundSchema: z.ZodType<
+  CreateInputPqControlsSqs$Outbound,
+  z.ZodTypeDef,
+  CreateInputPqControlsSqs
+> = z.object({});
+
+export function createInputPqControlsSqsToJSON(
+  createInputPqControlsSqs: CreateInputPqControlsSqs,
+): string {
+  return JSON.stringify(
+    CreateInputPqControlsSqs$outboundSchema.parse(createInputPqControlsSqs),
+  );
+}
+
+/** @internal */
+export type PqSqs$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: CreateInputPqControlsSqs$Outbound | undefined;
+};
+
+/** @internal */
+export const PqSqs$outboundSchema: z.ZodType<
+  PqSqs$Outbound,
+  z.ZodTypeDef,
+  PqSqs
+> = z.object({
+  mode: PqModeSqs$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionSqs$outboundSchema.default("none"),
+  pqControls: z.lazy(() => CreateInputPqControlsSqs$outboundSchema).optional(),
+});
+
+export function pqSqsToJSON(pqSqs: PqSqs): string {
+  return JSON.stringify(PqSqs$outboundSchema.parse(pqSqs));
+}
+
+/** @internal */
 export const CreateInputQueueType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   CreateInputQueueType
 > = openEnums.outboundSchema(CreateInputQueueType);
+
+/** @internal */
+export const CreateInputAuthenticationMethodSqs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputAuthenticationMethodSqs
+> = openEnums.outboundSchema(CreateInputAuthenticationMethodSqs);
+
+/** @internal */
+export const CreateInputSignatureVersionSqs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSignatureVersionSqs
+> = openEnums.outboundSchema(CreateInputSignatureVersionSqs);
+
+/** @internal */
+export type MetadatumSqs$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumSqs$outboundSchema: z.ZodType<
+  MetadatumSqs$Outbound,
+  z.ZodTypeDef,
+  MetadatumSqs
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumSqsToJSON(metadatumSqs: MetadatumSqs): string {
+  return JSON.stringify(MetadatumSqs$outboundSchema.parse(metadatumSqs));
+}
 
 /** @internal */
 export type InputSqs$Outbound = {
@@ -10233,8 +21928,8 @@ export type InputSqs$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionSqs$Outbound> | undefined;
+  pq?: PqSqs$Outbound | undefined;
   queueName: string;
   queueType: string;
   awsAccountId?: string | undefined;
@@ -10252,7 +21947,7 @@ export type InputSqs$Outbound = {
   durationSeconds: number;
   maxMessages: number;
   visibilityTimeout: number;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumSqs$Outbound> | undefined;
   pollTimeout: number;
   description?: string | undefined;
   awsApiKey?: string | undefined;
@@ -10274,20 +21969,18 @@ export const InputSqs$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionSqs$outboundSchema)).optional(),
+  pq: z.lazy(() => PqSqs$outboundSchema).optional(),
   queueName: z.string(),
   queueType: CreateInputQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
-  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+  awsAuthenticationMethod: CreateInputAuthenticationMethodSqs$outboundSchema
     .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions4$outboundSchema.default(
-    "v4",
-  ),
+  signatureVersion: CreateInputSignatureVersionSqs$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -10296,8 +21989,7 @@ export const InputSqs$outboundSchema: z.ZodType<
   durationSeconds: z.number().default(3600),
   maxMessages: z.number().default(10),
   visibilityTimeout: z.number().default(600),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumSqs$outboundSchema)).optional(),
   pollTimeout: z.number().default(10),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
@@ -10310,6 +22002,189 @@ export function inputSqsToJSON(inputSqs: InputSqs): string {
 }
 
 /** @internal */
+export type ConnectionModelDrivenTelemetry$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionModelDrivenTelemetry$outboundSchema: z.ZodType<
+  ConnectionModelDrivenTelemetry$Outbound,
+  z.ZodTypeDef,
+  ConnectionModelDrivenTelemetry
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionModelDrivenTelemetryToJSON(
+  connectionModelDrivenTelemetry: ConnectionModelDrivenTelemetry,
+): string {
+  return JSON.stringify(
+    ConnectionModelDrivenTelemetry$outboundSchema.parse(
+      connectionModelDrivenTelemetry,
+    ),
+  );
+}
+
+/** @internal */
+export const ModeModelDrivenTelemetry$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeModelDrivenTelemetry
+> = openEnums.outboundSchema(ModeModelDrivenTelemetry);
+
+/** @internal */
+export const CompressionModelDrivenTelemetry$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionModelDrivenTelemetry
+> = openEnums.outboundSchema(CompressionModelDrivenTelemetry);
+
+/** @internal */
+export type PqControlsModelDrivenTelemetry$Outbound = {};
+
+/** @internal */
+export const PqControlsModelDrivenTelemetry$outboundSchema: z.ZodType<
+  PqControlsModelDrivenTelemetry$Outbound,
+  z.ZodTypeDef,
+  PqControlsModelDrivenTelemetry
+> = z.object({});
+
+export function pqControlsModelDrivenTelemetryToJSON(
+  pqControlsModelDrivenTelemetry: PqControlsModelDrivenTelemetry,
+): string {
+  return JSON.stringify(
+    PqControlsModelDrivenTelemetry$outboundSchema.parse(
+      pqControlsModelDrivenTelemetry,
+    ),
+  );
+}
+
+/** @internal */
+export type PqModelDrivenTelemetry$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsModelDrivenTelemetry$Outbound | undefined;
+};
+
+/** @internal */
+export const PqModelDrivenTelemetry$outboundSchema: z.ZodType<
+  PqModelDrivenTelemetry$Outbound,
+  z.ZodTypeDef,
+  PqModelDrivenTelemetry
+> = z.object({
+  mode: ModeModelDrivenTelemetry$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionModelDrivenTelemetry$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsModelDrivenTelemetry$outboundSchema)
+    .optional(),
+});
+
+export function pqModelDrivenTelemetryToJSON(
+  pqModelDrivenTelemetry: PqModelDrivenTelemetry,
+): string {
+  return JSON.stringify(
+    PqModelDrivenTelemetry$outboundSchema.parse(pqModelDrivenTelemetry),
+  );
+}
+
+/** @internal */
+export const MinimumTLSVersionModelDrivenTelemetry$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MinimumTLSVersionModelDrivenTelemetry
+> = openEnums.outboundSchema(MinimumTLSVersionModelDrivenTelemetry);
+
+/** @internal */
+export const MaximumTLSVersionModelDrivenTelemetry$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaximumTLSVersionModelDrivenTelemetry
+> = openEnums.outboundSchema(MaximumTLSVersionModelDrivenTelemetry);
+
+/** @internal */
+export type TLSSettingsServerSideModelDrivenTelemetry$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideModelDrivenTelemetry$outboundSchema:
+  z.ZodType<
+    TLSSettingsServerSideModelDrivenTelemetry$Outbound,
+    z.ZodTypeDef,
+    TLSSettingsServerSideModelDrivenTelemetry
+  > = z.object({
+    disabled: z.boolean().default(true),
+    requestCert: z.boolean().default(false),
+    rejectUnauthorized: z.boolean().default(true),
+    commonNameRegex: z.string().default("/.*/"),
+    certificateName: z.string().optional(),
+    privKeyPath: z.string().optional(),
+    passphrase: z.string().optional(),
+    certPath: z.string().optional(),
+    caPath: z.string().optional(),
+    minVersion: MinimumTLSVersionModelDrivenTelemetry$outboundSchema.optional(),
+    maxVersion: MaximumTLSVersionModelDrivenTelemetry$outboundSchema.optional(),
+  });
+
+export function tlsSettingsServerSideModelDrivenTelemetryToJSON(
+  tlsSettingsServerSideModelDrivenTelemetry:
+    TLSSettingsServerSideModelDrivenTelemetry,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideModelDrivenTelemetry$outboundSchema.parse(
+      tlsSettingsServerSideModelDrivenTelemetry,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumModelDrivenTelemetry$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumModelDrivenTelemetry$outboundSchema: z.ZodType<
+  MetadatumModelDrivenTelemetry$Outbound,
+  z.ZodTypeDef,
+  MetadatumModelDrivenTelemetry
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumModelDrivenTelemetryToJSON(
+  metadatumModelDrivenTelemetry: MetadatumModelDrivenTelemetry,
+): string {
+  return JSON.stringify(
+    MetadatumModelDrivenTelemetry$outboundSchema.parse(
+      metadatumModelDrivenTelemetry,
+    ),
+  );
+}
+
+/** @internal */
 export type InputModelDrivenTelemetry$Outbound = {
   id: string;
   type: "model_driven_telemetry";
@@ -10319,12 +22194,12 @@ export type InputModelDrivenTelemetry$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionModelDrivenTelemetry$Outbound> | undefined;
+  pq?: PqModelDrivenTelemetry$Outbound | undefined;
   host: string;
   port: number;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  tls?: TLSSettingsServerSideModelDrivenTelemetry$Outbound | undefined;
+  metadata?: Array<MetadatumModelDrivenTelemetry$Outbound> | undefined;
   maxActiveCxn: number;
   shutdownTimeoutMs: number;
   description?: string | undefined;
@@ -10344,12 +22219,15 @@ export const InputModelDrivenTelemetry$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(
+    z.lazy(() => ConnectionModelDrivenTelemetry$outboundSchema),
+  ).optional(),
+  pq: z.lazy(() => PqModelDrivenTelemetry$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(57000),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  tls: z.lazy(() => TLSSettingsServerSideModelDrivenTelemetry$outboundSchema)
+    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumModelDrivenTelemetry$outboundSchema))
     .optional(),
   maxActiveCxn: z.number().default(1000),
   shutdownTimeoutMs: z.number().default(5000),
@@ -10365,11 +22243,160 @@ export function inputModelDrivenTelemetryToJSON(
 }
 
 /** @internal */
-export const CreateInputProtocol$outboundSchema: z.ZodType<
+export type ConnectionOpenTelemetry$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionOpenTelemetry$outboundSchema: z.ZodType<
+  ConnectionOpenTelemetry$Outbound,
+  z.ZodTypeDef,
+  ConnectionOpenTelemetry
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionOpenTelemetryToJSON(
+  connectionOpenTelemetry: ConnectionOpenTelemetry,
+): string {
+  return JSON.stringify(
+    ConnectionOpenTelemetry$outboundSchema.parse(connectionOpenTelemetry),
+  );
+}
+
+/** @internal */
+export const PqModeOpenTelemetry$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputProtocol
-> = openEnums.outboundSchema(CreateInputProtocol);
+  PqModeOpenTelemetry
+> = openEnums.outboundSchema(PqModeOpenTelemetry);
+
+/** @internal */
+export const PqCompressionOpenTelemetry$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionOpenTelemetry
+> = openEnums.outboundSchema(PqCompressionOpenTelemetry);
+
+/** @internal */
+export type CreateInputPqControlsOpenTelemetry$Outbound = {};
+
+/** @internal */
+export const CreateInputPqControlsOpenTelemetry$outboundSchema: z.ZodType<
+  CreateInputPqControlsOpenTelemetry$Outbound,
+  z.ZodTypeDef,
+  CreateInputPqControlsOpenTelemetry
+> = z.object({});
+
+export function createInputPqControlsOpenTelemetryToJSON(
+  createInputPqControlsOpenTelemetry: CreateInputPqControlsOpenTelemetry,
+): string {
+  return JSON.stringify(
+    CreateInputPqControlsOpenTelemetry$outboundSchema.parse(
+      createInputPqControlsOpenTelemetry,
+    ),
+  );
+}
+
+/** @internal */
+export type PqOpenTelemetry$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: CreateInputPqControlsOpenTelemetry$Outbound | undefined;
+};
+
+/** @internal */
+export const PqOpenTelemetry$outboundSchema: z.ZodType<
+  PqOpenTelemetry$Outbound,
+  z.ZodTypeDef,
+  PqOpenTelemetry
+> = z.object({
+  mode: PqModeOpenTelemetry$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionOpenTelemetry$outboundSchema.default("none"),
+  pqControls: z.lazy(() => CreateInputPqControlsOpenTelemetry$outboundSchema)
+    .optional(),
+});
+
+export function pqOpenTelemetryToJSON(
+  pqOpenTelemetry: PqOpenTelemetry,
+): string {
+  return JSON.stringify(PqOpenTelemetry$outboundSchema.parse(pqOpenTelemetry));
+}
+
+/** @internal */
+export const CreateInputMinimumTLSVersionOpenTelemetry$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateInputMinimumTLSVersionOpenTelemetry> =
+    openEnums.outboundSchema(CreateInputMinimumTLSVersionOpenTelemetry);
+
+/** @internal */
+export const CreateInputMaximumTLSVersionOpenTelemetry$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateInputMaximumTLSVersionOpenTelemetry> =
+    openEnums.outboundSchema(CreateInputMaximumTLSVersionOpenTelemetry);
+
+/** @internal */
+export type TLSSettingsServerSideOpenTelemetry$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideOpenTelemetry$outboundSchema: z.ZodType<
+  TLSSettingsServerSideOpenTelemetry$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideOpenTelemetry
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: CreateInputMinimumTLSVersionOpenTelemetry$outboundSchema
+    .optional(),
+  maxVersion: CreateInputMaximumTLSVersionOpenTelemetry$outboundSchema
+    .optional(),
+});
+
+export function tlsSettingsServerSideOpenTelemetryToJSON(
+  tlsSettingsServerSideOpenTelemetry: TLSSettingsServerSideOpenTelemetry,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideOpenTelemetry$outboundSchema.parse(
+      tlsSettingsServerSideOpenTelemetry,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputProtocolOpenTelemetry$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputProtocolOpenTelemetry
+> = openEnums.outboundSchema(CreateInputProtocolOpenTelemetry);
 
 /** @internal */
 export const CreateInputOTLPVersion$outboundSchema: z.ZodType<
@@ -10377,6 +22404,89 @@ export const CreateInputOTLPVersion$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateInputOTLPVersion
 > = openEnums.outboundSchema(CreateInputOTLPVersion);
+
+/** @internal */
+export const CreateInputAuthenticationTypeOpenTelemetry$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateInputAuthenticationTypeOpenTelemetry> =
+    openEnums.outboundSchema(CreateInputAuthenticationTypeOpenTelemetry);
+
+/** @internal */
+export type CreateInputMetadatumOpenTelemetry$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CreateInputMetadatumOpenTelemetry$outboundSchema: z.ZodType<
+  CreateInputMetadatumOpenTelemetry$Outbound,
+  z.ZodTypeDef,
+  CreateInputMetadatumOpenTelemetry
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function createInputMetadatumOpenTelemetryToJSON(
+  createInputMetadatumOpenTelemetry: CreateInputMetadatumOpenTelemetry,
+): string {
+  return JSON.stringify(
+    CreateInputMetadatumOpenTelemetry$outboundSchema.parse(
+      createInputMetadatumOpenTelemetry,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputOauthParamOpenTelemetry$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CreateInputOauthParamOpenTelemetry$outboundSchema: z.ZodType<
+  CreateInputOauthParamOpenTelemetry$Outbound,
+  z.ZodTypeDef,
+  CreateInputOauthParamOpenTelemetry
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function createInputOauthParamOpenTelemetryToJSON(
+  createInputOauthParamOpenTelemetry: CreateInputOauthParamOpenTelemetry,
+): string {
+  return JSON.stringify(
+    CreateInputOauthParamOpenTelemetry$outboundSchema.parse(
+      createInputOauthParamOpenTelemetry,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputOauthHeaderOpenTelemetry$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CreateInputOauthHeaderOpenTelemetry$outboundSchema: z.ZodType<
+  CreateInputOauthHeaderOpenTelemetry$Outbound,
+  z.ZodTypeDef,
+  CreateInputOauthHeaderOpenTelemetry
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function createInputOauthHeaderOpenTelemetryToJSON(
+  createInputOauthHeaderOpenTelemetry: CreateInputOauthHeaderOpenTelemetry,
+): string {
+  return JSON.stringify(
+    CreateInputOauthHeaderOpenTelemetry$outboundSchema.parse(
+      createInputOauthHeaderOpenTelemetry,
+    ),
+  );
+}
 
 /** @internal */
 export type InputOpenTelemetry$Outbound = {
@@ -10388,11 +22498,11 @@ export type InputOpenTelemetry$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionOpenTelemetry$Outbound> | undefined;
+  pq?: PqOpenTelemetry$Outbound | undefined;
   host: string;
   port: number;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideOpenTelemetry$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader?: any | undefined;
@@ -10409,7 +22519,7 @@ export type InputOpenTelemetry$Outbound = {
   extractMetrics: boolean;
   otlpVersion: string;
   authType: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<CreateInputMetadatumOpenTelemetry$Outbound> | undefined;
   maxActiveCxn: number;
   description?: string | undefined;
   username?: string | undefined;
@@ -10423,8 +22533,10 @@ export type InputOpenTelemetry$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr: string;
   tokenTimeoutSecs: number;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  oauthParams?: Array<CreateInputOauthParamOpenTelemetry$Outbound> | undefined;
+  oauthHeaders?:
+    | Array<CreateInputOauthHeaderOpenTelemetry$Outbound>
+    | undefined;
   extractLogs: boolean;
 };
 
@@ -10442,11 +22554,13 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionOpenTelemetry$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqOpenTelemetry$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(4317),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideOpenTelemetry$outboundSchema)
+    .optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.any().optional(),
@@ -10458,13 +22572,16 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   enableHealthCheck: z.boolean().default(false),
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
-  protocol: CreateInputProtocol$outboundSchema.default("grpc"),
+  protocol: CreateInputProtocolOpenTelemetry$outboundSchema.default("grpc"),
   extractSpans: z.boolean().default(false),
   extractMetrics: z.boolean().default(false),
   otlpVersion: CreateInputOTLPVersion$outboundSchema.default("0.10.0"),
-  authType: models.AuthenticationTypeOptions$outboundSchema.default("none"),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  authType: CreateInputAuthenticationTypeOpenTelemetry$outboundSchema.default(
+    "none",
+  ),
+  metadata: z.array(
+    z.lazy(() => CreateInputMetadatumOpenTelemetry$outboundSchema),
+  ).optional(),
   maxActiveCxn: z.number().default(1000),
   description: z.string().optional(),
   username: z.string().optional(),
@@ -10478,8 +22595,12 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  oauthParams: z.array(
+    z.lazy(() => CreateInputOauthParamOpenTelemetry$outboundSchema),
+  ).optional(),
+  oauthHeaders: z.array(
+    z.lazy(() => CreateInputOauthHeaderOpenTelemetry$outboundSchema),
+  ).optional(),
   extractLogs: z.boolean().default(false),
 });
 
@@ -10490,6 +22611,93 @@ export function inputOpenTelemetryToJSON(
     InputOpenTelemetry$outboundSchema.parse(inputOpenTelemetry),
   );
 }
+
+/** @internal */
+export type ConnectionSnmp$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionSnmp$outboundSchema: z.ZodType<
+  ConnectionSnmp$Outbound,
+  z.ZodTypeDef,
+  ConnectionSnmp
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionSnmpToJSON(connectionSnmp: ConnectionSnmp): string {
+  return JSON.stringify(ConnectionSnmp$outboundSchema.parse(connectionSnmp));
+}
+
+/** @internal */
+export const ModeSnmp$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeSnmp
+> = openEnums.outboundSchema(ModeSnmp);
+
+/** @internal */
+export const CompressionSnmp$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionSnmp
+> = openEnums.outboundSchema(CompressionSnmp);
+
+/** @internal */
+export type PqControlsSnmp$Outbound = {};
+
+/** @internal */
+export const PqControlsSnmp$outboundSchema: z.ZodType<
+  PqControlsSnmp$Outbound,
+  z.ZodTypeDef,
+  PqControlsSnmp
+> = z.object({});
+
+export function pqControlsSnmpToJSON(pqControlsSnmp: PqControlsSnmp): string {
+  return JSON.stringify(PqControlsSnmp$outboundSchema.parse(pqControlsSnmp));
+}
+
+/** @internal */
+export type PqSnmp$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsSnmp$Outbound | undefined;
+};
+
+/** @internal */
+export const PqSnmp$outboundSchema: z.ZodType<
+  PqSnmp$Outbound,
+  z.ZodTypeDef,
+  PqSnmp
+> = z.object({
+  mode: ModeSnmp$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionSnmp$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsSnmp$outboundSchema).optional(),
+});
+
+export function pqSnmpToJSON(pqSnmp: PqSnmp): string {
+  return JSON.stringify(PqSnmp$outboundSchema.parse(pqSnmp));
+}
+
+/** @internal */
+export const AuthenticationProtocol$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationProtocol
+> = openEnums.outboundSchema(AuthenticationProtocol);
 
 /** @internal */
 export const PrivacyProtocol$outboundSchema: z.ZodType<
@@ -10514,8 +22722,7 @@ export const V3User$outboundSchema: z.ZodType<
   V3User
 > = z.object({
   name: z.string(),
-  authProtocol: models.AuthenticationProtocolOptionsV3User$outboundSchema
-    .default("none"),
+  authProtocol: AuthenticationProtocol$outboundSchema.default("none"),
   authKey: z.string().optional(),
   privProtocol: PrivacyProtocol$outboundSchema.default("none"),
   privKey: z.string().optional(),
@@ -10552,6 +22759,26 @@ export function snmPv3AuthenticationToJSON(
 }
 
 /** @internal */
+export type MetadatumSnmp$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumSnmp$outboundSchema: z.ZodType<
+  MetadatumSnmp$Outbound,
+  z.ZodTypeDef,
+  MetadatumSnmp
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumSnmpToJSON(metadatumSnmp: MetadatumSnmp): string {
+  return JSON.stringify(MetadatumSnmp$outboundSchema.parse(metadatumSnmp));
+}
+
+/** @internal */
 export type InputSnmp$Outbound = {
   id: string;
   type: "snmp";
@@ -10561,14 +22788,14 @@ export type InputSnmp$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionSnmp$Outbound> | undefined;
+  pq?: PqSnmp$Outbound | undefined;
   host: string;
   port: number;
   snmpV3Auth?: SNMPv3Authentication$Outbound | undefined;
   maxBufferSize: number;
   ipWhitelistRegex: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumSnmp$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   varbindsWithTypes: boolean;
   bestEffortParsing: boolean;
@@ -10589,15 +22816,14 @@ export const InputSnmp$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionSnmp$outboundSchema)).optional(),
+  pq: z.lazy(() => PqSnmp$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(162),
   snmpV3Auth: z.lazy(() => SNMPv3Authentication$outboundSchema).optional(),
   maxBufferSize: z.number().default(1000),
   ipWhitelistRegex: z.string().default("/.*/"),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumSnmp$outboundSchema)).optional(),
   udpSocketRxBufSize: z.number().optional(),
   varbindsWithTypes: z.boolean().default(false),
   bestEffortParsing: z.boolean().default(false),
@@ -10609,6 +22835,189 @@ export function inputSnmpToJSON(inputSnmp: InputSnmp): string {
 }
 
 /** @internal */
+export type ConnectionS3Inventory$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionS3Inventory$outboundSchema: z.ZodType<
+  ConnectionS3Inventory$Outbound,
+  z.ZodTypeDef,
+  ConnectionS3Inventory
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionS3InventoryToJSON(
+  connectionS3Inventory: ConnectionS3Inventory,
+): string {
+  return JSON.stringify(
+    ConnectionS3Inventory$outboundSchema.parse(connectionS3Inventory),
+  );
+}
+
+/** @internal */
+export const ModeS3Inventory$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeS3Inventory
+> = openEnums.outboundSchema(ModeS3Inventory);
+
+/** @internal */
+export const CompressionS3Inventory$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionS3Inventory
+> = openEnums.outboundSchema(CompressionS3Inventory);
+
+/** @internal */
+export type PqControlsS3Inventory$Outbound = {};
+
+/** @internal */
+export const PqControlsS3Inventory$outboundSchema: z.ZodType<
+  PqControlsS3Inventory$Outbound,
+  z.ZodTypeDef,
+  PqControlsS3Inventory
+> = z.object({});
+
+export function pqControlsS3InventoryToJSON(
+  pqControlsS3Inventory: PqControlsS3Inventory,
+): string {
+  return JSON.stringify(
+    PqControlsS3Inventory$outboundSchema.parse(pqControlsS3Inventory),
+  );
+}
+
+/** @internal */
+export type PqS3Inventory$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsS3Inventory$Outbound | undefined;
+};
+
+/** @internal */
+export const PqS3Inventory$outboundSchema: z.ZodType<
+  PqS3Inventory$Outbound,
+  z.ZodTypeDef,
+  PqS3Inventory
+> = z.object({
+  mode: ModeS3Inventory$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionS3Inventory$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsS3Inventory$outboundSchema).optional(),
+});
+
+export function pqS3InventoryToJSON(pqS3Inventory: PqS3Inventory): string {
+  return JSON.stringify(PqS3Inventory$outboundSchema.parse(pqS3Inventory));
+}
+
+/** @internal */
+export const AuthenticationMethodS3Inventory$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodS3Inventory
+> = openEnums.outboundSchema(AuthenticationMethodS3Inventory);
+
+/** @internal */
+export const SignatureVersionS3Inventory$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SignatureVersionS3Inventory
+> = openEnums.outboundSchema(SignatureVersionS3Inventory);
+
+/** @internal */
+export type PreprocessS3Inventory$Outbound = {
+  disabled: boolean;
+  command?: string | undefined;
+  args?: Array<string> | undefined;
+};
+
+/** @internal */
+export const PreprocessS3Inventory$outboundSchema: z.ZodType<
+  PreprocessS3Inventory$Outbound,
+  z.ZodTypeDef,
+  PreprocessS3Inventory
+> = z.object({
+  disabled: z.boolean().default(true),
+  command: z.string().optional(),
+  args: z.array(z.string()).optional(),
+});
+
+export function preprocessS3InventoryToJSON(
+  preprocessS3Inventory: PreprocessS3Inventory,
+): string {
+  return JSON.stringify(
+    PreprocessS3Inventory$outboundSchema.parse(preprocessS3Inventory),
+  );
+}
+
+/** @internal */
+export type MetadatumS3Inventory$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumS3Inventory$outboundSchema: z.ZodType<
+  MetadatumS3Inventory$Outbound,
+  z.ZodTypeDef,
+  MetadatumS3Inventory
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumS3InventoryToJSON(
+  metadatumS3Inventory: MetadatumS3Inventory,
+): string {
+  return JSON.stringify(
+    MetadatumS3Inventory$outboundSchema.parse(metadatumS3Inventory),
+  );
+}
+
+/** @internal */
+export type CheckpointingS3Inventory$Outbound = {
+  enabled: boolean;
+  retries: number;
+};
+
+/** @internal */
+export const CheckpointingS3Inventory$outboundSchema: z.ZodType<
+  CheckpointingS3Inventory$Outbound,
+  z.ZodTypeDef,
+  CheckpointingS3Inventory
+> = z.object({
+  enabled: z.boolean().default(false),
+  retries: z.number().default(5),
+});
+
+export function checkpointingS3InventoryToJSON(
+  checkpointingS3Inventory: CheckpointingS3Inventory,
+): string {
+  return JSON.stringify(
+    CheckpointingS3Inventory$outboundSchema.parse(checkpointingS3Inventory),
+  );
+}
+
+/** @internal */
+export const TagAfterProcessingS3Inventory$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  TagAfterProcessingS3Inventory
+> = openEnums.outboundSchema(TagAfterProcessingS3Inventory);
+
+/** @internal */
 export type InputS3Inventory$Outbound = {
   id: string;
   type: "s3_inventory";
@@ -10618,8 +23027,8 @@ export type InputS3Inventory$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionS3Inventory$Outbound> | undefined;
+  pq?: PqS3Inventory$Outbound | undefined;
   queueName: string;
   fileFilter: string;
   awsAccountId?: string | undefined;
@@ -10643,13 +23052,11 @@ export type InputS3Inventory$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds: number;
   enableSQSAssumeRole: boolean;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: PreprocessS3Inventory$Outbound | undefined;
+  metadata?: Array<MetadatumS3Inventory$Outbound> | undefined;
   parquetChunkSizeMB: number;
   parquetChunkDownloadTimeout: number;
-  checkpointing?: models.CheckpointingType$Outbound | undefined;
+  checkpointing?: CheckpointingS3Inventory$Outbound | undefined;
   pollTimeout: number;
   checksumSuffix: string;
   maxManifestSizeKB: number;
@@ -10676,17 +23083,18 @@ export const InputS3Inventory$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionS3Inventory$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqS3Inventory$outboundSchema).optional(),
   queueName: z.string(),
   fileFilter: z.string().default("/.*/"),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+  awsAuthenticationMethod: AuthenticationMethodS3Inventory$outboundSchema
     .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions$outboundSchema.default("v4"),
+  signatureVersion: SignatureVersionS3Inventory$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   breakerRulesets: z.array(z.string()).optional(),
@@ -10702,13 +23110,13 @@ export const InputS3Inventory$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
   enableSQSAssumeRole: z.boolean().default(false),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  preprocess: z.lazy(() => PreprocessS3Inventory$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => MetadatumS3Inventory$outboundSchema))
     .optional(),
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
-  checkpointing: models.CheckpointingType$outboundSchema.optional(),
+  checkpointing: z.lazy(() => CheckpointingS3Inventory$outboundSchema)
+    .optional(),
   pollTimeout: z.number().default(10),
   checksumSuffix: z.string().default("checksum"),
   maxManifestSizeKB: z.number().int().default(4096),
@@ -10716,8 +23124,7 @@ export const InputS3Inventory$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  tagAfterProcessing: models.TagAfterProcessingOptions$outboundSchema
-    .optional(),
+  tagAfterProcessing: TagAfterProcessingS3Inventory$outboundSchema.optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
 });
@@ -10731,6 +23138,158 @@ export function inputS3InventoryToJSON(
 }
 
 /** @internal */
+export type ConnectionS3$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionS3$outboundSchema: z.ZodType<
+  ConnectionS3$Outbound,
+  z.ZodTypeDef,
+  ConnectionS3
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionS3ToJSON(connectionS3: ConnectionS3): string {
+  return JSON.stringify(ConnectionS3$outboundSchema.parse(connectionS3));
+}
+
+/** @internal */
+export const ModeS3$outboundSchema: z.ZodType<string, z.ZodTypeDef, ModeS3> =
+  openEnums.outboundSchema(ModeS3);
+
+/** @internal */
+export const PqCompressionS3$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionS3
+> = openEnums.outboundSchema(PqCompressionS3);
+
+/** @internal */
+export type PqControlsS3$Outbound = {};
+
+/** @internal */
+export const PqControlsS3$outboundSchema: z.ZodType<
+  PqControlsS3$Outbound,
+  z.ZodTypeDef,
+  PqControlsS3
+> = z.object({});
+
+export function pqControlsS3ToJSON(pqControlsS3: PqControlsS3): string {
+  return JSON.stringify(PqControlsS3$outboundSchema.parse(pqControlsS3));
+}
+
+/** @internal */
+export type PqS3$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsS3$Outbound | undefined;
+};
+
+/** @internal */
+export const PqS3$outboundSchema: z.ZodType<PqS3$Outbound, z.ZodTypeDef, PqS3> =
+  z.object({
+    mode: ModeS3$outboundSchema.default("always"),
+    maxBufferSize: z.number().default(1000),
+    commitFrequency: z.number().default(42),
+    maxFileSize: z.string().default("1 MB"),
+    maxSize: z.string().default("5GB"),
+    path: z.string().default("$CRIBL_HOME/state/queues"),
+    compress: PqCompressionS3$outboundSchema.default("none"),
+    pqControls: z.lazy(() => PqControlsS3$outboundSchema).optional(),
+  });
+
+export function pqS3ToJSON(pqS3: PqS3): string {
+  return JSON.stringify(PqS3$outboundSchema.parse(pqS3));
+}
+
+/** @internal */
+export const CreateInputAuthenticationMethodS3$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputAuthenticationMethodS3
+> = openEnums.outboundSchema(CreateInputAuthenticationMethodS3);
+
+/** @internal */
+export const CreateInputSignatureVersionS3$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSignatureVersionS3
+> = openEnums.outboundSchema(CreateInputSignatureVersionS3);
+
+/** @internal */
+export type PreprocessS3$Outbound = {
+  disabled: boolean;
+  command?: string | undefined;
+  args?: Array<string> | undefined;
+};
+
+/** @internal */
+export const PreprocessS3$outboundSchema: z.ZodType<
+  PreprocessS3$Outbound,
+  z.ZodTypeDef,
+  PreprocessS3
+> = z.object({
+  disabled: z.boolean().default(true),
+  command: z.string().optional(),
+  args: z.array(z.string()).optional(),
+});
+
+export function preprocessS3ToJSON(preprocessS3: PreprocessS3): string {
+  return JSON.stringify(PreprocessS3$outboundSchema.parse(preprocessS3));
+}
+
+/** @internal */
+export type MetadatumS3$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumS3$outboundSchema: z.ZodType<
+  MetadatumS3$Outbound,
+  z.ZodTypeDef,
+  MetadatumS3
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumS3ToJSON(metadatumS3: MetadatumS3): string {
+  return JSON.stringify(MetadatumS3$outboundSchema.parse(metadatumS3));
+}
+
+/** @internal */
+export type CheckpointingS3$Outbound = {
+  enabled: boolean;
+  retries: number;
+};
+
+/** @internal */
+export const CheckpointingS3$outboundSchema: z.ZodType<
+  CheckpointingS3$Outbound,
+  z.ZodTypeDef,
+  CheckpointingS3
+> = z.object({
+  enabled: z.boolean().default(false),
+  retries: z.number().default(5),
+});
+
+export function checkpointingS3ToJSON(
+  checkpointingS3: CheckpointingS3,
+): string {
+  return JSON.stringify(CheckpointingS3$outboundSchema.parse(checkpointingS3));
+}
+
+/** @internal */
 export type InputS3$Outbound = {
   id: string;
   type: "s3";
@@ -10740,8 +23299,8 @@ export type InputS3$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionS3$Outbound> | undefined;
+  pq?: PqS3$Outbound | undefined;
   queueName: string;
   fileFilter: string;
   awsAccountId?: string | undefined;
@@ -10765,13 +23324,11 @@ export type InputS3$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds: number;
   enableSQSAssumeRole: boolean;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: PreprocessS3$Outbound | undefined;
+  metadata?: Array<MetadatumS3$Outbound> | undefined;
   parquetChunkSizeMB: number;
   parquetChunkDownloadTimeout: number;
-  checkpointing?: models.CheckpointingType$Outbound | undefined;
+  checkpointing?: CheckpointingS3$Outbound | undefined;
   pollTimeout: number;
   encoding?: string | undefined;
   tagAfterProcessing: boolean;
@@ -10796,17 +23353,17 @@ export const InputS3$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionS3$outboundSchema)).optional(),
+  pq: z.lazy(() => PqS3$outboundSchema).optional(),
   queueName: z.string(),
   fileFilter: z.string().default("/.*/"),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+  awsAuthenticationMethod: CreateInputAuthenticationMethodS3$outboundSchema
     .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions$outboundSchema.default("v4"),
+  signatureVersion: CreateInputSignatureVersionS3$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   breakerRulesets: z.array(z.string()).optional(),
@@ -10822,13 +23379,11 @@ export const InputS3$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
   enableSQSAssumeRole: z.boolean().default(false),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  preprocess: z.lazy(() => PreprocessS3$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => MetadatumS3$outboundSchema)).optional(),
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
-  checkpointing: models.CheckpointingType$outboundSchema.optional(),
+  checkpointing: z.lazy(() => CheckpointingS3$outboundSchema).optional(),
   pollTimeout: z.number().default(10),
   encoding: z.string().optional(),
   tagAfterProcessing: z.boolean().default(false),
@@ -10844,6 +23399,176 @@ export function inputS3ToJSON(inputS3: InputS3): string {
 }
 
 /** @internal */
+export type ConnectionMetrics$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionMetrics$outboundSchema: z.ZodType<
+  ConnectionMetrics$Outbound,
+  z.ZodTypeDef,
+  ConnectionMetrics
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionMetricsToJSON(
+  connectionMetrics: ConnectionMetrics,
+): string {
+  return JSON.stringify(
+    ConnectionMetrics$outboundSchema.parse(connectionMetrics),
+  );
+}
+
+/** @internal */
+export const ModeMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeMetrics
+> = openEnums.outboundSchema(ModeMetrics);
+
+/** @internal */
+export const CompressionMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionMetrics
+> = openEnums.outboundSchema(CompressionMetrics);
+
+/** @internal */
+export type PqControlsMetrics$Outbound = {};
+
+/** @internal */
+export const PqControlsMetrics$outboundSchema: z.ZodType<
+  PqControlsMetrics$Outbound,
+  z.ZodTypeDef,
+  PqControlsMetrics
+> = z.object({});
+
+export function pqControlsMetricsToJSON(
+  pqControlsMetrics: PqControlsMetrics,
+): string {
+  return JSON.stringify(
+    PqControlsMetrics$outboundSchema.parse(pqControlsMetrics),
+  );
+}
+
+/** @internal */
+export type PqMetrics$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsMetrics$Outbound | undefined;
+};
+
+/** @internal */
+export const PqMetrics$outboundSchema: z.ZodType<
+  PqMetrics$Outbound,
+  z.ZodTypeDef,
+  PqMetrics
+> = z.object({
+  mode: ModeMetrics$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionMetrics$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsMetrics$outboundSchema).optional(),
+});
+
+export function pqMetricsToJSON(pqMetrics: PqMetrics): string {
+  return JSON.stringify(PqMetrics$outboundSchema.parse(pqMetrics));
+}
+
+/** @internal */
+export const MinimumTLSVersionMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MinimumTLSVersionMetrics
+> = openEnums.outboundSchema(MinimumTLSVersionMetrics);
+
+/** @internal */
+export const MaximumTLSVersionMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaximumTLSVersionMetrics
+> = openEnums.outboundSchema(MaximumTLSVersionMetrics);
+
+/** @internal */
+export type TLSSettingsServerSideMetrics$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideMetrics$outboundSchema: z.ZodType<
+  TLSSettingsServerSideMetrics$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideMetrics
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: MinimumTLSVersionMetrics$outboundSchema.optional(),
+  maxVersion: MaximumTLSVersionMetrics$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideMetricsToJSON(
+  tlsSettingsServerSideMetrics: TLSSettingsServerSideMetrics,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideMetrics$outboundSchema.parse(
+      tlsSettingsServerSideMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumMetrics$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumMetrics$outboundSchema: z.ZodType<
+  MetadatumMetrics$Outbound,
+  z.ZodTypeDef,
+  MetadatumMetrics
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumMetricsToJSON(
+  metadatumMetrics: MetadatumMetrics,
+): string {
+  return JSON.stringify(
+    MetadatumMetrics$outboundSchema.parse(metadatumMetrics),
+  );
+}
+
+/** @internal */
 export type InputMetrics$Outbound = {
   id: string;
   type: "metrics";
@@ -10853,16 +23578,16 @@ export type InputMetrics$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionMetrics$Outbound> | undefined;
+  pq?: PqMetrics$Outbound | undefined;
   host: string;
   udpPort?: number | undefined;
   tcpPort?: number | undefined;
   maxBufferSize: number;
   ipWhitelistRegex: string;
   enableProxyHeader: boolean;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  tls?: TLSSettingsServerSideMetrics$Outbound | undefined;
+  metadata?: Array<MetadatumMetrics$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   description?: string | undefined;
 };
@@ -10881,23 +23606,135 @@ export const InputMetrics$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionMetrics$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqMetrics$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   udpPort: z.number().optional(),
   tcpPort: z.number().optional(),
   maxBufferSize: z.number().default(1000),
   ipWhitelistRegex: z.string().default("/.*/"),
   enableProxyHeader: z.boolean().default(false),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  tls: z.lazy(() => TLSSettingsServerSideMetrics$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => MetadatumMetrics$outboundSchema)).optional(),
   udpSocketRxBufSize: z.number().optional(),
   description: z.string().optional(),
 });
 
 export function inputMetricsToJSON(inputMetrics: InputMetrics): string {
   return JSON.stringify(InputMetrics$outboundSchema.parse(inputMetrics));
+}
+
+/** @internal */
+export type ConnectionCriblmetrics$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionCriblmetrics$outboundSchema: z.ZodType<
+  ConnectionCriblmetrics$Outbound,
+  z.ZodTypeDef,
+  ConnectionCriblmetrics
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionCriblmetricsToJSON(
+  connectionCriblmetrics: ConnectionCriblmetrics,
+): string {
+  return JSON.stringify(
+    ConnectionCriblmetrics$outboundSchema.parse(connectionCriblmetrics),
+  );
+}
+
+/** @internal */
+export const ModeCriblmetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeCriblmetrics
+> = openEnums.outboundSchema(ModeCriblmetrics);
+
+/** @internal */
+export const CompressionCriblmetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionCriblmetrics
+> = openEnums.outboundSchema(CompressionCriblmetrics);
+
+/** @internal */
+export type PqControlsCriblmetrics$Outbound = {};
+
+/** @internal */
+export const PqControlsCriblmetrics$outboundSchema: z.ZodType<
+  PqControlsCriblmetrics$Outbound,
+  z.ZodTypeDef,
+  PqControlsCriblmetrics
+> = z.object({});
+
+export function pqControlsCriblmetricsToJSON(
+  pqControlsCriblmetrics: PqControlsCriblmetrics,
+): string {
+  return JSON.stringify(
+    PqControlsCriblmetrics$outboundSchema.parse(pqControlsCriblmetrics),
+  );
+}
+
+/** @internal */
+export type PqCriblmetrics$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsCriblmetrics$Outbound | undefined;
+};
+
+/** @internal */
+export const PqCriblmetrics$outboundSchema: z.ZodType<
+  PqCriblmetrics$Outbound,
+  z.ZodTypeDef,
+  PqCriblmetrics
+> = z.object({
+  mode: ModeCriblmetrics$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionCriblmetrics$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsCriblmetrics$outboundSchema).optional(),
+});
+
+export function pqCriblmetricsToJSON(pqCriblmetrics: PqCriblmetrics): string {
+  return JSON.stringify(PqCriblmetrics$outboundSchema.parse(pqCriblmetrics));
+}
+
+/** @internal */
+export type MetadatumCriblmetrics$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumCriblmetrics$outboundSchema: z.ZodType<
+  MetadatumCriblmetrics$Outbound,
+  z.ZodTypeDef,
+  MetadatumCriblmetrics
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumCriblmetricsToJSON(
+  metadatumCriblmetrics: MetadatumCriblmetrics,
+): string {
+  return JSON.stringify(
+    MetadatumCriblmetrics$outboundSchema.parse(metadatumCriblmetrics),
+  );
 }
 
 /** @internal */
@@ -10910,11 +23747,11 @@ export type InputCriblmetrics$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionCriblmetrics$Outbound> | undefined;
+  pq?: PqCriblmetrics$Outbound | undefined;
   prefix: string;
   fullFidelity: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumCriblmetrics$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -10932,11 +23769,12 @@ export const InputCriblmetrics$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionCriblmetrics$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqCriblmetrics$outboundSchema).optional(),
   prefix: z.string().default("cribl.logstream."),
   fullFidelity: z.boolean().default(true),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumCriblmetrics$outboundSchema))
     .optional(),
   description: z.string().optional(),
 });
@@ -10950,6 +23788,97 @@ export function inputCriblmetricsToJSON(
 }
 
 /** @internal */
+export type ConnectionKinesis$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionKinesis$outboundSchema: z.ZodType<
+  ConnectionKinesis$Outbound,
+  z.ZodTypeDef,
+  ConnectionKinesis
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionKinesisToJSON(
+  connectionKinesis: ConnectionKinesis,
+): string {
+  return JSON.stringify(
+    ConnectionKinesis$outboundSchema.parse(connectionKinesis),
+  );
+}
+
+/** @internal */
+export const PqModeKinesis$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqModeKinesis
+> = openEnums.outboundSchema(PqModeKinesis);
+
+/** @internal */
+export const PqCompressionKinesis$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionKinesis
+> = openEnums.outboundSchema(PqCompressionKinesis);
+
+/** @internal */
+export type CreateInputPqControlsKinesis$Outbound = {};
+
+/** @internal */
+export const CreateInputPqControlsKinesis$outboundSchema: z.ZodType<
+  CreateInputPqControlsKinesis$Outbound,
+  z.ZodTypeDef,
+  CreateInputPqControlsKinesis
+> = z.object({});
+
+export function createInputPqControlsKinesisToJSON(
+  createInputPqControlsKinesis: CreateInputPqControlsKinesis,
+): string {
+  return JSON.stringify(
+    CreateInputPqControlsKinesis$outboundSchema.parse(
+      createInputPqControlsKinesis,
+    ),
+  );
+}
+
+/** @internal */
+export type PqKinesis$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: CreateInputPqControlsKinesis$Outbound | undefined;
+};
+
+/** @internal */
+export const PqKinesis$outboundSchema: z.ZodType<
+  PqKinesis$Outbound,
+  z.ZodTypeDef,
+  PqKinesis
+> = z.object({
+  mode: PqModeKinesis$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionKinesis$outboundSchema.default("none"),
+  pqControls: z.lazy(() => CreateInputPqControlsKinesis$outboundSchema)
+    .optional(),
+});
+
+export function pqKinesisToJSON(pqKinesis: PqKinesis): string {
+  return JSON.stringify(PqKinesis$outboundSchema.parse(pqKinesis));
+}
+
+/** @internal */
 export const ShardIteratorStart$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
@@ -10957,11 +23886,11 @@ export const ShardIteratorStart$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(ShardIteratorStart);
 
 /** @internal */
-export const RecordDataFormat$outboundSchema: z.ZodType<
+export const CreateInputRecordDataFormat$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  RecordDataFormat
-> = openEnums.outboundSchema(RecordDataFormat);
+  CreateInputRecordDataFormat
+> = openEnums.outboundSchema(CreateInputRecordDataFormat);
 
 /** @internal */
 export const ShardLoadBalancing$outboundSchema: z.ZodType<
@@ -10969,6 +23898,44 @@ export const ShardLoadBalancing$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ShardLoadBalancing
 > = openEnums.outboundSchema(ShardLoadBalancing);
+
+/** @internal */
+export const CreateInputAuthenticationMethodKinesis$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputAuthenticationMethodKinesis
+> = openEnums.outboundSchema(CreateInputAuthenticationMethodKinesis);
+
+/** @internal */
+export const CreateInputSignatureVersionKinesis$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSignatureVersionKinesis
+> = openEnums.outboundSchema(CreateInputSignatureVersionKinesis);
+
+/** @internal */
+export type MetadatumKinesis$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumKinesis$outboundSchema: z.ZodType<
+  MetadatumKinesis$Outbound,
+  z.ZodTypeDef,
+  MetadatumKinesis
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumKinesisToJSON(
+  metadatumKinesis: MetadatumKinesis,
+): string {
+  return JSON.stringify(
+    MetadatumKinesis$outboundSchema.parse(metadatumKinesis),
+  );
+}
 
 /** @internal */
 export type InputKinesis$Outbound = {
@@ -10980,8 +23947,8 @@ export type InputKinesis$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionKinesis$Outbound> | undefined;
+  pq?: PqKinesis$Outbound | undefined;
   streamName: string;
   serviceInterval: number;
   shardExpr: string;
@@ -11003,7 +23970,7 @@ export type InputKinesis$Outbound = {
   durationSeconds: number;
   verifyKPLCheckSums: boolean;
   avoidDuplicates: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumKinesis$Outbound> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
@@ -11023,24 +23990,25 @@ export const InputKinesis$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionKinesis$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqKinesis$outboundSchema).optional(),
   streamName: z.string(),
   serviceInterval: z.number().default(1),
   shardExpr: z.string().default("true"),
   shardIteratorType: ShardIteratorStart$outboundSchema.default("TRIM_HORIZON"),
-  payloadFormat: RecordDataFormat$outboundSchema.default("cribl"),
+  payloadFormat: CreateInputRecordDataFormat$outboundSchema.default("cribl"),
   getRecordsLimit: z.number().default(5000),
   getRecordsLimitTotal: z.number().default(20000),
   loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.default(
     "ConsistentHashing",
   ),
-  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+  awsAuthenticationMethod: CreateInputAuthenticationMethodKinesis$outboundSchema
     .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions3$outboundSchema.default(
+  signatureVersion: CreateInputSignatureVersionKinesis$outboundSchema.default(
     "v4",
   ),
   reuseConnections: z.boolean().default(true),
@@ -11051,8 +24019,7 @@ export const InputKinesis$outboundSchema: z.ZodType<
   durationSeconds: z.number().default(3600),
   verifyKPLCheckSums: z.boolean().default(false),
   avoidDuplicates: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumKinesis$outboundSchema)).optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
@@ -11060,6 +24027,229 @@ export const InputKinesis$outboundSchema: z.ZodType<
 
 export function inputKinesisToJSON(inputKinesis: InputKinesis): string {
   return JSON.stringify(InputKinesis$outboundSchema.parse(inputKinesis));
+}
+
+/** @internal */
+export type ConnectionHTTPRaw$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionHTTPRaw$outboundSchema: z.ZodType<
+  ConnectionHTTPRaw$Outbound,
+  z.ZodTypeDef,
+  ConnectionHTTPRaw
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionHTTPRawToJSON(
+  connectionHTTPRaw: ConnectionHTTPRaw,
+): string {
+  return JSON.stringify(
+    ConnectionHTTPRaw$outboundSchema.parse(connectionHTTPRaw),
+  );
+}
+
+/** @internal */
+export const ModeHTTPRaw$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeHTTPRaw
+> = openEnums.outboundSchema(ModeHTTPRaw);
+
+/** @internal */
+export const CompressionHTTPRaw$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionHTTPRaw
+> = openEnums.outboundSchema(CompressionHTTPRaw);
+
+/** @internal */
+export type PqControlsHTTPRaw$Outbound = {};
+
+/** @internal */
+export const PqControlsHTTPRaw$outboundSchema: z.ZodType<
+  PqControlsHTTPRaw$Outbound,
+  z.ZodTypeDef,
+  PqControlsHTTPRaw
+> = z.object({});
+
+export function pqControlsHTTPRawToJSON(
+  pqControlsHTTPRaw: PqControlsHTTPRaw,
+): string {
+  return JSON.stringify(
+    PqControlsHTTPRaw$outboundSchema.parse(pqControlsHTTPRaw),
+  );
+}
+
+/** @internal */
+export type PqHTTPRaw$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsHTTPRaw$Outbound | undefined;
+};
+
+/** @internal */
+export const PqHTTPRaw$outboundSchema: z.ZodType<
+  PqHTTPRaw$Outbound,
+  z.ZodTypeDef,
+  PqHTTPRaw
+> = z.object({
+  mode: ModeHTTPRaw$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionHTTPRaw$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsHTTPRaw$outboundSchema).optional(),
+});
+
+export function pqHTTPRawToJSON(pqHTTPRaw: PqHTTPRaw): string {
+  return JSON.stringify(PqHTTPRaw$outboundSchema.parse(pqHTTPRaw));
+}
+
+/** @internal */
+export const MinimumTLSVersionHTTPRaw$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MinimumTLSVersionHTTPRaw
+> = openEnums.outboundSchema(MinimumTLSVersionHTTPRaw);
+
+/** @internal */
+export const MaximumTLSVersionHTTPRaw$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaximumTLSVersionHTTPRaw
+> = openEnums.outboundSchema(MaximumTLSVersionHTTPRaw);
+
+/** @internal */
+export type TLSSettingsServerSideHTTPRaw$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideHTTPRaw$outboundSchema: z.ZodType<
+  TLSSettingsServerSideHTTPRaw$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideHTTPRaw
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: MinimumTLSVersionHTTPRaw$outboundSchema.optional(),
+  maxVersion: MaximumTLSVersionHTTPRaw$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideHTTPRawToJSON(
+  tlsSettingsServerSideHTTPRaw: TLSSettingsServerSideHTTPRaw,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideHTTPRaw$outboundSchema.parse(
+      tlsSettingsServerSideHTTPRaw,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumHTTPRaw$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumHTTPRaw$outboundSchema: z.ZodType<
+  MetadatumHTTPRaw$Outbound,
+  z.ZodTypeDef,
+  MetadatumHTTPRaw
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumHTTPRawToJSON(
+  metadatumHTTPRaw: MetadatumHTTPRaw,
+): string {
+  return JSON.stringify(
+    MetadatumHTTPRaw$outboundSchema.parse(metadatumHTTPRaw),
+  );
+}
+
+/** @internal */
+export type AuthTokensExtMetadatumHTTPRaw$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const AuthTokensExtMetadatumHTTPRaw$outboundSchema: z.ZodType<
+  AuthTokensExtMetadatumHTTPRaw$Outbound,
+  z.ZodTypeDef,
+  AuthTokensExtMetadatumHTTPRaw
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function authTokensExtMetadatumHTTPRawToJSON(
+  authTokensExtMetadatumHTTPRaw: AuthTokensExtMetadatumHTTPRaw,
+): string {
+  return JSON.stringify(
+    AuthTokensExtMetadatumHTTPRaw$outboundSchema.parse(
+      authTokensExtMetadatumHTTPRaw,
+    ),
+  );
+}
+
+/** @internal */
+export type AuthTokensExtHTTPRaw$Outbound = {
+  token: string;
+  description?: string | undefined;
+  metadata?: Array<AuthTokensExtMetadatumHTTPRaw$Outbound> | undefined;
+};
+
+/** @internal */
+export const AuthTokensExtHTTPRaw$outboundSchema: z.ZodType<
+  AuthTokensExtHTTPRaw$Outbound,
+  z.ZodTypeDef,
+  AuthTokensExtHTTPRaw
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(z.lazy(() => AuthTokensExtMetadatumHTTPRaw$outboundSchema))
+    .optional(),
+});
+
+export function authTokensExtHTTPRawToJSON(
+  authTokensExtHTTPRaw: AuthTokensExtHTTPRaw,
+): string {
+  return JSON.stringify(
+    AuthTokensExtHTTPRaw$outboundSchema.parse(authTokensExtHTTPRaw),
+  );
 }
 
 /** @internal */
@@ -11072,12 +24262,12 @@ export type InputHttpRaw$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionHTTPRaw$Outbound> | undefined;
+  pq?: PqHTTPRaw$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<string> | undefined;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideHTTPRaw$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -11091,10 +24281,10 @@ export type InputHttpRaw$Outbound = {
   ipDenylistRegex: string;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumHTTPRaw$Outbound> | undefined;
   allowedPaths?: Array<string> | undefined;
   allowedMethods?: Array<string> | undefined;
-  authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExtHTTPRaw$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -11112,12 +24302,13 @@ export const InputHttpRaw$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionHTTPRaw$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqHTTPRaw$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideHTTPRaw$outboundSchema).optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -11131,17 +24322,104 @@ export const InputHttpRaw$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumHTTPRaw$outboundSchema)).optional(),
   allowedPaths: z.array(z.string()).optional(),
   allowedMethods: z.array(z.string()).optional(),
-  authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
+  authTokensExt: z.array(z.lazy(() => AuthTokensExtHTTPRaw$outboundSchema))
     .optional(),
   description: z.string().optional(),
 });
 
 export function inputHttpRawToJSON(inputHttpRaw: InputHttpRaw): string {
   return JSON.stringify(InputHttpRaw$outboundSchema.parse(inputHttpRaw));
+}
+
+/** @internal */
+export type ConnectionDatagen$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionDatagen$outboundSchema: z.ZodType<
+  ConnectionDatagen$Outbound,
+  z.ZodTypeDef,
+  ConnectionDatagen
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionDatagenToJSON(
+  connectionDatagen: ConnectionDatagen,
+): string {
+  return JSON.stringify(
+    ConnectionDatagen$outboundSchema.parse(connectionDatagen),
+  );
+}
+
+/** @internal */
+export const ModeDatagen$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeDatagen
+> = openEnums.outboundSchema(ModeDatagen);
+
+/** @internal */
+export const CompressionDatagen$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionDatagen
+> = openEnums.outboundSchema(CompressionDatagen);
+
+/** @internal */
+export type PqControlsDatagen$Outbound = {};
+
+/** @internal */
+export const PqControlsDatagen$outboundSchema: z.ZodType<
+  PqControlsDatagen$Outbound,
+  z.ZodTypeDef,
+  PqControlsDatagen
+> = z.object({});
+
+export function pqControlsDatagenToJSON(
+  pqControlsDatagen: PqControlsDatagen,
+): string {
+  return JSON.stringify(
+    PqControlsDatagen$outboundSchema.parse(pqControlsDatagen),
+  );
+}
+
+/** @internal */
+export type PqDatagen$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsDatagen$Outbound | undefined;
+};
+
+/** @internal */
+export const PqDatagen$outboundSchema: z.ZodType<
+  PqDatagen$Outbound,
+  z.ZodTypeDef,
+  PqDatagen
+> = z.object({
+  mode: ModeDatagen$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionDatagen$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsDatagen$outboundSchema).optional(),
+});
+
+export function pqDatagenToJSON(pqDatagen: PqDatagen): string {
+  return JSON.stringify(PqDatagen$outboundSchema.parse(pqDatagen));
 }
 
 /** @internal */
@@ -11165,6 +24443,30 @@ export function sampleToJSON(sample: Sample): string {
 }
 
 /** @internal */
+export type MetadatumDatagen$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumDatagen$outboundSchema: z.ZodType<
+  MetadatumDatagen$Outbound,
+  z.ZodTypeDef,
+  MetadatumDatagen
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumDatagenToJSON(
+  metadatumDatagen: MetadatumDatagen,
+): string {
+  return JSON.stringify(
+    MetadatumDatagen$outboundSchema.parse(metadatumDatagen),
+  );
+}
+
+/** @internal */
 export type InputDatagen$Outbound = {
   id: string;
   type: "datagen";
@@ -11174,10 +24476,10 @@ export type InputDatagen$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionDatagen$Outbound> | undefined;
+  pq?: PqDatagen$Outbound | undefined;
   samples: Array<Sample$Outbound>;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumDatagen$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -11195,16 +24497,186 @@ export const InputDatagen$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
-  samples: z.array(z.lazy(() => Sample$outboundSchema)),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  connections: z.array(z.lazy(() => ConnectionDatagen$outboundSchema))
     .optional(),
+  pq: z.lazy(() => PqDatagen$outboundSchema).optional(),
+  samples: z.array(z.lazy(() => Sample$outboundSchema)),
+  metadata: z.array(z.lazy(() => MetadatumDatagen$outboundSchema)).optional(),
   description: z.string().optional(),
 });
 
 export function inputDatagenToJSON(inputDatagen: InputDatagen): string {
   return JSON.stringify(InputDatagen$outboundSchema.parse(inputDatagen));
+}
+
+/** @internal */
+export type ConnectionDatadogAgent$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionDatadogAgent$outboundSchema: z.ZodType<
+  ConnectionDatadogAgent$Outbound,
+  z.ZodTypeDef,
+  ConnectionDatadogAgent
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionDatadogAgentToJSON(
+  connectionDatadogAgent: ConnectionDatadogAgent,
+): string {
+  return JSON.stringify(
+    ConnectionDatadogAgent$outboundSchema.parse(connectionDatadogAgent),
+  );
+}
+
+/** @internal */
+export const ModeDatadogAgent$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeDatadogAgent
+> = openEnums.outboundSchema(ModeDatadogAgent);
+
+/** @internal */
+export const CompressionDatadogAgent$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionDatadogAgent
+> = openEnums.outboundSchema(CompressionDatadogAgent);
+
+/** @internal */
+export type PqControlsDatadogAgent$Outbound = {};
+
+/** @internal */
+export const PqControlsDatadogAgent$outboundSchema: z.ZodType<
+  PqControlsDatadogAgent$Outbound,
+  z.ZodTypeDef,
+  PqControlsDatadogAgent
+> = z.object({});
+
+export function pqControlsDatadogAgentToJSON(
+  pqControlsDatadogAgent: PqControlsDatadogAgent,
+): string {
+  return JSON.stringify(
+    PqControlsDatadogAgent$outboundSchema.parse(pqControlsDatadogAgent),
+  );
+}
+
+/** @internal */
+export type PqDatadogAgent$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsDatadogAgent$Outbound | undefined;
+};
+
+/** @internal */
+export const PqDatadogAgent$outboundSchema: z.ZodType<
+  PqDatadogAgent$Outbound,
+  z.ZodTypeDef,
+  PqDatadogAgent
+> = z.object({
+  mode: ModeDatadogAgent$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionDatadogAgent$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsDatadogAgent$outboundSchema).optional(),
+});
+
+export function pqDatadogAgentToJSON(pqDatadogAgent: PqDatadogAgent): string {
+  return JSON.stringify(PqDatadogAgent$outboundSchema.parse(pqDatadogAgent));
+}
+
+/** @internal */
+export const MinimumTLSVersionDatadogAgent$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MinimumTLSVersionDatadogAgent
+> = openEnums.outboundSchema(MinimumTLSVersionDatadogAgent);
+
+/** @internal */
+export const MaximumTLSVersionDatadogAgent$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaximumTLSVersionDatadogAgent
+> = openEnums.outboundSchema(MaximumTLSVersionDatadogAgent);
+
+/** @internal */
+export type TLSSettingsServerSideDatadogAgent$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideDatadogAgent$outboundSchema: z.ZodType<
+  TLSSettingsServerSideDatadogAgent$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideDatadogAgent
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: MinimumTLSVersionDatadogAgent$outboundSchema.optional(),
+  maxVersion: MaximumTLSVersionDatadogAgent$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideDatadogAgentToJSON(
+  tlsSettingsServerSideDatadogAgent: TLSSettingsServerSideDatadogAgent,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideDatadogAgent$outboundSchema.parse(
+      tlsSettingsServerSideDatadogAgent,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumDatadogAgent$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumDatadogAgent$outboundSchema: z.ZodType<
+  MetadatumDatadogAgent$Outbound,
+  z.ZodTypeDef,
+  MetadatumDatadogAgent
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumDatadogAgentToJSON(
+  metadatumDatadogAgent: MetadatumDatadogAgent,
+): string {
+  return JSON.stringify(
+    MetadatumDatadogAgent$outboundSchema.parse(metadatumDatadogAgent),
+  );
 }
 
 /** @internal */
@@ -11241,11 +24713,11 @@ export type InputDatadogAgent$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionDatadogAgent$Outbound> | undefined;
+  pq?: PqDatadogAgent$Outbound | undefined;
   host: string;
   port: number;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideDatadogAgent$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -11258,7 +24730,7 @@ export type InputDatadogAgent$Outbound = {
   ipAllowlistRegex: string;
   ipDenylistRegex: string;
   extractMetrics: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumDatadogAgent$Outbound> | undefined;
   proxyMode?: ProxyModeDatadogAgent$Outbound | undefined;
   description?: string | undefined;
 };
@@ -11277,11 +24749,13 @@ export const InputDatadogAgent$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionDatadogAgent$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqDatadogAgent$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideDatadogAgent$outboundSchema)
+    .optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -11294,7 +24768,7 @@ export const InputDatadogAgent$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   extractMetrics: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumDatadogAgent$outboundSchema))
     .optional(),
   proxyMode: z.lazy(() => ProxyModeDatadogAgent$outboundSchema).optional(),
   description: z.string().optional(),
@@ -11309,6 +24783,189 @@ export function inputDatadogAgentToJSON(
 }
 
 /** @internal */
+export type ConnectionCrowdstrike$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionCrowdstrike$outboundSchema: z.ZodType<
+  ConnectionCrowdstrike$Outbound,
+  z.ZodTypeDef,
+  ConnectionCrowdstrike
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionCrowdstrikeToJSON(
+  connectionCrowdstrike: ConnectionCrowdstrike,
+): string {
+  return JSON.stringify(
+    ConnectionCrowdstrike$outboundSchema.parse(connectionCrowdstrike),
+  );
+}
+
+/** @internal */
+export const ModeCrowdstrike$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeCrowdstrike
+> = openEnums.outboundSchema(ModeCrowdstrike);
+
+/** @internal */
+export const CompressionCrowdstrike$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionCrowdstrike
+> = openEnums.outboundSchema(CompressionCrowdstrike);
+
+/** @internal */
+export type PqControlsCrowdstrike$Outbound = {};
+
+/** @internal */
+export const PqControlsCrowdstrike$outboundSchema: z.ZodType<
+  PqControlsCrowdstrike$Outbound,
+  z.ZodTypeDef,
+  PqControlsCrowdstrike
+> = z.object({});
+
+export function pqControlsCrowdstrikeToJSON(
+  pqControlsCrowdstrike: PqControlsCrowdstrike,
+): string {
+  return JSON.stringify(
+    PqControlsCrowdstrike$outboundSchema.parse(pqControlsCrowdstrike),
+  );
+}
+
+/** @internal */
+export type PqCrowdstrike$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsCrowdstrike$Outbound | undefined;
+};
+
+/** @internal */
+export const PqCrowdstrike$outboundSchema: z.ZodType<
+  PqCrowdstrike$Outbound,
+  z.ZodTypeDef,
+  PqCrowdstrike
+> = z.object({
+  mode: ModeCrowdstrike$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionCrowdstrike$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsCrowdstrike$outboundSchema).optional(),
+});
+
+export function pqCrowdstrikeToJSON(pqCrowdstrike: PqCrowdstrike): string {
+  return JSON.stringify(PqCrowdstrike$outboundSchema.parse(pqCrowdstrike));
+}
+
+/** @internal */
+export const AuthenticationMethodCrowdstrike$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodCrowdstrike
+> = openEnums.outboundSchema(AuthenticationMethodCrowdstrike);
+
+/** @internal */
+export const SignatureVersionCrowdstrike$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SignatureVersionCrowdstrike
+> = openEnums.outboundSchema(SignatureVersionCrowdstrike);
+
+/** @internal */
+export type PreprocessCrowdstrike$Outbound = {
+  disabled: boolean;
+  command?: string | undefined;
+  args?: Array<string> | undefined;
+};
+
+/** @internal */
+export const PreprocessCrowdstrike$outboundSchema: z.ZodType<
+  PreprocessCrowdstrike$Outbound,
+  z.ZodTypeDef,
+  PreprocessCrowdstrike
+> = z.object({
+  disabled: z.boolean().default(true),
+  command: z.string().optional(),
+  args: z.array(z.string()).optional(),
+});
+
+export function preprocessCrowdstrikeToJSON(
+  preprocessCrowdstrike: PreprocessCrowdstrike,
+): string {
+  return JSON.stringify(
+    PreprocessCrowdstrike$outboundSchema.parse(preprocessCrowdstrike),
+  );
+}
+
+/** @internal */
+export type MetadatumCrowdstrike$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumCrowdstrike$outboundSchema: z.ZodType<
+  MetadatumCrowdstrike$Outbound,
+  z.ZodTypeDef,
+  MetadatumCrowdstrike
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumCrowdstrikeToJSON(
+  metadatumCrowdstrike: MetadatumCrowdstrike,
+): string {
+  return JSON.stringify(
+    MetadatumCrowdstrike$outboundSchema.parse(metadatumCrowdstrike),
+  );
+}
+
+/** @internal */
+export type CheckpointingCrowdstrike$Outbound = {
+  enabled: boolean;
+  retries: number;
+};
+
+/** @internal */
+export const CheckpointingCrowdstrike$outboundSchema: z.ZodType<
+  CheckpointingCrowdstrike$Outbound,
+  z.ZodTypeDef,
+  CheckpointingCrowdstrike
+> = z.object({
+  enabled: z.boolean().default(false),
+  retries: z.number().default(5),
+});
+
+export function checkpointingCrowdstrikeToJSON(
+  checkpointingCrowdstrike: CheckpointingCrowdstrike,
+): string {
+  return JSON.stringify(
+    CheckpointingCrowdstrike$outboundSchema.parse(checkpointingCrowdstrike),
+  );
+}
+
+/** @internal */
+export const TagAfterProcessingCrowdstrike$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  TagAfterProcessingCrowdstrike
+> = openEnums.outboundSchema(TagAfterProcessingCrowdstrike);
+
+/** @internal */
 export type InputCrowdstrike$Outbound = {
   id: string;
   type: "crowdstrike";
@@ -11318,8 +24975,8 @@ export type InputCrowdstrike$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionCrowdstrike$Outbound> | undefined;
+  pq?: PqCrowdstrike$Outbound | undefined;
   queueName: string;
   fileFilter: string;
   awsAccountId?: string | undefined;
@@ -11343,11 +25000,9 @@ export type InputCrowdstrike$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds: number;
   enableSQSAssumeRole: boolean;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  checkpointing?: models.CheckpointingType$Outbound | undefined;
+  preprocess?: PreprocessCrowdstrike$Outbound | undefined;
+  metadata?: Array<MetadatumCrowdstrike$Outbound> | undefined;
+  checkpointing?: CheckpointingCrowdstrike$Outbound | undefined;
   pollTimeout: number;
   encoding?: string | undefined;
   description?: string | undefined;
@@ -11372,17 +25027,18 @@ export const InputCrowdstrike$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionCrowdstrike$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqCrowdstrike$outboundSchema).optional(),
   queueName: z.string(),
   fileFilter: z.string().default("/.*/"),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+  awsAuthenticationMethod: AuthenticationMethodCrowdstrike$outboundSchema
     .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions$outboundSchema.default("v4"),
+  signatureVersion: SignatureVersionCrowdstrike$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   breakerRulesets: z.array(z.string()).optional(),
@@ -11398,18 +25054,17 @@ export const InputCrowdstrike$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
   enableSQSAssumeRole: z.boolean().default(false),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
+  preprocess: z.lazy(() => PreprocessCrowdstrike$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => MetadatumCrowdstrike$outboundSchema))
     .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  checkpointing: z.lazy(() => CheckpointingCrowdstrike$outboundSchema)
     .optional(),
-  checkpointing: models.CheckpointingType$outboundSchema.optional(),
   pollTimeout: z.number().default(10),
   encoding: z.string().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  tagAfterProcessing: models.TagAfterProcessingOptions$outboundSchema
-    .optional(),
+  tagAfterProcessing: TagAfterProcessingCrowdstrike$outboundSchema.optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
 });
@@ -11421,6 +25076,105 @@ export function inputCrowdstrikeToJSON(
     InputCrowdstrike$outboundSchema.parse(inputCrowdstrike),
   );
 }
+
+/** @internal */
+export type ConnectionWindowsMetrics$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionWindowsMetrics$outboundSchema: z.ZodType<
+  ConnectionWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  ConnectionWindowsMetrics
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionWindowsMetricsToJSON(
+  connectionWindowsMetrics: ConnectionWindowsMetrics,
+): string {
+  return JSON.stringify(
+    ConnectionWindowsMetrics$outboundSchema.parse(connectionWindowsMetrics),
+  );
+}
+
+/** @internal */
+export const PqModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqModeWindowsMetrics
+> = openEnums.outboundSchema(PqModeWindowsMetrics);
+
+/** @internal */
+export const CompressionWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionWindowsMetrics
+> = openEnums.outboundSchema(CompressionWindowsMetrics);
+
+/** @internal */
+export type PqControlsWindowsMetrics$Outbound = {};
+
+/** @internal */
+export const PqControlsWindowsMetrics$outboundSchema: z.ZodType<
+  PqControlsWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  PqControlsWindowsMetrics
+> = z.object({});
+
+export function pqControlsWindowsMetricsToJSON(
+  pqControlsWindowsMetrics: PqControlsWindowsMetrics,
+): string {
+  return JSON.stringify(
+    PqControlsWindowsMetrics$outboundSchema.parse(pqControlsWindowsMetrics),
+  );
+}
+
+/** @internal */
+export type PqWindowsMetrics$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsWindowsMetrics$Outbound | undefined;
+};
+
+/** @internal */
+export const PqWindowsMetrics$outboundSchema: z.ZodType<
+  PqWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  PqWindowsMetrics
+> = z.object({
+  mode: PqModeWindowsMetrics$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionWindowsMetrics$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsWindowsMetrics$outboundSchema).optional(),
+});
+
+export function pqWindowsMetricsToJSON(
+  pqWindowsMetrics: PqWindowsMetrics,
+): string {
+  return JSON.stringify(
+    PqWindowsMetrics$outboundSchema.parse(pqWindowsMetrics),
+  );
+}
+
+/** @internal */
+export const HostModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  HostModeWindowsMetrics
+> = openEnums.outboundSchema(HostModeWindowsMetrics);
 
 /** @internal */
 export const SystemModeWindowsMetrics$outboundSchema: z.ZodType<
@@ -11633,7 +25387,7 @@ export const HostWindowsMetrics$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HostWindowsMetrics
 > = z.object({
-  mode: models.ModeOptionsHost$outboundSchema.default("basic"),
+  mode: HostModeWindowsMetrics$outboundSchema.default("basic"),
   custom: z.lazy(() => CustomWindowsMetrics$outboundSchema).optional(),
 });
 
@@ -11644,6 +25398,85 @@ export function hostWindowsMetricsToJSON(
     HostWindowsMetrics$outboundSchema.parse(hostWindowsMetrics),
   );
 }
+
+/** @internal */
+export type SetWindowsMetrics$Outbound = {
+  name: string;
+  filter: string;
+  includeChildren: boolean;
+};
+
+/** @internal */
+export const SetWindowsMetrics$outboundSchema: z.ZodType<
+  SetWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  SetWindowsMetrics
+> = z.object({
+  name: z.string(),
+  filter: z.string(),
+  includeChildren: z.boolean().default(false),
+});
+
+export function setWindowsMetricsToJSON(
+  setWindowsMetrics: SetWindowsMetrics,
+): string {
+  return JSON.stringify(
+    SetWindowsMetrics$outboundSchema.parse(setWindowsMetrics),
+  );
+}
+
+/** @internal */
+export type ProcessWindowsMetrics$Outbound = {
+  sets?: Array<SetWindowsMetrics$Outbound> | undefined;
+};
+
+/** @internal */
+export const ProcessWindowsMetrics$outboundSchema: z.ZodType<
+  ProcessWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  ProcessWindowsMetrics
+> = z.object({
+  sets: z.array(z.lazy(() => SetWindowsMetrics$outboundSchema)).optional(),
+});
+
+export function processWindowsMetricsToJSON(
+  processWindowsMetrics: ProcessWindowsMetrics,
+): string {
+  return JSON.stringify(
+    ProcessWindowsMetrics$outboundSchema.parse(processWindowsMetrics),
+  );
+}
+
+/** @internal */
+export type MetadatumWindowsMetrics$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumWindowsMetrics$outboundSchema: z.ZodType<
+  MetadatumWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  MetadatumWindowsMetrics
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumWindowsMetricsToJSON(
+  metadatumWindowsMetrics: MetadatumWindowsMetrics,
+): string {
+  return JSON.stringify(
+    MetadatumWindowsMetrics$outboundSchema.parse(metadatumWindowsMetrics),
+  );
+}
+
+/** @internal */
+export const DataCompressionFormatWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  DataCompressionFormatWindowsMetrics
+> = openEnums.outboundSchema(DataCompressionFormatWindowsMetrics);
 
 /** @internal */
 export type PersistenceWindowsMetrics$Outbound = {
@@ -11665,8 +25498,7 @@ export const PersistenceWindowsMetrics$outboundSchema: z.ZodType<
   timeWindow: z.string().default("10m"),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
-    .default("gzip"),
+  compress: DataCompressionFormatWindowsMetrics$outboundSchema.default("gzip"),
   destPath: z.string().default("$CRIBL_HOME/state/windows_metrics"),
 });
 
@@ -11688,12 +25520,12 @@ export type InputWindowsMetrics$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionWindowsMetrics$Outbound> | undefined;
+  pq?: PqWindowsMetrics$Outbound | undefined;
   interval: number;
   host?: HostWindowsMetrics$Outbound | undefined;
-  process?: models.ProcessType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  process?: ProcessWindowsMetrics$Outbound | undefined;
+  metadata?: Array<MetadatumWindowsMetrics$Outbound> | undefined;
   persistence?: PersistenceWindowsMetrics$Outbound | undefined;
   disableNativeModule: boolean;
   description?: string | undefined;
@@ -11713,12 +25545,13 @@ export const InputWindowsMetrics$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionWindowsMetrics$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqWindowsMetrics$outboundSchema).optional(),
   interval: z.number().default(10),
   host: z.lazy(() => HostWindowsMetrics$outboundSchema).optional(),
-  process: models.ProcessType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  process: z.lazy(() => ProcessWindowsMetrics$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => MetadatumWindowsMetrics$outboundSchema))
     .optional(),
   persistence: z.lazy(() => PersistenceWindowsMetrics$outboundSchema)
     .optional(),
@@ -11735,6 +25568,138 @@ export function inputWindowsMetricsToJSON(
 }
 
 /** @internal */
+export type ConnectionKubeEvents$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionKubeEvents$outboundSchema: z.ZodType<
+  ConnectionKubeEvents$Outbound,
+  z.ZodTypeDef,
+  ConnectionKubeEvents
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionKubeEventsToJSON(
+  connectionKubeEvents: ConnectionKubeEvents,
+): string {
+  return JSON.stringify(
+    ConnectionKubeEvents$outboundSchema.parse(connectionKubeEvents),
+  );
+}
+
+/** @internal */
+export const ModeKubeEvents$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeKubeEvents
+> = openEnums.outboundSchema(ModeKubeEvents);
+
+/** @internal */
+export const CompressionKubeEvents$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionKubeEvents
+> = openEnums.outboundSchema(CompressionKubeEvents);
+
+/** @internal */
+export type PqControlsKubeEvents$Outbound = {};
+
+/** @internal */
+export const PqControlsKubeEvents$outboundSchema: z.ZodType<
+  PqControlsKubeEvents$Outbound,
+  z.ZodTypeDef,
+  PqControlsKubeEvents
+> = z.object({});
+
+export function pqControlsKubeEventsToJSON(
+  pqControlsKubeEvents: PqControlsKubeEvents,
+): string {
+  return JSON.stringify(
+    PqControlsKubeEvents$outboundSchema.parse(pqControlsKubeEvents),
+  );
+}
+
+/** @internal */
+export type PqKubeEvents$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsKubeEvents$Outbound | undefined;
+};
+
+/** @internal */
+export const PqKubeEvents$outboundSchema: z.ZodType<
+  PqKubeEvents$Outbound,
+  z.ZodTypeDef,
+  PqKubeEvents
+> = z.object({
+  mode: ModeKubeEvents$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionKubeEvents$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsKubeEvents$outboundSchema).optional(),
+});
+
+export function pqKubeEventsToJSON(pqKubeEvents: PqKubeEvents): string {
+  return JSON.stringify(PqKubeEvents$outboundSchema.parse(pqKubeEvents));
+}
+
+/** @internal */
+export type RuleKubeEvents$Outbound = {
+  filter: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const RuleKubeEvents$outboundSchema: z.ZodType<
+  RuleKubeEvents$Outbound,
+  z.ZodTypeDef,
+  RuleKubeEvents
+> = z.object({
+  filter: z.string(),
+  description: z.string().optional(),
+});
+
+export function ruleKubeEventsToJSON(ruleKubeEvents: RuleKubeEvents): string {
+  return JSON.stringify(RuleKubeEvents$outboundSchema.parse(ruleKubeEvents));
+}
+
+/** @internal */
+export type MetadatumKubeEvents$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumKubeEvents$outboundSchema: z.ZodType<
+  MetadatumKubeEvents$Outbound,
+  z.ZodTypeDef,
+  MetadatumKubeEvents
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumKubeEventsToJSON(
+  metadatumKubeEvents: MetadatumKubeEvents,
+): string {
+  return JSON.stringify(
+    MetadatumKubeEvents$outboundSchema.parse(metadatumKubeEvents),
+  );
+}
+
+/** @internal */
 export type InputKubeEvents$Outbound = {
   id: string;
   type: "kube_events";
@@ -11744,10 +25709,10 @@ export type InputKubeEvents$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
-  rules?: Array<models.ItemsTypeRules$Outbound> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  connections?: Array<ConnectionKubeEvents$Outbound> | undefined;
+  pq?: PqKubeEvents$Outbound | undefined;
+  rules?: Array<RuleKubeEvents$Outbound> | undefined;
+  metadata?: Array<MetadatumKubeEvents$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -11765,10 +25730,11 @@ export const InputKubeEvents$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
-  rules: z.array(models.ItemsTypeRules$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  connections: z.array(z.lazy(() => ConnectionKubeEvents$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqKubeEvents$outboundSchema).optional(),
+  rules: z.array(z.lazy(() => RuleKubeEvents$outboundSchema)).optional(),
+  metadata: z.array(z.lazy(() => MetadatumKubeEvents$outboundSchema))
     .optional(),
   description: z.string().optional(),
 });
@@ -11777,6 +25743,94 @@ export function inputKubeEventsToJSON(
   inputKubeEvents: InputKubeEvents,
 ): string {
   return JSON.stringify(InputKubeEvents$outboundSchema.parse(inputKubeEvents));
+}
+
+/** @internal */
+export type ConnectionKubeLogs$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionKubeLogs$outboundSchema: z.ZodType<
+  ConnectionKubeLogs$Outbound,
+  z.ZodTypeDef,
+  ConnectionKubeLogs
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionKubeLogsToJSON(
+  connectionKubeLogs: ConnectionKubeLogs,
+): string {
+  return JSON.stringify(
+    ConnectionKubeLogs$outboundSchema.parse(connectionKubeLogs),
+  );
+}
+
+/** @internal */
+export const ModeKubeLogs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeKubeLogs
+> = openEnums.outboundSchema(ModeKubeLogs);
+
+/** @internal */
+export const PqCompressionKubeLogs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionKubeLogs
+> = openEnums.outboundSchema(PqCompressionKubeLogs);
+
+/** @internal */
+export type PqControlsKubeLogs$Outbound = {};
+
+/** @internal */
+export const PqControlsKubeLogs$outboundSchema: z.ZodType<
+  PqControlsKubeLogs$Outbound,
+  z.ZodTypeDef,
+  PqControlsKubeLogs
+> = z.object({});
+
+export function pqControlsKubeLogsToJSON(
+  pqControlsKubeLogs: PqControlsKubeLogs,
+): string {
+  return JSON.stringify(
+    PqControlsKubeLogs$outboundSchema.parse(pqControlsKubeLogs),
+  );
+}
+
+/** @internal */
+export type PqKubeLogs$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsKubeLogs$Outbound | undefined;
+};
+
+/** @internal */
+export const PqKubeLogs$outboundSchema: z.ZodType<
+  PqKubeLogs$Outbound,
+  z.ZodTypeDef,
+  PqKubeLogs
+> = z.object({
+  mode: ModeKubeLogs$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionKubeLogs$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsKubeLogs$outboundSchema).optional(),
+});
+
+export function pqKubeLogsToJSON(pqKubeLogs: PqKubeLogs): string {
+  return JSON.stringify(PqKubeLogs$outboundSchema.parse(pqKubeLogs));
 }
 
 /** @internal */
@@ -11800,6 +25854,67 @@ export function ruleKubeLogsToJSON(ruleKubeLogs: RuleKubeLogs): string {
 }
 
 /** @internal */
+export type MetadatumKubeLogs$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumKubeLogs$outboundSchema: z.ZodType<
+  MetadatumKubeLogs$Outbound,
+  z.ZodTypeDef,
+  MetadatumKubeLogs
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumKubeLogsToJSON(
+  metadatumKubeLogs: MetadatumKubeLogs,
+): string {
+  return JSON.stringify(
+    MetadatumKubeLogs$outboundSchema.parse(metadatumKubeLogs),
+  );
+}
+
+/** @internal */
+export const PersistenceCompressionKubeLogs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PersistenceCompressionKubeLogs
+> = openEnums.outboundSchema(PersistenceCompressionKubeLogs);
+
+/** @internal */
+export type DiskSpoolingKubeLogs$Outbound = {
+  enable: boolean;
+  timeWindow: string;
+  maxDataSize: string;
+  maxDataTime: string;
+  compress: string;
+};
+
+/** @internal */
+export const DiskSpoolingKubeLogs$outboundSchema: z.ZodType<
+  DiskSpoolingKubeLogs$Outbound,
+  z.ZodTypeDef,
+  DiskSpoolingKubeLogs
+> = z.object({
+  enable: z.boolean().default(false),
+  timeWindow: z.string().default("10m"),
+  maxDataSize: z.string().default("1GB"),
+  maxDataTime: z.string().default("24h"),
+  compress: PersistenceCompressionKubeLogs$outboundSchema.default("gzip"),
+});
+
+export function diskSpoolingKubeLogsToJSON(
+  diskSpoolingKubeLogs: DiskSpoolingKubeLogs,
+): string {
+  return JSON.stringify(
+    DiskSpoolingKubeLogs$outboundSchema.parse(diskSpoolingKubeLogs),
+  );
+}
+
+/** @internal */
 export type InputKubeLogs$Outbound = {
   id: string;
   type: "kube_logs";
@@ -11809,13 +25924,13 @@ export type InputKubeLogs$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionKubeLogs$Outbound> | undefined;
+  pq?: PqKubeLogs$Outbound | undefined;
   interval: number;
   rules?: Array<RuleKubeLogs$Outbound> | undefined;
   timestamps: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  persistence?: models.DiskSpoolingType$Outbound | undefined;
+  metadata?: Array<MetadatumKubeLogs$Outbound> | undefined;
+  persistence?: DiskSpoolingKubeLogs$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
   enableLoadBalancing: boolean;
@@ -11836,14 +25951,14 @@ export const InputKubeLogs$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionKubeLogs$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqKubeLogs$outboundSchema).optional(),
   interval: z.number().default(15),
   rules: z.array(z.lazy(() => RuleKubeLogs$outboundSchema)).optional(),
   timestamps: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
-  persistence: models.DiskSpoolingType$outboundSchema.optional(),
+  metadata: z.array(z.lazy(() => MetadatumKubeLogs$outboundSchema)).optional(),
+  persistence: z.lazy(() => DiskSpoolingKubeLogs$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   enableLoadBalancing: z.boolean().default(false),
@@ -11853,6 +25968,147 @@ export const InputKubeLogs$outboundSchema: z.ZodType<
 export function inputKubeLogsToJSON(inputKubeLogs: InputKubeLogs): string {
   return JSON.stringify(InputKubeLogs$outboundSchema.parse(inputKubeLogs));
 }
+
+/** @internal */
+export type ConnectionKubeMetrics$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionKubeMetrics$outboundSchema: z.ZodType<
+  ConnectionKubeMetrics$Outbound,
+  z.ZodTypeDef,
+  ConnectionKubeMetrics
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionKubeMetricsToJSON(
+  connectionKubeMetrics: ConnectionKubeMetrics,
+): string {
+  return JSON.stringify(
+    ConnectionKubeMetrics$outboundSchema.parse(connectionKubeMetrics),
+  );
+}
+
+/** @internal */
+export const ModeKubeMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeKubeMetrics
+> = openEnums.outboundSchema(ModeKubeMetrics);
+
+/** @internal */
+export const CompressionKubeMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionKubeMetrics
+> = openEnums.outboundSchema(CompressionKubeMetrics);
+
+/** @internal */
+export type PqControlsKubeMetrics$Outbound = {};
+
+/** @internal */
+export const PqControlsKubeMetrics$outboundSchema: z.ZodType<
+  PqControlsKubeMetrics$Outbound,
+  z.ZodTypeDef,
+  PqControlsKubeMetrics
+> = z.object({});
+
+export function pqControlsKubeMetricsToJSON(
+  pqControlsKubeMetrics: PqControlsKubeMetrics,
+): string {
+  return JSON.stringify(
+    PqControlsKubeMetrics$outboundSchema.parse(pqControlsKubeMetrics),
+  );
+}
+
+/** @internal */
+export type PqKubeMetrics$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsKubeMetrics$Outbound | undefined;
+};
+
+/** @internal */
+export const PqKubeMetrics$outboundSchema: z.ZodType<
+  PqKubeMetrics$Outbound,
+  z.ZodTypeDef,
+  PqKubeMetrics
+> = z.object({
+  mode: ModeKubeMetrics$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionKubeMetrics$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsKubeMetrics$outboundSchema).optional(),
+});
+
+export function pqKubeMetricsToJSON(pqKubeMetrics: PqKubeMetrics): string {
+  return JSON.stringify(PqKubeMetrics$outboundSchema.parse(pqKubeMetrics));
+}
+
+/** @internal */
+export type RuleKubeMetrics$Outbound = {
+  filter: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const RuleKubeMetrics$outboundSchema: z.ZodType<
+  RuleKubeMetrics$Outbound,
+  z.ZodTypeDef,
+  RuleKubeMetrics
+> = z.object({
+  filter: z.string(),
+  description: z.string().optional(),
+});
+
+export function ruleKubeMetricsToJSON(
+  ruleKubeMetrics: RuleKubeMetrics,
+): string {
+  return JSON.stringify(RuleKubeMetrics$outboundSchema.parse(ruleKubeMetrics));
+}
+
+/** @internal */
+export type MetadatumKubeMetrics$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumKubeMetrics$outboundSchema: z.ZodType<
+  MetadatumKubeMetrics$Outbound,
+  z.ZodTypeDef,
+  MetadatumKubeMetrics
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumKubeMetricsToJSON(
+  metadatumKubeMetrics: MetadatumKubeMetrics,
+): string {
+  return JSON.stringify(
+    MetadatumKubeMetrics$outboundSchema.parse(metadatumKubeMetrics),
+  );
+}
+
+/** @internal */
+export const DataCompressionFormatKubeMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  DataCompressionFormatKubeMetrics
+> = openEnums.outboundSchema(DataCompressionFormatKubeMetrics);
 
 /** @internal */
 export type PersistenceKubeMetrics$Outbound = {
@@ -11874,8 +26130,7 @@ export const PersistenceKubeMetrics$outboundSchema: z.ZodType<
   timeWindow: z.string().default("10m"),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
-    .default("gzip"),
+  compress: DataCompressionFormatKubeMetrics$outboundSchema.default("gzip"),
   destPath: z.string().default("$CRIBL_HOME/state/kube_metrics"),
 });
 
@@ -11897,11 +26152,11 @@ export type InputKubeMetrics$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionKubeMetrics$Outbound> | undefined;
+  pq?: PqKubeMetrics$Outbound | undefined;
   interval: number;
-  rules?: Array<models.ItemsTypeRules$Outbound> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  rules?: Array<RuleKubeMetrics$Outbound> | undefined;
+  metadata?: Array<MetadatumKubeMetrics$Outbound> | undefined;
   persistence?: PersistenceKubeMetrics$Outbound | undefined;
   description?: string | undefined;
 };
@@ -11920,11 +26175,12 @@ export const InputKubeMetrics$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionKubeMetrics$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqKubeMetrics$outboundSchema).optional(),
   interval: z.number().default(15),
-  rules: z.array(models.ItemsTypeRules$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  rules: z.array(z.lazy(() => RuleKubeMetrics$outboundSchema)).optional(),
+  metadata: z.array(z.lazy(() => MetadatumKubeMetrics$outboundSchema))
     .optional(),
   persistence: z.lazy(() => PersistenceKubeMetrics$outboundSchema).optional(),
   description: z.string().optional(),
@@ -11935,6 +26191,118 @@ export function inputKubeMetricsToJSON(
 ): string {
   return JSON.stringify(
     InputKubeMetrics$outboundSchema.parse(inputKubeMetrics),
+  );
+}
+
+/** @internal */
+export type ConnectionSystemState$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionSystemState$outboundSchema: z.ZodType<
+  ConnectionSystemState$Outbound,
+  z.ZodTypeDef,
+  ConnectionSystemState
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionSystemStateToJSON(
+  connectionSystemState: ConnectionSystemState,
+): string {
+  return JSON.stringify(
+    ConnectionSystemState$outboundSchema.parse(connectionSystemState),
+  );
+}
+
+/** @internal */
+export const ModeSystemState$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeSystemState
+> = openEnums.outboundSchema(ModeSystemState);
+
+/** @internal */
+export const CompressionSystemState$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionSystemState
+> = openEnums.outboundSchema(CompressionSystemState);
+
+/** @internal */
+export type PqControlsSystemState$Outbound = {};
+
+/** @internal */
+export const PqControlsSystemState$outboundSchema: z.ZodType<
+  PqControlsSystemState$Outbound,
+  z.ZodTypeDef,
+  PqControlsSystemState
+> = z.object({});
+
+export function pqControlsSystemStateToJSON(
+  pqControlsSystemState: PqControlsSystemState,
+): string {
+  return JSON.stringify(
+    PqControlsSystemState$outboundSchema.parse(pqControlsSystemState),
+  );
+}
+
+/** @internal */
+export type PqSystemState$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsSystemState$Outbound | undefined;
+};
+
+/** @internal */
+export const PqSystemState$outboundSchema: z.ZodType<
+  PqSystemState$Outbound,
+  z.ZodTypeDef,
+  PqSystemState
+> = z.object({
+  mode: ModeSystemState$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionSystemState$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsSystemState$outboundSchema).optional(),
+});
+
+export function pqSystemStateToJSON(pqSystemState: PqSystemState): string {
+  return JSON.stringify(PqSystemState$outboundSchema.parse(pqSystemState));
+}
+
+/** @internal */
+export type MetadatumSystemState$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumSystemState$outboundSchema: z.ZodType<
+  MetadatumSystemState$Outbound,
+  z.ZodTypeDef,
+  MetadatumSystemState
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumSystemStateToJSON(
+  metadatumSystemState: MetadatumSystemState,
+): string {
+  return JSON.stringify(
+    MetadatumSystemState$outboundSchema.parse(metadatumSystemState),
   );
 }
 
@@ -12176,11 +26544,11 @@ export function collectorsToJSON(collectors: Collectors): string {
 }
 
 /** @internal */
-export const DataCompressionFormat$outboundSchema: z.ZodType<
+export const DataCompressionFormatSystemState$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  DataCompressionFormat
-> = openEnums.outboundSchema(DataCompressionFormat);
+  DataCompressionFormatSystemState
+> = openEnums.outboundSchema(DataCompressionFormatSystemState);
 
 /** @internal */
 export type PersistenceSystemState$Outbound = {
@@ -12202,7 +26570,7 @@ export const PersistenceSystemState$outboundSchema: z.ZodType<
   timeWindow: z.string().default("10m"),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: DataCompressionFormat$outboundSchema.default("none"),
+  compress: DataCompressionFormatSystemState$outboundSchema.default("none"),
   destPath: z.string().default("$CRIBL_HOME/state/system_state"),
 });
 
@@ -12224,10 +26592,10 @@ export type InputSystemState$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionSystemState$Outbound> | undefined;
+  pq?: PqSystemState$Outbound | undefined;
   interval: number;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumSystemState$Outbound> | undefined;
   collectors?: Collectors$Outbound | undefined;
   persistence?: PersistenceSystemState$Outbound | undefined;
   disableNativeModule: boolean;
@@ -12248,10 +26616,11 @@ export const InputSystemState$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionSystemState$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqSystemState$outboundSchema).optional(),
   interval: z.number().default(300),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumSystemState$outboundSchema))
     .optional(),
   collectors: z.lazy(() => Collectors$outboundSchema).optional(),
   persistence: z.lazy(() => PersistenceSystemState$outboundSchema).optional(),
@@ -12266,6 +26635,103 @@ export function inputSystemStateToJSON(
     InputSystemState$outboundSchema.parse(inputSystemState),
   );
 }
+
+/** @internal */
+export type ConnectionSystemMetrics$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionSystemMetrics$outboundSchema: z.ZodType<
+  ConnectionSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  ConnectionSystemMetrics
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionSystemMetricsToJSON(
+  connectionSystemMetrics: ConnectionSystemMetrics,
+): string {
+  return JSON.stringify(
+    ConnectionSystemMetrics$outboundSchema.parse(connectionSystemMetrics),
+  );
+}
+
+/** @internal */
+export const PqModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqModeSystemMetrics
+> = openEnums.outboundSchema(PqModeSystemMetrics);
+
+/** @internal */
+export const CompressionSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionSystemMetrics
+> = openEnums.outboundSchema(CompressionSystemMetrics);
+
+/** @internal */
+export type PqControlsSystemMetrics$Outbound = {};
+
+/** @internal */
+export const PqControlsSystemMetrics$outboundSchema: z.ZodType<
+  PqControlsSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  PqControlsSystemMetrics
+> = z.object({});
+
+export function pqControlsSystemMetricsToJSON(
+  pqControlsSystemMetrics: PqControlsSystemMetrics,
+): string {
+  return JSON.stringify(
+    PqControlsSystemMetrics$outboundSchema.parse(pqControlsSystemMetrics),
+  );
+}
+
+/** @internal */
+export type PqSystemMetrics$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsSystemMetrics$Outbound | undefined;
+};
+
+/** @internal */
+export const PqSystemMetrics$outboundSchema: z.ZodType<
+  PqSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  PqSystemMetrics
+> = z.object({
+  mode: PqModeSystemMetrics$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionSystemMetrics$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsSystemMetrics$outboundSchema).optional(),
+});
+
+export function pqSystemMetricsToJSON(
+  pqSystemMetrics: PqSystemMetrics,
+): string {
+  return JSON.stringify(PqSystemMetrics$outboundSchema.parse(pqSystemMetrics));
+}
+
+/** @internal */
+export const HostModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  HostModeSystemMetrics
+> = openEnums.outboundSchema(HostModeSystemMetrics);
 
 /** @internal */
 export const SystemModeSystemMetrics$outboundSchema: z.ZodType<
@@ -12484,7 +26950,7 @@ export const HostSystemMetrics$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HostSystemMetrics
 > = z.object({
-  mode: models.ModeOptionsHost$outboundSchema.default("basic"),
+  mode: HostModeSystemMetrics$outboundSchema.default("basic"),
   custom: z.lazy(() => CustomSystemMetrics$outboundSchema).optional(),
 });
 
@@ -12493,6 +26959,54 @@ export function hostSystemMetricsToJSON(
 ): string {
   return JSON.stringify(
     HostSystemMetrics$outboundSchema.parse(hostSystemMetrics),
+  );
+}
+
+/** @internal */
+export type SetSystemMetrics$Outbound = {
+  name: string;
+  filter: string;
+  includeChildren: boolean;
+};
+
+/** @internal */
+export const SetSystemMetrics$outboundSchema: z.ZodType<
+  SetSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  SetSystemMetrics
+> = z.object({
+  name: z.string(),
+  filter: z.string(),
+  includeChildren: z.boolean().default(false),
+});
+
+export function setSystemMetricsToJSON(
+  setSystemMetrics: SetSystemMetrics,
+): string {
+  return JSON.stringify(
+    SetSystemMetrics$outboundSchema.parse(setSystemMetrics),
+  );
+}
+
+/** @internal */
+export type ProcessSystemMetrics$Outbound = {
+  sets?: Array<SetSystemMetrics$Outbound> | undefined;
+};
+
+/** @internal */
+export const ProcessSystemMetrics$outboundSchema: z.ZodType<
+  ProcessSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  ProcessSystemMetrics
+> = z.object({
+  sets: z.array(z.lazy(() => SetSystemMetrics$outboundSchema)).optional(),
+});
+
+export function processSystemMetricsToJSON(
+  processSystemMetrics: ProcessSystemMetrics,
+): string {
+  return JSON.stringify(
+    ProcessSystemMetrics$outboundSchema.parse(processSystemMetrics),
   );
 }
 
@@ -12554,6 +27068,37 @@ export function containerToJSON(container: Container): string {
 }
 
 /** @internal */
+export type MetadatumSystemMetrics$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumSystemMetrics$outboundSchema: z.ZodType<
+  MetadatumSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  MetadatumSystemMetrics
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumSystemMetricsToJSON(
+  metadatumSystemMetrics: MetadatumSystemMetrics,
+): string {
+  return JSON.stringify(
+    MetadatumSystemMetrics$outboundSchema.parse(metadatumSystemMetrics),
+  );
+}
+
+/** @internal */
+export const DataCompressionFormatSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  DataCompressionFormatSystemMetrics
+> = openEnums.outboundSchema(DataCompressionFormatSystemMetrics);
+
+/** @internal */
 export type PersistenceSystemMetrics$Outbound = {
   enable: boolean;
   timeWindow: string;
@@ -12573,8 +27118,7 @@ export const PersistenceSystemMetrics$outboundSchema: z.ZodType<
   timeWindow: z.string().default("10m"),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
-    .default("gzip"),
+  compress: DataCompressionFormatSystemMetrics$outboundSchema.default("gzip"),
   destPath: z.string().default("$CRIBL_HOME/state/system_metrics"),
 });
 
@@ -12596,13 +27140,13 @@ export type InputSystemMetrics$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionSystemMetrics$Outbound> | undefined;
+  pq?: PqSystemMetrics$Outbound | undefined;
   interval: number;
   host?: HostSystemMetrics$Outbound | undefined;
-  process?: models.ProcessType$Outbound | undefined;
+  process?: ProcessSystemMetrics$Outbound | undefined;
   container?: Container$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumSystemMetrics$Outbound> | undefined;
   persistence?: PersistenceSystemMetrics$Outbound | undefined;
   description?: string | undefined;
 };
@@ -12621,13 +27165,14 @@ export const InputSystemMetrics$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionSystemMetrics$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqSystemMetrics$outboundSchema).optional(),
   interval: z.number().default(10),
   host: z.lazy(() => HostSystemMetrics$outboundSchema).optional(),
-  process: models.ProcessType$outboundSchema.optional(),
+  process: z.lazy(() => ProcessSystemMetrics$outboundSchema).optional(),
   container: z.lazy(() => Container$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumSystemMetrics$outboundSchema))
     .optional(),
   persistence: z.lazy(() => PersistenceSystemMetrics$outboundSchema).optional(),
   description: z.string().optional(),
@@ -12642,6 +27187,186 @@ export function inputSystemMetricsToJSON(
 }
 
 /** @internal */
+export type ConnectionTcpjson$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionTcpjson$outboundSchema: z.ZodType<
+  ConnectionTcpjson$Outbound,
+  z.ZodTypeDef,
+  ConnectionTcpjson
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionTcpjsonToJSON(
+  connectionTcpjson: ConnectionTcpjson,
+): string {
+  return JSON.stringify(
+    ConnectionTcpjson$outboundSchema.parse(connectionTcpjson),
+  );
+}
+
+/** @internal */
+export const PqModeTcpjson$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqModeTcpjson
+> = openEnums.outboundSchema(PqModeTcpjson);
+
+/** @internal */
+export const PqCompressionTcpjson$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionTcpjson
+> = openEnums.outboundSchema(PqCompressionTcpjson);
+
+/** @internal */
+export type CreateInputPqControlsTcpjson$Outbound = {};
+
+/** @internal */
+export const CreateInputPqControlsTcpjson$outboundSchema: z.ZodType<
+  CreateInputPqControlsTcpjson$Outbound,
+  z.ZodTypeDef,
+  CreateInputPqControlsTcpjson
+> = z.object({});
+
+export function createInputPqControlsTcpjsonToJSON(
+  createInputPqControlsTcpjson: CreateInputPqControlsTcpjson,
+): string {
+  return JSON.stringify(
+    CreateInputPqControlsTcpjson$outboundSchema.parse(
+      createInputPqControlsTcpjson,
+    ),
+  );
+}
+
+/** @internal */
+export type PqTcpjson$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: CreateInputPqControlsTcpjson$Outbound | undefined;
+};
+
+/** @internal */
+export const PqTcpjson$outboundSchema: z.ZodType<
+  PqTcpjson$Outbound,
+  z.ZodTypeDef,
+  PqTcpjson
+> = z.object({
+  mode: PqModeTcpjson$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionTcpjson$outboundSchema.default("none"),
+  pqControls: z.lazy(() => CreateInputPqControlsTcpjson$outboundSchema)
+    .optional(),
+});
+
+export function pqTcpjsonToJSON(pqTcpjson: PqTcpjson): string {
+  return JSON.stringify(PqTcpjson$outboundSchema.parse(pqTcpjson));
+}
+
+/** @internal */
+export const CreateInputMinimumTLSVersionTcpjson$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMinimumTLSVersionTcpjson
+> = openEnums.outboundSchema(CreateInputMinimumTLSVersionTcpjson);
+
+/** @internal */
+export const CreateInputMaximumTLSVersionTcpjson$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMaximumTLSVersionTcpjson
+> = openEnums.outboundSchema(CreateInputMaximumTLSVersionTcpjson);
+
+/** @internal */
+export type TLSSettingsServerSideTcpjson$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideTcpjson$outboundSchema: z.ZodType<
+  TLSSettingsServerSideTcpjson$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideTcpjson
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: CreateInputMinimumTLSVersionTcpjson$outboundSchema.optional(),
+  maxVersion: CreateInputMaximumTLSVersionTcpjson$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideTcpjsonToJSON(
+  tlsSettingsServerSideTcpjson: TLSSettingsServerSideTcpjson,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideTcpjson$outboundSchema.parse(
+      tlsSettingsServerSideTcpjson,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumTcpjson$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumTcpjson$outboundSchema: z.ZodType<
+  MetadatumTcpjson$Outbound,
+  z.ZodTypeDef,
+  MetadatumTcpjson
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumTcpjsonToJSON(
+  metadatumTcpjson: MetadatumTcpjson,
+): string {
+  return JSON.stringify(
+    MetadatumTcpjson$outboundSchema.parse(metadatumTcpjson),
+  );
+}
+
+/** @internal */
+export const CreateInputAuthenticationMethodTcpjson$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputAuthenticationMethodTcpjson
+> = openEnums.outboundSchema(CreateInputAuthenticationMethodTcpjson);
+
+/** @internal */
 export type InputTcpjson$Outbound = {
   id: string;
   type: "tcpjson";
@@ -12651,18 +27376,18 @@ export type InputTcpjson$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionTcpjson$Outbound> | undefined;
+  pq?: PqTcpjson$Outbound | undefined;
   host: string;
   port: number;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideTcpjson$Outbound | undefined;
   ipWhitelistRegex: string;
   maxActiveCxn: number;
   socketIdleTimeout: number;
   socketEndingMaxWait: number;
   socketMaxLifespan: number;
   enableProxyHeader: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumTcpjson$Outbound> | undefined;
   enableLoadBalancing: boolean;
   authType: string;
   description?: string | undefined;
@@ -12684,22 +27409,23 @@ export const InputTcpjson$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionTcpjson$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqTcpjson$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideTcpjson$outboundSchema).optional(),
   ipWhitelistRegex: z.string().default("/.*/"),
   maxActiveCxn: z.number().default(1000),
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
   enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumTcpjson$outboundSchema)).optional(),
   enableLoadBalancing: z.boolean().default(false),
-  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
+  authType: CreateInputAuthenticationMethodTcpjson$outboundSchema.default(
+    "manual",
+  ),
   description: z.string().optional(),
   authToken: z.string().default(""),
   textSecret: z.string().optional(),
@@ -12707,6 +27433,204 @@ export const InputTcpjson$outboundSchema: z.ZodType<
 
 export function inputTcpjsonToJSON(inputTcpjson: InputTcpjson): string {
   return JSON.stringify(InputTcpjson$outboundSchema.parse(inputTcpjson));
+}
+
+/** @internal */
+export type ConnectionCriblLakeHTTP$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionCriblLakeHTTP$outboundSchema: z.ZodType<
+  ConnectionCriblLakeHTTP$Outbound,
+  z.ZodTypeDef,
+  ConnectionCriblLakeHTTP
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionCriblLakeHTTPToJSON(
+  connectionCriblLakeHTTP: ConnectionCriblLakeHTTP,
+): string {
+  return JSON.stringify(
+    ConnectionCriblLakeHTTP$outboundSchema.parse(connectionCriblLakeHTTP),
+  );
+}
+
+/** @internal */
+export const ModeCriblLakeHTTP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeCriblLakeHTTP
+> = openEnums.outboundSchema(ModeCriblLakeHTTP);
+
+/** @internal */
+export const CompressionCriblLakeHTTP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionCriblLakeHTTP
+> = openEnums.outboundSchema(CompressionCriblLakeHTTP);
+
+/** @internal */
+export type PqControlsCriblLakeHTTP$Outbound = {};
+
+/** @internal */
+export const PqControlsCriblLakeHTTP$outboundSchema: z.ZodType<
+  PqControlsCriblLakeHTTP$Outbound,
+  z.ZodTypeDef,
+  PqControlsCriblLakeHTTP
+> = z.object({});
+
+export function pqControlsCriblLakeHTTPToJSON(
+  pqControlsCriblLakeHTTP: PqControlsCriblLakeHTTP,
+): string {
+  return JSON.stringify(
+    PqControlsCriblLakeHTTP$outboundSchema.parse(pqControlsCriblLakeHTTP),
+  );
+}
+
+/** @internal */
+export type PqCriblLakeHTTP$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsCriblLakeHTTP$Outbound | undefined;
+};
+
+/** @internal */
+export const PqCriblLakeHTTP$outboundSchema: z.ZodType<
+  PqCriblLakeHTTP$Outbound,
+  z.ZodTypeDef,
+  PqCriblLakeHTTP
+> = z.object({
+  mode: ModeCriblLakeHTTP$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionCriblLakeHTTP$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsCriblLakeHTTP$outboundSchema).optional(),
+});
+
+export function pqCriblLakeHTTPToJSON(
+  pqCriblLakeHTTP: PqCriblLakeHTTP,
+): string {
+  return JSON.stringify(PqCriblLakeHTTP$outboundSchema.parse(pqCriblLakeHTTP));
+}
+
+/** @internal */
+export const MinimumTLSVersionCriblLakeHTTP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MinimumTLSVersionCriblLakeHTTP
+> = openEnums.outboundSchema(MinimumTLSVersionCriblLakeHTTP);
+
+/** @internal */
+export const MaximumTLSVersionCriblLakeHTTP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaximumTLSVersionCriblLakeHTTP
+> = openEnums.outboundSchema(MaximumTLSVersionCriblLakeHTTP);
+
+/** @internal */
+export type TLSSettingsServerSideCriblLakeHTTP$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideCriblLakeHTTP$outboundSchema: z.ZodType<
+  TLSSettingsServerSideCriblLakeHTTP$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideCriblLakeHTTP
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: MinimumTLSVersionCriblLakeHTTP$outboundSchema.optional(),
+  maxVersion: MaximumTLSVersionCriblLakeHTTP$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideCriblLakeHTTPToJSON(
+  tlsSettingsServerSideCriblLakeHTTP: TLSSettingsServerSideCriblLakeHTTP,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideCriblLakeHTTP$outboundSchema.parse(
+      tlsSettingsServerSideCriblLakeHTTP,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumCriblLakeHTTP$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumCriblLakeHTTP$outboundSchema: z.ZodType<
+  MetadatumCriblLakeHTTP$Outbound,
+  z.ZodTypeDef,
+  MetadatumCriblLakeHTTP
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumCriblLakeHTTPToJSON(
+  metadatumCriblLakeHTTP: MetadatumCriblLakeHTTP,
+): string {
+  return JSON.stringify(
+    MetadatumCriblLakeHTTP$outboundSchema.parse(metadatumCriblLakeHTTP),
+  );
+}
+
+/** @internal */
+export type AuthTokensExtMetadatumCriblLakeHTTP$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const AuthTokensExtMetadatumCriblLakeHTTP$outboundSchema: z.ZodType<
+  AuthTokensExtMetadatumCriblLakeHTTP$Outbound,
+  z.ZodTypeDef,
+  AuthTokensExtMetadatumCriblLakeHTTP
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function authTokensExtMetadatumCriblLakeHTTPToJSON(
+  authTokensExtMetadatumCriblLakeHTTP: AuthTokensExtMetadatumCriblLakeHTTP,
+): string {
+  return JSON.stringify(
+    AuthTokensExtMetadatumCriblLakeHTTP$outboundSchema.parse(
+      authTokensExtMetadatumCriblLakeHTTP,
+    ),
+  );
 }
 
 /** @internal */
@@ -12760,31 +27684,36 @@ export function elasticsearchMetadataToJSON(
 }
 
 /** @internal */
-export type AuthTokensExt$Outbound = {
+export type AuthTokensExtCriblLakeHTTP$Outbound = {
   token: string;
   description?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<AuthTokensExtMetadatumCriblLakeHTTP$Outbound> | undefined;
   splunkHecMetadata?: SplunkHecMetadata$Outbound | undefined;
   elasticsearchMetadata?: ElasticsearchMetadata$Outbound | undefined;
 };
 
 /** @internal */
-export const AuthTokensExt$outboundSchema: z.ZodType<
-  AuthTokensExt$Outbound,
+export const AuthTokensExtCriblLakeHTTP$outboundSchema: z.ZodType<
+  AuthTokensExtCriblLakeHTTP$Outbound,
   z.ZodTypeDef,
-  AuthTokensExt
+  AuthTokensExtCriblLakeHTTP
 > = z.object({
   token: z.string(),
   description: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(
+    z.lazy(() => AuthTokensExtMetadatumCriblLakeHTTP$outboundSchema),
+  ).optional(),
   splunkHecMetadata: z.lazy(() => SplunkHecMetadata$outboundSchema).optional(),
   elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata$outboundSchema)
     .optional(),
 });
 
-export function authTokensExtToJSON(authTokensExt: AuthTokensExt): string {
-  return JSON.stringify(AuthTokensExt$outboundSchema.parse(authTokensExt));
+export function authTokensExtCriblLakeHTTPToJSON(
+  authTokensExtCriblLakeHTTP: AuthTokensExtCriblLakeHTTP,
+): string {
+  return JSON.stringify(
+    AuthTokensExtCriblLakeHTTP$outboundSchema.parse(authTokensExtCriblLakeHTTP),
+  );
 }
 
 /** @internal */
@@ -12797,12 +27726,12 @@ export type InputCriblLakeHttp$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionCriblLakeHTTP$Outbound> | undefined;
+  pq?: PqCriblLakeHTTP$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<string> | undefined;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideCriblLakeHTTP$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -12818,8 +27747,8 @@ export type InputCriblLakeHttp$Outbound = {
   elasticAPI: string;
   splunkHecAPI: string;
   splunkHecAcks: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  authTokensExt?: Array<AuthTokensExt$Outbound> | undefined;
+  metadata?: Array<MetadatumCriblLakeHTTP$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExtCriblLakeHTTP$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -12837,12 +27766,14 @@ export const InputCriblLakeHttp$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionCriblLakeHTTP$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqCriblLakeHTTP$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideCriblLakeHTTP$outboundSchema)
+    .optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -12858,9 +27789,11 @@ export const InputCriblLakeHttp$outboundSchema: z.ZodType<
   elasticAPI: z.string().default("/elastic"),
   splunkHecAPI: z.string().default("/services/collector"),
   splunkHecAcks: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumCriblLakeHTTP$outboundSchema))
     .optional(),
-  authTokensExt: z.array(z.lazy(() => AuthTokensExt$outboundSchema)).optional(),
+  authTokensExt: z.array(
+    z.lazy(() => AuthTokensExtCriblLakeHTTP$outboundSchema),
+  ).optional(),
   description: z.string().optional(),
 });
 
@@ -12869,6 +27802,207 @@ export function inputCriblLakeHttpToJSON(
 ): string {
   return JSON.stringify(
     InputCriblLakeHttp$outboundSchema.parse(inputCriblLakeHttp),
+  );
+}
+
+/** @internal */
+export type ConnectionCriblHTTP$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionCriblHTTP$outboundSchema: z.ZodType<
+  ConnectionCriblHTTP$Outbound,
+  z.ZodTypeDef,
+  ConnectionCriblHTTP
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionCriblHTTPToJSON(
+  connectionCriblHTTP: ConnectionCriblHTTP,
+): string {
+  return JSON.stringify(
+    ConnectionCriblHTTP$outboundSchema.parse(connectionCriblHTTP),
+  );
+}
+
+/** @internal */
+export const PqModeCriblHTTP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqModeCriblHTTP
+> = openEnums.outboundSchema(PqModeCriblHTTP);
+
+/** @internal */
+export const PqCompressionCriblHTTP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionCriblHTTP
+> = openEnums.outboundSchema(PqCompressionCriblHTTP);
+
+/** @internal */
+export type CreateInputPqControlsCriblHTTP$Outbound = {};
+
+/** @internal */
+export const CreateInputPqControlsCriblHTTP$outboundSchema: z.ZodType<
+  CreateInputPqControlsCriblHTTP$Outbound,
+  z.ZodTypeDef,
+  CreateInputPqControlsCriblHTTP
+> = z.object({});
+
+export function createInputPqControlsCriblHTTPToJSON(
+  createInputPqControlsCriblHTTP: CreateInputPqControlsCriblHTTP,
+): string {
+  return JSON.stringify(
+    CreateInputPqControlsCriblHTTP$outboundSchema.parse(
+      createInputPqControlsCriblHTTP,
+    ),
+  );
+}
+
+/** @internal */
+export type PqCriblHTTP$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: CreateInputPqControlsCriblHTTP$Outbound | undefined;
+};
+
+/** @internal */
+export const PqCriblHTTP$outboundSchema: z.ZodType<
+  PqCriblHTTP$Outbound,
+  z.ZodTypeDef,
+  PqCriblHTTP
+> = z.object({
+  mode: PqModeCriblHTTP$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionCriblHTTP$outboundSchema.default("none"),
+  pqControls: z.lazy(() => CreateInputPqControlsCriblHTTP$outboundSchema)
+    .optional(),
+});
+
+export function pqCriblHTTPToJSON(pqCriblHTTP: PqCriblHTTP): string {
+  return JSON.stringify(PqCriblHTTP$outboundSchema.parse(pqCriblHTTP));
+}
+
+/** @internal */
+export type CreateInputAuthTokenCriblHTTP$Outbound = {
+  tokenSecret: string;
+  enabled: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputAuthTokenCriblHTTP$outboundSchema: z.ZodType<
+  CreateInputAuthTokenCriblHTTP$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuthTokenCriblHTTP
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+
+export function createInputAuthTokenCriblHTTPToJSON(
+  createInputAuthTokenCriblHTTP: CreateInputAuthTokenCriblHTTP,
+): string {
+  return JSON.stringify(
+    CreateInputAuthTokenCriblHTTP$outboundSchema.parse(
+      createInputAuthTokenCriblHTTP,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputMinimumTLSVersionCriblHTTP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMinimumTLSVersionCriblHTTP
+> = openEnums.outboundSchema(CreateInputMinimumTLSVersionCriblHTTP);
+
+/** @internal */
+export const CreateInputMaximumTLSVersionCriblHTTP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMaximumTLSVersionCriblHTTP
+> = openEnums.outboundSchema(CreateInputMaximumTLSVersionCriblHTTP);
+
+/** @internal */
+export type TLSSettingsServerSideCriblHTTP$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideCriblHTTP$outboundSchema: z.ZodType<
+  TLSSettingsServerSideCriblHTTP$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideCriblHTTP
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: CreateInputMinimumTLSVersionCriblHTTP$outboundSchema.optional(),
+  maxVersion: CreateInputMaximumTLSVersionCriblHTTP$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideCriblHTTPToJSON(
+  tlsSettingsServerSideCriblHTTP: TLSSettingsServerSideCriblHTTP,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideCriblHTTP$outboundSchema.parse(
+      tlsSettingsServerSideCriblHTTP,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumCriblHTTP$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumCriblHTTP$outboundSchema: z.ZodType<
+  MetadatumCriblHTTP$Outbound,
+  z.ZodTypeDef,
+  MetadatumCriblHTTP
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumCriblHTTPToJSON(
+  metadatumCriblHTTP: MetadatumCriblHTTP,
+): string {
+  return JSON.stringify(
+    MetadatumCriblHTTP$outboundSchema.parse(metadatumCriblHTTP),
   );
 }
 
@@ -12882,12 +28016,12 @@ export type InputCriblHttp$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionCriblHTTP$Outbound> | undefined;
+  pq?: PqCriblHTTP$Outbound | undefined;
   host: string;
   port: number;
-  authTokens?: Array<models.ItemsTypeAuthTokens$Outbound> | undefined;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  authTokens?: Array<CreateInputAuthTokenCriblHTTP$Outbound> | undefined;
+  tls?: TLSSettingsServerSideCriblHTTP$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -12899,7 +28033,7 @@ export type InputCriblHttp$Outbound = {
   enableHealthCheck: boolean;
   ipAllowlistRegex: string;
   ipDenylistRegex: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumCriblHTTP$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -12917,12 +28051,15 @@ export const InputCriblHttp$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionCriblHTTP$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqCriblHTTP$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  authTokens: z.array(models.ItemsTypeAuthTokens$outboundSchema).optional(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  authTokens: z.array(
+    z.lazy(() => CreateInputAuthTokenCriblHTTP$outboundSchema),
+  ).optional(),
+  tls: z.lazy(() => TLSSettingsServerSideCriblHTTP$outboundSchema).optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -12934,13 +28071,213 @@ export const InputCriblHttp$outboundSchema: z.ZodType<
   enableHealthCheck: z.boolean().default(false),
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumCriblHTTP$outboundSchema)).optional(),
   description: z.string().optional(),
 });
 
 export function inputCriblHttpToJSON(inputCriblHttp: InputCriblHttp): string {
   return JSON.stringify(InputCriblHttp$outboundSchema.parse(inputCriblHttp));
+}
+
+/** @internal */
+export type ConnectionCriblTCP$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionCriblTCP$outboundSchema: z.ZodType<
+  ConnectionCriblTCP$Outbound,
+  z.ZodTypeDef,
+  ConnectionCriblTCP
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionCriblTCPToJSON(
+  connectionCriblTCP: ConnectionCriblTCP,
+): string {
+  return JSON.stringify(
+    ConnectionCriblTCP$outboundSchema.parse(connectionCriblTCP),
+  );
+}
+
+/** @internal */
+export const PqModeCriblTCP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqModeCriblTCP
+> = openEnums.outboundSchema(PqModeCriblTCP);
+
+/** @internal */
+export const PqCompressionCriblTCP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionCriblTCP
+> = openEnums.outboundSchema(PqCompressionCriblTCP);
+
+/** @internal */
+export type CreateInputPqControlsCriblTCP$Outbound = {};
+
+/** @internal */
+export const CreateInputPqControlsCriblTCP$outboundSchema: z.ZodType<
+  CreateInputPqControlsCriblTCP$Outbound,
+  z.ZodTypeDef,
+  CreateInputPqControlsCriblTCP
+> = z.object({});
+
+export function createInputPqControlsCriblTCPToJSON(
+  createInputPqControlsCriblTCP: CreateInputPqControlsCriblTCP,
+): string {
+  return JSON.stringify(
+    CreateInputPqControlsCriblTCP$outboundSchema.parse(
+      createInputPqControlsCriblTCP,
+    ),
+  );
+}
+
+/** @internal */
+export type PqCriblTCP$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: CreateInputPqControlsCriblTCP$Outbound | undefined;
+};
+
+/** @internal */
+export const PqCriblTCP$outboundSchema: z.ZodType<
+  PqCriblTCP$Outbound,
+  z.ZodTypeDef,
+  PqCriblTCP
+> = z.object({
+  mode: PqModeCriblTCP$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionCriblTCP$outboundSchema.default("none"),
+  pqControls: z.lazy(() => CreateInputPqControlsCriblTCP$outboundSchema)
+    .optional(),
+});
+
+export function pqCriblTCPToJSON(pqCriblTCP: PqCriblTCP): string {
+  return JSON.stringify(PqCriblTCP$outboundSchema.parse(pqCriblTCP));
+}
+
+/** @internal */
+export const CreateInputMinimumTLSVersionCriblTCP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMinimumTLSVersionCriblTCP
+> = openEnums.outboundSchema(CreateInputMinimumTLSVersionCriblTCP);
+
+/** @internal */
+export const CreateInputMaximumTLSVersionCriblTCP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMaximumTLSVersionCriblTCP
+> = openEnums.outboundSchema(CreateInputMaximumTLSVersionCriblTCP);
+
+/** @internal */
+export type TLSSettingsServerSideCriblTCP$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideCriblTCP$outboundSchema: z.ZodType<
+  TLSSettingsServerSideCriblTCP$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideCriblTCP
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: CreateInputMinimumTLSVersionCriblTCP$outboundSchema.optional(),
+  maxVersion: CreateInputMaximumTLSVersionCriblTCP$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideCriblTCPToJSON(
+  tlsSettingsServerSideCriblTCP: TLSSettingsServerSideCriblTCP,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideCriblTCP$outboundSchema.parse(
+      tlsSettingsServerSideCriblTCP,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumCriblTCP$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumCriblTCP$outboundSchema: z.ZodType<
+  MetadatumCriblTCP$Outbound,
+  z.ZodTypeDef,
+  MetadatumCriblTCP
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumCriblTCPToJSON(
+  metadatumCriblTCP: MetadatumCriblTCP,
+): string {
+  return JSON.stringify(
+    MetadatumCriblTCP$outboundSchema.parse(metadatumCriblTCP),
+  );
+}
+
+/** @internal */
+export type CreateInputAuthTokenCriblTCP$Outbound = {
+  tokenSecret: string;
+  enabled: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputAuthTokenCriblTCP$outboundSchema: z.ZodType<
+  CreateInputAuthTokenCriblTCP$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuthTokenCriblTCP
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+
+export function createInputAuthTokenCriblTCPToJSON(
+  createInputAuthTokenCriblTCP: CreateInputAuthTokenCriblTCP,
+): string {
+  return JSON.stringify(
+    CreateInputAuthTokenCriblTCP$outboundSchema.parse(
+      createInputAuthTokenCriblTCP,
+    ),
+  );
 }
 
 /** @internal */
@@ -12953,19 +28290,19 @@ export type InputCriblTcp$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionCriblTCP$Outbound> | undefined;
+  pq?: PqCriblTCP$Outbound | undefined;
   host: string;
   port: number;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideCriblTCP$Outbound | undefined;
   maxActiveCxn: number;
   socketIdleTimeout: number;
   socketEndingMaxWait: number;
   socketMaxLifespan: number;
   enableProxyHeader: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumCriblTCP$Outbound> | undefined;
   enableLoadBalancing: boolean;
-  authTokens?: Array<models.ItemsTypeAuthTokens$Outbound> | undefined;
+  authTokens?: Array<CreateInputAuthTokenCriblTCP$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -12983,25 +28320,130 @@ export const InputCriblTcp$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionCriblTCP$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqCriblTCP$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideCriblTCP$outboundSchema).optional(),
   maxActiveCxn: z.number().default(1000),
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
   enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumCriblTCP$outboundSchema)).optional(),
   enableLoadBalancing: z.boolean().default(false),
-  authTokens: z.array(models.ItemsTypeAuthTokens$outboundSchema).optional(),
+  authTokens: z.array(z.lazy(() => CreateInputAuthTokenCriblTCP$outboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 
 export function inputCriblTcpToJSON(inputCriblTcp: InputCriblTcp): string {
   return JSON.stringify(InputCriblTcp$outboundSchema.parse(inputCriblTcp));
+}
+
+/** @internal */
+export type ConnectionCribl$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionCribl$outboundSchema: z.ZodType<
+  ConnectionCribl$Outbound,
+  z.ZodTypeDef,
+  ConnectionCribl
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionCriblToJSON(
+  connectionCribl: ConnectionCribl,
+): string {
+  return JSON.stringify(ConnectionCribl$outboundSchema.parse(connectionCribl));
+}
+
+/** @internal */
+export const ModeCribl$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeCribl
+> = openEnums.outboundSchema(ModeCribl);
+
+/** @internal */
+export const CompressionCribl$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionCribl
+> = openEnums.outboundSchema(CompressionCribl);
+
+/** @internal */
+export type PqControlsCribl$Outbound = {};
+
+/** @internal */
+export const PqControlsCribl$outboundSchema: z.ZodType<
+  PqControlsCribl$Outbound,
+  z.ZodTypeDef,
+  PqControlsCribl
+> = z.object({});
+
+export function pqControlsCriblToJSON(
+  pqControlsCribl: PqControlsCribl,
+): string {
+  return JSON.stringify(PqControlsCribl$outboundSchema.parse(pqControlsCribl));
+}
+
+/** @internal */
+export type PqCribl$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsCribl$Outbound | undefined;
+};
+
+/** @internal */
+export const PqCribl$outboundSchema: z.ZodType<
+  PqCribl$Outbound,
+  z.ZodTypeDef,
+  PqCribl
+> = z.object({
+  mode: ModeCribl$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionCribl$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsCribl$outboundSchema).optional(),
+});
+
+export function pqCriblToJSON(pqCribl: PqCribl): string {
+  return JSON.stringify(PqCribl$outboundSchema.parse(pqCribl));
+}
+
+/** @internal */
+export type MetadatumCribl$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumCribl$outboundSchema: z.ZodType<
+  MetadatumCribl$Outbound,
+  z.ZodTypeDef,
+  MetadatumCribl
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumCriblToJSON(metadatumCribl: MetadatumCribl): string {
+  return JSON.stringify(MetadatumCribl$outboundSchema.parse(metadatumCribl));
 }
 
 /** @internal */
@@ -13014,10 +28456,10 @@ export type InputCribl$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionCribl$Outbound> | undefined;
+  pq?: PqCribl$Outbound | undefined;
   filter?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumCribl$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -13035,16 +28477,137 @@ export const InputCribl$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionCribl$outboundSchema)).optional(),
+  pq: z.lazy(() => PqCribl$outboundSchema).optional(),
   filter: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumCribl$outboundSchema)).optional(),
   description: z.string().optional(),
 });
 
 export function inputCriblToJSON(inputCribl: InputCribl): string {
   return JSON.stringify(InputCribl$outboundSchema.parse(inputCribl));
+}
+
+/** @internal */
+export type ConnectionGooglePubsub$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionGooglePubsub$outboundSchema: z.ZodType<
+  ConnectionGooglePubsub$Outbound,
+  z.ZodTypeDef,
+  ConnectionGooglePubsub
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionGooglePubsubToJSON(
+  connectionGooglePubsub: ConnectionGooglePubsub,
+): string {
+  return JSON.stringify(
+    ConnectionGooglePubsub$outboundSchema.parse(connectionGooglePubsub),
+  );
+}
+
+/** @internal */
+export const PqModeGooglePubsub$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqModeGooglePubsub
+> = openEnums.outboundSchema(PqModeGooglePubsub);
+
+/** @internal */
+export const PqCompressionGooglePubsub$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionGooglePubsub
+> = openEnums.outboundSchema(PqCompressionGooglePubsub);
+
+/** @internal */
+export type CreateInputPqControlsGooglePubsub$Outbound = {};
+
+/** @internal */
+export const CreateInputPqControlsGooglePubsub$outboundSchema: z.ZodType<
+  CreateInputPqControlsGooglePubsub$Outbound,
+  z.ZodTypeDef,
+  CreateInputPqControlsGooglePubsub
+> = z.object({});
+
+export function createInputPqControlsGooglePubsubToJSON(
+  createInputPqControlsGooglePubsub: CreateInputPqControlsGooglePubsub,
+): string {
+  return JSON.stringify(
+    CreateInputPqControlsGooglePubsub$outboundSchema.parse(
+      createInputPqControlsGooglePubsub,
+    ),
+  );
+}
+
+/** @internal */
+export type PqGooglePubsub$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: CreateInputPqControlsGooglePubsub$Outbound | undefined;
+};
+
+/** @internal */
+export const PqGooglePubsub$outboundSchema: z.ZodType<
+  PqGooglePubsub$Outbound,
+  z.ZodTypeDef,
+  PqGooglePubsub
+> = z.object({
+  mode: PqModeGooglePubsub$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionGooglePubsub$outboundSchema.default("none"),
+  pqControls: z.lazy(() => CreateInputPqControlsGooglePubsub$outboundSchema)
+    .optional(),
+});
+
+export function pqGooglePubsubToJSON(pqGooglePubsub: PqGooglePubsub): string {
+  return JSON.stringify(PqGooglePubsub$outboundSchema.parse(pqGooglePubsub));
+}
+
+/** @internal */
+export const CreateInputGoogleAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputGoogleAuthenticationMethod
+> = openEnums.outboundSchema(CreateInputGoogleAuthenticationMethod);
+
+/** @internal */
+export type MetadatumGooglePubsub$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumGooglePubsub$outboundSchema: z.ZodType<
+  MetadatumGooglePubsub$Outbound,
+  z.ZodTypeDef,
+  MetadatumGooglePubsub
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumGooglePubsubToJSON(
+  metadatumGooglePubsub: MetadatumGooglePubsub,
+): string {
+  return JSON.stringify(
+    MetadatumGooglePubsub$outboundSchema.parse(metadatumGooglePubsub),
+  );
 }
 
 /** @internal */
@@ -13057,8 +28620,8 @@ export type InputGooglePubsub$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionGooglePubsub$Outbound> | undefined;
+  pq?: PqGooglePubsub$Outbound | undefined;
   topicName: string;
   subscriptionName: string;
   monitorSubscription: boolean;
@@ -13071,7 +28634,7 @@ export type InputGooglePubsub$Outbound = {
   maxBacklog: number;
   concurrency: number;
   requestTimeout: number;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumGooglePubsub$Outbound> | undefined;
   description?: string | undefined;
   orderedDelivery: boolean;
 };
@@ -13090,22 +28653,23 @@ export const InputGooglePubsub$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionGooglePubsub$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqGooglePubsub$outboundSchema).optional(),
   topicName: z.string().default("cribl"),
   subscriptionName: z.string(),
   monitorSubscription: z.boolean().default(false),
   createTopic: z.boolean().default(false),
   createSubscription: z.boolean().default(true),
   region: z.string().optional(),
-  googleAuthMethod: models.GoogleAuthenticationMethodOptions$outboundSchema
+  googleAuthMethod: CreateInputGoogleAuthenticationMethod$outboundSchema
     .default("manual"),
   serviceAccountCredentials: z.string().optional(),
   secret: z.string().optional(),
   maxBacklog: z.number().default(1000),
   concurrency: z.number().default(5),
   requestTimeout: z.number().default(60000),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumGooglePubsub$outboundSchema))
     .optional(),
   description: z.string().optional(),
   orderedDelivery: z.boolean().default(false),
@@ -13120,6 +28684,176 @@ export function inputGooglePubsubToJSON(
 }
 
 /** @internal */
+export type ConnectionFirehose$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionFirehose$outboundSchema: z.ZodType<
+  ConnectionFirehose$Outbound,
+  z.ZodTypeDef,
+  ConnectionFirehose
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionFirehoseToJSON(
+  connectionFirehose: ConnectionFirehose,
+): string {
+  return JSON.stringify(
+    ConnectionFirehose$outboundSchema.parse(connectionFirehose),
+  );
+}
+
+/** @internal */
+export const ModeFirehose$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeFirehose
+> = openEnums.outboundSchema(ModeFirehose);
+
+/** @internal */
+export const CompressionFirehose$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionFirehose
+> = openEnums.outboundSchema(CompressionFirehose);
+
+/** @internal */
+export type PqControlsFirehose$Outbound = {};
+
+/** @internal */
+export const PqControlsFirehose$outboundSchema: z.ZodType<
+  PqControlsFirehose$Outbound,
+  z.ZodTypeDef,
+  PqControlsFirehose
+> = z.object({});
+
+export function pqControlsFirehoseToJSON(
+  pqControlsFirehose: PqControlsFirehose,
+): string {
+  return JSON.stringify(
+    PqControlsFirehose$outboundSchema.parse(pqControlsFirehose),
+  );
+}
+
+/** @internal */
+export type PqFirehose$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsFirehose$Outbound | undefined;
+};
+
+/** @internal */
+export const PqFirehose$outboundSchema: z.ZodType<
+  PqFirehose$Outbound,
+  z.ZodTypeDef,
+  PqFirehose
+> = z.object({
+  mode: ModeFirehose$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionFirehose$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsFirehose$outboundSchema).optional(),
+});
+
+export function pqFirehoseToJSON(pqFirehose: PqFirehose): string {
+  return JSON.stringify(PqFirehose$outboundSchema.parse(pqFirehose));
+}
+
+/** @internal */
+export const MinimumTLSVersionFirehose$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MinimumTLSVersionFirehose
+> = openEnums.outboundSchema(MinimumTLSVersionFirehose);
+
+/** @internal */
+export const MaximumTLSVersionFirehose$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaximumTLSVersionFirehose
+> = openEnums.outboundSchema(MaximumTLSVersionFirehose);
+
+/** @internal */
+export type TLSSettingsServerSideFirehose$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideFirehose$outboundSchema: z.ZodType<
+  TLSSettingsServerSideFirehose$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideFirehose
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: MinimumTLSVersionFirehose$outboundSchema.optional(),
+  maxVersion: MaximumTLSVersionFirehose$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideFirehoseToJSON(
+  tlsSettingsServerSideFirehose: TLSSettingsServerSideFirehose,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideFirehose$outboundSchema.parse(
+      tlsSettingsServerSideFirehose,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumFirehose$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumFirehose$outboundSchema: z.ZodType<
+  MetadatumFirehose$Outbound,
+  z.ZodTypeDef,
+  MetadatumFirehose
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumFirehoseToJSON(
+  metadatumFirehose: MetadatumFirehose,
+): string {
+  return JSON.stringify(
+    MetadatumFirehose$outboundSchema.parse(metadatumFirehose),
+  );
+}
+
+/** @internal */
 export type InputFirehose$Outbound = {
   id: string;
   type: "firehose";
@@ -13129,12 +28863,12 @@ export type InputFirehose$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionFirehose$Outbound> | undefined;
+  pq?: PqFirehose$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<string> | undefined;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideFirehose$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -13146,7 +28880,7 @@ export type InputFirehose$Outbound = {
   enableHealthCheck: boolean;
   ipAllowlistRegex: string;
   ipDenylistRegex: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumFirehose$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -13164,12 +28898,13 @@ export const InputFirehose$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionFirehose$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqFirehose$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideFirehose$outboundSchema).optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -13181,8 +28916,7 @@ export const InputFirehose$outboundSchema: z.ZodType<
   enableHealthCheck: z.boolean().default(false),
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumFirehose$outboundSchema)).optional(),
   description: z.string().optional(),
 });
 
@@ -13191,11 +28925,123 @@ export function inputFirehoseToJSON(inputFirehose: InputFirehose): string {
 }
 
 /** @internal */
+export type InputExecConnection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputExecConnection$outboundSchema: z.ZodType<
+  InputExecConnection$Outbound,
+  z.ZodTypeDef,
+  InputExecConnection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputExecConnectionToJSON(
+  inputExecConnection: InputExecConnection,
+): string {
+  return JSON.stringify(
+    InputExecConnection$outboundSchema.parse(inputExecConnection),
+  );
+}
+
+/** @internal */
+export const InputExecMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputExecMode
+> = openEnums.outboundSchema(InputExecMode);
+
+/** @internal */
+export const InputExecCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputExecCompression
+> = openEnums.outboundSchema(InputExecCompression);
+
+/** @internal */
+export type InputExecPqControls$Outbound = {};
+
+/** @internal */
+export const InputExecPqControls$outboundSchema: z.ZodType<
+  InputExecPqControls$Outbound,
+  z.ZodTypeDef,
+  InputExecPqControls
+> = z.object({});
+
+export function inputExecPqControlsToJSON(
+  inputExecPqControls: InputExecPqControls,
+): string {
+  return JSON.stringify(
+    InputExecPqControls$outboundSchema.parse(inputExecPqControls),
+  );
+}
+
+/** @internal */
+export type InputExecPq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputExecPqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputExecPq$outboundSchema: z.ZodType<
+  InputExecPq$Outbound,
+  z.ZodTypeDef,
+  InputExecPq
+> = z.object({
+  mode: InputExecMode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputExecCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputExecPqControls$outboundSchema).optional(),
+});
+
+export function inputExecPqToJSON(inputExecPq: InputExecPq): string {
+  return JSON.stringify(InputExecPq$outboundSchema.parse(inputExecPq));
+}
+
+/** @internal */
 export const ScheduleType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   ScheduleType
 > = openEnums.outboundSchema(ScheduleType);
+
+/** @internal */
+export type InputExecMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputExecMetadatum$outboundSchema: z.ZodType<
+  InputExecMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputExecMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputExecMetadatumToJSON(
+  inputExecMetadatum: InputExecMetadatum,
+): string {
+  return JSON.stringify(
+    InputExecMetadatum$outboundSchema.parse(inputExecMetadatum),
+  );
+}
 
 /** @internal */
 export type InputExec$Outbound = {
@@ -13207,14 +29053,14 @@ export type InputExec$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<InputExecConnection$Outbound> | undefined;
+  pq?: InputExecPq$Outbound | undefined;
   command: string;
   retries: number;
   scheduleType: string;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<InputExecMetadatum$Outbound> | undefined;
   description?: string | undefined;
   interval: number;
   cronSchedule: string;
@@ -13234,15 +29080,15 @@ export const InputExec$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputExecConnection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputExecPq$outboundSchema).optional(),
   command: z.string(),
   retries: z.number().default(10),
   scheduleType: ScheduleType$outboundSchema.default("interval"),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => InputExecMetadatum$outboundSchema)).optional(),
   description: z.string().optional(),
   interval: z.number().default(60),
   cronSchedule: z.string().default("* * * * *"),
@@ -13250,6 +29096,240 @@ export const InputExec$outboundSchema: z.ZodType<
 
 export function inputExecToJSON(inputExec: InputExec): string {
   return JSON.stringify(InputExec$outboundSchema.parse(inputExec));
+}
+
+/** @internal */
+export type ConnectionEventhub$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionEventhub$outboundSchema: z.ZodType<
+  ConnectionEventhub$Outbound,
+  z.ZodTypeDef,
+  ConnectionEventhub
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionEventhubToJSON(
+  connectionEventhub: ConnectionEventhub,
+): string {
+  return JSON.stringify(
+    ConnectionEventhub$outboundSchema.parse(connectionEventhub),
+  );
+}
+
+/** @internal */
+export const ModeEventhub$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeEventhub
+> = openEnums.outboundSchema(ModeEventhub);
+
+/** @internal */
+export const CompressionEventhub$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionEventhub
+> = openEnums.outboundSchema(CompressionEventhub);
+
+/** @internal */
+export type PqControlsEventhub$Outbound = {};
+
+/** @internal */
+export const PqControlsEventhub$outboundSchema: z.ZodType<
+  PqControlsEventhub$Outbound,
+  z.ZodTypeDef,
+  PqControlsEventhub
+> = z.object({});
+
+export function pqControlsEventhubToJSON(
+  pqControlsEventhub: PqControlsEventhub,
+): string {
+  return JSON.stringify(
+    PqControlsEventhub$outboundSchema.parse(pqControlsEventhub),
+  );
+}
+
+/** @internal */
+export type PqEventhub$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsEventhub$Outbound | undefined;
+};
+
+/** @internal */
+export const PqEventhub$outboundSchema: z.ZodType<
+  PqEventhub$Outbound,
+  z.ZodTypeDef,
+  PqEventhub
+> = z.object({
+  mode: ModeEventhub$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionEventhub$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsEventhub$outboundSchema).optional(),
+});
+
+export function pqEventhubToJSON(pqEventhub: PqEventhub): string {
+  return JSON.stringify(PqEventhub$outboundSchema.parse(pqEventhub));
+}
+
+/** @internal */
+export const AuthTypeAuthenticationMethodEventhub$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthTypeAuthenticationMethodEventhub
+> = openEnums.outboundSchema(AuthTypeAuthenticationMethodEventhub);
+
+/** @internal */
+export const SASLMechanismEventhub$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SASLMechanismEventhub
+> = openEnums.outboundSchema(SASLMechanismEventhub);
+
+/** @internal */
+export const ClientSecretAuthTypeAuthenticationMethodEventhub$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    ClientSecretAuthTypeAuthenticationMethodEventhub
+  > = openEnums.outboundSchema(
+    ClientSecretAuthTypeAuthenticationMethodEventhub,
+  );
+
+/** @internal */
+export const CreateInputMicrosoftEntraIDAuthenticationEndpoint$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputMicrosoftEntraIDAuthenticationEndpoint
+  > = openEnums.outboundSchema(
+    CreateInputMicrosoftEntraIDAuthenticationEndpoint,
+  );
+
+/** @internal */
+export type AuthenticationEventhub$Outbound = {
+  disabled: boolean;
+  authType: string;
+  password?: string | undefined;
+  textSecret?: string | undefined;
+  mechanism: string;
+  username: string;
+  clientSecretAuthType: string;
+  clientSecret?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificateName?: string | undefined;
+  certPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  oauthEndpoint: string;
+  clientId?: string | undefined;
+  tenantId?: string | undefined;
+  scope?: string | undefined;
+};
+
+/** @internal */
+export const AuthenticationEventhub$outboundSchema: z.ZodType<
+  AuthenticationEventhub$Outbound,
+  z.ZodTypeDef,
+  AuthenticationEventhub
+> = z.object({
+  disabled: z.boolean().default(false),
+  authType: AuthTypeAuthenticationMethodEventhub$outboundSchema.default(
+    "manual",
+  ),
+  password: z.string().optional(),
+  textSecret: z.string().optional(),
+  mechanism: SASLMechanismEventhub$outboundSchema.default("plain"),
+  username: z.string().default("$ConnectionString"),
+  clientSecretAuthType:
+    ClientSecretAuthTypeAuthenticationMethodEventhub$outboundSchema.default(
+      "manual",
+    ),
+  clientSecret: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificateName: z.string().optional(),
+  certPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  oauthEndpoint:
+    CreateInputMicrosoftEntraIDAuthenticationEndpoint$outboundSchema.default(
+      "https://login.microsoftonline.com",
+    ),
+  clientId: z.string().optional(),
+  tenantId: z.string().optional(),
+  scope: z.string().optional(),
+});
+
+export function authenticationEventhubToJSON(
+  authenticationEventhub: AuthenticationEventhub,
+): string {
+  return JSON.stringify(
+    AuthenticationEventhub$outboundSchema.parse(authenticationEventhub),
+  );
+}
+
+/** @internal */
+export type TLSSettingsClientSideEventhub$Outbound = {
+  disabled: boolean;
+  rejectUnauthorized: boolean;
+};
+
+/** @internal */
+export const TLSSettingsClientSideEventhub$outboundSchema: z.ZodType<
+  TLSSettingsClientSideEventhub$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsClientSideEventhub
+> = z.object({
+  disabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+});
+
+export function tlsSettingsClientSideEventhubToJSON(
+  tlsSettingsClientSideEventhub: TLSSettingsClientSideEventhub,
+): string {
+  return JSON.stringify(
+    TLSSettingsClientSideEventhub$outboundSchema.parse(
+      tlsSettingsClientSideEventhub,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumEventhub$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumEventhub$outboundSchema: z.ZodType<
+  MetadatumEventhub$Outbound,
+  z.ZodTypeDef,
+  MetadatumEventhub
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumEventhubToJSON(
+  metadatumEventhub: MetadatumEventhub,
+): string {
+  return JSON.stringify(
+    MetadatumEventhub$outboundSchema.parse(metadatumEventhub),
+  );
 }
 
 /** @internal */
@@ -13262,8 +29342,8 @@ export type InputEventhub$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionEventhub$Outbound> | undefined;
+  pq?: PqEventhub$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
   groupId: string;
@@ -13276,8 +29356,8 @@ export type InputEventhub$Outbound = {
   backoffRate: number;
   authenticationTimeout: number;
   reauthenticationThreshold: number;
-  sasl?: models.AuthenticationType1$Outbound | undefined;
-  tls?: models.TlsSettingsClientSideType$Outbound | undefined;
+  sasl?: AuthenticationEventhub$Outbound | undefined;
+  tls?: TLSSettingsClientSideEventhub$Outbound | undefined;
   sessionTimeout: number;
   rebalanceTimeout: number;
   heartbeatInterval: number;
@@ -13287,7 +29367,7 @@ export type InputEventhub$Outbound = {
   maxBytes: number;
   maxSocketErrors: number;
   minimizeDuplicates: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumEventhub$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -13305,8 +29385,9 @@ export const InputEventhub$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionEventhub$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqEventhub$outboundSchema).optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
@@ -13319,8 +29400,8 @@ export const InputEventhub$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  sasl: models.AuthenticationType1$outboundSchema.optional(),
-  tls: models.TlsSettingsClientSideType$outboundSchema.optional(),
+  sasl: z.lazy(() => AuthenticationEventhub$outboundSchema).optional(),
+  tls: z.lazy(() => TLSSettingsClientSideEventhub$outboundSchema).optional(),
   sessionTimeout: z.number().default(30000),
   rebalanceTimeout: z.number().default(60000),
   heartbeatInterval: z.number().default(3000),
@@ -13330,13 +29411,109 @@ export const InputEventhub$outboundSchema: z.ZodType<
   maxBytes: z.number().default(10485760),
   maxSocketErrors: z.number().default(0),
   minimizeDuplicates: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumEventhub$outboundSchema)).optional(),
   description: z.string().optional(),
 });
 
 export function inputEventhubToJSON(inputEventhub: InputEventhub): string {
   return JSON.stringify(InputEventhub$outboundSchema.parse(inputEventhub));
+}
+
+/** @internal */
+export type ConnectionOffice365MsgTrace$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionOffice365MsgTrace$outboundSchema: z.ZodType<
+  ConnectionOffice365MsgTrace$Outbound,
+  z.ZodTypeDef,
+  ConnectionOffice365MsgTrace
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionOffice365MsgTraceToJSON(
+  connectionOffice365MsgTrace: ConnectionOffice365MsgTrace,
+): string {
+  return JSON.stringify(
+    ConnectionOffice365MsgTrace$outboundSchema.parse(
+      connectionOffice365MsgTrace,
+    ),
+  );
+}
+
+/** @internal */
+export const ModeOffice365MsgTrace$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeOffice365MsgTrace
+> = openEnums.outboundSchema(ModeOffice365MsgTrace);
+
+/** @internal */
+export const CompressionOffice365MsgTrace$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionOffice365MsgTrace
+> = openEnums.outboundSchema(CompressionOffice365MsgTrace);
+
+/** @internal */
+export type PqControlsOffice365MsgTrace$Outbound = {};
+
+/** @internal */
+export const PqControlsOffice365MsgTrace$outboundSchema: z.ZodType<
+  PqControlsOffice365MsgTrace$Outbound,
+  z.ZodTypeDef,
+  PqControlsOffice365MsgTrace
+> = z.object({});
+
+export function pqControlsOffice365MsgTraceToJSON(
+  pqControlsOffice365MsgTrace: PqControlsOffice365MsgTrace,
+): string {
+  return JSON.stringify(
+    PqControlsOffice365MsgTrace$outboundSchema.parse(
+      pqControlsOffice365MsgTrace,
+    ),
+  );
+}
+
+/** @internal */
+export type PqOffice365MsgTrace$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsOffice365MsgTrace$Outbound | undefined;
+};
+
+/** @internal */
+export const PqOffice365MsgTrace$outboundSchema: z.ZodType<
+  PqOffice365MsgTrace$Outbound,
+  z.ZodTypeDef,
+  PqOffice365MsgTrace
+> = z.object({
+  mode: ModeOffice365MsgTrace$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionOffice365MsgTrace$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsOffice365MsgTrace$outboundSchema)
+    .optional(),
+});
+
+export function pqOffice365MsgTraceToJSON(
+  pqOffice365MsgTrace: PqOffice365MsgTrace,
+): string {
+  return JSON.stringify(
+    PqOffice365MsgTrace$outboundSchema.parse(pqOffice365MsgTrace),
+  );
 }
 
 /** @internal */
@@ -13352,6 +29529,82 @@ export const LogLevelOffice365MsgTrace$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   LogLevelOffice365MsgTrace
 > = openEnums.outboundSchema(LogLevelOffice365MsgTrace);
+
+/** @internal */
+export type MetadatumOffice365MsgTrace$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumOffice365MsgTrace$outboundSchema: z.ZodType<
+  MetadatumOffice365MsgTrace$Outbound,
+  z.ZodTypeDef,
+  MetadatumOffice365MsgTrace
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumOffice365MsgTraceToJSON(
+  metadatumOffice365MsgTrace: MetadatumOffice365MsgTrace,
+): string {
+  return JSON.stringify(
+    MetadatumOffice365MsgTrace$outboundSchema.parse(metadatumOffice365MsgTrace),
+  );
+}
+
+/** @internal */
+export const RetryTypeOffice365MsgTrace$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RetryTypeOffice365MsgTrace
+> = openEnums.outboundSchema(RetryTypeOffice365MsgTrace);
+
+/** @internal */
+export type RetryRulesOffice365MsgTrace$Outbound = {
+  type: string;
+  interval: number;
+  limit: number;
+  multiplier: number;
+  codes?: Array<number> | undefined;
+  enableHeader: boolean;
+  retryConnectTimeout: boolean;
+  retryConnectReset: boolean;
+};
+
+/** @internal */
+export const RetryRulesOffice365MsgTrace$outboundSchema: z.ZodType<
+  RetryRulesOffice365MsgTrace$Outbound,
+  z.ZodTypeDef,
+  RetryRulesOffice365MsgTrace
+> = z.object({
+  type: RetryTypeOffice365MsgTrace$outboundSchema.default("backoff"),
+  interval: z.number().default(1000),
+  limit: z.number().default(5),
+  multiplier: z.number().default(2),
+  codes: z.array(z.number()).optional(),
+  enableHeader: z.boolean().default(true),
+  retryConnectTimeout: z.boolean().default(false),
+  retryConnectReset: z.boolean().default(false),
+});
+
+export function retryRulesOffice365MsgTraceToJSON(
+  retryRulesOffice365MsgTrace: RetryRulesOffice365MsgTrace,
+): string {
+  return JSON.stringify(
+    RetryRulesOffice365MsgTrace$outboundSchema.parse(
+      retryRulesOffice365MsgTrace,
+    ),
+  );
+}
+
+/** @internal */
+export const SubscriptionPlanOffice365MsgTrace$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SubscriptionPlanOffice365MsgTrace
+> = openEnums.outboundSchema(SubscriptionPlanOffice365MsgTrace);
 
 /** @internal */
 export type CertOptions$Outbound = {
@@ -13387,8 +29640,8 @@ export type InputOffice365MsgTrace$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionOffice365MsgTrace$Outbound> | undefined;
+  pq?: PqOffice365MsgTrace$Outbound | undefined;
   url: string;
   interval: number;
   startDate?: string | undefined;
@@ -13404,8 +29657,8 @@ export type InputOffice365MsgTrace$Outbound = {
   maxMissedKeepAlives: number;
   ttl: string;
   ignoreGroupJobsLimit: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  retryRules?: models.RetryRulesType1$Outbound | undefined;
+  metadata?: Array<MetadatumOffice365MsgTrace$Outbound> | undefined;
+  retryRules?: RetryRulesOffice365MsgTrace$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -13433,8 +29686,9 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionOffice365MsgTrace$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqOffice365MsgTrace$outboundSchema).optional(),
   url: z.string().default(
     "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
   ),
@@ -13454,9 +29708,10 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().default(3),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumOffice365MsgTrace$outboundSchema))
     .optional(),
-  retryRules: models.RetryRulesType1$outboundSchema.optional(),
+  retryRules: z.lazy(() => RetryRulesOffice365MsgTrace$outboundSchema)
+    .optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -13465,7 +29720,7 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   tenantId: z.string().optional(),
   clientId: z.string().optional(),
   resource: z.string().default("https://outlook.office365.com"),
-  planType: models.SubscriptionPlanOptions$outboundSchema.default(
+  planType: SubscriptionPlanOffice365MsgTrace$outboundSchema.default(
     "enterprise_gcc",
   ),
   textSecret: z.string().optional(),
@@ -13479,6 +29734,137 @@ export function inputOffice365MsgTraceToJSON(
     InputOffice365MsgTrace$outboundSchema.parse(inputOffice365MsgTrace),
   );
 }
+
+/** @internal */
+export type ConnectionOffice365Service$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionOffice365Service$outboundSchema: z.ZodType<
+  ConnectionOffice365Service$Outbound,
+  z.ZodTypeDef,
+  ConnectionOffice365Service
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionOffice365ServiceToJSON(
+  connectionOffice365Service: ConnectionOffice365Service,
+): string {
+  return JSON.stringify(
+    ConnectionOffice365Service$outboundSchema.parse(connectionOffice365Service),
+  );
+}
+
+/** @internal */
+export const ModeOffice365Service$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeOffice365Service
+> = openEnums.outboundSchema(ModeOffice365Service);
+
+/** @internal */
+export const CompressionOffice365Service$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionOffice365Service
+> = openEnums.outboundSchema(CompressionOffice365Service);
+
+/** @internal */
+export type PqControlsOffice365Service$Outbound = {};
+
+/** @internal */
+export const PqControlsOffice365Service$outboundSchema: z.ZodType<
+  PqControlsOffice365Service$Outbound,
+  z.ZodTypeDef,
+  PqControlsOffice365Service
+> = z.object({});
+
+export function pqControlsOffice365ServiceToJSON(
+  pqControlsOffice365Service: PqControlsOffice365Service,
+): string {
+  return JSON.stringify(
+    PqControlsOffice365Service$outboundSchema.parse(pqControlsOffice365Service),
+  );
+}
+
+/** @internal */
+export type PqOffice365Service$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsOffice365Service$Outbound | undefined;
+};
+
+/** @internal */
+export const PqOffice365Service$outboundSchema: z.ZodType<
+  PqOffice365Service$Outbound,
+  z.ZodTypeDef,
+  PqOffice365Service
+> = z.object({
+  mode: ModeOffice365Service$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionOffice365Service$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsOffice365Service$outboundSchema)
+    .optional(),
+});
+
+export function pqOffice365ServiceToJSON(
+  pqOffice365Service: PqOffice365Service,
+): string {
+  return JSON.stringify(
+    PqOffice365Service$outboundSchema.parse(pqOffice365Service),
+  );
+}
+
+/** @internal */
+export const SubscriptionPlanOffice365Service$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SubscriptionPlanOffice365Service
+> = openEnums.outboundSchema(SubscriptionPlanOffice365Service);
+
+/** @internal */
+export type MetadatumOffice365Service$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumOffice365Service$outboundSchema: z.ZodType<
+  MetadatumOffice365Service$Outbound,
+  z.ZodTypeDef,
+  MetadatumOffice365Service
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumOffice365ServiceToJSON(
+  metadatumOffice365Service: MetadatumOffice365Service,
+): string {
+  return JSON.stringify(
+    MetadatumOffice365Service$outboundSchema.parse(metadatumOffice365Service),
+  );
+}
+
+/** @internal */
+export const LogLevelOffice365Service$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  LogLevelOffice365Service
+> = openEnums.outboundSchema(LogLevelOffice365Service);
 
 /** @internal */
 export type ContentConfigOffice365Service$Outbound = {
@@ -13498,7 +29884,7 @@ export const ContentConfigOffice365Service$outboundSchema: z.ZodType<
   contentType: z.string().optional(),
   description: z.string().optional(),
   interval: z.number().optional(),
-  logLevel: models.LogLevelOptionsContentConfigItems$outboundSchema.optional(),
+  logLevel: LogLevelOffice365Service$outboundSchema.optional(),
   enabled: z.boolean().optional(),
 });
 
@@ -13513,6 +29899,56 @@ export function contentConfigOffice365ServiceToJSON(
 }
 
 /** @internal */
+export const RetryTypeOffice365Service$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RetryTypeOffice365Service
+> = openEnums.outboundSchema(RetryTypeOffice365Service);
+
+/** @internal */
+export type RetryRulesOffice365Service$Outbound = {
+  type: string;
+  interval: number;
+  limit: number;
+  multiplier: number;
+  codes?: Array<number> | undefined;
+  enableHeader: boolean;
+  retryConnectTimeout: boolean;
+  retryConnectReset: boolean;
+};
+
+/** @internal */
+export const RetryRulesOffice365Service$outboundSchema: z.ZodType<
+  RetryRulesOffice365Service$Outbound,
+  z.ZodTypeDef,
+  RetryRulesOffice365Service
+> = z.object({
+  type: RetryTypeOffice365Service$outboundSchema.default("backoff"),
+  interval: z.number().default(1000),
+  limit: z.number().default(5),
+  multiplier: z.number().default(2),
+  codes: z.array(z.number()).optional(),
+  enableHeader: z.boolean().default(true),
+  retryConnectTimeout: z.boolean().default(false),
+  retryConnectReset: z.boolean().default(false),
+});
+
+export function retryRulesOffice365ServiceToJSON(
+  retryRulesOffice365Service: RetryRulesOffice365Service,
+): string {
+  return JSON.stringify(
+    RetryRulesOffice365Service$outboundSchema.parse(retryRulesOffice365Service),
+  );
+}
+
+/** @internal */
+export const AuthenticationMethodOffice365Service$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodOffice365Service
+> = openEnums.outboundSchema(AuthenticationMethodOffice365Service);
+
+/** @internal */
 export type InputOffice365Service$Outbound = {
   id: string;
   type: "office365_service";
@@ -13522,8 +29958,8 @@ export type InputOffice365Service$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionOffice365Service$Outbound> | undefined;
+  pq?: PqOffice365Service$Outbound | undefined;
   planType: string;
   tenantId: string;
   appId: string;
@@ -13533,9 +29969,9 @@ export type InputOffice365Service$Outbound = {
   maxMissedKeepAlives: number;
   ttl: string;
   ignoreGroupJobsLimit: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumOffice365Service$Outbound> | undefined;
   contentConfig?: Array<ContentConfigOffice365Service$Outbound> | undefined;
-  retryRules?: models.RetryRulesType1$Outbound | undefined;
+  retryRules?: RetryRulesOffice365Service$Outbound | undefined;
   authType: string;
   description?: string | undefined;
   clientSecret?: string | undefined;
@@ -13556,9 +29992,10 @@ export const InputOffice365Service$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
-  planType: models.SubscriptionPlanOptions$outboundSchema.default(
+  connections: z.array(z.lazy(() => ConnectionOffice365Service$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqOffice365Service$outboundSchema).optional(),
+  planType: SubscriptionPlanOffice365Service$outboundSchema.default(
     "enterprise_gcc",
   ),
   tenantId: z.string(),
@@ -13569,13 +30006,14 @@ export const InputOffice365Service$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().default(3),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumOffice365Service$outboundSchema))
     .optional(),
   contentConfig: z.array(
     z.lazy(() => ContentConfigOffice365Service$outboundSchema),
   ).optional(),
-  retryRules: models.RetryRulesType1$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.default(
+  retryRules: z.lazy(() => RetryRulesOffice365Service$outboundSchema)
+    .optional(),
+  authType: AuthenticationMethodOffice365Service$outboundSchema.default(
     "manual",
   ),
   description: z.string().optional(),
@@ -13590,6 +30028,134 @@ export function inputOffice365ServiceToJSON(
     InputOffice365Service$outboundSchema.parse(inputOffice365Service),
   );
 }
+
+/** @internal */
+export type ConnectionOffice365Mgmt$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionOffice365Mgmt$outboundSchema: z.ZodType<
+  ConnectionOffice365Mgmt$Outbound,
+  z.ZodTypeDef,
+  ConnectionOffice365Mgmt
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionOffice365MgmtToJSON(
+  connectionOffice365Mgmt: ConnectionOffice365Mgmt,
+): string {
+  return JSON.stringify(
+    ConnectionOffice365Mgmt$outboundSchema.parse(connectionOffice365Mgmt),
+  );
+}
+
+/** @internal */
+export const ModeOffice365Mgmt$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeOffice365Mgmt
+> = openEnums.outboundSchema(ModeOffice365Mgmt);
+
+/** @internal */
+export const CompressionOffice365Mgmt$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionOffice365Mgmt
+> = openEnums.outboundSchema(CompressionOffice365Mgmt);
+
+/** @internal */
+export type PqControlsOffice365Mgmt$Outbound = {};
+
+/** @internal */
+export const PqControlsOffice365Mgmt$outboundSchema: z.ZodType<
+  PqControlsOffice365Mgmt$Outbound,
+  z.ZodTypeDef,
+  PqControlsOffice365Mgmt
+> = z.object({});
+
+export function pqControlsOffice365MgmtToJSON(
+  pqControlsOffice365Mgmt: PqControlsOffice365Mgmt,
+): string {
+  return JSON.stringify(
+    PqControlsOffice365Mgmt$outboundSchema.parse(pqControlsOffice365Mgmt),
+  );
+}
+
+/** @internal */
+export type PqOffice365Mgmt$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsOffice365Mgmt$Outbound | undefined;
+};
+
+/** @internal */
+export const PqOffice365Mgmt$outboundSchema: z.ZodType<
+  PqOffice365Mgmt$Outbound,
+  z.ZodTypeDef,
+  PqOffice365Mgmt
+> = z.object({
+  mode: ModeOffice365Mgmt$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionOffice365Mgmt$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsOffice365Mgmt$outboundSchema).optional(),
+});
+
+export function pqOffice365MgmtToJSON(
+  pqOffice365Mgmt: PqOffice365Mgmt,
+): string {
+  return JSON.stringify(PqOffice365Mgmt$outboundSchema.parse(pqOffice365Mgmt));
+}
+
+/** @internal */
+export const SubscriptionPlanOffice365Mgmt$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SubscriptionPlanOffice365Mgmt
+> = openEnums.outboundSchema(SubscriptionPlanOffice365Mgmt);
+
+/** @internal */
+export type MetadatumOffice365Mgmt$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumOffice365Mgmt$outboundSchema: z.ZodType<
+  MetadatumOffice365Mgmt$Outbound,
+  z.ZodTypeDef,
+  MetadatumOffice365Mgmt
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumOffice365MgmtToJSON(
+  metadatumOffice365Mgmt: MetadatumOffice365Mgmt,
+): string {
+  return JSON.stringify(
+    MetadatumOffice365Mgmt$outboundSchema.parse(metadatumOffice365Mgmt),
+  );
+}
+
+/** @internal */
+export const LogLevelOffice365Mgmt$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  LogLevelOffice365Mgmt
+> = openEnums.outboundSchema(LogLevelOffice365Mgmt);
 
 /** @internal */
 export type ContentConfigOffice365Mgmt$Outbound = {
@@ -13609,7 +30175,7 @@ export const ContentConfigOffice365Mgmt$outboundSchema: z.ZodType<
   contentType: z.string().optional(),
   description: z.string().optional(),
   interval: z.number().optional(),
-  logLevel: models.LogLevelOptionsContentConfigItems$outboundSchema.optional(),
+  logLevel: LogLevelOffice365Mgmt$outboundSchema.optional(),
   enabled: z.boolean().optional(),
 });
 
@@ -13622,6 +30188,56 @@ export function contentConfigOffice365MgmtToJSON(
 }
 
 /** @internal */
+export const RetryTypeOffice365Mgmt$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RetryTypeOffice365Mgmt
+> = openEnums.outboundSchema(RetryTypeOffice365Mgmt);
+
+/** @internal */
+export type RetryRulesOffice365Mgmt$Outbound = {
+  type: string;
+  interval: number;
+  limit: number;
+  multiplier: number;
+  codes?: Array<number> | undefined;
+  enableHeader: boolean;
+  retryConnectTimeout: boolean;
+  retryConnectReset: boolean;
+};
+
+/** @internal */
+export const RetryRulesOffice365Mgmt$outboundSchema: z.ZodType<
+  RetryRulesOffice365Mgmt$Outbound,
+  z.ZodTypeDef,
+  RetryRulesOffice365Mgmt
+> = z.object({
+  type: RetryTypeOffice365Mgmt$outboundSchema.default("backoff"),
+  interval: z.number().default(1000),
+  limit: z.number().default(5),
+  multiplier: z.number().default(2),
+  codes: z.array(z.number()).optional(),
+  enableHeader: z.boolean().default(true),
+  retryConnectTimeout: z.boolean().default(false),
+  retryConnectReset: z.boolean().default(false),
+});
+
+export function retryRulesOffice365MgmtToJSON(
+  retryRulesOffice365Mgmt: RetryRulesOffice365Mgmt,
+): string {
+  return JSON.stringify(
+    RetryRulesOffice365Mgmt$outboundSchema.parse(retryRulesOffice365Mgmt),
+  );
+}
+
+/** @internal */
+export const AuthenticationMethodOffice365Mgmt$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodOffice365Mgmt
+> = openEnums.outboundSchema(AuthenticationMethodOffice365Mgmt);
+
+/** @internal */
 export type InputOffice365Mgmt$Outbound = {
   id: string;
   type: "office365_mgmt";
@@ -13631,8 +30247,8 @@ export type InputOffice365Mgmt$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionOffice365Mgmt$Outbound> | undefined;
+  pq?: PqOffice365Mgmt$Outbound | undefined;
   planType: string;
   tenantId: string;
   appId: string;
@@ -13642,11 +30258,11 @@ export type InputOffice365Mgmt$Outbound = {
   maxMissedKeepAlives: number;
   ttl: string;
   ignoreGroupJobsLimit: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumOffice365Mgmt$Outbound> | undefined;
   publisherIdentifier?: string | undefined;
   contentConfig?: Array<ContentConfigOffice365Mgmt$Outbound> | undefined;
   ingestionLag: number;
-  retryRules?: models.RetryRulesType1$Outbound | undefined;
+  retryRules?: RetryRulesOffice365Mgmt$Outbound | undefined;
   authType: string;
   description?: string | undefined;
   clientSecret?: string | undefined;
@@ -13667,9 +30283,10 @@ export const InputOffice365Mgmt$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
-  planType: models.SubscriptionPlanOptions$outboundSchema.default(
+  connections: z.array(z.lazy(() => ConnectionOffice365Mgmt$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqOffice365Mgmt$outboundSchema).optional(),
+  planType: SubscriptionPlanOffice365Mgmt$outboundSchema.default(
     "enterprise_gcc",
   ),
   tenantId: z.string(),
@@ -13680,17 +30297,15 @@ export const InputOffice365Mgmt$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().default(3),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumOffice365Mgmt$outboundSchema))
     .optional(),
   publisherIdentifier: z.string().optional(),
   contentConfig: z.array(
     z.lazy(() => ContentConfigOffice365Mgmt$outboundSchema),
   ).optional(),
   ingestionLag: z.number().default(0),
-  retryRules: models.RetryRulesType1$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.default(
-    "manual",
-  ),
+  retryRules: z.lazy(() => RetryRulesOffice365Mgmt$outboundSchema).optional(),
+  authType: AuthenticationMethodOffice365Mgmt$outboundSchema.default("manual"),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
@@ -13705,6 +30320,98 @@ export function inputOffice365MgmtToJSON(
 }
 
 /** @internal */
+export type ConnectionEdgePrometheus$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionEdgePrometheus$outboundSchema: z.ZodType<
+  ConnectionEdgePrometheus$Outbound,
+  z.ZodTypeDef,
+  ConnectionEdgePrometheus
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionEdgePrometheusToJSON(
+  connectionEdgePrometheus: ConnectionEdgePrometheus,
+): string {
+  return JSON.stringify(
+    ConnectionEdgePrometheus$outboundSchema.parse(connectionEdgePrometheus),
+  );
+}
+
+/** @internal */
+export const ModeEdgePrometheus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeEdgePrometheus
+> = openEnums.outboundSchema(ModeEdgePrometheus);
+
+/** @internal */
+export const PqCompressionEdgePrometheus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionEdgePrometheus
+> = openEnums.outboundSchema(PqCompressionEdgePrometheus);
+
+/** @internal */
+export type PqControlsEdgePrometheus$Outbound = {};
+
+/** @internal */
+export const PqControlsEdgePrometheus$outboundSchema: z.ZodType<
+  PqControlsEdgePrometheus$Outbound,
+  z.ZodTypeDef,
+  PqControlsEdgePrometheus
+> = z.object({});
+
+export function pqControlsEdgePrometheusToJSON(
+  pqControlsEdgePrometheus: PqControlsEdgePrometheus,
+): string {
+  return JSON.stringify(
+    PqControlsEdgePrometheus$outboundSchema.parse(pqControlsEdgePrometheus),
+  );
+}
+
+/** @internal */
+export type PqEdgePrometheus$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsEdgePrometheus$Outbound | undefined;
+};
+
+/** @internal */
+export const PqEdgePrometheus$outboundSchema: z.ZodType<
+  PqEdgePrometheus$Outbound,
+  z.ZodTypeDef,
+  PqEdgePrometheus
+> = z.object({
+  mode: ModeEdgePrometheus$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionEdgePrometheus$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsEdgePrometheus$outboundSchema).optional(),
+});
+
+export function pqEdgePrometheusToJSON(
+  pqEdgePrometheus: PqEdgePrometheus,
+): string {
+  return JSON.stringify(
+    PqEdgePrometheus$outboundSchema.parse(pqEdgePrometheus),
+  );
+}
+
+/** @internal */
 export const DiscoveryTypeEdgePrometheus$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
@@ -13712,11 +30419,77 @@ export const DiscoveryTypeEdgePrometheus$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(DiscoveryTypeEdgePrometheus);
 
 /** @internal */
-export const AuthenticationMethodEdgePrometheus$outboundSchema: z.ZodType<
+export const PersistenceCompressionEdgePrometheus$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  AuthenticationMethodEdgePrometheus
-> = openEnums.outboundSchema(AuthenticationMethodEdgePrometheus);
+  PersistenceCompressionEdgePrometheus
+> = openEnums.outboundSchema(PersistenceCompressionEdgePrometheus);
+
+/** @internal */
+export type DiskSpoolingEdgePrometheus$Outbound = {
+  enable: boolean;
+  timeWindow: string;
+  maxDataSize: string;
+  maxDataTime: string;
+  compress: string;
+};
+
+/** @internal */
+export const DiskSpoolingEdgePrometheus$outboundSchema: z.ZodType<
+  DiskSpoolingEdgePrometheus$Outbound,
+  z.ZodTypeDef,
+  DiskSpoolingEdgePrometheus
+> = z.object({
+  enable: z.boolean().default(false),
+  timeWindow: z.string().default("10m"),
+  maxDataSize: z.string().default("1GB"),
+  maxDataTime: z.string().default("24h"),
+  compress: PersistenceCompressionEdgePrometheus$outboundSchema.default("gzip"),
+});
+
+export function diskSpoolingEdgePrometheusToJSON(
+  diskSpoolingEdgePrometheus: DiskSpoolingEdgePrometheus,
+): string {
+  return JSON.stringify(
+    DiskSpoolingEdgePrometheus$outboundSchema.parse(diskSpoolingEdgePrometheus),
+  );
+}
+
+/** @internal */
+export type MetadatumEdgePrometheus$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumEdgePrometheus$outboundSchema: z.ZodType<
+  MetadatumEdgePrometheus$Outbound,
+  z.ZodTypeDef,
+  MetadatumEdgePrometheus
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumEdgePrometheusToJSON(
+  metadatumEdgePrometheus: MetadatumEdgePrometheus,
+): string {
+  return JSON.stringify(
+    MetadatumEdgePrometheus$outboundSchema.parse(metadatumEdgePrometheus),
+  );
+}
+
+/** @internal */
+export const AuthTypeAuthenticationMethodEdgePrometheus$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, AuthTypeAuthenticationMethodEdgePrometheus> =
+    openEnums.outboundSchema(AuthTypeAuthenticationMethodEdgePrometheus);
+
+/** @internal */
+export const TargetProtocol$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  TargetProtocol
+> = openEnums.outboundSchema(TargetProtocol);
 
 /** @internal */
 export type Target$Outbound = {
@@ -13732,7 +30505,7 @@ export const Target$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Target
 > = z.object({
-  protocol: models.ProtocolOptionsTargetsItems$outboundSchema.default("http"),
+  protocol: TargetProtocol$outboundSchema.default("http"),
   host: z.string(),
   port: z.number().default(9090),
   path: z.string().default("/metrics"),
@@ -13741,6 +30514,66 @@ export const Target$outboundSchema: z.ZodType<
 export function targetToJSON(target: Target): string {
   return JSON.stringify(Target$outboundSchema.parse(target));
 }
+
+/** @internal */
+export const RecordTypeEdgePrometheus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RecordTypeEdgePrometheus
+> = openEnums.outboundSchema(RecordTypeEdgePrometheus);
+
+/** @internal */
+export const ScrapeProtocolProtocol$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ScrapeProtocolProtocol
+> = openEnums.outboundSchema(ScrapeProtocolProtocol);
+
+/** @internal */
+export const AwsAuthenticationMethodAuthenticationMethodEdgePrometheus$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    AwsAuthenticationMethodAuthenticationMethodEdgePrometheus
+  > = openEnums.outboundSchema(
+    AwsAuthenticationMethodAuthenticationMethodEdgePrometheus,
+  );
+
+/** @internal */
+export type SearchFilterEdgePrometheus$Outbound = {
+  Name: string;
+  Values: Array<string>;
+};
+
+/** @internal */
+export const SearchFilterEdgePrometheus$outboundSchema: z.ZodType<
+  SearchFilterEdgePrometheus$Outbound,
+  z.ZodTypeDef,
+  SearchFilterEdgePrometheus
+> = z.object({
+  name: z.string(),
+  values: z.array(z.string()),
+}).transform((v) => {
+  return remap$(v, {
+    name: "Name",
+    values: "Values",
+  });
+});
+
+export function searchFilterEdgePrometheusToJSON(
+  searchFilterEdgePrometheus: SearchFilterEdgePrometheus,
+): string {
+  return JSON.stringify(
+    SearchFilterEdgePrometheus$outboundSchema.parse(searchFilterEdgePrometheus),
+  );
+}
+
+/** @internal */
+export const SignatureVersionEdgePrometheus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SignatureVersionEdgePrometheus
+> = openEnums.outboundSchema(SignatureVersionEdgePrometheus);
 
 /** @internal */
 export type PodFilter$Outbound = {
@@ -13772,14 +30605,14 @@ export type InputEdgePrometheus$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionEdgePrometheus$Outbound> | undefined;
+  pq?: PqEdgePrometheus$Outbound | undefined;
   dimensionList?: Array<string> | undefined;
   discoveryType: string;
   interval: number;
   timeout: number;
-  persistence?: models.DiskSpoolingType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  persistence?: DiskSpoolingEdgePrometheus$Outbound | undefined;
+  metadata?: Array<MetadatumEdgePrometheus$Outbound> | undefined;
   authType: string;
   description?: string | undefined;
   targets?: Array<Target$Outbound> | undefined;
@@ -13792,7 +30625,7 @@ export type InputEdgePrometheus$Outbound = {
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   usePublicIp: boolean;
-  searchFilter?: Array<models.ItemsTypeSearchFilter$Outbound> | undefined;
+  searchFilter?: Array<SearchFilterEdgePrometheus$Outbound> | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
@@ -13826,37 +30659,39 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionEdgePrometheus$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqEdgePrometheus$outboundSchema).optional(),
   dimensionList: z.array(z.string()).optional(),
   discoveryType: DiscoveryTypeEdgePrometheus$outboundSchema.default("static"),
   interval: z.number().default(15),
   timeout: z.number().default(5000),
-  persistence: models.DiskSpoolingType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  persistence: z.lazy(() => DiskSpoolingEdgePrometheus$outboundSchema)
     .optional(),
-  authType: AuthenticationMethodEdgePrometheus$outboundSchema.default("manual"),
+  metadata: z.array(z.lazy(() => MetadatumEdgePrometheus$outboundSchema))
+    .optional(),
+  authType: AuthTypeAuthenticationMethodEdgePrometheus$outboundSchema.default(
+    "manual",
+  ),
   description: z.string().optional(),
   targets: z.array(z.lazy(() => Target$outboundSchema)).optional(),
-  recordType: models.RecordTypeOptions$outboundSchema.default("SRV"),
+  recordType: RecordTypeEdgePrometheus$outboundSchema.default("SRV"),
   scrapePort: z.number().default(9090),
   nameList: z.array(z.string()).optional(),
-  scrapeProtocol: models.ProtocolOptionsTargetsItems$outboundSchema.default(
-    "http",
-  ),
+  scrapeProtocol: ScrapeProtocolProtocol$outboundSchema.default("http"),
   scrapePath: z.string().default("/metrics"),
-  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
-    .default("auto"),
+  awsAuthenticationMethod:
+    AwsAuthenticationMethodAuthenticationMethodEdgePrometheus$outboundSchema
+      .default("auto"),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   usePublicIp: z.boolean().default(true),
-  searchFilter: z.array(models.ItemsTypeSearchFilter$outboundSchema).optional(),
+  searchFilter: z.array(z.lazy(() => SearchFilterEdgePrometheus$outboundSchema))
+    .optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions2$outboundSchema.default(
-    "v4",
-  ),
+  signatureVersion: SignatureVersionEdgePrometheus$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -13887,6 +30722,97 @@ export function inputEdgePrometheusToJSON(
 }
 
 /** @internal */
+export type ConnectionPrometheus$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionPrometheus$outboundSchema: z.ZodType<
+  ConnectionPrometheus$Outbound,
+  z.ZodTypeDef,
+  ConnectionPrometheus
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionPrometheusToJSON(
+  connectionPrometheus: ConnectionPrometheus,
+): string {
+  return JSON.stringify(
+    ConnectionPrometheus$outboundSchema.parse(connectionPrometheus),
+  );
+}
+
+/** @internal */
+export const PqModePrometheus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqModePrometheus
+> = openEnums.outboundSchema(PqModePrometheus);
+
+/** @internal */
+export const PqCompressionPrometheus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionPrometheus
+> = openEnums.outboundSchema(PqCompressionPrometheus);
+
+/** @internal */
+export type CreateInputPqControlsPrometheus$Outbound = {};
+
+/** @internal */
+export const CreateInputPqControlsPrometheus$outboundSchema: z.ZodType<
+  CreateInputPqControlsPrometheus$Outbound,
+  z.ZodTypeDef,
+  CreateInputPqControlsPrometheus
+> = z.object({});
+
+export function createInputPqControlsPrometheusToJSON(
+  createInputPqControlsPrometheus: CreateInputPqControlsPrometheus,
+): string {
+  return JSON.stringify(
+    CreateInputPqControlsPrometheus$outboundSchema.parse(
+      createInputPqControlsPrometheus,
+    ),
+  );
+}
+
+/** @internal */
+export type PqPrometheus$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: CreateInputPqControlsPrometheus$Outbound | undefined;
+};
+
+/** @internal */
+export const PqPrometheus$outboundSchema: z.ZodType<
+  PqPrometheus$Outbound,
+  z.ZodTypeDef,
+  PqPrometheus
+> = z.object({
+  mode: PqModePrometheus$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionPrometheus$outboundSchema.default("none"),
+  pqControls: z.lazy(() => CreateInputPqControlsPrometheus$outboundSchema)
+    .optional(),
+});
+
+export function pqPrometheusToJSON(pqPrometheus: PqPrometheus): string {
+  return JSON.stringify(PqPrometheus$outboundSchema.parse(pqPrometheus));
+}
+
+/** @internal */
 export const DiscoveryTypePrometheus$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
@@ -13901,11 +30827,95 @@ export const LogLevelPrometheus$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(LogLevelPrometheus);
 
 /** @internal */
+export type MetadatumPrometheus$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumPrometheus$outboundSchema: z.ZodType<
+  MetadatumPrometheus$Outbound,
+  z.ZodTypeDef,
+  MetadatumPrometheus
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumPrometheusToJSON(
+  metadatumPrometheus: MetadatumPrometheus,
+): string {
+  return JSON.stringify(
+    MetadatumPrometheus$outboundSchema.parse(metadatumPrometheus),
+  );
+}
+
+/** @internal */
+export const AuthTypeAuthenticationMethodPrometheus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthTypeAuthenticationMethodPrometheus
+> = openEnums.outboundSchema(AuthTypeAuthenticationMethodPrometheus);
+
+/** @internal */
+export const RecordTypePrometheus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RecordTypePrometheus
+> = openEnums.outboundSchema(RecordTypePrometheus);
+
+/** @internal */
 export const MetricsProtocol$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   MetricsProtocol
 > = openEnums.outboundSchema(MetricsProtocol);
+
+/** @internal */
+export const AwsAuthenticationMethodAuthenticationMethodPrometheus$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    AwsAuthenticationMethodAuthenticationMethodPrometheus
+  > = openEnums.outboundSchema(
+    AwsAuthenticationMethodAuthenticationMethodPrometheus,
+  );
+
+/** @internal */
+export type SearchFilterPrometheus$Outbound = {
+  Name: string;
+  Values: Array<string>;
+};
+
+/** @internal */
+export const SearchFilterPrometheus$outboundSchema: z.ZodType<
+  SearchFilterPrometheus$Outbound,
+  z.ZodTypeDef,
+  SearchFilterPrometheus
+> = z.object({
+  name: z.string(),
+  values: z.array(z.string()),
+}).transform((v) => {
+  return remap$(v, {
+    name: "Name",
+    values: "Values",
+  });
+});
+
+export function searchFilterPrometheusToJSON(
+  searchFilterPrometheus: SearchFilterPrometheus,
+): string {
+  return JSON.stringify(
+    SearchFilterPrometheus$outboundSchema.parse(searchFilterPrometheus),
+  );
+}
+
+/** @internal */
+export const SignatureVersionPrometheus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SignatureVersionPrometheus
+> = openEnums.outboundSchema(SignatureVersionPrometheus);
 
 /** @internal */
 export type InputPrometheus$Outbound = {
@@ -13917,8 +30927,8 @@ export type InputPrometheus$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionPrometheus$Outbound> | undefined;
+  pq?: PqPrometheus$Outbound | undefined;
   dimensionList?: Array<string> | undefined;
   discoveryType: string;
   interval: number;
@@ -13930,7 +30940,7 @@ export type InputPrometheus$Outbound = {
   maxMissedKeepAlives: number;
   ttl: string;
   ignoreGroupJobsLimit: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumPrometheus$Outbound> | undefined;
   authType: string;
   description?: string | undefined;
   targetList?: Array<string> | undefined;
@@ -13943,7 +30953,7 @@ export type InputPrometheus$Outbound = {
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   usePublicIp: boolean;
-  searchFilter?: Array<models.ItemsTypeSearchFilter$Outbound> | undefined;
+  searchFilter?: Array<SearchFilterPrometheus$Outbound> | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
@@ -13972,8 +30982,9 @@ export const InputPrometheus$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionPrometheus$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqPrometheus$outboundSchema).optional(),
   dimensionList: z.array(z.string()).optional(),
   discoveryType: DiscoveryTypePrometheus$outboundSchema.default("static"),
   interval: z.number().default(15),
@@ -13985,30 +30996,30 @@ export const InputPrometheus$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().default(3),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumPrometheus$outboundSchema))
     .optional(),
-  authType: models.AuthenticationMethodOptionsSasl$outboundSchema.default(
+  authType: AuthTypeAuthenticationMethodPrometheus$outboundSchema.default(
     "manual",
   ),
   description: z.string().optional(),
   targetList: z.array(z.string()).optional(),
-  recordType: models.RecordTypeOptions$outboundSchema.default("SRV"),
+  recordType: RecordTypePrometheus$outboundSchema.default("SRV"),
   scrapePort: z.number().default(9090),
   nameList: z.array(z.string()).optional(),
   scrapeProtocol: MetricsProtocol$outboundSchema.default("http"),
   scrapePath: z.string().default("/metrics"),
-  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
-    .default("auto"),
+  awsAuthenticationMethod:
+    AwsAuthenticationMethodAuthenticationMethodPrometheus$outboundSchema
+      .default("auto"),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   usePublicIp: z.boolean().default(true),
-  searchFilter: z.array(models.ItemsTypeSearchFilter$outboundSchema).optional(),
+  searchFilter: z.array(z.lazy(() => SearchFilterPrometheus$outboundSchema))
+    .optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions2$outboundSchema.default(
-    "v4",
-  ),
+  signatureVersion: SignatureVersionPrometheus$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
@@ -14026,6 +31037,231 @@ export function inputPrometheusToJSON(
 }
 
 /** @internal */
+export type ConnectionPrometheusRw$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionPrometheusRw$outboundSchema: z.ZodType<
+  ConnectionPrometheusRw$Outbound,
+  z.ZodTypeDef,
+  ConnectionPrometheusRw
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionPrometheusRwToJSON(
+  connectionPrometheusRw: ConnectionPrometheusRw,
+): string {
+  return JSON.stringify(
+    ConnectionPrometheusRw$outboundSchema.parse(connectionPrometheusRw),
+  );
+}
+
+/** @internal */
+export const ModePrometheusRw$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModePrometheusRw
+> = openEnums.outboundSchema(ModePrometheusRw);
+
+/** @internal */
+export const CompressionPrometheusRw$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionPrometheusRw
+> = openEnums.outboundSchema(CompressionPrometheusRw);
+
+/** @internal */
+export type PqControlsPrometheusRw$Outbound = {};
+
+/** @internal */
+export const PqControlsPrometheusRw$outboundSchema: z.ZodType<
+  PqControlsPrometheusRw$Outbound,
+  z.ZodTypeDef,
+  PqControlsPrometheusRw
+> = z.object({});
+
+export function pqControlsPrometheusRwToJSON(
+  pqControlsPrometheusRw: PqControlsPrometheusRw,
+): string {
+  return JSON.stringify(
+    PqControlsPrometheusRw$outboundSchema.parse(pqControlsPrometheusRw),
+  );
+}
+
+/** @internal */
+export type PqPrometheusRw$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsPrometheusRw$Outbound | undefined;
+};
+
+/** @internal */
+export const PqPrometheusRw$outboundSchema: z.ZodType<
+  PqPrometheusRw$Outbound,
+  z.ZodTypeDef,
+  PqPrometheusRw
+> = z.object({
+  mode: ModePrometheusRw$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionPrometheusRw$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsPrometheusRw$outboundSchema).optional(),
+});
+
+export function pqPrometheusRwToJSON(pqPrometheusRw: PqPrometheusRw): string {
+  return JSON.stringify(PqPrometheusRw$outboundSchema.parse(pqPrometheusRw));
+}
+
+/** @internal */
+export const MinimumTLSVersionPrometheusRw$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MinimumTLSVersionPrometheusRw
+> = openEnums.outboundSchema(MinimumTLSVersionPrometheusRw);
+
+/** @internal */
+export const MaximumTLSVersionPrometheusRw$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaximumTLSVersionPrometheusRw
+> = openEnums.outboundSchema(MaximumTLSVersionPrometheusRw);
+
+/** @internal */
+export type TLSSettingsServerSidePrometheusRw$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSidePrometheusRw$outboundSchema: z.ZodType<
+  TLSSettingsServerSidePrometheusRw$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSidePrometheusRw
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: MinimumTLSVersionPrometheusRw$outboundSchema.optional(),
+  maxVersion: MaximumTLSVersionPrometheusRw$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSidePrometheusRwToJSON(
+  tlsSettingsServerSidePrometheusRw: TLSSettingsServerSidePrometheusRw,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSidePrometheusRw$outboundSchema.parse(
+      tlsSettingsServerSidePrometheusRw,
+    ),
+  );
+}
+
+/** @internal */
+export const AuthenticationTypePrometheusRw$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationTypePrometheusRw
+> = openEnums.outboundSchema(AuthenticationTypePrometheusRw);
+
+/** @internal */
+export type MetadatumPrometheusRw$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumPrometheusRw$outboundSchema: z.ZodType<
+  MetadatumPrometheusRw$Outbound,
+  z.ZodTypeDef,
+  MetadatumPrometheusRw
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumPrometheusRwToJSON(
+  metadatumPrometheusRw: MetadatumPrometheusRw,
+): string {
+  return JSON.stringify(
+    MetadatumPrometheusRw$outboundSchema.parse(metadatumPrometheusRw),
+  );
+}
+
+/** @internal */
+export type OauthParamPrometheusRw$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const OauthParamPrometheusRw$outboundSchema: z.ZodType<
+  OauthParamPrometheusRw$Outbound,
+  z.ZodTypeDef,
+  OauthParamPrometheusRw
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function oauthParamPrometheusRwToJSON(
+  oauthParamPrometheusRw: OauthParamPrometheusRw,
+): string {
+  return JSON.stringify(
+    OauthParamPrometheusRw$outboundSchema.parse(oauthParamPrometheusRw),
+  );
+}
+
+/** @internal */
+export type OauthHeaderPrometheusRw$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const OauthHeaderPrometheusRw$outboundSchema: z.ZodType<
+  OauthHeaderPrometheusRw$Outbound,
+  z.ZodTypeDef,
+  OauthHeaderPrometheusRw
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function oauthHeaderPrometheusRwToJSON(
+  oauthHeaderPrometheusRw: OauthHeaderPrometheusRw,
+): string {
+  return JSON.stringify(
+    OauthHeaderPrometheusRw$outboundSchema.parse(oauthHeaderPrometheusRw),
+  );
+}
+
+/** @internal */
 export type InputPrometheusRw$Outbound = {
   id: string;
   type: "prometheus_rw";
@@ -14035,11 +31271,11 @@ export type InputPrometheusRw$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionPrometheusRw$Outbound> | undefined;
+  pq?: PqPrometheusRw$Outbound | undefined;
   host: string;
   port: number;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSidePrometheusRw$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -14053,7 +31289,7 @@ export type InputPrometheusRw$Outbound = {
   ipDenylistRegex: string;
   prometheusAPI: string;
   authType: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumPrometheusRw$Outbound> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -14066,8 +31302,8 @@ export type InputPrometheusRw$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr: string;
   tokenTimeoutSecs: number;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  oauthParams?: Array<OauthParamPrometheusRw$Outbound> | undefined;
+  oauthHeaders?: Array<OauthHeaderPrometheusRw$Outbound> | undefined;
 };
 
 /** @internal */
@@ -14084,11 +31320,13 @@ export const InputPrometheusRw$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionPrometheusRw$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqPrometheusRw$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSidePrometheusRw$outboundSchema)
+    .optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -14101,9 +31339,8 @@ export const InputPrometheusRw$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/write"),
-  authType: models.AuthenticationTypeOptionsPrometheusAuth$outboundSchema
-    .default("none"),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  authType: AuthenticationTypePrometheusRw$outboundSchema.default("none"),
+  metadata: z.array(z.lazy(() => MetadatumPrometheusRw$outboundSchema))
     .optional(),
   description: z.string().optional(),
   username: z.string().optional(),
@@ -14117,8 +31354,10 @@ export const InputPrometheusRw$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  oauthParams: z.array(z.lazy(() => OauthParamPrometheusRw$outboundSchema))
+    .optional(),
+  oauthHeaders: z.array(z.lazy(() => OauthHeaderPrometheusRw$outboundSchema))
+    .optional(),
 });
 
 export function inputPrometheusRwToJSON(
@@ -14127,6 +31366,215 @@ export function inputPrometheusRwToJSON(
   return JSON.stringify(
     InputPrometheusRw$outboundSchema.parse(inputPrometheusRw),
   );
+}
+
+/** @internal */
+export type ConnectionLoki$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionLoki$outboundSchema: z.ZodType<
+  ConnectionLoki$Outbound,
+  z.ZodTypeDef,
+  ConnectionLoki
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionLokiToJSON(connectionLoki: ConnectionLoki): string {
+  return JSON.stringify(ConnectionLoki$outboundSchema.parse(connectionLoki));
+}
+
+/** @internal */
+export const PqModeLoki$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqModeLoki
+> = openEnums.outboundSchema(PqModeLoki);
+
+/** @internal */
+export const PqCompressionLoki$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionLoki
+> = openEnums.outboundSchema(PqCompressionLoki);
+
+/** @internal */
+export type CreateInputPqControlsLoki$Outbound = {};
+
+/** @internal */
+export const CreateInputPqControlsLoki$outboundSchema: z.ZodType<
+  CreateInputPqControlsLoki$Outbound,
+  z.ZodTypeDef,
+  CreateInputPqControlsLoki
+> = z.object({});
+
+export function createInputPqControlsLokiToJSON(
+  createInputPqControlsLoki: CreateInputPqControlsLoki,
+): string {
+  return JSON.stringify(
+    CreateInputPqControlsLoki$outboundSchema.parse(createInputPqControlsLoki),
+  );
+}
+
+/** @internal */
+export type PqLoki$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: CreateInputPqControlsLoki$Outbound | undefined;
+};
+
+/** @internal */
+export const PqLoki$outboundSchema: z.ZodType<
+  PqLoki$Outbound,
+  z.ZodTypeDef,
+  PqLoki
+> = z.object({
+  mode: PqModeLoki$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionLoki$outboundSchema.default("none"),
+  pqControls: z.lazy(() => CreateInputPqControlsLoki$outboundSchema).optional(),
+});
+
+export function pqLokiToJSON(pqLoki: PqLoki): string {
+  return JSON.stringify(PqLoki$outboundSchema.parse(pqLoki));
+}
+
+/** @internal */
+export const MinimumTLSVersionLoki$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MinimumTLSVersionLoki
+> = openEnums.outboundSchema(MinimumTLSVersionLoki);
+
+/** @internal */
+export const MaximumTLSVersionLoki$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaximumTLSVersionLoki
+> = openEnums.outboundSchema(MaximumTLSVersionLoki);
+
+/** @internal */
+export type TLSSettingsServerSideLoki$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideLoki$outboundSchema: z.ZodType<
+  TLSSettingsServerSideLoki$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideLoki
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: MinimumTLSVersionLoki$outboundSchema.optional(),
+  maxVersion: MaximumTLSVersionLoki$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideLokiToJSON(
+  tlsSettingsServerSideLoki: TLSSettingsServerSideLoki,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideLoki$outboundSchema.parse(tlsSettingsServerSideLoki),
+  );
+}
+
+/** @internal */
+export const CreateInputAuthenticationTypeLoki$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputAuthenticationTypeLoki
+> = openEnums.outboundSchema(CreateInputAuthenticationTypeLoki);
+
+/** @internal */
+export type MetadatumLoki$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumLoki$outboundSchema: z.ZodType<
+  MetadatumLoki$Outbound,
+  z.ZodTypeDef,
+  MetadatumLoki
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumLokiToJSON(metadatumLoki: MetadatumLoki): string {
+  return JSON.stringify(MetadatumLoki$outboundSchema.parse(metadatumLoki));
+}
+
+/** @internal */
+export type OauthParamLoki$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const OauthParamLoki$outboundSchema: z.ZodType<
+  OauthParamLoki$Outbound,
+  z.ZodTypeDef,
+  OauthParamLoki
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function oauthParamLokiToJSON(oauthParamLoki: OauthParamLoki): string {
+  return JSON.stringify(OauthParamLoki$outboundSchema.parse(oauthParamLoki));
+}
+
+/** @internal */
+export type OauthHeaderLoki$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const OauthHeaderLoki$outboundSchema: z.ZodType<
+  OauthHeaderLoki$Outbound,
+  z.ZodTypeDef,
+  OauthHeaderLoki
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function oauthHeaderLokiToJSON(
+  oauthHeaderLoki: OauthHeaderLoki,
+): string {
+  return JSON.stringify(OauthHeaderLoki$outboundSchema.parse(oauthHeaderLoki));
 }
 
 /** @internal */
@@ -14139,11 +31587,11 @@ export type InputLoki$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionLoki$Outbound> | undefined;
+  pq?: PqLoki$Outbound | undefined;
   host: string;
   port: number;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideLoki$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -14157,7 +31605,7 @@ export type InputLoki$Outbound = {
   ipDenylistRegex: string;
   lokiAPI: string;
   authType: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumLoki$Outbound> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -14170,8 +31618,8 @@ export type InputLoki$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr: string;
   tokenTimeoutSecs: number;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  oauthParams?: Array<OauthParamLoki$Outbound> | undefined;
+  oauthHeaders?: Array<OauthHeaderLoki$Outbound> | undefined;
 };
 
 /** @internal */
@@ -14188,11 +31636,11 @@ export const InputLoki$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionLoki$outboundSchema)).optional(),
+  pq: z.lazy(() => PqLoki$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideLoki$outboundSchema).optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -14205,11 +31653,8 @@ export const InputLoki$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  authType: models.AuthenticationTypeOptionsLokiAuth$outboundSchema.default(
-    "none",
-  ),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  authType: CreateInputAuthenticationTypeLoki$outboundSchema.default("none"),
+  metadata: z.array(z.lazy(() => MetadatumLoki$outboundSchema)).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -14222,8 +31667,9 @@ export const InputLoki$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  oauthParams: z.array(z.lazy(() => OauthParamLoki$outboundSchema)).optional(),
+  oauthHeaders: z.array(z.lazy(() => OauthHeaderLoki$outboundSchema))
+    .optional(),
 });
 
 export function inputLokiToJSON(inputLoki: InputLoki): string {
@@ -14236,7 +31682,211 @@ export const InputGrafanaType2$outboundSchema: z.ZodNativeEnum<
 > = z.nativeEnum(InputGrafanaType2);
 
 /** @internal */
-export type PrometheusAuth2$Outbound = {
+export type InputGrafanaConnection2$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputGrafanaConnection2$outboundSchema: z.ZodType<
+  InputGrafanaConnection2$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaConnection2
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputGrafanaConnection2ToJSON(
+  inputGrafanaConnection2: InputGrafanaConnection2,
+): string {
+  return JSON.stringify(
+    InputGrafanaConnection2$outboundSchema.parse(inputGrafanaConnection2),
+  );
+}
+
+/** @internal */
+export const InputGrafanaMode2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaMode2
+> = openEnums.outboundSchema(InputGrafanaMode2);
+
+/** @internal */
+export const InputGrafanaCompression2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaCompression2
+> = openEnums.outboundSchema(InputGrafanaCompression2);
+
+/** @internal */
+export type InputGrafanaPqControls2$Outbound = {};
+
+/** @internal */
+export const InputGrafanaPqControls2$outboundSchema: z.ZodType<
+  InputGrafanaPqControls2$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaPqControls2
+> = z.object({});
+
+export function inputGrafanaPqControls2ToJSON(
+  inputGrafanaPqControls2: InputGrafanaPqControls2,
+): string {
+  return JSON.stringify(
+    InputGrafanaPqControls2$outboundSchema.parse(inputGrafanaPqControls2),
+  );
+}
+
+/** @internal */
+export type InputGrafanaPq2$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputGrafanaPqControls2$Outbound | undefined;
+};
+
+/** @internal */
+export const InputGrafanaPq2$outboundSchema: z.ZodType<
+  InputGrafanaPq2$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaPq2
+> = z.object({
+  mode: InputGrafanaMode2$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputGrafanaCompression2$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputGrafanaPqControls2$outboundSchema).optional(),
+});
+
+export function inputGrafanaPq2ToJSON(
+  inputGrafanaPq2: InputGrafanaPq2,
+): string {
+  return JSON.stringify(InputGrafanaPq2$outboundSchema.parse(inputGrafanaPq2));
+}
+
+/** @internal */
+export const InputGrafanaMinimumTLSVersion2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaMinimumTLSVersion2
+> = openEnums.outboundSchema(InputGrafanaMinimumTLSVersion2);
+
+/** @internal */
+export const InputGrafanaMaximumTLSVersion2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaMaximumTLSVersion2
+> = openEnums.outboundSchema(InputGrafanaMaximumTLSVersion2);
+
+/** @internal */
+export type InputGrafanaTLSSettingsServerSide2$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const InputGrafanaTLSSettingsServerSide2$outboundSchema: z.ZodType<
+  InputGrafanaTLSSettingsServerSide2$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaTLSSettingsServerSide2
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputGrafanaMinimumTLSVersion2$outboundSchema.optional(),
+  maxVersion: InputGrafanaMaximumTLSVersion2$outboundSchema.optional(),
+});
+
+export function inputGrafanaTLSSettingsServerSide2ToJSON(
+  inputGrafanaTLSSettingsServerSide2: InputGrafanaTLSSettingsServerSide2,
+): string {
+  return JSON.stringify(
+    InputGrafanaTLSSettingsServerSide2$outboundSchema.parse(
+      inputGrafanaTLSSettingsServerSide2,
+    ),
+  );
+}
+
+/** @internal */
+export const InputGrafanaPrometheusAuthAuthenticationType2$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    InputGrafanaPrometheusAuthAuthenticationType2
+  > = openEnums.outboundSchema(InputGrafanaPrometheusAuthAuthenticationType2);
+
+/** @internal */
+export type PrometheusAuthOauthParam2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const PrometheusAuthOauthParam2$outboundSchema: z.ZodType<
+  PrometheusAuthOauthParam2$Outbound,
+  z.ZodTypeDef,
+  PrometheusAuthOauthParam2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function prometheusAuthOauthParam2ToJSON(
+  prometheusAuthOauthParam2: PrometheusAuthOauthParam2,
+): string {
+  return JSON.stringify(
+    PrometheusAuthOauthParam2$outboundSchema.parse(prometheusAuthOauthParam2),
+  );
+}
+
+/** @internal */
+export type PrometheusAuthOauthHeader2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const PrometheusAuthOauthHeader2$outboundSchema: z.ZodType<
+  PrometheusAuthOauthHeader2$Outbound,
+  z.ZodTypeDef,
+  PrometheusAuthOauthHeader2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function prometheusAuthOauthHeader2ToJSON(
+  prometheusAuthOauthHeader2: PrometheusAuthOauthHeader2,
+): string {
+  return JSON.stringify(
+    PrometheusAuthOauthHeader2$outboundSchema.parse(prometheusAuthOauthHeader2),
+  );
+}
+
+/** @internal */
+export type CreateInputPrometheusAuth2$Outbound = {
   authType: string;
   username?: string | undefined;
   password?: string | undefined;
@@ -14249,17 +31899,17 @@ export type PrometheusAuth2$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr: string;
   tokenTimeoutSecs: number;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  oauthParams?: Array<PrometheusAuthOauthParam2$Outbound> | undefined;
+  oauthHeaders?: Array<PrometheusAuthOauthHeader2$Outbound> | undefined;
 };
 
 /** @internal */
-export const PrometheusAuth2$outboundSchema: z.ZodType<
-  PrometheusAuth2$Outbound,
+export const CreateInputPrometheusAuth2$outboundSchema: z.ZodType<
+  CreateInputPrometheusAuth2$Outbound,
   z.ZodTypeDef,
-  PrometheusAuth2
+  CreateInputPrometheusAuth2
 > = z.object({
-  authType: models.AuthenticationTypeOptionsPrometheusAuth$outboundSchema
+  authType: InputGrafanaPrometheusAuthAuthenticationType2$outboundSchema
     .default("none"),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -14272,18 +31922,77 @@ export const PrometheusAuth2$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  oauthParams: z.array(z.lazy(() => PrometheusAuthOauthParam2$outboundSchema))
+    .optional(),
+  oauthHeaders: z.array(z.lazy(() => PrometheusAuthOauthHeader2$outboundSchema))
+    .optional(),
 });
 
-export function prometheusAuth2ToJSON(
-  prometheusAuth2: PrometheusAuth2,
+export function createInputPrometheusAuth2ToJSON(
+  createInputPrometheusAuth2: CreateInputPrometheusAuth2,
 ): string {
-  return JSON.stringify(PrometheusAuth2$outboundSchema.parse(prometheusAuth2));
+  return JSON.stringify(
+    CreateInputPrometheusAuth2$outboundSchema.parse(createInputPrometheusAuth2),
+  );
 }
 
 /** @internal */
-export type LokiAuth2$Outbound = {
+export const InputGrafanaLokiAuthAuthenticationType2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaLokiAuthAuthenticationType2
+> = openEnums.outboundSchema(InputGrafanaLokiAuthAuthenticationType2);
+
+/** @internal */
+export type LokiAuthOauthParam2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const LokiAuthOauthParam2$outboundSchema: z.ZodType<
+  LokiAuthOauthParam2$Outbound,
+  z.ZodTypeDef,
+  LokiAuthOauthParam2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function lokiAuthOauthParam2ToJSON(
+  lokiAuthOauthParam2: LokiAuthOauthParam2,
+): string {
+  return JSON.stringify(
+    LokiAuthOauthParam2$outboundSchema.parse(lokiAuthOauthParam2),
+  );
+}
+
+/** @internal */
+export type LokiAuthOauthHeader2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const LokiAuthOauthHeader2$outboundSchema: z.ZodType<
+  LokiAuthOauthHeader2$Outbound,
+  z.ZodTypeDef,
+  LokiAuthOauthHeader2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function lokiAuthOauthHeader2ToJSON(
+  lokiAuthOauthHeader2: LokiAuthOauthHeader2,
+): string {
+  return JSON.stringify(
+    LokiAuthOauthHeader2$outboundSchema.parse(lokiAuthOauthHeader2),
+  );
+}
+
+/** @internal */
+export type CreateInputLokiAuth2$Outbound = {
   authType: string;
   username?: string | undefined;
   password?: string | undefined;
@@ -14296,17 +32005,17 @@ export type LokiAuth2$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr: string;
   tokenTimeoutSecs: number;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  oauthParams?: Array<LokiAuthOauthParam2$Outbound> | undefined;
+  oauthHeaders?: Array<LokiAuthOauthHeader2$Outbound> | undefined;
 };
 
 /** @internal */
-export const LokiAuth2$outboundSchema: z.ZodType<
-  LokiAuth2$Outbound,
+export const CreateInputLokiAuth2$outboundSchema: z.ZodType<
+  CreateInputLokiAuth2$Outbound,
   z.ZodTypeDef,
-  LokiAuth2
+  CreateInputLokiAuth2
 > = z.object({
-  authType: models.AuthenticationTypeOptionsLokiAuth$outboundSchema.default(
+  authType: InputGrafanaLokiAuthAuthenticationType2$outboundSchema.default(
     "none",
   ),
   username: z.string().optional(),
@@ -14320,12 +32029,42 @@ export const LokiAuth2$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  oauthParams: z.array(z.lazy(() => LokiAuthOauthParam2$outboundSchema))
+    .optional(),
+  oauthHeaders: z.array(z.lazy(() => LokiAuthOauthHeader2$outboundSchema))
+    .optional(),
 });
 
-export function lokiAuth2ToJSON(lokiAuth2: LokiAuth2): string {
-  return JSON.stringify(LokiAuth2$outboundSchema.parse(lokiAuth2));
+export function createInputLokiAuth2ToJSON(
+  createInputLokiAuth2: CreateInputLokiAuth2,
+): string {
+  return JSON.stringify(
+    CreateInputLokiAuth2$outboundSchema.parse(createInputLokiAuth2),
+  );
+}
+
+/** @internal */
+export type InputGrafanaMetadatum2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputGrafanaMetadatum2$outboundSchema: z.ZodType<
+  InputGrafanaMetadatum2$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaMetadatum2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputGrafanaMetadatum2ToJSON(
+  inputGrafanaMetadatum2: InputGrafanaMetadatum2,
+): string {
+  return JSON.stringify(
+    InputGrafanaMetadatum2$outboundSchema.parse(inputGrafanaMetadatum2),
+  );
 }
 
 /** @internal */
@@ -14338,11 +32077,11 @@ export type InputGrafanaGrafana2$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<InputGrafanaConnection2$Outbound> | undefined;
+  pq?: InputGrafanaPq2$Outbound | undefined;
   host: string;
   port: number;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: InputGrafanaTLSSettingsServerSide2$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -14356,9 +32095,9 @@ export type InputGrafanaGrafana2$Outbound = {
   ipDenylistRegex: string;
   prometheusAPI: string;
   lokiAPI: string;
-  prometheusAuth?: PrometheusAuth2$Outbound | undefined;
-  lokiAuth?: LokiAuth2$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  prometheusAuth?: CreateInputPrometheusAuth2$Outbound | undefined;
+  lokiAuth?: CreateInputLokiAuth2$Outbound | undefined;
+  metadata?: Array<InputGrafanaMetadatum2$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -14376,11 +32115,13 @@ export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputGrafanaConnection2$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputGrafanaPq2$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => InputGrafanaTLSSettingsServerSide2$outboundSchema)
+    .optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -14394,9 +32135,10 @@ export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  prometheusAuth: z.lazy(() => PrometheusAuth2$outboundSchema).optional(),
-  lokiAuth: z.lazy(() => LokiAuth2$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  prometheusAuth: z.lazy(() => CreateInputPrometheusAuth2$outboundSchema)
+    .optional(),
+  lokiAuth: z.lazy(() => CreateInputLokiAuth2$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputGrafanaMetadatum2$outboundSchema))
     .optional(),
   description: z.string().optional(),
 });
@@ -14415,7 +32157,211 @@ export const InputGrafanaType1$outboundSchema: z.ZodNativeEnum<
 > = z.nativeEnum(InputGrafanaType1);
 
 /** @internal */
-export type PrometheusAuth1$Outbound = {
+export type InputGrafanaConnection1$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputGrafanaConnection1$outboundSchema: z.ZodType<
+  InputGrafanaConnection1$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaConnection1
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputGrafanaConnection1ToJSON(
+  inputGrafanaConnection1: InputGrafanaConnection1,
+): string {
+  return JSON.stringify(
+    InputGrafanaConnection1$outboundSchema.parse(inputGrafanaConnection1),
+  );
+}
+
+/** @internal */
+export const InputGrafanaMode1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaMode1
+> = openEnums.outboundSchema(InputGrafanaMode1);
+
+/** @internal */
+export const InputGrafanaCompression1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaCompression1
+> = openEnums.outboundSchema(InputGrafanaCompression1);
+
+/** @internal */
+export type InputGrafanaPqControls1$Outbound = {};
+
+/** @internal */
+export const InputGrafanaPqControls1$outboundSchema: z.ZodType<
+  InputGrafanaPqControls1$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaPqControls1
+> = z.object({});
+
+export function inputGrafanaPqControls1ToJSON(
+  inputGrafanaPqControls1: InputGrafanaPqControls1,
+): string {
+  return JSON.stringify(
+    InputGrafanaPqControls1$outboundSchema.parse(inputGrafanaPqControls1),
+  );
+}
+
+/** @internal */
+export type InputGrafanaPq1$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputGrafanaPqControls1$Outbound | undefined;
+};
+
+/** @internal */
+export const InputGrafanaPq1$outboundSchema: z.ZodType<
+  InputGrafanaPq1$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaPq1
+> = z.object({
+  mode: InputGrafanaMode1$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputGrafanaCompression1$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputGrafanaPqControls1$outboundSchema).optional(),
+});
+
+export function inputGrafanaPq1ToJSON(
+  inputGrafanaPq1: InputGrafanaPq1,
+): string {
+  return JSON.stringify(InputGrafanaPq1$outboundSchema.parse(inputGrafanaPq1));
+}
+
+/** @internal */
+export const InputGrafanaMinimumTLSVersion1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaMinimumTLSVersion1
+> = openEnums.outboundSchema(InputGrafanaMinimumTLSVersion1);
+
+/** @internal */
+export const InputGrafanaMaximumTLSVersion1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaMaximumTLSVersion1
+> = openEnums.outboundSchema(InputGrafanaMaximumTLSVersion1);
+
+/** @internal */
+export type InputGrafanaTLSSettingsServerSide1$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const InputGrafanaTLSSettingsServerSide1$outboundSchema: z.ZodType<
+  InputGrafanaTLSSettingsServerSide1$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaTLSSettingsServerSide1
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputGrafanaMinimumTLSVersion1$outboundSchema.optional(),
+  maxVersion: InputGrafanaMaximumTLSVersion1$outboundSchema.optional(),
+});
+
+export function inputGrafanaTLSSettingsServerSide1ToJSON(
+  inputGrafanaTLSSettingsServerSide1: InputGrafanaTLSSettingsServerSide1,
+): string {
+  return JSON.stringify(
+    InputGrafanaTLSSettingsServerSide1$outboundSchema.parse(
+      inputGrafanaTLSSettingsServerSide1,
+    ),
+  );
+}
+
+/** @internal */
+export const InputGrafanaPrometheusAuthAuthenticationType1$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    InputGrafanaPrometheusAuthAuthenticationType1
+  > = openEnums.outboundSchema(InputGrafanaPrometheusAuthAuthenticationType1);
+
+/** @internal */
+export type PrometheusAuthOauthParam1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const PrometheusAuthOauthParam1$outboundSchema: z.ZodType<
+  PrometheusAuthOauthParam1$Outbound,
+  z.ZodTypeDef,
+  PrometheusAuthOauthParam1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function prometheusAuthOauthParam1ToJSON(
+  prometheusAuthOauthParam1: PrometheusAuthOauthParam1,
+): string {
+  return JSON.stringify(
+    PrometheusAuthOauthParam1$outboundSchema.parse(prometheusAuthOauthParam1),
+  );
+}
+
+/** @internal */
+export type PrometheusAuthOauthHeader1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const PrometheusAuthOauthHeader1$outboundSchema: z.ZodType<
+  PrometheusAuthOauthHeader1$Outbound,
+  z.ZodTypeDef,
+  PrometheusAuthOauthHeader1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function prometheusAuthOauthHeader1ToJSON(
+  prometheusAuthOauthHeader1: PrometheusAuthOauthHeader1,
+): string {
+  return JSON.stringify(
+    PrometheusAuthOauthHeader1$outboundSchema.parse(prometheusAuthOauthHeader1),
+  );
+}
+
+/** @internal */
+export type CreateInputPrometheusAuth1$Outbound = {
   authType: string;
   username?: string | undefined;
   password?: string | undefined;
@@ -14428,17 +32374,17 @@ export type PrometheusAuth1$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr: string;
   tokenTimeoutSecs: number;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  oauthParams?: Array<PrometheusAuthOauthParam1$Outbound> | undefined;
+  oauthHeaders?: Array<PrometheusAuthOauthHeader1$Outbound> | undefined;
 };
 
 /** @internal */
-export const PrometheusAuth1$outboundSchema: z.ZodType<
-  PrometheusAuth1$Outbound,
+export const CreateInputPrometheusAuth1$outboundSchema: z.ZodType<
+  CreateInputPrometheusAuth1$Outbound,
   z.ZodTypeDef,
-  PrometheusAuth1
+  CreateInputPrometheusAuth1
 > = z.object({
-  authType: models.AuthenticationTypeOptionsPrometheusAuth$outboundSchema
+  authType: InputGrafanaPrometheusAuthAuthenticationType1$outboundSchema
     .default("none"),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -14451,18 +32397,77 @@ export const PrometheusAuth1$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  oauthParams: z.array(z.lazy(() => PrometheusAuthOauthParam1$outboundSchema))
+    .optional(),
+  oauthHeaders: z.array(z.lazy(() => PrometheusAuthOauthHeader1$outboundSchema))
+    .optional(),
 });
 
-export function prometheusAuth1ToJSON(
-  prometheusAuth1: PrometheusAuth1,
+export function createInputPrometheusAuth1ToJSON(
+  createInputPrometheusAuth1: CreateInputPrometheusAuth1,
 ): string {
-  return JSON.stringify(PrometheusAuth1$outboundSchema.parse(prometheusAuth1));
+  return JSON.stringify(
+    CreateInputPrometheusAuth1$outboundSchema.parse(createInputPrometheusAuth1),
+  );
 }
 
 /** @internal */
-export type LokiAuth1$Outbound = {
+export const InputGrafanaLokiAuthAuthenticationType1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaLokiAuthAuthenticationType1
+> = openEnums.outboundSchema(InputGrafanaLokiAuthAuthenticationType1);
+
+/** @internal */
+export type LokiAuthOauthParam1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const LokiAuthOauthParam1$outboundSchema: z.ZodType<
+  LokiAuthOauthParam1$Outbound,
+  z.ZodTypeDef,
+  LokiAuthOauthParam1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function lokiAuthOauthParam1ToJSON(
+  lokiAuthOauthParam1: LokiAuthOauthParam1,
+): string {
+  return JSON.stringify(
+    LokiAuthOauthParam1$outboundSchema.parse(lokiAuthOauthParam1),
+  );
+}
+
+/** @internal */
+export type LokiAuthOauthHeader1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const LokiAuthOauthHeader1$outboundSchema: z.ZodType<
+  LokiAuthOauthHeader1$Outbound,
+  z.ZodTypeDef,
+  LokiAuthOauthHeader1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function lokiAuthOauthHeader1ToJSON(
+  lokiAuthOauthHeader1: LokiAuthOauthHeader1,
+): string {
+  return JSON.stringify(
+    LokiAuthOauthHeader1$outboundSchema.parse(lokiAuthOauthHeader1),
+  );
+}
+
+/** @internal */
+export type CreateInputLokiAuth1$Outbound = {
   authType: string;
   username?: string | undefined;
   password?: string | undefined;
@@ -14475,17 +32480,17 @@ export type LokiAuth1$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr: string;
   tokenTimeoutSecs: number;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  oauthParams?: Array<LokiAuthOauthParam1$Outbound> | undefined;
+  oauthHeaders?: Array<LokiAuthOauthHeader1$Outbound> | undefined;
 };
 
 /** @internal */
-export const LokiAuth1$outboundSchema: z.ZodType<
-  LokiAuth1$Outbound,
+export const CreateInputLokiAuth1$outboundSchema: z.ZodType<
+  CreateInputLokiAuth1$Outbound,
   z.ZodTypeDef,
-  LokiAuth1
+  CreateInputLokiAuth1
 > = z.object({
-  authType: models.AuthenticationTypeOptionsLokiAuth$outboundSchema.default(
+  authType: InputGrafanaLokiAuthAuthenticationType1$outboundSchema.default(
     "none",
   ),
   username: z.string().optional(),
@@ -14499,12 +32504,42 @@ export const LokiAuth1$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  oauthParams: z.array(z.lazy(() => LokiAuthOauthParam1$outboundSchema))
+    .optional(),
+  oauthHeaders: z.array(z.lazy(() => LokiAuthOauthHeader1$outboundSchema))
+    .optional(),
 });
 
-export function lokiAuth1ToJSON(lokiAuth1: LokiAuth1): string {
-  return JSON.stringify(LokiAuth1$outboundSchema.parse(lokiAuth1));
+export function createInputLokiAuth1ToJSON(
+  createInputLokiAuth1: CreateInputLokiAuth1,
+): string {
+  return JSON.stringify(
+    CreateInputLokiAuth1$outboundSchema.parse(createInputLokiAuth1),
+  );
+}
+
+/** @internal */
+export type InputGrafanaMetadatum1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputGrafanaMetadatum1$outboundSchema: z.ZodType<
+  InputGrafanaMetadatum1$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaMetadatum1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputGrafanaMetadatum1ToJSON(
+  inputGrafanaMetadatum1: InputGrafanaMetadatum1,
+): string {
+  return JSON.stringify(
+    InputGrafanaMetadatum1$outboundSchema.parse(inputGrafanaMetadatum1),
+  );
 }
 
 /** @internal */
@@ -14517,11 +32552,11 @@ export type InputGrafanaGrafana1$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<InputGrafanaConnection1$Outbound> | undefined;
+  pq?: InputGrafanaPq1$Outbound | undefined;
   host: string;
   port: number;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: InputGrafanaTLSSettingsServerSide1$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -14535,9 +32570,9 @@ export type InputGrafanaGrafana1$Outbound = {
   ipDenylistRegex: string;
   prometheusAPI: string;
   lokiAPI: string;
-  prometheusAuth?: PrometheusAuth1$Outbound | undefined;
-  lokiAuth?: LokiAuth1$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  prometheusAuth?: CreateInputPrometheusAuth1$Outbound | undefined;
+  lokiAuth?: CreateInputLokiAuth1$Outbound | undefined;
+  metadata?: Array<InputGrafanaMetadatum1$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -14555,11 +32590,13 @@ export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputGrafanaConnection1$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputGrafanaPq1$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => InputGrafanaTLSSettingsServerSide1$outboundSchema)
+    .optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -14573,9 +32610,10 @@ export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  prometheusAuth: z.lazy(() => PrometheusAuth1$outboundSchema).optional(),
-  lokiAuth: z.lazy(() => LokiAuth1$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  prometheusAuth: z.lazy(() => CreateInputPrometheusAuth1$outboundSchema)
+    .optional(),
+  lokiAuth: z.lazy(() => CreateInputLokiAuth1$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputGrafanaMetadatum1$outboundSchema))
     .optional(),
   description: z.string().optional(),
 });
@@ -14608,6 +32646,449 @@ export function inputGrafanaToJSON(inputGrafana: InputGrafana): string {
 }
 
 /** @internal */
+export type ConnectionConfluentCloud$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionConfluentCloud$outboundSchema: z.ZodType<
+  ConnectionConfluentCloud$Outbound,
+  z.ZodTypeDef,
+  ConnectionConfluentCloud
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionConfluentCloudToJSON(
+  connectionConfluentCloud: ConnectionConfluentCloud,
+): string {
+  return JSON.stringify(
+    ConnectionConfluentCloud$outboundSchema.parse(connectionConfluentCloud),
+  );
+}
+
+/** @internal */
+export const PqModeConfluentCloud$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqModeConfluentCloud
+> = openEnums.outboundSchema(PqModeConfluentCloud);
+
+/** @internal */
+export const PqCompressionConfluentCloud$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionConfluentCloud
+> = openEnums.outboundSchema(PqCompressionConfluentCloud);
+
+/** @internal */
+export type CreateInputPqControlsConfluentCloud$Outbound = {};
+
+/** @internal */
+export const CreateInputPqControlsConfluentCloud$outboundSchema: z.ZodType<
+  CreateInputPqControlsConfluentCloud$Outbound,
+  z.ZodTypeDef,
+  CreateInputPqControlsConfluentCloud
+> = z.object({});
+
+export function createInputPqControlsConfluentCloudToJSON(
+  createInputPqControlsConfluentCloud: CreateInputPqControlsConfluentCloud,
+): string {
+  return JSON.stringify(
+    CreateInputPqControlsConfluentCloud$outboundSchema.parse(
+      createInputPqControlsConfluentCloud,
+    ),
+  );
+}
+
+/** @internal */
+export type PqConfluentCloud$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: CreateInputPqControlsConfluentCloud$Outbound | undefined;
+};
+
+/** @internal */
+export const PqConfluentCloud$outboundSchema: z.ZodType<
+  PqConfluentCloud$Outbound,
+  z.ZodTypeDef,
+  PqConfluentCloud
+> = z.object({
+  mode: PqModeConfluentCloud$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionConfluentCloud$outboundSchema.default("none"),
+  pqControls: z.lazy(() => CreateInputPqControlsConfluentCloud$outboundSchema)
+    .optional(),
+});
+
+export function pqConfluentCloudToJSON(
+  pqConfluentCloud: PqConfluentCloud,
+): string {
+  return JSON.stringify(
+    PqConfluentCloud$outboundSchema.parse(pqConfluentCloud),
+  );
+}
+
+/** @internal */
+export const CreateInputMinimumTLSVersionConfluentCloud$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateInputMinimumTLSVersionConfluentCloud> =
+    openEnums.outboundSchema(CreateInputMinimumTLSVersionConfluentCloud);
+
+/** @internal */
+export const CreateInputMaximumTLSVersionConfluentCloud$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateInputMaximumTLSVersionConfluentCloud> =
+    openEnums.outboundSchema(CreateInputMaximumTLSVersionConfluentCloud);
+
+/** @internal */
+export type CreateInputTLSSettingsClientSideConfluentCloud$Outbound = {
+  disabled: boolean;
+  rejectUnauthorized: boolean;
+  servername?: string | undefined;
+  certificateName?: string | undefined;
+  caPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  certPath?: string | undefined;
+  passphrase?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputTLSSettingsClientSideConfluentCloud$outboundSchema:
+  z.ZodType<
+    CreateInputTLSSettingsClientSideConfluentCloud$Outbound,
+    z.ZodTypeDef,
+    CreateInputTLSSettingsClientSideConfluentCloud
+  > = z.object({
+    disabled: z.boolean().default(false),
+    rejectUnauthorized: z.boolean().default(true),
+    servername: z.string().optional(),
+    certificateName: z.string().optional(),
+    caPath: z.string().optional(),
+    privKeyPath: z.string().optional(),
+    certPath: z.string().optional(),
+    passphrase: z.string().optional(),
+    minVersion: CreateInputMinimumTLSVersionConfluentCloud$outboundSchema
+      .optional(),
+    maxVersion: CreateInputMaximumTLSVersionConfluentCloud$outboundSchema
+      .optional(),
+  });
+
+export function createInputTLSSettingsClientSideConfluentCloudToJSON(
+  createInputTLSSettingsClientSideConfluentCloud:
+    CreateInputTLSSettingsClientSideConfluentCloud,
+): string {
+  return JSON.stringify(
+    CreateInputTLSSettingsClientSideConfluentCloud$outboundSchema.parse(
+      createInputTLSSettingsClientSideConfluentCloud,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputAuthConfluentCloud$Outbound = {
+  disabled: boolean;
+  credentialsSecret?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputAuthConfluentCloud$outboundSchema: z.ZodType<
+  CreateInputAuthConfluentCloud$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuthConfluentCloud
+> = z.object({
+  disabled: z.boolean().default(true),
+  credentialsSecret: z.string().optional(),
+});
+
+export function createInputAuthConfluentCloudToJSON(
+  createInputAuthConfluentCloud: CreateInputAuthConfluentCloud,
+): string {
+  return JSON.stringify(
+    CreateInputAuthConfluentCloud$outboundSchema.parse(
+      createInputAuthConfluentCloud,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputKafkaSchemaRegistryMinimumTLSVersionConfluentCloud$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputKafkaSchemaRegistryMinimumTLSVersionConfluentCloud
+  > = openEnums.outboundSchema(
+    CreateInputKafkaSchemaRegistryMinimumTLSVersionConfluentCloud,
+  );
+
+/** @internal */
+export const CreateInputKafkaSchemaRegistryMaximumTLSVersionConfluentCloud$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputKafkaSchemaRegistryMaximumTLSVersionConfluentCloud
+  > = openEnums.outboundSchema(
+    CreateInputKafkaSchemaRegistryMaximumTLSVersionConfluentCloud,
+  );
+
+/** @internal */
+export type CreateInputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud$Outbound =
+  {
+    disabled: boolean;
+    rejectUnauthorized: boolean;
+    servername?: string | undefined;
+    certificateName?: string | undefined;
+    caPath?: string | undefined;
+    privKeyPath?: string | undefined;
+    certPath?: string | undefined;
+    passphrase?: string | undefined;
+    minVersion?: string | undefined;
+    maxVersion?: string | undefined;
+  };
+
+/** @internal */
+export const CreateInputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud$outboundSchema:
+  z.ZodType<
+    CreateInputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud$Outbound,
+    z.ZodTypeDef,
+    CreateInputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud
+  > = z.object({
+    disabled: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    servername: z.string().optional(),
+    certificateName: z.string().optional(),
+    caPath: z.string().optional(),
+    privKeyPath: z.string().optional(),
+    certPath: z.string().optional(),
+    passphrase: z.string().optional(),
+    minVersion:
+      CreateInputKafkaSchemaRegistryMinimumTLSVersionConfluentCloud$outboundSchema
+        .optional(),
+    maxVersion:
+      CreateInputKafkaSchemaRegistryMaximumTLSVersionConfluentCloud$outboundSchema
+        .optional(),
+  });
+
+export function createInputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloudToJSON(
+  createInputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud:
+    CreateInputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud,
+): string {
+  return JSON.stringify(
+    CreateInputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud$outboundSchema
+      .parse(createInputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud),
+  );
+}
+
+/** @internal */
+export type CreateInputKafkaSchemaRegistryAuthenticationConfluentCloud$Outbound =
+  {
+    disabled: boolean;
+    schemaRegistryURL: string;
+    connectionTimeout: number;
+    requestTimeout: number;
+    maxRetries: number;
+    auth?: CreateInputAuthConfluentCloud$Outbound | undefined;
+    tls?:
+      | CreateInputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud$Outbound
+      | undefined;
+  };
+
+/** @internal */
+export const CreateInputKafkaSchemaRegistryAuthenticationConfluentCloud$outboundSchema:
+  z.ZodType<
+    CreateInputKafkaSchemaRegistryAuthenticationConfluentCloud$Outbound,
+    z.ZodTypeDef,
+    CreateInputKafkaSchemaRegistryAuthenticationConfluentCloud
+  > = z.object({
+    disabled: z.boolean().default(true),
+    schemaRegistryURL: z.string().default("http://localhost:8081"),
+    connectionTimeout: z.number().default(30000),
+    requestTimeout: z.number().default(30000),
+    maxRetries: z.number().default(1),
+    auth: z.lazy(() => CreateInputAuthConfluentCloud$outboundSchema).optional(),
+    tls: z.lazy(() =>
+      CreateInputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud$outboundSchema
+    ).optional(),
+  });
+
+export function createInputKafkaSchemaRegistryAuthenticationConfluentCloudToJSON(
+  createInputKafkaSchemaRegistryAuthenticationConfluentCloud:
+    CreateInputKafkaSchemaRegistryAuthenticationConfluentCloud,
+): string {
+  return JSON.stringify(
+    CreateInputKafkaSchemaRegistryAuthenticationConfluentCloud$outboundSchema
+      .parse(createInputKafkaSchemaRegistryAuthenticationConfluentCloud),
+  );
+}
+
+/** @internal */
+export const CreateInputAuthenticationMethodConfluentCloud$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputAuthenticationMethodConfluentCloud
+  > = openEnums.outboundSchema(CreateInputAuthenticationMethodConfluentCloud);
+
+/** @internal */
+export const CreateInputSASLMechanismConfluentCloud$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSASLMechanismConfluentCloud
+> = openEnums.outboundSchema(CreateInputSASLMechanismConfluentCloud);
+
+/** @internal */
+export type CreateInputOauthParamConfluentCloud$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CreateInputOauthParamConfluentCloud$outboundSchema: z.ZodType<
+  CreateInputOauthParamConfluentCloud$Outbound,
+  z.ZodTypeDef,
+  CreateInputOauthParamConfluentCloud
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function createInputOauthParamConfluentCloudToJSON(
+  createInputOauthParamConfluentCloud: CreateInputOauthParamConfluentCloud,
+): string {
+  return JSON.stringify(
+    CreateInputOauthParamConfluentCloud$outboundSchema.parse(
+      createInputOauthParamConfluentCloud,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputSaslExtensionConfluentCloud$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CreateInputSaslExtensionConfluentCloud$outboundSchema: z.ZodType<
+  CreateInputSaslExtensionConfluentCloud$Outbound,
+  z.ZodTypeDef,
+  CreateInputSaslExtensionConfluentCloud
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function createInputSaslExtensionConfluentCloudToJSON(
+  createInputSaslExtensionConfluentCloud:
+    CreateInputSaslExtensionConfluentCloud,
+): string {
+  return JSON.stringify(
+    CreateInputSaslExtensionConfluentCloud$outboundSchema.parse(
+      createInputSaslExtensionConfluentCloud,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputAuthenticationConfluentCloud$Outbound = {
+  disabled: boolean;
+  username?: string | undefined;
+  password?: string | undefined;
+  authType: string;
+  credentialsSecret?: string | undefined;
+  mechanism: string;
+  keytabLocation?: string | undefined;
+  principal?: string | undefined;
+  brokerServiceClass?: string | undefined;
+  oauthEnabled: boolean;
+  tokenUrl?: string | undefined;
+  clientId?: string | undefined;
+  oauthSecretType: string;
+  clientTextSecret?: string | undefined;
+  oauthParams?: Array<CreateInputOauthParamConfluentCloud$Outbound> | undefined;
+  saslExtensions?:
+    | Array<CreateInputSaslExtensionConfluentCloud$Outbound>
+    | undefined;
+};
+
+/** @internal */
+export const CreateInputAuthenticationConfluentCloud$outboundSchema: z.ZodType<
+  CreateInputAuthenticationConfluentCloud$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuthenticationConfluentCloud
+> = z.object({
+  disabled: z.boolean().default(true),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  authType: CreateInputAuthenticationMethodConfluentCloud$outboundSchema
+    .default("manual"),
+  credentialsSecret: z.string().optional(),
+  mechanism: CreateInputSASLMechanismConfluentCloud$outboundSchema.default(
+    "plain",
+  ),
+  keytabLocation: z.string().optional(),
+  principal: z.string().optional(),
+  brokerServiceClass: z.string().optional(),
+  oauthEnabled: z.boolean().default(false),
+  tokenUrl: z.string().optional(),
+  clientId: z.string().optional(),
+  oauthSecretType: z.string().default("secret"),
+  clientTextSecret: z.string().optional(),
+  oauthParams: z.array(
+    z.lazy(() => CreateInputOauthParamConfluentCloud$outboundSchema),
+  ).optional(),
+  saslExtensions: z.array(
+    z.lazy(() => CreateInputSaslExtensionConfluentCloud$outboundSchema),
+  ).optional(),
+});
+
+export function createInputAuthenticationConfluentCloudToJSON(
+  createInputAuthenticationConfluentCloud:
+    CreateInputAuthenticationConfluentCloud,
+): string {
+  return JSON.stringify(
+    CreateInputAuthenticationConfluentCloud$outboundSchema.parse(
+      createInputAuthenticationConfluentCloud,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumConfluentCloud$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumConfluentCloud$outboundSchema: z.ZodType<
+  MetadatumConfluentCloud$Outbound,
+  z.ZodTypeDef,
+  MetadatumConfluentCloud
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumConfluentCloudToJSON(
+  metadatumConfluentCloud: MetadatumConfluentCloud,
+): string {
+  return JSON.stringify(
+    MetadatumConfluentCloud$outboundSchema.parse(metadatumConfluentCloud),
+  );
+}
+
+/** @internal */
 export type InputConfluentCloud$Outbound = {
   id: string;
   type: "confluent_cloud";
@@ -14617,15 +33098,15 @@ export type InputConfluentCloud$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionConfluentCloud$Outbound> | undefined;
+  pq?: PqConfluentCloud$Outbound | undefined;
   brokers: Array<string>;
-  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
+  tls?: CreateInputTLSSettingsClientSideConfluentCloud$Outbound | undefined;
   topics: Array<string>;
   groupId: string;
   fromBeginning: boolean;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationType$Outbound
+    | CreateInputKafkaSchemaRegistryAuthenticationConfluentCloud$Outbound
     | undefined;
   connectionTimeout: number;
   requestTimeout: number;
@@ -14635,7 +33116,7 @@ export type InputConfluentCloud$Outbound = {
   backoffRate: number;
   authenticationTimeout: number;
   reauthenticationThreshold: number;
-  sasl?: models.AuthenticationType$Outbound | undefined;
+  sasl?: CreateInputAuthenticationConfluentCloud$Outbound | undefined;
   sessionTimeout: number;
   rebalanceTimeout: number;
   heartbeatInterval: number;
@@ -14644,7 +33125,7 @@ export type InputConfluentCloud$Outbound = {
   maxBytesPerPartition: number;
   maxBytes: number;
   maxSocketErrors: number;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumConfluentCloud$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -14662,15 +33143,19 @@ export const InputConfluentCloud$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionConfluentCloud$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqConfluentCloud$outboundSchema).optional(),
   brokers: z.array(z.string()),
-  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
+  tls: z.lazy(() =>
+    CreateInputTLSSettingsClientSideConfluentCloud$outboundSchema
+  ).optional(),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
   fromBeginning: z.boolean().default(true),
-  kafkaSchemaRegistry: models
-    .KafkaSchemaRegistryAuthenticationType$outboundSchema.optional(),
+  kafkaSchemaRegistry: z.lazy(() =>
+    CreateInputKafkaSchemaRegistryAuthenticationConfluentCloud$outboundSchema
+  ).optional(),
   connectionTimeout: z.number().default(10000),
   requestTimeout: z.number().default(60000),
   maxRetries: z.number().default(5),
@@ -14679,7 +33164,8 @@ export const InputConfluentCloud$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  sasl: models.AuthenticationType$outboundSchema.optional(),
+  sasl: z.lazy(() => CreateInputAuthenticationConfluentCloud$outboundSchema)
+    .optional(),
   sessionTimeout: z.number().default(30000),
   rebalanceTimeout: z.number().default(60000),
   heartbeatInterval: z.number().default(3000),
@@ -14688,7 +33174,7 @@ export const InputConfluentCloud$outboundSchema: z.ZodType<
   maxBytesPerPartition: z.number().default(1048576),
   maxBytes: z.number().default(10485760),
   maxSocketErrors: z.number().default(0),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumConfluentCloud$outboundSchema))
     .optional(),
   description: z.string().optional(),
 });
@@ -14698,6 +33184,155 @@ export function inputConfluentCloudToJSON(
 ): string {
   return JSON.stringify(
     InputConfluentCloud$outboundSchema.parse(inputConfluentCloud),
+  );
+}
+
+/** @internal */
+export type ConnectionElastic$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionElastic$outboundSchema: z.ZodType<
+  ConnectionElastic$Outbound,
+  z.ZodTypeDef,
+  ConnectionElastic
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionElasticToJSON(
+  connectionElastic: ConnectionElastic,
+): string {
+  return JSON.stringify(
+    ConnectionElastic$outboundSchema.parse(connectionElastic),
+  );
+}
+
+/** @internal */
+export const PqModeElastic$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqModeElastic
+> = openEnums.outboundSchema(PqModeElastic);
+
+/** @internal */
+export const PqCompressionElastic$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionElastic
+> = openEnums.outboundSchema(PqCompressionElastic);
+
+/** @internal */
+export type CreateInputPqControlsElastic$Outbound = {};
+
+/** @internal */
+export const CreateInputPqControlsElastic$outboundSchema: z.ZodType<
+  CreateInputPqControlsElastic$Outbound,
+  z.ZodTypeDef,
+  CreateInputPqControlsElastic
+> = z.object({});
+
+export function createInputPqControlsElasticToJSON(
+  createInputPqControlsElastic: CreateInputPqControlsElastic,
+): string {
+  return JSON.stringify(
+    CreateInputPqControlsElastic$outboundSchema.parse(
+      createInputPqControlsElastic,
+    ),
+  );
+}
+
+/** @internal */
+export type PqElastic$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: CreateInputPqControlsElastic$Outbound | undefined;
+};
+
+/** @internal */
+export const PqElastic$outboundSchema: z.ZodType<
+  PqElastic$Outbound,
+  z.ZodTypeDef,
+  PqElastic
+> = z.object({
+  mode: PqModeElastic$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionElastic$outboundSchema.default("none"),
+  pqControls: z.lazy(() => CreateInputPqControlsElastic$outboundSchema)
+    .optional(),
+});
+
+export function pqElasticToJSON(pqElastic: PqElastic): string {
+  return JSON.stringify(PqElastic$outboundSchema.parse(pqElastic));
+}
+
+/** @internal */
+export const MinimumTLSVersionElastic$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MinimumTLSVersionElastic
+> = openEnums.outboundSchema(MinimumTLSVersionElastic);
+
+/** @internal */
+export const MaximumTLSVersionElastic$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaximumTLSVersionElastic
+> = openEnums.outboundSchema(MaximumTLSVersionElastic);
+
+/** @internal */
+export type TLSSettingsServerSideElastic$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideElastic$outboundSchema: z.ZodType<
+  TLSSettingsServerSideElastic$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideElastic
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: MinimumTLSVersionElastic$outboundSchema.optional(),
+  maxVersion: MaximumTLSVersionElastic$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideElasticToJSON(
+  tlsSettingsServerSideElastic: TLSSettingsServerSideElastic,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideElastic$outboundSchema.parse(
+      tlsSettingsServerSideElastic,
+    ),
   );
 }
 
@@ -14714,6 +33349,54 @@ export const CreateInputAPIVersion$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateInputAPIVersion
 > = openEnums.outboundSchema(CreateInputAPIVersion);
+
+/** @internal */
+export type CreateInputExtraHttpHeader$Outbound = {
+  name?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const CreateInputExtraHttpHeader$outboundSchema: z.ZodType<
+  CreateInputExtraHttpHeader$Outbound,
+  z.ZodTypeDef,
+  CreateInputExtraHttpHeader
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+
+export function createInputExtraHttpHeaderToJSON(
+  createInputExtraHttpHeader: CreateInputExtraHttpHeader,
+): string {
+  return JSON.stringify(
+    CreateInputExtraHttpHeader$outboundSchema.parse(createInputExtraHttpHeader),
+  );
+}
+
+/** @internal */
+export type MetadatumElastic$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumElastic$outboundSchema: z.ZodType<
+  MetadatumElastic$Outbound,
+  z.ZodTypeDef,
+  MetadatumElastic
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumElasticToJSON(
+  metadatumElastic: MetadatumElastic,
+): string {
+  return JSON.stringify(
+    MetadatumElastic$outboundSchema.parse(metadatumElastic),
+  );
+}
 
 /** @internal */
 export const ProxyModeAuthenticationMethod$outboundSchema: z.ZodType<
@@ -14770,11 +33453,11 @@ export type InputElastic$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionElastic$Outbound> | undefined;
+  pq?: PqElastic$Outbound | undefined;
   host: string;
   port: number;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideElastic$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -14789,10 +33472,8 @@ export type InputElastic$Outbound = {
   elasticAPI: string;
   authType: string;
   apiVersion: string;
-  extraHttpHeaders?:
-    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  extraHttpHeaders?: Array<CreateInputExtraHttpHeader$Outbound> | undefined;
+  metadata?: Array<MetadatumElastic$Outbound> | undefined;
   proxyMode?: ProxyModeElastic$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -14816,11 +33497,12 @@ export const InputElastic$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionElastic$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqElastic$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideElastic$outboundSchema).optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -14835,10 +33517,10 @@ export const InputElastic$outboundSchema: z.ZodType<
   elasticAPI: z.string().default("/"),
   authType: AuthenticationTypeElastic$outboundSchema.default("none"),
   apiVersion: CreateInputAPIVersion$outboundSchema.default("8.3.2"),
-  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  extraHttpHeaders: z.array(
+    z.lazy(() => CreateInputExtraHttpHeader$outboundSchema),
+  ).optional(),
+  metadata: z.array(z.lazy(() => MetadatumElastic$outboundSchema)).optional(),
   proxyMode: z.lazy(() => ProxyModeElastic$outboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
@@ -14855,6 +33537,147 @@ export function inputElasticToJSON(inputElastic: InputElastic): string {
 }
 
 /** @internal */
+export type ConnectionAzureBlob$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionAzureBlob$outboundSchema: z.ZodType<
+  ConnectionAzureBlob$Outbound,
+  z.ZodTypeDef,
+  ConnectionAzureBlob
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionAzureBlobToJSON(
+  connectionAzureBlob: ConnectionAzureBlob,
+): string {
+  return JSON.stringify(
+    ConnectionAzureBlob$outboundSchema.parse(connectionAzureBlob),
+  );
+}
+
+/** @internal */
+export const ModeAzureBlob$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeAzureBlob
+> = openEnums.outboundSchema(ModeAzureBlob);
+
+/** @internal */
+export const PqCompressionAzureBlob$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionAzureBlob
+> = openEnums.outboundSchema(PqCompressionAzureBlob);
+
+/** @internal */
+export type PqControlsAzureBlob$Outbound = {};
+
+/** @internal */
+export const PqControlsAzureBlob$outboundSchema: z.ZodType<
+  PqControlsAzureBlob$Outbound,
+  z.ZodTypeDef,
+  PqControlsAzureBlob
+> = z.object({});
+
+export function pqControlsAzureBlobToJSON(
+  pqControlsAzureBlob: PqControlsAzureBlob,
+): string {
+  return JSON.stringify(
+    PqControlsAzureBlob$outboundSchema.parse(pqControlsAzureBlob),
+  );
+}
+
+/** @internal */
+export type PqAzureBlob$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsAzureBlob$Outbound | undefined;
+};
+
+/** @internal */
+export const PqAzureBlob$outboundSchema: z.ZodType<
+  PqAzureBlob$Outbound,
+  z.ZodTypeDef,
+  PqAzureBlob
+> = z.object({
+  mode: ModeAzureBlob$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionAzureBlob$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsAzureBlob$outboundSchema).optional(),
+});
+
+export function pqAzureBlobToJSON(pqAzureBlob: PqAzureBlob): string {
+  return JSON.stringify(PqAzureBlob$outboundSchema.parse(pqAzureBlob));
+}
+
+/** @internal */
+export type MetadatumAzureBlob$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumAzureBlob$outboundSchema: z.ZodType<
+  MetadatumAzureBlob$Outbound,
+  z.ZodTypeDef,
+  MetadatumAzureBlob
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumAzureBlobToJSON(
+  metadatumAzureBlob: MetadatumAzureBlob,
+): string {
+  return JSON.stringify(
+    MetadatumAzureBlob$outboundSchema.parse(metadatumAzureBlob),
+  );
+}
+
+/** @internal */
+export const CreateInputAuthenticationMethodAzureBlob$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputAuthenticationMethodAzureBlob
+> = openEnums.outboundSchema(CreateInputAuthenticationMethodAzureBlob);
+
+/** @internal */
+export type CreateInputCertificate$Outbound = {
+  certificateName: string;
+};
+
+/** @internal */
+export const CreateInputCertificate$outboundSchema: z.ZodType<
+  CreateInputCertificate$Outbound,
+  z.ZodTypeDef,
+  CreateInputCertificate
+> = z.object({
+  certificateName: z.string(),
+});
+
+export function createInputCertificateToJSON(
+  createInputCertificate: CreateInputCertificate,
+): string {
+  return JSON.stringify(
+    CreateInputCertificate$outboundSchema.parse(createInputCertificate),
+  );
+}
+
+/** @internal */
 export type InputAzureBlob$Outbound = {
   id: string;
   type: "azure_blob";
@@ -14864,8 +33687,8 @@ export type InputAzureBlob$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionAzureBlob$Outbound> | undefined;
+  pq?: PqAzureBlob$Outbound | undefined;
   queueName: string;
   fileFilter: string;
   visibilityTimeout: number;
@@ -14873,7 +33696,7 @@ export type InputAzureBlob$Outbound = {
   maxMessages: number;
   servicePeriodSecs: number;
   skipOnError: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumAzureBlob$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
   parquetChunkSizeMB: number;
@@ -14888,7 +33711,7 @@ export type InputAzureBlob$Outbound = {
   azureCloud?: string | undefined;
   endpointSuffix?: string | undefined;
   clientTextSecret?: string | undefined;
-  certificate?: models.CertificateType$Outbound | undefined;
+  certificate?: CreateInputCertificate$Outbound | undefined;
 };
 
 /** @internal */
@@ -14905,8 +33728,9 @@ export const InputAzureBlob$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionAzureBlob$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqAzureBlob$outboundSchema).optional(),
   queueName: z.string(),
   fileFilter: z.string().default("/.*/"),
   visibilityTimeout: z.number().default(600),
@@ -14914,13 +33738,12 @@ export const InputAzureBlob$outboundSchema: z.ZodType<
   maxMessages: z.number().default(1),
   servicePeriodSecs: z.number().default(5),
   skipOnError: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumAzureBlob$outboundSchema)).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
-  authType: models.AuthenticationMethodOptions1$outboundSchema.default(
+  authType: CreateInputAuthenticationMethodAzureBlob$outboundSchema.default(
     "manual",
   ),
   description: z.string().optional(),
@@ -14932,11 +33755,135 @@ export const InputAzureBlob$outboundSchema: z.ZodType<
   azureCloud: z.string().optional(),
   endpointSuffix: z.string().optional(),
   clientTextSecret: z.string().optional(),
-  certificate: models.CertificateType$outboundSchema.optional(),
+  certificate: z.lazy(() => CreateInputCertificate$outboundSchema).optional(),
 });
 
 export function inputAzureBlobToJSON(inputAzureBlob: InputAzureBlob): string {
   return JSON.stringify(InputAzureBlob$outboundSchema.parse(inputAzureBlob));
+}
+
+/** @internal */
+export type ConnectionSplunkHec$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionSplunkHec$outboundSchema: z.ZodType<
+  ConnectionSplunkHec$Outbound,
+  z.ZodTypeDef,
+  ConnectionSplunkHec
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionSplunkHecToJSON(
+  connectionSplunkHec: ConnectionSplunkHec,
+): string {
+  return JSON.stringify(
+    ConnectionSplunkHec$outboundSchema.parse(connectionSplunkHec),
+  );
+}
+
+/** @internal */
+export const PqModeSplunkHec$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqModeSplunkHec
+> = openEnums.outboundSchema(PqModeSplunkHec);
+
+/** @internal */
+export const PqCompressionSplunkHec$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionSplunkHec
+> = openEnums.outboundSchema(PqCompressionSplunkHec);
+
+/** @internal */
+export type CreateInputPqControlsSplunkHec$Outbound = {};
+
+/** @internal */
+export const CreateInputPqControlsSplunkHec$outboundSchema: z.ZodType<
+  CreateInputPqControlsSplunkHec$Outbound,
+  z.ZodTypeDef,
+  CreateInputPqControlsSplunkHec
+> = z.object({});
+
+export function createInputPqControlsSplunkHecToJSON(
+  createInputPqControlsSplunkHec: CreateInputPqControlsSplunkHec,
+): string {
+  return JSON.stringify(
+    CreateInputPqControlsSplunkHec$outboundSchema.parse(
+      createInputPqControlsSplunkHec,
+    ),
+  );
+}
+
+/** @internal */
+export type PqSplunkHec$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: CreateInputPqControlsSplunkHec$Outbound | undefined;
+};
+
+/** @internal */
+export const PqSplunkHec$outboundSchema: z.ZodType<
+  PqSplunkHec$Outbound,
+  z.ZodTypeDef,
+  PqSplunkHec
+> = z.object({
+  mode: PqModeSplunkHec$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionSplunkHec$outboundSchema.default("none"),
+  pqControls: z.lazy(() => CreateInputPqControlsSplunkHec$outboundSchema)
+    .optional(),
+});
+
+export function pqSplunkHecToJSON(pqSplunkHec: PqSplunkHec): string {
+  return JSON.stringify(PqSplunkHec$outboundSchema.parse(pqSplunkHec));
+}
+
+/** @internal */
+export const AuthTokenAuthenticationMethodSplunkHec$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthTokenAuthenticationMethodSplunkHec
+> = openEnums.outboundSchema(AuthTokenAuthenticationMethodSplunkHec);
+
+/** @internal */
+export type AuthTokenMetadatumSplunkHec$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const AuthTokenMetadatumSplunkHec$outboundSchema: z.ZodType<
+  AuthTokenMetadatumSplunkHec$Outbound,
+  z.ZodTypeDef,
+  AuthTokenMetadatumSplunkHec
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function authTokenMetadatumSplunkHecToJSON(
+  authTokenMetadatumSplunkHec: AuthTokenMetadatumSplunkHec,
+): string {
+  return JSON.stringify(
+    AuthTokenMetadatumSplunkHec$outboundSchema.parse(
+      authTokenMetadatumSplunkHec,
+    ),
+  );
 }
 
 /** @internal */
@@ -14947,7 +33894,7 @@ export type AuthTokenSplunkHec$Outbound = {
   enabled: boolean;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<AuthTokenMetadatumSplunkHec$Outbound> | undefined;
 };
 
 /** @internal */
@@ -14956,14 +33903,15 @@ export const AuthTokenSplunkHec$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AuthTokenSplunkHec
 > = z.object({
-  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
+  authType: AuthTokenAuthenticationMethodSplunkHec$outboundSchema.default(
+    "manual",
+  ),
   tokenSecret: z.string().optional(),
   token: z.string(),
   enabled: z.boolean().default(true),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => AuthTokenMetadatumSplunkHec$outboundSchema))
     .optional(),
 });
 
@@ -14972,6 +33920,88 @@ export function authTokenSplunkHecToJSON(
 ): string {
   return JSON.stringify(
     AuthTokenSplunkHec$outboundSchema.parse(authTokenSplunkHec),
+  );
+}
+
+/** @internal */
+export const CreateInputMinimumTLSVersionSplunkHec$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMinimumTLSVersionSplunkHec
+> = openEnums.outboundSchema(CreateInputMinimumTLSVersionSplunkHec);
+
+/** @internal */
+export const CreateInputMaximumTLSVersionSplunkHec$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMaximumTLSVersionSplunkHec
+> = openEnums.outboundSchema(CreateInputMaximumTLSVersionSplunkHec);
+
+/** @internal */
+export type TLSSettingsServerSideSplunkHec$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideSplunkHec$outboundSchema: z.ZodType<
+  TLSSettingsServerSideSplunkHec$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideSplunkHec
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: CreateInputMinimumTLSVersionSplunkHec$outboundSchema.optional(),
+  maxVersion: CreateInputMaximumTLSVersionSplunkHec$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideSplunkHecToJSON(
+  tlsSettingsServerSideSplunkHec: TLSSettingsServerSideSplunkHec,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideSplunkHec$outboundSchema.parse(
+      tlsSettingsServerSideSplunkHec,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumSplunkHec$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumSplunkHec$outboundSchema: z.ZodType<
+  MetadatumSplunkHec$Outbound,
+  z.ZodTypeDef,
+  MetadatumSplunkHec
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumSplunkHecToJSON(
+  metadatumSplunkHec: MetadatumSplunkHec,
+): string {
+  return JSON.stringify(
+    MetadatumSplunkHec$outboundSchema.parse(metadatumSplunkHec),
   );
 }
 
@@ -14985,12 +34015,12 @@ export type InputSplunkHec$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionSplunkHec$Outbound> | undefined;
+  pq?: PqSplunkHec$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<AuthTokenSplunkHec$Outbound> | undefined;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideSplunkHec$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -15003,7 +34033,7 @@ export type InputSplunkHec$Outbound = {
   ipAllowlistRegex: string;
   ipDenylistRegex: string;
   splunkHecAPI: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumSplunkHec$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   splunkHecAcks: boolean;
   breakerRulesets?: Array<string> | undefined;
@@ -15031,13 +34061,14 @@ export const InputSplunkHec$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionSplunkHec$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqSplunkHec$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.lazy(() => AuthTokenSplunkHec$outboundSchema))
     .optional(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideSplunkHec$outboundSchema).optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -15050,8 +34081,7 @@ export const InputSplunkHec$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   splunkHecAPI: z.string().default("/services/collector"),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumSplunkHec$outboundSchema)).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   splunkHecAcks: z.boolean().default(false),
   breakerRulesets: z.array(z.string()).optional(),
@@ -15068,6 +34098,101 @@ export const InputSplunkHec$outboundSchema: z.ZodType<
 export function inputSplunkHecToJSON(inputSplunkHec: InputSplunkHec): string {
   return JSON.stringify(InputSplunkHec$outboundSchema.parse(inputSplunkHec));
 }
+
+/** @internal */
+export type ConnectionSplunkSearch$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionSplunkSearch$outboundSchema: z.ZodType<
+  ConnectionSplunkSearch$Outbound,
+  z.ZodTypeDef,
+  ConnectionSplunkSearch
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionSplunkSearchToJSON(
+  connectionSplunkSearch: ConnectionSplunkSearch,
+): string {
+  return JSON.stringify(
+    ConnectionSplunkSearch$outboundSchema.parse(connectionSplunkSearch),
+  );
+}
+
+/** @internal */
+export const ModeSplunkSearch$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeSplunkSearch
+> = openEnums.outboundSchema(ModeSplunkSearch);
+
+/** @internal */
+export const CompressionSplunkSearch$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionSplunkSearch
+> = openEnums.outboundSchema(CompressionSplunkSearch);
+
+/** @internal */
+export type PqControlsSplunkSearch$Outbound = {};
+
+/** @internal */
+export const PqControlsSplunkSearch$outboundSchema: z.ZodType<
+  PqControlsSplunkSearch$Outbound,
+  z.ZodTypeDef,
+  PqControlsSplunkSearch
+> = z.object({});
+
+export function pqControlsSplunkSearchToJSON(
+  pqControlsSplunkSearch: PqControlsSplunkSearch,
+): string {
+  return JSON.stringify(
+    PqControlsSplunkSearch$outboundSchema.parse(pqControlsSplunkSearch),
+  );
+}
+
+/** @internal */
+export type PqSplunkSearch$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsSplunkSearch$Outbound | undefined;
+};
+
+/** @internal */
+export const PqSplunkSearch$outboundSchema: z.ZodType<
+  PqSplunkSearch$Outbound,
+  z.ZodTypeDef,
+  PqSplunkSearch
+> = z.object({
+  mode: ModeSplunkSearch$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionSplunkSearch$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsSplunkSearch$outboundSchema).optional(),
+});
+
+export function pqSplunkSearchToJSON(pqSplunkSearch: PqSplunkSearch): string {
+  return JSON.stringify(PqSplunkSearch$outboundSchema.parse(pqSplunkSearch));
+}
+
+/** @internal */
+export const OutputMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputMode
+> = openEnums.outboundSchema(OutputMode);
 
 /** @internal */
 export type EndpointParam$Outbound = {
@@ -15117,11 +34242,126 @@ export const LogLevelSplunkSearch$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(LogLevelSplunkSearch);
 
 /** @internal */
+export type MetadatumSplunkSearch$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumSplunkSearch$outboundSchema: z.ZodType<
+  MetadatumSplunkSearch$Outbound,
+  z.ZodTypeDef,
+  MetadatumSplunkSearch
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumSplunkSearchToJSON(
+  metadatumSplunkSearch: MetadatumSplunkSearch,
+): string {
+  return JSON.stringify(
+    MetadatumSplunkSearch$outboundSchema.parse(metadatumSplunkSearch),
+  );
+}
+
+/** @internal */
+export const RetryTypeSplunkSearch$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RetryTypeSplunkSearch
+> = openEnums.outboundSchema(RetryTypeSplunkSearch);
+
+/** @internal */
+export type RetryRulesSplunkSearch$Outbound = {
+  type: string;
+  interval: number;
+  limit: number;
+  multiplier: number;
+  codes?: Array<number> | undefined;
+  enableHeader: boolean;
+  retryConnectTimeout: boolean;
+  retryConnectReset: boolean;
+};
+
+/** @internal */
+export const RetryRulesSplunkSearch$outboundSchema: z.ZodType<
+  RetryRulesSplunkSearch$Outbound,
+  z.ZodTypeDef,
+  RetryRulesSplunkSearch
+> = z.object({
+  type: RetryTypeSplunkSearch$outboundSchema.default("backoff"),
+  interval: z.number().default(1000),
+  limit: z.number().default(5),
+  multiplier: z.number().default(2),
+  codes: z.array(z.number()).optional(),
+  enableHeader: z.boolean().default(true),
+  retryConnectTimeout: z.boolean().default(false),
+  retryConnectReset: z.boolean().default(false),
+});
+
+export function retryRulesSplunkSearchToJSON(
+  retryRulesSplunkSearch: RetryRulesSplunkSearch,
+): string {
+  return JSON.stringify(
+    RetryRulesSplunkSearch$outboundSchema.parse(retryRulesSplunkSearch),
+  );
+}
+
+/** @internal */
 export const AuthenticationTypeSplunkSearch$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   AuthenticationTypeSplunkSearch
 > = openEnums.outboundSchema(AuthenticationTypeSplunkSearch);
+
+/** @internal */
+export type OauthParamSplunkSearch$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const OauthParamSplunkSearch$outboundSchema: z.ZodType<
+  OauthParamSplunkSearch$Outbound,
+  z.ZodTypeDef,
+  OauthParamSplunkSearch
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function oauthParamSplunkSearchToJSON(
+  oauthParamSplunkSearch: OauthParamSplunkSearch,
+): string {
+  return JSON.stringify(
+    OauthParamSplunkSearch$outboundSchema.parse(oauthParamSplunkSearch),
+  );
+}
+
+/** @internal */
+export type OauthHeaderSplunkSearch$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const OauthHeaderSplunkSearch$outboundSchema: z.ZodType<
+  OauthHeaderSplunkSearch$Outbound,
+  z.ZodTypeDef,
+  OauthHeaderSplunkSearch
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function oauthHeaderSplunkSearchToJSON(
+  oauthHeaderSplunkSearch: OauthHeaderSplunkSearch,
+): string {
+  return JSON.stringify(
+    OauthHeaderSplunkSearch$outboundSchema.parse(oauthHeaderSplunkSearch),
+  );
+}
 
 /** @internal */
 export type InputSplunkSearch$Outbound = {
@@ -15133,8 +34373,8 @@ export type InputSplunkSearch$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionSplunkSearch$Outbound> | undefined;
+  pq?: PqSplunkSearch$Outbound | undefined;
   searchHead: string;
   search: string;
   earliest: string;
@@ -15154,8 +34394,8 @@ export type InputSplunkSearch$Outbound = {
   maxMissedKeepAlives: number;
   ttl: string;
   ignoreGroupJobsLimit: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  retryRules?: models.RetryRulesType$Outbound | undefined;
+  metadata?: Array<MetadatumSplunkSearch$Outbound> | undefined;
+  retryRules?: RetryRulesSplunkSearch$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
   authType: string;
@@ -15171,8 +34411,8 @@ export type InputSplunkSearch$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr: string;
   tokenTimeoutSecs: number;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  oauthParams?: Array<OauthParamSplunkSearch$Outbound> | undefined;
+  oauthHeaders?: Array<OauthHeaderSplunkSearch$Outbound> | undefined;
 };
 
 /** @internal */
@@ -15189,15 +34429,16 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionSplunkSearch$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqSplunkSearch$outboundSchema).optional(),
   searchHead: z.string().default("https://localhost:8089"),
   search: z.string(),
   earliest: z.string().default("-16m@m"),
   latest: z.string().default("-1m@m"),
   cronSchedule: z.string().default("*/15 * * * *"),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: models.OutputModeOptions$outboundSchema.default("json"),
+  outputMode: OutputMode$outboundSchema.default("json"),
   endpointParams: z.array(z.lazy(() => EndpointParam$outboundSchema))
     .optional(),
   endpointHeaders: z.array(z.lazy(() => EndpointHeader$outboundSchema))
@@ -15212,9 +34453,9 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().default(3),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumSplunkSearch$outboundSchema))
     .optional(),
-  retryRules: models.RetryRulesType$outboundSchema.optional(),
+  retryRules: z.lazy(() => RetryRulesSplunkSearch$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   authType: AuthenticationTypeSplunkSearch$outboundSchema.default("basic"),
@@ -15230,8 +34471,10 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  oauthParams: z.array(z.lazy(() => OauthParamSplunkSearch$outboundSchema))
+    .optional(),
+  oauthHeaders: z.array(z.lazy(() => OauthHeaderSplunkSearch$outboundSchema))
+    .optional(),
 });
 
 export function inputSplunkSearchToJSON(
@@ -15240,6 +34483,177 @@ export function inputSplunkSearchToJSON(
   return JSON.stringify(
     InputSplunkSearch$outboundSchema.parse(inputSplunkSearch),
   );
+}
+
+/** @internal */
+export type ConnectionSplunk$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionSplunk$outboundSchema: z.ZodType<
+  ConnectionSplunk$Outbound,
+  z.ZodTypeDef,
+  ConnectionSplunk
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionSplunkToJSON(
+  connectionSplunk: ConnectionSplunk,
+): string {
+  return JSON.stringify(
+    ConnectionSplunk$outboundSchema.parse(connectionSplunk),
+  );
+}
+
+/** @internal */
+export const PqModeSplunk$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqModeSplunk
+> = openEnums.outboundSchema(PqModeSplunk);
+
+/** @internal */
+export const PqCompressionSplunk$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionSplunk
+> = openEnums.outboundSchema(PqCompressionSplunk);
+
+/** @internal */
+export type CreateInputPqControlsSplunk$Outbound = {};
+
+/** @internal */
+export const CreateInputPqControlsSplunk$outboundSchema: z.ZodType<
+  CreateInputPqControlsSplunk$Outbound,
+  z.ZodTypeDef,
+  CreateInputPqControlsSplunk
+> = z.object({});
+
+export function createInputPqControlsSplunkToJSON(
+  createInputPqControlsSplunk: CreateInputPqControlsSplunk,
+): string {
+  return JSON.stringify(
+    CreateInputPqControlsSplunk$outboundSchema.parse(
+      createInputPqControlsSplunk,
+    ),
+  );
+}
+
+/** @internal */
+export type PqSplunk$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: CreateInputPqControlsSplunk$Outbound | undefined;
+};
+
+/** @internal */
+export const PqSplunk$outboundSchema: z.ZodType<
+  PqSplunk$Outbound,
+  z.ZodTypeDef,
+  PqSplunk
+> = z.object({
+  mode: PqModeSplunk$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionSplunk$outboundSchema.default("none"),
+  pqControls: z.lazy(() => CreateInputPqControlsSplunk$outboundSchema)
+    .optional(),
+});
+
+export function pqSplunkToJSON(pqSplunk: PqSplunk): string {
+  return JSON.stringify(PqSplunk$outboundSchema.parse(pqSplunk));
+}
+
+/** @internal */
+export const CreateInputMinimumTLSVersionSplunk$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMinimumTLSVersionSplunk
+> = openEnums.outboundSchema(CreateInputMinimumTLSVersionSplunk);
+
+/** @internal */
+export const CreateInputMaximumTLSVersionSplunk$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMaximumTLSVersionSplunk
+> = openEnums.outboundSchema(CreateInputMaximumTLSVersionSplunk);
+
+/** @internal */
+export type TLSSettingsServerSideSplunk$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideSplunk$outboundSchema: z.ZodType<
+  TLSSettingsServerSideSplunk$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideSplunk
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: CreateInputMinimumTLSVersionSplunk$outboundSchema.optional(),
+  maxVersion: CreateInputMaximumTLSVersionSplunk$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideSplunkToJSON(
+  tlsSettingsServerSideSplunk: TLSSettingsServerSideSplunk,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideSplunk$outboundSchema.parse(
+      tlsSettingsServerSideSplunk,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumSplunk$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumSplunk$outboundSchema: z.ZodType<
+  MetadatumSplunk$Outbound,
+  z.ZodTypeDef,
+  MetadatumSplunk
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumSplunkToJSON(
+  metadatumSplunk: MetadatumSplunk,
+): string {
+  return JSON.stringify(MetadatumSplunk$outboundSchema.parse(metadatumSplunk));
 }
 
 /** @internal */
@@ -15265,18 +34679,18 @@ export function authTokenSplunkToJSON(
 }
 
 /** @internal */
-export const MaxS2SVersion$outboundSchema: z.ZodType<
+export const CreateInputMaxS2SVersion$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  MaxS2SVersion
-> = openEnums.outboundSchema(MaxS2SVersion);
+  CreateInputMaxS2SVersion
+> = openEnums.outboundSchema(CreateInputMaxS2SVersion);
 
 /** @internal */
-export const CreateInputCompression$outboundSchema: z.ZodType<
+export const CreateInputCompressionSplunk$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputCompression
-> = openEnums.outboundSchema(CreateInputCompression);
+  CreateInputCompressionSplunk
+> = openEnums.outboundSchema(CreateInputCompressionSplunk);
 
 /** @internal */
 export type InputSplunk$Outbound = {
@@ -15288,18 +34702,18 @@ export type InputSplunk$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionSplunk$Outbound> | undefined;
+  pq?: PqSplunk$Outbound | undefined;
   host: string;
   port: number;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideSplunk$Outbound | undefined;
   ipWhitelistRegex: string;
   maxActiveCxn: number;
   socketIdleTimeout: number;
   socketEndingMaxWait: number;
   socketMaxLifespan: number;
   enableProxyHeader: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumSplunk$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
   authTokens?: Array<AuthTokenSplunk$Outbound> | undefined;
@@ -15325,32 +34739,239 @@ export const InputSplunk$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionSplunk$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqSplunk$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideSplunk$outboundSchema).optional(),
   ipWhitelistRegex: z.string().default("/.*/"),
   maxActiveCxn: z.number().default(1000),
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
   enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumSplunk$outboundSchema)).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   authTokens: z.array(z.lazy(() => AuthTokenSplunk$outboundSchema)).optional(),
-  maxS2Sversion: MaxS2SVersion$outboundSchema.default("v3"),
+  maxS2Sversion: CreateInputMaxS2SVersion$outboundSchema.default("v3"),
   description: z.string().optional(),
   useFwdTimezone: z.boolean().default(true),
   dropControlFields: z.boolean().default(true),
   extractMetrics: z.boolean().default(false),
-  compress: CreateInputCompression$outboundSchema.default("disabled"),
+  compress: CreateInputCompressionSplunk$outboundSchema.default("disabled"),
 });
 
 export function inputSplunkToJSON(inputSplunk: InputSplunk): string {
   return JSON.stringify(InputSplunk$outboundSchema.parse(inputSplunk));
+}
+
+/** @internal */
+export type ConnectionHTTP$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionHTTP$outboundSchema: z.ZodType<
+  ConnectionHTTP$Outbound,
+  z.ZodTypeDef,
+  ConnectionHTTP
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionHTTPToJSON(connectionHTTP: ConnectionHTTP): string {
+  return JSON.stringify(ConnectionHTTP$outboundSchema.parse(connectionHTTP));
+}
+
+/** @internal */
+export const ModeHTTP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeHTTP
+> = openEnums.outboundSchema(ModeHTTP);
+
+/** @internal */
+export const CompressionHTTP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionHTTP
+> = openEnums.outboundSchema(CompressionHTTP);
+
+/** @internal */
+export type PqControlsHTTP$Outbound = {};
+
+/** @internal */
+export const PqControlsHTTP$outboundSchema: z.ZodType<
+  PqControlsHTTP$Outbound,
+  z.ZodTypeDef,
+  PqControlsHTTP
+> = z.object({});
+
+export function pqControlsHTTPToJSON(pqControlsHTTP: PqControlsHTTP): string {
+  return JSON.stringify(PqControlsHTTP$outboundSchema.parse(pqControlsHTTP));
+}
+
+/** @internal */
+export type PqHTTP$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsHTTP$Outbound | undefined;
+};
+
+/** @internal */
+export const PqHTTP$outboundSchema: z.ZodType<
+  PqHTTP$Outbound,
+  z.ZodTypeDef,
+  PqHTTP
+> = z.object({
+  mode: ModeHTTP$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionHTTP$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsHTTP$outboundSchema).optional(),
+});
+
+export function pqHTTPToJSON(pqHTTP: PqHTTP): string {
+  return JSON.stringify(PqHTTP$outboundSchema.parse(pqHTTP));
+}
+
+/** @internal */
+export const MinimumTLSVersionHTTP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MinimumTLSVersionHTTP
+> = openEnums.outboundSchema(MinimumTLSVersionHTTP);
+
+/** @internal */
+export const MaximumTLSVersionHTTP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaximumTLSVersionHTTP
+> = openEnums.outboundSchema(MaximumTLSVersionHTTP);
+
+/** @internal */
+export type TLSSettingsServerSideHTTP$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSideHTTP$outboundSchema: z.ZodType<
+  TLSSettingsServerSideHTTP$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSideHTTP
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: MinimumTLSVersionHTTP$outboundSchema.optional(),
+  maxVersion: MaximumTLSVersionHTTP$outboundSchema.optional(),
+});
+
+export function tlsSettingsServerSideHTTPToJSON(
+  tlsSettingsServerSideHTTP: TLSSettingsServerSideHTTP,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSideHTTP$outboundSchema.parse(tlsSettingsServerSideHTTP),
+  );
+}
+
+/** @internal */
+export type MetadatumHTTP$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumHTTP$outboundSchema: z.ZodType<
+  MetadatumHTTP$Outbound,
+  z.ZodTypeDef,
+  MetadatumHTTP
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumHTTPToJSON(metadatumHTTP: MetadatumHTTP): string {
+  return JSON.stringify(MetadatumHTTP$outboundSchema.parse(metadatumHTTP));
+}
+
+/** @internal */
+export type AuthTokensExtMetadatumHTTP$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const AuthTokensExtMetadatumHTTP$outboundSchema: z.ZodType<
+  AuthTokensExtMetadatumHTTP$Outbound,
+  z.ZodTypeDef,
+  AuthTokensExtMetadatumHTTP
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function authTokensExtMetadatumHTTPToJSON(
+  authTokensExtMetadatumHTTP: AuthTokensExtMetadatumHTTP,
+): string {
+  return JSON.stringify(
+    AuthTokensExtMetadatumHTTP$outboundSchema.parse(authTokensExtMetadatumHTTP),
+  );
+}
+
+/** @internal */
+export type AuthTokensExtHTTP$Outbound = {
+  token: string;
+  description?: string | undefined;
+  metadata?: Array<AuthTokensExtMetadatumHTTP$Outbound> | undefined;
+};
+
+/** @internal */
+export const AuthTokensExtHTTP$outboundSchema: z.ZodType<
+  AuthTokensExtHTTP$Outbound,
+  z.ZodTypeDef,
+  AuthTokensExtHTTP
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(z.lazy(() => AuthTokensExtMetadatumHTTP$outboundSchema))
+    .optional(),
+});
+
+export function authTokensExtHTTPToJSON(
+  authTokensExtHTTP: AuthTokensExtHTTP,
+): string {
+  return JSON.stringify(
+    AuthTokensExtHTTP$outboundSchema.parse(authTokensExtHTTP),
+  );
 }
 
 /** @internal */
@@ -15363,12 +34984,12 @@ export type InputHttp$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionHTTP$Outbound> | undefined;
+  pq?: PqHTTP$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<string> | undefined;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSideHTTP$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -15384,8 +35005,8 @@ export type InputHttp$Outbound = {
   elasticAPI: string;
   splunkHecAPI: string;
   splunkHecAcks: boolean;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
+  metadata?: Array<MetadatumHTTP$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExtHTTP$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -15403,12 +35024,12 @@ export const InputHttp$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionHTTP$outboundSchema)).optional(),
+  pq: z.lazy(() => PqHTTP$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSideHTTP$outboundSchema).optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -15424,15 +35045,322 @@ export const InputHttp$outboundSchema: z.ZodType<
   elasticAPI: z.string().default("/elastic"),
   splunkHecAPI: z.string().default("/services/collector"),
   splunkHecAcks: z.boolean().default(false),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
-  authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumHTTP$outboundSchema)).optional(),
+  authTokensExt: z.array(z.lazy(() => AuthTokensExtHTTP$outboundSchema))
     .optional(),
   description: z.string().optional(),
 });
 
 export function inputHttpToJSON(inputHttp: InputHttp): string {
   return JSON.stringify(InputHttp$outboundSchema.parse(inputHttp));
+}
+
+/** @internal */
+export type ConnectionMsk$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionMsk$outboundSchema: z.ZodType<
+  ConnectionMsk$Outbound,
+  z.ZodTypeDef,
+  ConnectionMsk
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionMskToJSON(connectionMsk: ConnectionMsk): string {
+  return JSON.stringify(ConnectionMsk$outboundSchema.parse(connectionMsk));
+}
+
+/** @internal */
+export const PqModeMsk$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqModeMsk
+> = openEnums.outboundSchema(PqModeMsk);
+
+/** @internal */
+export const PqCompressionMsk$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionMsk
+> = openEnums.outboundSchema(PqCompressionMsk);
+
+/** @internal */
+export type CreateInputPqControlsMsk$Outbound = {};
+
+/** @internal */
+export const CreateInputPqControlsMsk$outboundSchema: z.ZodType<
+  CreateInputPqControlsMsk$Outbound,
+  z.ZodTypeDef,
+  CreateInputPqControlsMsk
+> = z.object({});
+
+export function createInputPqControlsMskToJSON(
+  createInputPqControlsMsk: CreateInputPqControlsMsk,
+): string {
+  return JSON.stringify(
+    CreateInputPqControlsMsk$outboundSchema.parse(createInputPqControlsMsk),
+  );
+}
+
+/** @internal */
+export type PqMsk$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: CreateInputPqControlsMsk$Outbound | undefined;
+};
+
+/** @internal */
+export const PqMsk$outboundSchema: z.ZodType<
+  PqMsk$Outbound,
+  z.ZodTypeDef,
+  PqMsk
+> = z.object({
+  mode: PqModeMsk$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionMsk$outboundSchema.default("none"),
+  pqControls: z.lazy(() => CreateInputPqControlsMsk$outboundSchema).optional(),
+});
+
+export function pqMskToJSON(pqMsk: PqMsk): string {
+  return JSON.stringify(PqMsk$outboundSchema.parse(pqMsk));
+}
+
+/** @internal */
+export type MetadatumMsk$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumMsk$outboundSchema: z.ZodType<
+  MetadatumMsk$Outbound,
+  z.ZodTypeDef,
+  MetadatumMsk
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumMskToJSON(metadatumMsk: MetadatumMsk): string {
+  return JSON.stringify(MetadatumMsk$outboundSchema.parse(metadatumMsk));
+}
+
+/** @internal */
+export type CreateInputAuthMsk$Outbound = {
+  disabled: boolean;
+  credentialsSecret?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputAuthMsk$outboundSchema: z.ZodType<
+  CreateInputAuthMsk$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuthMsk
+> = z.object({
+  disabled: z.boolean().default(true),
+  credentialsSecret: z.string().optional(),
+});
+
+export function createInputAuthMskToJSON(
+  createInputAuthMsk: CreateInputAuthMsk,
+): string {
+  return JSON.stringify(
+    CreateInputAuthMsk$outboundSchema.parse(createInputAuthMsk),
+  );
+}
+
+/** @internal */
+export const CreateInputKafkaSchemaRegistryMinimumTLSVersionMsk$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputKafkaSchemaRegistryMinimumTLSVersionMsk
+  > = openEnums.outboundSchema(
+    CreateInputKafkaSchemaRegistryMinimumTLSVersionMsk,
+  );
+
+/** @internal */
+export const CreateInputKafkaSchemaRegistryMaximumTLSVersionMsk$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputKafkaSchemaRegistryMaximumTLSVersionMsk
+  > = openEnums.outboundSchema(
+    CreateInputKafkaSchemaRegistryMaximumTLSVersionMsk,
+  );
+
+/** @internal */
+export type CreateInputKafkaSchemaRegistryTLSSettingsClientSideMsk$Outbound = {
+  disabled: boolean;
+  rejectUnauthorized: boolean;
+  servername?: string | undefined;
+  certificateName?: string | undefined;
+  caPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  certPath?: string | undefined;
+  passphrase?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputKafkaSchemaRegistryTLSSettingsClientSideMsk$outboundSchema:
+  z.ZodType<
+    CreateInputKafkaSchemaRegistryTLSSettingsClientSideMsk$Outbound,
+    z.ZodTypeDef,
+    CreateInputKafkaSchemaRegistryTLSSettingsClientSideMsk
+  > = z.object({
+    disabled: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    servername: z.string().optional(),
+    certificateName: z.string().optional(),
+    caPath: z.string().optional(),
+    privKeyPath: z.string().optional(),
+    certPath: z.string().optional(),
+    passphrase: z.string().optional(),
+    minVersion:
+      CreateInputKafkaSchemaRegistryMinimumTLSVersionMsk$outboundSchema
+        .optional(),
+    maxVersion:
+      CreateInputKafkaSchemaRegistryMaximumTLSVersionMsk$outboundSchema
+        .optional(),
+  });
+
+export function createInputKafkaSchemaRegistryTLSSettingsClientSideMskToJSON(
+  createInputKafkaSchemaRegistryTLSSettingsClientSideMsk:
+    CreateInputKafkaSchemaRegistryTLSSettingsClientSideMsk,
+): string {
+  return JSON.stringify(
+    CreateInputKafkaSchemaRegistryTLSSettingsClientSideMsk$outboundSchema.parse(
+      createInputKafkaSchemaRegistryTLSSettingsClientSideMsk,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputKafkaSchemaRegistryAuthenticationMsk$Outbound = {
+  disabled: boolean;
+  schemaRegistryURL: string;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  auth?: CreateInputAuthMsk$Outbound | undefined;
+  tls?:
+    | CreateInputKafkaSchemaRegistryTLSSettingsClientSideMsk$Outbound
+    | undefined;
+};
+
+/** @internal */
+export const CreateInputKafkaSchemaRegistryAuthenticationMsk$outboundSchema:
+  z.ZodType<
+    CreateInputKafkaSchemaRegistryAuthenticationMsk$Outbound,
+    z.ZodTypeDef,
+    CreateInputKafkaSchemaRegistryAuthenticationMsk
+  > = z.object({
+    disabled: z.boolean().default(true),
+    schemaRegistryURL: z.string().default("http://localhost:8081"),
+    connectionTimeout: z.number().default(30000),
+    requestTimeout: z.number().default(30000),
+    maxRetries: z.number().default(1),
+    auth: z.lazy(() => CreateInputAuthMsk$outboundSchema).optional(),
+    tls: z.lazy(() =>
+      CreateInputKafkaSchemaRegistryTLSSettingsClientSideMsk$outboundSchema
+    ).optional(),
+  });
+
+export function createInputKafkaSchemaRegistryAuthenticationMskToJSON(
+  createInputKafkaSchemaRegistryAuthenticationMsk:
+    CreateInputKafkaSchemaRegistryAuthenticationMsk,
+): string {
+  return JSON.stringify(
+    CreateInputKafkaSchemaRegistryAuthenticationMsk$outboundSchema.parse(
+      createInputKafkaSchemaRegistryAuthenticationMsk,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputAuthenticationMethodMsk$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputAuthenticationMethodMsk
+> = openEnums.outboundSchema(CreateInputAuthenticationMethodMsk);
+
+/** @internal */
+export const CreateInputSignatureVersionMsk$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSignatureVersionMsk
+> = openEnums.outboundSchema(CreateInputSignatureVersionMsk);
+
+/** @internal */
+export const CreateInputMinimumTLSVersionMsk$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMinimumTLSVersionMsk
+> = openEnums.outboundSchema(CreateInputMinimumTLSVersionMsk);
+
+/** @internal */
+export const CreateInputMaximumTLSVersionMsk$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMaximumTLSVersionMsk
+> = openEnums.outboundSchema(CreateInputMaximumTLSVersionMsk);
+
+/** @internal */
+export type CreateInputTLSSettingsClientSideMsk$Outbound = {
+  disabled: boolean;
+  rejectUnauthorized: boolean;
+  servername?: string | undefined;
+  certificateName?: string | undefined;
+  caPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  certPath?: string | undefined;
+  passphrase?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputTLSSettingsClientSideMsk$outboundSchema: z.ZodType<
+  CreateInputTLSSettingsClientSideMsk$Outbound,
+  z.ZodTypeDef,
+  CreateInputTLSSettingsClientSideMsk
+> = z.object({
+  disabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  servername: z.string().optional(),
+  certificateName: z.string().optional(),
+  caPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  certPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  minVersion: CreateInputMinimumTLSVersionMsk$outboundSchema.optional(),
+  maxVersion: CreateInputMaximumTLSVersionMsk$outboundSchema.optional(),
+});
+
+export function createInputTLSSettingsClientSideMskToJSON(
+  createInputTLSSettingsClientSideMsk: CreateInputTLSSettingsClientSideMsk,
+): string {
+  return JSON.stringify(
+    CreateInputTLSSettingsClientSideMsk$outboundSchema.parse(
+      createInputTLSSettingsClientSideMsk,
+    ),
+  );
 }
 
 /** @internal */
@@ -15445,8 +35373,8 @@ export type InputMsk$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionMsk$Outbound> | undefined;
+  pq?: PqMsk$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
   groupId: string;
@@ -15454,9 +35382,9 @@ export type InputMsk$Outbound = {
   sessionTimeout: number;
   rebalanceTimeout: number;
   heartbeatInterval: number;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumMsk$Outbound> | undefined;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationType$Outbound
+    | CreateInputKafkaSchemaRegistryAuthenticationMsk$Outbound
     | undefined;
   connectionTimeout: number;
   requestTimeout: number;
@@ -15477,7 +35405,7 @@ export type InputMsk$Outbound = {
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds: number;
-  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
+  tls?: CreateInputTLSSettingsClientSideMsk$Outbound | undefined;
   autoCommitInterval?: number | undefined;
   autoCommitThreshold?: number | undefined;
   maxBytesPerPartition: number;
@@ -15502,8 +35430,8 @@ export const InputMsk$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionMsk$outboundSchema)).optional(),
+  pq: z.lazy(() => PqMsk$outboundSchema).optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
@@ -15511,10 +35439,10 @@ export const InputMsk$outboundSchema: z.ZodType<
   sessionTimeout: z.number().default(30000),
   rebalanceTimeout: z.number().default(60000),
   heartbeatInterval: z.number().default(3000),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
-  kafkaSchemaRegistry: models
-    .KafkaSchemaRegistryAuthenticationType$outboundSchema.optional(),
+  metadata: z.array(z.lazy(() => MetadatumMsk$outboundSchema)).optional(),
+  kafkaSchemaRegistry: z.lazy(() =>
+    CreateInputKafkaSchemaRegistryAuthenticationMsk$outboundSchema
+  ).optional(),
   connectionTimeout: z.number().default(10000),
   requestTimeout: z.number().default(60000),
   maxRetries: z.number().default(5),
@@ -15523,21 +35451,20 @@ export const InputMsk$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+  awsAuthenticationMethod: CreateInputAuthenticationMethodMsk$outboundSchema
     .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions1$outboundSchema.default(
-    "v4",
-  ),
+  signatureVersion: CreateInputSignatureVersionMsk$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
-  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
+  tls: z.lazy(() => CreateInputTLSSettingsClientSideMsk$outboundSchema)
+    .optional(),
   autoCommitInterval: z.number().optional(),
   autoCommitThreshold: z.number().optional(),
   maxBytesPerPartition: z.number().default(1048576),
@@ -15553,6 +35480,426 @@ export function inputMskToJSON(inputMsk: InputMsk): string {
 }
 
 /** @internal */
+export type ConnectionKafka$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionKafka$outboundSchema: z.ZodType<
+  ConnectionKafka$Outbound,
+  z.ZodTypeDef,
+  ConnectionKafka
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionKafkaToJSON(
+  connectionKafka: ConnectionKafka,
+): string {
+  return JSON.stringify(ConnectionKafka$outboundSchema.parse(connectionKafka));
+}
+
+/** @internal */
+export const PqModeKafka$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqModeKafka
+> = openEnums.outboundSchema(PqModeKafka);
+
+/** @internal */
+export const PqCompressionKafka$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PqCompressionKafka
+> = openEnums.outboundSchema(PqCompressionKafka);
+
+/** @internal */
+export type CreateInputPqControlsKafka$Outbound = {};
+
+/** @internal */
+export const CreateInputPqControlsKafka$outboundSchema: z.ZodType<
+  CreateInputPqControlsKafka$Outbound,
+  z.ZodTypeDef,
+  CreateInputPqControlsKafka
+> = z.object({});
+
+export function createInputPqControlsKafkaToJSON(
+  createInputPqControlsKafka: CreateInputPqControlsKafka,
+): string {
+  return JSON.stringify(
+    CreateInputPqControlsKafka$outboundSchema.parse(createInputPqControlsKafka),
+  );
+}
+
+/** @internal */
+export type PqKafka$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: CreateInputPqControlsKafka$Outbound | undefined;
+};
+
+/** @internal */
+export const PqKafka$outboundSchema: z.ZodType<
+  PqKafka$Outbound,
+  z.ZodTypeDef,
+  PqKafka
+> = z.object({
+  mode: PqModeKafka$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: PqCompressionKafka$outboundSchema.default("none"),
+  pqControls: z.lazy(() => CreateInputPqControlsKafka$outboundSchema)
+    .optional(),
+});
+
+export function pqKafkaToJSON(pqKafka: PqKafka): string {
+  return JSON.stringify(PqKafka$outboundSchema.parse(pqKafka));
+}
+
+/** @internal */
+export type CreateInputAuthKafka$Outbound = {
+  disabled: boolean;
+  credentialsSecret?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputAuthKafka$outboundSchema: z.ZodType<
+  CreateInputAuthKafka$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuthKafka
+> = z.object({
+  disabled: z.boolean().default(true),
+  credentialsSecret: z.string().optional(),
+});
+
+export function createInputAuthKafkaToJSON(
+  createInputAuthKafka: CreateInputAuthKafka,
+): string {
+  return JSON.stringify(
+    CreateInputAuthKafka$outboundSchema.parse(createInputAuthKafka),
+  );
+}
+
+/** @internal */
+export const CreateInputKafkaSchemaRegistryMinimumTLSVersionKafka$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputKafkaSchemaRegistryMinimumTLSVersionKafka
+  > = openEnums.outboundSchema(
+    CreateInputKafkaSchemaRegistryMinimumTLSVersionKafka,
+  );
+
+/** @internal */
+export const CreateInputKafkaSchemaRegistryMaximumTLSVersionKafka$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputKafkaSchemaRegistryMaximumTLSVersionKafka
+  > = openEnums.outboundSchema(
+    CreateInputKafkaSchemaRegistryMaximumTLSVersionKafka,
+  );
+
+/** @internal */
+export type CreateInputKafkaSchemaRegistryTLSSettingsClientSideKafka$Outbound =
+  {
+    disabled: boolean;
+    rejectUnauthorized: boolean;
+    servername?: string | undefined;
+    certificateName?: string | undefined;
+    caPath?: string | undefined;
+    privKeyPath?: string | undefined;
+    certPath?: string | undefined;
+    passphrase?: string | undefined;
+    minVersion?: string | undefined;
+    maxVersion?: string | undefined;
+  };
+
+/** @internal */
+export const CreateInputKafkaSchemaRegistryTLSSettingsClientSideKafka$outboundSchema:
+  z.ZodType<
+    CreateInputKafkaSchemaRegistryTLSSettingsClientSideKafka$Outbound,
+    z.ZodTypeDef,
+    CreateInputKafkaSchemaRegistryTLSSettingsClientSideKafka
+  > = z.object({
+    disabled: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    servername: z.string().optional(),
+    certificateName: z.string().optional(),
+    caPath: z.string().optional(),
+    privKeyPath: z.string().optional(),
+    certPath: z.string().optional(),
+    passphrase: z.string().optional(),
+    minVersion:
+      CreateInputKafkaSchemaRegistryMinimumTLSVersionKafka$outboundSchema
+        .optional(),
+    maxVersion:
+      CreateInputKafkaSchemaRegistryMaximumTLSVersionKafka$outboundSchema
+        .optional(),
+  });
+
+export function createInputKafkaSchemaRegistryTLSSettingsClientSideKafkaToJSON(
+  createInputKafkaSchemaRegistryTLSSettingsClientSideKafka:
+    CreateInputKafkaSchemaRegistryTLSSettingsClientSideKafka,
+): string {
+  return JSON.stringify(
+    CreateInputKafkaSchemaRegistryTLSSettingsClientSideKafka$outboundSchema
+      .parse(createInputKafkaSchemaRegistryTLSSettingsClientSideKafka),
+  );
+}
+
+/** @internal */
+export type CreateInputKafkaSchemaRegistryAuthenticationKafka$Outbound = {
+  disabled: boolean;
+  schemaRegistryURL: string;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  auth?: CreateInputAuthKafka$Outbound | undefined;
+  tls?:
+    | CreateInputKafkaSchemaRegistryTLSSettingsClientSideKafka$Outbound
+    | undefined;
+};
+
+/** @internal */
+export const CreateInputKafkaSchemaRegistryAuthenticationKafka$outboundSchema:
+  z.ZodType<
+    CreateInputKafkaSchemaRegistryAuthenticationKafka$Outbound,
+    z.ZodTypeDef,
+    CreateInputKafkaSchemaRegistryAuthenticationKafka
+  > = z.object({
+    disabled: z.boolean().default(true),
+    schemaRegistryURL: z.string().default("http://localhost:8081"),
+    connectionTimeout: z.number().default(30000),
+    requestTimeout: z.number().default(30000),
+    maxRetries: z.number().default(1),
+    auth: z.lazy(() => CreateInputAuthKafka$outboundSchema).optional(),
+    tls: z.lazy(() =>
+      CreateInputKafkaSchemaRegistryTLSSettingsClientSideKafka$outboundSchema
+    ).optional(),
+  });
+
+export function createInputKafkaSchemaRegistryAuthenticationKafkaToJSON(
+  createInputKafkaSchemaRegistryAuthenticationKafka:
+    CreateInputKafkaSchemaRegistryAuthenticationKafka,
+): string {
+  return JSON.stringify(
+    CreateInputKafkaSchemaRegistryAuthenticationKafka$outboundSchema.parse(
+      createInputKafkaSchemaRegistryAuthenticationKafka,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputAuthenticationMethodKafka$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputAuthenticationMethodKafka
+> = openEnums.outboundSchema(CreateInputAuthenticationMethodKafka);
+
+/** @internal */
+export const CreateInputSASLMechanismKafka$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSASLMechanismKafka
+> = openEnums.outboundSchema(CreateInputSASLMechanismKafka);
+
+/** @internal */
+export type CreateInputOauthParamKafka$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CreateInputOauthParamKafka$outboundSchema: z.ZodType<
+  CreateInputOauthParamKafka$Outbound,
+  z.ZodTypeDef,
+  CreateInputOauthParamKafka
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function createInputOauthParamKafkaToJSON(
+  createInputOauthParamKafka: CreateInputOauthParamKafka,
+): string {
+  return JSON.stringify(
+    CreateInputOauthParamKafka$outboundSchema.parse(createInputOauthParamKafka),
+  );
+}
+
+/** @internal */
+export type CreateInputSaslExtensionKafka$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CreateInputSaslExtensionKafka$outboundSchema: z.ZodType<
+  CreateInputSaslExtensionKafka$Outbound,
+  z.ZodTypeDef,
+  CreateInputSaslExtensionKafka
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function createInputSaslExtensionKafkaToJSON(
+  createInputSaslExtensionKafka: CreateInputSaslExtensionKafka,
+): string {
+  return JSON.stringify(
+    CreateInputSaslExtensionKafka$outboundSchema.parse(
+      createInputSaslExtensionKafka,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputAuthenticationKafka$Outbound = {
+  disabled: boolean;
+  username?: string | undefined;
+  password?: string | undefined;
+  authType: string;
+  credentialsSecret?: string | undefined;
+  mechanism: string;
+  keytabLocation?: string | undefined;
+  principal?: string | undefined;
+  brokerServiceClass?: string | undefined;
+  oauthEnabled: boolean;
+  tokenUrl?: string | undefined;
+  clientId?: string | undefined;
+  oauthSecretType: string;
+  clientTextSecret?: string | undefined;
+  oauthParams?: Array<CreateInputOauthParamKafka$Outbound> | undefined;
+  saslExtensions?: Array<CreateInputSaslExtensionKafka$Outbound> | undefined;
+};
+
+/** @internal */
+export const CreateInputAuthenticationKafka$outboundSchema: z.ZodType<
+  CreateInputAuthenticationKafka$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuthenticationKafka
+> = z.object({
+  disabled: z.boolean().default(true),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  authType: CreateInputAuthenticationMethodKafka$outboundSchema.default(
+    "manual",
+  ),
+  credentialsSecret: z.string().optional(),
+  mechanism: CreateInputSASLMechanismKafka$outboundSchema.default("plain"),
+  keytabLocation: z.string().optional(),
+  principal: z.string().optional(),
+  brokerServiceClass: z.string().optional(),
+  oauthEnabled: z.boolean().default(false),
+  tokenUrl: z.string().optional(),
+  clientId: z.string().optional(),
+  oauthSecretType: z.string().default("secret"),
+  clientTextSecret: z.string().optional(),
+  oauthParams: z.array(z.lazy(() => CreateInputOauthParamKafka$outboundSchema))
+    .optional(),
+  saslExtensions: z.array(
+    z.lazy(() => CreateInputSaslExtensionKafka$outboundSchema),
+  ).optional(),
+});
+
+export function createInputAuthenticationKafkaToJSON(
+  createInputAuthenticationKafka: CreateInputAuthenticationKafka,
+): string {
+  return JSON.stringify(
+    CreateInputAuthenticationKafka$outboundSchema.parse(
+      createInputAuthenticationKafka,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputMinimumTLSVersionKafka$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMinimumTLSVersionKafka
+> = openEnums.outboundSchema(CreateInputMinimumTLSVersionKafka);
+
+/** @internal */
+export const CreateInputMaximumTLSVersionKafka$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMaximumTLSVersionKafka
+> = openEnums.outboundSchema(CreateInputMaximumTLSVersionKafka);
+
+/** @internal */
+export type CreateInputTLSSettingsClientSideKafka$Outbound = {
+  disabled: boolean;
+  rejectUnauthorized: boolean;
+  servername?: string | undefined;
+  certificateName?: string | undefined;
+  caPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  certPath?: string | undefined;
+  passphrase?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputTLSSettingsClientSideKafka$outboundSchema: z.ZodType<
+  CreateInputTLSSettingsClientSideKafka$Outbound,
+  z.ZodTypeDef,
+  CreateInputTLSSettingsClientSideKafka
+> = z.object({
+  disabled: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  servername: z.string().optional(),
+  certificateName: z.string().optional(),
+  caPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  certPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  minVersion: CreateInputMinimumTLSVersionKafka$outboundSchema.optional(),
+  maxVersion: CreateInputMaximumTLSVersionKafka$outboundSchema.optional(),
+});
+
+export function createInputTLSSettingsClientSideKafkaToJSON(
+  createInputTLSSettingsClientSideKafka: CreateInputTLSSettingsClientSideKafka,
+): string {
+  return JSON.stringify(
+    CreateInputTLSSettingsClientSideKafka$outboundSchema.parse(
+      createInputTLSSettingsClientSideKafka,
+    ),
+  );
+}
+
+/** @internal */
+export type MetadatumKafka$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumKafka$outboundSchema: z.ZodType<
+  MetadatumKafka$Outbound,
+  z.ZodTypeDef,
+  MetadatumKafka
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumKafkaToJSON(metadatumKafka: MetadatumKafka): string {
+  return JSON.stringify(MetadatumKafka$outboundSchema.parse(metadatumKafka));
+}
+
+/** @internal */
 export type InputKafka$Outbound = {
   id: string;
   type: "kafka";
@@ -15562,14 +35909,14 @@ export type InputKafka$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionKafka$Outbound> | undefined;
+  pq?: PqKafka$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
   groupId: string;
   fromBeginning: boolean;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationType$Outbound
+    | CreateInputKafkaSchemaRegistryAuthenticationKafka$Outbound
     | undefined;
   connectionTimeout: number;
   requestTimeout: number;
@@ -15579,10 +35926,8 @@ export type InputKafka$Outbound = {
   backoffRate: number;
   authenticationTimeout: number;
   reauthenticationThreshold: number;
-  sasl?: models.AuthenticationType$Outbound | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  sasl?: CreateInputAuthenticationKafka$Outbound | undefined;
+  tls?: CreateInputTLSSettingsClientSideKafka$Outbound | undefined;
   sessionTimeout: number;
   rebalanceTimeout: number;
   heartbeatInterval: number;
@@ -15591,7 +35936,7 @@ export type InputKafka$Outbound = {
   maxBytesPerPartition: number;
   maxBytes: number;
   maxSocketErrors: number;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumKafka$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -15609,14 +35954,15 @@ export const InputKafka$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionKafka$outboundSchema)).optional(),
+  pq: z.lazy(() => PqKafka$outboundSchema).optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
   fromBeginning: z.boolean().default(true),
-  kafkaSchemaRegistry: models
-    .KafkaSchemaRegistryAuthenticationType$outboundSchema.optional(),
+  kafkaSchemaRegistry: z.lazy(() =>
+    CreateInputKafkaSchemaRegistryAuthenticationKafka$outboundSchema
+  ).optional(),
   connectionTimeout: z.number().default(10000),
   requestTimeout: z.number().default(60000),
   maxRetries: z.number().default(5),
@@ -15625,8 +35971,8 @@ export const InputKafka$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  sasl: models.AuthenticationType$outboundSchema.optional(),
-  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+  sasl: z.lazy(() => CreateInputAuthenticationKafka$outboundSchema).optional(),
+  tls: z.lazy(() => CreateInputTLSSettingsClientSideKafka$outboundSchema)
     .optional(),
   sessionTimeout: z.number().default(30000),
   rebalanceTimeout: z.number().default(60000),
@@ -15636,13 +35982,150 @@ export const InputKafka$outboundSchema: z.ZodType<
   maxBytesPerPartition: z.number().default(1048576),
   maxBytes: z.number().default(10485760),
   maxSocketErrors: z.number().default(0),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(z.lazy(() => MetadatumKafka$outboundSchema)).optional(),
   description: z.string().optional(),
 });
 
 export function inputKafkaToJSON(inputKafka: InputKafka): string {
   return JSON.stringify(InputKafka$outboundSchema.parse(inputKafka));
+}
+
+/** @internal */
+export type ConnectionCollection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const ConnectionCollection$outboundSchema: z.ZodType<
+  ConnectionCollection$Outbound,
+  z.ZodTypeDef,
+  ConnectionCollection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function connectionCollectionToJSON(
+  connectionCollection: ConnectionCollection,
+): string {
+  return JSON.stringify(
+    ConnectionCollection$outboundSchema.parse(connectionCollection),
+  );
+}
+
+/** @internal */
+export const ModeCollection$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeCollection
+> = openEnums.outboundSchema(ModeCollection);
+
+/** @internal */
+export const CompressionCollection$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CompressionCollection
+> = openEnums.outboundSchema(CompressionCollection);
+
+/** @internal */
+export type PqControlsCollection$Outbound = {};
+
+/** @internal */
+export const PqControlsCollection$outboundSchema: z.ZodType<
+  PqControlsCollection$Outbound,
+  z.ZodTypeDef,
+  PqControlsCollection
+> = z.object({});
+
+export function pqControlsCollectionToJSON(
+  pqControlsCollection: PqControlsCollection,
+): string {
+  return JSON.stringify(
+    PqControlsCollection$outboundSchema.parse(pqControlsCollection),
+  );
+}
+
+/** @internal */
+export type PqCollection$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: PqControlsCollection$Outbound | undefined;
+};
+
+/** @internal */
+export const PqCollection$outboundSchema: z.ZodType<
+  PqCollection$Outbound,
+  z.ZodTypeDef,
+  PqCollection
+> = z.object({
+  mode: ModeCollection$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: CompressionCollection$outboundSchema.default("none"),
+  pqControls: z.lazy(() => PqControlsCollection$outboundSchema).optional(),
+});
+
+export function pqCollectionToJSON(pqCollection: PqCollection): string {
+  return JSON.stringify(PqCollection$outboundSchema.parse(pqCollection));
+}
+
+/** @internal */
+export type PreprocessCollection$Outbound = {
+  disabled: boolean;
+  command?: string | undefined;
+  args?: Array<string> | undefined;
+};
+
+/** @internal */
+export const PreprocessCollection$outboundSchema: z.ZodType<
+  PreprocessCollection$Outbound,
+  z.ZodTypeDef,
+  PreprocessCollection
+> = z.object({
+  disabled: z.boolean().default(true),
+  command: z.string().optional(),
+  args: z.array(z.string()).optional(),
+});
+
+export function preprocessCollectionToJSON(
+  preprocessCollection: PreprocessCollection,
+): string {
+  return JSON.stringify(
+    PreprocessCollection$outboundSchema.parse(preprocessCollection),
+  );
+}
+
+/** @internal */
+export type MetadatumCollection$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const MetadatumCollection$outboundSchema: z.ZodType<
+  MetadatumCollection$Outbound,
+  z.ZodTypeDef,
+  MetadatumCollection
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function metadatumCollectionToJSON(
+  metadatumCollection: MetadatumCollection,
+): string {
+  return JSON.stringify(
+    MetadatumCollection$outboundSchema.parse(metadatumCollection),
+  );
 }
 
 /** @internal */
@@ -15655,15 +36138,13 @@ export type InputCollection$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.ItemsTypeConnections$Outbound> | undefined;
-  pq?: models.PqType$Outbound | undefined;
+  connections?: Array<ConnectionCollection$Outbound> | undefined;
+  pq?: PqCollection$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
+  preprocess?: PreprocessCollection$Outbound | undefined;
   throttleRatePerSec: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<MetadatumCollection$Outbound> | undefined;
   output?: string | undefined;
 };
 
@@ -15681,14 +36162,14 @@ export const InputCollection$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.ItemsTypeConnections$outboundSchema).optional(),
-  pq: models.PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => ConnectionCollection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => PqCollection$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
+  preprocess: z.lazy(() => PreprocessCollection$outboundSchema).optional(),
   throttleRatePerSec: z.string().default("0"),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(z.lazy(() => MetadatumCollection$outboundSchema))
     .optional(),
   output: z.string().optional(),
 });

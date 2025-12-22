@@ -4,32 +4,107 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
-import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
-import {
-  PreprocessTypeSavedJobCollectionInput,
-  PreprocessTypeSavedJobCollectionInput$inboundSchema,
-  PreprocessTypeSavedJobCollectionInput$Outbound,
-  PreprocessTypeSavedJobCollectionInput$outboundSchema,
-} from "./preprocesstypesavedjobcollectioninput.js";
+
+export type InputCollectionConnection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputCollectionMode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputCollectionMode = OpenEnum<typeof InputCollectionMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputCollectionCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputCollectionCompression = OpenEnum<
+  typeof InputCollectionCompression
+>;
+
+export type InputCollectionPqControls = {};
+
+export type InputCollectionPq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputCollectionMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputCollectionCompression | undefined;
+  pqControls?: InputCollectionPqControls | undefined;
+};
+
+export type InputCollectionPreprocess = {
+  disabled?: boolean | undefined;
+  /**
+   * Command to feed the data through (via stdin) and process its output (stdout)
+   */
+  command?: string | undefined;
+  /**
+   * Arguments to be added to the custom command
+   */
+  args?: Array<string> | undefined;
+};
+
+export type InputCollectionMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
 
 export type InputCollection = {
   /**
@@ -61,8 +136,8 @@ export type InputCollection = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputCollectionConnection> | undefined;
+  pq?: InputCollectionPq | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -71,7 +146,7 @@ export type InputCollection = {
    * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
    */
   staleChannelFlushMs?: number | undefined;
-  preprocess?: PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: InputCollectionPreprocess | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
@@ -79,12 +154,260 @@ export type InputCollection = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputCollectionMetadatum> | undefined;
   /**
    * Destination to send results to
    */
   output?: string | undefined;
 };
+
+/** @internal */
+export const InputCollectionConnection$inboundSchema: z.ZodType<
+  InputCollectionConnection,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputCollectionConnection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputCollectionConnection$outboundSchema: z.ZodType<
+  InputCollectionConnection$Outbound,
+  z.ZodTypeDef,
+  InputCollectionConnection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputCollectionConnectionToJSON(
+  inputCollectionConnection: InputCollectionConnection,
+): string {
+  return JSON.stringify(
+    InputCollectionConnection$outboundSchema.parse(inputCollectionConnection),
+  );
+}
+export function inputCollectionConnectionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCollectionConnection, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCollectionConnection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCollectionConnection' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCollectionMode$inboundSchema: z.ZodType<
+  InputCollectionMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputCollectionMode);
+/** @internal */
+export const InputCollectionMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputCollectionMode
+> = openEnums.outboundSchema(InputCollectionMode);
+
+/** @internal */
+export const InputCollectionCompression$inboundSchema: z.ZodType<
+  InputCollectionCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputCollectionCompression);
+/** @internal */
+export const InputCollectionCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputCollectionCompression
+> = openEnums.outboundSchema(InputCollectionCompression);
+
+/** @internal */
+export const InputCollectionPqControls$inboundSchema: z.ZodType<
+  InputCollectionPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputCollectionPqControls$Outbound = {};
+
+/** @internal */
+export const InputCollectionPqControls$outboundSchema: z.ZodType<
+  InputCollectionPqControls$Outbound,
+  z.ZodTypeDef,
+  InputCollectionPqControls
+> = z.object({});
+
+export function inputCollectionPqControlsToJSON(
+  inputCollectionPqControls: InputCollectionPqControls,
+): string {
+  return JSON.stringify(
+    InputCollectionPqControls$outboundSchema.parse(inputCollectionPqControls),
+  );
+}
+export function inputCollectionPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCollectionPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCollectionPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCollectionPqControls' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCollectionPq$inboundSchema: z.ZodType<
+  InputCollectionPq,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputCollectionMode$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputCollectionCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputCollectionPqControls$inboundSchema).optional(),
+});
+/** @internal */
+export type InputCollectionPq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputCollectionPqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputCollectionPq$outboundSchema: z.ZodType<
+  InputCollectionPq$Outbound,
+  z.ZodTypeDef,
+  InputCollectionPq
+> = z.object({
+  mode: InputCollectionMode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputCollectionCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputCollectionPqControls$outboundSchema).optional(),
+});
+
+export function inputCollectionPqToJSON(
+  inputCollectionPq: InputCollectionPq,
+): string {
+  return JSON.stringify(
+    InputCollectionPq$outboundSchema.parse(inputCollectionPq),
+  );
+}
+export function inputCollectionPqFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCollectionPq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCollectionPq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCollectionPq' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCollectionPreprocess$inboundSchema: z.ZodType<
+  InputCollectionPreprocess,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  command: z.string().optional(),
+  args: z.array(z.string()).optional(),
+});
+/** @internal */
+export type InputCollectionPreprocess$Outbound = {
+  disabled: boolean;
+  command?: string | undefined;
+  args?: Array<string> | undefined;
+};
+
+/** @internal */
+export const InputCollectionPreprocess$outboundSchema: z.ZodType<
+  InputCollectionPreprocess$Outbound,
+  z.ZodTypeDef,
+  InputCollectionPreprocess
+> = z.object({
+  disabled: z.boolean().default(true),
+  command: z.string().optional(),
+  args: z.array(z.string()).optional(),
+});
+
+export function inputCollectionPreprocessToJSON(
+  inputCollectionPreprocess: InputCollectionPreprocess,
+): string {
+  return JSON.stringify(
+    InputCollectionPreprocess$outboundSchema.parse(inputCollectionPreprocess),
+  );
+}
+export function inputCollectionPreprocessFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCollectionPreprocess, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCollectionPreprocess$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCollectionPreprocess' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCollectionMetadatum$inboundSchema: z.ZodType<
+  InputCollectionMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputCollectionMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputCollectionMetadatum$outboundSchema: z.ZodType<
+  InputCollectionMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputCollectionMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputCollectionMetadatumToJSON(
+  inputCollectionMetadatum: InputCollectionMetadatum,
+): string {
+  return JSON.stringify(
+    InputCollectionMetadatum$outboundSchema.parse(inputCollectionMetadatum),
+  );
+}
+export function inputCollectionMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCollectionMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCollectionMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCollectionMetadatum' from JSON`,
+  );
+}
 
 /** @internal */
 export const InputCollection$inboundSchema: z.ZodType<
@@ -100,13 +423,15 @@ export const InputCollection$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputCollectionConnection$inboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputCollectionPq$inboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
-  preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
+  preprocess: z.lazy(() => InputCollectionPreprocess$inboundSchema).optional(),
   throttleRatePerSec: z.string().default("0"),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputCollectionMetadatum$inboundSchema))
+    .optional(),
   output: z.string().optional(),
 });
 /** @internal */
@@ -119,13 +444,13 @@ export type InputCollection$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputCollectionConnection$Outbound> | undefined;
+  pq?: InputCollectionPq$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
-  preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
+  preprocess?: InputCollectionPreprocess$Outbound | undefined;
   throttleRatePerSec: string;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<InputCollectionMetadatum$Outbound> | undefined;
   output?: string | undefined;
 };
 
@@ -143,13 +468,15 @@ export const InputCollection$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputCollectionConnection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputCollectionPq$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
-  preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
+  preprocess: z.lazy(() => InputCollectionPreprocess$outboundSchema).optional(),
   throttleRatePerSec: z.string().default("0"),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputCollectionMetadatum$outboundSchema))
+    .optional(),
   output: z.string().optional(),
 });
 

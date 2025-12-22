@@ -4,49 +4,120 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  AuthenticationMethodOptionsAuthTokensItems,
-  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
-} from "./authenticationmethodoptionsauthtokensitems.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
-import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
-import {
-  TlsSettingsServerSideType,
-  TlsSettingsServerSideType$inboundSchema,
-  TlsSettingsServerSideType$Outbound,
-  TlsSettingsServerSideType$outboundSchema,
-} from "./tlssettingsserversidetype.js";
 
 export const InputSplunkHecType = {
   SplunkHec: "splunk_hec",
 } as const;
 export type InputSplunkHecType = ClosedEnum<typeof InputSplunkHecType>;
 
+export type InputSplunkHecConnection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputSplunkHecMode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputSplunkHecMode = OpenEnum<typeof InputSplunkHecMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputSplunkHecCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputSplunkHecCompression = OpenEnum<
+  typeof InputSplunkHecCompression
+>;
+
+export type InputSplunkHecPqControls = {};
+
+export type InputSplunkHecPq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputSplunkHecMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputSplunkHecCompression | undefined;
+  pqControls?: InputSplunkHecPqControls | undefined;
+};
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const InputSplunkHecAuthenticationMethod = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type InputSplunkHecAuthenticationMethod = OpenEnum<
+  typeof InputSplunkHecAuthenticationMethod
+>;
+
+export type InputSplunkHecAuthTokenMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
 export type InputSplunkHecAuthToken = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
+  authType?: InputSplunkHecAuthenticationMethod | undefined;
   /**
    * Select or create a stored text secret
    */
@@ -67,7 +138,73 @@ export type InputSplunkHecAuthToken = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputSplunkHecAuthTokenMetadatum> | undefined;
+};
+
+export const InputSplunkHecMinimumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputSplunkHecMinimumTLSVersion = OpenEnum<
+  typeof InputSplunkHecMinimumTLSVersion
+>;
+
+export const InputSplunkHecMaximumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputSplunkHecMaximumTLSVersion = OpenEnum<
+  typeof InputSplunkHecMaximumTLSVersion
+>;
+
+export type InputSplunkHecTLSSettingsServerSide = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: InputSplunkHecMinimumTLSVersion | undefined;
+  maxVersion?: InputSplunkHecMaximumTLSVersion | undefined;
+};
+
+export type InputSplunkHecMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputSplunkHec = {
@@ -100,8 +237,8 @@ export type InputSplunkHec = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputSplunkHecConnection> | undefined;
+  pq?: InputSplunkHecPq | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -114,7 +251,7 @@ export type InputSplunkHec = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<InputSplunkHecAuthToken> | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: InputSplunkHecTLSSettingsServerSide | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -163,7 +300,7 @@ export type InputSplunkHec = {
   /**
    * Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputSplunkHecMetadatum> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -217,20 +354,238 @@ export const InputSplunkHecType$outboundSchema: z.ZodNativeEnum<
 > = InputSplunkHecType$inboundSchema;
 
 /** @internal */
+export const InputSplunkHecConnection$inboundSchema: z.ZodType<
+  InputSplunkHecConnection,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputSplunkHecConnection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputSplunkHecConnection$outboundSchema: z.ZodType<
+  InputSplunkHecConnection$Outbound,
+  z.ZodTypeDef,
+  InputSplunkHecConnection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputSplunkHecConnectionToJSON(
+  inputSplunkHecConnection: InputSplunkHecConnection,
+): string {
+  return JSON.stringify(
+    InputSplunkHecConnection$outboundSchema.parse(inputSplunkHecConnection),
+  );
+}
+export function inputSplunkHecConnectionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkHecConnection, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkHecConnection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkHecConnection' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkHecMode$inboundSchema: z.ZodType<
+  InputSplunkHecMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputSplunkHecMode);
+/** @internal */
+export const InputSplunkHecMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSplunkHecMode
+> = openEnums.outboundSchema(InputSplunkHecMode);
+
+/** @internal */
+export const InputSplunkHecCompression$inboundSchema: z.ZodType<
+  InputSplunkHecCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputSplunkHecCompression);
+/** @internal */
+export const InputSplunkHecCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSplunkHecCompression
+> = openEnums.outboundSchema(InputSplunkHecCompression);
+
+/** @internal */
+export const InputSplunkHecPqControls$inboundSchema: z.ZodType<
+  InputSplunkHecPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputSplunkHecPqControls$Outbound = {};
+
+/** @internal */
+export const InputSplunkHecPqControls$outboundSchema: z.ZodType<
+  InputSplunkHecPqControls$Outbound,
+  z.ZodTypeDef,
+  InputSplunkHecPqControls
+> = z.object({});
+
+export function inputSplunkHecPqControlsToJSON(
+  inputSplunkHecPqControls: InputSplunkHecPqControls,
+): string {
+  return JSON.stringify(
+    InputSplunkHecPqControls$outboundSchema.parse(inputSplunkHecPqControls),
+  );
+}
+export function inputSplunkHecPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkHecPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkHecPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkHecPqControls' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkHecPq$inboundSchema: z.ZodType<
+  InputSplunkHecPq,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSplunkHecMode$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputSplunkHecCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSplunkHecPqControls$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSplunkHecPq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputSplunkHecPqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputSplunkHecPq$outboundSchema: z.ZodType<
+  InputSplunkHecPq$Outbound,
+  z.ZodTypeDef,
+  InputSplunkHecPq
+> = z.object({
+  mode: InputSplunkHecMode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputSplunkHecCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSplunkHecPqControls$outboundSchema).optional(),
+});
+
+export function inputSplunkHecPqToJSON(
+  inputSplunkHecPq: InputSplunkHecPq,
+): string {
+  return JSON.stringify(
+    InputSplunkHecPq$outboundSchema.parse(inputSplunkHecPq),
+  );
+}
+export function inputSplunkHecPqFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkHecPq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkHecPq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkHecPq' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkHecAuthenticationMethod$inboundSchema: z.ZodType<
+  InputSplunkHecAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputSplunkHecAuthenticationMethod);
+/** @internal */
+export const InputSplunkHecAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSplunkHecAuthenticationMethod
+> = openEnums.outboundSchema(InputSplunkHecAuthenticationMethod);
+
+/** @internal */
+export const InputSplunkHecAuthTokenMetadatum$inboundSchema: z.ZodType<
+  InputSplunkHecAuthTokenMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputSplunkHecAuthTokenMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputSplunkHecAuthTokenMetadatum$outboundSchema: z.ZodType<
+  InputSplunkHecAuthTokenMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputSplunkHecAuthTokenMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputSplunkHecAuthTokenMetadatumToJSON(
+  inputSplunkHecAuthTokenMetadatum: InputSplunkHecAuthTokenMetadatum,
+): string {
+  return JSON.stringify(
+    InputSplunkHecAuthTokenMetadatum$outboundSchema.parse(
+      inputSplunkHecAuthTokenMetadatum,
+    ),
+  );
+}
+export function inputSplunkHecAuthTokenMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkHecAuthTokenMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkHecAuthTokenMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkHecAuthTokenMetadatum' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputSplunkHecAuthToken$inboundSchema: z.ZodType<
   InputSplunkHecAuthToken,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-    "manual",
-  ),
+  authType: InputSplunkHecAuthenticationMethod$inboundSchema.default("manual"),
   tokenSecret: z.string().optional(),
   token: z.string(),
   enabled: z.boolean().default(true),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  metadata: z.array(
+    z.lazy(() => InputSplunkHecAuthTokenMetadatum$inboundSchema),
+  ).optional(),
 });
 /** @internal */
 export type InputSplunkHecAuthToken$Outbound = {
@@ -240,7 +595,7 @@ export type InputSplunkHecAuthToken$Outbound = {
   enabled: boolean;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<InputSplunkHecAuthTokenMetadatum$Outbound> | undefined;
 };
 
 /** @internal */
@@ -249,15 +604,15 @@ export const InputSplunkHecAuthToken$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSplunkHecAuthToken
 > = z.object({
-  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-    "manual",
-  ),
+  authType: InputSplunkHecAuthenticationMethod$outboundSchema.default("manual"),
   tokenSecret: z.string().optional(),
   token: z.string(),
   enabled: z.boolean().default(true),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(
+    z.lazy(() => InputSplunkHecAuthTokenMetadatum$outboundSchema),
+  ).optional(),
 });
 
 export function inputSplunkHecAuthTokenToJSON(
@@ -278,6 +633,146 @@ export function inputSplunkHecAuthTokenFromJSON(
 }
 
 /** @internal */
+export const InputSplunkHecMinimumTLSVersion$inboundSchema: z.ZodType<
+  InputSplunkHecMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputSplunkHecMinimumTLSVersion);
+/** @internal */
+export const InputSplunkHecMinimumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSplunkHecMinimumTLSVersion
+> = openEnums.outboundSchema(InputSplunkHecMinimumTLSVersion);
+
+/** @internal */
+export const InputSplunkHecMaximumTLSVersion$inboundSchema: z.ZodType<
+  InputSplunkHecMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputSplunkHecMaximumTLSVersion);
+/** @internal */
+export const InputSplunkHecMaximumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSplunkHecMaximumTLSVersion
+> = openEnums.outboundSchema(InputSplunkHecMaximumTLSVersion);
+
+/** @internal */
+export const InputSplunkHecTLSSettingsServerSide$inboundSchema: z.ZodType<
+  InputSplunkHecTLSSettingsServerSide,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputSplunkHecMinimumTLSVersion$inboundSchema.optional(),
+  maxVersion: InputSplunkHecMaximumTLSVersion$inboundSchema.optional(),
+});
+/** @internal */
+export type InputSplunkHecTLSSettingsServerSide$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const InputSplunkHecTLSSettingsServerSide$outboundSchema: z.ZodType<
+  InputSplunkHecTLSSettingsServerSide$Outbound,
+  z.ZodTypeDef,
+  InputSplunkHecTLSSettingsServerSide
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputSplunkHecMinimumTLSVersion$outboundSchema.optional(),
+  maxVersion: InputSplunkHecMaximumTLSVersion$outboundSchema.optional(),
+});
+
+export function inputSplunkHecTLSSettingsServerSideToJSON(
+  inputSplunkHecTLSSettingsServerSide: InputSplunkHecTLSSettingsServerSide,
+): string {
+  return JSON.stringify(
+    InputSplunkHecTLSSettingsServerSide$outboundSchema.parse(
+      inputSplunkHecTLSSettingsServerSide,
+    ),
+  );
+}
+export function inputSplunkHecTLSSettingsServerSideFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkHecTLSSettingsServerSide, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputSplunkHecTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkHecTLSSettingsServerSide' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkHecMetadatum$inboundSchema: z.ZodType<
+  InputSplunkHecMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputSplunkHecMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputSplunkHecMetadatum$outboundSchema: z.ZodType<
+  InputSplunkHecMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputSplunkHecMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputSplunkHecMetadatumToJSON(
+  inputSplunkHecMetadatum: InputSplunkHecMetadatum,
+): string {
+  return JSON.stringify(
+    InputSplunkHecMetadatum$outboundSchema.parse(inputSplunkHecMetadatum),
+  );
+}
+export function inputSplunkHecMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkHecMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkHecMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkHecMetadatum' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputSplunkHec$inboundSchema: z.ZodType<
   InputSplunkHec,
   z.ZodTypeDef,
@@ -291,13 +786,15 @@ export const InputSplunkHec$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputSplunkHecConnection$inboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputSplunkHecPq$inboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$inboundSchema))
     .optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  tls: z.lazy(() => InputSplunkHecTLSSettingsServerSide$inboundSchema)
+    .optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -310,7 +807,8 @@ export const InputSplunkHec$inboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   splunkHecAPI: z.string().default("/services/collector"),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputSplunkHecMetadatum$inboundSchema))
+    .optional(),
   allowedIndexes: z.array(z.string()).optional(),
   splunkHecAcks: z.boolean().default(false),
   breakerRulesets: z.array(z.string()).optional(),
@@ -333,12 +831,12 @@ export type InputSplunkHec$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputSplunkHecConnection$Outbound> | undefined;
+  pq?: InputSplunkHecPq$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<InputSplunkHecAuthToken$Outbound> | undefined;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  tls?: InputSplunkHecTLSSettingsServerSide$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -351,7 +849,7 @@ export type InputSplunkHec$Outbound = {
   ipAllowlistRegex: string;
   ipDenylistRegex: string;
   splunkHecAPI: string;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<InputSplunkHecMetadatum$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   splunkHecAcks: boolean;
   breakerRulesets?: Array<string> | undefined;
@@ -379,13 +877,15 @@ export const InputSplunkHec$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputSplunkHecConnection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputSplunkHecPq$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$outboundSchema))
     .optional(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => InputSplunkHecTLSSettingsServerSide$outboundSchema)
+    .optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -398,7 +898,8 @@ export const InputSplunkHec$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   splunkHecAPI: z.string().default("/services/collector"),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputSplunkHecMetadatum$outboundSchema))
+    .optional(),
   allowedIndexes: z.array(z.string()).optional(),
   splunkHecAcks: z.boolean().default(false),
   breakerRulesets: z.array(z.string()).optional(),

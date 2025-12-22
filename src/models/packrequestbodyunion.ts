@@ -3,11 +3,13 @@
  */
 
 import * as z from "zod/v3";
-import {
-  TagsTypePackInstallInfo,
-  TagsTypePackInstallInfo$Outbound,
-  TagsTypePackInstallInfo$outboundSchema,
-} from "./tagstypepackinstallinfo.js";
+
+export type PackRequestBodyTags2 = {
+  dataType?: Array<string> | undefined;
+  domain?: Array<string> | undefined;
+  technology?: Array<string> | undefined;
+  streamtags?: Array<string> | undefined;
+};
 
 export type PackRequestBody2 = {
   id?: string | undefined;
@@ -21,9 +23,16 @@ export type PackRequestBody2 = {
    * The source of the pack. If not present, an empty pack will be created
    */
   source: string;
-  tags?: TagsTypePackInstallInfo | undefined;
+  tags?: PackRequestBodyTags2 | undefined;
   allowCustomFunctions?: boolean | undefined;
   force?: boolean | undefined;
+};
+
+export type PackRequestBodyTags1 = {
+  dataType?: Array<string> | undefined;
+  domain?: Array<string> | undefined;
+  technology?: Array<string> | undefined;
+  streamtags?: Array<string> | undefined;
 };
 
 export type PackRequestBody1 = {
@@ -38,12 +47,40 @@ export type PackRequestBody1 = {
    * The source of the pack. If not present, an empty pack will be created
    */
   source?: string | undefined;
-  tags?: TagsTypePackInstallInfo | undefined;
+  tags?: PackRequestBodyTags1 | undefined;
   allowCustomFunctions?: boolean | undefined;
   force?: boolean | undefined;
 };
 
 export type PackRequestBodyUnion = PackRequestBody1 | PackRequestBody2;
+
+/** @internal */
+export type PackRequestBodyTags2$Outbound = {
+  dataType?: Array<string> | undefined;
+  domain?: Array<string> | undefined;
+  technology?: Array<string> | undefined;
+  streamtags?: Array<string> | undefined;
+};
+
+/** @internal */
+export const PackRequestBodyTags2$outboundSchema: z.ZodType<
+  PackRequestBodyTags2$Outbound,
+  z.ZodTypeDef,
+  PackRequestBodyTags2
+> = z.object({
+  dataType: z.array(z.string()).optional(),
+  domain: z.array(z.string()).optional(),
+  technology: z.array(z.string()).optional(),
+  streamtags: z.array(z.string()).optional(),
+});
+
+export function packRequestBodyTags2ToJSON(
+  packRequestBodyTags2: PackRequestBodyTags2,
+): string {
+  return JSON.stringify(
+    PackRequestBodyTags2$outboundSchema.parse(packRequestBodyTags2),
+  );
+}
 
 /** @internal */
 export type PackRequestBody2$Outbound = {
@@ -55,7 +92,7 @@ export type PackRequestBody2$Outbound = {
   author?: string | undefined;
   description?: string | undefined;
   source: string;
-  tags?: TagsTypePackInstallInfo$Outbound | undefined;
+  tags?: PackRequestBodyTags2$Outbound | undefined;
   allowCustomFunctions?: boolean | undefined;
   force?: boolean | undefined;
 };
@@ -74,7 +111,7 @@ export const PackRequestBody2$outboundSchema: z.ZodType<
   author: z.string().optional(),
   description: z.string().optional(),
   source: z.string(),
-  tags: TagsTypePackInstallInfo$outboundSchema.optional(),
+  tags: z.lazy(() => PackRequestBodyTags2$outboundSchema).optional(),
   allowCustomFunctions: z.boolean().optional(),
   force: z.boolean().optional(),
 });
@@ -88,6 +125,34 @@ export function packRequestBody2ToJSON(
 }
 
 /** @internal */
+export type PackRequestBodyTags1$Outbound = {
+  dataType?: Array<string> | undefined;
+  domain?: Array<string> | undefined;
+  technology?: Array<string> | undefined;
+  streamtags?: Array<string> | undefined;
+};
+
+/** @internal */
+export const PackRequestBodyTags1$outboundSchema: z.ZodType<
+  PackRequestBodyTags1$Outbound,
+  z.ZodTypeDef,
+  PackRequestBodyTags1
+> = z.object({
+  dataType: z.array(z.string()).optional(),
+  domain: z.array(z.string()).optional(),
+  technology: z.array(z.string()).optional(),
+  streamtags: z.array(z.string()).optional(),
+});
+
+export function packRequestBodyTags1ToJSON(
+  packRequestBodyTags1: PackRequestBodyTags1,
+): string {
+  return JSON.stringify(
+    PackRequestBodyTags1$outboundSchema.parse(packRequestBodyTags1),
+  );
+}
+
+/** @internal */
 export type PackRequestBody1$Outbound = {
   id: string;
   spec?: string | undefined;
@@ -97,7 +162,7 @@ export type PackRequestBody1$Outbound = {
   author?: string | undefined;
   description?: string | undefined;
   source?: string | undefined;
-  tags?: TagsTypePackInstallInfo$Outbound | undefined;
+  tags?: PackRequestBodyTags1$Outbound | undefined;
   allowCustomFunctions?: boolean | undefined;
   force?: boolean | undefined;
 };
@@ -116,7 +181,7 @@ export const PackRequestBody1$outboundSchema: z.ZodType<
   author: z.string().optional(),
   description: z.string().optional(),
   source: z.string().optional(),
-  tags: TagsTypePackInstallInfo$outboundSchema.optional(),
+  tags: z.lazy(() => PackRequestBodyTags1$outboundSchema).optional(),
   allowCustomFunctions: z.boolean().optional(),
   force: z.boolean().optional(),
 });

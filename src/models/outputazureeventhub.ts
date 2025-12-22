@@ -4,50 +4,259 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  AcknowledgmentsOptions,
-  AcknowledgmentsOptions$inboundSchema,
-  AcknowledgmentsOptions$outboundSchema,
-} from "./acknowledgmentsoptions.js";
-import {
-  AuthenticationType1,
-  AuthenticationType1$inboundSchema,
-  AuthenticationType1$Outbound,
-  AuthenticationType1$outboundSchema,
-} from "./authenticationtype1.js";
-import {
-  BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
-  BackpressureBehaviorOptions$outboundSchema,
-} from "./backpressurebehavioroptions.js";
-import {
-  CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
-  CompressionOptionsPq$outboundSchema,
-} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
-import {
-  QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
-  QueueFullBehaviorOptions$outboundSchema,
-} from "./queuefullbehavioroptions.js";
-import {
-  RecordDataFormatOptions,
-  RecordDataFormatOptions$inboundSchema,
-  RecordDataFormatOptions$outboundSchema,
-} from "./recorddataformatoptions.js";
-import {
-  TlsSettingsClientSideType,
-  TlsSettingsClientSideType$inboundSchema,
-  TlsSettingsClientSideType$Outbound,
-  TlsSettingsClientSideType$outboundSchema,
-} from "./tlssettingsclientsidetype.js";
+
+/**
+ * Control the number of required acknowledgments
+ */
+export const OutputAzureEventhubAcknowledgments = {
+  /**
+   * Leader
+   */
+  One: 1,
+  /**
+   * None
+   */
+  Zero: 0,
+  /**
+   * All
+   */
+  Minus1: -1,
+} as const;
+/**
+ * Control the number of required acknowledgments
+ */
+export type OutputAzureEventhubAcknowledgments = OpenEnum<
+  typeof OutputAzureEventhubAcknowledgments
+>;
+
+/**
+ * Format to use to serialize events before writing to the Event Hubs Kafka brokers
+ */
+export const OutputAzureEventhubRecordDataFormat = {
+  /**
+   * JSON
+   */
+  Json: "json",
+  /**
+   * Field _raw
+   */
+  Raw: "raw",
+} as const;
+/**
+ * Format to use to serialize events before writing to the Event Hubs Kafka brokers
+ */
+export type OutputAzureEventhubRecordDataFormat = OpenEnum<
+  typeof OutputAzureEventhubRecordDataFormat
+>;
+
+/**
+ * Enter password directly, or select a stored secret
+ */
+export const OutputAzureEventhubAuthTypeAuthenticationMethod = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter password directly, or select a stored secret
+ */
+export type OutputAzureEventhubAuthTypeAuthenticationMethod = OpenEnum<
+  typeof OutputAzureEventhubAuthTypeAuthenticationMethod
+>;
+
+export const OutputAzureEventhubSASLMechanism = {
+  /**
+   * PLAIN
+   */
+  Plain: "plain",
+  /**
+   * OAUTHBEARER
+   */
+  Oauthbearer: "oauthbearer",
+} as const;
+export type OutputAzureEventhubSASLMechanism = OpenEnum<
+  typeof OutputAzureEventhubSASLMechanism
+>;
+
+export const OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod = {
+  Manual: "manual",
+  Secret: "secret",
+  Certificate: "certificate",
+} as const;
+export type OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod =
+  OpenEnum<typeof OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod>;
+
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export const OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint = {
+  HttpsLoginMicrosoftonlineCom: "https://login.microsoftonline.com",
+  HttpsLoginMicrosoftonlineUs: "https://login.microsoftonline.us",
+  HttpsLoginPartnerMicrosoftonlineCn:
+    "https://login.partner.microsoftonline.cn",
+} as const;
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export type OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint =
+  OpenEnum<typeof OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint>;
+
+/**
+ * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+ */
+export type OutputAzureEventhubAuthentication = {
+  disabled?: boolean | undefined;
+  /**
+   * Enter password directly, or select a stored secret
+   */
+  authType?: OutputAzureEventhubAuthTypeAuthenticationMethod | undefined;
+  /**
+   * Connection-string primary key, or connection-string secondary key, from the Event Hubs workspace
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  mechanism?: OutputAzureEventhubSASLMechanism | undefined;
+  /**
+   * The username for authentication. For Event Hubs, this should always be $ConnectionString.
+   */
+  username?: string | undefined;
+  clientSecretAuthType?:
+    | OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod
+    | undefined;
+  /**
+   * client_secret to pass in the OAuth request parameter
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  /**
+   * Select or create a stored certificate
+   */
+  certificateName?: string | undefined;
+  certPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint?:
+    | OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint
+    | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId?: string | undefined;
+  /**
+   * Scope to pass in the OAuth request parameter
+   */
+  scope?: string | undefined;
+};
+
+export type OutputAzureEventhubTLSSettingsClientSide = {
+  disabled?: boolean | undefined;
+  /**
+   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+};
+
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export const OutputAzureEventhubBackpressureBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+  /**
+   * Persistent Queue
+   */
+  Queue: "queue",
+} as const;
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export type OutputAzureEventhubBackpressureBehavior = OpenEnum<
+  typeof OutputAzureEventhubBackpressureBehavior
+>;
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputAzureEventhubMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputAzureEventhubMode = OpenEnum<typeof OutputAzureEventhubMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const OutputAzureEventhubCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type OutputAzureEventhubCompression = OpenEnum<
+  typeof OutputAzureEventhubCompression
+>;
+
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export const OutputAzureEventhubQueueFullBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop new data
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export type OutputAzureEventhubQueueFullBehavior = OpenEnum<
+  typeof OutputAzureEventhubQueueFullBehavior
+>;
 
 export type OutputAzureEventhubPqControls = {};
 
@@ -84,11 +293,11 @@ export type OutputAzureEventhub = {
   /**
    * Control the number of required acknowledgments
    */
-  ack?: AcknowledgmentsOptions | undefined;
+  ack?: OutputAzureEventhubAcknowledgments | undefined;
   /**
    * Format to use to serialize events before writing to the Event Hubs Kafka brokers
    */
-  format?: RecordDataFormatOptions | undefined;
+  format?: OutputAzureEventhubRecordDataFormat | undefined;
   /**
    * Maximum size of each record batch before compression. Setting should be < message.max.bytes settings in Event Hubs brokers.
    */
@@ -136,12 +345,12 @@ export type OutputAzureEventhub = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: AuthenticationType1 | undefined;
-  tls?: TlsSettingsClientSideType | undefined;
+  sasl?: OutputAzureEventhubAuthentication | undefined;
+  tls?: OutputAzureEventhubTLSSettingsClientSide | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions | undefined;
+  onBackpressure?: OutputAzureEventhubBackpressureBehavior | undefined;
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -154,7 +363,7 @@ export type OutputAzureEventhub = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: ModeOptions | undefined;
+  pqMode?: OutputAzureEventhubMode | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -178,13 +387,307 @@ export type OutputAzureEventhub = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: CompressionOptionsPq | undefined;
+  pqCompress?: OutputAzureEventhubCompression | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  pqOnBackpressure?: OutputAzureEventhubQueueFullBehavior | undefined;
   pqControls?: OutputAzureEventhubPqControls | undefined;
 };
+
+/** @internal */
+export const OutputAzureEventhubAcknowledgments$inboundSchema: z.ZodType<
+  OutputAzureEventhubAcknowledgments,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchemaInt(OutputAzureEventhubAcknowledgments);
+/** @internal */
+export const OutputAzureEventhubAcknowledgments$outboundSchema: z.ZodType<
+  number,
+  z.ZodTypeDef,
+  OutputAzureEventhubAcknowledgments
+> = openEnums.outboundSchemaInt(OutputAzureEventhubAcknowledgments);
+
+/** @internal */
+export const OutputAzureEventhubRecordDataFormat$inboundSchema: z.ZodType<
+  OutputAzureEventhubRecordDataFormat,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputAzureEventhubRecordDataFormat);
+/** @internal */
+export const OutputAzureEventhubRecordDataFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputAzureEventhubRecordDataFormat
+> = openEnums.outboundSchema(OutputAzureEventhubRecordDataFormat);
+
+/** @internal */
+export const OutputAzureEventhubAuthTypeAuthenticationMethod$inboundSchema:
+  z.ZodType<
+    OutputAzureEventhubAuthTypeAuthenticationMethod,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(OutputAzureEventhubAuthTypeAuthenticationMethod);
+/** @internal */
+export const OutputAzureEventhubAuthTypeAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    OutputAzureEventhubAuthTypeAuthenticationMethod
+  > = openEnums.outboundSchema(OutputAzureEventhubAuthTypeAuthenticationMethod);
+
+/** @internal */
+export const OutputAzureEventhubSASLMechanism$inboundSchema: z.ZodType<
+  OutputAzureEventhubSASLMechanism,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputAzureEventhubSASLMechanism);
+/** @internal */
+export const OutputAzureEventhubSASLMechanism$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputAzureEventhubSASLMechanism
+> = openEnums.outboundSchema(OutputAzureEventhubSASLMechanism);
+
+/** @internal */
+export const OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod$inboundSchema:
+  z.ZodType<
+    OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(
+    OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod,
+  );
+/** @internal */
+export const OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod
+  > = openEnums.outboundSchema(
+    OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod,
+  );
+
+/** @internal */
+export const OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint$inboundSchema:
+  z.ZodType<
+    OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(
+    OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint,
+  );
+/** @internal */
+export const OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint
+  > = openEnums.outboundSchema(
+    OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint,
+  );
+
+/** @internal */
+export const OutputAzureEventhubAuthentication$inboundSchema: z.ZodType<
+  OutputAzureEventhubAuthentication,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(false),
+  authType: OutputAzureEventhubAuthTypeAuthenticationMethod$inboundSchema
+    .default("manual"),
+  password: z.string().optional(),
+  textSecret: z.string().optional(),
+  mechanism: OutputAzureEventhubSASLMechanism$inboundSchema.default("plain"),
+  username: z.string().default("$ConnectionString"),
+  clientSecretAuthType:
+    OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod$inboundSchema
+      .default("manual"),
+  clientSecret: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificateName: z.string().optional(),
+  certPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  oauthEndpoint:
+    OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint$inboundSchema
+      .default("https://login.microsoftonline.com"),
+  clientId: z.string().optional(),
+  tenantId: z.string().optional(),
+  scope: z.string().optional(),
+});
+/** @internal */
+export type OutputAzureEventhubAuthentication$Outbound = {
+  disabled: boolean;
+  authType: string;
+  password?: string | undefined;
+  textSecret?: string | undefined;
+  mechanism: string;
+  username: string;
+  clientSecretAuthType: string;
+  clientSecret?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificateName?: string | undefined;
+  certPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  oauthEndpoint: string;
+  clientId?: string | undefined;
+  tenantId?: string | undefined;
+  scope?: string | undefined;
+};
+
+/** @internal */
+export const OutputAzureEventhubAuthentication$outboundSchema: z.ZodType<
+  OutputAzureEventhubAuthentication$Outbound,
+  z.ZodTypeDef,
+  OutputAzureEventhubAuthentication
+> = z.object({
+  disabled: z.boolean().default(false),
+  authType: OutputAzureEventhubAuthTypeAuthenticationMethod$outboundSchema
+    .default("manual"),
+  password: z.string().optional(),
+  textSecret: z.string().optional(),
+  mechanism: OutputAzureEventhubSASLMechanism$outboundSchema.default("plain"),
+  username: z.string().default("$ConnectionString"),
+  clientSecretAuthType:
+    OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod$outboundSchema
+      .default("manual"),
+  clientSecret: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificateName: z.string().optional(),
+  certPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  oauthEndpoint:
+    OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint$outboundSchema
+      .default("https://login.microsoftonline.com"),
+  clientId: z.string().optional(),
+  tenantId: z.string().optional(),
+  scope: z.string().optional(),
+});
+
+export function outputAzureEventhubAuthenticationToJSON(
+  outputAzureEventhubAuthentication: OutputAzureEventhubAuthentication,
+): string {
+  return JSON.stringify(
+    OutputAzureEventhubAuthentication$outboundSchema.parse(
+      outputAzureEventhubAuthentication,
+    ),
+  );
+}
+export function outputAzureEventhubAuthenticationFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureEventhubAuthentication, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureEventhubAuthentication$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureEventhubAuthentication' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputAzureEventhubTLSSettingsClientSide$inboundSchema: z.ZodType<
+  OutputAzureEventhubTLSSettingsClientSide,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+});
+/** @internal */
+export type OutputAzureEventhubTLSSettingsClientSide$Outbound = {
+  disabled: boolean;
+  rejectUnauthorized: boolean;
+};
+
+/** @internal */
+export const OutputAzureEventhubTLSSettingsClientSide$outboundSchema: z.ZodType<
+  OutputAzureEventhubTLSSettingsClientSide$Outbound,
+  z.ZodTypeDef,
+  OutputAzureEventhubTLSSettingsClientSide
+> = z.object({
+  disabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+});
+
+export function outputAzureEventhubTLSSettingsClientSideToJSON(
+  outputAzureEventhubTLSSettingsClientSide:
+    OutputAzureEventhubTLSSettingsClientSide,
+): string {
+  return JSON.stringify(
+    OutputAzureEventhubTLSSettingsClientSide$outboundSchema.parse(
+      outputAzureEventhubTLSSettingsClientSide,
+    ),
+  );
+}
+export function outputAzureEventhubTLSSettingsClientSideFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputAzureEventhubTLSSettingsClientSide,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputAzureEventhubTLSSettingsClientSide$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputAzureEventhubTLSSettingsClientSide' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputAzureEventhubBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputAzureEventhubBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputAzureEventhubBackpressureBehavior);
+/** @internal */
+export const OutputAzureEventhubBackpressureBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputAzureEventhubBackpressureBehavior
+> = openEnums.outboundSchema(OutputAzureEventhubBackpressureBehavior);
+
+/** @internal */
+export const OutputAzureEventhubMode$inboundSchema: z.ZodType<
+  OutputAzureEventhubMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputAzureEventhubMode);
+/** @internal */
+export const OutputAzureEventhubMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputAzureEventhubMode
+> = openEnums.outboundSchema(OutputAzureEventhubMode);
+
+/** @internal */
+export const OutputAzureEventhubCompression$inboundSchema: z.ZodType<
+  OutputAzureEventhubCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputAzureEventhubCompression);
+/** @internal */
+export const OutputAzureEventhubCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputAzureEventhubCompression
+> = openEnums.outboundSchema(OutputAzureEventhubCompression);
+
+/** @internal */
+export const OutputAzureEventhubQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputAzureEventhubQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputAzureEventhubQueueFullBehavior);
+/** @internal */
+export const OutputAzureEventhubQueueFullBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputAzureEventhubQueueFullBehavior
+> = openEnums.outboundSchema(OutputAzureEventhubQueueFullBehavior);
 
 /** @internal */
 export const OutputAzureEventhubPqControls$inboundSchema: z.ZodType<
@@ -235,8 +738,8 @@ export const OutputAzureEventhub$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
   topic: z.string(),
-  ack: AcknowledgmentsOptions$inboundSchema.default(1),
-  format: RecordDataFormatOptions$inboundSchema.default("json"),
+  ack: OutputAzureEventhubAcknowledgments$inboundSchema.default(1),
+  format: OutputAzureEventhubRecordDataFormat$inboundSchema.default("json"),
   maxRecordSizeKB: z.number().default(768),
   flushEventCount: z.number().default(1000),
   flushPeriodSec: z.number().default(1),
@@ -248,20 +751,26 @@ export const OutputAzureEventhub$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  sasl: AuthenticationType1$inboundSchema.optional(),
-  tls: TlsSettingsClientSideType$inboundSchema.optional(),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  sasl: z.lazy(() => OutputAzureEventhubAuthentication$inboundSchema)
+    .optional(),
+  tls: z.lazy(() => OutputAzureEventhubTLSSettingsClientSide$inboundSchema)
+    .optional(),
+  onBackpressure: OutputAzureEventhubBackpressureBehavior$inboundSchema.default(
+    "block",
+  ),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
+  pqMode: OutputAzureEventhubMode$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqCompress: OutputAzureEventhubCompression$inboundSchema.default("none"),
+  pqOnBackpressure: OutputAzureEventhubQueueFullBehavior$inboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputAzureEventhubPqControls$inboundSchema)
     .optional(),
 });
@@ -288,8 +797,8 @@ export type OutputAzureEventhub$Outbound = {
   backoffRate: number;
   authenticationTimeout: number;
   reauthenticationThreshold: number;
-  sasl?: AuthenticationType1$Outbound | undefined;
-  tls?: TlsSettingsClientSideType$Outbound | undefined;
+  sasl?: OutputAzureEventhubAuthentication$Outbound | undefined;
+  tls?: OutputAzureEventhubTLSSettingsClientSide$Outbound | undefined;
   onBackpressure: string;
   description?: string | undefined;
   pqStrictOrdering: boolean;
@@ -319,8 +828,8 @@ export const OutputAzureEventhub$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
   topic: z.string(),
-  ack: AcknowledgmentsOptions$outboundSchema.default(1),
-  format: RecordDataFormatOptions$outboundSchema.default("json"),
+  ack: OutputAzureEventhubAcknowledgments$outboundSchema.default(1),
+  format: OutputAzureEventhubRecordDataFormat$outboundSchema.default("json"),
   maxRecordSizeKB: z.number().default(768),
   flushEventCount: z.number().default(1000),
   flushPeriodSec: z.number().default(1),
@@ -332,20 +841,25 @@ export const OutputAzureEventhub$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  sasl: AuthenticationType1$outboundSchema.optional(),
-  tls: TlsSettingsClientSideType$outboundSchema.optional(),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  sasl: z.lazy(() => OutputAzureEventhubAuthentication$outboundSchema)
+    .optional(),
+  tls: z.lazy(() => OutputAzureEventhubTLSSettingsClientSide$outboundSchema)
+    .optional(),
+  onBackpressure: OutputAzureEventhubBackpressureBehavior$outboundSchema
+    .default("block"),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
+  pqMode: OutputAzureEventhubMode$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqCompress: OutputAzureEventhubCompression$outboundSchema.default("none"),
+  pqOnBackpressure: OutputAzureEventhubQueueFullBehavior$outboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputAzureEventhubPqControls$outboundSchema)
     .optional(),
 });

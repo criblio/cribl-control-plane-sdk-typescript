@@ -4,44 +4,342 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  AuthenticationType,
-  AuthenticationType$inboundSchema,
-  AuthenticationType$Outbound,
-  AuthenticationType$outboundSchema,
-} from "./authenticationtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
-import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  KafkaSchemaRegistryAuthenticationType,
-  KafkaSchemaRegistryAuthenticationType$inboundSchema,
-  KafkaSchemaRegistryAuthenticationType$Outbound,
-  KafkaSchemaRegistryAuthenticationType$outboundSchema,
-} from "./kafkaschemaregistryauthenticationtype.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
-import {
-  TlsSettingsClientSideTypeKafkaSchemaRegistry,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
-} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
+
+export type InputKafkaConnection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputKafkaMode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputKafkaMode = OpenEnum<typeof InputKafkaMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputKafkaCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputKafkaCompression = OpenEnum<typeof InputKafkaCompression>;
+
+export type InputKafkaPqControls = {};
+
+export type InputKafkaPq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputKafkaMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputKafkaCompression | undefined;
+  pqControls?: InputKafkaPqControls | undefined;
+};
+
+/**
+ * Credentials to use when authenticating with the schema registry using basic HTTP authentication
+ */
+export type InputKafkaAuth = {
+  disabled?: boolean | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+};
+
+export const InputKafkaKafkaSchemaRegistryMinimumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputKafkaKafkaSchemaRegistryMinimumTLSVersion = OpenEnum<
+  typeof InputKafkaKafkaSchemaRegistryMinimumTLSVersion
+>;
+
+export const InputKafkaKafkaSchemaRegistryMaximumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputKafkaKafkaSchemaRegistryMaximumTLSVersion = OpenEnum<
+  typeof InputKafkaKafkaSchemaRegistryMaximumTLSVersion
+>;
+
+export type InputKafkaKafkaSchemaRegistryTLSSettingsClientSide = {
+  disabled?: boolean | undefined;
+  /**
+   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+   *
+   * @remarks
+   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+   */
+  servername?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  /**
+   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  minVersion?: InputKafkaKafkaSchemaRegistryMinimumTLSVersion | undefined;
+  maxVersion?: InputKafkaKafkaSchemaRegistryMaximumTLSVersion | undefined;
+};
+
+export type InputKafkaKafkaSchemaRegistryAuthentication = {
+  disabled?: boolean | undefined;
+  /**
+   * URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
+   */
+  schemaRegistryURL?: string | undefined;
+  /**
+   * Maximum time to wait for a Schema Registry connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for the Schema Registry to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * Maximum number of times to try fetching schemas from the Schema Registry
+   */
+  maxRetries?: number | undefined;
+  /**
+   * Credentials to use when authenticating with the schema registry using basic HTTP authentication
+   */
+  auth?: InputKafkaAuth | undefined;
+  tls?: InputKafkaKafkaSchemaRegistryTLSSettingsClientSide | undefined;
+};
+
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export const InputKafkaAuthenticationMethod = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type InputKafkaAuthenticationMethod = OpenEnum<
+  typeof InputKafkaAuthenticationMethod
+>;
+
+export const InputKafkaSASLMechanism = {
+  /**
+   * PLAIN
+   */
+  Plain: "plain",
+  /**
+   * SCRAM-SHA-256
+   */
+  ScramSha256: "scram-sha-256",
+  /**
+   * SCRAM-SHA-512
+   */
+  ScramSha512: "scram-sha-512",
+  /**
+   * GSSAPI/Kerberos
+   */
+  Kerberos: "kerberos",
+} as const;
+export type InputKafkaSASLMechanism = OpenEnum<typeof InputKafkaSASLMechanism>;
+
+export type InputKafkaOauthParam = {
+  name: string;
+  value: string;
+};
+
+export type InputKafkaSaslExtension = {
+  name: string;
+  value: string;
+};
+
+/**
+ * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+ */
+export type InputKafkaAuthentication = {
+  disabled?: boolean | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputKafkaAuthenticationMethod | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  mechanism?: InputKafkaSASLMechanism | undefined;
+  /**
+   * Location of keytab file for authentication principal
+   */
+  keytabLocation?: string | undefined;
+  /**
+   * Authentication principal, such as `kafka_user@example.com`
+   */
+  principal?: string | undefined;
+  /**
+   * Kerberos service class for Kafka brokers, such as `kafka`
+   */
+  brokerServiceClass?: string | undefined;
+  /**
+   * Enable OAuth authentication
+   */
+  oauthEnabled?: boolean | undefined;
+  /**
+   * URL of the token endpoint to use for OAuth authentication
+   */
+  tokenUrl?: string | undefined;
+  /**
+   * Client ID to use for OAuth authentication
+   */
+  clientId?: string | undefined;
+  oauthSecretType?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  /**
+   * Additional fields to send to the token endpoint, such as scope or audience
+   */
+  oauthParams?: Array<InputKafkaOauthParam> | undefined;
+  /**
+   * Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
+   */
+  saslExtensions?: Array<InputKafkaSaslExtension> | undefined;
+};
+
+export const InputKafkaMinimumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputKafkaMinimumTLSVersion = OpenEnum<
+  typeof InputKafkaMinimumTLSVersion
+>;
+
+export const InputKafkaMaximumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputKafkaMaximumTLSVersion = OpenEnum<
+  typeof InputKafkaMaximumTLSVersion
+>;
+
+export type InputKafkaTLSSettingsClientSide = {
+  disabled?: boolean | undefined;
+  /**
+   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+   *
+   * @remarks
+   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+   */
+  servername?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  /**
+   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  minVersion?: InputKafkaMinimumTLSVersion | undefined;
+  maxVersion?: InputKafkaMaximumTLSVersion | undefined;
+};
+
+export type InputKafkaMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
 
 export type InputKafka = {
   /**
@@ -73,8 +371,8 @@ export type InputKafka = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputKafkaConnection> | undefined;
+  pq?: InputKafkaPq | undefined;
   /**
    * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
    */
@@ -91,7 +389,7 @@ export type InputKafka = {
    * Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
    */
   fromBeginning?: boolean | undefined;
-  kafkaSchemaRegistry?: KafkaSchemaRegistryAuthenticationType | undefined;
+  kafkaSchemaRegistry?: InputKafkaKafkaSchemaRegistryAuthentication | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
    */
@@ -127,8 +425,8 @@ export type InputKafka = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: AuthenticationType | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  sasl?: InputKafkaAuthentication | undefined;
+  tls?: InputKafkaTLSSettingsClientSide | undefined;
   /**
    * @remarks
    *       Timeout used to detect client failures when using Kafka's group-management facilities.
@@ -177,9 +475,721 @@ export type InputKafka = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputKafkaMetadatum> | undefined;
   description?: string | undefined;
 };
+
+/** @internal */
+export const InputKafkaConnection$inboundSchema: z.ZodType<
+  InputKafkaConnection,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputKafkaConnection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputKafkaConnection$outboundSchema: z.ZodType<
+  InputKafkaConnection$Outbound,
+  z.ZodTypeDef,
+  InputKafkaConnection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputKafkaConnectionToJSON(
+  inputKafkaConnection: InputKafkaConnection,
+): string {
+  return JSON.stringify(
+    InputKafkaConnection$outboundSchema.parse(inputKafkaConnection),
+  );
+}
+export function inputKafkaConnectionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKafkaConnection, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKafkaConnection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKafkaConnection' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKafkaMode$inboundSchema: z.ZodType<
+  InputKafkaMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputKafkaMode);
+/** @internal */
+export const InputKafkaMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputKafkaMode
+> = openEnums.outboundSchema(InputKafkaMode);
+
+/** @internal */
+export const InputKafkaCompression$inboundSchema: z.ZodType<
+  InputKafkaCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputKafkaCompression);
+/** @internal */
+export const InputKafkaCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputKafkaCompression
+> = openEnums.outboundSchema(InputKafkaCompression);
+
+/** @internal */
+export const InputKafkaPqControls$inboundSchema: z.ZodType<
+  InputKafkaPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputKafkaPqControls$Outbound = {};
+
+/** @internal */
+export const InputKafkaPqControls$outboundSchema: z.ZodType<
+  InputKafkaPqControls$Outbound,
+  z.ZodTypeDef,
+  InputKafkaPqControls
+> = z.object({});
+
+export function inputKafkaPqControlsToJSON(
+  inputKafkaPqControls: InputKafkaPqControls,
+): string {
+  return JSON.stringify(
+    InputKafkaPqControls$outboundSchema.parse(inputKafkaPqControls),
+  );
+}
+export function inputKafkaPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKafkaPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKafkaPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKafkaPqControls' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKafkaPq$inboundSchema: z.ZodType<
+  InputKafkaPq,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputKafkaMode$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputKafkaCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputKafkaPqControls$inboundSchema).optional(),
+});
+/** @internal */
+export type InputKafkaPq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputKafkaPqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputKafkaPq$outboundSchema: z.ZodType<
+  InputKafkaPq$Outbound,
+  z.ZodTypeDef,
+  InputKafkaPq
+> = z.object({
+  mode: InputKafkaMode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputKafkaCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputKafkaPqControls$outboundSchema).optional(),
+});
+
+export function inputKafkaPqToJSON(inputKafkaPq: InputKafkaPq): string {
+  return JSON.stringify(InputKafkaPq$outboundSchema.parse(inputKafkaPq));
+}
+export function inputKafkaPqFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKafkaPq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKafkaPq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKafkaPq' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKafkaAuth$inboundSchema: z.ZodType<
+  InputKafkaAuth,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  credentialsSecret: z.string().optional(),
+});
+/** @internal */
+export type InputKafkaAuth$Outbound = {
+  disabled: boolean;
+  credentialsSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputKafkaAuth$outboundSchema: z.ZodType<
+  InputKafkaAuth$Outbound,
+  z.ZodTypeDef,
+  InputKafkaAuth
+> = z.object({
+  disabled: z.boolean().default(true),
+  credentialsSecret: z.string().optional(),
+});
+
+export function inputKafkaAuthToJSON(inputKafkaAuth: InputKafkaAuth): string {
+  return JSON.stringify(InputKafkaAuth$outboundSchema.parse(inputKafkaAuth));
+}
+export function inputKafkaAuthFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKafkaAuth, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKafkaAuth$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKafkaAuth' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKafkaKafkaSchemaRegistryMinimumTLSVersion$inboundSchema:
+  z.ZodType<
+    InputKafkaKafkaSchemaRegistryMinimumTLSVersion,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(InputKafkaKafkaSchemaRegistryMinimumTLSVersion);
+/** @internal */
+export const InputKafkaKafkaSchemaRegistryMinimumTLSVersion$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    InputKafkaKafkaSchemaRegistryMinimumTLSVersion
+  > = openEnums.outboundSchema(InputKafkaKafkaSchemaRegistryMinimumTLSVersion);
+
+/** @internal */
+export const InputKafkaKafkaSchemaRegistryMaximumTLSVersion$inboundSchema:
+  z.ZodType<
+    InputKafkaKafkaSchemaRegistryMaximumTLSVersion,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(InputKafkaKafkaSchemaRegistryMaximumTLSVersion);
+/** @internal */
+export const InputKafkaKafkaSchemaRegistryMaximumTLSVersion$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    InputKafkaKafkaSchemaRegistryMaximumTLSVersion
+  > = openEnums.outboundSchema(InputKafkaKafkaSchemaRegistryMaximumTLSVersion);
+
+/** @internal */
+export const InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema:
+  z.ZodType<
+    InputKafkaKafkaSchemaRegistryTLSSettingsClientSide,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    disabled: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    servername: z.string().optional(),
+    certificateName: z.string().optional(),
+    caPath: z.string().optional(),
+    privKeyPath: z.string().optional(),
+    certPath: z.string().optional(),
+    passphrase: z.string().optional(),
+    minVersion: InputKafkaKafkaSchemaRegistryMinimumTLSVersion$inboundSchema
+      .optional(),
+    maxVersion: InputKafkaKafkaSchemaRegistryMaximumTLSVersion$inboundSchema
+      .optional(),
+  });
+/** @internal */
+export type InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$Outbound = {
+  disabled: boolean;
+  rejectUnauthorized: boolean;
+  servername?: string | undefined;
+  certificateName?: string | undefined;
+  caPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  certPath?: string | undefined;
+  passphrase?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema:
+  z.ZodType<
+    InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$Outbound,
+    z.ZodTypeDef,
+    InputKafkaKafkaSchemaRegistryTLSSettingsClientSide
+  > = z.object({
+    disabled: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    servername: z.string().optional(),
+    certificateName: z.string().optional(),
+    caPath: z.string().optional(),
+    privKeyPath: z.string().optional(),
+    certPath: z.string().optional(),
+    passphrase: z.string().optional(),
+    minVersion: InputKafkaKafkaSchemaRegistryMinimumTLSVersion$outboundSchema
+      .optional(),
+    maxVersion: InputKafkaKafkaSchemaRegistryMaximumTLSVersion$outboundSchema
+      .optional(),
+  });
+
+export function inputKafkaKafkaSchemaRegistryTLSSettingsClientSideToJSON(
+  inputKafkaKafkaSchemaRegistryTLSSettingsClientSide:
+    InputKafkaKafkaSchemaRegistryTLSSettingsClientSide,
+): string {
+  return JSON.stringify(
+    InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema.parse(
+      inputKafkaKafkaSchemaRegistryTLSSettingsClientSide,
+    ),
+  );
+}
+export function inputKafkaKafkaSchemaRegistryTLSSettingsClientSideFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputKafkaKafkaSchemaRegistryTLSSettingsClientSide,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputKafkaKafkaSchemaRegistryTLSSettingsClientSide' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKafkaKafkaSchemaRegistryAuthentication$inboundSchema:
+  z.ZodType<
+    InputKafkaKafkaSchemaRegistryAuthentication,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    disabled: z.boolean().default(true),
+    schemaRegistryURL: z.string().default("http://localhost:8081"),
+    connectionTimeout: z.number().default(30000),
+    requestTimeout: z.number().default(30000),
+    maxRetries: z.number().default(1),
+    auth: z.lazy(() => InputKafkaAuth$inboundSchema).optional(),
+    tls: z.lazy(() =>
+      InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema
+    ).optional(),
+  });
+/** @internal */
+export type InputKafkaKafkaSchemaRegistryAuthentication$Outbound = {
+  disabled: boolean;
+  schemaRegistryURL: string;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  auth?: InputKafkaAuth$Outbound | undefined;
+  tls?: InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$Outbound | undefined;
+};
+
+/** @internal */
+export const InputKafkaKafkaSchemaRegistryAuthentication$outboundSchema:
+  z.ZodType<
+    InputKafkaKafkaSchemaRegistryAuthentication$Outbound,
+    z.ZodTypeDef,
+    InputKafkaKafkaSchemaRegistryAuthentication
+  > = z.object({
+    disabled: z.boolean().default(true),
+    schemaRegistryURL: z.string().default("http://localhost:8081"),
+    connectionTimeout: z.number().default(30000),
+    requestTimeout: z.number().default(30000),
+    maxRetries: z.number().default(1),
+    auth: z.lazy(() => InputKafkaAuth$outboundSchema).optional(),
+    tls: z.lazy(() =>
+      InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema
+    ).optional(),
+  });
+
+export function inputKafkaKafkaSchemaRegistryAuthenticationToJSON(
+  inputKafkaKafkaSchemaRegistryAuthentication:
+    InputKafkaKafkaSchemaRegistryAuthentication,
+): string {
+  return JSON.stringify(
+    InputKafkaKafkaSchemaRegistryAuthentication$outboundSchema.parse(
+      inputKafkaKafkaSchemaRegistryAuthentication,
+    ),
+  );
+}
+export function inputKafkaKafkaSchemaRegistryAuthenticationFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputKafkaKafkaSchemaRegistryAuthentication,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputKafkaKafkaSchemaRegistryAuthentication$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputKafkaKafkaSchemaRegistryAuthentication' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKafkaAuthenticationMethod$inboundSchema: z.ZodType<
+  InputKafkaAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputKafkaAuthenticationMethod);
+/** @internal */
+export const InputKafkaAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputKafkaAuthenticationMethod
+> = openEnums.outboundSchema(InputKafkaAuthenticationMethod);
+
+/** @internal */
+export const InputKafkaSASLMechanism$inboundSchema: z.ZodType<
+  InputKafkaSASLMechanism,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputKafkaSASLMechanism);
+/** @internal */
+export const InputKafkaSASLMechanism$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputKafkaSASLMechanism
+> = openEnums.outboundSchema(InputKafkaSASLMechanism);
+
+/** @internal */
+export const InputKafkaOauthParam$inboundSchema: z.ZodType<
+  InputKafkaOauthParam,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputKafkaOauthParam$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputKafkaOauthParam$outboundSchema: z.ZodType<
+  InputKafkaOauthParam$Outbound,
+  z.ZodTypeDef,
+  InputKafkaOauthParam
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputKafkaOauthParamToJSON(
+  inputKafkaOauthParam: InputKafkaOauthParam,
+): string {
+  return JSON.stringify(
+    InputKafkaOauthParam$outboundSchema.parse(inputKafkaOauthParam),
+  );
+}
+export function inputKafkaOauthParamFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKafkaOauthParam, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKafkaOauthParam$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKafkaOauthParam' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKafkaSaslExtension$inboundSchema: z.ZodType<
+  InputKafkaSaslExtension,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputKafkaSaslExtension$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputKafkaSaslExtension$outboundSchema: z.ZodType<
+  InputKafkaSaslExtension$Outbound,
+  z.ZodTypeDef,
+  InputKafkaSaslExtension
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputKafkaSaslExtensionToJSON(
+  inputKafkaSaslExtension: InputKafkaSaslExtension,
+): string {
+  return JSON.stringify(
+    InputKafkaSaslExtension$outboundSchema.parse(inputKafkaSaslExtension),
+  );
+}
+export function inputKafkaSaslExtensionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKafkaSaslExtension, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKafkaSaslExtension$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKafkaSaslExtension' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKafkaAuthentication$inboundSchema: z.ZodType<
+  InputKafkaAuthentication,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  authType: InputKafkaAuthenticationMethod$inboundSchema.default("manual"),
+  credentialsSecret: z.string().optional(),
+  mechanism: InputKafkaSASLMechanism$inboundSchema.default("plain"),
+  keytabLocation: z.string().optional(),
+  principal: z.string().optional(),
+  brokerServiceClass: z.string().optional(),
+  oauthEnabled: z.boolean().default(false),
+  tokenUrl: z.string().optional(),
+  clientId: z.string().optional(),
+  oauthSecretType: z.string().default("secret"),
+  clientTextSecret: z.string().optional(),
+  oauthParams: z.array(z.lazy(() => InputKafkaOauthParam$inboundSchema))
+    .optional(),
+  saslExtensions: z.array(z.lazy(() => InputKafkaSaslExtension$inboundSchema))
+    .optional(),
+});
+/** @internal */
+export type InputKafkaAuthentication$Outbound = {
+  disabled: boolean;
+  username?: string | undefined;
+  password?: string | undefined;
+  authType: string;
+  credentialsSecret?: string | undefined;
+  mechanism: string;
+  keytabLocation?: string | undefined;
+  principal?: string | undefined;
+  brokerServiceClass?: string | undefined;
+  oauthEnabled: boolean;
+  tokenUrl?: string | undefined;
+  clientId?: string | undefined;
+  oauthSecretType: string;
+  clientTextSecret?: string | undefined;
+  oauthParams?: Array<InputKafkaOauthParam$Outbound> | undefined;
+  saslExtensions?: Array<InputKafkaSaslExtension$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputKafkaAuthentication$outboundSchema: z.ZodType<
+  InputKafkaAuthentication$Outbound,
+  z.ZodTypeDef,
+  InputKafkaAuthentication
+> = z.object({
+  disabled: z.boolean().default(true),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  authType: InputKafkaAuthenticationMethod$outboundSchema.default("manual"),
+  credentialsSecret: z.string().optional(),
+  mechanism: InputKafkaSASLMechanism$outboundSchema.default("plain"),
+  keytabLocation: z.string().optional(),
+  principal: z.string().optional(),
+  brokerServiceClass: z.string().optional(),
+  oauthEnabled: z.boolean().default(false),
+  tokenUrl: z.string().optional(),
+  clientId: z.string().optional(),
+  oauthSecretType: z.string().default("secret"),
+  clientTextSecret: z.string().optional(),
+  oauthParams: z.array(z.lazy(() => InputKafkaOauthParam$outboundSchema))
+    .optional(),
+  saslExtensions: z.array(z.lazy(() => InputKafkaSaslExtension$outboundSchema))
+    .optional(),
+});
+
+export function inputKafkaAuthenticationToJSON(
+  inputKafkaAuthentication: InputKafkaAuthentication,
+): string {
+  return JSON.stringify(
+    InputKafkaAuthentication$outboundSchema.parse(inputKafkaAuthentication),
+  );
+}
+export function inputKafkaAuthenticationFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKafkaAuthentication, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKafkaAuthentication$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKafkaAuthentication' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKafkaMinimumTLSVersion$inboundSchema: z.ZodType<
+  InputKafkaMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputKafkaMinimumTLSVersion);
+/** @internal */
+export const InputKafkaMinimumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputKafkaMinimumTLSVersion
+> = openEnums.outboundSchema(InputKafkaMinimumTLSVersion);
+
+/** @internal */
+export const InputKafkaMaximumTLSVersion$inboundSchema: z.ZodType<
+  InputKafkaMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputKafkaMaximumTLSVersion);
+/** @internal */
+export const InputKafkaMaximumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputKafkaMaximumTLSVersion
+> = openEnums.outboundSchema(InputKafkaMaximumTLSVersion);
+
+/** @internal */
+export const InputKafkaTLSSettingsClientSide$inboundSchema: z.ZodType<
+  InputKafkaTLSSettingsClientSide,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  servername: z.string().optional(),
+  certificateName: z.string().optional(),
+  caPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  certPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  minVersion: InputKafkaMinimumTLSVersion$inboundSchema.optional(),
+  maxVersion: InputKafkaMaximumTLSVersion$inboundSchema.optional(),
+});
+/** @internal */
+export type InputKafkaTLSSettingsClientSide$Outbound = {
+  disabled: boolean;
+  rejectUnauthorized: boolean;
+  servername?: string | undefined;
+  certificateName?: string | undefined;
+  caPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  certPath?: string | undefined;
+  passphrase?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const InputKafkaTLSSettingsClientSide$outboundSchema: z.ZodType<
+  InputKafkaTLSSettingsClientSide$Outbound,
+  z.ZodTypeDef,
+  InputKafkaTLSSettingsClientSide
+> = z.object({
+  disabled: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  servername: z.string().optional(),
+  certificateName: z.string().optional(),
+  caPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  certPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  minVersion: InputKafkaMinimumTLSVersion$outboundSchema.optional(),
+  maxVersion: InputKafkaMaximumTLSVersion$outboundSchema.optional(),
+});
+
+export function inputKafkaTLSSettingsClientSideToJSON(
+  inputKafkaTLSSettingsClientSide: InputKafkaTLSSettingsClientSide,
+): string {
+  return JSON.stringify(
+    InputKafkaTLSSettingsClientSide$outboundSchema.parse(
+      inputKafkaTLSSettingsClientSide,
+    ),
+  );
+}
+export function inputKafkaTLSSettingsClientSideFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKafkaTLSSettingsClientSide, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKafkaTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKafkaTLSSettingsClientSide' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKafkaMetadatum$inboundSchema: z.ZodType<
+  InputKafkaMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputKafkaMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputKafkaMetadatum$outboundSchema: z.ZodType<
+  InputKafkaMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputKafkaMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputKafkaMetadatumToJSON(
+  inputKafkaMetadatum: InputKafkaMetadatum,
+): string {
+  return JSON.stringify(
+    InputKafkaMetadatum$outboundSchema.parse(inputKafkaMetadatum),
+  );
+}
+export function inputKafkaMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKafkaMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKafkaMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKafkaMetadatum' from JSON`,
+  );
+}
 
 /** @internal */
 export const InputKafka$inboundSchema: z.ZodType<
@@ -195,14 +1205,16 @@ export const InputKafka$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputKafkaConnection$inboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputKafkaPq$inboundSchema).optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
   fromBeginning: z.boolean().default(true),
-  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$inboundSchema
-    .optional(),
+  kafkaSchemaRegistry: z.lazy(() =>
+    InputKafkaKafkaSchemaRegistryAuthentication$inboundSchema
+  ).optional(),
   connectionTimeout: z.number().default(10000),
   requestTimeout: z.number().default(60000),
   maxRetries: z.number().default(5),
@@ -211,8 +1223,8 @@ export const InputKafka$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  sasl: AuthenticationType$inboundSchema.optional(),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
+  sasl: z.lazy(() => InputKafkaAuthentication$inboundSchema).optional(),
+  tls: z.lazy(() => InputKafkaTLSSettingsClientSide$inboundSchema).optional(),
   sessionTimeout: z.number().default(30000),
   rebalanceTimeout: z.number().default(60000),
   heartbeatInterval: z.number().default(3000),
@@ -221,7 +1233,7 @@ export const InputKafka$inboundSchema: z.ZodType<
   maxBytesPerPartition: z.number().default(1048576),
   maxBytes: z.number().default(10485760),
   maxSocketErrors: z.number().default(0),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputKafkaMetadatum$inboundSchema)).optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -234,14 +1246,14 @@ export type InputKafka$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputKafkaConnection$Outbound> | undefined;
+  pq?: InputKafkaPq$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
   groupId: string;
   fromBeginning: boolean;
   kafkaSchemaRegistry?:
-    | KafkaSchemaRegistryAuthenticationType$Outbound
+    | InputKafkaKafkaSchemaRegistryAuthentication$Outbound
     | undefined;
   connectionTimeout: number;
   requestTimeout: number;
@@ -251,8 +1263,8 @@ export type InputKafka$Outbound = {
   backoffRate: number;
   authenticationTimeout: number;
   reauthenticationThreshold: number;
-  sasl?: AuthenticationType$Outbound | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  sasl?: InputKafkaAuthentication$Outbound | undefined;
+  tls?: InputKafkaTLSSettingsClientSide$Outbound | undefined;
   sessionTimeout: number;
   rebalanceTimeout: number;
   heartbeatInterval: number;
@@ -261,7 +1273,7 @@ export type InputKafka$Outbound = {
   maxBytesPerPartition: number;
   maxBytes: number;
   maxSocketErrors: number;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<InputKafkaMetadatum$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -279,14 +1291,16 @@ export const InputKafka$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputKafkaConnection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputKafkaPq$outboundSchema).optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
   fromBeginning: z.boolean().default(true),
-  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
-    .optional(),
+  kafkaSchemaRegistry: z.lazy(() =>
+    InputKafkaKafkaSchemaRegistryAuthentication$outboundSchema
+  ).optional(),
   connectionTimeout: z.number().default(10000),
   requestTimeout: z.number().default(60000),
   maxRetries: z.number().default(5),
@@ -295,8 +1309,8 @@ export const InputKafka$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  sasl: AuthenticationType$outboundSchema.optional(),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  sasl: z.lazy(() => InputKafkaAuthentication$outboundSchema).optional(),
+  tls: z.lazy(() => InputKafkaTLSSettingsClientSide$outboundSchema).optional(),
   sessionTimeout: z.number().default(30000),
   rebalanceTimeout: z.number().default(60000),
   heartbeatInterval: z.number().default(3000),
@@ -305,7 +1319,8 @@ export const InputKafka$outboundSchema: z.ZodType<
   maxBytesPerPartition: z.number().default(1048576),
   maxBytes: z.number().default(10485760),
   maxSocketErrors: z.number().default(0),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputKafkaMetadatum$outboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 

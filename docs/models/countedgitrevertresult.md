@@ -13,11 +13,10 @@ let value: CountedGitRevertResult = {
         files: {
           created: [
             "<value 1>",
+            "<value 2>",
           ],
           deleted: [
             "<value 1>",
-            "<value 2>",
-            "<value 3>",
           ],
           modified: [
             "<value 1>",
@@ -25,8 +24,6 @@ let value: CountedGitRevertResult = {
           ],
           renamed: [
             "<value 1>",
-            "<value 2>",
-            "<value 3>",
           ],
         },
         group: "<value>",
