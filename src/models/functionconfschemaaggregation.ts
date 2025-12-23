@@ -19,19 +19,19 @@ export type FunctionConfSchemaAggregation = {
   /**
    * Pass through the original events along with the aggregation events
    */
-  passthrough?: boolean | undefined;
+  passthrough: boolean;
   /**
    * Preserve the structure of the original aggregation event's groupby fields
    */
-  preserveGroupBys?: boolean | undefined;
+  preserveGroupBys: boolean;
   /**
    * Output only statistics that are sufficient for the supplied aggregations
    */
-  sufficientStatsOnly?: boolean | undefined;
+  sufficientStatsOnly: boolean;
   /**
    * Enable to output the aggregates as metrics. When disabled, aggregates are output as events.
    */
-  metricsMode?: boolean | undefined;
+  metricsMode: boolean;
   /**
    * A prefix that is prepended to all of the fields output by this Aggregations Function
    */
@@ -39,7 +39,7 @@ export type FunctionConfSchemaAggregation = {
   /**
    * The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
    */
-  timeWindow?: string | undefined;
+  timeWindow: string;
   /**
    * Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
    */
@@ -59,7 +59,7 @@ export type FunctionConfSchemaAggregation = {
   /**
    * Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
    */
-  cumulative?: boolean | undefined;
+  cumulative: boolean;
   /**
    * Allows Cribl Search-specific aggregation configuration
    */
@@ -71,11 +71,11 @@ export type FunctionConfSchemaAggregation = {
   /**
    * Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
    */
-  shouldTreatDotsAsLiterals?: boolean | undefined;
+  shouldTreatDotsAsLiterals: boolean;
   /**
    * Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
    */
-  flushOnInputClose?: boolean | undefined;
+  flushOnInputClose: boolean;
 };
 
 /** @internal */

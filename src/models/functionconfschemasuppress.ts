@@ -15,27 +15,27 @@ export type FunctionConfSchemaSuppress = {
   /**
    * The number of events to allow per time period
    */
-  allow?: number | undefined;
+  allow: number;
   /**
    * The number of seconds to suppress events after 'Number to allow' events are received
    */
-  suppressPeriodSec?: number | undefined;
+  suppressPeriodSec: number;
   /**
    * If disabled, suppressed events will be tagged with suppress=1 but not dropped
    */
-  dropEventsMode?: boolean | undefined;
+  dropEventsMode: boolean;
   /**
    * The maximum number of keys that can be cached before idle entries are removed. Leave at default unless you understand the implications of changing.
    */
-  maxCacheSize?: number | undefined;
+  maxCacheSize: number;
   /**
    * The number of suppression periods 'Suppression Period' of inactivity before a cache entry is considered idle. Leave at default unless you understand the implications of changing.
    */
-  cacheIdleTimeoutPeriods?: number | undefined;
+  cacheIdleTimeoutPeriods: number;
   /**
    * Check cache for idle sessions every N events when cache size is > 'Maximum Cache Size'. Leave at default unless you understand the implications of changing.
    */
-  numEventsIdleTimeoutTrigger?: number | undefined;
+  numEventsIdleTimeoutTrigger: number;
 };
 
 /** @internal */
