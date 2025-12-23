@@ -50,24 +50,24 @@ export type RunnableJobCollectionRunSettings = {
   /**
    * Reschedule tasks that failed with non-fatal errors
    */
-  rescheduleDroppedTasks?: boolean | undefined;
+  rescheduleDroppedTasks: boolean;
   /**
    * Maximum number of times a task can be rescheduled
    */
-  maxTaskReschedule?: number | undefined;
+  maxTaskReschedule: number;
   /**
    * Level at which to set task logging
    */
-  logLevel?: RunnableJobCollectionScheduleLogLevel | undefined;
+  logLevel: RunnableJobCollectionScheduleLogLevel;
   /**
    * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
    */
-  jobTimeout?: string | undefined;
+  jobTimeout: string;
   /**
    * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
    */
-  mode?: string | undefined;
-  timeRangeType?: string | undefined;
+  mode: string;
+  timeRangeType: string;
   /**
    * Earliest time to collect data for the selected timezone
    */
@@ -81,7 +81,7 @@ export type RunnableJobCollectionRunSettings = {
   /**
    * A filter for tokens in the provided collect path and/or the events being collected
    */
-  expression?: string | undefined;
+  expression: string;
   /**
    * Limits the bundle size for small tasks. For example,
    *
@@ -89,7 +89,7 @@ export type RunnableJobCollectionRunSettings = {
    *
    *         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
    */
-  minTaskSize?: string | undefined;
+  minTaskSize: string;
   /**
    * Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
    *
@@ -97,7 +97,7 @@ export type RunnableJobCollectionRunSettings = {
    *
    *         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
    */
-  maxTaskSize?: string | undefined;
+  maxTaskSize: string;
 };
 
 /**
@@ -111,19 +111,19 @@ export type RunnableJobCollectionSchedule = {
   /**
    * Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
    */
-  skippable?: boolean | undefined;
+  skippable: boolean;
   /**
    * If Stream Leader (or single instance) restarts, run all missed jobs according to their original schedules
    */
-  resumeMissed?: boolean | undefined;
+  resumeMissed: boolean;
   /**
    * A cron schedule on which to run this job
    */
-  cronSchedule?: string | undefined;
+  cronSchedule: string;
   /**
    * The maximum number of instances of this scheduled job that may be running at any time
    */
-  maxConcurrentRuns?: number | undefined;
+  maxConcurrentRuns: number;
   run?: RunnableJobCollectionRunSettings | undefined;
 };
 
@@ -139,7 +139,7 @@ export type RunnableJobCollectionCollector = {
   /**
    * Delete any files collected (where applicable)
    */
-  destructive?: boolean | undefined;
+  destructive: boolean;
   /**
    * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
    */
@@ -154,7 +154,7 @@ export type RunnableJobCollectionInputType = OpenEnum<
 >;
 
 export type RunnableJobCollectionPreprocess = {
-  disabled?: boolean | undefined;
+  disabled: boolean;
   /**
    * Command to feed the data through (via stdin) and process its output (stdout)
    */
@@ -174,7 +174,7 @@ export type RunnableJobCollectionMetadatum = {
 };
 
 export type RunnableJobCollectionInput = {
-  type?: RunnableJobCollectionInputType | undefined;
+  type: RunnableJobCollectionInputType;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -182,16 +182,16 @@ export type RunnableJobCollectionInput = {
   /**
    * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
    */
-  staleChannelFlushMs?: number | undefined;
+  staleChannelFlushMs: number;
   /**
    * Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   preprocess?: RunnableJobCollectionPreprocess | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
-  throttleRatePerSec?: string | undefined;
+  throttleRatePerSec: string;
   /**
    * Fields to add to events from this input
    */
@@ -270,36 +270,36 @@ export type CaptureSettings = {
   /**
    * Amount of time to keep capture open, in seconds
    */
-  duration?: number | undefined;
+  duration: number;
   /**
    * Maximum number of events to capture
    */
-  maxEvents?: number | undefined;
-  level?: WhereToCapture | undefined;
+  maxEvents: number;
+  level: WhereToCapture;
 };
 
 export type RunnableJobCollectionRun = {
   /**
    * Reschedule tasks that failed with non-fatal errors
    */
-  rescheduleDroppedTasks?: boolean | undefined;
+  rescheduleDroppedTasks: boolean;
   /**
    * Maximum number of times a task can be rescheduled
    */
-  maxTaskReschedule?: number | undefined;
+  maxTaskReschedule: number;
   /**
    * Level at which to set task logging
    */
-  logLevel?: RunnableJobCollectionLogLevel | undefined;
+  logLevel: RunnableJobCollectionLogLevel;
   /**
    * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
    */
-  jobTimeout?: string | undefined;
+  jobTimeout: string;
   /**
    * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
    */
-  mode?: RunnableJobCollectionMode | undefined;
-  timeRangeType?: TimeRange | undefined;
+  mode: RunnableJobCollectionMode;
+  timeRangeType: TimeRange;
   /**
    * Earliest time to collect data for the selected timezone
    */
@@ -311,12 +311,12 @@ export type RunnableJobCollectionRun = {
   /**
    * Timezone to use for Earliest and Latest times
    */
-  timestampTimezone?: string | undefined;
+  timestampTimezone: string;
   timeWarning?: RunnableJobCollectionTimeWarning | undefined;
   /**
    * A filter for tokens in the provided collect path and/or the events being collected
    */
-  expression?: string | undefined;
+  expression: string;
   /**
    * Limits the bundle size for small tasks. For example,
    *
@@ -324,7 +324,7 @@ export type RunnableJobCollectionRun = {
    *
    *         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
    */
-  minTaskSize?: string | undefined;
+  minTaskSize: string;
   /**
    * Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
    *
@@ -332,11 +332,11 @@ export type RunnableJobCollectionRun = {
    *
    *         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
    */
-  maxTaskSize?: string | undefined;
+  maxTaskSize: string;
   /**
    * Send discover results to Routes
    */
-  discoverToRoutes?: boolean | undefined;
+  discoverToRoutes: boolean;
   capture?: CaptureSettings | undefined;
 };
 
@@ -350,11 +350,11 @@ export type RunnableJobCollection = {
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
    */
-  ttl?: string | undefined;
+  ttl: string;
   /**
    * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
    */
-  ignoreGroupJobsLimit?: boolean | undefined;
+  ignoreGroupJobsLimit: boolean;
   /**
    * List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface.
    */
@@ -362,7 +362,7 @@ export type RunnableJobCollection = {
   /**
    * Resume the ad hoc job if a failure condition causes Stream to restart during job execution
    */
-  resumeOnBoot?: boolean | undefined;
+  resumeOnBoot: boolean;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -378,7 +378,7 @@ export type RunnableJobCollection = {
   /**
    * If enabled, tasks are created and run by the same Worker Node
    */
-  workerAffinity?: boolean | undefined;
+  workerAffinity: boolean;
   collector: RunnableJobCollectionCollector;
   input?: RunnableJobCollectionInput | undefined;
   run: RunnableJobCollectionRun;

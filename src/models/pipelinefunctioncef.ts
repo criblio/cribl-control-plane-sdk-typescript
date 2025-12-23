@@ -15,7 +15,7 @@ export type PipelineFunctionCef = {
   /**
    * Filter that selects data to be fed through this Function
    */
-  filter?: string | undefined;
+  filter: string;
   /**
    * Function ID
    */

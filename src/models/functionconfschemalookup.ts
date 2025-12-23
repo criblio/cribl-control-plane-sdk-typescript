@@ -41,7 +41,7 @@ export type FunctionConfSchemaLookup = {
   /**
    * Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
    */
-  dbLookup?: boolean | undefined;
+  dbLookup: boolean;
   matchMode?: any | undefined;
   matchType?: any | undefined;
   reloadPeriodSec?: any | undefined;
@@ -56,7 +56,7 @@ export type FunctionConfSchemaLookup = {
   /**
    * Add the looked-up values to _raw, as key=value pairs
    */
-  addToEvent?: boolean | undefined;
+  addToEvent: boolean;
   ignoreCase?: any | undefined;
 };
 

@@ -75,6 +75,7 @@ const pipeline: Pipeline = {
   id: "my-pipeline",
   conf: {
     asyncFuncTimeout: 1000,
+    output: "default",
     functions: [
       {
         filter: "true",

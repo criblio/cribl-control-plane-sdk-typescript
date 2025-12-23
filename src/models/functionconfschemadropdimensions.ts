@@ -11,7 +11,7 @@ export type FunctionConfSchemaDropDimensions = {
   /**
    * The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
    */
-  timeWindow?: string | undefined;
+  timeWindow: string;
   /**
    * One or more dimensions to be dropped. Supports wildcard expressions. Warning: Using wildcard '*' causes all dimensions in the event to be dropped.
    */
@@ -19,7 +19,7 @@ export type FunctionConfSchemaDropDimensions = {
   /**
    * Flush aggregations when an input stream is closed. If disabled, aggregations are flushed based on Time Window Settings instead.
    */
-  flushOnInputClose?: boolean | undefined;
+  flushOnInputClose: boolean;
 };
 
 /** @internal */

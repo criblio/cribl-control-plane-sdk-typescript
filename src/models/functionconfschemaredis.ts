@@ -79,12 +79,12 @@ export type FunctionConfSchemaRedis = {
   /**
    * How the Redis server is configured. Defaults to Standalone
    */
-  deploymentType?: FunctionConfSchemaRedisDeploymentType | undefined;
-  authType?: FunctionConfSchemaRedisAuthenticationMethod | undefined;
+  deploymentType: FunctionConfSchemaRedisDeploymentType;
+  authType: FunctionConfSchemaRedisAuthenticationMethod;
   /**
    * Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
    */
-  maxBlockSecs?: number | undefined;
+  maxBlockSecs: number;
   /**
    * Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
    */

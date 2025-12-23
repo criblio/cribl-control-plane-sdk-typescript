@@ -23,7 +23,7 @@ export type FunctionConfSchemaGrok = {
   /**
    * Field on which to perform Grok extractions
    */
-  source?: string | undefined;
+  source: string;
 };
 
 /** @internal */

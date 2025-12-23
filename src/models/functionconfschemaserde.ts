@@ -77,11 +77,11 @@ export type FunctionConfSchemaSerde = {
   /**
    * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
    */
-  mode?: FunctionConfSchemaSerdeOperationMode | undefined;
+  mode: FunctionConfSchemaSerdeOperationMode;
   /**
    * Parser or formatter type to use
    */
-  type?: FunctionConfSchemaSerdeType | undefined;
+  type: FunctionConfSchemaSerdeType;
   delimChar?: any | undefined;
   quoteChar?: any | undefined;
   escapeChar?: any | undefined;
@@ -89,7 +89,7 @@ export type FunctionConfSchemaSerde = {
   /**
    * Field containing text to be parsed
    */
-  srcField?: string | undefined;
+  srcField: string;
   /**
    * Name of the field to add fields to. Extract mode only.
    */

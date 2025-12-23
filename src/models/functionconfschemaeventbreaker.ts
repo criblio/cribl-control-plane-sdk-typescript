@@ -24,11 +24,11 @@ export type FunctionConfSchemaEventBreakerExistingOrNew = OpenEnum<
 >;
 
 export type FunctionConfSchemaEventBreaker = {
-  existingOrNew?: FunctionConfSchemaEventBreakerExistingOrNew | undefined;
+  existingOrNew: FunctionConfSchemaEventBreakerExistingOrNew;
   /**
    * Add this Function name to the cribl_breaker field
    */
-  shouldMarkCriblBreaker?: boolean | undefined;
+  shouldMarkCriblBreaker: boolean;
 };
 
 /** @internal */
