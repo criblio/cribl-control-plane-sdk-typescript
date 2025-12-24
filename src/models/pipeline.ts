@@ -36,7 +36,7 @@ export type PipelineConf = {
   /**
    * The output destination for events processed by this Pipeline
    */
-  output: string;
+  output?: string | undefined;
   description?: string | undefined;
   /**
    * Tags for filtering and grouping in @{product}

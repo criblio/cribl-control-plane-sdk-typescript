@@ -69,11 +69,11 @@ export type FunctionConfSchemaNotify = {
   /**
    * Group the notification belongs to
    */
-  group: string;
+  group?: string | undefined;
   /**
    * Workspace within the deployment to send the search results to.
    */
-  notificationId: string;
+  notificationId?: string | undefined;
   /**
    * Id of the search this function is running on.
    */
@@ -97,11 +97,11 @@ export type FunctionConfSchemaNotify = {
   /**
    * How many results that match trigger the condition
    */
-  triggerCount: number;
+  triggerCount?: number | undefined;
   /**
    * Number of results to include in the notification event
    */
-  resultsLimit: number;
+  resultsLimit?: number | undefined;
   /**
    * Url of the search results
    */

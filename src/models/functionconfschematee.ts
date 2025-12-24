@@ -16,7 +16,7 @@ export type FunctionConfSchemaTee = {
   /**
    * Restart the process if it exits and/or we fail to write to it
    */
-  restartOnExit: boolean;
+  restartOnExit?: boolean | undefined;
   /**
    * Environment variables to overwrite or set
    */

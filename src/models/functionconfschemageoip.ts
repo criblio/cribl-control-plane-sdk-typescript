@@ -31,11 +31,11 @@ export type FunctionConfSchemaGeoip = {
   /**
    * Field name in which to find an IP to look up. Can be nested.
    */
-  inField: string;
+  inField?: string | undefined;
   /**
    * Field name in which to store the GeoIP lookup results
    */
-  outField: string;
+  outField?: string | undefined;
   additionalFields?: Array<FunctionConfSchemaGeoipAdditionalField> | undefined;
   /**
    * Search-specific mappings for granular control over event enrichment
