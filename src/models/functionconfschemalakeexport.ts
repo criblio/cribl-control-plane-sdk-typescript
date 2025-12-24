@@ -19,15 +19,15 @@ export type FunctionConfSchemaLakeExport = {
   /**
    * Name of the lake
    */
-  lake: string;
+  lake?: string | undefined;
   /**
    * Tee results to search. When set to true results will be shipped instead of stats
    */
-  tee: string;
+  tee?: string | undefined;
   /**
    * How often are stats flushed in ms
    */
-  flushMs: number;
+  flushMs?: number | undefined;
   /**
    * Disables generation of intermediate stats. When true stats will be emitted only on end
    */

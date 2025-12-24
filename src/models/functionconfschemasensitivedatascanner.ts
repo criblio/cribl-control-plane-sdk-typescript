@@ -15,8 +15,8 @@ export type FunctionConfSchemaSensitiveDataScannerRule = {
   /**
    * A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
    */
-  replaceExpr: string;
-  disabled: boolean;
+  replaceExpr?: string | undefined;
+  disabled?: boolean | undefined;
 };
 
 export type FunctionConfSchemaSensitiveDataScannerFlag = {
@@ -41,8 +41,8 @@ export type FunctionConfSchemaSensitiveDataScanner = {
   /**
    * Add matching ruleset IDs to a field called "__detected"
    */
-  includeDetectedRules: boolean;
-  backgroundDetection: boolean;
+  includeDetectedRules?: boolean | undefined;
+  backgroundDetection?: boolean | undefined;
 };
 
 /** @internal */

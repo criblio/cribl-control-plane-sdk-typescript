@@ -49,7 +49,7 @@ export type FunctionConfSchemaSerialize = {
   /**
    * Data output format
    */
-  type: FunctionConfSchemaSerializeType;
+  type?: FunctionConfSchemaSerializeType | undefined;
   delimChar?: any | undefined;
   quoteChar?: any | undefined;
   escapeChar?: any | undefined;
@@ -65,7 +65,7 @@ export type FunctionConfSchemaSerialize = {
   /**
    * Field to serialize data to
    */
-  dstField: string;
+  dstField?: string | undefined;
 };
 
 /** @internal */

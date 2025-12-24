@@ -19,11 +19,11 @@ export type FunctionConfSchemaWindow = {
   /**
    * Number of events to keep before the current event in the window
    */
-  tailEventCount: number;
+  tailEventCount?: number | undefined;
   /**
    * Number of events to keep after the current event in the window
    */
-  headEventCount: number;
+  headEventCount?: number | undefined;
 };
 
 /** @internal */

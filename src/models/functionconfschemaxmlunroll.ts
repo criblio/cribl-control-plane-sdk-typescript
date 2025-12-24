@@ -19,11 +19,11 @@ export type FunctionConfSchemaXmlUnroll = {
   /**
    * Add a field with this name, containing the index at which the item was located, starting from 0
    */
-  unrollIdxField: string;
+  unrollIdxField?: string | undefined;
   /**
    * Pretty print the output XML
    */
-  pretty: boolean;
+  pretty?: boolean | undefined;
 };
 
 /** @internal */

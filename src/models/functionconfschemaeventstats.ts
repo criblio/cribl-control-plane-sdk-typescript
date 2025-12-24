@@ -19,11 +19,11 @@ export type FunctionConfSchemaEventstats = {
   /**
    * Specifies how many events are at max kept in memory to be enriched with aggregations
    */
-  maxEvents: number;
+  maxEvents?: number | undefined;
   /**
    * Determines if aggregations should flush when an input stream is closed. If disabled, time window settings will control flush behavior.
    */
-  flushOnInputClose: boolean;
+  flushOnInputClose?: boolean | undefined;
 };
 
 /** @internal */

@@ -11,11 +11,11 @@ export type FunctionConfSchemaUnroll = {
   /**
    * Field in which to find/calculate the array to unroll. Example: _raw, _raw.split(/\n/)
    */
-  srcExpr: string;
+  srcExpr?: string | undefined;
   /**
    * Field in destination event in which to place the unrolled value
    */
-  dstField: string;
+  dstField?: string | undefined;
 };
 
 /** @internal */

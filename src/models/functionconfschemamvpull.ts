@@ -23,11 +23,11 @@ export type FunctionConfSchemaMvPull = {
   /**
    * Optionally, specify a bag as the target for K-V entries. If not specified, these entries are stored on each top-level event.
    */
-  targetBagPath: string | null;
+  targetBagPath?: string | null | undefined;
   /**
    * Toggle this on to remove each original array of data objects after extraction. If toggled off, arrays are retained.
    */
-  deleteOriginal: boolean;
+  deleteOriginal?: boolean | undefined;
 };
 
 /** @internal */
