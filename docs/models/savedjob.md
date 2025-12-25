@@ -31,10 +31,28 @@ const value: models.SavedJobCollection = {
   collector: {
     type: "health_check",
     conf: {
+      authentication: "oauth",
+      loginUrl: "",
+      tokenRespAttribute: "<value>",
+      authHeaderExpr: "`Bearer ${token}`",
+      clientSecretParamName: "client_secret",
+      clientSecretParamValue: "<value>",
+      authRequestParams: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      authRequestHeaders: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
       discovery: {
         discoverType: "none",
       },
-      collectUrl: "https://late-pantyhose.name",
+      collectUrl: "https://proper-majority.info/",
       collectMethod: "get",
       collectRequestParams: "<value>",
       collectBody: "<value>",
@@ -45,13 +63,13 @@ const value: models.SavedJobCollection = {
         },
       ],
       authenticateCollect: false,
-      authentication: "none",
       timeout: 30,
       rejectUnauthorized: false,
       defaultBreakers: "Cribl",
       safeHeaders: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
       retryRules: {
         type: "backoff",
@@ -66,13 +84,13 @@ const value: models.SavedJobCollection = {
   input: {
     breakerRulesets: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     preprocess: {
       command: "<value>",
       args: [
         "<value 1>",
+        "<value 2>",
+        "<value 3>",
       ],
     },
     metadata: [

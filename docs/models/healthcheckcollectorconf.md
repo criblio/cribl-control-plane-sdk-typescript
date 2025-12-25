@@ -1,13 +1,15 @@
 # HealthCheckCollectorConf
 
-## Example Usage
+
+## Supported Types
+
+### `models.HealthCheckAuthenticationNone`
 
 ```typescript
-import { HealthCheckCollectorConf } from "cribl-control-plane/models";
-
-let value: HealthCheckCollectorConf = {
+const value: models.HealthCheckAuthenticationNone = {
+  authentication: "none",
   discovery: {},
-  collectUrl: "https://tough-plumber.biz",
+  collectUrl: "https://dreary-thigh.name/",
   collectRequestParams: "<value>",
   collectBody: "<value>",
   collectRequestHeaders: [
@@ -31,20 +33,232 @@ let value: HealthCheckCollectorConf = {
 };
 ```
 
-## Fields
+### `models.HealthCheckAuthenticationBasic`
 
-| Field                                                                                                                                              | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
-| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `discovery`                                                                                                                                        | [models.HealthCheckCollectorConfDiscovery](../models/healthcheckcollectorconfdiscovery.md)                                                         | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | Expression to derive URL to use for the health check operation (can be a constant).                                                                |
-| `collectMethod`                                                                                                                                    | [models.HealthCheckMethod](../models/healthcheckmethod.md)                                                                                         | :heavy_minus_sign:                                                                                                                                 | Health check HTTP method.                                                                                                                          |
-| `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `collectRequestHeaders`                                                                                                                            | [models.HealthCheckCollectorConfCollectRequestHeader](../models/healthcheckcollectorconfcollectrequestheader.md)[]                                 | :heavy_minus_sign:                                                                                                                                 | Optional health check request headers.                                                                                                             |
-| `authenticateCollect`                                                                                                                              | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Enable to make auth health check call.                                                                                                             |
-| `authentication`                                                                                                                                   | [models.HealthCheckCollectorConfAuthentication](../models/healthcheckcollectorconfauthentication.md)                                               | :heavy_minus_sign:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers. |
-| `timeout`                                                                                                                                          | *number*                                                                                                                                           | :heavy_minus_sign:                                                                                                                                 | HTTP request inactivity timeout, use 0 to disable                                                                                                  |
-| `rejectUnauthorized`                                                                                                                               | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).                                        |
-| `defaultBreakers`                                                                                                                                  | [models.HealthCheckCollectorConfHiddenDefaultBreakers](../models/healthcheckcollectorconfhiddendefaultbreakers.md)                                 | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `safeHeaders`                                                                                                                                      | *string*[]                                                                                                                                         | :heavy_minus_sign:                                                                                                                                 | List of headers that are safe to log in plain text.                                                                                                |
-| `retryRules`                                                                                                                                       | [models.HealthCheckCollectorConfRetryRules](../models/healthcheckcollectorconfretryrules.md)                                                       | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+```typescript
+const value: models.HealthCheckAuthenticationBasic = {
+  authentication: "basic",
+  username: "Lyric.Grant",
+  password: "j8oqJdqwGmAtefF",
+  discovery: {},
+  collectUrl: "https://regal-tooth.net",
+  collectRequestParams: "<value>",
+  collectBody: "<value>",
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  defaultBreakers: "Cribl",
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  retryRules: {
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+  },
+};
+```
+
+### `models.HealthCheckAuthenticationBasicSecret`
+
+```typescript
+const value: models.HealthCheckAuthenticationBasicSecret = {
+  authentication: "basicSecret",
+  credentialsSecret: "<value>",
+  discovery: {},
+  collectUrl: "https://fussy-season.biz/",
+  collectRequestParams: "<value>",
+  collectBody: "<value>",
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  defaultBreakers: "Cribl",
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  retryRules: {
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+  },
+};
+```
+
+### `models.HealthCheckAuthenticationLogin`
+
+```typescript
+const value: models.HealthCheckAuthenticationLogin = {
+  authentication: "login",
+  username: "Maci79",
+  password: "N01Pm9peETaxfHL",
+  tokenRespAttribute: "<value>",
+  authRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  discovery: {},
+  collectUrl: "https://classic-papa.org",
+  collectRequestParams: "<value>",
+  collectBody: "<value>",
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  defaultBreakers: "Cribl",
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  retryRules: {
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+  },
+};
+```
+
+### `models.HealthCheckAuthenticationLoginSecret`
+
+```typescript
+const value: models.HealthCheckAuthenticationLoginSecret = {
+  authentication: "loginSecret",
+  credentialsSecret: "<value>",
+  tokenRespAttribute: "<value>",
+  authRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  discovery: {},
+  collectUrl: "https://husky-granny.name/",
+  collectRequestParams: "<value>",
+  collectBody: "<value>",
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  defaultBreakers: "Cribl",
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  retryRules: {
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+  },
+};
+```
+
+### `models.HealthCheckAuthenticationOauth`
+
+```typescript
+const value: models.HealthCheckAuthenticationOauth = {
+  authentication: "oauth",
+  tokenRespAttribute: "<value>",
+  clientSecretParamValue: "<value>",
+  authRequestParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  authRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  discovery: {},
+  collectUrl: "https://jittery-almighty.com/",
+  collectRequestParams: "<value>",
+  collectBody: "<value>",
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  defaultBreakers: "Cribl",
+  safeHeaders: [
+    "<value 1>",
+  ],
+  retryRules: {
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+  },
+};
+```
+
+### `models.HealthCheckAuthenticationOauthSecret`
+
+```typescript
+const value: models.HealthCheckAuthenticationOauthSecret = {
+  authentication: "oauthSecret",
+  tokenRespAttribute: "<value>",
+  textSecret: "<value>",
+  authRequestParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  authRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  discovery: {},
+  collectUrl: "https://artistic-zen.info",
+  collectRequestParams: "<value>",
+  collectBody: "<value>",
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  defaultBreakers: "Cribl",
+  safeHeaders: [
+    "<value 1>",
+  ],
+  retryRules: {
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+  },
+};
+```
+

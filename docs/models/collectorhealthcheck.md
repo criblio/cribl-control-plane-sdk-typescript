@@ -10,8 +10,25 @@ import { CollectorHealthCheck } from "cribl-control-plane/models";
 let value: CollectorHealthCheck = {
   type: "health_check",
   conf: {
-    discovery: {},
-    collectUrl: "https://late-pantyhose.name",
+    authentication: "login",
+    loginUrl: "`https://localhost:9000/api/v1/auth/login`",
+    username: "Connor_Schowalter",
+    password: "lv0D0RYmS35HdTL",
+    loginBody:
+      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+    tokenRespAttribute: "<value>",
+    authHeaderExpr: "`Bearer ${token}`",
+    authRequestHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    discovery: {
+      discoverType: "none",
+    },
+    collectUrl: "https://silver-morning.biz/",
+    collectMethod: "get",
     collectRequestParams: "<value>",
     collectBody: "<value>",
     collectRequestHeaders: [
@@ -20,12 +37,15 @@ let value: CollectorHealthCheck = {
         value: "<value>",
       },
     ],
+    authenticateCollect: false,
+    timeout: 30,
+    rejectUnauthorized: false,
     defaultBreakers: "Cribl",
     safeHeaders: [
       "<value 1>",
-      "<value 2>",
     ],
     retryRules: {
+      type: "backoff",
       interval: "<value>",
       limit: "<value>",
       multiplier: "<value>",
@@ -38,7 +58,7 @@ let value: CollectorHealthCheck = {
 
 ## Fields
 
-| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| `type`                                                                   | *"health_check"*                                                         | :heavy_check_mark:                                                       | Collector type: health_check                                             |
-| `conf`                                                                   | [models.HealthCheckCollectorConf](../models/healthcheckcollectorconf.md) | :heavy_check_mark:                                                       | N/A                                                                      |
+| Field                             | Type                              | Required                          | Description                       |
+| --------------------------------- | --------------------------------- | --------------------------------- | --------------------------------- |
+| `type`                            | *"health_check"*                  | :heavy_check_mark:                | Collector type: health_check      |
+| `conf`                            | *models.HealthCheckCollectorConf* | :heavy_check_mark:                | N/A                               |

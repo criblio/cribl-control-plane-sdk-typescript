@@ -74,7 +74,7 @@ export class Packs extends ClientSDK {
   async delete(
     request: operations.DeletePacksByIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedPackInstallInfo> {
+  ): Promise<models.CountedPackUninstallInfo> {
     return unwrapAsync(packsDelete(
       this,
       request,

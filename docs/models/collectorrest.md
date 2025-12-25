@@ -10,8 +10,13 @@ import { CollectorRest } from "cribl-control-plane/models";
 let value: CollectorRest = {
   type: "rest",
   conf: {
-    discovery: {},
-    collectUrl: "https://easy-republican.com",
+    authentication: "hmac",
+    hmacFunctionId: "<id>",
+    discovery: {
+      discoverType: "none",
+    },
+    collectUrl: "https://simplistic-cardboard.biz/",
+    collectMethod: "get",
     collectVerb: "<value>",
     collectRequestParams: "<value>",
     collectBody: "<value>",
@@ -21,11 +26,23 @@ let value: CollectorRest = {
         value: "<value>",
       },
     ],
-    pagination: {},
+    pagination: {
+      type: "none",
+    },
+    timeout: 0,
+    useRoundRobinDns: false,
+    disableTimeFilter: false,
+    decodeUrl: true,
+    rejectUnauthorized: false,
+    captureHeaders: false,
+    stopOnEmptyResults: false,
     safeHeaders: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
     retryRules: {
+      type: "backoff",
       interval: "<value>",
       limit: "<value>",
       multiplier: "<value>",
@@ -37,7 +54,7 @@ let value: CollectorRest = {
     },
     scheduling: {
       stateTracking: {
-        enabled: false,
+        enabled: true,
       },
     },
   },
@@ -46,7 +63,7 @@ let value: CollectorRest = {
 
 ## Fields
 
-| Field                                                      | Type                                                       | Required                                                   | Description                                                |
-| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| `type`                                                     | *"rest"*                                                   | :heavy_check_mark:                                         | Collector type: rest                                       |
-| `conf`                                                     | [models.RestCollectorConf](../models/restcollectorconf.md) | :heavy_check_mark:                                         | N/A                                                        |
+| Field                      | Type                       | Required                   | Description                |
+| -------------------------- | -------------------------- | -------------------------- | -------------------------- |
+| `type`                     | *"rest"*                   | :heavy_check_mark:         | Collector type: rest       |
+| `conf`                     | *models.RestCollectorConf* | :heavy_check_mark:         | N/A                        |

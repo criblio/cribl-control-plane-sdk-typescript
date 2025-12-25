@@ -10,9 +10,11 @@ import { CollectorGoogleCloudStorage } from "cribl-control-plane/models";
 let value: CollectorGoogleCloudStorage = {
   type: "google_cloud_storage",
   conf: {
+    authType: "secret",
+    textSecret: "<value>",
     outputName: "<value>",
     bucket: "<value>",
-    path: "/var/tmp",
+    path: "/private/tmp",
     extractors: [
       {
         key: "<key>",
@@ -20,13 +22,18 @@ let value: CollectorGoogleCloudStorage = {
       },
     ],
     endpoint: "<value>",
+    disableTimeFilter: false,
+    recurse: true,
+    maxBatchSize: 10,
+    parquetChunkSizeMB: 5,
+    parquetChunkDownloadTimeout: 600,
   },
 };
 ```
 
 ## Fields
 
-| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
-| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `type`                                                                                 | *"google_cloud_storage"*                                                               | :heavy_check_mark:                                                                     | Collector type: google_cloud_storage                                                   |
-| `conf`                                                                                 | [models.GoogleCloudStorageCollectorConf](../models/googlecloudstoragecollectorconf.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| Field                                    | Type                                     | Required                                 | Description                              |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| `type`                                   | *"google_cloud_storage"*                 | :heavy_check_mark:                       | Collector type: google_cloud_storage     |
+| `conf`                                   | *models.GoogleCloudStorageCollectorConf* | :heavy_check_mark:                       | N/A                                      |

@@ -382,7 +382,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedPackInstallInfo](../../models/countedpackinstallinfo.md)\>**
+**Promise\<[models.CountedPackUninstallInfo](../../models/countedpackuninstallinfo.md)\>**
 
 ### Errors
 

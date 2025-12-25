@@ -64,8 +64,6 @@ let value: CreateSavedJobRequest = {
       type: "collection",
       breakerRulesets: [
         "<value 1>",
-        "<value 2>",
-        "<value 3>",
       ],
       staleChannelFlushMs: 10000,
       sendToRoutes: true,
@@ -74,6 +72,8 @@ let value: CreateSavedJobRequest = {
         command: "<value>",
         args: [
           "<value 1>",
+          "<value 2>",
+          "<value 3>",
         ],
       },
       throttleRatePerSec: "0",

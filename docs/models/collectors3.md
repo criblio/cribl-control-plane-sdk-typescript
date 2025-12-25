@@ -10,10 +10,14 @@ import { CollectorS3 } from "cribl-control-plane/models";
 let value: CollectorS3 = {
   type: "s3",
   conf: {
+    awsAuthenticationMethod: "auto",
     outputName: "<value>",
     bucket: "<value>",
+    parquetChunkSizeMB: 5,
+    parquetChunkDownloadTimeout: 600,
     region: "<value>",
-    path: "/boot",
+    path: "/bin",
+    partitioningScheme: "none",
     extractors: [
       {
         key: "<key>",
@@ -21,16 +25,24 @@ let value: CollectorS3 = {
       },
     ],
     endpoint: "<value>",
+    signatureVersion: "v4",
+    enableAssumeRole: false,
     assumeRoleArn: "<value>",
     assumeRoleExternalId: "<id>",
+    durationSeconds: 3600,
+    maxBatchSize: 10,
     recurse: "<value>",
+    reuseConnections: true,
+    rejectUnauthorized: true,
+    verifyPermissions: true,
+    disableTimeFilter: false,
   },
 };
 ```
 
 ## Fields
 
-| Field                                                  | Type                                                   | Required                                               | Description                                            |
-| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
-| `type`                                                 | *"s3"*                                                 | :heavy_check_mark:                                     | Collector type: s3                                     |
-| `conf`                                                 | [models.S3CollectorConf](../models/s3collectorconf.md) | :heavy_check_mark:                                     | N/A                                                    |
+| Field                    | Type                     | Required                 | Description              |
+| ------------------------ | ------------------------ | ------------------------ | ------------------------ |
+| `type`                   | *"s3"*                   | :heavy_check_mark:       | Collector type: s3       |
+| `conf`                   | *models.S3CollectorConf* | :heavy_check_mark:       | N/A                      |

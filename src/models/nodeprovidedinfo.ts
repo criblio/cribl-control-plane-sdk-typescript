@@ -81,7 +81,7 @@ export type NodeProvidedInfo = {
   cpus: number;
   cribl: HBCriblInfo;
   env: { [k: string]: string };
-  freeDiskSpace: number;
+  freeDiskSpace?: number | undefined;
   hostOs?: NodeProvidedInfoHostOs | undefined;
   hostname: string;
   isSaasWorker?: boolean | undefined;
@@ -93,7 +93,7 @@ export type NodeProvidedInfo = {
   outpost?: OutpostNodeInfo | undefined;
   platform: string;
   release: string;
-  totalDiskSpace: number;
+  totalDiskSpace?: number | undefined;
   totalmem: number;
 };
 
@@ -285,7 +285,7 @@ export const NodeProvidedInfo$inboundSchema: z.ZodType<
   cpus: z.number(),
   cribl: HBCriblInfo$inboundSchema,
   env: z.record(z.string()),
-  freeDiskSpace: z.number(),
+  freeDiskSpace: z.number().optional(),
   hostOs: z.lazy(() => NodeProvidedInfoHostOs$inboundSchema).optional(),
   hostname: z.string(),
   isSaasWorker: z.boolean().optional(),
@@ -300,7 +300,7 @@ export const NodeProvidedInfo$inboundSchema: z.ZodType<
   outpost: OutpostNodeInfo$inboundSchema.optional(),
   platform: z.string(),
   release: z.string(),
-  totalDiskSpace: z.number(),
+  totalDiskSpace: z.number().optional(),
   totalmem: z.number(),
 }).transform((v) => {
   return remap$(v, {

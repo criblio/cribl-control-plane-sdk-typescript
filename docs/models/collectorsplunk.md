@@ -10,9 +10,15 @@ import { CollectorSplunk } from "cribl-control-plane/models";
 let value: CollectorSplunk = {
   type: "splunk",
   conf: {
+    authentication: "basic",
+    username: "Enrico53",
+    password: "a6l5mrPhEvtGkTu",
+    searchHead: "https://localhost:8089",
     search: "<value>",
     earliest: "<value>",
     latest: "<value>",
+    endpoint: "/services/search/v2/jobs/export",
+    outputMode: "json",
     collectRequestParams: [
       {
         name: "<value>",
@@ -25,7 +31,13 @@ let value: CollectorSplunk = {
         value: "<value>",
       },
     ],
+    timeout: 0,
+    useRoundRobinDns: false,
+    disableTimeFilter: true,
+    rejectUnauthorized: false,
+    handleEscapedChars: false,
     retryRules: {
+      type: "backoff",
       interval: "<value>",
       limit: "<value>",
       multiplier: "<value>",
@@ -40,7 +52,7 @@ let value: CollectorSplunk = {
 
 ## Fields
 
-| Field                                                          | Type                                                           | Required                                                       | Description                                                    |
-| -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
-| `type`                                                         | *"splunk"*                                                     | :heavy_check_mark:                                             | Collector type: splunk                                         |
-| `conf`                                                         | [models.SplunkCollectorConf](../models/splunkcollectorconf.md) | :heavy_check_mark:                                             | N/A                                                            |
+| Field                        | Type                         | Required                     | Description                  |
+| ---------------------------- | ---------------------------- | ---------------------------- | ---------------------------- |
+| `type`                       | *"splunk"*                   | :heavy_check_mark:           | Collector type: splunk       |
+| `conf`                       | *models.SplunkCollectorConf* | :heavy_check_mark:           | N/A                          |
