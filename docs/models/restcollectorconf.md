@@ -1,13 +1,55 @@
 # RestCollectorConf
 
-## Example Usage
+
+## Supported Types
+
+### `models.RestAuthenticationNone`
 
 ```typescript
-import { RestCollectorConf } from "cribl-control-plane/models";
-
-let value: RestCollectorConf = {
+const value: models.RestAuthenticationNone = {
+  authentication: "none",
   discovery: {},
-  collectUrl: "https://forceful-grouper.com/",
+  collectUrl: "https://elastic-hawk.org/",
+  collectVerb: "<value>",
+  collectRequestParams: "<value>",
+  collectBody: "<value>",
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  pagination: {},
+  safeHeaders: [
+    "<value 1>",
+  ],
+  retryRules: {
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    maxIntervalMs: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+    retryConnectTimeout: "<value>",
+    retryConnectReset: "<value>",
+  },
+  scheduling: {
+    stateTracking: {
+      enabled: true,
+    },
+  },
+};
+```
+
+### `models.RestAuthenticationBasic`
+
+```typescript
+const value: models.RestAuthenticationBasic = {
+  authentication: "basic",
+  username: "Tito40",
+  password: "4Drf49LK5Hpg6tC",
+  discovery: {},
+  collectUrl: "https://courageous-secret.net/",
   collectVerb: "<value>",
   collectRequestParams: "<value>",
   collectBody: "<value>",
@@ -41,26 +83,407 @@ let value: RestCollectorConf = {
 };
 ```
 
-## Fields
+### `models.RestAuthenticationBasicSecret`
 
-| Field                                                                                                                                              | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
-| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `discovery`                                                                                                                                        | [models.RestCollectorConfDiscovery](../models/restcollectorconfdiscovery.md)                                                                       | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | URL (constant or JavaScript expression) to use for the Collect operation                                                                           |
-| `collectMethod`                                                                                                                                    | [models.CollectMethod](../models/collectmethod.md)                                                                                                 | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `collectVerb`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `collectRequestHeaders`                                                                                                                            | [models.RestCollectorConfCollectRequestHeader](../models/restcollectorconfcollectrequestheader.md)[]                                               | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `pagination`                                                                                                                                       | [models.Pagination](../models/pagination.md)                                                                                                       | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `authentication`                                                                                                                                   | [models.RestCollectorConfAuthentication](../models/restcollectorconfauthentication.md)                                                             | :heavy_minus_sign:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers. |
-| `timeout`                                                                                                                                          | *number*                                                                                                                                           | :heavy_minus_sign:                                                                                                                                 | HTTP request inactivity timeout. Use 0 to disable.                                                                                                 |
-| `useRoundRobinDns`                                                                                                                                 | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.                                                     |
-| `disableTimeFilter`                                                                                                                                | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Disable Collector event time filtering when a date range is specified                                                                              |
-| `decodeUrl`                                                                                                                                        | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Decode the URL before sending requests (including pagination requests)                                                                             |
-| `rejectUnauthorized`                                                                                                                               | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)                                                  |
-| `captureHeaders`                                                                                                                                   | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Enable to add response headers to the resHeaders field under the __collectible object                                                              |
-| `stopOnEmptyResults`                                                                                                                               | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Stop pagination when the Event Breaker produces no events                                                                                          |
-| `safeHeaders`                                                                                                                                      | *string*[]                                                                                                                                         | :heavy_minus_sign:                                                                                                                                 | List of headers that are safe to log in plain text                                                                                                 |
-| `retryRules`                                                                                                                                       | [models.RestCollectorConfRetryRules](../models/restcollectorconfretryrules.md)                                                                     | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `scheduling`                                                                                                                                       | [models.RestCollectorConfScheduling](../models/restcollectorconfscheduling.md)                                                                     | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+```typescript
+const value: models.RestAuthenticationBasicSecret = {
+  authentication: "basicSecret",
+  credentialsSecret: "<value>",
+  discovery: {},
+  collectUrl: "https://precious-metal.name",
+  collectVerb: "<value>",
+  collectRequestParams: "<value>",
+  collectBody: "<value>",
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  pagination: {},
+  safeHeaders: [
+    "<value 1>",
+  ],
+  retryRules: {
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    maxIntervalMs: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+    retryConnectTimeout: "<value>",
+    retryConnectReset: "<value>",
+  },
+  scheduling: {
+    stateTracking: {
+      enabled: true,
+    },
+  },
+};
+```
+
+### `models.RestAuthenticationLogin`
+
+```typescript
+const value: models.RestAuthenticationLogin = {
+  getAuthTokenFromHeader: false,
+  tokenRespAttribute: "<value>",
+  authentication: "none",
+  loginUrl: "`https://localhost:9000/api/v1/auth/login`",
+  username: "Henry_Borer",
+  password: "bMBKWTVRBk1ydeV",
+  loginBody:
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  authHeaderKey: "Authorization",
+  authHeaderExpr: "`Bearer ${token}`",
+  authRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  discovery: {
+    discoverType: "none",
+  },
+  collectUrl: "https://uniform-tackle.biz/",
+  collectMethod: "get",
+  collectVerb: "<value>",
+  collectRequestParams: "<value>",
+  collectBody: "<value>",
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  pagination: {
+    type: "none",
+  },
+  timeout: 0,
+  useRoundRobinDns: false,
+  disableTimeFilter: false,
+  decodeUrl: true,
+  rejectUnauthorized: false,
+  captureHeaders: false,
+  stopOnEmptyResults: false,
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  retryRules: {
+    type: "backoff",
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    maxIntervalMs: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+    retryConnectTimeout: "<value>",
+    retryConnectReset: "<value>",
+  },
+  scheduling: {
+    stateTracking: {
+      enabled: true,
+    },
+  },
+};
+```
+
+### `models.RestAuthenticationLoginSecret`
+
+```typescript
+const value: models.RestAuthenticationLoginSecret = {
+  getAuthTokenFromHeader: false,
+  tokenRespAttribute: "<value>",
+  authentication: "none",
+  loginUrl: "`https://localhost:9000/api/v1/auth/login`",
+  credentialsSecret: "<value>",
+  loginBody:
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  authHeaderKey: "Authorization",
+  authHeaderExpr: "`Bearer ${token}`",
+  authRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  discovery: {
+    discoverType: "none",
+  },
+  collectUrl: "https://kooky-mentor.com/",
+  collectMethod: "get",
+  collectVerb: "<value>",
+  collectRequestParams: "<value>",
+  collectBody: "<value>",
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  pagination: {
+    type: "none",
+  },
+  timeout: 0,
+  useRoundRobinDns: false,
+  disableTimeFilter: false,
+  decodeUrl: true,
+  rejectUnauthorized: false,
+  captureHeaders: false,
+  stopOnEmptyResults: false,
+  safeHeaders: [
+    "<value 1>",
+  ],
+  retryRules: {
+    type: "backoff",
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    maxIntervalMs: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+    retryConnectTimeout: "<value>",
+    retryConnectReset: "<value>",
+  },
+  scheduling: {
+    stateTracking: {
+      enabled: true,
+    },
+  },
+};
+```
+
+### `models.RestAuthenticationOauth`
+
+```typescript
+const value: models.RestAuthenticationOauth = {
+  authentication: "oauth",
+  tokenRespAttribute: "<value>",
+  clientSecretParamValue: "<value>",
+  authRequestParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  authRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  discovery: {},
+  collectUrl: "https://questionable-negotiation.com",
+  collectVerb: "<value>",
+  collectRequestParams: "<value>",
+  collectBody: "<value>",
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  pagination: {},
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  retryRules: {
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    maxIntervalMs: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+    retryConnectTimeout: "<value>",
+    retryConnectReset: "<value>",
+  },
+  scheduling: {
+    stateTracking: {
+      enabled: true,
+    },
+  },
+};
+```
+
+### `models.RestAuthenticationOauthSecret`
+
+```typescript
+const value: models.RestAuthenticationOauthSecret = {
+  authentication: "oauthSecret",
+  tokenRespAttribute: "<value>",
+  textSecret: "<value>",
+  authRequestParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  authRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  discovery: {},
+  collectUrl: "https://watery-consistency.com",
+  collectVerb: "<value>",
+  collectRequestParams: "<value>",
+  collectBody: "<value>",
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  pagination: {},
+  safeHeaders: [
+    "<value 1>",
+  ],
+  retryRules: {
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    maxIntervalMs: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+    retryConnectTimeout: "<value>",
+    retryConnectReset: "<value>",
+  },
+  scheduling: {
+    stateTracking: {
+      enabled: false,
+    },
+  },
+};
+```
+
+### `models.RestAuthenticationGoogleOauth`
+
+```typescript
+const value: models.RestAuthenticationGoogleOauth = {
+  authentication: "google_oauth",
+  scopes: [
+    "<value 1>",
+  ],
+  serviceAccountCredentials: "<value>",
+  subject: "<value>",
+  discovery: {},
+  collectUrl: "https://live-labourer.info/",
+  collectVerb: "<value>",
+  collectRequestParams: "<value>",
+  collectBody: "<value>",
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  pagination: {},
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  retryRules: {
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    maxIntervalMs: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+    retryConnectTimeout: "<value>",
+    retryConnectReset: "<value>",
+  },
+  scheduling: {
+    stateTracking: {
+      enabled: false,
+    },
+  },
+};
+```
+
+### `models.RestAuthenticationGoogleOauthSecret`
+
+```typescript
+const value: models.RestAuthenticationGoogleOauthSecret = {
+  authentication: "google_oauthSecret",
+  scopes: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  textSecret: "<value>",
+  subject: "<value>",
+  discovery: {},
+  collectUrl: "https://tall-cruelty.biz",
+  collectVerb: "<value>",
+  collectRequestParams: "<value>",
+  collectBody: "<value>",
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  pagination: {},
+  safeHeaders: [
+    "<value 1>",
+  ],
+  retryRules: {
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    maxIntervalMs: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+    retryConnectTimeout: "<value>",
+    retryConnectReset: "<value>",
+  },
+  scheduling: {
+    stateTracking: {
+      enabled: false,
+    },
+  },
+};
+```
+
+### `models.RestAuthenticationHmac`
+
+```typescript
+const value: models.RestAuthenticationHmac = {
+  authentication: "hmac",
+  hmacFunctionId: "<id>",
+  discovery: {},
+  collectUrl: "https://giving-partridge.org/",
+  collectVerb: "<value>",
+  collectRequestParams: "<value>",
+  collectBody: "<value>",
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  pagination: {},
+  safeHeaders: [
+    "<value 1>",
+  ],
+  retryRules: {
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    maxIntervalMs: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+    retryConnectTimeout: "<value>",
+    retryConnectReset: "<value>",
+  },
+  scheduling: {
+    stateTracking: {
+      enabled: true,
+    },
+  },
+};
+```
+

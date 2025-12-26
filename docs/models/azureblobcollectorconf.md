@@ -1,14 +1,17 @@
 # AzureBlobCollectorConf
 
-## Example Usage
+
+## Supported Types
+
+### `models.AzureBlobAuthTypeManual`
 
 ```typescript
-import { AzureBlobCollectorConf } from "cribl-control-plane/models";
-
-let value: AzureBlobCollectorConf = {
+const value: models.AzureBlobAuthTypeManual = {
+  authType: "manual",
+  connectionString: "<value>",
   outputName: "<value>",
   containerName: "<value>",
-  path: "/etc/ppp",
+  path: "/usr/local/bin",
   extractors: [
     {
       key: "<key>",
@@ -18,18 +21,68 @@ let value: AzureBlobCollectorConf = {
 };
 ```
 
-## Fields
+### `models.AzureBlobAuthTypeSecret`
 
-| Field                                                                                                                                                                                                                                                                                             | Type                                                                                                                                                                                                                                                                                              | Required                                                                                                                                                                                                                                                                                          | Description                                                                                                                                                                                                                                                                                       |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `outputName`                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                | An optional predefined Destination that will be used to auto-populate Collector settings                                                                                                                                                                                                          |
-| `authType`                                                                                                                                                                                                                                                                                        | [models.AzureBlobCollectorConfAuthenticationMethod](../models/azureblobcollectorconfauthenticationmethod.md)                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                | Enter authentication data directly, or select a secret referencing your auth data                                                                                                                                                                                                                 |
-| `containerName`                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                          | :heavy_check_mark:                                                                                                                                                                                                                                                                                | Container to collect from. This value can be a constant, or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: myBucket-${C.vars.myVar}                                                                                                      |
-| `path`                                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                | The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.                                                                                         |
-| `extractors`                                                                                                                                                                                                                                                                                      | [models.AzureBlobCollectorConfExtractor](../models/azureblobcollectorconfextractor.md)[]                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                | Extractors allow use of template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)} will enrich discovery results with a human-readable "date" field. |
-| `recurse`                                                                                                                                                                                                                                                                                         | *boolean*                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                | Recurse through subdirectories                                                                                                                                                                                                                                                                    |
-| `includeMetadata`                                                                                                                                                                                                                                                                                 | *boolean*                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                | Include Azure Blob metadata in collected events. In each event, metadata will be located at: __collectible.metadata.                                                                                                                                                                              |
-| `includeTags`                                                                                                                                                                                                                                                                                     | *boolean*                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                | Include Azure Blob tags in collected events. In each event, tags will be located at: __collectible.tags. Disable this feature when using a Shared Access Signature Connection String, to prevent errors.                                                                                          |
-| `maxBatchSize`                                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                | Maximum number of metadata objects to batch before recording as results                                                                                                                                                                                                                           |
-| `parquetChunkSizeMB`                                                                                                                                                                                                                                                                              | *number*                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                | Maximum file size for each Parquet chunk                                                                                                                                                                                                                                                          |
-| `parquetChunkDownloadTimeout`                                                                                                                                                                                                                                                                     | *number*                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                | The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.                                                                                                                                                        |
+```typescript
+const value: models.AzureBlobAuthTypeSecret = {
+  authType: "secret",
+  textSecret: "<value>",
+  outputName: "<value>",
+  containerName: "<value>",
+  path: "/private/var",
+  extractors: [
+    {
+      key: "<key>",
+      expression: "<value>",
+    },
+  ],
+};
+```
+
+### `models.AzureBlobAuthTypeClientSecret`
+
+```typescript
+const value: models.AzureBlobAuthTypeClientSecret = {
+  authType: "clientSecret",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  clientTextSecret: "<value>",
+  endpointSuffix: "<value>",
+  outputName: "<value>",
+  containerName: "<value>",
+  path: "/private",
+  extractors: [
+    {
+      key: "<key>",
+      expression: "<value>",
+    },
+  ],
+};
+```
+
+### `models.AzureBlobAuthTypeClientCert`
+
+```typescript
+const value: models.AzureBlobAuthTypeClientCert = {
+  authType: "clientCert",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  certificate: {
+    certificateName: "<value>",
+  },
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  outputName: "<value>",
+  containerName: "<value>",
+  path: "/etc/periodic",
+  extractors: [
+    {
+      key: "<key>",
+      expression: "<value>",
+    },
+  ],
+};
+```
+

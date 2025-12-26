@@ -1,0 +1,19 @@
+# SplunkAuthenticationLoginCollectRequestHeader
+
+## Example Usage
+
+```typescript
+import { SplunkAuthenticationLoginCollectRequestHeader } from "cribl-control-plane/models";
+
+let value: SplunkAuthenticationLoginCollectRequestHeader = {
+  name: "<value>",
+  value: "<value>",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                                                              | Type                                                                                                                                                                                                               | Required                                                                                                                                                                                                           | Description                                                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `name`                                                                                                                                                                                                             | *string*                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                |
+| `value`                                                                                                                                                                                                            | *string*                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                 | JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings. |
