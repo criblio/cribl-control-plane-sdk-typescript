@@ -30,7 +30,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.5.0-beta.9
+  version: 0.5.0-beta.10
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -50,6 +50,7 @@ typescript:
   enumFormat: union
   envVarPrefix: CRIBLCONTROLPLANE
   exportZodModelNamespace: false
+  flatAdditionalProperties: false
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
   formStringArrayEncodeMode: encoded-string

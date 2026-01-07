@@ -23,7 +23,7 @@ export type FunctionConfSchemaHandlebarsTemplateDefinition = {
   /**
    * Type categorization for the template (e.g., Universal, Email, Slack)
    */
-  type?: string | undefined;
+  type: string;
 };
 
 export type FunctionConfSchemaHandlebars = {
@@ -34,15 +34,15 @@ export type FunctionConfSchemaHandlebars = {
   /**
    * Field name to store the rendered template result. Defaults to _raw.
    */
-  targetField?: string | undefined;
+  targetField: string;
   /**
    * Parse the rendered template as JSON and store as an object instead of a string. Useful for building structured data like Slack blocks.
    */
-  parseJson?: boolean | undefined;
+  parseJson: boolean;
   /**
    * Remove the target field if the rendered result is empty or null.
    */
-  removeOnNull?: boolean | undefined;
+  removeOnNull: boolean;
 };
 
 /** @internal */

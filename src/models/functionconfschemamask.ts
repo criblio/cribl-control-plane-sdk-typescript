@@ -15,11 +15,11 @@ export type FunctionConfSchemaMaskRule = {
   /**
    * A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
    */
-  replaceExpr?: string | undefined;
+  replaceExpr: string;
   /**
    * Set to No to disable the evaluation of an individual rule
    */
-  disabled?: boolean | undefined;
+  disabled: boolean;
 };
 
 export type FunctionConfSchemaMaskFlag = {
@@ -39,7 +39,7 @@ export type FunctionConfSchemaMask = {
   /**
    * Depth to which the Mask Function will search for fields to mask
    */
-  depth?: number | undefined;
+  depth: number;
   /**
    * Fields to evaluate if one or more masking rules are matched
    */
