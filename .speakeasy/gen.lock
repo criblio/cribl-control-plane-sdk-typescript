@@ -6,14 +6,14 @@ management:
   speakeasyVersion: 1.682.0
   generationVersion: 2.791.1
   releaseVersion: 0.4.0
-  configChecksum: febdb18c3f0eecab3bcc273d6723de2c
+  configChecksum: aea07ef8e8d79fb8275f5d115b2b5117
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: a57b08d4-cea2-4221-8b27-4d5a845ca8d8
-  pristine_commit_hash: b900d22647e968230a2d341de54362b99ab0f2cd
-  pristine_tree_hash: c20f93955a54566d325643749002ffff2f8a9124
+  generation_id: 69885fef-1e40-44ba-af69-d37842324cfd
+  pristine_commit_hash: 5be92076efa5338bbd16fbfd79a3eb433059cbef
+  pristine_tree_hash: 8781fe1381df73ed49772c6085151a8fd7f37483
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -9222,12 +9222,12 @@ trackedFiles:
     pristine_git_object: 535ce5c148b17aa8c49b37d7bec323fe7d448a56
   src/models/routes.ts:
     id: 016c9cbd6eb4
-    last_write_checksum: sha1:52a92f5b0c0e2541c0773505765573bd76310ff8
-    pristine_git_object: ed286e56682980e8913acb17e7f3f2b2c06645b3
+    last_write_checksum: sha1:adbe95bf70b96bcf4a6f07dbdc1af68b19cd85d1
+    pristine_git_object: bd34ff30fd05ec118dcf70f6826b4389d94865b3
   src/models/routesroute.ts:
     id: 21e84e1628b6
-    last_write_checksum: sha1:1451670dafcf4150ba7cf8b1b4997fbab7497fb7
-    pristine_git_object: ca843e19f4d8ac62e3764405b51a28b7642f5b41
+    last_write_checksum: sha1:6b84d0a62ba13230012b9e792de68ec57806af29
+    pristine_git_object: 7b41566872f71371ecbfa5d8da4a5829af6d0f9f
   src/models/runnablejob.ts:
     id: fd84b6eb555d
     last_write_checksum: sha1:1d6dd82a521940b1adf695bb75ba90f1971c83e9
