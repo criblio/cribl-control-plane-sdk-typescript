@@ -25,7 +25,7 @@
  */
 
 import {
-  Pipeline,
+  PipelineInput,
   RoutesRoute,
 } from "../dist/esm/models";
 import { CreateInputRequest, CreateOutputRequest } from "../dist/esm/models/operations";
@@ -71,7 +71,7 @@ const s3Destination: CreateOutputRequest = {
 };
 
 // Pipeline configuration: filter events and keep only data in the "name" field
-const pipeline: Pipeline = {
+const pipeline: PipelineInput = {
   id: "my-pipeline",
   conf: {
     asyncFuncTimeout: 1000,

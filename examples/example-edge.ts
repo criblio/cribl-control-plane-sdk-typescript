@@ -40,7 +40,7 @@ const AWS_REGION = "us-east-2"; // Replace with your S3 bucket region
 
 import {
   ConfigGroup,
-  Pipeline,
+  PipelineInput,
   RoutesRoute,
 } from "../dist/esm/models";
 import { CreateInputRequest, CreateOutputRequest } from "../dist/esm/models/operations";
@@ -79,7 +79,7 @@ const s3Destination: CreateOutputRequest = {
 };
 
 // Pipeline configuration: filter events and keep only data in the "eventSource" and "eventID" fields
-const pipeline: Pipeline = {
+const pipeline: PipelineInput = {
   id: "my-pipeline",
   conf: {
     asyncFuncTimeout: 1000,
