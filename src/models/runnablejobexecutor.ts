@@ -47,24 +47,24 @@ export type RunnableJobExecutorRunSettings = {
   /**
    * Reschedule tasks that failed with non-fatal errors
    */
-  rescheduleDroppedTasks?: boolean | undefined;
+  rescheduleDroppedTasks: boolean;
   /**
    * Maximum number of times a task can be rescheduled
    */
-  maxTaskReschedule?: number | undefined;
+  maxTaskReschedule: number;
   /**
    * Level at which to set task logging
    */
-  logLevel?: RunnableJobExecutorScheduleLogLevel | undefined;
+  logLevel: RunnableJobExecutorScheduleLogLevel;
   /**
    * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
    */
-  jobTimeout?: string | undefined;
+  jobTimeout: string;
   /**
    * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
    */
-  mode?: string | undefined;
-  timeRangeType?: string | undefined;
+  mode: string;
+  timeRangeType: string;
   /**
    * Earliest time to collect data for the selected timezone
    */
@@ -78,7 +78,7 @@ export type RunnableJobExecutorRunSettings = {
   /**
    * A filter for tokens in the provided collect path and/or the events being collected
    */
-  expression?: string | undefined;
+  expression: string;
   /**
    * Limits the bundle size for small tasks. For example,
    *
@@ -86,7 +86,7 @@ export type RunnableJobExecutorRunSettings = {
    *
    *         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
    */
-  minTaskSize?: string | undefined;
+  minTaskSize: string;
   /**
    * Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
    *
@@ -94,7 +94,7 @@ export type RunnableJobExecutorRunSettings = {
    *
    *         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
    */
-  maxTaskSize?: string | undefined;
+  maxTaskSize: string;
 };
 
 /**
@@ -108,19 +108,19 @@ export type RunnableJobExecutorSchedule = {
   /**
    * Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
    */
-  skippable?: boolean | undefined;
+  skippable: boolean;
   /**
    * If Stream Leader (or single instance) restarts, run all missed jobs according to their original schedules
    */
-  resumeMissed?: boolean | undefined;
+  resumeMissed: boolean;
   /**
    * A cron schedule on which to run this job
    */
-  cronSchedule?: string | undefined;
+  cronSchedule: string;
   /**
    * The maximum number of instances of this scheduled job that may be running at any time
    */
-  maxConcurrentRuns?: number | undefined;
+  maxConcurrentRuns: number;
   run?: RunnableJobExecutorRunSettings | undefined;
 };
 
@@ -134,7 +134,7 @@ export type RunnableJobExecutorExecutor = {
   /**
    * Determines whether or not to write task results to disk
    */
-  storeTaskResults?: boolean | undefined;
+  storeTaskResults: boolean;
   conf?: RunnableJobExecutorExecutorSpecificSettings | undefined;
 };
 
@@ -159,19 +159,19 @@ export type RunnableJobExecutorRun = {
   /**
    * Reschedule tasks that failed with non-fatal errors
    */
-  rescheduleDroppedTasks?: boolean | undefined;
+  rescheduleDroppedTasks: boolean;
   /**
    * Maximum number of times a task can be rescheduled
    */
-  maxTaskReschedule?: number | undefined;
+  maxTaskReschedule: number;
   /**
    * Level at which to set task logging
    */
-  logLevel?: RunnableJobExecutorLogLevel | undefined;
+  logLevel: RunnableJobExecutorLogLevel;
   /**
    * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
    */
-  jobTimeout?: string | undefined;
+  jobTimeout: string;
 };
 
 export type RunnableJobExecutor = {
@@ -184,11 +184,11 @@ export type RunnableJobExecutor = {
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
    */
-  ttl?: string | undefined;
+  ttl: string;
   /**
    * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
    */
-  ignoreGroupJobsLimit?: boolean | undefined;
+  ignoreGroupJobsLimit: boolean;
   /**
    * List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface.
    */
@@ -196,7 +196,7 @@ export type RunnableJobExecutor = {
   /**
    * Resume the ad hoc job if a failure condition causes Stream to restart during job execution
    */
-  resumeOnBoot?: boolean | undefined;
+  resumeOnBoot: boolean;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */

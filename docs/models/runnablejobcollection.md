@@ -30,10 +30,11 @@ let value: RunnableJobCollection = {
     "<value 3>",
   ],
   collector: {
-    type: "filesystem",
+    type: "<value>",
     conf: {
+      type: "filesystem",
       outputName: "<value>",
-      path: "/Library",
+      path: "/private",
       extractors: [
         {
           key: "<key>",
@@ -43,11 +44,13 @@ let value: RunnableJobCollection = {
       recurse: true,
       maxBatchSize: 10,
     },
+    encoding: "<value>",
   },
   input: {
     breakerRulesets: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
     preprocess: {
       command: "<value>",
@@ -67,8 +70,8 @@ let value: RunnableJobCollection = {
     output: "<value>",
   },
   run: {
-    earliest: 8097.94,
-    latest: 2342.33,
+    earliest: 2342.33,
+    latest: 5817.49,
     timeWarning: {},
     capture: {},
   },
@@ -90,6 +93,6 @@ let value: RunnableJobCollection = {
 | `schedule`                                                                                                                                                                                               | [models.RunnableJobCollectionSchedule](../models/runnablejobcollectionschedule.md)                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                       | Configuration for a scheduled job                                                                                                                                                                        |
 | `streamtags`                                                                                                                                                                                             | *string*[]                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                       | Tags for filtering and grouping in @{product}                                                                                                                                                            |
 | `workerAffinity`                                                                                                                                                                                         | *boolean*                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                       | If enabled, tasks are created and run by the same Worker Node                                                                                                                                            |
-| `collector`                                                                                                                                                                                              | *models.Collector*                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                       | Collector config wrapper                                                                                                                                                                                 |
+| `collector`                                                                                                                                                                                              | [models.RunnableJobCollectionCollector](../models/runnablejobcollectioncollector.md)                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                       | N/A                                                                                                                                                                                                      |
 | `input`                                                                                                                                                                                                  | [models.RunnableJobCollectionInput](../models/runnablejobcollectioninput.md)                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                       | N/A                                                                                                                                                                                                      |
 | `run`                                                                                                                                                                                                    | [models.RunnableJobCollectionRun](../models/runnablejobcollectionrun.md)                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                       | N/A                                                                                                                                                                                                      |

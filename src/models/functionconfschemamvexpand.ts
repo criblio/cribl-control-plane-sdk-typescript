@@ -41,7 +41,7 @@ export type FunctionConfSchemaMvExpand = {
   /**
    * max. number of rows generated out of every source events
    */
-  rowLimit?: number | undefined;
+  rowLimit: number;
   /**
    * name of an optional index property generated into the output
    */
@@ -49,7 +49,7 @@ export type FunctionConfSchemaMvExpand = {
   /**
    * decides if bag-values are expanded to bags or arrays
    */
-  bagExpansionMode?: FunctionConfSchemaMvExpandBagExpansionMode | undefined;
+  bagExpansionMode: FunctionConfSchemaMvExpandBagExpansionMode;
 };
 
 /** @internal */

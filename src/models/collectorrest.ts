@@ -3,51 +3,13684 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  RestCollectorConf,
-  RestCollectorConf$inboundSchema,
-  RestCollectorConf$Outbound,
-  RestCollectorConf$outboundSchema,
-} from "./restcollectorconf.js";
 
 /**
- * Rest collector configuration
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
  */
-export type CollectorRest = {
+export const CollectorRestAuthentication14 = {
+  None: "none",
+  Basic: "basic",
+  BasicSecret: "basicSecret",
+  Login: "login",
+  LoginSecret: "loginSecret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  GoogleOauth: "google_oauth",
+  GoogleOauthSecret: "google_oauthSecret",
+  Hmac: "hmac",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export type CollectorRestAuthentication14 = OpenEnum<
+  typeof CollectorRestAuthentication14
+>;
+
+/**
+ * Collector type: rest
+ */
+export const CollectorRestType14 = {
+  Rest: "rest",
+} as const;
+/**
+ * Collector type: rest
+ */
+export type CollectorRestType14 = ClosedEnum<typeof CollectorRestType14>;
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const CollectorRestDiscoverType14 = {
+  Http: "http",
+  Json: "json",
+  List: "list",
+  None: "none",
+} as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type CollectorRestDiscoverType14 = OpenEnum<
+  typeof CollectorRestDiscoverType14
+>;
+
+export type CollectorRestDiscovery14 = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType?: CollectorRestDiscoverType14 | undefined;
+};
+
+export const CollectMethod14 = {
+  /**
+   * GET
+   */
+  Get: "get",
+  /**
+   * POST
+   */
+  Post: "post",
+  /**
+   * POST with Body
+   */
+  PostWithBody: "post_with_body",
+  /**
+   * Other
+   */
+  Other: "other",
+} as const;
+export type CollectMethod14 = OpenEnum<typeof CollectMethod14>;
+
+export type CollectorRestCollectRequestParam14 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestCollectRequestHeader14 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export const PaginationEnum14 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 - Web Linking
+   */
+  ResponseHeaderLink: "response_header_link",
+  /**
+   * Offset/Limit
+   */
+  RequestOffset: "request_offset",
+  /**
+   * Page/Size
+   */
+  RequestPage: "request_page",
+} as const;
+export type PaginationEnum14 = OpenEnum<typeof PaginationEnum14>;
+
+export type Pagination14 = {
+  type?: PaginationEnum14 | undefined;
+};
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorRestRetryType14 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorRestRetryType14 = OpenEnum<
+  typeof CollectorRestRetryType14
+>;
+
+export type CollectorRestRetryRules14 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorRestRetryType14 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorRestStateTracking14 = {
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  enabled?: boolean | undefined;
+};
+
+export type CollectorRestScheduling14 = {
+  stateTracking?: CollectorRestStateTracking14 | undefined;
+};
+
+export type CollectorRestAuthRequestHeader14 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestAuthRequestParam14 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestRest14 = {
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: CollectorRestAuthentication14 | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId: string;
   /**
    * Collector type: rest
    */
-  type: "rest";
-  conf: RestCollectorConf;
+  type: CollectorRestType14;
+  discovery?: CollectorRestDiscovery14 | undefined;
+  /**
+   * URL (constant or JavaScript expression) to use for the Collect operation
+   */
+  collectUrl: string;
+  collectMethod?: CollectMethod14 | undefined;
+  /**
+   * Custom HTTP method to use for the Collect operation
+   */
+  collectVerb?: string | undefined;
+  collectRequestParams?: Array<CollectorRestCollectRequestParam14> | undefined;
+  /**
+   * Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
+   */
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader14>
+    | undefined;
+  pagination?: Pagination14 | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Decode the URL before sending requests (including pagination requests)
+   */
+  decodeUrl?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable to add response headers to the resHeaders field under the __collectible object
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * Stop pagination when the Event Breaker produces no events
+   */
+  stopOnEmptyResults?: boolean | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules14 | undefined;
+  scheduling?: CollectorRestScheduling14 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?: Array<CollectorRestAuthRequestHeader14> | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<CollectorRestAuthRequestParam14> | undefined;
+  /**
+   * Select or create a text secret that contains the Google service account credentials value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
 };
+
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export const CollectorRestAuthentication13 = {
+  None: "none",
+  Basic: "basic",
+  BasicSecret: "basicSecret",
+  Login: "login",
+  LoginSecret: "loginSecret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  GoogleOauth: "google_oauth",
+  GoogleOauthSecret: "google_oauthSecret",
+  Hmac: "hmac",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export type CollectorRestAuthentication13 = OpenEnum<
+  typeof CollectorRestAuthentication13
+>;
+
+/**
+ * Collector type: rest
+ */
+export const CollectorRestType13 = {
+  Rest: "rest",
+} as const;
+/**
+ * Collector type: rest
+ */
+export type CollectorRestType13 = ClosedEnum<typeof CollectorRestType13>;
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const CollectorRestDiscoverType13 = {
+  Http: "http",
+  Json: "json",
+  List: "list",
+  None: "none",
+} as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type CollectorRestDiscoverType13 = OpenEnum<
+  typeof CollectorRestDiscoverType13
+>;
+
+export type CollectorRestDiscovery13 = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType?: CollectorRestDiscoverType13 | undefined;
+};
+
+export const CollectMethod13 = {
+  /**
+   * GET
+   */
+  Get: "get",
+  /**
+   * POST
+   */
+  Post: "post",
+  /**
+   * POST with Body
+   */
+  PostWithBody: "post_with_body",
+  /**
+   * Other
+   */
+  Other: "other",
+} as const;
+export type CollectMethod13 = OpenEnum<typeof CollectMethod13>;
+
+export type CollectorRestCollectRequestParam13 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestCollectRequestHeader13 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export const PaginationEnum13 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 - Web Linking
+   */
+  ResponseHeaderLink: "response_header_link",
+  /**
+   * Offset/Limit
+   */
+  RequestOffset: "request_offset",
+  /**
+   * Page/Size
+   */
+  RequestPage: "request_page",
+} as const;
+export type PaginationEnum13 = OpenEnum<typeof PaginationEnum13>;
+
+export type Pagination13 = {
+  type?: PaginationEnum13 | undefined;
+};
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorRestRetryType13 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorRestRetryType13 = OpenEnum<
+  typeof CollectorRestRetryType13
+>;
+
+export type CollectorRestRetryRules13 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorRestRetryType13 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorRestStateTracking13 = {
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  enabled?: boolean | undefined;
+};
+
+export type CollectorRestScheduling13 = {
+  stateTracking?: CollectorRestStateTracking13 | undefined;
+};
+
+export type CollectorRestAuthRequestHeader13 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestAuthRequestParam13 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestRest13 = {
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: CollectorRestAuthentication13 | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes: Array<string>;
+  /**
+   * Select or create a text secret that contains the Google service account credentials value
+   */
+  textSecret: string;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject: string;
+  /**
+   * Collector type: rest
+   */
+  type: CollectorRestType13;
+  discovery?: CollectorRestDiscovery13 | undefined;
+  /**
+   * URL (constant or JavaScript expression) to use for the Collect operation
+   */
+  collectUrl: string;
+  collectMethod?: CollectMethod13 | undefined;
+  /**
+   * Custom HTTP method to use for the Collect operation
+   */
+  collectVerb?: string | undefined;
+  collectRequestParams?: Array<CollectorRestCollectRequestParam13> | undefined;
+  /**
+   * Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
+   */
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader13>
+    | undefined;
+  pagination?: Pagination13 | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Decode the URL before sending requests (including pagination requests)
+   */
+  decodeUrl?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable to add response headers to the resHeaders field under the __collectible object
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * Stop pagination when the Event Breaker produces no events
+   */
+  stopOnEmptyResults?: boolean | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules13 | undefined;
+  scheduling?: CollectorRestScheduling13 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?: Array<CollectorRestAuthRequestHeader13> | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<CollectorRestAuthRequestParam13> | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export const CollectorRestAuthentication12 = {
+  None: "none",
+  Basic: "basic",
+  BasicSecret: "basicSecret",
+  Login: "login",
+  LoginSecret: "loginSecret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  GoogleOauth: "google_oauth",
+  GoogleOauthSecret: "google_oauthSecret",
+  Hmac: "hmac",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export type CollectorRestAuthentication12 = OpenEnum<
+  typeof CollectorRestAuthentication12
+>;
+
+/**
+ * Collector type: rest
+ */
+export const CollectorRestType12 = {
+  Rest: "rest",
+} as const;
+/**
+ * Collector type: rest
+ */
+export type CollectorRestType12 = ClosedEnum<typeof CollectorRestType12>;
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const CollectorRestDiscoverType12 = {
+  Http: "http",
+  Json: "json",
+  List: "list",
+  None: "none",
+} as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type CollectorRestDiscoverType12 = OpenEnum<
+  typeof CollectorRestDiscoverType12
+>;
+
+export type CollectorRestDiscovery12 = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType?: CollectorRestDiscoverType12 | undefined;
+};
+
+export const CollectMethod12 = {
+  /**
+   * GET
+   */
+  Get: "get",
+  /**
+   * POST
+   */
+  Post: "post",
+  /**
+   * POST with Body
+   */
+  PostWithBody: "post_with_body",
+  /**
+   * Other
+   */
+  Other: "other",
+} as const;
+export type CollectMethod12 = OpenEnum<typeof CollectMethod12>;
+
+export type CollectorRestCollectRequestParam12 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestCollectRequestHeader12 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export const PaginationEnum12 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 - Web Linking
+   */
+  ResponseHeaderLink: "response_header_link",
+  /**
+   * Offset/Limit
+   */
+  RequestOffset: "request_offset",
+  /**
+   * Page/Size
+   */
+  RequestPage: "request_page",
+} as const;
+export type PaginationEnum12 = OpenEnum<typeof PaginationEnum12>;
+
+export type Pagination12 = {
+  type?: PaginationEnum12 | undefined;
+};
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorRestRetryType12 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorRestRetryType12 = OpenEnum<
+  typeof CollectorRestRetryType12
+>;
+
+export type CollectorRestRetryRules12 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorRestRetryType12 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorRestStateTracking12 = {
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  enabled?: boolean | undefined;
+};
+
+export type CollectorRestScheduling12 = {
+  stateTracking?: CollectorRestStateTracking12 | undefined;
+};
+
+export type CollectorRestAuthRequestHeader12 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestAuthRequestParam12 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestRest12 = {
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: CollectorRestAuthentication12 | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes: Array<string>;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials: string;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject: string;
+  /**
+   * Collector type: rest
+   */
+  type: CollectorRestType12;
+  discovery?: CollectorRestDiscovery12 | undefined;
+  /**
+   * URL (constant or JavaScript expression) to use for the Collect operation
+   */
+  collectUrl: string;
+  collectMethod?: CollectMethod12 | undefined;
+  /**
+   * Custom HTTP method to use for the Collect operation
+   */
+  collectVerb?: string | undefined;
+  collectRequestParams?: Array<CollectorRestCollectRequestParam12> | undefined;
+  /**
+   * Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
+   */
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader12>
+    | undefined;
+  pagination?: Pagination12 | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Decode the URL before sending requests (including pagination requests)
+   */
+  decodeUrl?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable to add response headers to the resHeaders field under the __collectible object
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * Stop pagination when the Event Breaker produces no events
+   */
+  stopOnEmptyResults?: boolean | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules12 | undefined;
+  scheduling?: CollectorRestScheduling12 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?: Array<CollectorRestAuthRequestHeader12> | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<CollectorRestAuthRequestParam12> | undefined;
+  /**
+   * Select or create a text secret that contains the Google service account credentials value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export const CollectorRestAuthentication11 = {
+  None: "none",
+  Basic: "basic",
+  BasicSecret: "basicSecret",
+  Login: "login",
+  LoginSecret: "loginSecret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  GoogleOauth: "google_oauth",
+  GoogleOauthSecret: "google_oauthSecret",
+  Hmac: "hmac",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export type CollectorRestAuthentication11 = OpenEnum<
+  typeof CollectorRestAuthentication11
+>;
+
+export type CollectorRestAuthRequestParam11 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestAuthRequestHeader11 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+/**
+ * Collector type: rest
+ */
+export const CollectorRestType11 = {
+  Rest: "rest",
+} as const;
+/**
+ * Collector type: rest
+ */
+export type CollectorRestType11 = ClosedEnum<typeof CollectorRestType11>;
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const CollectorRestDiscoverType11 = {
+  Http: "http",
+  Json: "json",
+  List: "list",
+  None: "none",
+} as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type CollectorRestDiscoverType11 = OpenEnum<
+  typeof CollectorRestDiscoverType11
+>;
+
+export type CollectorRestDiscovery11 = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType?: CollectorRestDiscoverType11 | undefined;
+};
+
+export const CollectMethod11 = {
+  /**
+   * GET
+   */
+  Get: "get",
+  /**
+   * POST
+   */
+  Post: "post",
+  /**
+   * POST with Body
+   */
+  PostWithBody: "post_with_body",
+  /**
+   * Other
+   */
+  Other: "other",
+} as const;
+export type CollectMethod11 = OpenEnum<typeof CollectMethod11>;
+
+export type CollectorRestCollectRequestParam11 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestCollectRequestHeader11 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export const PaginationEnum11 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 - Web Linking
+   */
+  ResponseHeaderLink: "response_header_link",
+  /**
+   * Offset/Limit
+   */
+  RequestOffset: "request_offset",
+  /**
+   * Page/Size
+   */
+  RequestPage: "request_page",
+} as const;
+export type PaginationEnum11 = OpenEnum<typeof PaginationEnum11>;
+
+export type Pagination11 = {
+  type?: PaginationEnum11 | undefined;
+};
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorRestRetryType11 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorRestRetryType11 = OpenEnum<
+  typeof CollectorRestRetryType11
+>;
+
+export type CollectorRestRetryRules11 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorRestRetryType11 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorRestStateTracking11 = {
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  enabled?: boolean | undefined;
+};
+
+export type CollectorRestScheduling11 = {
+  stateTracking?: CollectorRestStateTracking11 | undefined;
+};
+
+export type CollectorRestRest11 = {
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: CollectorRestAuthentication11 | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Select or create a text secret that contains the Google service account credentials value
+   */
+  textSecret: string;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<CollectorRestAuthRequestParam11> | undefined;
+  authRequestHeaders?: Array<CollectorRestAuthRequestHeader11> | undefined;
+  /**
+   * Collector type: rest
+   */
+  type: CollectorRestType11;
+  discovery?: CollectorRestDiscovery11 | undefined;
+  /**
+   * URL (constant or JavaScript expression) to use for the Collect operation
+   */
+  collectUrl: string;
+  collectMethod?: CollectMethod11 | undefined;
+  /**
+   * Custom HTTP method to use for the Collect operation
+   */
+  collectVerb?: string | undefined;
+  collectRequestParams?: Array<CollectorRestCollectRequestParam11> | undefined;
+  /**
+   * Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
+   */
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader11>
+    | undefined;
+  pagination?: Pagination11 | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Decode the URL before sending requests (including pagination requests)
+   */
+  decodeUrl?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable to add response headers to the resHeaders field under the __collectible object
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * Stop pagination when the Event Breaker produces no events
+   */
+  stopOnEmptyResults?: boolean | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules11 | undefined;
+  scheduling?: CollectorRestScheduling11 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export const CollectorRestAuthentication10 = {
+  None: "none",
+  Basic: "basic",
+  BasicSecret: "basicSecret",
+  Login: "login",
+  LoginSecret: "loginSecret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  GoogleOauth: "google_oauth",
+  GoogleOauthSecret: "google_oauthSecret",
+  Hmac: "hmac",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export type CollectorRestAuthentication10 = OpenEnum<
+  typeof CollectorRestAuthentication10
+>;
+
+export type CollectorRestAuthRequestParam10 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestAuthRequestHeader10 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+/**
+ * Collector type: rest
+ */
+export const CollectorRestType10 = {
+  Rest: "rest",
+} as const;
+/**
+ * Collector type: rest
+ */
+export type CollectorRestType10 = ClosedEnum<typeof CollectorRestType10>;
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const CollectorRestDiscoverType10 = {
+  Http: "http",
+  Json: "json",
+  List: "list",
+  None: "none",
+} as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type CollectorRestDiscoverType10 = OpenEnum<
+  typeof CollectorRestDiscoverType10
+>;
+
+export type CollectorRestDiscovery10 = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType?: CollectorRestDiscoverType10 | undefined;
+};
+
+export const CollectMethod10 = {
+  /**
+   * GET
+   */
+  Get: "get",
+  /**
+   * POST
+   */
+  Post: "post",
+  /**
+   * POST with Body
+   */
+  PostWithBody: "post_with_body",
+  /**
+   * Other
+   */
+  Other: "other",
+} as const;
+export type CollectMethod10 = OpenEnum<typeof CollectMethod10>;
+
+export type CollectorRestCollectRequestParam10 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestCollectRequestHeader10 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export const PaginationEnum10 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 - Web Linking
+   */
+  ResponseHeaderLink: "response_header_link",
+  /**
+   * Offset/Limit
+   */
+  RequestOffset: "request_offset",
+  /**
+   * Page/Size
+   */
+  RequestPage: "request_page",
+} as const;
+export type PaginationEnum10 = OpenEnum<typeof PaginationEnum10>;
+
+export type Pagination10 = {
+  type?: PaginationEnum10 | undefined;
+};
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorRestRetryType10 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorRestRetryType10 = OpenEnum<
+  typeof CollectorRestRetryType10
+>;
+
+export type CollectorRestRetryRules10 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorRestRetryType10 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorRestStateTracking10 = {
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  enabled?: boolean | undefined;
+};
+
+export type CollectorRestScheduling10 = {
+  stateTracking?: CollectorRestStateTracking10 | undefined;
+};
+
+export type CollectorRestRest10 = {
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: CollectorRestAuthentication10 | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue: string;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<CollectorRestAuthRequestParam10> | undefined;
+  authRequestHeaders?: Array<CollectorRestAuthRequestHeader10> | undefined;
+  /**
+   * Collector type: rest
+   */
+  type: CollectorRestType10;
+  discovery?: CollectorRestDiscovery10 | undefined;
+  /**
+   * URL (constant or JavaScript expression) to use for the Collect operation
+   */
+  collectUrl: string;
+  collectMethod?: CollectMethod10 | undefined;
+  /**
+   * Custom HTTP method to use for the Collect operation
+   */
+  collectVerb?: string | undefined;
+  collectRequestParams?: Array<CollectorRestCollectRequestParam10> | undefined;
+  /**
+   * Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
+   */
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader10>
+    | undefined;
+  pagination?: Pagination10 | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Decode the URL before sending requests (including pagination requests)
+   */
+  decodeUrl?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable to add response headers to the resHeaders field under the __collectible object
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * Stop pagination when the Event Breaker produces no events
+   */
+  stopOnEmptyResults?: boolean | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules10 | undefined;
+  scheduling?: CollectorRestScheduling10 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Select or create a text secret that contains the Google service account credentials value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export const CollectorRestAuthentication9 = {
+  None: "none",
+  Basic: "basic",
+  BasicSecret: "basicSecret",
+  Login: "login",
+  LoginSecret: "loginSecret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  GoogleOauth: "google_oauth",
+  GoogleOauthSecret: "google_oauthSecret",
+  Hmac: "hmac",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export type CollectorRestAuthentication9 = OpenEnum<
+  typeof CollectorRestAuthentication9
+>;
+
+export type CollectorRestAuthRequestHeader9 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+/**
+ * Collector type: rest
+ */
+export const CollectorRestType9 = {
+  Rest: "rest",
+} as const;
+/**
+ * Collector type: rest
+ */
+export type CollectorRestType9 = ClosedEnum<typeof CollectorRestType9>;
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const CollectorRestDiscoverType9 = {
+  Http: "http",
+  Json: "json",
+  List: "list",
+  None: "none",
+} as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type CollectorRestDiscoverType9 = OpenEnum<
+  typeof CollectorRestDiscoverType9
+>;
+
+export type CollectorRestDiscovery9 = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType?: CollectorRestDiscoverType9 | undefined;
+};
+
+export const CollectMethod9 = {
+  /**
+   * GET
+   */
+  Get: "get",
+  /**
+   * POST
+   */
+  Post: "post",
+  /**
+   * POST with Body
+   */
+  PostWithBody: "post_with_body",
+  /**
+   * Other
+   */
+  Other: "other",
+} as const;
+export type CollectMethod9 = OpenEnum<typeof CollectMethod9>;
+
+export type CollectorRestCollectRequestParam9 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestCollectRequestHeader9 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export const PaginationEnum9 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 - Web Linking
+   */
+  ResponseHeaderLink: "response_header_link",
+  /**
+   * Offset/Limit
+   */
+  RequestOffset: "request_offset",
+  /**
+   * Page/Size
+   */
+  RequestPage: "request_page",
+} as const;
+export type PaginationEnum9 = OpenEnum<typeof PaginationEnum9>;
+
+export type Pagination9 = {
+  type?: PaginationEnum9 | undefined;
+};
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorRestRetryType9 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorRestRetryType9 = OpenEnum<typeof CollectorRestRetryType9>;
+
+export type CollectorRestRetryRules9 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorRestRetryType9 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorRestStateTracking9 = {
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  enabled?: boolean | undefined;
+};
+
+export type CollectorRestScheduling9 = {
+  stateTracking?: CollectorRestStateTracking9 | undefined;
+};
+
+export type CollectorRestAuthRequestParam9 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestRest9 = {
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: CollectorRestAuthentication9 | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret: string;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?: Array<CollectorRestAuthRequestHeader9> | undefined;
+  /**
+   * Collector type: rest
+   */
+  type: CollectorRestType9;
+  discovery?: CollectorRestDiscovery9 | undefined;
+  /**
+   * URL (constant or JavaScript expression) to use for the Collect operation
+   */
+  collectUrl: string;
+  collectMethod?: CollectMethod9 | undefined;
+  /**
+   * Custom HTTP method to use for the Collect operation
+   */
+  collectVerb?: string | undefined;
+  collectRequestParams?: Array<CollectorRestCollectRequestParam9> | undefined;
+  /**
+   * Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
+   */
+  collectBody?: string | undefined;
+  collectRequestHeaders?: Array<CollectorRestCollectRequestHeader9> | undefined;
+  pagination?: Pagination9 | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Decode the URL before sending requests (including pagination requests)
+   */
+  decodeUrl?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable to add response headers to the resHeaders field under the __collectible object
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * Stop pagination when the Event Breaker produces no events
+   */
+  stopOnEmptyResults?: boolean | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules9 | undefined;
+  scheduling?: CollectorRestScheduling9 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<CollectorRestAuthRequestParam9> | undefined;
+  /**
+   * Select or create a text secret that contains the Google service account credentials value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export const CollectorRestAuthentication8 = {
+  None: "none",
+  Basic: "basic",
+  BasicSecret: "basicSecret",
+  Login: "login",
+  LoginSecret: "loginSecret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  GoogleOauth: "google_oauth",
+  GoogleOauthSecret: "google_oauthSecret",
+  Hmac: "hmac",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export type CollectorRestAuthentication8 = OpenEnum<
+  typeof CollectorRestAuthentication8
+>;
+
+export type CollectorRestAuthRequestHeader8 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+/**
+ * Collector type: rest
+ */
+export const CollectorRestType8 = {
+  Rest: "rest",
+} as const;
+/**
+ * Collector type: rest
+ */
+export type CollectorRestType8 = ClosedEnum<typeof CollectorRestType8>;
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const CollectorRestDiscoverType8 = {
+  Http: "http",
+  Json: "json",
+  List: "list",
+  None: "none",
+} as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type CollectorRestDiscoverType8 = OpenEnum<
+  typeof CollectorRestDiscoverType8
+>;
+
+export type CollectorRestDiscovery8 = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType?: CollectorRestDiscoverType8 | undefined;
+};
+
+export const CollectMethod8 = {
+  /**
+   * GET
+   */
+  Get: "get",
+  /**
+   * POST
+   */
+  Post: "post",
+  /**
+   * POST with Body
+   */
+  PostWithBody: "post_with_body",
+  /**
+   * Other
+   */
+  Other: "other",
+} as const;
+export type CollectMethod8 = OpenEnum<typeof CollectMethod8>;
+
+export type CollectorRestCollectRequestParam8 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestCollectRequestHeader8 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export const PaginationEnum8 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 - Web Linking
+   */
+  ResponseHeaderLink: "response_header_link",
+  /**
+   * Offset/Limit
+   */
+  RequestOffset: "request_offset",
+  /**
+   * Page/Size
+   */
+  RequestPage: "request_page",
+} as const;
+export type PaginationEnum8 = OpenEnum<typeof PaginationEnum8>;
+
+export type Pagination8 = {
+  type?: PaginationEnum8 | undefined;
+};
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorRestRetryType8 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorRestRetryType8 = OpenEnum<typeof CollectorRestRetryType8>;
+
+export type CollectorRestRetryRules8 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorRestRetryType8 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorRestStateTracking8 = {
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  enabled?: boolean | undefined;
+};
+
+export type CollectorRestScheduling8 = {
+  stateTracking?: CollectorRestStateTracking8 | undefined;
+};
+
+export type CollectorRestAuthRequestParam8 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestRest8 = {
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: CollectorRestAuthentication8 | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  username: string;
+  password: string;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?: Array<CollectorRestAuthRequestHeader8> | undefined;
+  /**
+   * Collector type: rest
+   */
+  type: CollectorRestType8;
+  discovery?: CollectorRestDiscovery8 | undefined;
+  /**
+   * URL (constant or JavaScript expression) to use for the Collect operation
+   */
+  collectUrl: string;
+  collectMethod?: CollectMethod8 | undefined;
+  /**
+   * Custom HTTP method to use for the Collect operation
+   */
+  collectVerb?: string | undefined;
+  collectRequestParams?: Array<CollectorRestCollectRequestParam8> | undefined;
+  /**
+   * Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
+   */
+  collectBody?: string | undefined;
+  collectRequestHeaders?: Array<CollectorRestCollectRequestHeader8> | undefined;
+  pagination?: Pagination8 | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Decode the URL before sending requests (including pagination requests)
+   */
+  decodeUrl?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable to add response headers to the resHeaders field under the __collectible object
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * Stop pagination when the Event Breaker produces no events
+   */
+  stopOnEmptyResults?: boolean | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules8 | undefined;
+  scheduling?: CollectorRestScheduling8 | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<CollectorRestAuthRequestParam8> | undefined;
+  /**
+   * Select or create a text secret that contains the Google service account credentials value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export const CollectorRestAuthentication7 = {
+  None: "none",
+  Basic: "basic",
+  BasicSecret: "basicSecret",
+  Login: "login",
+  LoginSecret: "loginSecret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  GoogleOauth: "google_oauth",
+  GoogleOauthSecret: "google_oauthSecret",
+  Hmac: "hmac",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export type CollectorRestAuthentication7 = OpenEnum<
+  typeof CollectorRestAuthentication7
+>;
+
+/**
+ * Collector type: rest
+ */
+export const CollectorRestType7 = {
+  Rest: "rest",
+} as const;
+/**
+ * Collector type: rest
+ */
+export type CollectorRestType7 = ClosedEnum<typeof CollectorRestType7>;
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const CollectorRestDiscoverType7 = {
+  Http: "http",
+  Json: "json",
+  List: "list",
+  None: "none",
+} as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type CollectorRestDiscoverType7 = OpenEnum<
+  typeof CollectorRestDiscoverType7
+>;
+
+export type CollectorRestDiscovery7 = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType?: CollectorRestDiscoverType7 | undefined;
+};
+
+export const CollectMethod7 = {
+  /**
+   * GET
+   */
+  Get: "get",
+  /**
+   * POST
+   */
+  Post: "post",
+  /**
+   * POST with Body
+   */
+  PostWithBody: "post_with_body",
+  /**
+   * Other
+   */
+  Other: "other",
+} as const;
+export type CollectMethod7 = OpenEnum<typeof CollectMethod7>;
+
+export type CollectorRestCollectRequestParam7 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestCollectRequestHeader7 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export const PaginationEnum7 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 - Web Linking
+   */
+  ResponseHeaderLink: "response_header_link",
+  /**
+   * Offset/Limit
+   */
+  RequestOffset: "request_offset",
+  /**
+   * Page/Size
+   */
+  RequestPage: "request_page",
+} as const;
+export type PaginationEnum7 = OpenEnum<typeof PaginationEnum7>;
+
+export type Pagination7 = {
+  type?: PaginationEnum7 | undefined;
+};
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorRestRetryType7 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorRestRetryType7 = OpenEnum<typeof CollectorRestRetryType7>;
+
+export type CollectorRestRetryRules7 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorRestRetryType7 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorRestStateTracking7 = {
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  enabled?: boolean | undefined;
+};
+
+export type CollectorRestScheduling7 = {
+  stateTracking?: CollectorRestStateTracking7 | undefined;
+};
+
+export type CollectorRestAuthRequestHeader7 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestAuthRequestParam7 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestRest7 = {
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: CollectorRestAuthentication7 | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret: string;
+  /**
+   * Collector type: rest
+   */
+  type: CollectorRestType7;
+  discovery?: CollectorRestDiscovery7 | undefined;
+  /**
+   * URL (constant or JavaScript expression) to use for the Collect operation
+   */
+  collectUrl: string;
+  collectMethod?: CollectMethod7 | undefined;
+  /**
+   * Custom HTTP method to use for the Collect operation
+   */
+  collectVerb?: string | undefined;
+  collectRequestParams?: Array<CollectorRestCollectRequestParam7> | undefined;
+  /**
+   * Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
+   */
+  collectBody?: string | undefined;
+  collectRequestHeaders?: Array<CollectorRestCollectRequestHeader7> | undefined;
+  pagination?: Pagination7 | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Decode the URL before sending requests (including pagination requests)
+   */
+  decodeUrl?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable to add response headers to the resHeaders field under the __collectible object
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * Stop pagination when the Event Breaker produces no events
+   */
+  stopOnEmptyResults?: boolean | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules7 | undefined;
+  scheduling?: CollectorRestScheduling7 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?: Array<CollectorRestAuthRequestHeader7> | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<CollectorRestAuthRequestParam7> | undefined;
+  /**
+   * Select or create a text secret that contains the Google service account credentials value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export const CollectorRestAuthentication6 = {
+  None: "none",
+  Basic: "basic",
+  BasicSecret: "basicSecret",
+  Login: "login",
+  LoginSecret: "loginSecret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  GoogleOauth: "google_oauth",
+  GoogleOauthSecret: "google_oauthSecret",
+  Hmac: "hmac",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export type CollectorRestAuthentication6 = OpenEnum<
+  typeof CollectorRestAuthentication6
+>;
+
+/**
+ * Collector type: rest
+ */
+export const CollectorRestType6 = {
+  Rest: "rest",
+} as const;
+/**
+ * Collector type: rest
+ */
+export type CollectorRestType6 = ClosedEnum<typeof CollectorRestType6>;
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const CollectorRestDiscoverType6 = {
+  Http: "http",
+  Json: "json",
+  List: "list",
+  None: "none",
+} as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type CollectorRestDiscoverType6 = OpenEnum<
+  typeof CollectorRestDiscoverType6
+>;
+
+export type CollectorRestDiscovery6 = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType?: CollectorRestDiscoverType6 | undefined;
+};
+
+export const CollectMethod6 = {
+  /**
+   * GET
+   */
+  Get: "get",
+  /**
+   * POST
+   */
+  Post: "post",
+  /**
+   * POST with Body
+   */
+  PostWithBody: "post_with_body",
+  /**
+   * Other
+   */
+  Other: "other",
+} as const;
+export type CollectMethod6 = OpenEnum<typeof CollectMethod6>;
+
+export type CollectorRestCollectRequestParam6 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestCollectRequestHeader6 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export const PaginationEnum6 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 - Web Linking
+   */
+  ResponseHeaderLink: "response_header_link",
+  /**
+   * Offset/Limit
+   */
+  RequestOffset: "request_offset",
+  /**
+   * Page/Size
+   */
+  RequestPage: "request_page",
+} as const;
+export type PaginationEnum6 = OpenEnum<typeof PaginationEnum6>;
+
+export type Pagination6 = {
+  type?: PaginationEnum6 | undefined;
+};
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorRestRetryType6 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorRestRetryType6 = OpenEnum<typeof CollectorRestRetryType6>;
+
+export type CollectorRestRetryRules6 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorRestRetryType6 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorRestStateTracking6 = {
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  enabled?: boolean | undefined;
+};
+
+export type CollectorRestScheduling6 = {
+  stateTracking?: CollectorRestStateTracking6 | undefined;
+};
+
+export type CollectorRestAuthRequestHeader6 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestAuthRequestParam6 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestRest6 = {
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: CollectorRestAuthentication6 | undefined;
+  username: string;
+  password: string;
+  /**
+   * Collector type: rest
+   */
+  type: CollectorRestType6;
+  discovery?: CollectorRestDiscovery6 | undefined;
+  /**
+   * URL (constant or JavaScript expression) to use for the Collect operation
+   */
+  collectUrl: string;
+  collectMethod?: CollectMethod6 | undefined;
+  /**
+   * Custom HTTP method to use for the Collect operation
+   */
+  collectVerb?: string | undefined;
+  collectRequestParams?: Array<CollectorRestCollectRequestParam6> | undefined;
+  /**
+   * Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
+   */
+  collectBody?: string | undefined;
+  collectRequestHeaders?: Array<CollectorRestCollectRequestHeader6> | undefined;
+  pagination?: Pagination6 | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Decode the URL before sending requests (including pagination requests)
+   */
+  decodeUrl?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable to add response headers to the resHeaders field under the __collectible object
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * Stop pagination when the Event Breaker produces no events
+   */
+  stopOnEmptyResults?: boolean | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules6 | undefined;
+  scheduling?: CollectorRestScheduling6 | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?: Array<CollectorRestAuthRequestHeader6> | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<CollectorRestAuthRequestParam6> | undefined;
+  /**
+   * Select or create a text secret that contains the Google service account credentials value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export const CollectorRestAuthentication5 = {
+  None: "none",
+  Basic: "basic",
+  BasicSecret: "basicSecret",
+  Login: "login",
+  LoginSecret: "loginSecret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  GoogleOauth: "google_oauth",
+  GoogleOauthSecret: "google_oauthSecret",
+  Hmac: "hmac",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export type CollectorRestAuthentication5 = OpenEnum<
+  typeof CollectorRestAuthentication5
+>;
+
+/**
+ * Collector type: rest
+ */
+export const CollectorRestType5 = {
+  Rest: "rest",
+} as const;
+/**
+ * Collector type: rest
+ */
+export type CollectorRestType5 = ClosedEnum<typeof CollectorRestType5>;
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const CollectorRestDiscoverType5 = {
+  Http: "http",
+  Json: "json",
+  List: "list",
+  None: "none",
+} as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type CollectorRestDiscoverType5 = OpenEnum<
+  typeof CollectorRestDiscoverType5
+>;
+
+export type CollectorRestDiscovery5 = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType?: CollectorRestDiscoverType5 | undefined;
+};
+
+export const CollectMethod5 = {
+  /**
+   * GET
+   */
+  Get: "get",
+  /**
+   * POST
+   */
+  Post: "post",
+  /**
+   * POST with Body
+   */
+  PostWithBody: "post_with_body",
+  /**
+   * Other
+   */
+  Other: "other",
+} as const;
+export type CollectMethod5 = OpenEnum<typeof CollectMethod5>;
+
+export type CollectorRestCollectRequestParam5 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestCollectRequestHeader5 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export const PaginationEnum5 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 - Web Linking
+   */
+  ResponseHeaderLink: "response_header_link",
+  /**
+   * Offset/Limit
+   */
+  RequestOffset: "request_offset",
+  /**
+   * Page/Size
+   */
+  RequestPage: "request_page",
+} as const;
+export type PaginationEnum5 = OpenEnum<typeof PaginationEnum5>;
+
+export type Pagination5 = {
+  type?: PaginationEnum5 | undefined;
+};
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorRestRetryType5 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorRestRetryType5 = OpenEnum<typeof CollectorRestRetryType5>;
+
+export type CollectorRestRetryRules5 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorRestRetryType5 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorRestStateTracking5 = {
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  enabled?: boolean | undefined;
+};
+
+export type CollectorRestScheduling5 = {
+  stateTracking?: CollectorRestStateTracking5 | undefined;
+};
+
+export type CollectorRestAuthRequestHeader5 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestAuthRequestParam5 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestRest5 = {
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: CollectorRestAuthentication5 | undefined;
+  /**
+   * Collector type: rest
+   */
+  type: CollectorRestType5;
+  discovery?: CollectorRestDiscovery5 | undefined;
+  /**
+   * URL (constant or JavaScript expression) to use for the Collect operation
+   */
+  collectUrl: string;
+  collectMethod?: CollectMethod5 | undefined;
+  /**
+   * Custom HTTP method to use for the Collect operation
+   */
+  collectVerb?: string | undefined;
+  collectRequestParams?: Array<CollectorRestCollectRequestParam5> | undefined;
+  /**
+   * Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
+   */
+  collectBody?: string | undefined;
+  collectRequestHeaders?: Array<CollectorRestCollectRequestHeader5> | undefined;
+  pagination?: Pagination5 | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Decode the URL before sending requests (including pagination requests)
+   */
+  decodeUrl?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable to add response headers to the resHeaders field under the __collectible object
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * Stop pagination when the Event Breaker produces no events
+   */
+  stopOnEmptyResults?: boolean | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules5 | undefined;
+  scheduling?: CollectorRestScheduling5 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?: Array<CollectorRestAuthRequestHeader5> | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<CollectorRestAuthRequestParam5> | undefined;
+  /**
+   * Select or create a text secret that contains the Google service account credentials value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
+};
+
+export const CollectMethod4 = {
+  /**
+   * GET
+   */
+  Get: "get",
+  /**
+   * POST
+   */
+  Post: "post",
+  /**
+   * POST with Body
+   */
+  PostWithBody: "post_with_body",
+  /**
+   * Other
+   */
+  Other: "other",
+} as const;
+export type CollectMethod4 = OpenEnum<typeof CollectMethod4>;
+
+export type CollectorRestCollectRequestParam4 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+/**
+ * Collector type: rest
+ */
+export const CollectorRestType4 = {
+  Rest: "rest",
+} as const;
+/**
+ * Collector type: rest
+ */
+export type CollectorRestType4 = ClosedEnum<typeof CollectorRestType4>;
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const CollectorRestDiscoverType4 = {
+  Http: "http",
+  Json: "json",
+  List: "list",
+  None: "none",
+} as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type CollectorRestDiscoverType4 = OpenEnum<
+  typeof CollectorRestDiscoverType4
+>;
+
+export type CollectorRestDiscovery4 = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType?: CollectorRestDiscoverType4 | undefined;
+};
+
+export type CollectorRestCollectRequestHeader4 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export const PaginationEnum4 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 - Web Linking
+   */
+  ResponseHeaderLink: "response_header_link",
+  /**
+   * Offset/Limit
+   */
+  RequestOffset: "request_offset",
+  /**
+   * Page/Size
+   */
+  RequestPage: "request_page",
+} as const;
+export type PaginationEnum4 = OpenEnum<typeof PaginationEnum4>;
+
+export type Pagination4 = {
+  type?: PaginationEnum4 | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export const CollectorRestAuthentication4 = {
+  None: "none",
+  Basic: "basic",
+  BasicSecret: "basicSecret",
+  Login: "login",
+  LoginSecret: "loginSecret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  GoogleOauth: "google_oauth",
+  GoogleOauthSecret: "google_oauthSecret",
+  Hmac: "hmac",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export type CollectorRestAuthentication4 = OpenEnum<
+  typeof CollectorRestAuthentication4
+>;
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorRestRetryType4 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorRestRetryType4 = OpenEnum<typeof CollectorRestRetryType4>;
+
+export type CollectorRestRetryRules4 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorRestRetryType4 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorRestStateTracking4 = {
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  enabled?: boolean | undefined;
+};
+
+export type CollectorRestScheduling4 = {
+  stateTracking?: CollectorRestStateTracking4 | undefined;
+};
+
+export type CollectorRestAuthRequestHeader4 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestAuthRequestParam4 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestRest4 = {
+  collectMethod?: CollectMethod4 | undefined;
+  /**
+   * Custom HTTP method to use for the Collect operation
+   */
+  collectVerb: string;
+  /**
+   * Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
+   */
+  collectBody?: string | undefined;
+  collectRequestParams?: Array<CollectorRestCollectRequestParam4> | undefined;
+  /**
+   * Collector type: rest
+   */
+  type: CollectorRestType4;
+  discovery?: CollectorRestDiscovery4 | undefined;
+  /**
+   * URL (constant or JavaScript expression) to use for the Collect operation
+   */
+  collectUrl: string;
+  collectRequestHeaders?: Array<CollectorRestCollectRequestHeader4> | undefined;
+  pagination?: Pagination4 | undefined;
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: CollectorRestAuthentication4 | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Decode the URL before sending requests (including pagination requests)
+   */
+  decodeUrl?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable to add response headers to the resHeaders field under the __collectible object
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * Stop pagination when the Event Breaker produces no events
+   */
+  stopOnEmptyResults?: boolean | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules4 | undefined;
+  scheduling?: CollectorRestScheduling4 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?: Array<CollectorRestAuthRequestHeader4> | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<CollectorRestAuthRequestParam4> | undefined;
+  /**
+   * Select or create a text secret that contains the Google service account credentials value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
+};
+
+export const CollectMethod3 = {
+  /**
+   * GET
+   */
+  Get: "get",
+  /**
+   * POST
+   */
+  Post: "post",
+  /**
+   * POST with Body
+   */
+  PostWithBody: "post_with_body",
+  /**
+   * Other
+   */
+  Other: "other",
+} as const;
+export type CollectMethod3 = OpenEnum<typeof CollectMethod3>;
+
+/**
+ * Collector type: rest
+ */
+export const CollectorRestType3 = {
+  Rest: "rest",
+} as const;
+/**
+ * Collector type: rest
+ */
+export type CollectorRestType3 = ClosedEnum<typeof CollectorRestType3>;
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const CollectorRestDiscoverType3 = {
+  Http: "http",
+  Json: "json",
+  List: "list",
+  None: "none",
+} as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type CollectorRestDiscoverType3 = OpenEnum<
+  typeof CollectorRestDiscoverType3
+>;
+
+export type CollectorRestDiscovery3 = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType?: CollectorRestDiscoverType3 | undefined;
+};
+
+export type CollectorRestCollectRequestParam3 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestCollectRequestHeader3 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export const PaginationEnum3 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 - Web Linking
+   */
+  ResponseHeaderLink: "response_header_link",
+  /**
+   * Offset/Limit
+   */
+  RequestOffset: "request_offset",
+  /**
+   * Page/Size
+   */
+  RequestPage: "request_page",
+} as const;
+export type PaginationEnum3 = OpenEnum<typeof PaginationEnum3>;
+
+export type Pagination3 = {
+  type?: PaginationEnum3 | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export const CollectorRestAuthentication3 = {
+  None: "none",
+  Basic: "basic",
+  BasicSecret: "basicSecret",
+  Login: "login",
+  LoginSecret: "loginSecret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  GoogleOauth: "google_oauth",
+  GoogleOauthSecret: "google_oauthSecret",
+  Hmac: "hmac",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export type CollectorRestAuthentication3 = OpenEnum<
+  typeof CollectorRestAuthentication3
+>;
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorRestRetryType3 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorRestRetryType3 = OpenEnum<typeof CollectorRestRetryType3>;
+
+export type CollectorRestRetryRules3 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorRestRetryType3 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorRestStateTracking3 = {
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  enabled?: boolean | undefined;
+};
+
+export type CollectorRestScheduling3 = {
+  stateTracking?: CollectorRestStateTracking3 | undefined;
+};
+
+export type CollectorRestAuthRequestHeader3 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestAuthRequestParam3 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestRest3 = {
+  collectMethod?: CollectMethod3 | undefined;
+  /**
+   * Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
+   */
+  collectBody: string;
+  /**
+   * Collector type: rest
+   */
+  type: CollectorRestType3;
+  discovery?: CollectorRestDiscovery3 | undefined;
+  /**
+   * URL (constant or JavaScript expression) to use for the Collect operation
+   */
+  collectUrl: string;
+  /**
+   * Custom HTTP method to use for the Collect operation
+   */
+  collectVerb?: string | undefined;
+  collectRequestParams?: Array<CollectorRestCollectRequestParam3> | undefined;
+  collectRequestHeaders?: Array<CollectorRestCollectRequestHeader3> | undefined;
+  pagination?: Pagination3 | undefined;
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: CollectorRestAuthentication3 | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Decode the URL before sending requests (including pagination requests)
+   */
+  decodeUrl?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable to add response headers to the resHeaders field under the __collectible object
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * Stop pagination when the Event Breaker produces no events
+   */
+  stopOnEmptyResults?: boolean | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules3 | undefined;
+  scheduling?: CollectorRestScheduling3 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?: Array<CollectorRestAuthRequestHeader3> | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<CollectorRestAuthRequestParam3> | undefined;
+  /**
+   * Select or create a text secret that contains the Google service account credentials value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
+};
+
+export const CollectMethod2 = {
+  /**
+   * GET
+   */
+  Get: "get",
+  /**
+   * POST
+   */
+  Post: "post",
+  /**
+   * POST with Body
+   */
+  PostWithBody: "post_with_body",
+  /**
+   * Other
+   */
+  Other: "other",
+} as const;
+export type CollectMethod2 = OpenEnum<typeof CollectMethod2>;
+
+export type CollectorRestCollectRequestParam2 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+/**
+ * Collector type: rest
+ */
+export const CollectorRestType2 = {
+  Rest: "rest",
+} as const;
+/**
+ * Collector type: rest
+ */
+export type CollectorRestType2 = ClosedEnum<typeof CollectorRestType2>;
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const CollectorRestDiscoverType2 = {
+  Http: "http",
+  Json: "json",
+  List: "list",
+  None: "none",
+} as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type CollectorRestDiscoverType2 = OpenEnum<
+  typeof CollectorRestDiscoverType2
+>;
+
+export type CollectorRestDiscovery2 = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType?: CollectorRestDiscoverType2 | undefined;
+};
+
+export type CollectorRestCollectRequestHeader2 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export const PaginationEnum2 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 - Web Linking
+   */
+  ResponseHeaderLink: "response_header_link",
+  /**
+   * Offset/Limit
+   */
+  RequestOffset: "request_offset",
+  /**
+   * Page/Size
+   */
+  RequestPage: "request_page",
+} as const;
+export type PaginationEnum2 = OpenEnum<typeof PaginationEnum2>;
+
+export type Pagination2 = {
+  type?: PaginationEnum2 | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export const CollectorRestAuthentication2 = {
+  None: "none",
+  Basic: "basic",
+  BasicSecret: "basicSecret",
+  Login: "login",
+  LoginSecret: "loginSecret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  GoogleOauth: "google_oauth",
+  GoogleOauthSecret: "google_oauthSecret",
+  Hmac: "hmac",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export type CollectorRestAuthentication2 = OpenEnum<
+  typeof CollectorRestAuthentication2
+>;
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorRestRetryType2 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorRestRetryType2 = OpenEnum<typeof CollectorRestRetryType2>;
+
+export type CollectorRestRetryRules2 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorRestRetryType2 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorRestStateTracking2 = {
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  enabled?: boolean | undefined;
+};
+
+export type CollectorRestScheduling2 = {
+  stateTracking?: CollectorRestStateTracking2 | undefined;
+};
+
+export type CollectorRestAuthRequestHeader2 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestAuthRequestParam2 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestRest2 = {
+  collectMethod?: CollectMethod2 | undefined;
+  collectRequestParams?: Array<CollectorRestCollectRequestParam2> | undefined;
+  /**
+   * Collector type: rest
+   */
+  type: CollectorRestType2;
+  discovery?: CollectorRestDiscovery2 | undefined;
+  /**
+   * URL (constant or JavaScript expression) to use for the Collect operation
+   */
+  collectUrl: string;
+  /**
+   * Custom HTTP method to use for the Collect operation
+   */
+  collectVerb?: string | undefined;
+  /**
+   * Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
+   */
+  collectBody?: string | undefined;
+  collectRequestHeaders?: Array<CollectorRestCollectRequestHeader2> | undefined;
+  pagination?: Pagination2 | undefined;
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: CollectorRestAuthentication2 | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Decode the URL before sending requests (including pagination requests)
+   */
+  decodeUrl?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable to add response headers to the resHeaders field under the __collectible object
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * Stop pagination when the Event Breaker produces no events
+   */
+  stopOnEmptyResults?: boolean | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules2 | undefined;
+  scheduling?: CollectorRestScheduling2 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?: Array<CollectorRestAuthRequestHeader2> | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<CollectorRestAuthRequestParam2> | undefined;
+  /**
+   * Select or create a text secret that contains the Google service account credentials value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
+};
+
+export const CollectMethod1 = {
+  /**
+   * GET
+   */
+  Get: "get",
+  /**
+   * POST
+   */
+  Post: "post",
+  /**
+   * POST with Body
+   */
+  PostWithBody: "post_with_body",
+  /**
+   * Other
+   */
+  Other: "other",
+} as const;
+export type CollectMethod1 = OpenEnum<typeof CollectMethod1>;
+
+export type CollectorRestCollectRequestParam1 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+/**
+ * Collector type: rest
+ */
+export const CollectorRestType1 = {
+  Rest: "rest",
+} as const;
+/**
+ * Collector type: rest
+ */
+export type CollectorRestType1 = ClosedEnum<typeof CollectorRestType1>;
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const CollectorRestDiscoverType1 = {
+  Http: "http",
+  Json: "json",
+  List: "list",
+  None: "none",
+} as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type CollectorRestDiscoverType1 = OpenEnum<
+  typeof CollectorRestDiscoverType1
+>;
+
+export type CollectorRestDiscovery1 = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType?: CollectorRestDiscoverType1 | undefined;
+};
+
+export type CollectorRestCollectRequestHeader1 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export const PaginationEnum1 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 - Web Linking
+   */
+  ResponseHeaderLink: "response_header_link",
+  /**
+   * Offset/Limit
+   */
+  RequestOffset: "request_offset",
+  /**
+   * Page/Size
+   */
+  RequestPage: "request_page",
+} as const;
+export type PaginationEnum1 = OpenEnum<typeof PaginationEnum1>;
+
+export type Pagination1 = {
+  type?: PaginationEnum1 | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export const CollectorRestAuthentication1 = {
+  None: "none",
+  Basic: "basic",
+  BasicSecret: "basicSecret",
+  Login: "login",
+  LoginSecret: "loginSecret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  GoogleOauth: "google_oauth",
+  GoogleOauthSecret: "google_oauthSecret",
+  Hmac: "hmac",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+ */
+export type CollectorRestAuthentication1 = OpenEnum<
+  typeof CollectorRestAuthentication1
+>;
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorRestRetryType1 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorRestRetryType1 = OpenEnum<typeof CollectorRestRetryType1>;
+
+export type CollectorRestRetryRules1 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorRestRetryType1 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorRestStateTracking1 = {
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  enabled?: boolean | undefined;
+};
+
+export type CollectorRestScheduling1 = {
+  stateTracking?: CollectorRestStateTracking1 | undefined;
+};
+
+export type CollectorRestAuthRequestHeader1 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestAuthRequestParam1 = {
+  name: string;
+  /**
+   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
+   */
+  value: string;
+};
+
+export type CollectorRestRest1 = {
+  collectMethod?: CollectMethod1 | undefined;
+  collectRequestParams?: Array<CollectorRestCollectRequestParam1> | undefined;
+  /**
+   * Collector type: rest
+   */
+  type: CollectorRestType1;
+  discovery?: CollectorRestDiscovery1 | undefined;
+  /**
+   * URL (constant or JavaScript expression) to use for the Collect operation
+   */
+  collectUrl: string;
+  /**
+   * Custom HTTP method to use for the Collect operation
+   */
+  collectVerb?: string | undefined;
+  /**
+   * Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
+   */
+  collectBody?: string | undefined;
+  collectRequestHeaders?: Array<CollectorRestCollectRequestHeader1> | undefined;
+  pagination?: Pagination1 | undefined;
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: CollectorRestAuthentication1 | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Decode the URL before sending requests (including pagination requests)
+   */
+  decodeUrl?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable to add response headers to the resHeaders field under the __collectible object
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * Stop pagination when the Event Breaker produces no events
+   */
+  stopOnEmptyResults?: boolean | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules1 | undefined;
+  scheduling?: CollectorRestScheduling1 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?: Array<CollectorRestAuthRequestHeader1> | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<CollectorRestAuthRequestParam1> | undefined;
+  /**
+   * Select or create a text secret that contains the Google service account credentials value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
+};
+
+export type CollectorRest =
+  | CollectorRestRest12
+  | CollectorRestRest13
+  | CollectorRestRest6
+  | CollectorRestRest8
+  | CollectorRestRest3
+  | CollectorRestRest4
+  | CollectorRestRest7
+  | CollectorRestRest9
+  | CollectorRestRest10
+  | CollectorRestRest11
+  | CollectorRestRest14
+  | CollectorRestRest1
+  | CollectorRestRest2
+  | CollectorRestRest5;
+
+/** @internal */
+export const CollectorRestAuthentication14$inboundSchema: z.ZodType<
+  CollectorRestAuthentication14,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestAuthentication14);
+/** @internal */
+export const CollectorRestAuthentication14$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestAuthentication14
+> = openEnums.outboundSchema(CollectorRestAuthentication14);
+
+/** @internal */
+export const CollectorRestType14$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType14
+> = z.nativeEnum(CollectorRestType14);
+/** @internal */
+export const CollectorRestType14$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType14
+> = CollectorRestType14$inboundSchema;
+
+/** @internal */
+export const CollectorRestDiscoverType14$inboundSchema: z.ZodType<
+  CollectorRestDiscoverType14,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestDiscoverType14);
+/** @internal */
+export const CollectorRestDiscoverType14$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestDiscoverType14
+> = openEnums.outboundSchema(CollectorRestDiscoverType14);
+
+/** @internal */
+export const CollectorRestDiscovery14$inboundSchema: z.ZodType<
+  CollectorRestDiscovery14,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: CollectorRestDiscoverType14$inboundSchema.default("none"),
+});
+/** @internal */
+export type CollectorRestDiscovery14$Outbound = {
+  discoverType: string;
+};
+
+/** @internal */
+export const CollectorRestDiscovery14$outboundSchema: z.ZodType<
+  CollectorRestDiscovery14$Outbound,
+  z.ZodTypeDef,
+  CollectorRestDiscovery14
+> = z.object({
+  discoverType: CollectorRestDiscoverType14$outboundSchema.default("none"),
+});
+
+export function collectorRestDiscovery14ToJSON(
+  collectorRestDiscovery14: CollectorRestDiscovery14,
+): string {
+  return JSON.stringify(
+    CollectorRestDiscovery14$outboundSchema.parse(collectorRestDiscovery14),
+  );
+}
+export function collectorRestDiscovery14FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestDiscovery14, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestDiscovery14$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestDiscovery14' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectMethod14$inboundSchema: z.ZodType<
+  CollectMethod14,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectMethod14);
+/** @internal */
+export const CollectMethod14$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectMethod14
+> = openEnums.outboundSchema(CollectMethod14);
+
+/** @internal */
+export const CollectorRestCollectRequestParam14$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam14,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestParam14$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestParam14$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam14$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestParam14
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestParam14ToJSON(
+  collectorRestCollectRequestParam14: CollectorRestCollectRequestParam14,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestParam14$outboundSchema.parse(
+      collectorRestCollectRequestParam14,
+    ),
+  );
+}
+export function collectorRestCollectRequestParam14FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestParam14, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestParam14$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestParam14' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestCollectRequestHeader14$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader14,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestHeader14$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestHeader14$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader14$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestHeader14
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestHeader14ToJSON(
+  collectorRestCollectRequestHeader14: CollectorRestCollectRequestHeader14,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestHeader14$outboundSchema.parse(
+      collectorRestCollectRequestHeader14,
+    ),
+  );
+}
+export function collectorRestCollectRequestHeader14FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestHeader14, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestHeader14$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestHeader14' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaginationEnum14$inboundSchema: z.ZodType<
+  PaginationEnum14,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PaginationEnum14);
+/** @internal */
+export const PaginationEnum14$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PaginationEnum14
+> = openEnums.outboundSchema(PaginationEnum14);
+
+/** @internal */
+export const Pagination14$inboundSchema: z.ZodType<
+  Pagination14,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: PaginationEnum14$inboundSchema.default("none"),
+});
+/** @internal */
+export type Pagination14$Outbound = {
+  type: string;
+};
+
+/** @internal */
+export const Pagination14$outboundSchema: z.ZodType<
+  Pagination14$Outbound,
+  z.ZodTypeDef,
+  Pagination14
+> = z.object({
+  type: PaginationEnum14$outboundSchema.default("none"),
+});
+
+export function pagination14ToJSON(pagination14: Pagination14): string {
+  return JSON.stringify(Pagination14$outboundSchema.parse(pagination14));
+}
+export function pagination14FromJSON(
+  jsonString: string,
+): SafeParseResult<Pagination14, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Pagination14$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Pagination14' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRetryType14$inboundSchema: z.ZodType<
+  CollectorRestRetryType14,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestRetryType14);
+/** @internal */
+export const CollectorRestRetryType14$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestRetryType14
+> = openEnums.outboundSchema(CollectorRestRetryType14);
+
+/** @internal */
+export const CollectorRestRetryRules14$inboundSchema: z.ZodType<
+  CollectorRestRetryRules14,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorRestRetryType14$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorRestRetryRules14$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorRestRetryRules14$outboundSchema: z.ZodType<
+  CollectorRestRetryRules14$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRetryRules14
+> = z.object({
+  type: CollectorRestRetryType14$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorRestRetryRules14ToJSON(
+  collectorRestRetryRules14: CollectorRestRetryRules14,
+): string {
+  return JSON.stringify(
+    CollectorRestRetryRules14$outboundSchema.parse(collectorRestRetryRules14),
+  );
+}
+export function collectorRestRetryRules14FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRetryRules14, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRetryRules14$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRetryRules14' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestStateTracking14$inboundSchema: z.ZodType<
+  CollectorRestStateTracking14,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type CollectorRestStateTracking14$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const CollectorRestStateTracking14$outboundSchema: z.ZodType<
+  CollectorRestStateTracking14$Outbound,
+  z.ZodTypeDef,
+  CollectorRestStateTracking14
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function collectorRestStateTracking14ToJSON(
+  collectorRestStateTracking14: CollectorRestStateTracking14,
+): string {
+  return JSON.stringify(
+    CollectorRestStateTracking14$outboundSchema.parse(
+      collectorRestStateTracking14,
+    ),
+  );
+}
+export function collectorRestStateTracking14FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestStateTracking14, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestStateTracking14$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestStateTracking14' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestScheduling14$inboundSchema: z.ZodType<
+  CollectorRestScheduling14,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking14$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorRestScheduling14$Outbound = {
+  stateTracking?: CollectorRestStateTracking14$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorRestScheduling14$outboundSchema: z.ZodType<
+  CollectorRestScheduling14$Outbound,
+  z.ZodTypeDef,
+  CollectorRestScheduling14
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking14$outboundSchema)
+    .optional(),
+});
+
+export function collectorRestScheduling14ToJSON(
+  collectorRestScheduling14: CollectorRestScheduling14,
+): string {
+  return JSON.stringify(
+    CollectorRestScheduling14$outboundSchema.parse(collectorRestScheduling14),
+  );
+}
+export function collectorRestScheduling14FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestScheduling14, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestScheduling14$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestScheduling14' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestHeader14$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader14,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestHeader14$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestHeader14$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader14$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestHeader14
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestHeader14ToJSON(
+  collectorRestAuthRequestHeader14: CollectorRestAuthRequestHeader14,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestHeader14$outboundSchema.parse(
+      collectorRestAuthRequestHeader14,
+    ),
+  );
+}
+export function collectorRestAuthRequestHeader14FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestHeader14, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestHeader14$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestHeader14' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestParam14$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam14,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestParam14$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestParam14$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam14$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestParam14
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestParam14ToJSON(
+  collectorRestAuthRequestParam14: CollectorRestAuthRequestParam14,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestParam14$outboundSchema.parse(
+      collectorRestAuthRequestParam14,
+    ),
+  );
+}
+export function collectorRestAuthRequestParam14FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestParam14, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestParam14$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestParam14' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRest14$inboundSchema: z.ZodType<
+  CollectorRestRest14,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorRestAuthentication14$inboundSchema.default("none"),
+  hmacFunctionId: z.string(),
+  type: CollectorRestType14$inboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery14$inboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod14$inboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam14$inboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader14$inboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination14$inboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules14$inboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling14$inboundSchema)
+    .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader14$inboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam14$inboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "__scheduling": "scheduling",
+  });
+});
+/** @internal */
+export type CollectorRestRest14$Outbound = {
+  authentication: string;
+  hmacFunctionId: string;
+  type: string;
+  discovery?: CollectorRestDiscovery14$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectVerb?: string | undefined;
+  collectRequestParams?:
+    | Array<CollectorRestCollectRequestParam14$Outbound>
+    | undefined;
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader14$Outbound>
+    | undefined;
+  pagination?: Pagination14$Outbound | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules14$Outbound | undefined;
+  __scheduling?: CollectorRestScheduling14$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  getAuthTokenFromHeader: boolean;
+  authHeaderKey: string;
+  authHeaderExpr: string;
+  authRequestHeaders?:
+    | Array<CollectorRestAuthRequestHeader14$Outbound>
+    | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName: string;
+  clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectorRestAuthRequestParam14$Outbound>
+    | undefined;
+  textSecret?: string | undefined;
+  scopes?: Array<string> | undefined;
+  serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
+};
+
+/** @internal */
+export const CollectorRestRest14$outboundSchema: z.ZodType<
+  CollectorRestRest14$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRest14
+> = z.object({
+  authentication: CollectorRestAuthentication14$outboundSchema.default("none"),
+  hmacFunctionId: z.string(),
+  type: CollectorRestType14$outboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery14$outboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod14$outboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam14$outboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader14$outboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination14$outboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules14$outboundSchema).optional(),
+  scheduling: z.lazy(() => CollectorRestScheduling14$outboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader14$outboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam14$outboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduling: "__scheduling",
+  });
+});
+
+export function collectorRestRest14ToJSON(
+  collectorRestRest14: CollectorRestRest14,
+): string {
+  return JSON.stringify(
+    CollectorRestRest14$outboundSchema.parse(collectorRestRest14),
+  );
+}
+export function collectorRestRest14FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRest14, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRest14$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRest14' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthentication13$inboundSchema: z.ZodType<
+  CollectorRestAuthentication13,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestAuthentication13);
+/** @internal */
+export const CollectorRestAuthentication13$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestAuthentication13
+> = openEnums.outboundSchema(CollectorRestAuthentication13);
+
+/** @internal */
+export const CollectorRestType13$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType13
+> = z.nativeEnum(CollectorRestType13);
+/** @internal */
+export const CollectorRestType13$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType13
+> = CollectorRestType13$inboundSchema;
+
+/** @internal */
+export const CollectorRestDiscoverType13$inboundSchema: z.ZodType<
+  CollectorRestDiscoverType13,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestDiscoverType13);
+/** @internal */
+export const CollectorRestDiscoverType13$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestDiscoverType13
+> = openEnums.outboundSchema(CollectorRestDiscoverType13);
+
+/** @internal */
+export const CollectorRestDiscovery13$inboundSchema: z.ZodType<
+  CollectorRestDiscovery13,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: CollectorRestDiscoverType13$inboundSchema.default("none"),
+});
+/** @internal */
+export type CollectorRestDiscovery13$Outbound = {
+  discoverType: string;
+};
+
+/** @internal */
+export const CollectorRestDiscovery13$outboundSchema: z.ZodType<
+  CollectorRestDiscovery13$Outbound,
+  z.ZodTypeDef,
+  CollectorRestDiscovery13
+> = z.object({
+  discoverType: CollectorRestDiscoverType13$outboundSchema.default("none"),
+});
+
+export function collectorRestDiscovery13ToJSON(
+  collectorRestDiscovery13: CollectorRestDiscovery13,
+): string {
+  return JSON.stringify(
+    CollectorRestDiscovery13$outboundSchema.parse(collectorRestDiscovery13),
+  );
+}
+export function collectorRestDiscovery13FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestDiscovery13, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestDiscovery13$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestDiscovery13' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectMethod13$inboundSchema: z.ZodType<
+  CollectMethod13,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectMethod13);
+/** @internal */
+export const CollectMethod13$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectMethod13
+> = openEnums.outboundSchema(CollectMethod13);
+
+/** @internal */
+export const CollectorRestCollectRequestParam13$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam13,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestParam13$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestParam13$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam13$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestParam13
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestParam13ToJSON(
+  collectorRestCollectRequestParam13: CollectorRestCollectRequestParam13,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestParam13$outboundSchema.parse(
+      collectorRestCollectRequestParam13,
+    ),
+  );
+}
+export function collectorRestCollectRequestParam13FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestParam13, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestParam13$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestParam13' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestCollectRequestHeader13$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader13,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestHeader13$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestHeader13$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader13$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestHeader13
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestHeader13ToJSON(
+  collectorRestCollectRequestHeader13: CollectorRestCollectRequestHeader13,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestHeader13$outboundSchema.parse(
+      collectorRestCollectRequestHeader13,
+    ),
+  );
+}
+export function collectorRestCollectRequestHeader13FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestHeader13, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestHeader13$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestHeader13' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaginationEnum13$inboundSchema: z.ZodType<
+  PaginationEnum13,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PaginationEnum13);
+/** @internal */
+export const PaginationEnum13$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PaginationEnum13
+> = openEnums.outboundSchema(PaginationEnum13);
+
+/** @internal */
+export const Pagination13$inboundSchema: z.ZodType<
+  Pagination13,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: PaginationEnum13$inboundSchema.default("none"),
+});
+/** @internal */
+export type Pagination13$Outbound = {
+  type: string;
+};
+
+/** @internal */
+export const Pagination13$outboundSchema: z.ZodType<
+  Pagination13$Outbound,
+  z.ZodTypeDef,
+  Pagination13
+> = z.object({
+  type: PaginationEnum13$outboundSchema.default("none"),
+});
+
+export function pagination13ToJSON(pagination13: Pagination13): string {
+  return JSON.stringify(Pagination13$outboundSchema.parse(pagination13));
+}
+export function pagination13FromJSON(
+  jsonString: string,
+): SafeParseResult<Pagination13, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Pagination13$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Pagination13' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRetryType13$inboundSchema: z.ZodType<
+  CollectorRestRetryType13,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestRetryType13);
+/** @internal */
+export const CollectorRestRetryType13$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestRetryType13
+> = openEnums.outboundSchema(CollectorRestRetryType13);
+
+/** @internal */
+export const CollectorRestRetryRules13$inboundSchema: z.ZodType<
+  CollectorRestRetryRules13,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorRestRetryType13$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorRestRetryRules13$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorRestRetryRules13$outboundSchema: z.ZodType<
+  CollectorRestRetryRules13$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRetryRules13
+> = z.object({
+  type: CollectorRestRetryType13$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorRestRetryRules13ToJSON(
+  collectorRestRetryRules13: CollectorRestRetryRules13,
+): string {
+  return JSON.stringify(
+    CollectorRestRetryRules13$outboundSchema.parse(collectorRestRetryRules13),
+  );
+}
+export function collectorRestRetryRules13FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRetryRules13, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRetryRules13$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRetryRules13' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestStateTracking13$inboundSchema: z.ZodType<
+  CollectorRestStateTracking13,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type CollectorRestStateTracking13$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const CollectorRestStateTracking13$outboundSchema: z.ZodType<
+  CollectorRestStateTracking13$Outbound,
+  z.ZodTypeDef,
+  CollectorRestStateTracking13
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function collectorRestStateTracking13ToJSON(
+  collectorRestStateTracking13: CollectorRestStateTracking13,
+): string {
+  return JSON.stringify(
+    CollectorRestStateTracking13$outboundSchema.parse(
+      collectorRestStateTracking13,
+    ),
+  );
+}
+export function collectorRestStateTracking13FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestStateTracking13, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestStateTracking13$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestStateTracking13' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestScheduling13$inboundSchema: z.ZodType<
+  CollectorRestScheduling13,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking13$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorRestScheduling13$Outbound = {
+  stateTracking?: CollectorRestStateTracking13$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorRestScheduling13$outboundSchema: z.ZodType<
+  CollectorRestScheduling13$Outbound,
+  z.ZodTypeDef,
+  CollectorRestScheduling13
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking13$outboundSchema)
+    .optional(),
+});
+
+export function collectorRestScheduling13ToJSON(
+  collectorRestScheduling13: CollectorRestScheduling13,
+): string {
+  return JSON.stringify(
+    CollectorRestScheduling13$outboundSchema.parse(collectorRestScheduling13),
+  );
+}
+export function collectorRestScheduling13FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestScheduling13, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestScheduling13$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestScheduling13' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestHeader13$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader13,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestHeader13$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestHeader13$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader13$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestHeader13
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestHeader13ToJSON(
+  collectorRestAuthRequestHeader13: CollectorRestAuthRequestHeader13,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestHeader13$outboundSchema.parse(
+      collectorRestAuthRequestHeader13,
+    ),
+  );
+}
+export function collectorRestAuthRequestHeader13FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestHeader13, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestHeader13$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestHeader13' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestParam13$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam13,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestParam13$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestParam13$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam13$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestParam13
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestParam13ToJSON(
+  collectorRestAuthRequestParam13: CollectorRestAuthRequestParam13,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestParam13$outboundSchema.parse(
+      collectorRestAuthRequestParam13,
+    ),
+  );
+}
+export function collectorRestAuthRequestParam13FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestParam13, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestParam13$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestParam13' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRest13$inboundSchema: z.ZodType<
+  CollectorRestRest13,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorRestAuthentication13$inboundSchema.default("none"),
+  scopes: z.array(z.string()),
+  textSecret: z.string(),
+  subject: z.string(),
+  type: CollectorRestType13$inboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery13$inboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod13$inboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam13$inboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader13$inboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination13$inboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules13$inboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling13$inboundSchema)
+    .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader13$inboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam13$inboundSchema),
+  ).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "__scheduling": "scheduling",
+  });
+});
+/** @internal */
+export type CollectorRestRest13$Outbound = {
+  authentication: string;
+  scopes: Array<string>;
+  textSecret: string;
+  subject: string;
+  type: string;
+  discovery?: CollectorRestDiscovery13$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectVerb?: string | undefined;
+  collectRequestParams?:
+    | Array<CollectorRestCollectRequestParam13$Outbound>
+    | undefined;
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader13$Outbound>
+    | undefined;
+  pagination?: Pagination13$Outbound | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules13$Outbound | undefined;
+  __scheduling?: CollectorRestScheduling13$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  getAuthTokenFromHeader: boolean;
+  authHeaderKey: string;
+  authHeaderExpr: string;
+  authRequestHeaders?:
+    | Array<CollectorRestAuthRequestHeader13$Outbound>
+    | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName: string;
+  clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectorRestAuthRequestParam13$Outbound>
+    | undefined;
+  serviceAccountCredentials?: string | undefined;
+  hmacFunctionId?: string | undefined;
+};
+
+/** @internal */
+export const CollectorRestRest13$outboundSchema: z.ZodType<
+  CollectorRestRest13$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRest13
+> = z.object({
+  authentication: CollectorRestAuthentication13$outboundSchema.default("none"),
+  scopes: z.array(z.string()),
+  textSecret: z.string(),
+  subject: z.string(),
+  type: CollectorRestType13$outboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery13$outboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod13$outboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam13$outboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader13$outboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination13$outboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules13$outboundSchema).optional(),
+  scheduling: z.lazy(() => CollectorRestScheduling13$outboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader13$outboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam13$outboundSchema),
+  ).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduling: "__scheduling",
+  });
+});
+
+export function collectorRestRest13ToJSON(
+  collectorRestRest13: CollectorRestRest13,
+): string {
+  return JSON.stringify(
+    CollectorRestRest13$outboundSchema.parse(collectorRestRest13),
+  );
+}
+export function collectorRestRest13FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRest13, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRest13$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRest13' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthentication12$inboundSchema: z.ZodType<
+  CollectorRestAuthentication12,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestAuthentication12);
+/** @internal */
+export const CollectorRestAuthentication12$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestAuthentication12
+> = openEnums.outboundSchema(CollectorRestAuthentication12);
+
+/** @internal */
+export const CollectorRestType12$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType12
+> = z.nativeEnum(CollectorRestType12);
+/** @internal */
+export const CollectorRestType12$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType12
+> = CollectorRestType12$inboundSchema;
+
+/** @internal */
+export const CollectorRestDiscoverType12$inboundSchema: z.ZodType<
+  CollectorRestDiscoverType12,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestDiscoverType12);
+/** @internal */
+export const CollectorRestDiscoverType12$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestDiscoverType12
+> = openEnums.outboundSchema(CollectorRestDiscoverType12);
+
+/** @internal */
+export const CollectorRestDiscovery12$inboundSchema: z.ZodType<
+  CollectorRestDiscovery12,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: CollectorRestDiscoverType12$inboundSchema.default("none"),
+});
+/** @internal */
+export type CollectorRestDiscovery12$Outbound = {
+  discoverType: string;
+};
+
+/** @internal */
+export const CollectorRestDiscovery12$outboundSchema: z.ZodType<
+  CollectorRestDiscovery12$Outbound,
+  z.ZodTypeDef,
+  CollectorRestDiscovery12
+> = z.object({
+  discoverType: CollectorRestDiscoverType12$outboundSchema.default("none"),
+});
+
+export function collectorRestDiscovery12ToJSON(
+  collectorRestDiscovery12: CollectorRestDiscovery12,
+): string {
+  return JSON.stringify(
+    CollectorRestDiscovery12$outboundSchema.parse(collectorRestDiscovery12),
+  );
+}
+export function collectorRestDiscovery12FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestDiscovery12, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestDiscovery12$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestDiscovery12' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectMethod12$inboundSchema: z.ZodType<
+  CollectMethod12,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectMethod12);
+/** @internal */
+export const CollectMethod12$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectMethod12
+> = openEnums.outboundSchema(CollectMethod12);
+
+/** @internal */
+export const CollectorRestCollectRequestParam12$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam12,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestParam12$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestParam12$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam12$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestParam12
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestParam12ToJSON(
+  collectorRestCollectRequestParam12: CollectorRestCollectRequestParam12,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestParam12$outboundSchema.parse(
+      collectorRestCollectRequestParam12,
+    ),
+  );
+}
+export function collectorRestCollectRequestParam12FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestParam12, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestParam12$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestParam12' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestCollectRequestHeader12$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader12,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestHeader12$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestHeader12$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader12$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestHeader12
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestHeader12ToJSON(
+  collectorRestCollectRequestHeader12: CollectorRestCollectRequestHeader12,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestHeader12$outboundSchema.parse(
+      collectorRestCollectRequestHeader12,
+    ),
+  );
+}
+export function collectorRestCollectRequestHeader12FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestHeader12, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestHeader12$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestHeader12' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaginationEnum12$inboundSchema: z.ZodType<
+  PaginationEnum12,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PaginationEnum12);
+/** @internal */
+export const PaginationEnum12$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PaginationEnum12
+> = openEnums.outboundSchema(PaginationEnum12);
+
+/** @internal */
+export const Pagination12$inboundSchema: z.ZodType<
+  Pagination12,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: PaginationEnum12$inboundSchema.default("none"),
+});
+/** @internal */
+export type Pagination12$Outbound = {
+  type: string;
+};
+
+/** @internal */
+export const Pagination12$outboundSchema: z.ZodType<
+  Pagination12$Outbound,
+  z.ZodTypeDef,
+  Pagination12
+> = z.object({
+  type: PaginationEnum12$outboundSchema.default("none"),
+});
+
+export function pagination12ToJSON(pagination12: Pagination12): string {
+  return JSON.stringify(Pagination12$outboundSchema.parse(pagination12));
+}
+export function pagination12FromJSON(
+  jsonString: string,
+): SafeParseResult<Pagination12, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Pagination12$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Pagination12' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRetryType12$inboundSchema: z.ZodType<
+  CollectorRestRetryType12,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestRetryType12);
+/** @internal */
+export const CollectorRestRetryType12$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestRetryType12
+> = openEnums.outboundSchema(CollectorRestRetryType12);
+
+/** @internal */
+export const CollectorRestRetryRules12$inboundSchema: z.ZodType<
+  CollectorRestRetryRules12,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorRestRetryType12$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorRestRetryRules12$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorRestRetryRules12$outboundSchema: z.ZodType<
+  CollectorRestRetryRules12$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRetryRules12
+> = z.object({
+  type: CollectorRestRetryType12$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorRestRetryRules12ToJSON(
+  collectorRestRetryRules12: CollectorRestRetryRules12,
+): string {
+  return JSON.stringify(
+    CollectorRestRetryRules12$outboundSchema.parse(collectorRestRetryRules12),
+  );
+}
+export function collectorRestRetryRules12FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRetryRules12, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRetryRules12$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRetryRules12' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestStateTracking12$inboundSchema: z.ZodType<
+  CollectorRestStateTracking12,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type CollectorRestStateTracking12$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const CollectorRestStateTracking12$outboundSchema: z.ZodType<
+  CollectorRestStateTracking12$Outbound,
+  z.ZodTypeDef,
+  CollectorRestStateTracking12
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function collectorRestStateTracking12ToJSON(
+  collectorRestStateTracking12: CollectorRestStateTracking12,
+): string {
+  return JSON.stringify(
+    CollectorRestStateTracking12$outboundSchema.parse(
+      collectorRestStateTracking12,
+    ),
+  );
+}
+export function collectorRestStateTracking12FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestStateTracking12, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestStateTracking12$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestStateTracking12' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestScheduling12$inboundSchema: z.ZodType<
+  CollectorRestScheduling12,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking12$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorRestScheduling12$Outbound = {
+  stateTracking?: CollectorRestStateTracking12$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorRestScheduling12$outboundSchema: z.ZodType<
+  CollectorRestScheduling12$Outbound,
+  z.ZodTypeDef,
+  CollectorRestScheduling12
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking12$outboundSchema)
+    .optional(),
+});
+
+export function collectorRestScheduling12ToJSON(
+  collectorRestScheduling12: CollectorRestScheduling12,
+): string {
+  return JSON.stringify(
+    CollectorRestScheduling12$outboundSchema.parse(collectorRestScheduling12),
+  );
+}
+export function collectorRestScheduling12FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestScheduling12, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestScheduling12$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestScheduling12' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestHeader12$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader12,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestHeader12$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestHeader12$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader12$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestHeader12
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestHeader12ToJSON(
+  collectorRestAuthRequestHeader12: CollectorRestAuthRequestHeader12,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestHeader12$outboundSchema.parse(
+      collectorRestAuthRequestHeader12,
+    ),
+  );
+}
+export function collectorRestAuthRequestHeader12FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestHeader12, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestHeader12$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestHeader12' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestParam12$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam12,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestParam12$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestParam12$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam12$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestParam12
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestParam12ToJSON(
+  collectorRestAuthRequestParam12: CollectorRestAuthRequestParam12,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestParam12$outboundSchema.parse(
+      collectorRestAuthRequestParam12,
+    ),
+  );
+}
+export function collectorRestAuthRequestParam12FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestParam12, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestParam12$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestParam12' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRest12$inboundSchema: z.ZodType<
+  CollectorRestRest12,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorRestAuthentication12$inboundSchema.default("none"),
+  scopes: z.array(z.string()),
+  serviceAccountCredentials: z.string(),
+  subject: z.string(),
+  type: CollectorRestType12$inboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery12$inboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod12$inboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam12$inboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader12$inboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination12$inboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules12$inboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling12$inboundSchema)
+    .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader12$inboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam12$inboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "__scheduling": "scheduling",
+  });
+});
+/** @internal */
+export type CollectorRestRest12$Outbound = {
+  authentication: string;
+  scopes: Array<string>;
+  serviceAccountCredentials: string;
+  subject: string;
+  type: string;
+  discovery?: CollectorRestDiscovery12$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectVerb?: string | undefined;
+  collectRequestParams?:
+    | Array<CollectorRestCollectRequestParam12$Outbound>
+    | undefined;
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader12$Outbound>
+    | undefined;
+  pagination?: Pagination12$Outbound | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules12$Outbound | undefined;
+  __scheduling?: CollectorRestScheduling12$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  getAuthTokenFromHeader: boolean;
+  authHeaderKey: string;
+  authHeaderExpr: string;
+  authRequestHeaders?:
+    | Array<CollectorRestAuthRequestHeader12$Outbound>
+    | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName: string;
+  clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectorRestAuthRequestParam12$Outbound>
+    | undefined;
+  textSecret?: string | undefined;
+  hmacFunctionId?: string | undefined;
+};
+
+/** @internal */
+export const CollectorRestRest12$outboundSchema: z.ZodType<
+  CollectorRestRest12$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRest12
+> = z.object({
+  authentication: CollectorRestAuthentication12$outboundSchema.default("none"),
+  scopes: z.array(z.string()),
+  serviceAccountCredentials: z.string(),
+  subject: z.string(),
+  type: CollectorRestType12$outboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery12$outboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod12$outboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam12$outboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader12$outboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination12$outboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules12$outboundSchema).optional(),
+  scheduling: z.lazy(() => CollectorRestScheduling12$outboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader12$outboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam12$outboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduling: "__scheduling",
+  });
+});
+
+export function collectorRestRest12ToJSON(
+  collectorRestRest12: CollectorRestRest12,
+): string {
+  return JSON.stringify(
+    CollectorRestRest12$outboundSchema.parse(collectorRestRest12),
+  );
+}
+export function collectorRestRest12FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRest12, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRest12$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRest12' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthentication11$inboundSchema: z.ZodType<
+  CollectorRestAuthentication11,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestAuthentication11);
+/** @internal */
+export const CollectorRestAuthentication11$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestAuthentication11
+> = openEnums.outboundSchema(CollectorRestAuthentication11);
+
+/** @internal */
+export const CollectorRestAuthRequestParam11$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam11,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestParam11$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestParam11$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam11$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestParam11
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestParam11ToJSON(
+  collectorRestAuthRequestParam11: CollectorRestAuthRequestParam11,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestParam11$outboundSchema.parse(
+      collectorRestAuthRequestParam11,
+    ),
+  );
+}
+export function collectorRestAuthRequestParam11FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestParam11, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestParam11$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestParam11' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestHeader11$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader11,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestHeader11$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestHeader11$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader11$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestHeader11
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestHeader11ToJSON(
+  collectorRestAuthRequestHeader11: CollectorRestAuthRequestHeader11,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestHeader11$outboundSchema.parse(
+      collectorRestAuthRequestHeader11,
+    ),
+  );
+}
+export function collectorRestAuthRequestHeader11FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestHeader11, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestHeader11$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestHeader11' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestType11$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType11
+> = z.nativeEnum(CollectorRestType11);
+/** @internal */
+export const CollectorRestType11$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType11
+> = CollectorRestType11$inboundSchema;
+
+/** @internal */
+export const CollectorRestDiscoverType11$inboundSchema: z.ZodType<
+  CollectorRestDiscoverType11,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestDiscoverType11);
+/** @internal */
+export const CollectorRestDiscoverType11$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestDiscoverType11
+> = openEnums.outboundSchema(CollectorRestDiscoverType11);
+
+/** @internal */
+export const CollectorRestDiscovery11$inboundSchema: z.ZodType<
+  CollectorRestDiscovery11,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: CollectorRestDiscoverType11$inboundSchema.default("none"),
+});
+/** @internal */
+export type CollectorRestDiscovery11$Outbound = {
+  discoverType: string;
+};
+
+/** @internal */
+export const CollectorRestDiscovery11$outboundSchema: z.ZodType<
+  CollectorRestDiscovery11$Outbound,
+  z.ZodTypeDef,
+  CollectorRestDiscovery11
+> = z.object({
+  discoverType: CollectorRestDiscoverType11$outboundSchema.default("none"),
+});
+
+export function collectorRestDiscovery11ToJSON(
+  collectorRestDiscovery11: CollectorRestDiscovery11,
+): string {
+  return JSON.stringify(
+    CollectorRestDiscovery11$outboundSchema.parse(collectorRestDiscovery11),
+  );
+}
+export function collectorRestDiscovery11FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestDiscovery11, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestDiscovery11$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestDiscovery11' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectMethod11$inboundSchema: z.ZodType<
+  CollectMethod11,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectMethod11);
+/** @internal */
+export const CollectMethod11$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectMethod11
+> = openEnums.outboundSchema(CollectMethod11);
+
+/** @internal */
+export const CollectorRestCollectRequestParam11$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam11,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestParam11$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestParam11$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam11$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestParam11
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestParam11ToJSON(
+  collectorRestCollectRequestParam11: CollectorRestCollectRequestParam11,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestParam11$outboundSchema.parse(
+      collectorRestCollectRequestParam11,
+    ),
+  );
+}
+export function collectorRestCollectRequestParam11FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestParam11, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestParam11$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestParam11' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestCollectRequestHeader11$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader11,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestHeader11$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestHeader11$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader11$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestHeader11
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestHeader11ToJSON(
+  collectorRestCollectRequestHeader11: CollectorRestCollectRequestHeader11,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestHeader11$outboundSchema.parse(
+      collectorRestCollectRequestHeader11,
+    ),
+  );
+}
+export function collectorRestCollectRequestHeader11FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestHeader11, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestHeader11$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestHeader11' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaginationEnum11$inboundSchema: z.ZodType<
+  PaginationEnum11,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PaginationEnum11);
+/** @internal */
+export const PaginationEnum11$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PaginationEnum11
+> = openEnums.outboundSchema(PaginationEnum11);
+
+/** @internal */
+export const Pagination11$inboundSchema: z.ZodType<
+  Pagination11,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: PaginationEnum11$inboundSchema.default("none"),
+});
+/** @internal */
+export type Pagination11$Outbound = {
+  type: string;
+};
+
+/** @internal */
+export const Pagination11$outboundSchema: z.ZodType<
+  Pagination11$Outbound,
+  z.ZodTypeDef,
+  Pagination11
+> = z.object({
+  type: PaginationEnum11$outboundSchema.default("none"),
+});
+
+export function pagination11ToJSON(pagination11: Pagination11): string {
+  return JSON.stringify(Pagination11$outboundSchema.parse(pagination11));
+}
+export function pagination11FromJSON(
+  jsonString: string,
+): SafeParseResult<Pagination11, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Pagination11$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Pagination11' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRetryType11$inboundSchema: z.ZodType<
+  CollectorRestRetryType11,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestRetryType11);
+/** @internal */
+export const CollectorRestRetryType11$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestRetryType11
+> = openEnums.outboundSchema(CollectorRestRetryType11);
+
+/** @internal */
+export const CollectorRestRetryRules11$inboundSchema: z.ZodType<
+  CollectorRestRetryRules11,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorRestRetryType11$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorRestRetryRules11$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorRestRetryRules11$outboundSchema: z.ZodType<
+  CollectorRestRetryRules11$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRetryRules11
+> = z.object({
+  type: CollectorRestRetryType11$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorRestRetryRules11ToJSON(
+  collectorRestRetryRules11: CollectorRestRetryRules11,
+): string {
+  return JSON.stringify(
+    CollectorRestRetryRules11$outboundSchema.parse(collectorRestRetryRules11),
+  );
+}
+export function collectorRestRetryRules11FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRetryRules11, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRetryRules11$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRetryRules11' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestStateTracking11$inboundSchema: z.ZodType<
+  CollectorRestStateTracking11,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type CollectorRestStateTracking11$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const CollectorRestStateTracking11$outboundSchema: z.ZodType<
+  CollectorRestStateTracking11$Outbound,
+  z.ZodTypeDef,
+  CollectorRestStateTracking11
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function collectorRestStateTracking11ToJSON(
+  collectorRestStateTracking11: CollectorRestStateTracking11,
+): string {
+  return JSON.stringify(
+    CollectorRestStateTracking11$outboundSchema.parse(
+      collectorRestStateTracking11,
+    ),
+  );
+}
+export function collectorRestStateTracking11FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestStateTracking11, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestStateTracking11$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestStateTracking11' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestScheduling11$inboundSchema: z.ZodType<
+  CollectorRestScheduling11,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking11$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorRestScheduling11$Outbound = {
+  stateTracking?: CollectorRestStateTracking11$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorRestScheduling11$outboundSchema: z.ZodType<
+  CollectorRestScheduling11$Outbound,
+  z.ZodTypeDef,
+  CollectorRestScheduling11
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking11$outboundSchema)
+    .optional(),
+});
+
+export function collectorRestScheduling11ToJSON(
+  collectorRestScheduling11: CollectorRestScheduling11,
+): string {
+  return JSON.stringify(
+    CollectorRestScheduling11$outboundSchema.parse(collectorRestScheduling11),
+  );
+}
+export function collectorRestScheduling11FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestScheduling11, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestScheduling11$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestScheduling11' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRest11$inboundSchema: z.ZodType<
+  CollectorRestRest11,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorRestAuthentication11$inboundSchema.default("none"),
+  loginUrl: z.string().default(""),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  clientSecretParamName: z.string().default("client_secret"),
+  textSecret: z.string(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam11$inboundSchema),
+  ).optional(),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader11$inboundSchema),
+  ).optional(),
+  type: CollectorRestType11$inboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery11$inboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod11$inboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam11$inboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader11$inboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination11$inboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules11$inboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling11$inboundSchema)
+    .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  clientSecretParamValue: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "__scheduling": "scheduling",
+  });
+});
+/** @internal */
+export type CollectorRestRest11$Outbound = {
+  authentication: string;
+  loginUrl: string;
+  tokenRespAttribute?: string | undefined;
+  authHeaderKey: string;
+  authHeaderExpr: string;
+  clientSecretParamName: string;
+  textSecret: string;
+  authRequestParams?:
+    | Array<CollectorRestAuthRequestParam11$Outbound>
+    | undefined;
+  authRequestHeaders?:
+    | Array<CollectorRestAuthRequestHeader11$Outbound>
+    | undefined;
+  type: string;
+  discovery?: CollectorRestDiscovery11$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectVerb?: string | undefined;
+  collectRequestParams?:
+    | Array<CollectorRestCollectRequestParam11$Outbound>
+    | undefined;
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader11$Outbound>
+    | undefined;
+  pagination?: Pagination11$Outbound | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules11$Outbound | undefined;
+  __scheduling?: CollectorRestScheduling11$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginBody: string;
+  getAuthTokenFromHeader: boolean;
+  clientSecretParamValue?: string | undefined;
+  scopes?: Array<string> | undefined;
+  serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
+  hmacFunctionId?: string | undefined;
+};
+
+/** @internal */
+export const CollectorRestRest11$outboundSchema: z.ZodType<
+  CollectorRestRest11$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRest11
+> = z.object({
+  authentication: CollectorRestAuthentication11$outboundSchema.default("none"),
+  loginUrl: z.string().default(""),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  clientSecretParamName: z.string().default("client_secret"),
+  textSecret: z.string(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam11$outboundSchema),
+  ).optional(),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader11$outboundSchema),
+  ).optional(),
+  type: CollectorRestType11$outboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery11$outboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod11$outboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam11$outboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader11$outboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination11$outboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules11$outboundSchema).optional(),
+  scheduling: z.lazy(() => CollectorRestScheduling11$outboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  clientSecretParamValue: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduling: "__scheduling",
+  });
+});
+
+export function collectorRestRest11ToJSON(
+  collectorRestRest11: CollectorRestRest11,
+): string {
+  return JSON.stringify(
+    CollectorRestRest11$outboundSchema.parse(collectorRestRest11),
+  );
+}
+export function collectorRestRest11FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRest11, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRest11$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRest11' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthentication10$inboundSchema: z.ZodType<
+  CollectorRestAuthentication10,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestAuthentication10);
+/** @internal */
+export const CollectorRestAuthentication10$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestAuthentication10
+> = openEnums.outboundSchema(CollectorRestAuthentication10);
+
+/** @internal */
+export const CollectorRestAuthRequestParam10$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam10,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestParam10$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestParam10$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam10$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestParam10
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestParam10ToJSON(
+  collectorRestAuthRequestParam10: CollectorRestAuthRequestParam10,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestParam10$outboundSchema.parse(
+      collectorRestAuthRequestParam10,
+    ),
+  );
+}
+export function collectorRestAuthRequestParam10FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestParam10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestParam10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestParam10' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestHeader10$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader10,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestHeader10$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestHeader10$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader10$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestHeader10
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestHeader10ToJSON(
+  collectorRestAuthRequestHeader10: CollectorRestAuthRequestHeader10,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestHeader10$outboundSchema.parse(
+      collectorRestAuthRequestHeader10,
+    ),
+  );
+}
+export function collectorRestAuthRequestHeader10FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestHeader10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestHeader10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestHeader10' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestType10$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType10
+> = z.nativeEnum(CollectorRestType10);
+/** @internal */
+export const CollectorRestType10$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType10
+> = CollectorRestType10$inboundSchema;
+
+/** @internal */
+export const CollectorRestDiscoverType10$inboundSchema: z.ZodType<
+  CollectorRestDiscoverType10,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestDiscoverType10);
+/** @internal */
+export const CollectorRestDiscoverType10$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestDiscoverType10
+> = openEnums.outboundSchema(CollectorRestDiscoverType10);
+
+/** @internal */
+export const CollectorRestDiscovery10$inboundSchema: z.ZodType<
+  CollectorRestDiscovery10,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: CollectorRestDiscoverType10$inboundSchema.default("none"),
+});
+/** @internal */
+export type CollectorRestDiscovery10$Outbound = {
+  discoverType: string;
+};
+
+/** @internal */
+export const CollectorRestDiscovery10$outboundSchema: z.ZodType<
+  CollectorRestDiscovery10$Outbound,
+  z.ZodTypeDef,
+  CollectorRestDiscovery10
+> = z.object({
+  discoverType: CollectorRestDiscoverType10$outboundSchema.default("none"),
+});
+
+export function collectorRestDiscovery10ToJSON(
+  collectorRestDiscovery10: CollectorRestDiscovery10,
+): string {
+  return JSON.stringify(
+    CollectorRestDiscovery10$outboundSchema.parse(collectorRestDiscovery10),
+  );
+}
+export function collectorRestDiscovery10FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestDiscovery10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestDiscovery10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestDiscovery10' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectMethod10$inboundSchema: z.ZodType<
+  CollectMethod10,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectMethod10);
+/** @internal */
+export const CollectMethod10$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectMethod10
+> = openEnums.outboundSchema(CollectMethod10);
+
+/** @internal */
+export const CollectorRestCollectRequestParam10$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam10,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestParam10$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestParam10$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam10$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestParam10
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestParam10ToJSON(
+  collectorRestCollectRequestParam10: CollectorRestCollectRequestParam10,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestParam10$outboundSchema.parse(
+      collectorRestCollectRequestParam10,
+    ),
+  );
+}
+export function collectorRestCollectRequestParam10FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestParam10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestParam10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestParam10' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestCollectRequestHeader10$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader10,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestHeader10$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestHeader10$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader10$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestHeader10
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestHeader10ToJSON(
+  collectorRestCollectRequestHeader10: CollectorRestCollectRequestHeader10,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestHeader10$outboundSchema.parse(
+      collectorRestCollectRequestHeader10,
+    ),
+  );
+}
+export function collectorRestCollectRequestHeader10FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestHeader10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestHeader10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestHeader10' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaginationEnum10$inboundSchema: z.ZodType<
+  PaginationEnum10,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PaginationEnum10);
+/** @internal */
+export const PaginationEnum10$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PaginationEnum10
+> = openEnums.outboundSchema(PaginationEnum10);
+
+/** @internal */
+export const Pagination10$inboundSchema: z.ZodType<
+  Pagination10,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: PaginationEnum10$inboundSchema.default("none"),
+});
+/** @internal */
+export type Pagination10$Outbound = {
+  type: string;
+};
+
+/** @internal */
+export const Pagination10$outboundSchema: z.ZodType<
+  Pagination10$Outbound,
+  z.ZodTypeDef,
+  Pagination10
+> = z.object({
+  type: PaginationEnum10$outboundSchema.default("none"),
+});
+
+export function pagination10ToJSON(pagination10: Pagination10): string {
+  return JSON.stringify(Pagination10$outboundSchema.parse(pagination10));
+}
+export function pagination10FromJSON(
+  jsonString: string,
+): SafeParseResult<Pagination10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Pagination10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Pagination10' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRetryType10$inboundSchema: z.ZodType<
+  CollectorRestRetryType10,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestRetryType10);
+/** @internal */
+export const CollectorRestRetryType10$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestRetryType10
+> = openEnums.outboundSchema(CollectorRestRetryType10);
+
+/** @internal */
+export const CollectorRestRetryRules10$inboundSchema: z.ZodType<
+  CollectorRestRetryRules10,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorRestRetryType10$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorRestRetryRules10$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorRestRetryRules10$outboundSchema: z.ZodType<
+  CollectorRestRetryRules10$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRetryRules10
+> = z.object({
+  type: CollectorRestRetryType10$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorRestRetryRules10ToJSON(
+  collectorRestRetryRules10: CollectorRestRetryRules10,
+): string {
+  return JSON.stringify(
+    CollectorRestRetryRules10$outboundSchema.parse(collectorRestRetryRules10),
+  );
+}
+export function collectorRestRetryRules10FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRetryRules10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRetryRules10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRetryRules10' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestStateTracking10$inboundSchema: z.ZodType<
+  CollectorRestStateTracking10,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type CollectorRestStateTracking10$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const CollectorRestStateTracking10$outboundSchema: z.ZodType<
+  CollectorRestStateTracking10$Outbound,
+  z.ZodTypeDef,
+  CollectorRestStateTracking10
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function collectorRestStateTracking10ToJSON(
+  collectorRestStateTracking10: CollectorRestStateTracking10,
+): string {
+  return JSON.stringify(
+    CollectorRestStateTracking10$outboundSchema.parse(
+      collectorRestStateTracking10,
+    ),
+  );
+}
+export function collectorRestStateTracking10FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestStateTracking10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestStateTracking10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestStateTracking10' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestScheduling10$inboundSchema: z.ZodType<
+  CollectorRestScheduling10,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking10$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorRestScheduling10$Outbound = {
+  stateTracking?: CollectorRestStateTracking10$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorRestScheduling10$outboundSchema: z.ZodType<
+  CollectorRestScheduling10$Outbound,
+  z.ZodTypeDef,
+  CollectorRestScheduling10
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking10$outboundSchema)
+    .optional(),
+});
+
+export function collectorRestScheduling10ToJSON(
+  collectorRestScheduling10: CollectorRestScheduling10,
+): string {
+  return JSON.stringify(
+    CollectorRestScheduling10$outboundSchema.parse(collectorRestScheduling10),
+  );
+}
+export function collectorRestScheduling10FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestScheduling10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestScheduling10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestScheduling10' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRest10$inboundSchema: z.ZodType<
+  CollectorRestRest10,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorRestAuthentication10$inboundSchema.default("none"),
+  loginUrl: z.string().default(""),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam10$inboundSchema),
+  ).optional(),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader10$inboundSchema),
+  ).optional(),
+  type: CollectorRestType10$inboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery10$inboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod10$inboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam10$inboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader10$inboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination10$inboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules10$inboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling10$inboundSchema)
+    .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "__scheduling": "scheduling",
+  });
+});
+/** @internal */
+export type CollectorRestRest10$Outbound = {
+  authentication: string;
+  loginUrl: string;
+  tokenRespAttribute?: string | undefined;
+  authHeaderKey: string;
+  authHeaderExpr: string;
+  clientSecretParamName: string;
+  clientSecretParamValue: string;
+  authRequestParams?:
+    | Array<CollectorRestAuthRequestParam10$Outbound>
+    | undefined;
+  authRequestHeaders?:
+    | Array<CollectorRestAuthRequestHeader10$Outbound>
+    | undefined;
+  type: string;
+  discovery?: CollectorRestDiscovery10$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectVerb?: string | undefined;
+  collectRequestParams?:
+    | Array<CollectorRestCollectRequestParam10$Outbound>
+    | undefined;
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader10$Outbound>
+    | undefined;
+  pagination?: Pagination10$Outbound | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules10$Outbound | undefined;
+  __scheduling?: CollectorRestScheduling10$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginBody: string;
+  getAuthTokenFromHeader: boolean;
+  textSecret?: string | undefined;
+  scopes?: Array<string> | undefined;
+  serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
+  hmacFunctionId?: string | undefined;
+};
+
+/** @internal */
+export const CollectorRestRest10$outboundSchema: z.ZodType<
+  CollectorRestRest10$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRest10
+> = z.object({
+  authentication: CollectorRestAuthentication10$outboundSchema.default("none"),
+  loginUrl: z.string().default(""),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam10$outboundSchema),
+  ).optional(),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader10$outboundSchema),
+  ).optional(),
+  type: CollectorRestType10$outboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery10$outboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod10$outboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam10$outboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader10$outboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination10$outboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules10$outboundSchema).optional(),
+  scheduling: z.lazy(() => CollectorRestScheduling10$outboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduling: "__scheduling",
+  });
+});
+
+export function collectorRestRest10ToJSON(
+  collectorRestRest10: CollectorRestRest10,
+): string {
+  return JSON.stringify(
+    CollectorRestRest10$outboundSchema.parse(collectorRestRest10),
+  );
+}
+export function collectorRestRest10FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRest10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRest10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRest10' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthentication9$inboundSchema: z.ZodType<
+  CollectorRestAuthentication9,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestAuthentication9);
+/** @internal */
+export const CollectorRestAuthentication9$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestAuthentication9
+> = openEnums.outboundSchema(CollectorRestAuthentication9);
+
+/** @internal */
+export const CollectorRestAuthRequestHeader9$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestHeader9$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestHeader9$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader9$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestHeader9
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestHeader9ToJSON(
+  collectorRestAuthRequestHeader9: CollectorRestAuthRequestHeader9,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestHeader9$outboundSchema.parse(
+      collectorRestAuthRequestHeader9,
+    ),
+  );
+}
+export function collectorRestAuthRequestHeader9FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestHeader9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestHeader9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestHeader9' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestType9$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType9
+> = z.nativeEnum(CollectorRestType9);
+/** @internal */
+export const CollectorRestType9$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType9
+> = CollectorRestType9$inboundSchema;
+
+/** @internal */
+export const CollectorRestDiscoverType9$inboundSchema: z.ZodType<
+  CollectorRestDiscoverType9,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestDiscoverType9);
+/** @internal */
+export const CollectorRestDiscoverType9$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestDiscoverType9
+> = openEnums.outboundSchema(CollectorRestDiscoverType9);
+
+/** @internal */
+export const CollectorRestDiscovery9$inboundSchema: z.ZodType<
+  CollectorRestDiscovery9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: CollectorRestDiscoverType9$inboundSchema.default("none"),
+});
+/** @internal */
+export type CollectorRestDiscovery9$Outbound = {
+  discoverType: string;
+};
+
+/** @internal */
+export const CollectorRestDiscovery9$outboundSchema: z.ZodType<
+  CollectorRestDiscovery9$Outbound,
+  z.ZodTypeDef,
+  CollectorRestDiscovery9
+> = z.object({
+  discoverType: CollectorRestDiscoverType9$outboundSchema.default("none"),
+});
+
+export function collectorRestDiscovery9ToJSON(
+  collectorRestDiscovery9: CollectorRestDiscovery9,
+): string {
+  return JSON.stringify(
+    CollectorRestDiscovery9$outboundSchema.parse(collectorRestDiscovery9),
+  );
+}
+export function collectorRestDiscovery9FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestDiscovery9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestDiscovery9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestDiscovery9' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectMethod9$inboundSchema: z.ZodType<
+  CollectMethod9,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectMethod9);
+/** @internal */
+export const CollectMethod9$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectMethod9
+> = openEnums.outboundSchema(CollectMethod9);
+
+/** @internal */
+export const CollectorRestCollectRequestParam9$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestParam9$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestParam9$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam9$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestParam9
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestParam9ToJSON(
+  collectorRestCollectRequestParam9: CollectorRestCollectRequestParam9,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestParam9$outboundSchema.parse(
+      collectorRestCollectRequestParam9,
+    ),
+  );
+}
+export function collectorRestCollectRequestParam9FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestParam9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestCollectRequestParam9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestParam9' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestCollectRequestHeader9$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestHeader9$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestHeader9$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader9$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestHeader9
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestHeader9ToJSON(
+  collectorRestCollectRequestHeader9: CollectorRestCollectRequestHeader9,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestHeader9$outboundSchema.parse(
+      collectorRestCollectRequestHeader9,
+    ),
+  );
+}
+export function collectorRestCollectRequestHeader9FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestHeader9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestHeader9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestHeader9' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaginationEnum9$inboundSchema: z.ZodType<
+  PaginationEnum9,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PaginationEnum9);
+/** @internal */
+export const PaginationEnum9$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PaginationEnum9
+> = openEnums.outboundSchema(PaginationEnum9);
+
+/** @internal */
+export const Pagination9$inboundSchema: z.ZodType<
+  Pagination9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: PaginationEnum9$inboundSchema.default("none"),
+});
+/** @internal */
+export type Pagination9$Outbound = {
+  type: string;
+};
+
+/** @internal */
+export const Pagination9$outboundSchema: z.ZodType<
+  Pagination9$Outbound,
+  z.ZodTypeDef,
+  Pagination9
+> = z.object({
+  type: PaginationEnum9$outboundSchema.default("none"),
+});
+
+export function pagination9ToJSON(pagination9: Pagination9): string {
+  return JSON.stringify(Pagination9$outboundSchema.parse(pagination9));
+}
+export function pagination9FromJSON(
+  jsonString: string,
+): SafeParseResult<Pagination9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Pagination9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Pagination9' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRetryType9$inboundSchema: z.ZodType<
+  CollectorRestRetryType9,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestRetryType9);
+/** @internal */
+export const CollectorRestRetryType9$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestRetryType9
+> = openEnums.outboundSchema(CollectorRestRetryType9);
+
+/** @internal */
+export const CollectorRestRetryRules9$inboundSchema: z.ZodType<
+  CollectorRestRetryRules9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorRestRetryType9$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorRestRetryRules9$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorRestRetryRules9$outboundSchema: z.ZodType<
+  CollectorRestRetryRules9$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRetryRules9
+> = z.object({
+  type: CollectorRestRetryType9$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorRestRetryRules9ToJSON(
+  collectorRestRetryRules9: CollectorRestRetryRules9,
+): string {
+  return JSON.stringify(
+    CollectorRestRetryRules9$outboundSchema.parse(collectorRestRetryRules9),
+  );
+}
+export function collectorRestRetryRules9FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRetryRules9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRetryRules9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRetryRules9' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestStateTracking9$inboundSchema: z.ZodType<
+  CollectorRestStateTracking9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type CollectorRestStateTracking9$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const CollectorRestStateTracking9$outboundSchema: z.ZodType<
+  CollectorRestStateTracking9$Outbound,
+  z.ZodTypeDef,
+  CollectorRestStateTracking9
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function collectorRestStateTracking9ToJSON(
+  collectorRestStateTracking9: CollectorRestStateTracking9,
+): string {
+  return JSON.stringify(
+    CollectorRestStateTracking9$outboundSchema.parse(
+      collectorRestStateTracking9,
+    ),
+  );
+}
+export function collectorRestStateTracking9FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestStateTracking9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestStateTracking9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestStateTracking9' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestScheduling9$inboundSchema: z.ZodType<
+  CollectorRestScheduling9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking9$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorRestScheduling9$Outbound = {
+  stateTracking?: CollectorRestStateTracking9$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorRestScheduling9$outboundSchema: z.ZodType<
+  CollectorRestScheduling9$Outbound,
+  z.ZodTypeDef,
+  CollectorRestScheduling9
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking9$outboundSchema)
+    .optional(),
+});
+
+export function collectorRestScheduling9ToJSON(
+  collectorRestScheduling9: CollectorRestScheduling9,
+): string {
+  return JSON.stringify(
+    CollectorRestScheduling9$outboundSchema.parse(collectorRestScheduling9),
+  );
+}
+export function collectorRestScheduling9FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestScheduling9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestScheduling9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestScheduling9' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestParam9$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestParam9$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestParam9$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam9$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestParam9
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestParam9ToJSON(
+  collectorRestAuthRequestParam9: CollectorRestAuthRequestParam9,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestParam9$outboundSchema.parse(
+      collectorRestAuthRequestParam9,
+    ),
+  );
+}
+export function collectorRestAuthRequestParam9FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestParam9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestParam9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestParam9' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRest9$inboundSchema: z.ZodType<
+  CollectorRestRest9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorRestAuthentication9$inboundSchema.default("none"),
+  loginUrl: z.string().default(""),
+  credentialsSecret: z.string(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader9$inboundSchema),
+  ).optional(),
+  type: CollectorRestType9$inboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery9$inboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod9$inboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam9$inboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader9$inboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination9$inboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules9$inboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling9$inboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam9$inboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "__scheduling": "scheduling",
+  });
+});
+/** @internal */
+export type CollectorRestRest9$Outbound = {
+  authentication: string;
+  loginUrl: string;
+  credentialsSecret: string;
+  loginBody: string;
+  getAuthTokenFromHeader: boolean;
+  authHeaderKey: string;
+  authHeaderExpr: string;
+  authRequestHeaders?:
+    | Array<CollectorRestAuthRequestHeader9$Outbound>
+    | undefined;
+  type: string;
+  discovery?: CollectorRestDiscovery9$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectVerb?: string | undefined;
+  collectRequestParams?:
+    | Array<CollectorRestCollectRequestParam9$Outbound>
+    | undefined;
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader9$Outbound>
+    | undefined;
+  pagination?: Pagination9$Outbound | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules9$Outbound | undefined;
+  __scheduling?: CollectorRestScheduling9$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName: string;
+  clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectorRestAuthRequestParam9$Outbound>
+    | undefined;
+  textSecret?: string | undefined;
+  scopes?: Array<string> | undefined;
+  serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
+  hmacFunctionId?: string | undefined;
+};
+
+/** @internal */
+export const CollectorRestRest9$outboundSchema: z.ZodType<
+  CollectorRestRest9$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRest9
+> = z.object({
+  authentication: CollectorRestAuthentication9$outboundSchema.default("none"),
+  loginUrl: z.string().default(""),
+  credentialsSecret: z.string(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader9$outboundSchema),
+  ).optional(),
+  type: CollectorRestType9$outboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery9$outboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod9$outboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam9$outboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader9$outboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination9$outboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules9$outboundSchema).optional(),
+  scheduling: z.lazy(() => CollectorRestScheduling9$outboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam9$outboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduling: "__scheduling",
+  });
+});
+
+export function collectorRestRest9ToJSON(
+  collectorRestRest9: CollectorRestRest9,
+): string {
+  return JSON.stringify(
+    CollectorRestRest9$outboundSchema.parse(collectorRestRest9),
+  );
+}
+export function collectorRestRest9FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRest9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRest9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRest9' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthentication8$inboundSchema: z.ZodType<
+  CollectorRestAuthentication8,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestAuthentication8);
+/** @internal */
+export const CollectorRestAuthentication8$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestAuthentication8
+> = openEnums.outboundSchema(CollectorRestAuthentication8);
+
+/** @internal */
+export const CollectorRestAuthRequestHeader8$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestHeader8$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestHeader8$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader8$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestHeader8
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestHeader8ToJSON(
+  collectorRestAuthRequestHeader8: CollectorRestAuthRequestHeader8,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestHeader8$outboundSchema.parse(
+      collectorRestAuthRequestHeader8,
+    ),
+  );
+}
+export function collectorRestAuthRequestHeader8FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestHeader8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestHeader8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestHeader8' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestType8$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType8
+> = z.nativeEnum(CollectorRestType8);
+/** @internal */
+export const CollectorRestType8$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType8
+> = CollectorRestType8$inboundSchema;
+
+/** @internal */
+export const CollectorRestDiscoverType8$inboundSchema: z.ZodType<
+  CollectorRestDiscoverType8,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestDiscoverType8);
+/** @internal */
+export const CollectorRestDiscoverType8$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestDiscoverType8
+> = openEnums.outboundSchema(CollectorRestDiscoverType8);
+
+/** @internal */
+export const CollectorRestDiscovery8$inboundSchema: z.ZodType<
+  CollectorRestDiscovery8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: CollectorRestDiscoverType8$inboundSchema.default("none"),
+});
+/** @internal */
+export type CollectorRestDiscovery8$Outbound = {
+  discoverType: string;
+};
+
+/** @internal */
+export const CollectorRestDiscovery8$outboundSchema: z.ZodType<
+  CollectorRestDiscovery8$Outbound,
+  z.ZodTypeDef,
+  CollectorRestDiscovery8
+> = z.object({
+  discoverType: CollectorRestDiscoverType8$outboundSchema.default("none"),
+});
+
+export function collectorRestDiscovery8ToJSON(
+  collectorRestDiscovery8: CollectorRestDiscovery8,
+): string {
+  return JSON.stringify(
+    CollectorRestDiscovery8$outboundSchema.parse(collectorRestDiscovery8),
+  );
+}
+export function collectorRestDiscovery8FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestDiscovery8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestDiscovery8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestDiscovery8' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectMethod8$inboundSchema: z.ZodType<
+  CollectMethod8,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectMethod8);
+/** @internal */
+export const CollectMethod8$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectMethod8
+> = openEnums.outboundSchema(CollectMethod8);
+
+/** @internal */
+export const CollectorRestCollectRequestParam8$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestParam8$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestParam8$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam8$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestParam8
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestParam8ToJSON(
+  collectorRestCollectRequestParam8: CollectorRestCollectRequestParam8,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestParam8$outboundSchema.parse(
+      collectorRestCollectRequestParam8,
+    ),
+  );
+}
+export function collectorRestCollectRequestParam8FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestParam8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestCollectRequestParam8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestParam8' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestCollectRequestHeader8$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestHeader8$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestHeader8$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader8$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestHeader8
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestHeader8ToJSON(
+  collectorRestCollectRequestHeader8: CollectorRestCollectRequestHeader8,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestHeader8$outboundSchema.parse(
+      collectorRestCollectRequestHeader8,
+    ),
+  );
+}
+export function collectorRestCollectRequestHeader8FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestHeader8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestHeader8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestHeader8' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaginationEnum8$inboundSchema: z.ZodType<
+  PaginationEnum8,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PaginationEnum8);
+/** @internal */
+export const PaginationEnum8$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PaginationEnum8
+> = openEnums.outboundSchema(PaginationEnum8);
+
+/** @internal */
+export const Pagination8$inboundSchema: z.ZodType<
+  Pagination8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: PaginationEnum8$inboundSchema.default("none"),
+});
+/** @internal */
+export type Pagination8$Outbound = {
+  type: string;
+};
+
+/** @internal */
+export const Pagination8$outboundSchema: z.ZodType<
+  Pagination8$Outbound,
+  z.ZodTypeDef,
+  Pagination8
+> = z.object({
+  type: PaginationEnum8$outboundSchema.default("none"),
+});
+
+export function pagination8ToJSON(pagination8: Pagination8): string {
+  return JSON.stringify(Pagination8$outboundSchema.parse(pagination8));
+}
+export function pagination8FromJSON(
+  jsonString: string,
+): SafeParseResult<Pagination8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Pagination8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Pagination8' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRetryType8$inboundSchema: z.ZodType<
+  CollectorRestRetryType8,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestRetryType8);
+/** @internal */
+export const CollectorRestRetryType8$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestRetryType8
+> = openEnums.outboundSchema(CollectorRestRetryType8);
+
+/** @internal */
+export const CollectorRestRetryRules8$inboundSchema: z.ZodType<
+  CollectorRestRetryRules8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorRestRetryType8$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorRestRetryRules8$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorRestRetryRules8$outboundSchema: z.ZodType<
+  CollectorRestRetryRules8$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRetryRules8
+> = z.object({
+  type: CollectorRestRetryType8$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorRestRetryRules8ToJSON(
+  collectorRestRetryRules8: CollectorRestRetryRules8,
+): string {
+  return JSON.stringify(
+    CollectorRestRetryRules8$outboundSchema.parse(collectorRestRetryRules8),
+  );
+}
+export function collectorRestRetryRules8FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRetryRules8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRetryRules8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRetryRules8' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestStateTracking8$inboundSchema: z.ZodType<
+  CollectorRestStateTracking8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type CollectorRestStateTracking8$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const CollectorRestStateTracking8$outboundSchema: z.ZodType<
+  CollectorRestStateTracking8$Outbound,
+  z.ZodTypeDef,
+  CollectorRestStateTracking8
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function collectorRestStateTracking8ToJSON(
+  collectorRestStateTracking8: CollectorRestStateTracking8,
+): string {
+  return JSON.stringify(
+    CollectorRestStateTracking8$outboundSchema.parse(
+      collectorRestStateTracking8,
+    ),
+  );
+}
+export function collectorRestStateTracking8FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestStateTracking8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestStateTracking8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestStateTracking8' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestScheduling8$inboundSchema: z.ZodType<
+  CollectorRestScheduling8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking8$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorRestScheduling8$Outbound = {
+  stateTracking?: CollectorRestStateTracking8$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorRestScheduling8$outboundSchema: z.ZodType<
+  CollectorRestScheduling8$Outbound,
+  z.ZodTypeDef,
+  CollectorRestScheduling8
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking8$outboundSchema)
+    .optional(),
+});
+
+export function collectorRestScheduling8ToJSON(
+  collectorRestScheduling8: CollectorRestScheduling8,
+): string {
+  return JSON.stringify(
+    CollectorRestScheduling8$outboundSchema.parse(collectorRestScheduling8),
+  );
+}
+export function collectorRestScheduling8FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestScheduling8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestScheduling8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestScheduling8' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestParam8$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestParam8$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestParam8$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam8$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestParam8
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestParam8ToJSON(
+  collectorRestAuthRequestParam8: CollectorRestAuthRequestParam8,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestParam8$outboundSchema.parse(
+      collectorRestAuthRequestParam8,
+    ),
+  );
+}
+export function collectorRestAuthRequestParam8FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestParam8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestParam8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestParam8' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRest8$inboundSchema: z.ZodType<
+  CollectorRestRest8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorRestAuthentication8$inboundSchema.default("none"),
+  loginUrl: z.string().default(""),
+  username: z.string(),
+  password: z.string(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader8$inboundSchema),
+  ).optional(),
+  type: CollectorRestType8$inboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery8$inboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod8$inboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam8$inboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader8$inboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination8$inboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules8$inboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling8$inboundSchema).optional(),
+  credentialsSecret: z.string().optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam8$inboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "__scheduling": "scheduling",
+  });
+});
+/** @internal */
+export type CollectorRestRest8$Outbound = {
+  authentication: string;
+  loginUrl: string;
+  username: string;
+  password: string;
+  loginBody: string;
+  getAuthTokenFromHeader: boolean;
+  authHeaderKey: string;
+  authHeaderExpr: string;
+  authRequestHeaders?:
+    | Array<CollectorRestAuthRequestHeader8$Outbound>
+    | undefined;
+  type: string;
+  discovery?: CollectorRestDiscovery8$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectVerb?: string | undefined;
+  collectRequestParams?:
+    | Array<CollectorRestCollectRequestParam8$Outbound>
+    | undefined;
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader8$Outbound>
+    | undefined;
+  pagination?: Pagination8$Outbound | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules8$Outbound | undefined;
+  __scheduling?: CollectorRestScheduling8$Outbound | undefined;
+  credentialsSecret?: string | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName: string;
+  clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectorRestAuthRequestParam8$Outbound>
+    | undefined;
+  textSecret?: string | undefined;
+  scopes?: Array<string> | undefined;
+  serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
+  hmacFunctionId?: string | undefined;
+};
+
+/** @internal */
+export const CollectorRestRest8$outboundSchema: z.ZodType<
+  CollectorRestRest8$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRest8
+> = z.object({
+  authentication: CollectorRestAuthentication8$outboundSchema.default("none"),
+  loginUrl: z.string().default(""),
+  username: z.string(),
+  password: z.string(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader8$outboundSchema),
+  ).optional(),
+  type: CollectorRestType8$outboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery8$outboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod8$outboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam8$outboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader8$outboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination8$outboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules8$outboundSchema).optional(),
+  scheduling: z.lazy(() => CollectorRestScheduling8$outboundSchema).optional(),
+  credentialsSecret: z.string().optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam8$outboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduling: "__scheduling",
+  });
+});
+
+export function collectorRestRest8ToJSON(
+  collectorRestRest8: CollectorRestRest8,
+): string {
+  return JSON.stringify(
+    CollectorRestRest8$outboundSchema.parse(collectorRestRest8),
+  );
+}
+export function collectorRestRest8FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRest8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRest8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRest8' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthentication7$inboundSchema: z.ZodType<
+  CollectorRestAuthentication7,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestAuthentication7);
+/** @internal */
+export const CollectorRestAuthentication7$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestAuthentication7
+> = openEnums.outboundSchema(CollectorRestAuthentication7);
+
+/** @internal */
+export const CollectorRestType7$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType7
+> = z.nativeEnum(CollectorRestType7);
+/** @internal */
+export const CollectorRestType7$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType7
+> = CollectorRestType7$inboundSchema;
+
+/** @internal */
+export const CollectorRestDiscoverType7$inboundSchema: z.ZodType<
+  CollectorRestDiscoverType7,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestDiscoverType7);
+/** @internal */
+export const CollectorRestDiscoverType7$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestDiscoverType7
+> = openEnums.outboundSchema(CollectorRestDiscoverType7);
+
+/** @internal */
+export const CollectorRestDiscovery7$inboundSchema: z.ZodType<
+  CollectorRestDiscovery7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: CollectorRestDiscoverType7$inboundSchema.default("none"),
+});
+/** @internal */
+export type CollectorRestDiscovery7$Outbound = {
+  discoverType: string;
+};
+
+/** @internal */
+export const CollectorRestDiscovery7$outboundSchema: z.ZodType<
+  CollectorRestDiscovery7$Outbound,
+  z.ZodTypeDef,
+  CollectorRestDiscovery7
+> = z.object({
+  discoverType: CollectorRestDiscoverType7$outboundSchema.default("none"),
+});
+
+export function collectorRestDiscovery7ToJSON(
+  collectorRestDiscovery7: CollectorRestDiscovery7,
+): string {
+  return JSON.stringify(
+    CollectorRestDiscovery7$outboundSchema.parse(collectorRestDiscovery7),
+  );
+}
+export function collectorRestDiscovery7FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestDiscovery7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestDiscovery7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestDiscovery7' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectMethod7$inboundSchema: z.ZodType<
+  CollectMethod7,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectMethod7);
+/** @internal */
+export const CollectMethod7$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectMethod7
+> = openEnums.outboundSchema(CollectMethod7);
+
+/** @internal */
+export const CollectorRestCollectRequestParam7$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestParam7$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestParam7$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam7$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestParam7
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestParam7ToJSON(
+  collectorRestCollectRequestParam7: CollectorRestCollectRequestParam7,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestParam7$outboundSchema.parse(
+      collectorRestCollectRequestParam7,
+    ),
+  );
+}
+export function collectorRestCollectRequestParam7FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestParam7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestCollectRequestParam7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestParam7' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestCollectRequestHeader7$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestHeader7$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestHeader7$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader7$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestHeader7
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestHeader7ToJSON(
+  collectorRestCollectRequestHeader7: CollectorRestCollectRequestHeader7,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestHeader7$outboundSchema.parse(
+      collectorRestCollectRequestHeader7,
+    ),
+  );
+}
+export function collectorRestCollectRequestHeader7FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestHeader7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestHeader7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestHeader7' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaginationEnum7$inboundSchema: z.ZodType<
+  PaginationEnum7,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PaginationEnum7);
+/** @internal */
+export const PaginationEnum7$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PaginationEnum7
+> = openEnums.outboundSchema(PaginationEnum7);
+
+/** @internal */
+export const Pagination7$inboundSchema: z.ZodType<
+  Pagination7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: PaginationEnum7$inboundSchema.default("none"),
+});
+/** @internal */
+export type Pagination7$Outbound = {
+  type: string;
+};
+
+/** @internal */
+export const Pagination7$outboundSchema: z.ZodType<
+  Pagination7$Outbound,
+  z.ZodTypeDef,
+  Pagination7
+> = z.object({
+  type: PaginationEnum7$outboundSchema.default("none"),
+});
+
+export function pagination7ToJSON(pagination7: Pagination7): string {
+  return JSON.stringify(Pagination7$outboundSchema.parse(pagination7));
+}
+export function pagination7FromJSON(
+  jsonString: string,
+): SafeParseResult<Pagination7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Pagination7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Pagination7' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRetryType7$inboundSchema: z.ZodType<
+  CollectorRestRetryType7,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestRetryType7);
+/** @internal */
+export const CollectorRestRetryType7$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestRetryType7
+> = openEnums.outboundSchema(CollectorRestRetryType7);
+
+/** @internal */
+export const CollectorRestRetryRules7$inboundSchema: z.ZodType<
+  CollectorRestRetryRules7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorRestRetryType7$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorRestRetryRules7$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorRestRetryRules7$outboundSchema: z.ZodType<
+  CollectorRestRetryRules7$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRetryRules7
+> = z.object({
+  type: CollectorRestRetryType7$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorRestRetryRules7ToJSON(
+  collectorRestRetryRules7: CollectorRestRetryRules7,
+): string {
+  return JSON.stringify(
+    CollectorRestRetryRules7$outboundSchema.parse(collectorRestRetryRules7),
+  );
+}
+export function collectorRestRetryRules7FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRetryRules7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRetryRules7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRetryRules7' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestStateTracking7$inboundSchema: z.ZodType<
+  CollectorRestStateTracking7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type CollectorRestStateTracking7$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const CollectorRestStateTracking7$outboundSchema: z.ZodType<
+  CollectorRestStateTracking7$Outbound,
+  z.ZodTypeDef,
+  CollectorRestStateTracking7
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function collectorRestStateTracking7ToJSON(
+  collectorRestStateTracking7: CollectorRestStateTracking7,
+): string {
+  return JSON.stringify(
+    CollectorRestStateTracking7$outboundSchema.parse(
+      collectorRestStateTracking7,
+    ),
+  );
+}
+export function collectorRestStateTracking7FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestStateTracking7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestStateTracking7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestStateTracking7' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestScheduling7$inboundSchema: z.ZodType<
+  CollectorRestScheduling7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking7$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorRestScheduling7$Outbound = {
+  stateTracking?: CollectorRestStateTracking7$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorRestScheduling7$outboundSchema: z.ZodType<
+  CollectorRestScheduling7$Outbound,
+  z.ZodTypeDef,
+  CollectorRestScheduling7
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking7$outboundSchema)
+    .optional(),
+});
+
+export function collectorRestScheduling7ToJSON(
+  collectorRestScheduling7: CollectorRestScheduling7,
+): string {
+  return JSON.stringify(
+    CollectorRestScheduling7$outboundSchema.parse(collectorRestScheduling7),
+  );
+}
+export function collectorRestScheduling7FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestScheduling7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestScheduling7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestScheduling7' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestHeader7$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestHeader7$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestHeader7$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader7$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestHeader7
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestHeader7ToJSON(
+  collectorRestAuthRequestHeader7: CollectorRestAuthRequestHeader7,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestHeader7$outboundSchema.parse(
+      collectorRestAuthRequestHeader7,
+    ),
+  );
+}
+export function collectorRestAuthRequestHeader7FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestHeader7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestHeader7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestHeader7' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestParam7$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestParam7$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestParam7$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam7$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestParam7
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestParam7ToJSON(
+  collectorRestAuthRequestParam7: CollectorRestAuthRequestParam7,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestParam7$outboundSchema.parse(
+      collectorRestAuthRequestParam7,
+    ),
+  );
+}
+export function collectorRestAuthRequestParam7FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestParam7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestParam7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestParam7' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRest7$inboundSchema: z.ZodType<
+  CollectorRestRest7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorRestAuthentication7$inboundSchema.default("none"),
+  credentialsSecret: z.string(),
+  type: CollectorRestType7$inboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery7$inboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod7$inboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam7$inboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader7$inboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination7$inboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules7$inboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling7$inboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader7$inboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam7$inboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "__scheduling": "scheduling",
+  });
+});
+/** @internal */
+export type CollectorRestRest7$Outbound = {
+  authentication: string;
+  credentialsSecret: string;
+  type: string;
+  discovery?: CollectorRestDiscovery7$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectVerb?: string | undefined;
+  collectRequestParams?:
+    | Array<CollectorRestCollectRequestParam7$Outbound>
+    | undefined;
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader7$Outbound>
+    | undefined;
+  pagination?: Pagination7$Outbound | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules7$Outbound | undefined;
+  __scheduling?: CollectorRestScheduling7$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  getAuthTokenFromHeader: boolean;
+  authHeaderKey: string;
+  authHeaderExpr: string;
+  authRequestHeaders?:
+    | Array<CollectorRestAuthRequestHeader7$Outbound>
+    | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName: string;
+  clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectorRestAuthRequestParam7$Outbound>
+    | undefined;
+  textSecret?: string | undefined;
+  scopes?: Array<string> | undefined;
+  serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
+  hmacFunctionId?: string | undefined;
+};
+
+/** @internal */
+export const CollectorRestRest7$outboundSchema: z.ZodType<
+  CollectorRestRest7$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRest7
+> = z.object({
+  authentication: CollectorRestAuthentication7$outboundSchema.default("none"),
+  credentialsSecret: z.string(),
+  type: CollectorRestType7$outboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery7$outboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod7$outboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam7$outboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader7$outboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination7$outboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules7$outboundSchema).optional(),
+  scheduling: z.lazy(() => CollectorRestScheduling7$outboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader7$outboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam7$outboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduling: "__scheduling",
+  });
+});
+
+export function collectorRestRest7ToJSON(
+  collectorRestRest7: CollectorRestRest7,
+): string {
+  return JSON.stringify(
+    CollectorRestRest7$outboundSchema.parse(collectorRestRest7),
+  );
+}
+export function collectorRestRest7FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRest7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRest7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRest7' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthentication6$inboundSchema: z.ZodType<
+  CollectorRestAuthentication6,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestAuthentication6);
+/** @internal */
+export const CollectorRestAuthentication6$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestAuthentication6
+> = openEnums.outboundSchema(CollectorRestAuthentication6);
+
+/** @internal */
+export const CollectorRestType6$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType6
+> = z.nativeEnum(CollectorRestType6);
+/** @internal */
+export const CollectorRestType6$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType6
+> = CollectorRestType6$inboundSchema;
+
+/** @internal */
+export const CollectorRestDiscoverType6$inboundSchema: z.ZodType<
+  CollectorRestDiscoverType6,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestDiscoverType6);
+/** @internal */
+export const CollectorRestDiscoverType6$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestDiscoverType6
+> = openEnums.outboundSchema(CollectorRestDiscoverType6);
+
+/** @internal */
+export const CollectorRestDiscovery6$inboundSchema: z.ZodType<
+  CollectorRestDiscovery6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: CollectorRestDiscoverType6$inboundSchema.default("none"),
+});
+/** @internal */
+export type CollectorRestDiscovery6$Outbound = {
+  discoverType: string;
+};
+
+/** @internal */
+export const CollectorRestDiscovery6$outboundSchema: z.ZodType<
+  CollectorRestDiscovery6$Outbound,
+  z.ZodTypeDef,
+  CollectorRestDiscovery6
+> = z.object({
+  discoverType: CollectorRestDiscoverType6$outboundSchema.default("none"),
+});
+
+export function collectorRestDiscovery6ToJSON(
+  collectorRestDiscovery6: CollectorRestDiscovery6,
+): string {
+  return JSON.stringify(
+    CollectorRestDiscovery6$outboundSchema.parse(collectorRestDiscovery6),
+  );
+}
+export function collectorRestDiscovery6FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestDiscovery6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestDiscovery6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestDiscovery6' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectMethod6$inboundSchema: z.ZodType<
+  CollectMethod6,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectMethod6);
+/** @internal */
+export const CollectMethod6$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectMethod6
+> = openEnums.outboundSchema(CollectMethod6);
+
+/** @internal */
+export const CollectorRestCollectRequestParam6$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestParam6$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestParam6$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam6$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestParam6
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestParam6ToJSON(
+  collectorRestCollectRequestParam6: CollectorRestCollectRequestParam6,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestParam6$outboundSchema.parse(
+      collectorRestCollectRequestParam6,
+    ),
+  );
+}
+export function collectorRestCollectRequestParam6FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestParam6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestCollectRequestParam6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestParam6' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestCollectRequestHeader6$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestHeader6$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestHeader6$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader6$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestHeader6
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestHeader6ToJSON(
+  collectorRestCollectRequestHeader6: CollectorRestCollectRequestHeader6,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestHeader6$outboundSchema.parse(
+      collectorRestCollectRequestHeader6,
+    ),
+  );
+}
+export function collectorRestCollectRequestHeader6FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestHeader6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestHeader6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestHeader6' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaginationEnum6$inboundSchema: z.ZodType<
+  PaginationEnum6,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PaginationEnum6);
+/** @internal */
+export const PaginationEnum6$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PaginationEnum6
+> = openEnums.outboundSchema(PaginationEnum6);
+
+/** @internal */
+export const Pagination6$inboundSchema: z.ZodType<
+  Pagination6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: PaginationEnum6$inboundSchema.default("none"),
+});
+/** @internal */
+export type Pagination6$Outbound = {
+  type: string;
+};
+
+/** @internal */
+export const Pagination6$outboundSchema: z.ZodType<
+  Pagination6$Outbound,
+  z.ZodTypeDef,
+  Pagination6
+> = z.object({
+  type: PaginationEnum6$outboundSchema.default("none"),
+});
+
+export function pagination6ToJSON(pagination6: Pagination6): string {
+  return JSON.stringify(Pagination6$outboundSchema.parse(pagination6));
+}
+export function pagination6FromJSON(
+  jsonString: string,
+): SafeParseResult<Pagination6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Pagination6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Pagination6' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRetryType6$inboundSchema: z.ZodType<
+  CollectorRestRetryType6,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestRetryType6);
+/** @internal */
+export const CollectorRestRetryType6$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestRetryType6
+> = openEnums.outboundSchema(CollectorRestRetryType6);
+
+/** @internal */
+export const CollectorRestRetryRules6$inboundSchema: z.ZodType<
+  CollectorRestRetryRules6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorRestRetryType6$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorRestRetryRules6$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorRestRetryRules6$outboundSchema: z.ZodType<
+  CollectorRestRetryRules6$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRetryRules6
+> = z.object({
+  type: CollectorRestRetryType6$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorRestRetryRules6ToJSON(
+  collectorRestRetryRules6: CollectorRestRetryRules6,
+): string {
+  return JSON.stringify(
+    CollectorRestRetryRules6$outboundSchema.parse(collectorRestRetryRules6),
+  );
+}
+export function collectorRestRetryRules6FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRetryRules6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRetryRules6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRetryRules6' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestStateTracking6$inboundSchema: z.ZodType<
+  CollectorRestStateTracking6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type CollectorRestStateTracking6$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const CollectorRestStateTracking6$outboundSchema: z.ZodType<
+  CollectorRestStateTracking6$Outbound,
+  z.ZodTypeDef,
+  CollectorRestStateTracking6
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function collectorRestStateTracking6ToJSON(
+  collectorRestStateTracking6: CollectorRestStateTracking6,
+): string {
+  return JSON.stringify(
+    CollectorRestStateTracking6$outboundSchema.parse(
+      collectorRestStateTracking6,
+    ),
+  );
+}
+export function collectorRestStateTracking6FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestStateTracking6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestStateTracking6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestStateTracking6' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestScheduling6$inboundSchema: z.ZodType<
+  CollectorRestScheduling6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking6$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorRestScheduling6$Outbound = {
+  stateTracking?: CollectorRestStateTracking6$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorRestScheduling6$outboundSchema: z.ZodType<
+  CollectorRestScheduling6$Outbound,
+  z.ZodTypeDef,
+  CollectorRestScheduling6
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking6$outboundSchema)
+    .optional(),
+});
+
+export function collectorRestScheduling6ToJSON(
+  collectorRestScheduling6: CollectorRestScheduling6,
+): string {
+  return JSON.stringify(
+    CollectorRestScheduling6$outboundSchema.parse(collectorRestScheduling6),
+  );
+}
+export function collectorRestScheduling6FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestScheduling6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestScheduling6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestScheduling6' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestHeader6$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestHeader6$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestHeader6$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader6$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestHeader6
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestHeader6ToJSON(
+  collectorRestAuthRequestHeader6: CollectorRestAuthRequestHeader6,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestHeader6$outboundSchema.parse(
+      collectorRestAuthRequestHeader6,
+    ),
+  );
+}
+export function collectorRestAuthRequestHeader6FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestHeader6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestHeader6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestHeader6' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestParam6$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestParam6$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestParam6$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam6$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestParam6
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestParam6ToJSON(
+  collectorRestAuthRequestParam6: CollectorRestAuthRequestParam6,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestParam6$outboundSchema.parse(
+      collectorRestAuthRequestParam6,
+    ),
+  );
+}
+export function collectorRestAuthRequestParam6FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestParam6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestParam6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestParam6' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRest6$inboundSchema: z.ZodType<
+  CollectorRestRest6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorRestAuthentication6$inboundSchema.default("none"),
+  username: z.string(),
+  password: z.string(),
+  type: CollectorRestType6$inboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery6$inboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod6$inboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam6$inboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader6$inboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination6$inboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules6$inboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling6$inboundSchema).optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader6$inboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam6$inboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "__scheduling": "scheduling",
+  });
+});
+/** @internal */
+export type CollectorRestRest6$Outbound = {
+  authentication: string;
+  username: string;
+  password: string;
+  type: string;
+  discovery?: CollectorRestDiscovery6$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectVerb?: string | undefined;
+  collectRequestParams?:
+    | Array<CollectorRestCollectRequestParam6$Outbound>
+    | undefined;
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader6$Outbound>
+    | undefined;
+  pagination?: Pagination6$Outbound | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules6$Outbound | undefined;
+  __scheduling?: CollectorRestScheduling6$Outbound | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  getAuthTokenFromHeader: boolean;
+  authHeaderKey: string;
+  authHeaderExpr: string;
+  authRequestHeaders?:
+    | Array<CollectorRestAuthRequestHeader6$Outbound>
+    | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName: string;
+  clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectorRestAuthRequestParam6$Outbound>
+    | undefined;
+  textSecret?: string | undefined;
+  scopes?: Array<string> | undefined;
+  serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
+  hmacFunctionId?: string | undefined;
+};
+
+/** @internal */
+export const CollectorRestRest6$outboundSchema: z.ZodType<
+  CollectorRestRest6$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRest6
+> = z.object({
+  authentication: CollectorRestAuthentication6$outboundSchema.default("none"),
+  username: z.string(),
+  password: z.string(),
+  type: CollectorRestType6$outboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery6$outboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod6$outboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam6$outboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader6$outboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination6$outboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules6$outboundSchema).optional(),
+  scheduling: z.lazy(() => CollectorRestScheduling6$outboundSchema).optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader6$outboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam6$outboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduling: "__scheduling",
+  });
+});
+
+export function collectorRestRest6ToJSON(
+  collectorRestRest6: CollectorRestRest6,
+): string {
+  return JSON.stringify(
+    CollectorRestRest6$outboundSchema.parse(collectorRestRest6),
+  );
+}
+export function collectorRestRest6FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRest6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRest6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRest6' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthentication5$inboundSchema: z.ZodType<
+  CollectorRestAuthentication5,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestAuthentication5);
+/** @internal */
+export const CollectorRestAuthentication5$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestAuthentication5
+> = openEnums.outboundSchema(CollectorRestAuthentication5);
+
+/** @internal */
+export const CollectorRestType5$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType5
+> = z.nativeEnum(CollectorRestType5);
+/** @internal */
+export const CollectorRestType5$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType5
+> = CollectorRestType5$inboundSchema;
+
+/** @internal */
+export const CollectorRestDiscoverType5$inboundSchema: z.ZodType<
+  CollectorRestDiscoverType5,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestDiscoverType5);
+/** @internal */
+export const CollectorRestDiscoverType5$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestDiscoverType5
+> = openEnums.outboundSchema(CollectorRestDiscoverType5);
+
+/** @internal */
+export const CollectorRestDiscovery5$inboundSchema: z.ZodType<
+  CollectorRestDiscovery5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: CollectorRestDiscoverType5$inboundSchema.default("none"),
+});
+/** @internal */
+export type CollectorRestDiscovery5$Outbound = {
+  discoverType: string;
+};
+
+/** @internal */
+export const CollectorRestDiscovery5$outboundSchema: z.ZodType<
+  CollectorRestDiscovery5$Outbound,
+  z.ZodTypeDef,
+  CollectorRestDiscovery5
+> = z.object({
+  discoverType: CollectorRestDiscoverType5$outboundSchema.default("none"),
+});
+
+export function collectorRestDiscovery5ToJSON(
+  collectorRestDiscovery5: CollectorRestDiscovery5,
+): string {
+  return JSON.stringify(
+    CollectorRestDiscovery5$outboundSchema.parse(collectorRestDiscovery5),
+  );
+}
+export function collectorRestDiscovery5FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestDiscovery5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestDiscovery5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestDiscovery5' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectMethod5$inboundSchema: z.ZodType<
+  CollectMethod5,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectMethod5);
+/** @internal */
+export const CollectMethod5$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectMethod5
+> = openEnums.outboundSchema(CollectMethod5);
+
+/** @internal */
+export const CollectorRestCollectRequestParam5$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestParam5$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestParam5$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam5$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestParam5
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestParam5ToJSON(
+  collectorRestCollectRequestParam5: CollectorRestCollectRequestParam5,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestParam5$outboundSchema.parse(
+      collectorRestCollectRequestParam5,
+    ),
+  );
+}
+export function collectorRestCollectRequestParam5FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestParam5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestCollectRequestParam5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestParam5' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestCollectRequestHeader5$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestHeader5$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestHeader5$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader5$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestHeader5
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestHeader5ToJSON(
+  collectorRestCollectRequestHeader5: CollectorRestCollectRequestHeader5,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestHeader5$outboundSchema.parse(
+      collectorRestCollectRequestHeader5,
+    ),
+  );
+}
+export function collectorRestCollectRequestHeader5FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestHeader5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestHeader5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestHeader5' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaginationEnum5$inboundSchema: z.ZodType<
+  PaginationEnum5,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PaginationEnum5);
+/** @internal */
+export const PaginationEnum5$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PaginationEnum5
+> = openEnums.outboundSchema(PaginationEnum5);
+
+/** @internal */
+export const Pagination5$inboundSchema: z.ZodType<
+  Pagination5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: PaginationEnum5$inboundSchema.default("none"),
+});
+/** @internal */
+export type Pagination5$Outbound = {
+  type: string;
+};
+
+/** @internal */
+export const Pagination5$outboundSchema: z.ZodType<
+  Pagination5$Outbound,
+  z.ZodTypeDef,
+  Pagination5
+> = z.object({
+  type: PaginationEnum5$outboundSchema.default("none"),
+});
+
+export function pagination5ToJSON(pagination5: Pagination5): string {
+  return JSON.stringify(Pagination5$outboundSchema.parse(pagination5));
+}
+export function pagination5FromJSON(
+  jsonString: string,
+): SafeParseResult<Pagination5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Pagination5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Pagination5' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRetryType5$inboundSchema: z.ZodType<
+  CollectorRestRetryType5,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestRetryType5);
+/** @internal */
+export const CollectorRestRetryType5$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestRetryType5
+> = openEnums.outboundSchema(CollectorRestRetryType5);
+
+/** @internal */
+export const CollectorRestRetryRules5$inboundSchema: z.ZodType<
+  CollectorRestRetryRules5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorRestRetryType5$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorRestRetryRules5$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorRestRetryRules5$outboundSchema: z.ZodType<
+  CollectorRestRetryRules5$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRetryRules5
+> = z.object({
+  type: CollectorRestRetryType5$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorRestRetryRules5ToJSON(
+  collectorRestRetryRules5: CollectorRestRetryRules5,
+): string {
+  return JSON.stringify(
+    CollectorRestRetryRules5$outboundSchema.parse(collectorRestRetryRules5),
+  );
+}
+export function collectorRestRetryRules5FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRetryRules5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRetryRules5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRetryRules5' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestStateTracking5$inboundSchema: z.ZodType<
+  CollectorRestStateTracking5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type CollectorRestStateTracking5$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const CollectorRestStateTracking5$outboundSchema: z.ZodType<
+  CollectorRestStateTracking5$Outbound,
+  z.ZodTypeDef,
+  CollectorRestStateTracking5
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function collectorRestStateTracking5ToJSON(
+  collectorRestStateTracking5: CollectorRestStateTracking5,
+): string {
+  return JSON.stringify(
+    CollectorRestStateTracking5$outboundSchema.parse(
+      collectorRestStateTracking5,
+    ),
+  );
+}
+export function collectorRestStateTracking5FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestStateTracking5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestStateTracking5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestStateTracking5' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestScheduling5$inboundSchema: z.ZodType<
+  CollectorRestScheduling5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking5$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorRestScheduling5$Outbound = {
+  stateTracking?: CollectorRestStateTracking5$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorRestScheduling5$outboundSchema: z.ZodType<
+  CollectorRestScheduling5$Outbound,
+  z.ZodTypeDef,
+  CollectorRestScheduling5
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking5$outboundSchema)
+    .optional(),
+});
+
+export function collectorRestScheduling5ToJSON(
+  collectorRestScheduling5: CollectorRestScheduling5,
+): string {
+  return JSON.stringify(
+    CollectorRestScheduling5$outboundSchema.parse(collectorRestScheduling5),
+  );
+}
+export function collectorRestScheduling5FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestScheduling5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestScheduling5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestScheduling5' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestHeader5$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestHeader5$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestHeader5$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader5$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestHeader5
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestHeader5ToJSON(
+  collectorRestAuthRequestHeader5: CollectorRestAuthRequestHeader5,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestHeader5$outboundSchema.parse(
+      collectorRestAuthRequestHeader5,
+    ),
+  );
+}
+export function collectorRestAuthRequestHeader5FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestHeader5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestHeader5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestHeader5' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestParam5$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestParam5$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestParam5$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam5$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestParam5
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestParam5ToJSON(
+  collectorRestAuthRequestParam5: CollectorRestAuthRequestParam5,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestParam5$outboundSchema.parse(
+      collectorRestAuthRequestParam5,
+    ),
+  );
+}
+export function collectorRestAuthRequestParam5FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestParam5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestParam5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestParam5' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRest5$inboundSchema: z.ZodType<
+  CollectorRestRest5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorRestAuthentication5$inboundSchema.default("none"),
+  type: CollectorRestType5$inboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery5$inboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod5$inboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam5$inboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader5$inboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination5$inboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules5$inboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling5$inboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader5$inboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam5$inboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "__scheduling": "scheduling",
+  });
+});
+/** @internal */
+export type CollectorRestRest5$Outbound = {
+  authentication: string;
+  type: string;
+  discovery?: CollectorRestDiscovery5$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectVerb?: string | undefined;
+  collectRequestParams?:
+    | Array<CollectorRestCollectRequestParam5$Outbound>
+    | undefined;
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader5$Outbound>
+    | undefined;
+  pagination?: Pagination5$Outbound | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules5$Outbound | undefined;
+  __scheduling?: CollectorRestScheduling5$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  getAuthTokenFromHeader: boolean;
+  authHeaderKey: string;
+  authHeaderExpr: string;
+  authRequestHeaders?:
+    | Array<CollectorRestAuthRequestHeader5$Outbound>
+    | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName: string;
+  clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectorRestAuthRequestParam5$Outbound>
+    | undefined;
+  textSecret?: string | undefined;
+  scopes?: Array<string> | undefined;
+  serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
+  hmacFunctionId?: string | undefined;
+};
+
+/** @internal */
+export const CollectorRestRest5$outboundSchema: z.ZodType<
+  CollectorRestRest5$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRest5
+> = z.object({
+  authentication: CollectorRestAuthentication5$outboundSchema.default("none"),
+  type: CollectorRestType5$outboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery5$outboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod5$outboundSchema.default("get"),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam5$outboundSchema),
+  ).optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader5$outboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination5$outboundSchema).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules5$outboundSchema).optional(),
+  scheduling: z.lazy(() => CollectorRestScheduling5$outboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader5$outboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam5$outboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduling: "__scheduling",
+  });
+});
+
+export function collectorRestRest5ToJSON(
+  collectorRestRest5: CollectorRestRest5,
+): string {
+  return JSON.stringify(
+    CollectorRestRest5$outboundSchema.parse(collectorRestRest5),
+  );
+}
+export function collectorRestRest5FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRest5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRest5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRest5' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectMethod4$inboundSchema: z.ZodType<
+  CollectMethod4,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectMethod4);
+/** @internal */
+export const CollectMethod4$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectMethod4
+> = openEnums.outboundSchema(CollectMethod4);
+
+/** @internal */
+export const CollectorRestCollectRequestParam4$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestParam4$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestParam4$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam4$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestParam4
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestParam4ToJSON(
+  collectorRestCollectRequestParam4: CollectorRestCollectRequestParam4,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestParam4$outboundSchema.parse(
+      collectorRestCollectRequestParam4,
+    ),
+  );
+}
+export function collectorRestCollectRequestParam4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestParam4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestCollectRequestParam4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestParam4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestType4$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType4
+> = z.nativeEnum(CollectorRestType4);
+/** @internal */
+export const CollectorRestType4$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType4
+> = CollectorRestType4$inboundSchema;
+
+/** @internal */
+export const CollectorRestDiscoverType4$inboundSchema: z.ZodType<
+  CollectorRestDiscoverType4,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestDiscoverType4);
+/** @internal */
+export const CollectorRestDiscoverType4$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestDiscoverType4
+> = openEnums.outboundSchema(CollectorRestDiscoverType4);
+
+/** @internal */
+export const CollectorRestDiscovery4$inboundSchema: z.ZodType<
+  CollectorRestDiscovery4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: CollectorRestDiscoverType4$inboundSchema.default("none"),
+});
+/** @internal */
+export type CollectorRestDiscovery4$Outbound = {
+  discoverType: string;
+};
+
+/** @internal */
+export const CollectorRestDiscovery4$outboundSchema: z.ZodType<
+  CollectorRestDiscovery4$Outbound,
+  z.ZodTypeDef,
+  CollectorRestDiscovery4
+> = z.object({
+  discoverType: CollectorRestDiscoverType4$outboundSchema.default("none"),
+});
+
+export function collectorRestDiscovery4ToJSON(
+  collectorRestDiscovery4: CollectorRestDiscovery4,
+): string {
+  return JSON.stringify(
+    CollectorRestDiscovery4$outboundSchema.parse(collectorRestDiscovery4),
+  );
+}
+export function collectorRestDiscovery4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestDiscovery4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestDiscovery4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestDiscovery4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestCollectRequestHeader4$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestHeader4$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestHeader4$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader4$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestHeader4
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestHeader4ToJSON(
+  collectorRestCollectRequestHeader4: CollectorRestCollectRequestHeader4,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestHeader4$outboundSchema.parse(
+      collectorRestCollectRequestHeader4,
+    ),
+  );
+}
+export function collectorRestCollectRequestHeader4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestHeader4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestHeader4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestHeader4' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaginationEnum4$inboundSchema: z.ZodType<
+  PaginationEnum4,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PaginationEnum4);
+/** @internal */
+export const PaginationEnum4$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PaginationEnum4
+> = openEnums.outboundSchema(PaginationEnum4);
+
+/** @internal */
+export const Pagination4$inboundSchema: z.ZodType<
+  Pagination4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: PaginationEnum4$inboundSchema.default("none"),
+});
+/** @internal */
+export type Pagination4$Outbound = {
+  type: string;
+};
+
+/** @internal */
+export const Pagination4$outboundSchema: z.ZodType<
+  Pagination4$Outbound,
+  z.ZodTypeDef,
+  Pagination4
+> = z.object({
+  type: PaginationEnum4$outboundSchema.default("none"),
+});
+
+export function pagination4ToJSON(pagination4: Pagination4): string {
+  return JSON.stringify(Pagination4$outboundSchema.parse(pagination4));
+}
+export function pagination4FromJSON(
+  jsonString: string,
+): SafeParseResult<Pagination4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Pagination4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Pagination4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthentication4$inboundSchema: z.ZodType<
+  CollectorRestAuthentication4,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestAuthentication4);
+/** @internal */
+export const CollectorRestAuthentication4$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestAuthentication4
+> = openEnums.outboundSchema(CollectorRestAuthentication4);
+
+/** @internal */
+export const CollectorRestRetryType4$inboundSchema: z.ZodType<
+  CollectorRestRetryType4,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestRetryType4);
+/** @internal */
+export const CollectorRestRetryType4$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestRetryType4
+> = openEnums.outboundSchema(CollectorRestRetryType4);
+
+/** @internal */
+export const CollectorRestRetryRules4$inboundSchema: z.ZodType<
+  CollectorRestRetryRules4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorRestRetryType4$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorRestRetryRules4$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorRestRetryRules4$outboundSchema: z.ZodType<
+  CollectorRestRetryRules4$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRetryRules4
+> = z.object({
+  type: CollectorRestRetryType4$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorRestRetryRules4ToJSON(
+  collectorRestRetryRules4: CollectorRestRetryRules4,
+): string {
+  return JSON.stringify(
+    CollectorRestRetryRules4$outboundSchema.parse(collectorRestRetryRules4),
+  );
+}
+export function collectorRestRetryRules4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRetryRules4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRetryRules4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRetryRules4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestStateTracking4$inboundSchema: z.ZodType<
+  CollectorRestStateTracking4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type CollectorRestStateTracking4$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const CollectorRestStateTracking4$outboundSchema: z.ZodType<
+  CollectorRestStateTracking4$Outbound,
+  z.ZodTypeDef,
+  CollectorRestStateTracking4
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function collectorRestStateTracking4ToJSON(
+  collectorRestStateTracking4: CollectorRestStateTracking4,
+): string {
+  return JSON.stringify(
+    CollectorRestStateTracking4$outboundSchema.parse(
+      collectorRestStateTracking4,
+    ),
+  );
+}
+export function collectorRestStateTracking4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestStateTracking4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestStateTracking4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestStateTracking4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestScheduling4$inboundSchema: z.ZodType<
+  CollectorRestScheduling4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking4$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorRestScheduling4$Outbound = {
+  stateTracking?: CollectorRestStateTracking4$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorRestScheduling4$outboundSchema: z.ZodType<
+  CollectorRestScheduling4$Outbound,
+  z.ZodTypeDef,
+  CollectorRestScheduling4
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking4$outboundSchema)
+    .optional(),
+});
+
+export function collectorRestScheduling4ToJSON(
+  collectorRestScheduling4: CollectorRestScheduling4,
+): string {
+  return JSON.stringify(
+    CollectorRestScheduling4$outboundSchema.parse(collectorRestScheduling4),
+  );
+}
+export function collectorRestScheduling4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestScheduling4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestScheduling4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestScheduling4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestHeader4$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestHeader4$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestHeader4$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader4$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestHeader4
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestHeader4ToJSON(
+  collectorRestAuthRequestHeader4: CollectorRestAuthRequestHeader4,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestHeader4$outboundSchema.parse(
+      collectorRestAuthRequestHeader4,
+    ),
+  );
+}
+export function collectorRestAuthRequestHeader4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestHeader4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestHeader4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestHeader4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestParam4$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestParam4$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestParam4$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam4$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestParam4
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestParam4ToJSON(
+  collectorRestAuthRequestParam4: CollectorRestAuthRequestParam4,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestParam4$outboundSchema.parse(
+      collectorRestAuthRequestParam4,
+    ),
+  );
+}
+export function collectorRestAuthRequestParam4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestParam4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestParam4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestParam4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRest4$inboundSchema: z.ZodType<
+  CollectorRestRest4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  collectMethod: CollectMethod4$inboundSchema.default("get"),
+  collectVerb: z.string(),
+  collectBody: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam4$inboundSchema),
+  ).optional(),
+  type: CollectorRestType4$inboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery4$inboundSchema).optional(),
+  collectUrl: z.string(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader4$inboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination4$inboundSchema).optional(),
+  authentication: CollectorRestAuthentication4$inboundSchema.default("none"),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules4$inboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling4$inboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader4$inboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam4$inboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "__scheduling": "scheduling",
+  });
+});
+/** @internal */
+export type CollectorRestRest4$Outbound = {
+  collectMethod: string;
+  collectVerb: string;
+  collectBody?: string | undefined;
+  collectRequestParams?:
+    | Array<CollectorRestCollectRequestParam4$Outbound>
+    | undefined;
+  type: string;
+  discovery?: CollectorRestDiscovery4$Outbound | undefined;
+  collectUrl: string;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader4$Outbound>
+    | undefined;
+  pagination?: Pagination4$Outbound | undefined;
+  authentication: string;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules4$Outbound | undefined;
+  __scheduling?: CollectorRestScheduling4$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  getAuthTokenFromHeader: boolean;
+  authHeaderKey: string;
+  authHeaderExpr: string;
+  authRequestHeaders?:
+    | Array<CollectorRestAuthRequestHeader4$Outbound>
+    | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName: string;
+  clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectorRestAuthRequestParam4$Outbound>
+    | undefined;
+  textSecret?: string | undefined;
+  scopes?: Array<string> | undefined;
+  serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
+  hmacFunctionId?: string | undefined;
+};
+
+/** @internal */
+export const CollectorRestRest4$outboundSchema: z.ZodType<
+  CollectorRestRest4$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRest4
+> = z.object({
+  collectMethod: CollectMethod4$outboundSchema.default("get"),
+  collectVerb: z.string(),
+  collectBody: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam4$outboundSchema),
+  ).optional(),
+  type: CollectorRestType4$outboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery4$outboundSchema).optional(),
+  collectUrl: z.string(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader4$outboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination4$outboundSchema).optional(),
+  authentication: CollectorRestAuthentication4$outboundSchema.default("none"),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules4$outboundSchema).optional(),
+  scheduling: z.lazy(() => CollectorRestScheduling4$outboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader4$outboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam4$outboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduling: "__scheduling",
+  });
+});
+
+export function collectorRestRest4ToJSON(
+  collectorRestRest4: CollectorRestRest4,
+): string {
+  return JSON.stringify(
+    CollectorRestRest4$outboundSchema.parse(collectorRestRest4),
+  );
+}
+export function collectorRestRest4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRest4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRest4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRest4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectMethod3$inboundSchema: z.ZodType<
+  CollectMethod3,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectMethod3);
+/** @internal */
+export const CollectMethod3$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectMethod3
+> = openEnums.outboundSchema(CollectMethod3);
+
+/** @internal */
+export const CollectorRestType3$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType3
+> = z.nativeEnum(CollectorRestType3);
+/** @internal */
+export const CollectorRestType3$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType3
+> = CollectorRestType3$inboundSchema;
+
+/** @internal */
+export const CollectorRestDiscoverType3$inboundSchema: z.ZodType<
+  CollectorRestDiscoverType3,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestDiscoverType3);
+/** @internal */
+export const CollectorRestDiscoverType3$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestDiscoverType3
+> = openEnums.outboundSchema(CollectorRestDiscoverType3);
+
+/** @internal */
+export const CollectorRestDiscovery3$inboundSchema: z.ZodType<
+  CollectorRestDiscovery3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: CollectorRestDiscoverType3$inboundSchema.default("none"),
+});
+/** @internal */
+export type CollectorRestDiscovery3$Outbound = {
+  discoverType: string;
+};
+
+/** @internal */
+export const CollectorRestDiscovery3$outboundSchema: z.ZodType<
+  CollectorRestDiscovery3$Outbound,
+  z.ZodTypeDef,
+  CollectorRestDiscovery3
+> = z.object({
+  discoverType: CollectorRestDiscoverType3$outboundSchema.default("none"),
+});
+
+export function collectorRestDiscovery3ToJSON(
+  collectorRestDiscovery3: CollectorRestDiscovery3,
+): string {
+  return JSON.stringify(
+    CollectorRestDiscovery3$outboundSchema.parse(collectorRestDiscovery3),
+  );
+}
+export function collectorRestDiscovery3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestDiscovery3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestDiscovery3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestDiscovery3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestCollectRequestParam3$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestParam3$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestParam3$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam3$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestParam3
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestParam3ToJSON(
+  collectorRestCollectRequestParam3: CollectorRestCollectRequestParam3,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestParam3$outboundSchema.parse(
+      collectorRestCollectRequestParam3,
+    ),
+  );
+}
+export function collectorRestCollectRequestParam3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestParam3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestCollectRequestParam3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestParam3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestCollectRequestHeader3$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestHeader3$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestHeader3$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader3$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestHeader3
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestHeader3ToJSON(
+  collectorRestCollectRequestHeader3: CollectorRestCollectRequestHeader3,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestHeader3$outboundSchema.parse(
+      collectorRestCollectRequestHeader3,
+    ),
+  );
+}
+export function collectorRestCollectRequestHeader3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestHeader3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestHeader3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestHeader3' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaginationEnum3$inboundSchema: z.ZodType<
+  PaginationEnum3,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PaginationEnum3);
+/** @internal */
+export const PaginationEnum3$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PaginationEnum3
+> = openEnums.outboundSchema(PaginationEnum3);
+
+/** @internal */
+export const Pagination3$inboundSchema: z.ZodType<
+  Pagination3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: PaginationEnum3$inboundSchema.default("none"),
+});
+/** @internal */
+export type Pagination3$Outbound = {
+  type: string;
+};
+
+/** @internal */
+export const Pagination3$outboundSchema: z.ZodType<
+  Pagination3$Outbound,
+  z.ZodTypeDef,
+  Pagination3
+> = z.object({
+  type: PaginationEnum3$outboundSchema.default("none"),
+});
+
+export function pagination3ToJSON(pagination3: Pagination3): string {
+  return JSON.stringify(Pagination3$outboundSchema.parse(pagination3));
+}
+export function pagination3FromJSON(
+  jsonString: string,
+): SafeParseResult<Pagination3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Pagination3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Pagination3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthentication3$inboundSchema: z.ZodType<
+  CollectorRestAuthentication3,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestAuthentication3);
+/** @internal */
+export const CollectorRestAuthentication3$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestAuthentication3
+> = openEnums.outboundSchema(CollectorRestAuthentication3);
+
+/** @internal */
+export const CollectorRestRetryType3$inboundSchema: z.ZodType<
+  CollectorRestRetryType3,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestRetryType3);
+/** @internal */
+export const CollectorRestRetryType3$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestRetryType3
+> = openEnums.outboundSchema(CollectorRestRetryType3);
+
+/** @internal */
+export const CollectorRestRetryRules3$inboundSchema: z.ZodType<
+  CollectorRestRetryRules3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorRestRetryType3$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorRestRetryRules3$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorRestRetryRules3$outboundSchema: z.ZodType<
+  CollectorRestRetryRules3$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRetryRules3
+> = z.object({
+  type: CollectorRestRetryType3$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorRestRetryRules3ToJSON(
+  collectorRestRetryRules3: CollectorRestRetryRules3,
+): string {
+  return JSON.stringify(
+    CollectorRestRetryRules3$outboundSchema.parse(collectorRestRetryRules3),
+  );
+}
+export function collectorRestRetryRules3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRetryRules3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRetryRules3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRetryRules3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestStateTracking3$inboundSchema: z.ZodType<
+  CollectorRestStateTracking3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type CollectorRestStateTracking3$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const CollectorRestStateTracking3$outboundSchema: z.ZodType<
+  CollectorRestStateTracking3$Outbound,
+  z.ZodTypeDef,
+  CollectorRestStateTracking3
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function collectorRestStateTracking3ToJSON(
+  collectorRestStateTracking3: CollectorRestStateTracking3,
+): string {
+  return JSON.stringify(
+    CollectorRestStateTracking3$outboundSchema.parse(
+      collectorRestStateTracking3,
+    ),
+  );
+}
+export function collectorRestStateTracking3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestStateTracking3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestStateTracking3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestStateTracking3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestScheduling3$inboundSchema: z.ZodType<
+  CollectorRestScheduling3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking3$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorRestScheduling3$Outbound = {
+  stateTracking?: CollectorRestStateTracking3$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorRestScheduling3$outboundSchema: z.ZodType<
+  CollectorRestScheduling3$Outbound,
+  z.ZodTypeDef,
+  CollectorRestScheduling3
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking3$outboundSchema)
+    .optional(),
+});
+
+export function collectorRestScheduling3ToJSON(
+  collectorRestScheduling3: CollectorRestScheduling3,
+): string {
+  return JSON.stringify(
+    CollectorRestScheduling3$outboundSchema.parse(collectorRestScheduling3),
+  );
+}
+export function collectorRestScheduling3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestScheduling3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestScheduling3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestScheduling3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestHeader3$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestHeader3$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestHeader3$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader3$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestHeader3
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestHeader3ToJSON(
+  collectorRestAuthRequestHeader3: CollectorRestAuthRequestHeader3,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestHeader3$outboundSchema.parse(
+      collectorRestAuthRequestHeader3,
+    ),
+  );
+}
+export function collectorRestAuthRequestHeader3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestHeader3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestHeader3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestHeader3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestParam3$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestParam3$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestParam3$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam3$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestParam3
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestParam3ToJSON(
+  collectorRestAuthRequestParam3: CollectorRestAuthRequestParam3,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestParam3$outboundSchema.parse(
+      collectorRestAuthRequestParam3,
+    ),
+  );
+}
+export function collectorRestAuthRequestParam3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestParam3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestParam3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestParam3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRest3$inboundSchema: z.ZodType<
+  CollectorRestRest3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  collectMethod: CollectMethod3$inboundSchema.default("get"),
+  collectBody: z.string(),
+  type: CollectorRestType3$inboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery3$inboundSchema).optional(),
+  collectUrl: z.string(),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam3$inboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader3$inboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination3$inboundSchema).optional(),
+  authentication: CollectorRestAuthentication3$inboundSchema.default("none"),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules3$inboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling3$inboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader3$inboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam3$inboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "__scheduling": "scheduling",
+  });
+});
+/** @internal */
+export type CollectorRestRest3$Outbound = {
+  collectMethod: string;
+  collectBody: string;
+  type: string;
+  discovery?: CollectorRestDiscovery3$Outbound | undefined;
+  collectUrl: string;
+  collectVerb?: string | undefined;
+  collectRequestParams?:
+    | Array<CollectorRestCollectRequestParam3$Outbound>
+    | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader3$Outbound>
+    | undefined;
+  pagination?: Pagination3$Outbound | undefined;
+  authentication: string;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules3$Outbound | undefined;
+  __scheduling?: CollectorRestScheduling3$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  getAuthTokenFromHeader: boolean;
+  authHeaderKey: string;
+  authHeaderExpr: string;
+  authRequestHeaders?:
+    | Array<CollectorRestAuthRequestHeader3$Outbound>
+    | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName: string;
+  clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectorRestAuthRequestParam3$Outbound>
+    | undefined;
+  textSecret?: string | undefined;
+  scopes?: Array<string> | undefined;
+  serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
+  hmacFunctionId?: string | undefined;
+};
+
+/** @internal */
+export const CollectorRestRest3$outboundSchema: z.ZodType<
+  CollectorRestRest3$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRest3
+> = z.object({
+  collectMethod: CollectMethod3$outboundSchema.default("get"),
+  collectBody: z.string(),
+  type: CollectorRestType3$outboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery3$outboundSchema).optional(),
+  collectUrl: z.string(),
+  collectVerb: z.string().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam3$outboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader3$outboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination3$outboundSchema).optional(),
+  authentication: CollectorRestAuthentication3$outboundSchema.default("none"),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules3$outboundSchema).optional(),
+  scheduling: z.lazy(() => CollectorRestScheduling3$outboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader3$outboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam3$outboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduling: "__scheduling",
+  });
+});
+
+export function collectorRestRest3ToJSON(
+  collectorRestRest3: CollectorRestRest3,
+): string {
+  return JSON.stringify(
+    CollectorRestRest3$outboundSchema.parse(collectorRestRest3),
+  );
+}
+export function collectorRestRest3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRest3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRest3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRest3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectMethod2$inboundSchema: z.ZodType<
+  CollectMethod2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectMethod2);
+/** @internal */
+export const CollectMethod2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectMethod2
+> = openEnums.outboundSchema(CollectMethod2);
+
+/** @internal */
+export const CollectorRestCollectRequestParam2$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestParam2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestParam2$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam2$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestParam2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestParam2ToJSON(
+  collectorRestCollectRequestParam2: CollectorRestCollectRequestParam2,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestParam2$outboundSchema.parse(
+      collectorRestCollectRequestParam2,
+    ),
+  );
+}
+export function collectorRestCollectRequestParam2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestParam2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestCollectRequestParam2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestParam2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestType2$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType2
+> = z.nativeEnum(CollectorRestType2);
+/** @internal */
+export const CollectorRestType2$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType2
+> = CollectorRestType2$inboundSchema;
+
+/** @internal */
+export const CollectorRestDiscoverType2$inboundSchema: z.ZodType<
+  CollectorRestDiscoverType2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestDiscoverType2);
+/** @internal */
+export const CollectorRestDiscoverType2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestDiscoverType2
+> = openEnums.outboundSchema(CollectorRestDiscoverType2);
+
+/** @internal */
+export const CollectorRestDiscovery2$inboundSchema: z.ZodType<
+  CollectorRestDiscovery2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: CollectorRestDiscoverType2$inboundSchema.default("none"),
+});
+/** @internal */
+export type CollectorRestDiscovery2$Outbound = {
+  discoverType: string;
+};
+
+/** @internal */
+export const CollectorRestDiscovery2$outboundSchema: z.ZodType<
+  CollectorRestDiscovery2$Outbound,
+  z.ZodTypeDef,
+  CollectorRestDiscovery2
+> = z.object({
+  discoverType: CollectorRestDiscoverType2$outboundSchema.default("none"),
+});
+
+export function collectorRestDiscovery2ToJSON(
+  collectorRestDiscovery2: CollectorRestDiscovery2,
+): string {
+  return JSON.stringify(
+    CollectorRestDiscovery2$outboundSchema.parse(collectorRestDiscovery2),
+  );
+}
+export function collectorRestDiscovery2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestDiscovery2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestDiscovery2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestDiscovery2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestCollectRequestHeader2$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestHeader2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestHeader2$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader2$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestHeader2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestHeader2ToJSON(
+  collectorRestCollectRequestHeader2: CollectorRestCollectRequestHeader2,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestHeader2$outboundSchema.parse(
+      collectorRestCollectRequestHeader2,
+    ),
+  );
+}
+export function collectorRestCollectRequestHeader2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestHeader2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestHeader2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestHeader2' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaginationEnum2$inboundSchema: z.ZodType<
+  PaginationEnum2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PaginationEnum2);
+/** @internal */
+export const PaginationEnum2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PaginationEnum2
+> = openEnums.outboundSchema(PaginationEnum2);
+
+/** @internal */
+export const Pagination2$inboundSchema: z.ZodType<
+  Pagination2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: PaginationEnum2$inboundSchema.default("none"),
+});
+/** @internal */
+export type Pagination2$Outbound = {
+  type: string;
+};
+
+/** @internal */
+export const Pagination2$outboundSchema: z.ZodType<
+  Pagination2$Outbound,
+  z.ZodTypeDef,
+  Pagination2
+> = z.object({
+  type: PaginationEnum2$outboundSchema.default("none"),
+});
+
+export function pagination2ToJSON(pagination2: Pagination2): string {
+  return JSON.stringify(Pagination2$outboundSchema.parse(pagination2));
+}
+export function pagination2FromJSON(
+  jsonString: string,
+): SafeParseResult<Pagination2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Pagination2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Pagination2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthentication2$inboundSchema: z.ZodType<
+  CollectorRestAuthentication2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestAuthentication2);
+/** @internal */
+export const CollectorRestAuthentication2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestAuthentication2
+> = openEnums.outboundSchema(CollectorRestAuthentication2);
+
+/** @internal */
+export const CollectorRestRetryType2$inboundSchema: z.ZodType<
+  CollectorRestRetryType2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestRetryType2);
+/** @internal */
+export const CollectorRestRetryType2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestRetryType2
+> = openEnums.outboundSchema(CollectorRestRetryType2);
+
+/** @internal */
+export const CollectorRestRetryRules2$inboundSchema: z.ZodType<
+  CollectorRestRetryRules2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorRestRetryType2$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorRestRetryRules2$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorRestRetryRules2$outboundSchema: z.ZodType<
+  CollectorRestRetryRules2$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRetryRules2
+> = z.object({
+  type: CollectorRestRetryType2$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorRestRetryRules2ToJSON(
+  collectorRestRetryRules2: CollectorRestRetryRules2,
+): string {
+  return JSON.stringify(
+    CollectorRestRetryRules2$outboundSchema.parse(collectorRestRetryRules2),
+  );
+}
+export function collectorRestRetryRules2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRetryRules2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRetryRules2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRetryRules2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestStateTracking2$inboundSchema: z.ZodType<
+  CollectorRestStateTracking2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type CollectorRestStateTracking2$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const CollectorRestStateTracking2$outboundSchema: z.ZodType<
+  CollectorRestStateTracking2$Outbound,
+  z.ZodTypeDef,
+  CollectorRestStateTracking2
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function collectorRestStateTracking2ToJSON(
+  collectorRestStateTracking2: CollectorRestStateTracking2,
+): string {
+  return JSON.stringify(
+    CollectorRestStateTracking2$outboundSchema.parse(
+      collectorRestStateTracking2,
+    ),
+  );
+}
+export function collectorRestStateTracking2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestStateTracking2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestStateTracking2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestStateTracking2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestScheduling2$inboundSchema: z.ZodType<
+  CollectorRestScheduling2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking2$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorRestScheduling2$Outbound = {
+  stateTracking?: CollectorRestStateTracking2$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorRestScheduling2$outboundSchema: z.ZodType<
+  CollectorRestScheduling2$Outbound,
+  z.ZodTypeDef,
+  CollectorRestScheduling2
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking2$outboundSchema)
+    .optional(),
+});
+
+export function collectorRestScheduling2ToJSON(
+  collectorRestScheduling2: CollectorRestScheduling2,
+): string {
+  return JSON.stringify(
+    CollectorRestScheduling2$outboundSchema.parse(collectorRestScheduling2),
+  );
+}
+export function collectorRestScheduling2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestScheduling2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestScheduling2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestScheduling2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestHeader2$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestHeader2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestHeader2$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader2$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestHeader2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestHeader2ToJSON(
+  collectorRestAuthRequestHeader2: CollectorRestAuthRequestHeader2,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestHeader2$outboundSchema.parse(
+      collectorRestAuthRequestHeader2,
+    ),
+  );
+}
+export function collectorRestAuthRequestHeader2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestHeader2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestHeader2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestHeader2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestParam2$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestParam2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestParam2$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam2$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestParam2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestParam2ToJSON(
+  collectorRestAuthRequestParam2: CollectorRestAuthRequestParam2,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestParam2$outboundSchema.parse(
+      collectorRestAuthRequestParam2,
+    ),
+  );
+}
+export function collectorRestAuthRequestParam2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestParam2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestParam2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestParam2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRest2$inboundSchema: z.ZodType<
+  CollectorRestRest2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  collectMethod: CollectMethod2$inboundSchema.default("get"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam2$inboundSchema),
+  ).optional(),
+  type: CollectorRestType2$inboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery2$inboundSchema).optional(),
+  collectUrl: z.string(),
+  collectVerb: z.string().optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader2$inboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination2$inboundSchema).optional(),
+  authentication: CollectorRestAuthentication2$inboundSchema.default("none"),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules2$inboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling2$inboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader2$inboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam2$inboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "__scheduling": "scheduling",
+  });
+});
+/** @internal */
+export type CollectorRestRest2$Outbound = {
+  collectMethod: string;
+  collectRequestParams?:
+    | Array<CollectorRestCollectRequestParam2$Outbound>
+    | undefined;
+  type: string;
+  discovery?: CollectorRestDiscovery2$Outbound | undefined;
+  collectUrl: string;
+  collectVerb?: string | undefined;
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader2$Outbound>
+    | undefined;
+  pagination?: Pagination2$Outbound | undefined;
+  authentication: string;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules2$Outbound | undefined;
+  __scheduling?: CollectorRestScheduling2$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  getAuthTokenFromHeader: boolean;
+  authHeaderKey: string;
+  authHeaderExpr: string;
+  authRequestHeaders?:
+    | Array<CollectorRestAuthRequestHeader2$Outbound>
+    | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName: string;
+  clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectorRestAuthRequestParam2$Outbound>
+    | undefined;
+  textSecret?: string | undefined;
+  scopes?: Array<string> | undefined;
+  serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
+  hmacFunctionId?: string | undefined;
+};
+
+/** @internal */
+export const CollectorRestRest2$outboundSchema: z.ZodType<
+  CollectorRestRest2$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRest2
+> = z.object({
+  collectMethod: CollectMethod2$outboundSchema.default("get"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam2$outboundSchema),
+  ).optional(),
+  type: CollectorRestType2$outboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery2$outboundSchema).optional(),
+  collectUrl: z.string(),
+  collectVerb: z.string().optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader2$outboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination2$outboundSchema).optional(),
+  authentication: CollectorRestAuthentication2$outboundSchema.default("none"),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules2$outboundSchema).optional(),
+  scheduling: z.lazy(() => CollectorRestScheduling2$outboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader2$outboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam2$outboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduling: "__scheduling",
+  });
+});
+
+export function collectorRestRest2ToJSON(
+  collectorRestRest2: CollectorRestRest2,
+): string {
+  return JSON.stringify(
+    CollectorRestRest2$outboundSchema.parse(collectorRestRest2),
+  );
+}
+export function collectorRestRest2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRest2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRest2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRest2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectMethod1$inboundSchema: z.ZodType<
+  CollectMethod1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectMethod1);
+/** @internal */
+export const CollectMethod1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectMethod1
+> = openEnums.outboundSchema(CollectMethod1);
+
+/** @internal */
+export const CollectorRestCollectRequestParam1$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestParam1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestParam1$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestParam1$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestParam1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestParam1ToJSON(
+  collectorRestCollectRequestParam1: CollectorRestCollectRequestParam1,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestParam1$outboundSchema.parse(
+      collectorRestCollectRequestParam1,
+    ),
+  );
+}
+export function collectorRestCollectRequestParam1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestParam1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestCollectRequestParam1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestParam1' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestType1$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType1
+> = z.nativeEnum(CollectorRestType1);
+/** @internal */
+export const CollectorRestType1$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorRestType1
+> = CollectorRestType1$inboundSchema;
+
+/** @internal */
+export const CollectorRestDiscoverType1$inboundSchema: z.ZodType<
+  CollectorRestDiscoverType1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestDiscoverType1);
+/** @internal */
+export const CollectorRestDiscoverType1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestDiscoverType1
+> = openEnums.outboundSchema(CollectorRestDiscoverType1);
+
+/** @internal */
+export const CollectorRestDiscovery1$inboundSchema: z.ZodType<
+  CollectorRestDiscovery1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: CollectorRestDiscoverType1$inboundSchema.default("none"),
+});
+/** @internal */
+export type CollectorRestDiscovery1$Outbound = {
+  discoverType: string;
+};
+
+/** @internal */
+export const CollectorRestDiscovery1$outboundSchema: z.ZodType<
+  CollectorRestDiscovery1$Outbound,
+  z.ZodTypeDef,
+  CollectorRestDiscovery1
+> = z.object({
+  discoverType: CollectorRestDiscoverType1$outboundSchema.default("none"),
+});
+
+export function collectorRestDiscovery1ToJSON(
+  collectorRestDiscovery1: CollectorRestDiscovery1,
+): string {
+  return JSON.stringify(
+    CollectorRestDiscovery1$outboundSchema.parse(collectorRestDiscovery1),
+  );
+}
+export function collectorRestDiscovery1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestDiscovery1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestDiscovery1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestDiscovery1' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestCollectRequestHeader1$inboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestCollectRequestHeader1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestCollectRequestHeader1$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader1$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestHeader1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestHeader1ToJSON(
+  collectorRestCollectRequestHeader1: CollectorRestCollectRequestHeader1,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestHeader1$outboundSchema.parse(
+      collectorRestCollectRequestHeader1,
+    ),
+  );
+}
+export function collectorRestCollectRequestHeader1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestCollectRequestHeader1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorRestCollectRequestHeader1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestCollectRequestHeader1' from JSON`,
+  );
+}
+
+/** @internal */
+export const PaginationEnum1$inboundSchema: z.ZodType<
+  PaginationEnum1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PaginationEnum1);
+/** @internal */
+export const PaginationEnum1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PaginationEnum1
+> = openEnums.outboundSchema(PaginationEnum1);
+
+/** @internal */
+export const Pagination1$inboundSchema: z.ZodType<
+  Pagination1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: PaginationEnum1$inboundSchema.default("none"),
+});
+/** @internal */
+export type Pagination1$Outbound = {
+  type: string;
+};
+
+/** @internal */
+export const Pagination1$outboundSchema: z.ZodType<
+  Pagination1$Outbound,
+  z.ZodTypeDef,
+  Pagination1
+> = z.object({
+  type: PaginationEnum1$outboundSchema.default("none"),
+});
+
+export function pagination1ToJSON(pagination1: Pagination1): string {
+  return JSON.stringify(Pagination1$outboundSchema.parse(pagination1));
+}
+export function pagination1FromJSON(
+  jsonString: string,
+): SafeParseResult<Pagination1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Pagination1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Pagination1' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthentication1$inboundSchema: z.ZodType<
+  CollectorRestAuthentication1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestAuthentication1);
+/** @internal */
+export const CollectorRestAuthentication1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestAuthentication1
+> = openEnums.outboundSchema(CollectorRestAuthentication1);
+
+/** @internal */
+export const CollectorRestRetryType1$inboundSchema: z.ZodType<
+  CollectorRestRetryType1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorRestRetryType1);
+/** @internal */
+export const CollectorRestRetryType1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestRetryType1
+> = openEnums.outboundSchema(CollectorRestRetryType1);
+
+/** @internal */
+export const CollectorRestRetryRules1$inboundSchema: z.ZodType<
+  CollectorRestRetryRules1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorRestRetryType1$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorRestRetryRules1$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorRestRetryRules1$outboundSchema: z.ZodType<
+  CollectorRestRetryRules1$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRetryRules1
+> = z.object({
+  type: CollectorRestRetryType1$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorRestRetryRules1ToJSON(
+  collectorRestRetryRules1: CollectorRestRetryRules1,
+): string {
+  return JSON.stringify(
+    CollectorRestRetryRules1$outboundSchema.parse(collectorRestRetryRules1),
+  );
+}
+export function collectorRestRetryRules1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRetryRules1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRetryRules1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRetryRules1' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestStateTracking1$inboundSchema: z.ZodType<
+  CollectorRestStateTracking1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type CollectorRestStateTracking1$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const CollectorRestStateTracking1$outboundSchema: z.ZodType<
+  CollectorRestStateTracking1$Outbound,
+  z.ZodTypeDef,
+  CollectorRestStateTracking1
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function collectorRestStateTracking1ToJSON(
+  collectorRestStateTracking1: CollectorRestStateTracking1,
+): string {
+  return JSON.stringify(
+    CollectorRestStateTracking1$outboundSchema.parse(
+      collectorRestStateTracking1,
+    ),
+  );
+}
+export function collectorRestStateTracking1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestStateTracking1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestStateTracking1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestStateTracking1' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestScheduling1$inboundSchema: z.ZodType<
+  CollectorRestScheduling1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking1$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorRestScheduling1$Outbound = {
+  stateTracking?: CollectorRestStateTracking1$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorRestScheduling1$outboundSchema: z.ZodType<
+  CollectorRestScheduling1$Outbound,
+  z.ZodTypeDef,
+  CollectorRestScheduling1
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking1$outboundSchema)
+    .optional(),
+});
+
+export function collectorRestScheduling1ToJSON(
+  collectorRestScheduling1: CollectorRestScheduling1,
+): string {
+  return JSON.stringify(
+    CollectorRestScheduling1$outboundSchema.parse(collectorRestScheduling1),
+  );
+}
+export function collectorRestScheduling1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestScheduling1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestScheduling1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestScheduling1' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestHeader1$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestHeader1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestHeader1$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestHeader1$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestHeader1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestHeader1ToJSON(
+  collectorRestAuthRequestHeader1: CollectorRestAuthRequestHeader1,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestHeader1$outboundSchema.parse(
+      collectorRestAuthRequestHeader1,
+    ),
+  );
+}
+export function collectorRestAuthRequestHeader1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestHeader1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestHeader1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestHeader1' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestAuthRequestParam1$inboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorRestAuthRequestParam1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorRestAuthRequestParam1$outboundSchema: z.ZodType<
+  CollectorRestAuthRequestParam1$Outbound,
+  z.ZodTypeDef,
+  CollectorRestAuthRequestParam1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestAuthRequestParam1ToJSON(
+  collectorRestAuthRequestParam1: CollectorRestAuthRequestParam1,
+): string {
+  return JSON.stringify(
+    CollectorRestAuthRequestParam1$outboundSchema.parse(
+      collectorRestAuthRequestParam1,
+    ),
+  );
+}
+export function collectorRestAuthRequestParam1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestAuthRequestParam1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestAuthRequestParam1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestAuthRequestParam1' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorRestRest1$inboundSchema: z.ZodType<
+  CollectorRestRest1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  collectMethod: CollectMethod1$inboundSchema.default("get"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam1$inboundSchema),
+  ).optional(),
+  type: CollectorRestType1$inboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery1$inboundSchema).optional(),
+  collectUrl: z.string(),
+  collectVerb: z.string().optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader1$inboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination1$inboundSchema).optional(),
+  authentication: CollectorRestAuthentication1$inboundSchema.default("none"),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules1$inboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling1$inboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader1$inboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam1$inboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "__scheduling": "scheduling",
+  });
+});
+/** @internal */
+export type CollectorRestRest1$Outbound = {
+  collectMethod: string;
+  collectRequestParams?:
+    | Array<CollectorRestCollectRequestParam1$Outbound>
+    | undefined;
+  type: string;
+  discovery?: CollectorRestDiscovery1$Outbound | undefined;
+  collectUrl: string;
+  collectVerb?: string | undefined;
+  collectBody?: string | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader1$Outbound>
+    | undefined;
+  pagination?: Pagination1$Outbound | undefined;
+  authentication: string;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules1$Outbound | undefined;
+  __scheduling?: CollectorRestScheduling1$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  getAuthTokenFromHeader: boolean;
+  authHeaderKey: string;
+  authHeaderExpr: string;
+  authRequestHeaders?:
+    | Array<CollectorRestAuthRequestHeader1$Outbound>
+    | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName: string;
+  clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectorRestAuthRequestParam1$Outbound>
+    | undefined;
+  textSecret?: string | undefined;
+  scopes?: Array<string> | undefined;
+  serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
+  hmacFunctionId?: string | undefined;
+};
+
+/** @internal */
+export const CollectorRestRest1$outboundSchema: z.ZodType<
+  CollectorRestRest1$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRest1
+> = z.object({
+  collectMethod: CollectMethod1$outboundSchema.default("get"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorRestCollectRequestParam1$outboundSchema),
+  ).optional(),
+  type: CollectorRestType1$outboundSchema,
+  discovery: z.lazy(() => CollectorRestDiscovery1$outboundSchema).optional(),
+  collectUrl: z.string(),
+  collectVerb: z.string().optional(),
+  collectBody: z.string().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader1$outboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination1$outboundSchema).optional(),
+  authentication: CollectorRestAuthentication1$outboundSchema.default("none"),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules1$outboundSchema).optional(),
+  scheduling: z.lazy(() => CollectorRestScheduling1$outboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().default(""),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    z.lazy(() => CollectorRestAuthRequestHeader1$outboundSchema),
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    z.lazy(() => CollectorRestAuthRequestParam1$outboundSchema),
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
+  serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduling: "__scheduling",
+  });
+});
+
+export function collectorRestRest1ToJSON(
+  collectorRestRest1: CollectorRestRest1,
+): string {
+  return JSON.stringify(
+    CollectorRestRest1$outboundSchema.parse(collectorRestRest1),
+  );
+}
+export function collectorRestRest1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorRestRest1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorRestRest1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorRestRest1' from JSON`,
+  );
+}
 
 /** @internal */
 export const CollectorRest$inboundSchema: z.ZodType<
   CollectorRest,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: z.literal("rest"),
-  conf: RestCollectorConf$inboundSchema,
-});
+> = z.union([
+  z.lazy(() => CollectorRestRest12$inboundSchema),
+  z.lazy(() => CollectorRestRest13$inboundSchema),
+  z.lazy(() => CollectorRestRest6$inboundSchema),
+  z.lazy(() => CollectorRestRest8$inboundSchema),
+  z.lazy(() => CollectorRestRest3$inboundSchema),
+  z.lazy(() => CollectorRestRest4$inboundSchema),
+  z.lazy(() => CollectorRestRest7$inboundSchema),
+  z.lazy(() => CollectorRestRest9$inboundSchema),
+  z.lazy(() => CollectorRestRest10$inboundSchema),
+  z.lazy(() => CollectorRestRest11$inboundSchema),
+  z.lazy(() => CollectorRestRest14$inboundSchema),
+  z.lazy(() => CollectorRestRest1$inboundSchema),
+  z.lazy(() => CollectorRestRest2$inboundSchema),
+  z.lazy(() => CollectorRestRest5$inboundSchema),
+]);
 /** @internal */
-export type CollectorRest$Outbound = {
-  type: "rest";
-  conf: RestCollectorConf$Outbound;
-};
+export type CollectorRest$Outbound =
+  | CollectorRestRest12$Outbound
+  | CollectorRestRest13$Outbound
+  | CollectorRestRest6$Outbound
+  | CollectorRestRest8$Outbound
+  | CollectorRestRest3$Outbound
+  | CollectorRestRest4$Outbound
+  | CollectorRestRest7$Outbound
+  | CollectorRestRest9$Outbound
+  | CollectorRestRest10$Outbound
+  | CollectorRestRest11$Outbound
+  | CollectorRestRest14$Outbound
+  | CollectorRestRest1$Outbound
+  | CollectorRestRest2$Outbound
+  | CollectorRestRest5$Outbound;
 
 /** @internal */
 export const CollectorRest$outboundSchema: z.ZodType<
   CollectorRest$Outbound,
   z.ZodTypeDef,
   CollectorRest
-> = z.object({
-  type: z.literal("rest"),
-  conf: RestCollectorConf$outboundSchema,
-});
+> = z.union([
+  z.lazy(() => CollectorRestRest12$outboundSchema),
+  z.lazy(() => CollectorRestRest13$outboundSchema),
+  z.lazy(() => CollectorRestRest6$outboundSchema),
+  z.lazy(() => CollectorRestRest8$outboundSchema),
+  z.lazy(() => CollectorRestRest3$outboundSchema),
+  z.lazy(() => CollectorRestRest4$outboundSchema),
+  z.lazy(() => CollectorRestRest7$outboundSchema),
+  z.lazy(() => CollectorRestRest9$outboundSchema),
+  z.lazy(() => CollectorRestRest10$outboundSchema),
+  z.lazy(() => CollectorRestRest11$outboundSchema),
+  z.lazy(() => CollectorRestRest14$outboundSchema),
+  z.lazy(() => CollectorRestRest1$outboundSchema),
+  z.lazy(() => CollectorRestRest2$outboundSchema),
+  z.lazy(() => CollectorRestRest5$outboundSchema),
+]);
 
 export function collectorRestToJSON(collectorRest: CollectorRest): string {
   return JSON.stringify(CollectorRest$outboundSchema.parse(collectorRest));

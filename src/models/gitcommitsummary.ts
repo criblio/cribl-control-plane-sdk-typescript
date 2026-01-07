@@ -29,7 +29,7 @@ export type GitCommitSummary = {
   author?: Author | undefined;
   branch: string;
   commit: string;
-  files: GitCommitSummaryFiles;
+  files?: GitCommitSummaryFiles | undefined;
   summary: Summary;
 };
 
@@ -99,7 +99,7 @@ export const GitCommitSummary$inboundSchema: z.ZodType<
   author: z.lazy(() => Author$inboundSchema).optional(),
   branch: z.string(),
   commit: z.string(),
-  files: z.lazy(() => GitCommitSummaryFiles$inboundSchema),
+  files: z.lazy(() => GitCommitSummaryFiles$inboundSchema).optional(),
   summary: z.lazy(() => Summary$inboundSchema),
 });
 
