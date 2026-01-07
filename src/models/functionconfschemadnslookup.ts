@@ -3,11 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../lib/primitives.js";
-import {
-  collectExtraKeys as collectExtraKeys$,
-  safeParse,
-} from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
@@ -150,7 +146,7 @@ export type FunctionConfSchemaDnsLookup = {
    */
   domainOverrides?: Array<string> | undefined;
   lookupFailLogLevel?: LogLevelForFailedLookups | undefined;
-  additionalProperties?: { [k: string]: any } | undefined;
+  [additionalProperties: string]: unknown;
 };
 
 /** @internal */
@@ -267,23 +263,19 @@ export const FunctionConfSchemaDnsLookup$inboundSchema: z.ZodType<
   FunctionConfSchemaDnsLookup,
   z.ZodTypeDef,
   unknown
-> = collectExtraKeys$(
-  z.object({
-    dnsLookupFields: z.array(z.lazy(() => DnsLookupField$inboundSchema))
-      .optional(),
-    reverseLookupFields: z.array(z.lazy(() => ReverseLookupField$inboundSchema))
-      .optional(),
-    dnsServers: z.array(z.string()).optional(),
-    cacheTTL: z.number().default(30),
-    maxCacheSize: z.number().default(5000),
-    useResolvConf: z.boolean().default(false),
-    lookupFallback: z.boolean().default(false),
-    domainOverrides: z.array(z.string()).optional(),
-    lookupFailLogLevel: LogLevelForFailedLookups$inboundSchema.default("error"),
-  }).catchall(z.any()),
-  "additionalProperties",
-  true,
-);
+> = z.object({
+  dnsLookupFields: z.array(z.lazy(() => DnsLookupField$inboundSchema))
+    .optional(),
+  reverseLookupFields: z.array(z.lazy(() => ReverseLookupField$inboundSchema))
+    .optional(),
+  dnsServers: z.array(z.string()).optional(),
+  cacheTTL: z.number().default(30),
+  maxCacheSize: z.number().default(5000),
+  useResolvConf: z.boolean().default(false),
+  lookupFallback: z.boolean().default(false),
+  domainOverrides: z.array(z.string()).optional(),
+  lookupFailLogLevel: LogLevelForFailedLookups$inboundSchema.default("error"),
+}).catchall(z.any());
 /** @internal */
 export type FunctionConfSchemaDnsLookup$Outbound = {
   dnsLookupFields?: Array<DnsLookupField$Outbound> | undefined;
@@ -315,15 +307,7 @@ export const FunctionConfSchemaDnsLookup$outboundSchema: z.ZodType<
   lookupFallback: z.boolean().default(false),
   domainOverrides: z.array(z.string()).optional(),
   lookupFailLogLevel: LogLevelForFailedLookups$outboundSchema.default("error"),
-  additionalProperties: z.record(z.any()).optional(),
-}).transform((v) => {
-  return {
-    ...v.additionalProperties,
-    ...remap$(v, {
-      additionalProperties: null,
-    }),
-  };
-});
+}).catchall(z.any());
 
 export function functionConfSchemaDnsLookupToJSON(
   functionConfSchemaDnsLookup: FunctionConfSchemaDnsLookup,
