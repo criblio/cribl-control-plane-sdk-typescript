@@ -3,11 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../lib/primitives.js";
-import {
-  collectExtraKeys as collectExtraKeys$,
-  safeParse,
-} from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -34,7 +30,7 @@ export type Comment = {
    * Optional, short description of this Route's purpose
    */
   comment?: string | undefined;
-  additionalProperties?: { [k: string]: any } | undefined;
+  [additionalProperties: string]: unknown;
 };
 
 export type Routes = {
@@ -96,13 +92,9 @@ export function routesGroupsFromJSON(
 
 /** @internal */
 export const Comment$inboundSchema: z.ZodType<Comment, z.ZodTypeDef, unknown> =
-  collectExtraKeys$(
-    z.object({
-      comment: z.string().optional(),
-    }).catchall(z.any()),
-    "additionalProperties",
-    true,
-  );
+  z.object({
+    comment: z.string().optional(),
+  }).catchall(z.any());
 /** @internal */
 export type Comment$Outbound = {
   comment?: string | undefined;
@@ -116,15 +108,7 @@ export const Comment$outboundSchema: z.ZodType<
   Comment
 > = z.object({
   comment: z.string().optional(),
-  additionalProperties: z.record(z.any()).optional(),
-}).transform((v) => {
-  return {
-    ...v.additionalProperties,
-    ...remap$(v, {
-      additionalProperties: null,
-    }),
-  };
-});
+}).catchall(z.any());
 
 export function commentToJSON(comment: Comment): string {
   return JSON.stringify(Comment$outboundSchema.parse(comment));
