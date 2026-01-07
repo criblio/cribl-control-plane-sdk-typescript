@@ -3,11 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../lib/primitives.js";
-import {
-  collectExtraKeys as collectExtraKeys$,
-  safeParse,
-} from "../lib/schemas.js";
+import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -37,7 +33,7 @@ export type RoutesRoute = {
    * Flag to control whether the event gets consumed by this Route (Final), or cloned into it
    */
   final?: boolean | undefined;
-  additionalProperties?: { [k: string]: any } | undefined;
+  [additionalProperties: string]: unknown;
 };
 
 /** @internal */
@@ -45,22 +41,18 @@ export const RoutesRoute$inboundSchema: z.ZodType<
   RoutesRoute,
   z.ZodTypeDef,
   unknown
-> = collectExtraKeys$(
-  z.object({
-    id: z.string().optional(),
-    name: z.string(),
-    disabled: z.boolean().optional(),
-    filter: z.string().default("true"),
-    pipeline: z.string(),
-    enableOutputExpression: z.boolean().default(false),
-    output: z.any().optional(),
-    outputExpression: z.any().optional(),
-    description: z.string().optional(),
-    final: z.boolean().default(true),
-  }).catchall(z.any()),
-  "additionalProperties",
-  true,
-);
+> = z.object({
+  id: z.string().optional(),
+  name: z.string(),
+  disabled: z.boolean().optional(),
+  filter: z.string().default("true"),
+  pipeline: z.string(),
+  enableOutputExpression: z.boolean().default(false),
+  output: z.any().optional(),
+  outputExpression: z.any().optional(),
+  description: z.string().optional(),
+  final: z.boolean().default(true),
+}).catchall(z.any());
 /** @internal */
 export type RoutesRoute$Outbound = {
   id?: string | undefined;
@@ -92,15 +84,7 @@ export const RoutesRoute$outboundSchema: z.ZodType<
   outputExpression: z.any().optional(),
   description: z.string().optional(),
   final: z.boolean().default(true),
-  additionalProperties: z.record(z.any()).optional(),
-}).transform((v) => {
-  return {
-    ...v.additionalProperties,
-    ...remap$(v, {
-      additionalProperties: null,
-    }),
-  };
-});
+}).catchall(z.any());
 
 export function routesRouteToJSON(routesRoute: RoutesRoute): string {
   return JSON.stringify(RoutesRoute$outboundSchema.parse(routesRoute));
