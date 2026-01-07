@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 7301faf7c9aeb551d59852274d997da3
-  docVersion: 4.16.0-alpha.1766530959387-065f6dfe
+  docChecksum: 541137e7187480660934ff03dcc242d1
+  docVersion: 4.16.0-alpha.1767654263427-c6413233
   speakeasyVersion: 1.674.0
   generationVersion: 2.778.0
-  releaseVersion: 0.5.0-beta.8
-  configChecksum: 2bb53cfd45d0d8b0c71099f08a5a100f
+  releaseVersion: 0.5.0-beta.9
+  configChecksum: 9acbb601dba2c2f9fea686386281b9f5
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: f269388d-465b-41a2-9ff0-6bbfc17722d0
-  pristine_commit_hash: 890797fe90d1c4a611975ba1d1e078da09e5f7dd
-  pristine_tree_hash: 2a4202fc677fcfb02737d988c105c566c9c78b90
+  generation_id: 1f116e1c-2480-49a3-9933-ae92e2e7af26
+  pristine_commit_hash: e966646f7d7f568bfb820bd50ae9d161053b04a6
+  pristine_tree_hash: b63cbec55b14bd26cd6cff9091399f09df4e71b8
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -3027,8 +3027,8 @@ trackedFiles:
     pristine_git_object: a89a98bc0ec40c09d1f1f82641913cf732e7534f
   docs/models/gitcommitsummary.md:
     id: 920bd26404b9
-    last_write_checksum: sha1:39a8d632be5ad08ef54c87fe5c53417d7f2c526e
-    pristine_git_object: 4de8ef1f7c412b59a6a284a3c9947c9512c046e0
+    last_write_checksum: sha1:1020b24f1d09e077a61206d9a155b10f7a722750
+    pristine_git_object: d5962dbfb5a482837ab0ef0dbaa7b05a1e0d976a
   docs/models/gitcommitsummaryfiles.md:
     id: 1fa748c87eac
     last_write_checksum: sha1:0c5cb0e7b866ef4abcfec762df8c94a4e0f3aa04
@@ -17867,12 +17867,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:60572c7720af1f302d0e49026b650db915c22072
-    pristine_git_object: d13be70e0a3180a06340bbc22cdbc745edccf995
+    last_write_checksum: sha1:fb6ecd0eaa15e7615dbdd8256132ca038c26b48b
+    pristine_git_object: 15f2853fb5505aa13f2fbc18766ded9f066140d4
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:bcfd27f6c07b62477498edf71e791c48caa67f34
-    pristine_git_object: 9c9b18125a6f8344d62598dfe387b9343e5da508
+    last_write_checksum: sha1:707709d0bd1b83fb31bd4e620c3447cee1d71779
+    pristine_git_object: aa390b3dd698c147ec883eb51e109b3c81161143
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -18191,8 +18191,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:a9b7f4235184b734092f30e3ac9949606d93eb8a
-    pristine_git_object: cde5d72f065b0e4e3c442f0875bfa762af301a4d
+    last_write_checksum: sha1:e98bdca87d07541f5c507f96828ca9f86313b99a
+    pristine_git_object: ff6a7458d9ece5513dc10e54147d662e08ac2c9b
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -19083,8 +19083,8 @@ trackedFiles:
     pristine_git_object: ca070ac53a62cb31b9206615424f4a83a10fd658
   src/models/gitcommitsummary.ts:
     id: 59fed4bf0788
-    last_write_checksum: sha1:b1d9d52cb5534fd91392adc21e0f1d2e83af501c
-    pristine_git_object: 6d3eb0faf4fad78d504c942a0b3e835f3c67400e
+    last_write_checksum: sha1:330d1e52a986da633ac77257a2c3293fd2952d25
+    pristine_git_object: 796f6dabac262c8127067655a5b916f811939dfa
   src/models/gitcountresult.ts:
     id: 9b6008da5a26
     last_write_checksum: sha1:e1fe045b1d14a8d660434869c70373042bf8dab7
@@ -25195,8 +25195,7 @@ generatedTests:
   updateGroupsById: "2025-08-01T20:03:31Z"
 releaseNotes: |
   ## Typescript SDK Changes:
-  * `criblcontrolplane.packs.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:
-  * `criblcontrolplane.nodes.list()`:  `response.items.[].info` **Changed**
+  * `criblcontrolplane.versions.commits.create()`:  `response.items.[].files` **Changed**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
