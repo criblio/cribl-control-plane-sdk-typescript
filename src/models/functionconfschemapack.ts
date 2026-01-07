@@ -15,7 +15,7 @@ export type FunctionConfSchemaPack = {
   /**
    * Name of the (packed) target field
    */
-  target?: string | undefined;
+  target: string;
 };
 
 /** @internal */
