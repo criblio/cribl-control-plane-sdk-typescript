@@ -6,23 +6,75 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ScriptCollectorConf,
-  ScriptCollectorConf$inboundSchema,
-  ScriptCollectorConf$Outbound,
-  ScriptCollectorConf$outboundSchema,
-} from "./scriptcollectorconf.js";
 
-/**
- * Script collector configuration
- */
+export type EnvVar = {
+  /**
+   * Environment variable name
+   */
+  name: string;
+  /**
+   * JavaScript expression to compute environment variable's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
 export type CollectorScript = {
   /**
    * Collector type: script
    */
   type: "script";
-  conf: ScriptCollectorConf;
+  /**
+   * Script to discover what to collect. Should output one task per line in stdout.
+   */
+  discoverScript: string;
+  /**
+   * Script to run to perform data collections. Task passed in as $CRIBL_COLLECT_ARG. Should output results to stdout.
+   */
+  collectScript: string;
+  /**
+   * Shell to use to execute scripts.
+   */
+  shell?: string | undefined;
+  /**
+   * Environment variables to expose to the discover and collect scripts.
+   */
+  envVars?: Array<EnvVar> | undefined;
 };
+
+/** @internal */
+export const EnvVar$inboundSchema: z.ZodType<EnvVar, z.ZodTypeDef, unknown> = z
+  .object({
+    name: z.string(),
+    value: z.string(),
+  });
+/** @internal */
+export type EnvVar$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const EnvVar$outboundSchema: z.ZodType<
+  EnvVar$Outbound,
+  z.ZodTypeDef,
+  EnvVar
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function envVarToJSON(envVar: EnvVar): string {
+  return JSON.stringify(EnvVar$outboundSchema.parse(envVar));
+}
+export function envVarFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvVar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EnvVar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvVar' from JSON`,
+  );
+}
 
 /** @internal */
 export const CollectorScript$inboundSchema: z.ZodType<
@@ -31,12 +83,18 @@ export const CollectorScript$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   type: z.literal("script"),
-  conf: ScriptCollectorConf$inboundSchema,
+  discoverScript: z.string(),
+  collectScript: z.string(),
+  shell: z.string().default("/bin/bash"),
+  envVars: z.array(z.lazy(() => EnvVar$inboundSchema)).optional(),
 });
 /** @internal */
 export type CollectorScript$Outbound = {
   type: "script";
-  conf: ScriptCollectorConf$Outbound;
+  discoverScript: string;
+  collectScript: string;
+  shell: string;
+  envVars?: Array<EnvVar$Outbound> | undefined;
 };
 
 /** @internal */
@@ -46,7 +104,10 @@ export const CollectorScript$outboundSchema: z.ZodType<
   CollectorScript
 > = z.object({
   type: z.literal("script"),
-  conf: ScriptCollectorConf$outboundSchema,
+  discoverScript: z.string(),
+  collectScript: z.string(),
+  shell: z.string().default("/bin/bash"),
+  envVars: z.array(z.lazy(() => EnvVar$outboundSchema)).optional(),
 });
 
 export function collectorScriptToJSON(

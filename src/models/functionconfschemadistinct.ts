@@ -15,15 +15,15 @@ export type FunctionConfSchemaDistinct = {
   /**
    * maximum number of tracked combinations
    */
-  maxCombinations?: number | undefined;
+  maxCombinations: number;
   /**
    * maximum number of groupBy properties
    */
-  maxDepth?: number | undefined;
+  maxDepth: number;
   /**
    * indicator that the operator runs on a federated executor
    */
-  isFederated?: boolean | undefined;
+  isFederated: boolean;
   /**
    * Toggle this on to suppress generating previews of intermediate results
    */

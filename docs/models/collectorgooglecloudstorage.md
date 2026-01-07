@@ -1,39 +1,65 @@
 # CollectorGoogleCloudStorage
 
-GoogleCloudStorage collector configuration
 
-## Example Usage
+## Supported Types
+
+### `models.CollectorGoogleCloudStorageGoogleCloudStorage1`
 
 ```typescript
-import { CollectorGoogleCloudStorage } from "cribl-control-plane/models";
-
-let value: CollectorGoogleCloudStorage = {
+const value: models.CollectorGoogleCloudStorageGoogleCloudStorage1 = {
   type: "google_cloud_storage",
-  conf: {
-    authType: "secret",
-    textSecret: "<value>",
-    outputName: "<value>",
-    bucket: "<value>",
-    path: "/private/tmp",
-    extractors: [
-      {
-        key: "<key>",
-        expression: "<value>",
-      },
-    ],
-    endpoint: "<value>",
-    disableTimeFilter: false,
-    recurse: true,
-    maxBatchSize: 10,
-    parquetChunkSizeMB: 5,
-    parquetChunkDownloadTimeout: 600,
-  },
+  outputName: "<value>",
+  bucket: "<value>",
+  path: "/etc/periodic",
+  extractors: [
+    {
+      key: "<key>",
+      expression: "<value>",
+    },
+  ],
+  endpoint: "<value>",
+  serviceAccountCredentials: "<value>",
+  textSecret: "<value>",
 };
 ```
 
-## Fields
+### `models.CollectorGoogleCloudStorageGoogleCloudStorage2`
 
-| Field                                    | Type                                     | Required                                 | Description                              |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| `type`                                   | *"google_cloud_storage"*                 | :heavy_check_mark:                       | Collector type: google_cloud_storage     |
-| `conf`                                   | *models.GoogleCloudStorageCollectorConf* | :heavy_check_mark:                       | N/A                                      |
+```typescript
+const value: models.CollectorGoogleCloudStorageGoogleCloudStorage2 = {
+  serviceAccountCredentials: "<value>",
+  type: "google_cloud_storage",
+  outputName: "<value>",
+  bucket: "<value>",
+  path: "/var/spool",
+  extractors: [
+    {
+      key: "<key>",
+      expression: "<value>",
+    },
+  ],
+  endpoint: "<value>",
+  textSecret: "<value>",
+};
+```
+
+### `models.CollectorGoogleCloudStorageGoogleCloudStorage3`
+
+```typescript
+const value: models.CollectorGoogleCloudStorageGoogleCloudStorage3 = {
+  textSecret: "<value>",
+  type: "google_cloud_storage",
+  outputName: "<value>",
+  bucket: "<value>",
+  path: "/usr/obj",
+  extractors: [
+    {
+      key: "<key>",
+      expression: "<value>",
+    },
+  ],
+  endpoint: "<value>",
+  serviceAccountCredentials: "<value>",
+};
+```
+

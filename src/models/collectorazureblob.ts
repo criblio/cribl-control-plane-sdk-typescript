@@ -4,50 +4,1432 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  AzureBlobCollectorConf,
-  AzureBlobCollectorConf$inboundSchema,
-  AzureBlobCollectorConf$Outbound,
-  AzureBlobCollectorConf$outboundSchema,
-} from "./azureblobcollectorconf.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
- * AzureBlob collector configuration
+ * Enter authentication data directly, or select a secret referencing your auth data
  */
-export type CollectorAzureBlob = {
+export const CollectorAzureBlobAuthenticationMethod4 = {
+  Manual: "manual",
+  Secret: "secret",
+  ClientSecret: "clientSecret",
+  ClientCert: "clientCert",
+} as const;
+/**
+ * Enter authentication data directly, or select a secret referencing your auth data
+ */
+export type CollectorAzureBlobAuthenticationMethod4 = OpenEnum<
+  typeof CollectorAzureBlobAuthenticationMethod4
+>;
+
+export type CollectorAzureBlobCertificate4 = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName: string;
+};
+
+/**
+ * Collector type: azure_blob
+ */
+export const CollectorAzureBlobType4 = {
+  AzureBlob: "azure_blob",
+} as const;
+/**
+ * Collector type: azure_blob
+ */
+export type CollectorAzureBlobType4 = ClosedEnum<
+  typeof CollectorAzureBlobType4
+>;
+
+export type CollectorAzureBlobExtractor4 = {
+  /**
+   * A token from the template path, such as epoch
+   */
+  key: string;
+  /**
+   * A JavaScript expression that accesses a corresponding <token> through the value variable and evaluates the token to populate event fields. Example: {date: new Date(+value*1000)}
+   */
+  expression: string;
+};
+
+export type CollectorAzureBlobAzureBlob4 = {
+  /**
+   * Enter authentication data directly, or select a secret referencing your auth data
+   */
+  authType?: CollectorAzureBlobAuthenticationMethod4 | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName: string;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId: string;
+  /**
+   * The service principal's client ID
+   */
+  clientId: string;
+  certificate: CollectorAzureBlobCertificate4;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
   /**
    * Collector type: azure_blob
    */
-  type: "azure_blob";
-  conf: AzureBlobCollectorConf;
+  type: CollectorAzureBlobType4;
+  /**
+   * An optional predefined Destination that will be used to auto-populate Collector settings
+   */
+  outputName?: string | undefined;
+  /**
+   * Container to collect from. This value can be a constant, or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: myBucket-${C.vars.myVar}
+   */
+  containerName: string;
+  /**
+   * The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
+   */
+  path?: string | undefined;
+  /**
+   * Extractors allow use of template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)} will enrich discovery results with a human-readable "date" field.
+   */
+  extractors?: Array<CollectorAzureBlobExtractor4> | undefined;
+  /**
+   * Recurse through subdirectories
+   */
+  recurse?: boolean | undefined;
+  /**
+   * Include Azure Blob metadata in collected events. In each event, metadata will be located at: __collectible.metadata.
+   */
+  includeMetadata?: boolean | undefined;
+  /**
+   * Include Azure Blob tags in collected events. In each event, tags will be located at: __collectible.tags. Disable this feature when using a Shared Access Signature Connection String, to prevent errors.
+   */
+  includeTags?: boolean | undefined;
+  /**
+   * Maximum number of metadata objects to batch before recording as results
+   */
+  maxBatchSize?: number | undefined;
+  /**
+   * Maximum file size for each Parquet chunk
+   */
+  parquetChunkSizeMB?: number | undefined;
+  /**
+   * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
+   */
+  parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString?: string | undefined;
+  /**
+   * Text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Text secret containing the client secret
+   */
+  clientTextSecret?: string | undefined;
 };
+
+/**
+ * Enter authentication data directly, or select a secret referencing your auth data
+ */
+export const CollectorAzureBlobAuthenticationMethod3 = {
+  Manual: "manual",
+  Secret: "secret",
+  ClientSecret: "clientSecret",
+  ClientCert: "clientCert",
+} as const;
+/**
+ * Enter authentication data directly, or select a secret referencing your auth data
+ */
+export type CollectorAzureBlobAuthenticationMethod3 = OpenEnum<
+  typeof CollectorAzureBlobAuthenticationMethod3
+>;
+
+/**
+ * Collector type: azure_blob
+ */
+export const CollectorAzureBlobType3 = {
+  AzureBlob: "azure_blob",
+} as const;
+/**
+ * Collector type: azure_blob
+ */
+export type CollectorAzureBlobType3 = ClosedEnum<
+  typeof CollectorAzureBlobType3
+>;
+
+export type CollectorAzureBlobExtractor3 = {
+  /**
+   * A token from the template path, such as epoch
+   */
+  key: string;
+  /**
+   * A JavaScript expression that accesses a corresponding <token> through the value variable and evaluates the token to populate event fields. Example: {date: new Date(+value*1000)}
+   */
+  expression: string;
+};
+
+export type CollectorAzureBlobCertificate3 = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName: string;
+};
+
+export type CollectorAzureBlobAzureBlob3 = {
+  /**
+   * Enter authentication data directly, or select a secret referencing your auth data
+   */
+  authType?: CollectorAzureBlobAuthenticationMethod3 | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName: string;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId: string;
+  /**
+   * The service principal's client ID
+   */
+  clientId: string;
+  /**
+   * Text secret containing the client secret
+   */
+  clientTextSecret: string;
+  /**
+   * The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * Collector type: azure_blob
+   */
+  type: CollectorAzureBlobType3;
+  /**
+   * An optional predefined Destination that will be used to auto-populate Collector settings
+   */
+  outputName?: string | undefined;
+  /**
+   * Container to collect from. This value can be a constant, or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: myBucket-${C.vars.myVar}
+   */
+  containerName: string;
+  /**
+   * The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
+   */
+  path?: string | undefined;
+  /**
+   * Extractors allow use of template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)} will enrich discovery results with a human-readable "date" field.
+   */
+  extractors?: Array<CollectorAzureBlobExtractor3> | undefined;
+  /**
+   * Recurse through subdirectories
+   */
+  recurse?: boolean | undefined;
+  /**
+   * Include Azure Blob metadata in collected events. In each event, metadata will be located at: __collectible.metadata.
+   */
+  includeMetadata?: boolean | undefined;
+  /**
+   * Include Azure Blob tags in collected events. In each event, tags will be located at: __collectible.tags. Disable this feature when using a Shared Access Signature Connection String, to prevent errors.
+   */
+  includeTags?: boolean | undefined;
+  /**
+   * Maximum number of metadata objects to batch before recording as results
+   */
+  maxBatchSize?: number | undefined;
+  /**
+   * Maximum file size for each Parquet chunk
+   */
+  parquetChunkSizeMB?: number | undefined;
+  /**
+   * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
+   */
+  parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString?: string | undefined;
+  /**
+   * Text secret
+   */
+  textSecret?: string | undefined;
+  certificate?: CollectorAzureBlobCertificate3 | undefined;
+};
+
+/**
+ * Enter authentication data directly, or select a secret referencing your auth data
+ */
+export const CollectorAzureBlobAuthenticationMethod2 = {
+  Manual: "manual",
+  Secret: "secret",
+  ClientSecret: "clientSecret",
+  ClientCert: "clientCert",
+} as const;
+/**
+ * Enter authentication data directly, or select a secret referencing your auth data
+ */
+export type CollectorAzureBlobAuthenticationMethod2 = OpenEnum<
+  typeof CollectorAzureBlobAuthenticationMethod2
+>;
+
+/**
+ * Collector type: azure_blob
+ */
+export const CollectorAzureBlobType2 = {
+  AzureBlob: "azure_blob",
+} as const;
+/**
+ * Collector type: azure_blob
+ */
+export type CollectorAzureBlobType2 = ClosedEnum<
+  typeof CollectorAzureBlobType2
+>;
+
+export type CollectorAzureBlobExtractor2 = {
+  /**
+   * A token from the template path, such as epoch
+   */
+  key: string;
+  /**
+   * A JavaScript expression that accesses a corresponding <token> through the value variable and evaluates the token to populate event fields. Example: {date: new Date(+value*1000)}
+   */
+  expression: string;
+};
+
+export type CollectorAzureBlobCertificate2 = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName: string;
+};
+
+export type CollectorAzureBlobAzureBlob2 = {
+  /**
+   * Enter authentication data directly, or select a secret referencing your auth data
+   */
+  authType?: CollectorAzureBlobAuthenticationMethod2 | undefined;
+  /**
+   * Text secret
+   */
+  textSecret: string;
+  /**
+   * Collector type: azure_blob
+   */
+  type: CollectorAzureBlobType2;
+  /**
+   * An optional predefined Destination that will be used to auto-populate Collector settings
+   */
+  outputName?: string | undefined;
+  /**
+   * Container to collect from. This value can be a constant, or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: myBucket-${C.vars.myVar}
+   */
+  containerName: string;
+  /**
+   * The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
+   */
+  path?: string | undefined;
+  /**
+   * Extractors allow use of template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)} will enrich discovery results with a human-readable "date" field.
+   */
+  extractors?: Array<CollectorAzureBlobExtractor2> | undefined;
+  /**
+   * Recurse through subdirectories
+   */
+  recurse?: boolean | undefined;
+  /**
+   * Include Azure Blob metadata in collected events. In each event, metadata will be located at: __collectible.metadata.
+   */
+  includeMetadata?: boolean | undefined;
+  /**
+   * Include Azure Blob tags in collected events. In each event, tags will be located at: __collectible.tags. Disable this feature when using a Shared Access Signature Connection String, to prevent errors.
+   */
+  includeTags?: boolean | undefined;
+  /**
+   * Maximum number of metadata objects to batch before recording as results
+   */
+  maxBatchSize?: number | undefined;
+  /**
+   * Maximum file size for each Parquet chunk
+   */
+  parquetChunkSizeMB?: number | undefined;
+  /**
+   * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
+   */
+  parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * Text secret containing the client secret
+   */
+  clientTextSecret?: string | undefined;
+  /**
+   * The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  certificate?: CollectorAzureBlobCertificate2 | undefined;
+};
+
+/**
+ * Enter authentication data directly, or select a secret referencing your auth data
+ */
+export const CollectorAzureBlobAuthenticationMethod1 = {
+  Manual: "manual",
+  Secret: "secret",
+  ClientSecret: "clientSecret",
+  ClientCert: "clientCert",
+} as const;
+/**
+ * Enter authentication data directly, or select a secret referencing your auth data
+ */
+export type CollectorAzureBlobAuthenticationMethod1 = OpenEnum<
+  typeof CollectorAzureBlobAuthenticationMethod1
+>;
+
+/**
+ * Collector type: azure_blob
+ */
+export const CollectorAzureBlobType1 = {
+  AzureBlob: "azure_blob",
+} as const;
+/**
+ * Collector type: azure_blob
+ */
+export type CollectorAzureBlobType1 = ClosedEnum<
+  typeof CollectorAzureBlobType1
+>;
+
+export type CollectorAzureBlobExtractor1 = {
+  /**
+   * A token from the template path, such as epoch
+   */
+  key: string;
+  /**
+   * A JavaScript expression that accesses a corresponding <token> through the value variable and evaluates the token to populate event fields. Example: {date: new Date(+value*1000)}
+   */
+  expression: string;
+};
+
+export type CollectorAzureBlobCertificate1 = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName: string;
+};
+
+export type CollectorAzureBlobAzureBlob1 = {
+  /**
+   * Enter authentication data directly, or select a secret referencing your auth data
+   */
+  authType?: CollectorAzureBlobAuthenticationMethod1 | undefined;
+  /**
+   * Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString: string;
+  /**
+   * Collector type: azure_blob
+   */
+  type: CollectorAzureBlobType1;
+  /**
+   * An optional predefined Destination that will be used to auto-populate Collector settings
+   */
+  outputName?: string | undefined;
+  /**
+   * Container to collect from. This value can be a constant, or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: myBucket-${C.vars.myVar}
+   */
+  containerName: string;
+  /**
+   * The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
+   */
+  path?: string | undefined;
+  /**
+   * Extractors allow use of template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)} will enrich discovery results with a human-readable "date" field.
+   */
+  extractors?: Array<CollectorAzureBlobExtractor1> | undefined;
+  /**
+   * Recurse through subdirectories
+   */
+  recurse?: boolean | undefined;
+  /**
+   * Include Azure Blob metadata in collected events. In each event, metadata will be located at: __collectible.metadata.
+   */
+  includeMetadata?: boolean | undefined;
+  /**
+   * Include Azure Blob tags in collected events. In each event, tags will be located at: __collectible.tags. Disable this feature when using a Shared Access Signature Connection String, to prevent errors.
+   */
+  includeTags?: boolean | undefined;
+  /**
+   * Maximum number of metadata objects to batch before recording as results
+   */
+  maxBatchSize?: number | undefined;
+  /**
+   * Maximum file size for each Parquet chunk
+   */
+  parquetChunkSizeMB?: number | undefined;
+  /**
+   * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
+   */
+  parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * Text secret containing the client secret
+   */
+  clientTextSecret?: string | undefined;
+  /**
+   * The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  certificate?: CollectorAzureBlobCertificate1 | undefined;
+};
+
+export type CollectorAzureBlob =
+  | CollectorAzureBlobAzureBlob3
+  | CollectorAzureBlobAzureBlob4
+  | CollectorAzureBlobAzureBlob1
+  | CollectorAzureBlobAzureBlob2;
+
+/** @internal */
+export const CollectorAzureBlobAuthenticationMethod4$inboundSchema: z.ZodType<
+  CollectorAzureBlobAuthenticationMethod4,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorAzureBlobAuthenticationMethod4);
+/** @internal */
+export const CollectorAzureBlobAuthenticationMethod4$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorAzureBlobAuthenticationMethod4
+> = openEnums.outboundSchema(CollectorAzureBlobAuthenticationMethod4);
+
+/** @internal */
+export const CollectorAzureBlobCertificate4$inboundSchema: z.ZodType<
+  CollectorAzureBlobCertificate4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string(),
+});
+/** @internal */
+export type CollectorAzureBlobCertificate4$Outbound = {
+  certificateName: string;
+};
+
+/** @internal */
+export const CollectorAzureBlobCertificate4$outboundSchema: z.ZodType<
+  CollectorAzureBlobCertificate4$Outbound,
+  z.ZodTypeDef,
+  CollectorAzureBlobCertificate4
+> = z.object({
+  certificateName: z.string(),
+});
+
+export function collectorAzureBlobCertificate4ToJSON(
+  collectorAzureBlobCertificate4: CollectorAzureBlobCertificate4,
+): string {
+  return JSON.stringify(
+    CollectorAzureBlobCertificate4$outboundSchema.parse(
+      collectorAzureBlobCertificate4,
+    ),
+  );
+}
+export function collectorAzureBlobCertificate4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorAzureBlobCertificate4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorAzureBlobCertificate4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorAzureBlobCertificate4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorAzureBlobType4$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorAzureBlobType4
+> = z.nativeEnum(CollectorAzureBlobType4);
+/** @internal */
+export const CollectorAzureBlobType4$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorAzureBlobType4
+> = CollectorAzureBlobType4$inboundSchema;
+
+/** @internal */
+export const CollectorAzureBlobExtractor4$inboundSchema: z.ZodType<
+  CollectorAzureBlobExtractor4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+/** @internal */
+export type CollectorAzureBlobExtractor4$Outbound = {
+  key: string;
+  expression: string;
+};
+
+/** @internal */
+export const CollectorAzureBlobExtractor4$outboundSchema: z.ZodType<
+  CollectorAzureBlobExtractor4$Outbound,
+  z.ZodTypeDef,
+  CollectorAzureBlobExtractor4
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function collectorAzureBlobExtractor4ToJSON(
+  collectorAzureBlobExtractor4: CollectorAzureBlobExtractor4,
+): string {
+  return JSON.stringify(
+    CollectorAzureBlobExtractor4$outboundSchema.parse(
+      collectorAzureBlobExtractor4,
+    ),
+  );
+}
+export function collectorAzureBlobExtractor4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorAzureBlobExtractor4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorAzureBlobExtractor4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorAzureBlobExtractor4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorAzureBlobAzureBlob4$inboundSchema: z.ZodType<
+  CollectorAzureBlobAzureBlob4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: CollectorAzureBlobAuthenticationMethod4$inboundSchema.default(
+    "manual",
+  ),
+  storageAccountName: z.string(),
+  tenantId: z.string(),
+  clientId: z.string(),
+  certificate: z.lazy(() => CollectorAzureBlobCertificate4$inboundSchema),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  type: CollectorAzureBlobType4$inboundSchema,
+  outputName: z.string().optional(),
+  containerName: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(z.lazy(() => CollectorAzureBlobExtractor4$inboundSchema))
+    .optional(),
+  recurse: z.boolean().default(true),
+  includeMetadata: z.boolean().default(true),
+  includeTags: z.boolean().default(true),
+  maxBatchSize: z.number().default(10),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+});
+/** @internal */
+export type CollectorAzureBlobAzureBlob4$Outbound = {
+  authType: string;
+  storageAccountName: string;
+  tenantId: string;
+  clientId: string;
+  certificate: CollectorAzureBlobCertificate4$Outbound;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  type: string;
+  outputName?: string | undefined;
+  containerName: string;
+  path?: string | undefined;
+  extractors?: Array<CollectorAzureBlobExtractor4$Outbound> | undefined;
+  recurse: boolean;
+  includeMetadata: boolean;
+  includeTags: boolean;
+  maxBatchSize: number;
+  parquetChunkSizeMB: number;
+  parquetChunkDownloadTimeout: number;
+  connectionString?: string | undefined;
+  textSecret?: string | undefined;
+  clientTextSecret?: string | undefined;
+};
+
+/** @internal */
+export const CollectorAzureBlobAzureBlob4$outboundSchema: z.ZodType<
+  CollectorAzureBlobAzureBlob4$Outbound,
+  z.ZodTypeDef,
+  CollectorAzureBlobAzureBlob4
+> = z.object({
+  authType: CollectorAzureBlobAuthenticationMethod4$outboundSchema.default(
+    "manual",
+  ),
+  storageAccountName: z.string(),
+  tenantId: z.string(),
+  clientId: z.string(),
+  certificate: z.lazy(() => CollectorAzureBlobCertificate4$outboundSchema),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  type: CollectorAzureBlobType4$outboundSchema,
+  outputName: z.string().optional(),
+  containerName: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(z.lazy(() => CollectorAzureBlobExtractor4$outboundSchema))
+    .optional(),
+  recurse: z.boolean().default(true),
+  includeMetadata: z.boolean().default(true),
+  includeTags: z.boolean().default(true),
+  maxBatchSize: z.number().default(10),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+});
+
+export function collectorAzureBlobAzureBlob4ToJSON(
+  collectorAzureBlobAzureBlob4: CollectorAzureBlobAzureBlob4,
+): string {
+  return JSON.stringify(
+    CollectorAzureBlobAzureBlob4$outboundSchema.parse(
+      collectorAzureBlobAzureBlob4,
+    ),
+  );
+}
+export function collectorAzureBlobAzureBlob4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorAzureBlobAzureBlob4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorAzureBlobAzureBlob4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorAzureBlobAzureBlob4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorAzureBlobAuthenticationMethod3$inboundSchema: z.ZodType<
+  CollectorAzureBlobAuthenticationMethod3,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorAzureBlobAuthenticationMethod3);
+/** @internal */
+export const CollectorAzureBlobAuthenticationMethod3$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorAzureBlobAuthenticationMethod3
+> = openEnums.outboundSchema(CollectorAzureBlobAuthenticationMethod3);
+
+/** @internal */
+export const CollectorAzureBlobType3$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorAzureBlobType3
+> = z.nativeEnum(CollectorAzureBlobType3);
+/** @internal */
+export const CollectorAzureBlobType3$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorAzureBlobType3
+> = CollectorAzureBlobType3$inboundSchema;
+
+/** @internal */
+export const CollectorAzureBlobExtractor3$inboundSchema: z.ZodType<
+  CollectorAzureBlobExtractor3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+/** @internal */
+export type CollectorAzureBlobExtractor3$Outbound = {
+  key: string;
+  expression: string;
+};
+
+/** @internal */
+export const CollectorAzureBlobExtractor3$outboundSchema: z.ZodType<
+  CollectorAzureBlobExtractor3$Outbound,
+  z.ZodTypeDef,
+  CollectorAzureBlobExtractor3
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function collectorAzureBlobExtractor3ToJSON(
+  collectorAzureBlobExtractor3: CollectorAzureBlobExtractor3,
+): string {
+  return JSON.stringify(
+    CollectorAzureBlobExtractor3$outboundSchema.parse(
+      collectorAzureBlobExtractor3,
+    ),
+  );
+}
+export function collectorAzureBlobExtractor3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorAzureBlobExtractor3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorAzureBlobExtractor3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorAzureBlobExtractor3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorAzureBlobCertificate3$inboundSchema: z.ZodType<
+  CollectorAzureBlobCertificate3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string(),
+});
+/** @internal */
+export type CollectorAzureBlobCertificate3$Outbound = {
+  certificateName: string;
+};
+
+/** @internal */
+export const CollectorAzureBlobCertificate3$outboundSchema: z.ZodType<
+  CollectorAzureBlobCertificate3$Outbound,
+  z.ZodTypeDef,
+  CollectorAzureBlobCertificate3
+> = z.object({
+  certificateName: z.string(),
+});
+
+export function collectorAzureBlobCertificate3ToJSON(
+  collectorAzureBlobCertificate3: CollectorAzureBlobCertificate3,
+): string {
+  return JSON.stringify(
+    CollectorAzureBlobCertificate3$outboundSchema.parse(
+      collectorAzureBlobCertificate3,
+    ),
+  );
+}
+export function collectorAzureBlobCertificate3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorAzureBlobCertificate3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorAzureBlobCertificate3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorAzureBlobCertificate3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorAzureBlobAzureBlob3$inboundSchema: z.ZodType<
+  CollectorAzureBlobAzureBlob3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: CollectorAzureBlobAuthenticationMethod3$inboundSchema.default(
+    "manual",
+  ),
+  storageAccountName: z.string(),
+  tenantId: z.string(),
+  clientId: z.string(),
+  clientTextSecret: z.string(),
+  endpointSuffix: z.string().optional(),
+  azureCloud: z.string().optional(),
+  type: CollectorAzureBlobType3$inboundSchema,
+  outputName: z.string().optional(),
+  containerName: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(z.lazy(() => CollectorAzureBlobExtractor3$inboundSchema))
+    .optional(),
+  recurse: z.boolean().default(true),
+  includeMetadata: z.boolean().default(true),
+  includeTags: z.boolean().default(true),
+  maxBatchSize: z.number().default(10),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  certificate: z.lazy(() => CollectorAzureBlobCertificate3$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorAzureBlobAzureBlob3$Outbound = {
+  authType: string;
+  storageAccountName: string;
+  tenantId: string;
+  clientId: string;
+  clientTextSecret: string;
+  endpointSuffix?: string | undefined;
+  azureCloud?: string | undefined;
+  type: string;
+  outputName?: string | undefined;
+  containerName: string;
+  path?: string | undefined;
+  extractors?: Array<CollectorAzureBlobExtractor3$Outbound> | undefined;
+  recurse: boolean;
+  includeMetadata: boolean;
+  includeTags: boolean;
+  maxBatchSize: number;
+  parquetChunkSizeMB: number;
+  parquetChunkDownloadTimeout: number;
+  connectionString?: string | undefined;
+  textSecret?: string | undefined;
+  certificate?: CollectorAzureBlobCertificate3$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorAzureBlobAzureBlob3$outboundSchema: z.ZodType<
+  CollectorAzureBlobAzureBlob3$Outbound,
+  z.ZodTypeDef,
+  CollectorAzureBlobAzureBlob3
+> = z.object({
+  authType: CollectorAzureBlobAuthenticationMethod3$outboundSchema.default(
+    "manual",
+  ),
+  storageAccountName: z.string(),
+  tenantId: z.string(),
+  clientId: z.string(),
+  clientTextSecret: z.string(),
+  endpointSuffix: z.string().optional(),
+  azureCloud: z.string().optional(),
+  type: CollectorAzureBlobType3$outboundSchema,
+  outputName: z.string().optional(),
+  containerName: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(z.lazy(() => CollectorAzureBlobExtractor3$outboundSchema))
+    .optional(),
+  recurse: z.boolean().default(true),
+  includeMetadata: z.boolean().default(true),
+  includeTags: z.boolean().default(true),
+  maxBatchSize: z.number().default(10),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  certificate: z.lazy(() => CollectorAzureBlobCertificate3$outboundSchema)
+    .optional(),
+});
+
+export function collectorAzureBlobAzureBlob3ToJSON(
+  collectorAzureBlobAzureBlob3: CollectorAzureBlobAzureBlob3,
+): string {
+  return JSON.stringify(
+    CollectorAzureBlobAzureBlob3$outboundSchema.parse(
+      collectorAzureBlobAzureBlob3,
+    ),
+  );
+}
+export function collectorAzureBlobAzureBlob3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorAzureBlobAzureBlob3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorAzureBlobAzureBlob3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorAzureBlobAzureBlob3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorAzureBlobAuthenticationMethod2$inboundSchema: z.ZodType<
+  CollectorAzureBlobAuthenticationMethod2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorAzureBlobAuthenticationMethod2);
+/** @internal */
+export const CollectorAzureBlobAuthenticationMethod2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorAzureBlobAuthenticationMethod2
+> = openEnums.outboundSchema(CollectorAzureBlobAuthenticationMethod2);
+
+/** @internal */
+export const CollectorAzureBlobType2$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorAzureBlobType2
+> = z.nativeEnum(CollectorAzureBlobType2);
+/** @internal */
+export const CollectorAzureBlobType2$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorAzureBlobType2
+> = CollectorAzureBlobType2$inboundSchema;
+
+/** @internal */
+export const CollectorAzureBlobExtractor2$inboundSchema: z.ZodType<
+  CollectorAzureBlobExtractor2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+/** @internal */
+export type CollectorAzureBlobExtractor2$Outbound = {
+  key: string;
+  expression: string;
+};
+
+/** @internal */
+export const CollectorAzureBlobExtractor2$outboundSchema: z.ZodType<
+  CollectorAzureBlobExtractor2$Outbound,
+  z.ZodTypeDef,
+  CollectorAzureBlobExtractor2
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function collectorAzureBlobExtractor2ToJSON(
+  collectorAzureBlobExtractor2: CollectorAzureBlobExtractor2,
+): string {
+  return JSON.stringify(
+    CollectorAzureBlobExtractor2$outboundSchema.parse(
+      collectorAzureBlobExtractor2,
+    ),
+  );
+}
+export function collectorAzureBlobExtractor2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorAzureBlobExtractor2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorAzureBlobExtractor2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorAzureBlobExtractor2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorAzureBlobCertificate2$inboundSchema: z.ZodType<
+  CollectorAzureBlobCertificate2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string(),
+});
+/** @internal */
+export type CollectorAzureBlobCertificate2$Outbound = {
+  certificateName: string;
+};
+
+/** @internal */
+export const CollectorAzureBlobCertificate2$outboundSchema: z.ZodType<
+  CollectorAzureBlobCertificate2$Outbound,
+  z.ZodTypeDef,
+  CollectorAzureBlobCertificate2
+> = z.object({
+  certificateName: z.string(),
+});
+
+export function collectorAzureBlobCertificate2ToJSON(
+  collectorAzureBlobCertificate2: CollectorAzureBlobCertificate2,
+): string {
+  return JSON.stringify(
+    CollectorAzureBlobCertificate2$outboundSchema.parse(
+      collectorAzureBlobCertificate2,
+    ),
+  );
+}
+export function collectorAzureBlobCertificate2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorAzureBlobCertificate2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorAzureBlobCertificate2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorAzureBlobCertificate2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorAzureBlobAzureBlob2$inboundSchema: z.ZodType<
+  CollectorAzureBlobAzureBlob2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: CollectorAzureBlobAuthenticationMethod2$inboundSchema.default(
+    "manual",
+  ),
+  textSecret: z.string(),
+  type: CollectorAzureBlobType2$inboundSchema,
+  outputName: z.string().optional(),
+  containerName: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(z.lazy(() => CollectorAzureBlobExtractor2$inboundSchema))
+    .optional(),
+  recurse: z.boolean().default(true),
+  includeMetadata: z.boolean().default(true),
+  includeTags: z.boolean().default(true),
+  maxBatchSize: z.number().default(10),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  connectionString: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  azureCloud: z.string().optional(),
+  certificate: z.lazy(() => CollectorAzureBlobCertificate2$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorAzureBlobAzureBlob2$Outbound = {
+  authType: string;
+  textSecret: string;
+  type: string;
+  outputName?: string | undefined;
+  containerName: string;
+  path?: string | undefined;
+  extractors?: Array<CollectorAzureBlobExtractor2$Outbound> | undefined;
+  recurse: boolean;
+  includeMetadata: boolean;
+  includeTags: boolean;
+  maxBatchSize: number;
+  parquetChunkSizeMB: number;
+  parquetChunkDownloadTimeout: number;
+  connectionString?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  clientTextSecret?: string | undefined;
+  endpointSuffix?: string | undefined;
+  azureCloud?: string | undefined;
+  certificate?: CollectorAzureBlobCertificate2$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorAzureBlobAzureBlob2$outboundSchema: z.ZodType<
+  CollectorAzureBlobAzureBlob2$Outbound,
+  z.ZodTypeDef,
+  CollectorAzureBlobAzureBlob2
+> = z.object({
+  authType: CollectorAzureBlobAuthenticationMethod2$outboundSchema.default(
+    "manual",
+  ),
+  textSecret: z.string(),
+  type: CollectorAzureBlobType2$outboundSchema,
+  outputName: z.string().optional(),
+  containerName: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(z.lazy(() => CollectorAzureBlobExtractor2$outboundSchema))
+    .optional(),
+  recurse: z.boolean().default(true),
+  includeMetadata: z.boolean().default(true),
+  includeTags: z.boolean().default(true),
+  maxBatchSize: z.number().default(10),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  connectionString: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  azureCloud: z.string().optional(),
+  certificate: z.lazy(() => CollectorAzureBlobCertificate2$outboundSchema)
+    .optional(),
+});
+
+export function collectorAzureBlobAzureBlob2ToJSON(
+  collectorAzureBlobAzureBlob2: CollectorAzureBlobAzureBlob2,
+): string {
+  return JSON.stringify(
+    CollectorAzureBlobAzureBlob2$outboundSchema.parse(
+      collectorAzureBlobAzureBlob2,
+    ),
+  );
+}
+export function collectorAzureBlobAzureBlob2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorAzureBlobAzureBlob2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorAzureBlobAzureBlob2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorAzureBlobAzureBlob2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorAzureBlobAuthenticationMethod1$inboundSchema: z.ZodType<
+  CollectorAzureBlobAuthenticationMethod1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorAzureBlobAuthenticationMethod1);
+/** @internal */
+export const CollectorAzureBlobAuthenticationMethod1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorAzureBlobAuthenticationMethod1
+> = openEnums.outboundSchema(CollectorAzureBlobAuthenticationMethod1);
+
+/** @internal */
+export const CollectorAzureBlobType1$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorAzureBlobType1
+> = z.nativeEnum(CollectorAzureBlobType1);
+/** @internal */
+export const CollectorAzureBlobType1$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorAzureBlobType1
+> = CollectorAzureBlobType1$inboundSchema;
+
+/** @internal */
+export const CollectorAzureBlobExtractor1$inboundSchema: z.ZodType<
+  CollectorAzureBlobExtractor1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+/** @internal */
+export type CollectorAzureBlobExtractor1$Outbound = {
+  key: string;
+  expression: string;
+};
+
+/** @internal */
+export const CollectorAzureBlobExtractor1$outboundSchema: z.ZodType<
+  CollectorAzureBlobExtractor1$Outbound,
+  z.ZodTypeDef,
+  CollectorAzureBlobExtractor1
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function collectorAzureBlobExtractor1ToJSON(
+  collectorAzureBlobExtractor1: CollectorAzureBlobExtractor1,
+): string {
+  return JSON.stringify(
+    CollectorAzureBlobExtractor1$outboundSchema.parse(
+      collectorAzureBlobExtractor1,
+    ),
+  );
+}
+export function collectorAzureBlobExtractor1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorAzureBlobExtractor1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorAzureBlobExtractor1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorAzureBlobExtractor1' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorAzureBlobCertificate1$inboundSchema: z.ZodType<
+  CollectorAzureBlobCertificate1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string(),
+});
+/** @internal */
+export type CollectorAzureBlobCertificate1$Outbound = {
+  certificateName: string;
+};
+
+/** @internal */
+export const CollectorAzureBlobCertificate1$outboundSchema: z.ZodType<
+  CollectorAzureBlobCertificate1$Outbound,
+  z.ZodTypeDef,
+  CollectorAzureBlobCertificate1
+> = z.object({
+  certificateName: z.string(),
+});
+
+export function collectorAzureBlobCertificate1ToJSON(
+  collectorAzureBlobCertificate1: CollectorAzureBlobCertificate1,
+): string {
+  return JSON.stringify(
+    CollectorAzureBlobCertificate1$outboundSchema.parse(
+      collectorAzureBlobCertificate1,
+    ),
+  );
+}
+export function collectorAzureBlobCertificate1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorAzureBlobCertificate1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorAzureBlobCertificate1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorAzureBlobCertificate1' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorAzureBlobAzureBlob1$inboundSchema: z.ZodType<
+  CollectorAzureBlobAzureBlob1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: CollectorAzureBlobAuthenticationMethod1$inboundSchema.default(
+    "manual",
+  ),
+  connectionString: z.string(),
+  type: CollectorAzureBlobType1$inboundSchema,
+  outputName: z.string().optional(),
+  containerName: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(z.lazy(() => CollectorAzureBlobExtractor1$inboundSchema))
+    .optional(),
+  recurse: z.boolean().default(true),
+  includeMetadata: z.boolean().default(true),
+  includeTags: z.boolean().default(true),
+  maxBatchSize: z.number().default(10),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  azureCloud: z.string().optional(),
+  certificate: z.lazy(() => CollectorAzureBlobCertificate1$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type CollectorAzureBlobAzureBlob1$Outbound = {
+  authType: string;
+  connectionString: string;
+  type: string;
+  outputName?: string | undefined;
+  containerName: string;
+  path?: string | undefined;
+  extractors?: Array<CollectorAzureBlobExtractor1$Outbound> | undefined;
+  recurse: boolean;
+  includeMetadata: boolean;
+  includeTags: boolean;
+  maxBatchSize: number;
+  parquetChunkSizeMB: number;
+  parquetChunkDownloadTimeout: number;
+  textSecret?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  clientTextSecret?: string | undefined;
+  endpointSuffix?: string | undefined;
+  azureCloud?: string | undefined;
+  certificate?: CollectorAzureBlobCertificate1$Outbound | undefined;
+};
+
+/** @internal */
+export const CollectorAzureBlobAzureBlob1$outboundSchema: z.ZodType<
+  CollectorAzureBlobAzureBlob1$Outbound,
+  z.ZodTypeDef,
+  CollectorAzureBlobAzureBlob1
+> = z.object({
+  authType: CollectorAzureBlobAuthenticationMethod1$outboundSchema.default(
+    "manual",
+  ),
+  connectionString: z.string(),
+  type: CollectorAzureBlobType1$outboundSchema,
+  outputName: z.string().optional(),
+  containerName: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(z.lazy(() => CollectorAzureBlobExtractor1$outboundSchema))
+    .optional(),
+  recurse: z.boolean().default(true),
+  includeMetadata: z.boolean().default(true),
+  includeTags: z.boolean().default(true),
+  maxBatchSize: z.number().default(10),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  azureCloud: z.string().optional(),
+  certificate: z.lazy(() => CollectorAzureBlobCertificate1$outboundSchema)
+    .optional(),
+});
+
+export function collectorAzureBlobAzureBlob1ToJSON(
+  collectorAzureBlobAzureBlob1: CollectorAzureBlobAzureBlob1,
+): string {
+  return JSON.stringify(
+    CollectorAzureBlobAzureBlob1$outboundSchema.parse(
+      collectorAzureBlobAzureBlob1,
+    ),
+  );
+}
+export function collectorAzureBlobAzureBlob1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorAzureBlobAzureBlob1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorAzureBlobAzureBlob1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorAzureBlobAzureBlob1' from JSON`,
+  );
+}
 
 /** @internal */
 export const CollectorAzureBlob$inboundSchema: z.ZodType<
   CollectorAzureBlob,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: z.literal("azure_blob"),
-  conf: AzureBlobCollectorConf$inboundSchema,
-});
+> = z.union([
+  z.lazy(() => CollectorAzureBlobAzureBlob3$inboundSchema),
+  z.lazy(() => CollectorAzureBlobAzureBlob4$inboundSchema),
+  z.lazy(() => CollectorAzureBlobAzureBlob1$inboundSchema),
+  z.lazy(() => CollectorAzureBlobAzureBlob2$inboundSchema),
+]);
 /** @internal */
-export type CollectorAzureBlob$Outbound = {
-  type: "azure_blob";
-  conf: AzureBlobCollectorConf$Outbound;
-};
+export type CollectorAzureBlob$Outbound =
+  | CollectorAzureBlobAzureBlob3$Outbound
+  | CollectorAzureBlobAzureBlob4$Outbound
+  | CollectorAzureBlobAzureBlob1$Outbound
+  | CollectorAzureBlobAzureBlob2$Outbound;
 
 /** @internal */
 export const CollectorAzureBlob$outboundSchema: z.ZodType<
   CollectorAzureBlob$Outbound,
   z.ZodTypeDef,
   CollectorAzureBlob
-> = z.object({
-  type: z.literal("azure_blob"),
-  conf: AzureBlobCollectorConf$outboundSchema,
-});
+> = z.union([
+  z.lazy(() => CollectorAzureBlobAzureBlob3$outboundSchema),
+  z.lazy(() => CollectorAzureBlobAzureBlob4$outboundSchema),
+  z.lazy(() => CollectorAzureBlobAzureBlob1$outboundSchema),
+  z.lazy(() => CollectorAzureBlobAzureBlob2$outboundSchema),
+]);
 
 export function collectorAzureBlobToJSON(
   collectorAzureBlob: CollectorAzureBlob,

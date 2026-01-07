@@ -3,9 +3,15 @@
  */
 
 import { ClientSDK } from "../lib/sdks.js";
+import { Captures } from "./captures.js";
 import { Settings } from "./settings.js";
 
 export class System extends ClientSDK {
+  private _captures?: Captures;
+  get captures(): Captures {
+    return (this._captures ??= new Captures(this._options));
+  }
+
   private _settings?: Settings;
   get settings(): Settings {
     return (this._settings ??= new Settings(this._options));

@@ -29,21 +29,10 @@ const value: models.SavedJobCollection = {
     "<value 1>",
   ],
   collector: {
-    type: "health_check",
+    type: "<value>",
     conf: {
-      authentication: "oauth",
-      loginUrl: "",
-      tokenRespAttribute: "<value>",
-      authHeaderExpr: "`Bearer ${token}`",
-      clientSecretParamName: "client_secret",
-      clientSecretParamValue: "<value>",
-      authRequestParams: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      authRequestHeaders: [
+      collectMethod: "get",
+      collectRequestParams: [
         {
           name: "<value>",
           value: "<value>",
@@ -53,9 +42,7 @@ const value: models.SavedJobCollection = {
         discoverType: "none",
       },
       collectUrl: "https://proper-majority.info/",
-      collectMethod: "get",
-      collectRequestParams: "<value>",
-      collectBody: "<value>",
+      collectBody: "`{ }`",
       collectRequestHeaders: [
         {
           name: "<value>",
@@ -63,6 +50,7 @@ const value: models.SavedJobCollection = {
         },
       ],
       authenticateCollect: false,
+      authentication: "none",
       timeout: 30,
       rejectUnauthorized: false,
       defaultBreakers: "Cribl",
@@ -79,18 +67,44 @@ const value: models.SavedJobCollection = {
         codes: "<value>",
         enableHeader: "<value>",
       },
+      username: "Andre.Hills-Reilly62",
+      password: "gwiUSzD5T_NZKTX",
+      credentialsSecret: "<value>",
+      loginUrl: "",
+      loginBody:
+        "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+      tokenRespAttribute: "<value>",
+      authHeaderExpr: "`Bearer ${token}`",
+      authRequestHeaders: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      clientSecretParamName: "client_secret",
+      clientSecretParamValue: "<value>",
+      authRequestParams: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      textSecret: "<value>",
+      type: "health_check",
     },
+    encoding: "<value>",
   },
   input: {
     breakerRulesets: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
     preprocess: {
       command: "<value>",
       args: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
     },
     metadata: [

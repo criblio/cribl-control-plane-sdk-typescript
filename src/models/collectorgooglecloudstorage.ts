@@ -4,50 +4,840 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  GoogleCloudStorageCollectorConf,
-  GoogleCloudStorageCollectorConf$inboundSchema,
-  GoogleCloudStorageCollectorConf$Outbound,
-  GoogleCloudStorageCollectorConf$outboundSchema,
-} from "./googlecloudstoragecollectorconf.js";
 
 /**
- * GoogleCloudStorage collector configuration
+ * Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
  */
-export type CollectorGoogleCloudStorage = {
+export const CollectorGoogleCloudStorageAuthenticationMethod3 = {
+  Auto: "auto",
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
+ */
+export type CollectorGoogleCloudStorageAuthenticationMethod3 = OpenEnum<
+  typeof CollectorGoogleCloudStorageAuthenticationMethod3
+>;
+
+/**
+ * Collector type: google_cloud_storage
+ */
+export const CollectorGoogleCloudStorageType3 = {
+  GoogleCloudStorage: "google_cloud_storage",
+} as const;
+/**
+ * Collector type: google_cloud_storage
+ */
+export type CollectorGoogleCloudStorageType3 = ClosedEnum<
+  typeof CollectorGoogleCloudStorageType3
+>;
+
+export type CollectorGoogleCloudStorageExtractor3 = {
+  /**
+   * A token from the template path, such as epoch
+   */
+  key: string;
+  /**
+   * JavaScript expression that receives token under "value" variable, and evaluates to populate event fields, such as {date: new Date(+value*1000)}
+   */
+  expression: string;
+};
+
+export type CollectorGoogleCloudStorageGoogleCloudStorage3 = {
+  /**
+   * Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
+   */
+  authType?: CollectorGoogleCloudStorageAuthenticationMethod3 | undefined;
+  /**
+   * Select or create a stored text secret that references your credentials
+   */
+  textSecret: string;
   /**
    * Collector type: google_cloud_storage
    */
-  type: "google_cloud_storage";
-  conf: GoogleCloudStorageCollectorConf;
+  type: CollectorGoogleCloudStorageType3;
+  /**
+   * Name of the predefined Destination that will be used to auto-populate Collector settings
+   */
+  outputName?: string | undefined;
+  /**
+   * Name of the bucket to collect from. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are also supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
+   */
+  path?: string | undefined;
+  /**
+   * Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
+   */
+  extractors?: Array<CollectorGoogleCloudStorageExtractor3> | undefined;
+  /**
+   * Google Cloud Storage service endpoint. If empty, the endpoint will default to https://storage.googleapis.com.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Used to disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Recurse through subdirectories
+   */
+  recurse?: boolean | undefined;
+  /**
+   * Maximum number of metadata objects to batch before recording as results
+   */
+  maxBatchSize?: number | undefined;
+  /**
+   * Maximum file size for each Parquet chunk
+   */
+  parquetChunkSizeMB?: number | undefined;
+  /**
+   * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
+   */
+  parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
 };
+
+/**
+ * Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
+ */
+export const CollectorGoogleCloudStorageAuthenticationMethod2 = {
+  Auto: "auto",
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
+ */
+export type CollectorGoogleCloudStorageAuthenticationMethod2 = OpenEnum<
+  typeof CollectorGoogleCloudStorageAuthenticationMethod2
+>;
+
+/**
+ * Collector type: google_cloud_storage
+ */
+export const CollectorGoogleCloudStorageType2 = {
+  GoogleCloudStorage: "google_cloud_storage",
+} as const;
+/**
+ * Collector type: google_cloud_storage
+ */
+export type CollectorGoogleCloudStorageType2 = ClosedEnum<
+  typeof CollectorGoogleCloudStorageType2
+>;
+
+export type CollectorGoogleCloudStorageExtractor2 = {
+  /**
+   * A token from the template path, such as epoch
+   */
+  key: string;
+  /**
+   * JavaScript expression that receives token under "value" variable, and evaluates to populate event fields, such as {date: new Date(+value*1000)}
+   */
+  expression: string;
+};
+
+export type CollectorGoogleCloudStorageGoogleCloudStorage2 = {
+  /**
+   * Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
+   */
+  authType?: CollectorGoogleCloudStorageAuthenticationMethod2 | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials: string;
+  /**
+   * Collector type: google_cloud_storage
+   */
+  type: CollectorGoogleCloudStorageType2;
+  /**
+   * Name of the predefined Destination that will be used to auto-populate Collector settings
+   */
+  outputName?: string | undefined;
+  /**
+   * Name of the bucket to collect from. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are also supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
+   */
+  path?: string | undefined;
+  /**
+   * Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
+   */
+  extractors?: Array<CollectorGoogleCloudStorageExtractor2> | undefined;
+  /**
+   * Google Cloud Storage service endpoint. If empty, the endpoint will default to https://storage.googleapis.com.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Used to disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Recurse through subdirectories
+   */
+  recurse?: boolean | undefined;
+  /**
+   * Maximum number of metadata objects to batch before recording as results
+   */
+  maxBatchSize?: number | undefined;
+  /**
+   * Maximum file size for each Parquet chunk
+   */
+  parquetChunkSizeMB?: number | undefined;
+  /**
+   * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
+   */
+  parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Select or create a stored text secret that references your credentials
+   */
+  textSecret?: string | undefined;
+};
+
+/**
+ * Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
+ */
+export const CollectorGoogleCloudStorageAuthenticationMethod1 = {
+  Auto: "auto",
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
+ */
+export type CollectorGoogleCloudStorageAuthenticationMethod1 = OpenEnum<
+  typeof CollectorGoogleCloudStorageAuthenticationMethod1
+>;
+
+/**
+ * Collector type: google_cloud_storage
+ */
+export const CollectorGoogleCloudStorageType1 = {
+  GoogleCloudStorage: "google_cloud_storage",
+} as const;
+/**
+ * Collector type: google_cloud_storage
+ */
+export type CollectorGoogleCloudStorageType1 = ClosedEnum<
+  typeof CollectorGoogleCloudStorageType1
+>;
+
+export type CollectorGoogleCloudStorageExtractor1 = {
+  /**
+   * A token from the template path, such as epoch
+   */
+  key: string;
+  /**
+   * JavaScript expression that receives token under "value" variable, and evaluates to populate event fields, such as {date: new Date(+value*1000)}
+   */
+  expression: string;
+};
+
+export type CollectorGoogleCloudStorageGoogleCloudStorage1 = {
+  /**
+   * Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
+   */
+  authType?: CollectorGoogleCloudStorageAuthenticationMethod1 | undefined;
+  /**
+   * Collector type: google_cloud_storage
+   */
+  type: CollectorGoogleCloudStorageType1;
+  /**
+   * Name of the predefined Destination that will be used to auto-populate Collector settings
+   */
+  outputName?: string | undefined;
+  /**
+   * Name of the bucket to collect from. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are also supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
+   */
+  path?: string | undefined;
+  /**
+   * Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
+   */
+  extractors?: Array<CollectorGoogleCloudStorageExtractor1> | undefined;
+  /**
+   * Google Cloud Storage service endpoint. If empty, the endpoint will default to https://storage.googleapis.com.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Used to disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Recurse through subdirectories
+   */
+  recurse?: boolean | undefined;
+  /**
+   * Maximum number of metadata objects to batch before recording as results
+   */
+  maxBatchSize?: number | undefined;
+  /**
+   * Maximum file size for each Parquet chunk
+   */
+  parquetChunkSizeMB?: number | undefined;
+  /**
+   * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
+   */
+  parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret that references your credentials
+   */
+  textSecret?: string | undefined;
+};
+
+export type CollectorGoogleCloudStorage =
+  | CollectorGoogleCloudStorageGoogleCloudStorage2
+  | CollectorGoogleCloudStorageGoogleCloudStorage3
+  | CollectorGoogleCloudStorageGoogleCloudStorage1;
+
+/** @internal */
+export const CollectorGoogleCloudStorageAuthenticationMethod3$inboundSchema:
+  z.ZodType<
+    CollectorGoogleCloudStorageAuthenticationMethod3,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(CollectorGoogleCloudStorageAuthenticationMethod3);
+/** @internal */
+export const CollectorGoogleCloudStorageAuthenticationMethod3$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CollectorGoogleCloudStorageAuthenticationMethod3
+  > = openEnums.outboundSchema(
+    CollectorGoogleCloudStorageAuthenticationMethod3,
+  );
+
+/** @internal */
+export const CollectorGoogleCloudStorageType3$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorGoogleCloudStorageType3
+> = z.nativeEnum(CollectorGoogleCloudStorageType3);
+/** @internal */
+export const CollectorGoogleCloudStorageType3$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorGoogleCloudStorageType3
+> = CollectorGoogleCloudStorageType3$inboundSchema;
+
+/** @internal */
+export const CollectorGoogleCloudStorageExtractor3$inboundSchema: z.ZodType<
+  CollectorGoogleCloudStorageExtractor3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+/** @internal */
+export type CollectorGoogleCloudStorageExtractor3$Outbound = {
+  key: string;
+  expression: string;
+};
+
+/** @internal */
+export const CollectorGoogleCloudStorageExtractor3$outboundSchema: z.ZodType<
+  CollectorGoogleCloudStorageExtractor3$Outbound,
+  z.ZodTypeDef,
+  CollectorGoogleCloudStorageExtractor3
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function collectorGoogleCloudStorageExtractor3ToJSON(
+  collectorGoogleCloudStorageExtractor3: CollectorGoogleCloudStorageExtractor3,
+): string {
+  return JSON.stringify(
+    CollectorGoogleCloudStorageExtractor3$outboundSchema.parse(
+      collectorGoogleCloudStorageExtractor3,
+    ),
+  );
+}
+export function collectorGoogleCloudStorageExtractor3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorGoogleCloudStorageExtractor3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorGoogleCloudStorageExtractor3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorGoogleCloudStorageExtractor3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorGoogleCloudStorageGoogleCloudStorage3$inboundSchema:
+  z.ZodType<
+    CollectorGoogleCloudStorageGoogleCloudStorage3,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    authType: CollectorGoogleCloudStorageAuthenticationMethod3$inboundSchema
+      .default("manual"),
+    textSecret: z.string(),
+    type: CollectorGoogleCloudStorageType3$inboundSchema,
+    outputName: z.string().optional(),
+    bucket: z.string(),
+    path: z.string().optional(),
+    extractors: z.array(
+      z.lazy(() => CollectorGoogleCloudStorageExtractor3$inboundSchema),
+    ).optional(),
+    endpoint: z.string().optional(),
+    disableTimeFilter: z.boolean().default(false),
+    recurse: z.boolean().default(true),
+    maxBatchSize: z.number().default(10),
+    parquetChunkSizeMB: z.number().default(5),
+    parquetChunkDownloadTimeout: z.number().default(600),
+    serviceAccountCredentials: z.string().optional(),
+  });
+/** @internal */
+export type CollectorGoogleCloudStorageGoogleCloudStorage3$Outbound = {
+  authType: string;
+  textSecret: string;
+  type: string;
+  outputName?: string | undefined;
+  bucket: string;
+  path?: string | undefined;
+  extractors?:
+    | Array<CollectorGoogleCloudStorageExtractor3$Outbound>
+    | undefined;
+  endpoint?: string | undefined;
+  disableTimeFilter: boolean;
+  recurse: boolean;
+  maxBatchSize: number;
+  parquetChunkSizeMB: number;
+  parquetChunkDownloadTimeout: number;
+  serviceAccountCredentials?: string | undefined;
+};
+
+/** @internal */
+export const CollectorGoogleCloudStorageGoogleCloudStorage3$outboundSchema:
+  z.ZodType<
+    CollectorGoogleCloudStorageGoogleCloudStorage3$Outbound,
+    z.ZodTypeDef,
+    CollectorGoogleCloudStorageGoogleCloudStorage3
+  > = z.object({
+    authType: CollectorGoogleCloudStorageAuthenticationMethod3$outboundSchema
+      .default("manual"),
+    textSecret: z.string(),
+    type: CollectorGoogleCloudStorageType3$outboundSchema,
+    outputName: z.string().optional(),
+    bucket: z.string(),
+    path: z.string().optional(),
+    extractors: z.array(
+      z.lazy(() => CollectorGoogleCloudStorageExtractor3$outboundSchema),
+    ).optional(),
+    endpoint: z.string().optional(),
+    disableTimeFilter: z.boolean().default(false),
+    recurse: z.boolean().default(true),
+    maxBatchSize: z.number().default(10),
+    parquetChunkSizeMB: z.number().default(5),
+    parquetChunkDownloadTimeout: z.number().default(600),
+    serviceAccountCredentials: z.string().optional(),
+  });
+
+export function collectorGoogleCloudStorageGoogleCloudStorage3ToJSON(
+  collectorGoogleCloudStorageGoogleCloudStorage3:
+    CollectorGoogleCloudStorageGoogleCloudStorage3,
+): string {
+  return JSON.stringify(
+    CollectorGoogleCloudStorageGoogleCloudStorage3$outboundSchema.parse(
+      collectorGoogleCloudStorageGoogleCloudStorage3,
+    ),
+  );
+}
+export function collectorGoogleCloudStorageGoogleCloudStorage3FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  CollectorGoogleCloudStorageGoogleCloudStorage3,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorGoogleCloudStorageGoogleCloudStorage3$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'CollectorGoogleCloudStorageGoogleCloudStorage3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorGoogleCloudStorageAuthenticationMethod2$inboundSchema:
+  z.ZodType<
+    CollectorGoogleCloudStorageAuthenticationMethod2,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(CollectorGoogleCloudStorageAuthenticationMethod2);
+/** @internal */
+export const CollectorGoogleCloudStorageAuthenticationMethod2$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CollectorGoogleCloudStorageAuthenticationMethod2
+  > = openEnums.outboundSchema(
+    CollectorGoogleCloudStorageAuthenticationMethod2,
+  );
+
+/** @internal */
+export const CollectorGoogleCloudStorageType2$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorGoogleCloudStorageType2
+> = z.nativeEnum(CollectorGoogleCloudStorageType2);
+/** @internal */
+export const CollectorGoogleCloudStorageType2$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorGoogleCloudStorageType2
+> = CollectorGoogleCloudStorageType2$inboundSchema;
+
+/** @internal */
+export const CollectorGoogleCloudStorageExtractor2$inboundSchema: z.ZodType<
+  CollectorGoogleCloudStorageExtractor2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+/** @internal */
+export type CollectorGoogleCloudStorageExtractor2$Outbound = {
+  key: string;
+  expression: string;
+};
+
+/** @internal */
+export const CollectorGoogleCloudStorageExtractor2$outboundSchema: z.ZodType<
+  CollectorGoogleCloudStorageExtractor2$Outbound,
+  z.ZodTypeDef,
+  CollectorGoogleCloudStorageExtractor2
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function collectorGoogleCloudStorageExtractor2ToJSON(
+  collectorGoogleCloudStorageExtractor2: CollectorGoogleCloudStorageExtractor2,
+): string {
+  return JSON.stringify(
+    CollectorGoogleCloudStorageExtractor2$outboundSchema.parse(
+      collectorGoogleCloudStorageExtractor2,
+    ),
+  );
+}
+export function collectorGoogleCloudStorageExtractor2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorGoogleCloudStorageExtractor2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorGoogleCloudStorageExtractor2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorGoogleCloudStorageExtractor2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorGoogleCloudStorageGoogleCloudStorage2$inboundSchema:
+  z.ZodType<
+    CollectorGoogleCloudStorageGoogleCloudStorage2,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    authType: CollectorGoogleCloudStorageAuthenticationMethod2$inboundSchema
+      .default("manual"),
+    serviceAccountCredentials: z.string(),
+    type: CollectorGoogleCloudStorageType2$inboundSchema,
+    outputName: z.string().optional(),
+    bucket: z.string(),
+    path: z.string().optional(),
+    extractors: z.array(
+      z.lazy(() => CollectorGoogleCloudStorageExtractor2$inboundSchema),
+    ).optional(),
+    endpoint: z.string().optional(),
+    disableTimeFilter: z.boolean().default(false),
+    recurse: z.boolean().default(true),
+    maxBatchSize: z.number().default(10),
+    parquetChunkSizeMB: z.number().default(5),
+    parquetChunkDownloadTimeout: z.number().default(600),
+    textSecret: z.string().optional(),
+  });
+/** @internal */
+export type CollectorGoogleCloudStorageGoogleCloudStorage2$Outbound = {
+  authType: string;
+  serviceAccountCredentials: string;
+  type: string;
+  outputName?: string | undefined;
+  bucket: string;
+  path?: string | undefined;
+  extractors?:
+    | Array<CollectorGoogleCloudStorageExtractor2$Outbound>
+    | undefined;
+  endpoint?: string | undefined;
+  disableTimeFilter: boolean;
+  recurse: boolean;
+  maxBatchSize: number;
+  parquetChunkSizeMB: number;
+  parquetChunkDownloadTimeout: number;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const CollectorGoogleCloudStorageGoogleCloudStorage2$outboundSchema:
+  z.ZodType<
+    CollectorGoogleCloudStorageGoogleCloudStorage2$Outbound,
+    z.ZodTypeDef,
+    CollectorGoogleCloudStorageGoogleCloudStorage2
+  > = z.object({
+    authType: CollectorGoogleCloudStorageAuthenticationMethod2$outboundSchema
+      .default("manual"),
+    serviceAccountCredentials: z.string(),
+    type: CollectorGoogleCloudStorageType2$outboundSchema,
+    outputName: z.string().optional(),
+    bucket: z.string(),
+    path: z.string().optional(),
+    extractors: z.array(
+      z.lazy(() => CollectorGoogleCloudStorageExtractor2$outboundSchema),
+    ).optional(),
+    endpoint: z.string().optional(),
+    disableTimeFilter: z.boolean().default(false),
+    recurse: z.boolean().default(true),
+    maxBatchSize: z.number().default(10),
+    parquetChunkSizeMB: z.number().default(5),
+    parquetChunkDownloadTimeout: z.number().default(600),
+    textSecret: z.string().optional(),
+  });
+
+export function collectorGoogleCloudStorageGoogleCloudStorage2ToJSON(
+  collectorGoogleCloudStorageGoogleCloudStorage2:
+    CollectorGoogleCloudStorageGoogleCloudStorage2,
+): string {
+  return JSON.stringify(
+    CollectorGoogleCloudStorageGoogleCloudStorage2$outboundSchema.parse(
+      collectorGoogleCloudStorageGoogleCloudStorage2,
+    ),
+  );
+}
+export function collectorGoogleCloudStorageGoogleCloudStorage2FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  CollectorGoogleCloudStorageGoogleCloudStorage2,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorGoogleCloudStorageGoogleCloudStorage2$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'CollectorGoogleCloudStorageGoogleCloudStorage2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorGoogleCloudStorageAuthenticationMethod1$inboundSchema:
+  z.ZodType<
+    CollectorGoogleCloudStorageAuthenticationMethod1,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(CollectorGoogleCloudStorageAuthenticationMethod1);
+/** @internal */
+export const CollectorGoogleCloudStorageAuthenticationMethod1$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CollectorGoogleCloudStorageAuthenticationMethod1
+  > = openEnums.outboundSchema(
+    CollectorGoogleCloudStorageAuthenticationMethod1,
+  );
+
+/** @internal */
+export const CollectorGoogleCloudStorageType1$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorGoogleCloudStorageType1
+> = z.nativeEnum(CollectorGoogleCloudStorageType1);
+/** @internal */
+export const CollectorGoogleCloudStorageType1$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorGoogleCloudStorageType1
+> = CollectorGoogleCloudStorageType1$inboundSchema;
+
+/** @internal */
+export const CollectorGoogleCloudStorageExtractor1$inboundSchema: z.ZodType<
+  CollectorGoogleCloudStorageExtractor1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+/** @internal */
+export type CollectorGoogleCloudStorageExtractor1$Outbound = {
+  key: string;
+  expression: string;
+};
+
+/** @internal */
+export const CollectorGoogleCloudStorageExtractor1$outboundSchema: z.ZodType<
+  CollectorGoogleCloudStorageExtractor1$Outbound,
+  z.ZodTypeDef,
+  CollectorGoogleCloudStorageExtractor1
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function collectorGoogleCloudStorageExtractor1ToJSON(
+  collectorGoogleCloudStorageExtractor1: CollectorGoogleCloudStorageExtractor1,
+): string {
+  return JSON.stringify(
+    CollectorGoogleCloudStorageExtractor1$outboundSchema.parse(
+      collectorGoogleCloudStorageExtractor1,
+    ),
+  );
+}
+export function collectorGoogleCloudStorageExtractor1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorGoogleCloudStorageExtractor1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorGoogleCloudStorageExtractor1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorGoogleCloudStorageExtractor1' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorGoogleCloudStorageGoogleCloudStorage1$inboundSchema:
+  z.ZodType<
+    CollectorGoogleCloudStorageGoogleCloudStorage1,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    authType: CollectorGoogleCloudStorageAuthenticationMethod1$inboundSchema
+      .default("manual"),
+    type: CollectorGoogleCloudStorageType1$inboundSchema,
+    outputName: z.string().optional(),
+    bucket: z.string(),
+    path: z.string().optional(),
+    extractors: z.array(
+      z.lazy(() => CollectorGoogleCloudStorageExtractor1$inboundSchema),
+    ).optional(),
+    endpoint: z.string().optional(),
+    disableTimeFilter: z.boolean().default(false),
+    recurse: z.boolean().default(true),
+    maxBatchSize: z.number().default(10),
+    parquetChunkSizeMB: z.number().default(5),
+    parquetChunkDownloadTimeout: z.number().default(600),
+    serviceAccountCredentials: z.string().optional(),
+    textSecret: z.string().optional(),
+  });
+/** @internal */
+export type CollectorGoogleCloudStorageGoogleCloudStorage1$Outbound = {
+  authType: string;
+  type: string;
+  outputName?: string | undefined;
+  bucket: string;
+  path?: string | undefined;
+  extractors?:
+    | Array<CollectorGoogleCloudStorageExtractor1$Outbound>
+    | undefined;
+  endpoint?: string | undefined;
+  disableTimeFilter: boolean;
+  recurse: boolean;
+  maxBatchSize: number;
+  parquetChunkSizeMB: number;
+  parquetChunkDownloadTimeout: number;
+  serviceAccountCredentials?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const CollectorGoogleCloudStorageGoogleCloudStorage1$outboundSchema:
+  z.ZodType<
+    CollectorGoogleCloudStorageGoogleCloudStorage1$Outbound,
+    z.ZodTypeDef,
+    CollectorGoogleCloudStorageGoogleCloudStorage1
+  > = z.object({
+    authType: CollectorGoogleCloudStorageAuthenticationMethod1$outboundSchema
+      .default("manual"),
+    type: CollectorGoogleCloudStorageType1$outboundSchema,
+    outputName: z.string().optional(),
+    bucket: z.string(),
+    path: z.string().optional(),
+    extractors: z.array(
+      z.lazy(() => CollectorGoogleCloudStorageExtractor1$outboundSchema),
+    ).optional(),
+    endpoint: z.string().optional(),
+    disableTimeFilter: z.boolean().default(false),
+    recurse: z.boolean().default(true),
+    maxBatchSize: z.number().default(10),
+    parquetChunkSizeMB: z.number().default(5),
+    parquetChunkDownloadTimeout: z.number().default(600),
+    serviceAccountCredentials: z.string().optional(),
+    textSecret: z.string().optional(),
+  });
+
+export function collectorGoogleCloudStorageGoogleCloudStorage1ToJSON(
+  collectorGoogleCloudStorageGoogleCloudStorage1:
+    CollectorGoogleCloudStorageGoogleCloudStorage1,
+): string {
+  return JSON.stringify(
+    CollectorGoogleCloudStorageGoogleCloudStorage1$outboundSchema.parse(
+      collectorGoogleCloudStorageGoogleCloudStorage1,
+    ),
+  );
+}
+export function collectorGoogleCloudStorageGoogleCloudStorage1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  CollectorGoogleCloudStorageGoogleCloudStorage1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorGoogleCloudStorageGoogleCloudStorage1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'CollectorGoogleCloudStorageGoogleCloudStorage1' from JSON`,
+  );
+}
 
 /** @internal */
 export const CollectorGoogleCloudStorage$inboundSchema: z.ZodType<
   CollectorGoogleCloudStorage,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: z.literal("google_cloud_storage"),
-  conf: GoogleCloudStorageCollectorConf$inboundSchema,
-});
+> = z.union([
+  z.lazy(() => CollectorGoogleCloudStorageGoogleCloudStorage2$inboundSchema),
+  z.lazy(() => CollectorGoogleCloudStorageGoogleCloudStorage3$inboundSchema),
+  z.lazy(() => CollectorGoogleCloudStorageGoogleCloudStorage1$inboundSchema),
+]);
 /** @internal */
-export type CollectorGoogleCloudStorage$Outbound = {
-  type: "google_cloud_storage";
-  conf: GoogleCloudStorageCollectorConf$Outbound;
-};
+export type CollectorGoogleCloudStorage$Outbound =
+  | CollectorGoogleCloudStorageGoogleCloudStorage2$Outbound
+  | CollectorGoogleCloudStorageGoogleCloudStorage3$Outbound
+  | CollectorGoogleCloudStorageGoogleCloudStorage1$Outbound;
 
 /** @internal */
 export const CollectorGoogleCloudStorage$outboundSchema: z.ZodType<
   CollectorGoogleCloudStorage$Outbound,
   z.ZodTypeDef,
   CollectorGoogleCloudStorage
-> = z.object({
-  type: z.literal("google_cloud_storage"),
-  conf: GoogleCloudStorageCollectorConf$outboundSchema,
-});
+> = z.union([
+  z.lazy(() => CollectorGoogleCloudStorageGoogleCloudStorage2$outboundSchema),
+  z.lazy(() => CollectorGoogleCloudStorageGoogleCloudStorage3$outboundSchema),
+  z.lazy(() => CollectorGoogleCloudStorageGoogleCloudStorage1$outboundSchema),
+]);
 
 export function collectorGoogleCloudStorageToJSON(
   collectorGoogleCloudStorage: CollectorGoogleCloudStorage,

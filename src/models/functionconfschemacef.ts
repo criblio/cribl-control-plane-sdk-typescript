@@ -27,7 +27,7 @@ export type FunctionConfSchemaCef = {
   /**
    * The field to which the CEF formatted event will be output
    */
-  outputField?: string | undefined;
+  outputField: string;
   /**
    * Set of header key/value pairs
    */

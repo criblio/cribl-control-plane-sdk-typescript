@@ -8,11 +8,11 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
-  Collector,
-  Collector$inboundSchema,
-  Collector$Outbound,
-  Collector$outboundSchema,
-} from "./collector.js";
+  CollectorConf,
+  CollectorConf$inboundSchema,
+  CollectorConf$Outbound,
+  CollectorConf$outboundSchema,
+} from "./collectorconf.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const SavedJobCollectionJobType = {
@@ -132,6 +132,25 @@ export type SavedJobCollectionSchedule = {
   run?: SavedJobCollectionRunSettings | undefined;
 };
 
+export type SavedJobCollectionCollector = {
+  /**
+   * The type of collector to run
+   */
+  type: string;
+  /**
+   * Collector configuration
+   */
+  conf: CollectorConf;
+  /**
+   * Delete any files collected (where applicable)
+   */
+  destructive?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+   */
+  encoding?: string | undefined;
+};
+
 export const SavedJobCollectionInputType = {
   Collection: "collection",
 } as const;
@@ -231,10 +250,7 @@ export type SavedJobCollection = {
    * If enabled, tasks are created and run by the same Worker Node
    */
   workerAffinity?: boolean | undefined;
-  /**
-   * Collector config wrapper
-   */
-  collector: Collector;
+  collector: SavedJobCollectionCollector;
   input?: SavedJobCollectionInput | undefined;
 };
 
@@ -449,6 +465,56 @@ export function savedJobCollectionScheduleFromJSON(
 }
 
 /** @internal */
+export const SavedJobCollectionCollector$inboundSchema: z.ZodType<
+  SavedJobCollectionCollector,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: z.string(),
+  conf: CollectorConf$inboundSchema,
+  destructive: z.boolean().default(false),
+  encoding: z.string().optional(),
+});
+/** @internal */
+export type SavedJobCollectionCollector$Outbound = {
+  type: string;
+  conf: CollectorConf$Outbound;
+  destructive: boolean;
+  encoding?: string | undefined;
+};
+
+/** @internal */
+export const SavedJobCollectionCollector$outboundSchema: z.ZodType<
+  SavedJobCollectionCollector$Outbound,
+  z.ZodTypeDef,
+  SavedJobCollectionCollector
+> = z.object({
+  type: z.string(),
+  conf: CollectorConf$outboundSchema,
+  destructive: z.boolean().default(false),
+  encoding: z.string().optional(),
+});
+
+export function savedJobCollectionCollectorToJSON(
+  savedJobCollectionCollector: SavedJobCollectionCollector,
+): string {
+  return JSON.stringify(
+    SavedJobCollectionCollector$outboundSchema.parse(
+      savedJobCollectionCollector,
+    ),
+  );
+}
+export function savedJobCollectionCollectorFromJSON(
+  jsonString: string,
+): SafeParseResult<SavedJobCollectionCollector, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SavedJobCollectionCollector$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SavedJobCollectionCollector' from JSON`,
+  );
+}
+
+/** @internal */
 export const SavedJobCollectionInputType$inboundSchema: z.ZodType<
   SavedJobCollectionInputType,
   z.ZodTypeDef,
@@ -636,7 +702,7 @@ export const SavedJobCollection$inboundSchema: z.ZodType<
   schedule: z.lazy(() => SavedJobCollectionSchedule$inboundSchema).optional(),
   streamtags: z.array(z.string()).optional(),
   workerAffinity: z.boolean().default(false),
-  collector: Collector$inboundSchema,
+  collector: z.lazy(() => SavedJobCollectionCollector$inboundSchema),
   input: z.lazy(() => SavedJobCollectionInput$inboundSchema).optional(),
 });
 /** @internal */
@@ -652,7 +718,7 @@ export type SavedJobCollection$Outbound = {
   schedule?: SavedJobCollectionSchedule$Outbound | undefined;
   streamtags?: Array<string> | undefined;
   workerAffinity: boolean;
-  collector: Collector$Outbound;
+  collector: SavedJobCollectionCollector$Outbound;
   input?: SavedJobCollectionInput$Outbound | undefined;
 };
 
@@ -673,7 +739,7 @@ export const SavedJobCollection$outboundSchema: z.ZodType<
   schedule: z.lazy(() => SavedJobCollectionSchedule$outboundSchema).optional(),
   streamtags: z.array(z.string()).optional(),
   workerAffinity: z.boolean().default(false),
-  collector: Collector$outboundSchema,
+  collector: z.lazy(() => SavedJobCollectionCollector$outboundSchema),
   input: z.lazy(() => SavedJobCollectionInput$outboundSchema).optional(),
 });
 
