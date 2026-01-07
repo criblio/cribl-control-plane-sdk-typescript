@@ -50,6 +50,7 @@ typescript:
   enumFormat: union
   envVarPrefix: CRIBLCONTROLPLANE
   exportZodModelNamespace: false
+  flatAdditionalProperties: true
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
   formStringArrayEncodeMode: encoded-string
