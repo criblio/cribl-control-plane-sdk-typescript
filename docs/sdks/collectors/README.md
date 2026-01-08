@@ -80,7 +80,7 @@ async function run() {
           query: "<value>",
           queryValidationEnabled: true,
           defaultBreakers: "Cribl",
-          scheduling: {
+          __scheduling: {
             stateTracking: {
               enabled: true,
             },
@@ -190,7 +190,7 @@ async function run() {
           query: "<value>",
           queryValidationEnabled: true,
           defaultBreakers: "Cribl",
-          scheduling: {
+          __scheduling: {
             stateTracking: {
               enabled: true,
             },
@@ -575,7 +575,7 @@ async function run() {
           query: "<value>",
           queryValidationEnabled: true,
           defaultBreakers: "Cribl",
-          scheduling: {
+          __scheduling: {
             stateTracking: {
               enabled: false,
             },
@@ -689,7 +689,7 @@ async function run() {
           query: "<value>",
           queryValidationEnabled: true,
           defaultBreakers: "Cribl",
-          scheduling: {
+          __scheduling: {
             stateTracking: {
               enabled: false,
             },

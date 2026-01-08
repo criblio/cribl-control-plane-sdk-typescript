@@ -6,9 +6,9 @@
 import { FunctionGeoip } from "cribl-control-plane/models";
 
 let value: FunctionGeoip = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 7349.9,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,

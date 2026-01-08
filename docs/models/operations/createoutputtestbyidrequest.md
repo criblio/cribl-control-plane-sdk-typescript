@@ -10,7 +10,7 @@ let value: CreateOutputTestByIdRequest = {
   outputTestRequest: {
     events: [
       {
-        raw: "<value>",
+        _raw: "<value>",
       },
     ],
   },

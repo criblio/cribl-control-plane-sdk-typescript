@@ -6,7 +6,7 @@
 import { CriblEvent } from "cribl-control-plane/models";
 
 let value: CriblEvent = {
-  raw: "<value>",
+  _raw: "<value>",
 };
 ```
 

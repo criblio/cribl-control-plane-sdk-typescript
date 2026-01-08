@@ -38,7 +38,7 @@ let value: OutputSentinel = {
   authType: "oauth",
   loginUrl: "https://urban-electronics.biz",
   secret: "<value>",
-  clientId: "<id>",
+  client_id: "<id>",
   totalMemoryLimitKB: 1001.02,
   description: "continually commonly declaration trusty dimly between wisely",
   format: "ndjson",

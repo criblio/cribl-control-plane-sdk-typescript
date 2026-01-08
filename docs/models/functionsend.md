@@ -6,9 +6,9 @@
 import { FunctionSend } from "cribl-control-plane/models";
 
 let value: FunctionSend = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 6106.71,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,

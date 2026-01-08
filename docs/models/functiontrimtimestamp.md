@@ -6,9 +6,9 @@
 import { FunctionTrimTimestamp } from "cribl-control-plane/models";
 
 let value: FunctionTrimTimestamp = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 5.56,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,

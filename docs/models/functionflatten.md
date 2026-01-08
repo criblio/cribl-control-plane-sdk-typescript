@@ -6,9 +6,9 @@
 import { FunctionFlatten } from "cribl-control-plane/models";
 
 let value: FunctionFlatten = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 4624.4,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,

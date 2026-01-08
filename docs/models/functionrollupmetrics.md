@@ -6,9 +6,9 @@
 import { FunctionRollupMetrics } from "cribl-control-plane/models";
 
 let value: FunctionRollupMetrics = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 9783.75,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,

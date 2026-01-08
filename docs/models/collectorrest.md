@@ -39,7 +39,7 @@ const value: models.CollectorRestRest1 = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: true,
     },
@@ -109,7 +109,7 @@ const value: models.CollectorRestRest2 = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: false,
     },
@@ -178,7 +178,7 @@ const value: models.CollectorRestRest3 = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: true,
     },
@@ -246,7 +246,7 @@ const value: models.CollectorRestRest4 = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: false,
     },
@@ -316,7 +316,7 @@ const value: models.CollectorRestRest5 = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: false,
     },
@@ -386,7 +386,7 @@ const value: models.CollectorRestRest6 = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: false,
     },
@@ -453,7 +453,7 @@ const value: models.CollectorRestRest7 = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: true,
     },
@@ -528,7 +528,7 @@ const value: models.CollectorRestRest8 = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: false,
     },
@@ -597,7 +597,7 @@ const value: models.CollectorRestRest9 = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: false,
     },
@@ -675,7 +675,7 @@ const value: models.CollectorRestRest10 = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: false,
     },
@@ -745,7 +745,7 @@ const value: models.CollectorRestRest11 = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: true,
     },
@@ -807,7 +807,7 @@ const value: models.CollectorRestRest12 = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: true,
     },
@@ -874,7 +874,7 @@ const value: models.CollectorRestRest13 = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: true,
     },
@@ -939,7 +939,7 @@ const value: models.CollectorRestRest14 = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: false,
     },

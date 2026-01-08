@@ -6,9 +6,9 @@
 import { FunctionWindow } from "cribl-control-plane/models";
 
 let value: FunctionWindow = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 4593.24,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,

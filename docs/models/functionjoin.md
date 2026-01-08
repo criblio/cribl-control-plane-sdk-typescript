@@ -6,9 +6,9 @@
 import { FunctionJoin } from "cribl-control-plane/models";
 
 let value: FunctionJoin = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 3529.61,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,

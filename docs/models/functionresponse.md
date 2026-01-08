@@ -7,9 +7,9 @@
 
 ```typescript
 const value: models.FunctionAggregateMetrics = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 9195.61,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -50,9 +50,9 @@ const value: models.FunctionAggregateMetrics = {
 
 ```typescript
 const value: models.FunctionAggregation = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 7917.59,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -93,9 +93,9 @@ const value: models.FunctionAggregation = {
 
 ```typescript
 const value: models.FunctionAutoTimestamp = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 3412.89,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -126,9 +126,9 @@ const value: models.FunctionAutoTimestamp = {
 
 ```typescript
 const value: models.FunctionCef = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 6108.55,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,
@@ -163,9 +163,9 @@ const value: models.FunctionCef = {
 
 ```typescript
 const value: models.FunctionChain = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 7137.72,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -188,9 +188,9 @@ const value: models.FunctionChain = {
 
 ```typescript
 const value: models.FunctionClone = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8448.96,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,
@@ -221,9 +221,9 @@ const value: models.FunctionClone = {
 
 ```typescript
 const value: models.FunctionCode = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 1570.95,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -247,9 +247,9 @@ const value: models.FunctionCode = {
 
 ```typescript
 const value: models.FunctionComment = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 5446.2,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -275,9 +275,9 @@ const value: models.FunctionComment = {
 
 ```typescript
 const value: models.FunctionDistinct = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8471.89,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -302,9 +302,9 @@ const value: models.FunctionDistinct = {
 
 ```typescript
 const value: models.FunctionDnsLookup = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8310.14,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -344,9 +344,9 @@ const value: models.FunctionDnsLookup = {
 
 ```typescript
 const value: models.FunctionDrop = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 7169.86,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -368,9 +368,9 @@ const value: models.FunctionDrop = {
 
 ```typescript
 const value: models.FunctionDropDimensions = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8672.88,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,
@@ -396,9 +396,9 @@ const value: models.FunctionDropDimensions = {
 
 ```typescript
 const value: models.FunctionDynamicSampling = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 2144.07,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -420,9 +420,9 @@ const value: models.FunctionDynamicSampling = {
 
 ```typescript
 const value: models.FunctionEval = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 5706.24,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -455,9 +455,9 @@ const value: models.FunctionEval = {
 
 ```typescript
 const value: models.FunctionEventBreaker = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 7188.7,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,
@@ -476,9 +476,9 @@ const value: models.FunctionEventBreaker = {
 
 ```typescript
 const value: models.FunctionEventstats = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8029.93,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,
@@ -510,9 +510,9 @@ const value: models.FunctionEventstats = {
 
 ```typescript
 const value: models.FunctionExternaldata = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 2130.05,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,
@@ -533,9 +533,9 @@ const value: models.FunctionExternaldata = {
 
 ```typescript
 const value: models.FunctionFlatten = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 4624.4,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,
@@ -564,9 +564,9 @@ const value: models.FunctionFlatten = {
 
 ```typescript
 const value: models.FunctionFoldkeys = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 2686.01,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -590,9 +590,9 @@ const value: models.FunctionFoldkeys = {
 
 ```typescript
 const value: models.FunctionGenStats = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 3025.75,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -618,9 +618,9 @@ const value: models.FunctionGenStats = {
 
 ```typescript
 const value: models.FunctionGeoip = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 7349.9,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,
@@ -648,9 +648,9 @@ const value: models.FunctionGeoip = {
 
 ```typescript
 const value: models.FunctionGrok = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 2211.17,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -678,9 +678,9 @@ const value: models.FunctionGrok = {
 
 ```typescript
 const value: models.FunctionHandlebars = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 2987.9,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -712,9 +712,9 @@ const value: models.FunctionHandlebars = {
 
 ```typescript
 const value: models.FunctionJoin = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 3529.61,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -752,9 +752,9 @@ const value: models.FunctionJoin = {
 
 ```typescript
 const value: models.FunctionJsonUnroll = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 6785.72,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -776,9 +776,9 @@ const value: models.FunctionJsonUnroll = {
 
 ```typescript
 const value: models.FunctionLakeExport = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 1375.34,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -801,9 +801,9 @@ const value: models.FunctionLakeExport = {
 
 ```typescript
 const value: models.FunctionLimit = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 7993.11,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -822,9 +822,9 @@ const value: models.FunctionLimit = {
 
 ```typescript
 const value: models.FunctionLocalSearchDatatypeParser = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 9827.97,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -846,9 +846,9 @@ const value: models.FunctionLocalSearchDatatypeParser = {
 
 ```typescript
 const value: models.FunctionLocalSearchRulesetRunner = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 9962.28,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,
@@ -873,9 +873,9 @@ const value: models.FunctionLocalSearchRulesetRunner = {
 
 ```typescript
 const value: models.FunctionLookup = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 2465.37,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,
@@ -916,9 +916,9 @@ const value: models.FunctionLookup = {
 
 ```typescript
 const value: models.FunctionMask = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8419.45,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -952,9 +952,9 @@ const value: models.FunctionMask = {
 
 ```typescript
 const value: models.FunctionMvExpand = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8384.22,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -984,9 +984,9 @@ const value: models.FunctionMvExpand = {
 
 ```typescript
 const value: models.FunctionMvPull = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 4318.2,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -1012,9 +1012,9 @@ const value: models.FunctionMvPull = {
 
 ```typescript
 const value: models.FunctionNotificationPolicies = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 963.15,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,
@@ -1066,9 +1066,9 @@ const value: models.FunctionNotificationPolicies = {
 
 ```typescript
 const value: models.FunctionNotifications = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 756.05,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -1093,9 +1093,9 @@ const value: models.FunctionNotifications = {
 
 ```typescript
 const value: models.FunctionNotify = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 1105.87,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,
@@ -1127,9 +1127,9 @@ const value: models.FunctionNotify = {
 
 ```typescript
 const value: models.FunctionNumerify = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 1176.16,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -1156,9 +1156,9 @@ const value: models.FunctionNumerify = {
 
 ```typescript
 const value: models.FunctionOtlpLogs = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 3875.32,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,
@@ -1177,9 +1177,9 @@ const value: models.FunctionOtlpLogs = {
 
 ```typescript
 const value: models.FunctionOtlpMetrics = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 2251.51,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -1204,9 +1204,9 @@ const value: models.FunctionOtlpMetrics = {
 
 ```typescript
 const value: models.FunctionOtlpTraces = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8088.34,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,
@@ -1228,9 +1228,9 @@ const value: models.FunctionOtlpTraces = {
 
 ```typescript
 const value: models.FunctionPack = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8176.6,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -1257,9 +1257,9 @@ const value: models.FunctionPack = {
 
 ```typescript
 const value: models.FunctionPivot = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 3354.7,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,
@@ -1289,9 +1289,9 @@ const value: models.FunctionPivot = {
 
 ```typescript
 const value: models.FunctionPublishMetrics = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 7718.35,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -1330,9 +1330,9 @@ const value: models.FunctionPublishMetrics = {
 
 ```typescript
 const value: models.FunctionRedis = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 2267.56,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -1365,9 +1365,9 @@ const value: models.FunctionRedis = {
 
 ```typescript
 const value: models.FunctionRegexExtract = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 4835.31,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -1396,9 +1396,9 @@ const value: models.FunctionRegexExtract = {
 
 ```typescript
 const value: models.FunctionRegexFilter = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 5697.57,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,
@@ -1426,9 +1426,9 @@ const value: models.FunctionRegexFilter = {
 
 ```typescript
 const value: models.FunctionRename = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 2336.89,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,
@@ -1458,9 +1458,9 @@ const value: models.FunctionRename = {
 
 ```typescript
 const value: models.FunctionRollupMetrics = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 9783.75,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -1486,9 +1486,9 @@ const value: models.FunctionRollupMetrics = {
 
 ```typescript
 const value: models.FunctionSampling = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 6318.17,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,
@@ -1513,9 +1513,9 @@ const value: models.FunctionSampling = {
 
 ```typescript
 const value: models.FunctionSend = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 6106.71,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -1542,9 +1542,9 @@ const value: models.FunctionSend = {
 
 ```typescript
 const value: models.FunctionSensitiveDataScanner = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 3199.53,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -1584,9 +1584,9 @@ const value: models.FunctionSensitiveDataScanner = {
 
 ```typescript
 const value: models.FunctionSerde = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 7712.14,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,
@@ -1612,9 +1612,9 @@ const value: models.FunctionSerde = {
 
 ```typescript
 const value: models.FunctionSerialize = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 7303.27,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,
@@ -1646,9 +1646,9 @@ const value: models.FunctionSerialize = {
 
 ```typescript
 const value: models.FunctionSidlookup = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8789.17,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,
@@ -1678,9 +1678,9 @@ const value: models.FunctionSidlookup = {
 
 ```typescript
 const value: models.FunctionSnmpTrapSerialize = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 3177.3,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,
@@ -1707,9 +1707,9 @@ const value: models.FunctionSnmpTrapSerialize = {
 
 ```typescript
 const value: models.FunctionSort = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 4827.88,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -1736,9 +1736,9 @@ const value: models.FunctionSort = {
 
 ```typescript
 const value: models.FunctionStore = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 1052.71,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -1763,9 +1763,9 @@ const value: models.FunctionStore = {
 
 ```typescript
 const value: models.FunctionSuppress = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8009.67,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,
@@ -1786,9 +1786,9 @@ const value: models.FunctionSuppress = {
 
 ```typescript
 const value: models.FunctionTee = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 5834.77,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -1819,9 +1819,9 @@ const value: models.FunctionTee = {
 
 ```typescript
 const value: models.FunctionTrimTimestamp = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 5.56,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,
@@ -1842,9 +1842,9 @@ const value: models.FunctionTrimTimestamp = {
 
 ```typescript
 const value: models.FunctionUnion = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 6855.47,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -1873,9 +1873,9 @@ const value: models.FunctionUnion = {
 
 ```typescript
 const value: models.FunctionUnroll = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 1449.06,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
@@ -1897,9 +1897,9 @@ const value: models.FunctionUnroll = {
 
 ```typescript
 const value: models.FunctionWindow = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 4593.24,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
@@ -1929,9 +1929,9 @@ const value: models.FunctionWindow = {
 
 ```typescript
 const value: models.FunctionXmlUnroll = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 3949.24,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,

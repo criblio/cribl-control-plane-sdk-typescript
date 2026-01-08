@@ -6,9 +6,9 @@
 import { FunctionSampling } from "cribl-control-plane/models";
 
 let value: FunctionSampling = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 6318.17,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,

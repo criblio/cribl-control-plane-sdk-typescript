@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
@@ -46,7 +45,7 @@ export type CollectorDatabase = {
    */
   queryValidationEnabled?: boolean | undefined;
   defaultBreakers?: CollectorDatabaseHiddenDefaultBreakers | undefined;
-  scheduling?: CollectorDatabaseScheduling | undefined;
+  __scheduling?: CollectorDatabaseScheduling | undefined;
 };
 
 /** @internal */
@@ -160,10 +159,6 @@ export const CollectorDatabase$inboundSchema: z.ZodType<
     .optional(),
   __scheduling: z.lazy(() => CollectorDatabaseScheduling$inboundSchema)
     .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__scheduling": "scheduling",
-  });
 });
 /** @internal */
 export type CollectorDatabase$Outbound = {
@@ -187,12 +182,8 @@ export const CollectorDatabase$outboundSchema: z.ZodType<
   queryValidationEnabled: z.boolean().default(true),
   defaultBreakers: CollectorDatabaseHiddenDefaultBreakers$outboundSchema
     .optional(),
-  scheduling: z.lazy(() => CollectorDatabaseScheduling$outboundSchema)
+  __scheduling: z.lazy(() => CollectorDatabaseScheduling$outboundSchema)
     .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduling: "__scheduling",
-  });
 });
 
 export function collectorDatabaseToJSON(

@@ -3,14 +3,13 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type Commit = {
-  authorEmail?: string | undefined;
-  authorName?: string | undefined;
+  author_email?: string | undefined;
+  author_name?: string | undefined;
   date: string;
   hash: string;
   message: string;
@@ -26,11 +25,6 @@ export const Commit$inboundSchema: z.ZodType<Commit, z.ZodTypeDef, unknown> = z
     hash: z.string(),
     message: z.string(),
     short: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "author_email": "authorEmail",
-      "author_name": "authorName",
-    });
   });
 /** @internal */
 export type Commit$Outbound = {
@@ -48,17 +42,12 @@ export const Commit$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Commit
 > = z.object({
-  authorEmail: z.string().optional(),
-  authorName: z.string().optional(),
+  author_email: z.string().optional(),
+  author_name: z.string().optional(),
   date: z.string(),
   hash: z.string(),
   message: z.string(),
   short: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorEmail: "author_email",
-    authorName: "author_name",
-  });
 });
 
 export function commitToJSON(commit: Commit): string {

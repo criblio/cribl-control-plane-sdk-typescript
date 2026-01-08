@@ -25,13 +25,13 @@ let value: CountedGitStatusResult = {
         {
           index: "<value>",
           path: "/opt/include",
-          workingDir: "<value>",
+          working_dir: "<value>",
         },
       ],
       modified: [
         "<value 1>",
       ],
-      notAdded: [],
+      not_added: [],
       renamed: [],
       staged: [],
     },

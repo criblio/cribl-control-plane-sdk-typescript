@@ -9,8 +9,8 @@ let value: CountedGitLogResult = {
   count: 639519,
   items: [
     {
-      authorEmail: "<value>",
-      authorName: "<value>",
+      author_email: "<value>",
+      author_name: "<value>",
       body: "<value>",
       date: "2024-02-28",
       hash: "<value>",

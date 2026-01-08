@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -13,9 +12,9 @@ import {
 } from "./functionconfschemawindow.js";
 
 export type FunctionWindow = {
-  filename: string;
+  __filename: string;
   asyncTimeout?: number | undefined;
-  criblVersion?: string | undefined;
+  cribl_version?: string | undefined;
   disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
@@ -49,11 +48,6 @@ export const FunctionWindow$inboundSchema: z.ZodType<
   uischema: z.record(z.any()),
   version: z.string(),
   schema: FunctionConfSchemaWindow$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__filename": "filename",
-    "cribl_version": "criblVersion",
-  });
 });
 
 export function functionWindowFromJSON(

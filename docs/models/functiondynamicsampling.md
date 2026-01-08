@@ -6,9 +6,9 @@
 import { FunctionDynamicSampling } from "cribl-control-plane/models";
 
 let value: FunctionDynamicSampling = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 2144.07,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,
