@@ -3,19 +3,14 @@
  */
 
 import * as z from "zod/v3";
-import {
-  CriblEvent,
-  CriblEvent$Outbound,
-  CriblEvent$outboundSchema,
-} from "./criblevent.js";
 
 export type OutputTestRequest = {
-  events: Array<CriblEvent>;
+  events: Array<{ [k: string]: any }>;
 };
 
 /** @internal */
 export type OutputTestRequest$Outbound = {
-  events: Array<CriblEvent$Outbound>;
+  events: Array<{ [k: string]: any }>;
 };
 
 /** @internal */
@@ -24,7 +19,7 @@ export const OutputTestRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputTestRequest
 > = z.object({
-  events: z.array(CriblEvent$outboundSchema),
+  events: z.array(z.record(z.any())),
 });
 
 export function outputTestRequestToJSON(
