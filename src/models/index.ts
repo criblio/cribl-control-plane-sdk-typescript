@@ -57,7 +57,6 @@ export * from "./countedstring.js";
 export * from "./countedsystemsettingsconf.js";
 export * from "./countedteamaccesscontrollist.js";
 export * from "./counteduseraccesscontrollist.js";
-export * from "./criblevent.js";
 export * from "./cribllakedataset.js";
 export * from "./cribllakedatasetupdate.js";
 export * from "./currentbranchresult.js";
