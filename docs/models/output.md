@@ -137,7 +137,7 @@ const value: models.OutputSentinel = {
   authType: "oauth",
   loginUrl: "https://perky-nightlife.com",
   secret: "<value>",
-  clientId: "<id>",
+  client_id: "<id>",
   totalMemoryLimitKB: 9560.32,
   description: "armoire strident gloss rationalise",
   format: "advanced",
@@ -2922,7 +2922,7 @@ const value: models.OutputMicrosoftFabric = {
     scope: "<value>",
   },
   tls: {},
-  bootstrapServer: "<value>",
+  bootstrap_server: "<value>",
   description: "astride ocelot nifty greedy bungalow kiddingly successfully",
   pqControls: {},
 };

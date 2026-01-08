@@ -37,7 +37,7 @@ let value: OutputSentinel = {
   authType: "oauth",
   loginUrl: "https://perky-nightlife.com",
   secret: "<value>",
-  clientId: "<id>",
+  client_id: "<id>",
   totalMemoryLimitKB: 9560.32,
   description: "armoire strident gloss rationalise",
   format: "advanced",
