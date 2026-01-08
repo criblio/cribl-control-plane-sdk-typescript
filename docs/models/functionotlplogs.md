@@ -6,9 +6,9 @@
 import { FunctionOtlpLogs } from "cribl-control-plane/models";
 
 let value: FunctionOtlpLogs = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 3875.32,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,

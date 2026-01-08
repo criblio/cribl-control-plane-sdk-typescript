@@ -9,9 +9,9 @@ let value: CountedFunctionResponse = {
   count: 937893,
   items: [
     {
-      filename: "example.file",
+      __filename: "example.file",
       asyncTimeout: 803.8,
-      criblVersion: "<value>",
+      cribl_version: "<value>",
       disabled: true,
       group: "<value>",
       handleSignals: true,

@@ -6,9 +6,9 @@
 import { FunctionDnsLookup } from "cribl-control-plane/models";
 
 let value: FunctionDnsLookup = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8310.14,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,

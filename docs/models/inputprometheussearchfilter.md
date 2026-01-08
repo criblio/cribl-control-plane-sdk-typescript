@@ -6,8 +6,8 @@
 import { InputPrometheusSearchFilter } from "cribl-control-plane/models";
 
 let value: InputPrometheusSearchFilter = {
-  name: "<value>",
-  values: [
+  Name: "<value>",
+  Values: [
     "<value 1>",
     "<value 2>",
     "<value 3>",

@@ -6,9 +6,9 @@
 import { FunctionChain } from "cribl-control-plane/models";
 
 let value: FunctionChain = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 7137.72,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,

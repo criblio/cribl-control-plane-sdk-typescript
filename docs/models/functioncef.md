@@ -6,9 +6,9 @@
 import { FunctionCef } from "cribl-control-plane/models";
 
 let value: FunctionCef = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 6108.55,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,

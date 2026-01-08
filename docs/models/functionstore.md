@@ -6,9 +6,9 @@
 import { FunctionStore } from "cribl-control-plane/models";
 
 let value: FunctionStore = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 1052.71,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,

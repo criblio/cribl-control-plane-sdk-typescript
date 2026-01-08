@@ -6,9 +6,9 @@
 import { FunctionPivot } from "cribl-control-plane/models";
 
 let value: FunctionPivot = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 3354.7,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,

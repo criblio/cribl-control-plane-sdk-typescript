@@ -6,9 +6,9 @@
 import { FunctionOtlpMetrics } from "cribl-control-plane/models";
 
 let value: FunctionOtlpMetrics = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 2251.51,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,

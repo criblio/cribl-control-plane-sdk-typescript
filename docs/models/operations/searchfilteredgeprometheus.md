@@ -6,8 +6,8 @@
 import { SearchFilterEdgePrometheus } from "cribl-control-plane/models/operations";
 
 let value: SearchFilterEdgePrometheus = {
-  name: "<value>",
-  values: [
+  Name: "<value>",
+  Values: [
     "<value 1>",
     "<value 2>",
   ],

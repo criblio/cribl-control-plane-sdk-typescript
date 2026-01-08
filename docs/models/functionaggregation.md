@@ -6,9 +6,9 @@
 import { FunctionAggregation } from "cribl-control-plane/models";
 
 let value: FunctionAggregation = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 7917.59,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,

@@ -6,9 +6,9 @@
 import { FunctionMask } from "cribl-control-plane/models";
 
 let value: FunctionMask = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8419.45,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,

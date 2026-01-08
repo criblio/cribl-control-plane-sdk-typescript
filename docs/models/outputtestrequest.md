@@ -8,7 +8,7 @@ import { OutputTestRequest } from "cribl-control-plane/models";
 let value: OutputTestRequest = {
   events: [
     {
-      raw: "<value>",
+      _raw: "<value>",
     },
   ],
 };

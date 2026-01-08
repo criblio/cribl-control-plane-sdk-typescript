@@ -6,9 +6,9 @@
 import { FunctionLookup } from "cribl-control-plane/models";
 
 let value: FunctionLookup = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 2465.37,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,

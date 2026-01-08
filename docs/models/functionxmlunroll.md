@@ -6,9 +6,9 @@
 import { FunctionXmlUnroll } from "cribl-control-plane/models";
 
 let value: FunctionXmlUnroll = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 3949.24,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,

@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { ClosedEnum, OpenEnum } from "../types/enums.js";
@@ -265,7 +264,7 @@ export type CollectorRestRest14 = {
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorRestRetryRules14 | undefined;
-  scheduling?: CollectorRestScheduling14 | undefined;
+  __scheduling?: CollectorRestScheduling14 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -590,7 +589,7 @@ export type CollectorRestRest13 = {
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorRestRetryRules13 | undefined;
-  scheduling?: CollectorRestScheduling13 | undefined;
+  __scheduling?: CollectorRestScheduling13 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -907,7 +906,7 @@ export type CollectorRestRest12 = {
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorRestRetryRules12 | undefined;
-  scheduling?: CollectorRestScheduling12 | undefined;
+  __scheduling?: CollectorRestScheduling12 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -1241,7 +1240,7 @@ export type CollectorRestRest11 = {
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorRestRetryRules11 | undefined;
-  scheduling?: CollectorRestScheduling11 | undefined;
+  __scheduling?: CollectorRestScheduling11 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -1558,7 +1557,7 @@ export type CollectorRestRest10 = {
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorRestRetryRules10 | undefined;
-  scheduling?: CollectorRestScheduling10 | undefined;
+  __scheduling?: CollectorRestScheduling10 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -1867,7 +1866,7 @@ export type CollectorRestRest9 = {
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorRestRetryRules9 | undefined;
-  scheduling?: CollectorRestScheduling9 | undefined;
+  __scheduling?: CollectorRestScheduling9 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -2178,7 +2177,7 @@ export type CollectorRestRest8 = {
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorRestRetryRules8 | undefined;
-  scheduling?: CollectorRestScheduling8 | undefined;
+  __scheduling?: CollectorRestScheduling8 | undefined;
   /**
    * Select or create a stored secret that references your login credentials
    */
@@ -2472,7 +2471,7 @@ export type CollectorRestRest7 = {
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorRestRetryRules7 | undefined;
-  scheduling?: CollectorRestScheduling7 | undefined;
+  __scheduling?: CollectorRestScheduling7 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -2783,7 +2782,7 @@ export type CollectorRestRest6 = {
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorRestRetryRules6 | undefined;
-  scheduling?: CollectorRestScheduling6 | undefined;
+  __scheduling?: CollectorRestScheduling6 | undefined;
   /**
    * Select or create a stored secret that references your login credentials
    */
@@ -3094,7 +3093,7 @@ export type CollectorRestRest5 = {
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorRestRetryRules5 | undefined;
-  scheduling?: CollectorRestScheduling5 | undefined;
+  __scheduling?: CollectorRestScheduling5 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -3407,7 +3406,7 @@ export type CollectorRestRest4 = {
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorRestRetryRules4 | undefined;
-  scheduling?: CollectorRestScheduling4 | undefined;
+  __scheduling?: CollectorRestScheduling4 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -3720,7 +3719,7 @@ export type CollectorRestRest3 = {
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorRestRetryRules3 | undefined;
-  scheduling?: CollectorRestScheduling3 | undefined;
+  __scheduling?: CollectorRestScheduling3 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -4033,7 +4032,7 @@ export type CollectorRestRest2 = {
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorRestRetryRules2 | undefined;
-  scheduling?: CollectorRestScheduling2 | undefined;
+  __scheduling?: CollectorRestScheduling2 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -4346,7 +4345,7 @@ export type CollectorRestRest1 = {
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorRestRetryRules1 | undefined;
-  scheduling?: CollectorRestScheduling1 | undefined;
+  __scheduling?: CollectorRestScheduling1 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -4954,10 +4953,6 @@ export const CollectorRestRest14$inboundSchema: z.ZodType<
   scopes: z.array(z.string()).optional(),
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__scheduling": "scheduling",
-  });
 });
 /** @internal */
 export type CollectorRestRest14$Outbound = {
@@ -5039,7 +5034,8 @@ export const CollectorRestRest14$outboundSchema: z.ZodType<
   stopOnEmptyResults: z.boolean().default(false),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorRestRetryRules14$outboundSchema).optional(),
-  scheduling: z.lazy(() => CollectorRestScheduling14$outboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling14$outboundSchema)
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -5063,10 +5059,6 @@ export const CollectorRestRest14$outboundSchema: z.ZodType<
   scopes: z.array(z.string()).optional(),
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduling: "__scheduling",
-  });
 });
 
 export function collectorRestRest14ToJSON(
@@ -5612,10 +5604,6 @@ export const CollectorRestRest13$inboundSchema: z.ZodType<
   ).optional(),
   serviceAccountCredentials: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__scheduling": "scheduling",
-  });
 });
 /** @internal */
 export type CollectorRestRest13$Outbound = {
@@ -5699,7 +5687,8 @@ export const CollectorRestRest13$outboundSchema: z.ZodType<
   stopOnEmptyResults: z.boolean().default(false),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorRestRetryRules13$outboundSchema).optional(),
-  scheduling: z.lazy(() => CollectorRestScheduling13$outboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling13$outboundSchema)
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -5721,10 +5710,6 @@ export const CollectorRestRest13$outboundSchema: z.ZodType<
   ).optional(),
   serviceAccountCredentials: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduling: "__scheduling",
-  });
 });
 
 export function collectorRestRest13ToJSON(
@@ -6270,10 +6255,6 @@ export const CollectorRestRest12$inboundSchema: z.ZodType<
   ).optional(),
   textSecret: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__scheduling": "scheduling",
-  });
 });
 /** @internal */
 export type CollectorRestRest12$Outbound = {
@@ -6357,7 +6338,8 @@ export const CollectorRestRest12$outboundSchema: z.ZodType<
   stopOnEmptyResults: z.boolean().default(false),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorRestRetryRules12$outboundSchema).optional(),
-  scheduling: z.lazy(() => CollectorRestScheduling12$outboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling12$outboundSchema)
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -6379,10 +6361,6 @@ export const CollectorRestRest12$outboundSchema: z.ZodType<
   ).optional(),
   textSecret: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduling: "__scheduling",
-  });
 });
 
 export function collectorRestRest12ToJSON(
@@ -6928,10 +6906,6 @@ export const CollectorRestRest11$inboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__scheduling": "scheduling",
-  });
 });
 /** @internal */
 export type CollectorRestRest11$Outbound = {
@@ -7024,7 +6998,8 @@ export const CollectorRestRest11$outboundSchema: z.ZodType<
   stopOnEmptyResults: z.boolean().default(false),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorRestRetryRules11$outboundSchema).optional(),
-  scheduling: z.lazy(() => CollectorRestScheduling11$outboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling11$outboundSchema)
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -7037,10 +7012,6 @@ export const CollectorRestRest11$outboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduling: "__scheduling",
-  });
 });
 
 export function collectorRestRest11ToJSON(
@@ -7586,10 +7557,6 @@ export const CollectorRestRest10$inboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__scheduling": "scheduling",
-  });
 });
 /** @internal */
 export type CollectorRestRest10$Outbound = {
@@ -7682,7 +7649,8 @@ export const CollectorRestRest10$outboundSchema: z.ZodType<
   stopOnEmptyResults: z.boolean().default(false),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorRestRetryRules10$outboundSchema).optional(),
-  scheduling: z.lazy(() => CollectorRestScheduling10$outboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling10$outboundSchema)
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -7695,10 +7663,6 @@ export const CollectorRestRest10$outboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduling: "__scheduling",
-  });
 });
 
 export function collectorRestRest10ToJSON(
@@ -8242,10 +8206,6 @@ export const CollectorRestRest9$inboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__scheduling": "scheduling",
-  });
 });
 /** @internal */
 export type CollectorRestRest9$Outbound = {
@@ -8337,7 +8297,8 @@ export const CollectorRestRest9$outboundSchema: z.ZodType<
   stopOnEmptyResults: z.boolean().default(false),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorRestRetryRules9$outboundSchema).optional(),
-  scheduling: z.lazy(() => CollectorRestScheduling9$outboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling9$outboundSchema)
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   tokenRespAttribute: z.string().optional(),
@@ -8351,10 +8312,6 @@ export const CollectorRestRest9$outboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduling: "__scheduling",
-  });
 });
 
 export function collectorRestRest9ToJSON(
@@ -8898,10 +8855,6 @@ export const CollectorRestRest8$inboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__scheduling": "scheduling",
-  });
 });
 /** @internal */
 export type CollectorRestRest8$Outbound = {
@@ -8994,7 +8947,8 @@ export const CollectorRestRest8$outboundSchema: z.ZodType<
   stopOnEmptyResults: z.boolean().default(false),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorRestRetryRules8$outboundSchema).optional(),
-  scheduling: z.lazy(() => CollectorRestScheduling8$outboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling8$outboundSchema)
+    .optional(),
   credentialsSecret: z.string().optional(),
   tokenRespAttribute: z.string().optional(),
   clientSecretParamName: z.string().default("client_secret"),
@@ -9007,10 +8961,6 @@ export const CollectorRestRest8$outboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduling: "__scheduling",
-  });
 });
 
 export function collectorRestRest8ToJSON(
@@ -9554,10 +9504,6 @@ export const CollectorRestRest7$inboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__scheduling": "scheduling",
-  });
 });
 /** @internal */
 export type CollectorRestRest7$Outbound = {
@@ -9639,7 +9585,8 @@ export const CollectorRestRest7$outboundSchema: z.ZodType<
   stopOnEmptyResults: z.boolean().default(false),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorRestRetryRules7$outboundSchema).optional(),
-  scheduling: z.lazy(() => CollectorRestScheduling7$outboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling7$outboundSchema)
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   loginUrl: z.string().default(""),
@@ -9663,10 +9610,6 @@ export const CollectorRestRest7$outboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduling: "__scheduling",
-  });
 });
 
 export function collectorRestRest7ToJSON(
@@ -10210,10 +10153,6 @@ export const CollectorRestRest6$inboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__scheduling": "scheduling",
-  });
 });
 /** @internal */
 export type CollectorRestRest6$Outbound = {
@@ -10296,7 +10235,8 @@ export const CollectorRestRest6$outboundSchema: z.ZodType<
   stopOnEmptyResults: z.boolean().default(false),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorRestRetryRules6$outboundSchema).optional(),
-  scheduling: z.lazy(() => CollectorRestScheduling6$outboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling6$outboundSchema)
+    .optional(),
   credentialsSecret: z.string().optional(),
   loginUrl: z.string().default(""),
   loginBody: z.string().default(
@@ -10319,10 +10259,6 @@ export const CollectorRestRest6$outboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduling: "__scheduling",
-  });
 });
 
 export function collectorRestRest6ToJSON(
@@ -10866,10 +10802,6 @@ export const CollectorRestRest5$inboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__scheduling": "scheduling",
-  });
 });
 /** @internal */
 export type CollectorRestRest5$Outbound = {
@@ -10950,7 +10882,8 @@ export const CollectorRestRest5$outboundSchema: z.ZodType<
   stopOnEmptyResults: z.boolean().default(false),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorRestRetryRules5$outboundSchema).optional(),
-  scheduling: z.lazy(() => CollectorRestScheduling5$outboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling5$outboundSchema)
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -10975,10 +10908,6 @@ export const CollectorRestRest5$outboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduling: "__scheduling",
-  });
 });
 
 export function collectorRestRest5ToJSON(
@@ -11522,10 +11451,6 @@ export const CollectorRestRest4$inboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__scheduling": "scheduling",
-  });
 });
 /** @internal */
 export type CollectorRestRest4$Outbound = {
@@ -11606,7 +11531,8 @@ export const CollectorRestRest4$outboundSchema: z.ZodType<
   stopOnEmptyResults: z.boolean().default(false),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorRestRetryRules4$outboundSchema).optional(),
-  scheduling: z.lazy(() => CollectorRestScheduling4$outboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling4$outboundSchema)
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -11631,10 +11557,6 @@ export const CollectorRestRest4$outboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduling: "__scheduling",
-  });
 });
 
 export function collectorRestRest4ToJSON(
@@ -12178,10 +12100,6 @@ export const CollectorRestRest3$inboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__scheduling": "scheduling",
-  });
 });
 /** @internal */
 export type CollectorRestRest3$Outbound = {
@@ -12262,7 +12180,8 @@ export const CollectorRestRest3$outboundSchema: z.ZodType<
   stopOnEmptyResults: z.boolean().default(false),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorRestRetryRules3$outboundSchema).optional(),
-  scheduling: z.lazy(() => CollectorRestScheduling3$outboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling3$outboundSchema)
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -12287,10 +12206,6 @@ export const CollectorRestRest3$outboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduling: "__scheduling",
-  });
 });
 
 export function collectorRestRest3ToJSON(
@@ -12834,10 +12749,6 @@ export const CollectorRestRest2$inboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__scheduling": "scheduling",
-  });
 });
 /** @internal */
 export type CollectorRestRest2$Outbound = {
@@ -12918,7 +12829,8 @@ export const CollectorRestRest2$outboundSchema: z.ZodType<
   stopOnEmptyResults: z.boolean().default(false),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorRestRetryRules2$outboundSchema).optional(),
-  scheduling: z.lazy(() => CollectorRestScheduling2$outboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling2$outboundSchema)
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -12943,10 +12855,6 @@ export const CollectorRestRest2$outboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduling: "__scheduling",
-  });
 });
 
 export function collectorRestRest2ToJSON(
@@ -13490,10 +13398,6 @@ export const CollectorRestRest1$inboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__scheduling": "scheduling",
-  });
 });
 /** @internal */
 export type CollectorRestRest1$Outbound = {
@@ -13574,7 +13478,8 @@ export const CollectorRestRest1$outboundSchema: z.ZodType<
   stopOnEmptyResults: z.boolean().default(false),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorRestRetryRules1$outboundSchema).optional(),
-  scheduling: z.lazy(() => CollectorRestScheduling1$outboundSchema).optional(),
+  __scheduling: z.lazy(() => CollectorRestScheduling1$outboundSchema)
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -13599,10 +13504,6 @@ export const CollectorRestRest1$outboundSchema: z.ZodType<
   serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduling: "__scheduling",
-  });
 });
 
 export function collectorRestRest1ToJSON(

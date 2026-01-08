@@ -6,9 +6,9 @@
 import { FunctionMvPull } from "cribl-control-plane/models";
 
 let value: FunctionMvPull = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 4318.2,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,

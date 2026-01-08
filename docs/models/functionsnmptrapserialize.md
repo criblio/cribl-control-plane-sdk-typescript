@@ -6,9 +6,9 @@
 import { FunctionSnmpTrapSerialize } from "cribl-control-plane/models";
 
 let value: FunctionSnmpTrapSerialize = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 3177.3,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,

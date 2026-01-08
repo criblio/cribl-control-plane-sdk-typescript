@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -11,7 +10,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 export type FileT = {
   index: string;
   path: string;
-  workingDir: string;
+  working_dir: string;
 };
 
 export type Renamed = {
@@ -28,7 +27,7 @@ export type GitStatusResult = {
   deleted: Array<string>;
   files: Array<FileT>;
   modified: Array<string>;
-  notAdded: Array<string>;
+  not_added: Array<string>;
   renamed: Array<Renamed>;
   staged: Array<string>;
 };
@@ -39,10 +38,6 @@ export const FileT$inboundSchema: z.ZodType<FileT, z.ZodTypeDef, unknown> = z
     index: z.string(),
     path: z.string(),
     working_dir: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "working_dir": "workingDir",
-    });
   });
 
 export function fileFromJSON(
@@ -89,10 +84,6 @@ export const GitStatusResult$inboundSchema: z.ZodType<
   not_added: z.array(z.string()),
   renamed: z.array(z.lazy(() => Renamed$inboundSchema)),
   staged: z.array(z.string()),
-}).transform((v) => {
-  return remap$(v, {
-    "not_added": "notAdded",
-  });
 });
 
 export function gitStatusResultFromJSON(

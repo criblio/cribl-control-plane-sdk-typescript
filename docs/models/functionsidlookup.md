@@ -6,9 +6,9 @@
 import { FunctionSidlookup } from "cribl-control-plane/models";
 
 let value: FunctionSidlookup = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8789.17,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,

@@ -6,9 +6,9 @@
 import { FunctionLocalSearchRulesetRunner } from "cribl-control-plane/models";
 
 let value: FunctionLocalSearchRulesetRunner = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 9962.28,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,

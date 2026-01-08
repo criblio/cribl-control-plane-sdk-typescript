@@ -6,9 +6,9 @@
 import { FunctionUnion } from "cribl-control-plane/models";
 
 let value: FunctionUnion = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 6855.47,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,

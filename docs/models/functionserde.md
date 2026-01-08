@@ -6,9 +6,9 @@
 import { FunctionSerde } from "cribl-control-plane/models";
 
 let value: FunctionSerde = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 7712.14,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,

@@ -6,9 +6,9 @@
 import { FunctionMvExpand } from "cribl-control-plane/models";
 
 let value: FunctionMvExpand = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8384.22,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,

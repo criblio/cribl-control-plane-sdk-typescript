@@ -6,9 +6,9 @@
 import { FunctionEventBreaker } from "cribl-control-plane/models";
 
 let value: FunctionEventBreaker = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 7188.7,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,

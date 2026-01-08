@@ -6,9 +6,9 @@
 import { FunctionLocalSearchDatatypeParser } from "cribl-control-plane/models";
 
 let value: FunctionLocalSearchDatatypeParser = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 9827.97,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,
