@@ -6,9 +6,9 @@
 import { FunctionLakeExport } from "cribl-control-plane/models";
 
 let value: FunctionLakeExport = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 1375.34,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,

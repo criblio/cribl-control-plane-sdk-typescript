@@ -6,9 +6,9 @@
 import { FunctionRegexExtract } from "cribl-control-plane/models";
 
 let value: FunctionRegexExtract = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 4835.31,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,

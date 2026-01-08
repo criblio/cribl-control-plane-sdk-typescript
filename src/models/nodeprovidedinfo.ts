@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -77,7 +76,7 @@ export type NodeProvidedInfo = {
   architecture: string;
   aws?: NodeProvidedInfoAws | undefined;
   azure?: NodeProvidedInfoAzure | undefined;
-  connIp?: string | undefined;
+  conn_ip?: string | undefined;
   cpus: number;
   cribl: HBCriblInfo;
   env: { [k: string]: string };
@@ -302,10 +301,6 @@ export const NodeProvidedInfo$inboundSchema: z.ZodType<
   release: z.string(),
   totalDiskSpace: z.number().optional(),
   totalmem: z.number(),
-}).transform((v) => {
-  return remap$(v, {
-    "conn_ip": "connIp",
-  });
 });
 
 export function nodeProvidedInfoFromJSON(

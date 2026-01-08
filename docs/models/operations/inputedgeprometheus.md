@@ -49,8 +49,8 @@ let value: InputEdgePrometheus = {
   awsSecret: "<value>",
   searchFilter: [
     {
-      name: "<value>",
-      values: [
+      Name: "<value>",
+      Values: [
         "<value 1>",
         "<value 2>",
         "<value 3>",

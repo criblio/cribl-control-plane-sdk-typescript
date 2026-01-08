@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
 import * as openEnums from "../../types/enums.js";
 import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 
@@ -752,7 +751,7 @@ export type OutputMicrosoftFabric = {
   /**
    * Bootstrap server from Fabric Eventstream's endpoint
    */
-  bootstrapServer: string;
+  bootstrap_server: string;
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -24301,7 +24300,7 @@ export type OutputSentinel = {
   /**
    * JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
    */
-  clientId: string;
+  client_id: string;
   /**
    * Scope to pass in the OAuth request
    */
@@ -25556,7 +25555,7 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
   onBackpressure: BackpressureBehaviorMicrosoftFabric$outboundSchema.default(
     "block",
   ),
-  bootstrapServer: z.string(),
+  bootstrap_server: z.string(),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
@@ -25571,10 +25570,6 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
     "block",
   ),
   pqControls: z.lazy(() => PqControlsMicrosoftFabric$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    bootstrapServer: "bootstrap_server",
-  });
 });
 
 export function outputMicrosoftFabricToJSON(
@@ -42907,7 +42902,7 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   authType: AuthType$outboundSchema.optional(),
   loginUrl: z.string(),
   secret: z.string(),
-  clientId: z.string(),
+  client_id: z.string(),
   scope: z.string().default("https://monitor.azure.com/.default"),
   endpointURLConfiguration: EndpointConfiguration$outboundSchema.default("url"),
   totalMemoryLimitKB: z.number().optional(),
@@ -42936,10 +42931,6 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   dcrID: z.string().optional(),
   dceEndpoint: z.string().optional(),
   streamName: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    clientId: "client_id",
-  });
 });
 
 export function outputSentinelToJSON(outputSentinel: OutputSentinel): string {

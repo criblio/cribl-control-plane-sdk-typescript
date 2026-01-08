@@ -6,9 +6,9 @@
 import { FunctionNumerify } from "cribl-control-plane/models";
 
 let value: FunctionNumerify = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 1176.16,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,

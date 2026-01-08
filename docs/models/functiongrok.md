@@ -6,9 +6,9 @@
 import { FunctionGrok } from "cribl-control-plane/models";
 
 let value: FunctionGrok = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 2211.17,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,

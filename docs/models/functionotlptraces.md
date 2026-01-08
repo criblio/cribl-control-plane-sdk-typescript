@@ -6,9 +6,9 @@
 import { FunctionOtlpTraces } from "cribl-control-plane/models";
 
 let value: FunctionOtlpTraces = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8088.34,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,

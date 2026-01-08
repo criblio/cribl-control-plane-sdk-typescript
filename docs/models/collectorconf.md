@@ -57,7 +57,7 @@ const value: models.CollectorDatabase = {
   connectionId: "<id>",
   query: "<value>",
   defaultBreakers: "Cribl",
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: true,
     },
@@ -223,7 +223,7 @@ const value: models.CollectorRest = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: true,
     },

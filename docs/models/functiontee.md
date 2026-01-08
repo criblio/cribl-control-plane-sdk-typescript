@@ -6,9 +6,9 @@
 import { FunctionTee } from "cribl-control-plane/models";
 
 let value: FunctionTee = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 5834.77,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,

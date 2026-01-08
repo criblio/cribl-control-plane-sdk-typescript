@@ -6,9 +6,9 @@
 import { FunctionExternaldata } from "cribl-control-plane/models";
 
 let value: FunctionExternaldata = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 2130.05,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,

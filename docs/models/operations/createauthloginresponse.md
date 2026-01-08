@@ -6,7 +6,7 @@
 import { CreateAuthLoginResponse } from "cribl-control-plane/models/operations";
 
 let value: CreateAuthLoginResponse = {
-  headers: {
+  Headers: {
     "key": [
       "<value 1>",
       "<value 2>",

@@ -6,9 +6,9 @@
 import { FunctionUnroll } from "cribl-control-plane/models";
 
 let value: FunctionUnroll = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 1449.06,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,

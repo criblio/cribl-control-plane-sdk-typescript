@@ -6,9 +6,9 @@
 import { FunctionNotifications } from "cribl-control-plane/models";
 
 let value: FunctionNotifications = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 756.05,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,

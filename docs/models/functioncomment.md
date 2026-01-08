@@ -6,9 +6,9 @@
 import { FunctionComment } from "cribl-control-plane/models";
 
 let value: FunctionComment = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 5446.2,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,

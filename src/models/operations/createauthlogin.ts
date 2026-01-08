@@ -10,7 +10,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateAuthLoginResponse = {
-  headers: { [k: string]: Array<string> };
+  Headers: { [k: string]: Array<string> };
   result: models.AuthToken;
 };
 
@@ -24,7 +24,6 @@ export const CreateAuthLoginResponse$inboundSchema: z.ZodType<
   Result: models.AuthToken$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    "Headers": "headers",
     "Result": "result",
   });
 });

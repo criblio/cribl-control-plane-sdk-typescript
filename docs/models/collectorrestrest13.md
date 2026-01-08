@@ -42,7 +42,7 @@ let value: CollectorRestRest13 = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: true,
     },

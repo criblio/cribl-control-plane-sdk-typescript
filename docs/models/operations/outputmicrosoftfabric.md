@@ -31,7 +31,7 @@ let value: OutputMicrosoftFabric = {
     scope: "<value>",
   },
   tls: {},
-  bootstrapServer: "<value>",
+  bootstrap_server: "<value>",
   description: "tensely ick left lift by version",
   pqControls: {},
 };
