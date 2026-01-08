@@ -3,23 +3,23 @@ id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
   docChecksum: 27ac652aefe9dc6d045a5fa30f346a4e
   docVersion: 4.15.1-alpha.1765407756960-5c02a009
-  speakeasyVersion: 1.682.0
-  generationVersion: 2.791.1
+  speakeasyVersion: 1.683.0
+  generationVersion: 2.792.0
   releaseVersion: 0.5.0-alpha.3
-  configChecksum: 6f669e80bce86b2dd65b2cac7b5fc911
+  configChecksum: 6359f7a3f26bb509d757150fc73112b1
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: a3b54f8c-8b7c-4410-9744-f042edba4ea3
-  pristine_commit_hash: 123427e3670b29305ef4df641d68b8e6b054e986
-  pristine_tree_hash: 4af5c90ac8f18ef02ccbdba1d845c1bed9980e37
+  generation_id: 967cb187-803f-4799-9262-e283f2818454
+  pristine_commit_hash: 0271d06652741ae1c42a2af16b384ff1f848a0f8
+  pristine_tree_hash: fa76cfde9b2dfc85035427879de66210c72e53ae
 features:
   typescript:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.3
     constsAndDefaults: 0.1.12
-    core: 3.26.17
+    core: 3.26.18
     defaultEnabledRetries: 0.1.0
     devContainers: 2.90.1
     enumUnions: 0.1.0
@@ -33,7 +33,7 @@ features:
     nameOverrides: 2.81.2
     nullables: 0.1.1
     oauth2ClientCredentials: 1.1.1
-    openEnums: 0.1.1
+    openEnums: 0.1.2
     responseFormat: 0.2.3
     retries: 2.83.0
     sdkHooks: 0.4.0
@@ -8098,8 +8098,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:c6ecabcb39d7a16d6df58427f03be26e7c202228
-    pristine_git_object: 7cfc0d072fcfda792e41ee1f2def5c4dc420a1c7
+    last_write_checksum: sha1:f4d054da38c9926cb124fc8661a9d25b3ad601f6
+    pristine_git_object: e5d8201e2e113f388e913c51f4e115c16d492d5c
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
