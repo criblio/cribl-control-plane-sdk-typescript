@@ -59,7 +59,7 @@ let value: DeleteOutputByIdResponse = {
         rejectUnauthorized: true,
       },
       onBackpressure: "block",
-      bootstrapServer: "<value>",
+      bootstrap_server: "<value>",
       description: "fleck unethically upward",
       pqStrictOrdering: true,
       pqRatePerSec: 0,

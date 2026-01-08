@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
@@ -201,11 +200,11 @@ export type InputPrometheusSearchFilter = {
   /**
    * Search filter attribute name, see: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for more information. Attributes can be manually entered if not present in the drop down list
    */
-  name: string;
+  Name: string;
   /**
    * Search Filter Values, if empty only "running" EC2 instances will be returned
    */
-  values: Array<string>;
+  Values: Array<string>;
 };
 
 /**
@@ -687,11 +686,6 @@ export const InputPrometheusSearchFilter$inboundSchema: z.ZodType<
 > = z.object({
   Name: z.string(),
   Values: z.array(z.string()),
-}).transform((v) => {
-  return remap$(v, {
-    "Name": "name",
-    "Values": "values",
-  });
 });
 /** @internal */
 export type InputPrometheusSearchFilter$Outbound = {
@@ -705,13 +699,8 @@ export const InputPrometheusSearchFilter$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputPrometheusSearchFilter
 > = z.object({
-  name: z.string(),
-  values: z.array(z.string()),
-}).transform((v) => {
-  return remap$(v, {
-    name: "Name",
-    values: "Values",
-  });
+  Name: z.string(),
+  Values: z.array(z.string()),
 });
 
 export function inputPrometheusSearchFilterToJSON(
