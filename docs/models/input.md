@@ -959,8 +959,8 @@ const value: models.InputPrometheus = {
   awsSecret: "<value>",
   searchFilter: [
     {
-      name: "<value>",
-      values: [],
+      Name: "<value>",
+      Values: [],
     },
   ],
   awsSecretKey: "<value>",
@@ -1019,8 +1019,8 @@ const value: models.InputEdgePrometheus = {
   awsSecret: "<value>",
   searchFilter: [
     {
-      name: "<value>",
-      values: [],
+      Name: "<value>",
+      Values: [],
     },
   ],
   awsSecretKey: "<value>",

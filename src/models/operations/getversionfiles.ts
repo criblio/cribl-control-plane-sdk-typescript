@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -17,7 +16,7 @@ export type GetVersionFilesRequest = {
   /**
    * The Git commit hash to use as the starting point for the request.
    */
-  id?: string | undefined;
+  ID?: string | undefined;
 };
 
 /**
@@ -44,11 +43,7 @@ export const GetVersionFilesRequest$outboundSchema: z.ZodType<
   GetVersionFilesRequest
 > = z.object({
   groupId: z.string().optional(),
-  id: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    id: "ID",
-  });
+  ID: z.string().optional(),
 });
 
 export function getVersionFilesRequestToJSON(

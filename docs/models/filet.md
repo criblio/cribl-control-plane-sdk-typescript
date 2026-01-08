@@ -8,7 +8,7 @@ import { FileT } from "cribl-control-plane/models";
 let value: FileT = {
   index: "<value>",
   path: "/usr/local/bin",
-  workingDir: "<value>",
+  working_dir: "<value>",
 };
 ```
 
