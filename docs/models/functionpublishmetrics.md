@@ -6,9 +6,9 @@
 import { FunctionPublishMetrics } from "cribl-control-plane/models";
 
 let value: FunctionPublishMetrics = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 7718.35,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,

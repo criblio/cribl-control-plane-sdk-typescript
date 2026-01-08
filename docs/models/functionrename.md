@@ -6,9 +6,9 @@
 import { FunctionRename } from "cribl-control-plane/models";
 
 let value: FunctionRename = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 2336.89,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: false,

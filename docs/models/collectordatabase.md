@@ -10,7 +10,7 @@ let value: CollectorDatabase = {
   connectionId: "<id>",
   query: "<value>",
   defaultBreakers: "Cribl",
-  scheduling: {
+  __scheduling: {
     stateTracking: {
       enabled: true,
     },

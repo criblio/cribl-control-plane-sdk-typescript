@@ -6,9 +6,9 @@
 import { FunctionPack } from "cribl-control-plane/models";
 
 let value: FunctionPack = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8176.6,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,

@@ -6,9 +6,9 @@
 import { FunctionAggregateMetrics } from "cribl-control-plane/models";
 
 let value: FunctionAggregateMetrics = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 9195.61,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,

@@ -6,9 +6,9 @@
 import { FunctionClone } from "cribl-control-plane/models";
 
 let value: FunctionClone = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 8448.96,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: false,

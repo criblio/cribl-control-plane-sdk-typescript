@@ -3,10 +3,9 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../lib/primitives.js";
 
 export type CriblEvent = {
-  raw: string;
+  _raw: string;
   [additionalProperties: string]: unknown;
 };
 
@@ -22,14 +21,8 @@ export const CriblEvent$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CriblEvent
 > = z.object({
-  raw: z.string(),
-}).catchall(z.any()).transform((v) => {
-  return {
-    ...remap$(v, {
-      raw: "_raw",
-    }),
-  };
-});
+  _raw: z.string(),
+}).catchall(z.any());
 
 export function criblEventToJSON(criblEvent: CriblEvent): string {
   return JSON.stringify(CriblEvent$outboundSchema.parse(criblEvent));

@@ -31,7 +31,7 @@ let value: NodeProvidedInfo = {
     type: "<value>",
     zone: "<value>",
   },
-  connIp: "<value>",
+  conn_ip: "<value>",
   cpus: 5118.26,
   cribl: {
     config: {

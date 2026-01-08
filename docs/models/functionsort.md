@@ -6,9 +6,9 @@
 import { FunctionSort } from "cribl-control-plane/models";
 
 let value: FunctionSort = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 4827.88,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: true,
   group: "<value>",
   handleSignals: true,

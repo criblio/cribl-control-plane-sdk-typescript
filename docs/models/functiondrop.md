@@ -6,9 +6,9 @@
 import { FunctionDrop } from "cribl-control-plane/models";
 
 let value: FunctionDrop = {
-  filename: "example.file",
+  __filename: "example.file",
   asyncTimeout: 7169.86,
-  criblVersion: "<value>",
+  cribl_version: "<value>",
   disabled: false,
   group: "<value>",
   handleSignals: true,

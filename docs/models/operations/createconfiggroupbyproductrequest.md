@@ -20,8 +20,8 @@ let value: CreateConfigGroupByProductRequest = {
       localChanges: 5624.35,
       log: [
         {
-          authorEmail: "<value>",
-          authorName: "<value>",
+          author_email: "<value>",
+          author_name: "<value>",
           date: "2024-12-12",
           hash: "<value>",
           message: "<value>",
