@@ -8,8 +8,6 @@ export * from "./backupssettingsunion.js";
 export * from "./branchinfo.js";
 export * from "./cacheconnection.js";
 export * from "./cacheconnectionbackfillstatus.js";
-export * from "./capturelevel.js";
-export * from "./captureparams.js";
 export * from "./cloudprovider.js";
 export * from "./collectorazureblob.js";
 export * from "./collectorconf.js";

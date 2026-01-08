@@ -54,11 +54,6 @@ export class CriblControlPlane extends ClientSDK {
     return (this._auth ??= new Auth(this._options));
   }
 
-  private _system?: System;
-  get system(): System {
-    return (this._system ??= new System(this._options));
-  }
-
   private _health?: Health;
   get health(): Health {
     return (this._health ??= new Health(this._options));
@@ -67,6 +62,11 @@ export class CriblControlPlane extends ClientSDK {
   private _packs?: Packs;
   get packs(): Packs {
     return (this._packs ??= new Packs(this._options));
+  }
+
+  private _system?: System;
+  get system(): System {
+    return (this._system ??= new System(this._options));
   }
 
   private _versions?: Versions;
