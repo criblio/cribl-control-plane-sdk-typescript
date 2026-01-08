@@ -6,8 +6,8 @@
 import { GitLogResult } from "cribl-control-plane/models";
 
 let value: GitLogResult = {
-  authorEmail: "<value>",
-  authorName: "<value>",
+  author_email: "<value>",
+  author_name: "<value>",
   body: "<value>",
   date: "2024-12-02",
   hash: "<value>",

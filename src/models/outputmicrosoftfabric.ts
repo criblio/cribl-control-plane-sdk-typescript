@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
@@ -325,7 +324,7 @@ export type OutputMicrosoftFabric = {
   /**
    * Bootstrap server from Fabric Eventstream's endpoint
    */
-  bootstrapServer: string;
+  bootstrap_server: string;
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -708,10 +707,6 @@ export const OutputMicrosoftFabric$inboundSchema: z.ZodType<
     .default("block"),
   pqControls: z.lazy(() => OutputMicrosoftFabricPqControls$inboundSchema)
     .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "bootstrap_server": "bootstrapServer",
-  });
 });
 /** @internal */
 export type OutputMicrosoftFabric$Outbound = {
@@ -785,7 +780,7 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
     .optional(),
   onBackpressure: OutputMicrosoftFabricBackpressureBehavior$outboundSchema
     .default("block"),
-  bootstrapServer: z.string(),
+  bootstrap_server: z.string(),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
@@ -800,10 +795,6 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
     .default("block"),
   pqControls: z.lazy(() => OutputMicrosoftFabricPqControls$outboundSchema)
     .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    bootstrapServer: "bootstrap_server",
-  });
 });
 
 export function outputMicrosoftFabricToJSON(

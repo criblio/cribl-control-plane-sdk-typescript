@@ -22,8 +22,8 @@ let value: UpdateConfigGroupByProductAndIdRequest = {
       localChanges: 470.66,
       log: [
         {
-          authorEmail: "<value>",
-          authorName: "<value>",
+          author_email: "<value>",
+          author_name: "<value>",
           date: "2024-12-24",
           hash: "<value>",
           message: "<value>",

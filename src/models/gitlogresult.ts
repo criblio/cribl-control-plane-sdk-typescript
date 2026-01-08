@@ -3,14 +3,13 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type GitLogResult = {
-  authorEmail?: string | undefined;
-  authorName?: string | undefined;
+  author_email?: string | undefined;
+  author_name?: string | undefined;
   body?: string | undefined;
   date?: string | undefined;
   hash?: string | undefined;
@@ -31,11 +30,6 @@ export const GitLogResult$inboundSchema: z.ZodType<
   hash: z.string().optional(),
   message: z.string().optional(),
   refs: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "author_email": "authorEmail",
-    "author_name": "authorName",
-  });
 });
 
 export function gitLogResultFromJSON(

@@ -11,8 +11,8 @@ let value: GetVersionResponse = {
   count: 817133,
   items: [
     {
-      authorEmail: "<value>",
-      authorName: "<value>",
+      author_email: "<value>",
+      author_name: "<value>",
       body: "<value>",
       date: "2024-04-13",
       hash: "<value>",

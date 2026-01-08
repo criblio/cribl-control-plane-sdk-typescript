@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
@@ -292,7 +291,7 @@ export type OutputSentinel = {
   /**
    * JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
    */
-  clientId: string;
+  client_id: string;
   /**
    * Scope to pass in the OAuth request
    */
@@ -752,10 +751,6 @@ export const OutputSentinel$inboundSchema: z.ZodType<
   dcrID: z.string().optional(),
   dceEndpoint: z.string().optional(),
   streamName: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "client_id": "clientId",
-  });
 });
 /** @internal */
 export type OutputSentinel$Outbound = {
@@ -859,7 +854,7 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   authType: AuthType$outboundSchema.optional(),
   loginUrl: z.string(),
   secret: z.string(),
-  clientId: z.string(),
+  client_id: z.string(),
   scope: z.string().default("https://monitor.azure.com/.default"),
   endpointURLConfiguration: EndpointConfiguration$outboundSchema.default("url"),
   totalMemoryLimitKB: z.number().optional(),
@@ -890,10 +885,6 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   dcrID: z.string().optional(),
   dceEndpoint: z.string().optional(),
   streamName: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    clientId: "client_id",
-  });
 });
 
 export function outputSentinelToJSON(outputSentinel: OutputSentinel): string {

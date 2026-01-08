@@ -29,7 +29,7 @@ let value: GetVersionStatusResponse = {
         "<value 2>",
         "<value 3>",
       ],
-      notAdded: [
+      not_added: [
         "<value 1>",
         "<value 2>",
       ],
