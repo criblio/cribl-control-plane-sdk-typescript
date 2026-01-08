@@ -16,11 +16,11 @@ let value: GitStatusResult = {
     {
       index: "<value>",
       path: "/rescue",
-      workingDir: "<value>",
+      working_dir: "<value>",
     },
   ],
   modified: [],
-  notAdded: [
+  not_added: [
     "<value 1>",
   ],
   renamed: [],

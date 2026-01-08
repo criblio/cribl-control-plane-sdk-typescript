@@ -29,7 +29,7 @@ let value: OutputMicrosoftFabric = {
     scope: "<value>",
   },
   tls: {},
-  bootstrapServer: "<value>",
+  bootstrap_server: "<value>",
   description: "astride ocelot nifty greedy bungalow kiddingly successfully",
   pqControls: {},
 };

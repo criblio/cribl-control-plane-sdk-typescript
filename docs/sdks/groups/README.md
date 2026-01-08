@@ -128,8 +128,8 @@ async function run() {
         localChanges: 2413.01,
         log: [
           {
-            authorEmail: "<value>",
-            authorName: "<value>",
+            author_email: "<value>",
+            author_name: "<value>",
             date: "2024-04-03",
             hash: "<value>",
             message: "<value>",
@@ -211,8 +211,8 @@ async function run() {
         localChanges: 2413.01,
         log: [
           {
-            authorEmail: "<value>",
-            authorName: "<value>",
+            author_email: "<value>",
+            author_name: "<value>",
             date: "2024-04-03",
             hash: "<value>",
             message: "<value>",
@@ -404,8 +404,8 @@ async function run() {
         localChanges: 776.15,
         log: [
           {
-            authorEmail: "<value>",
-            authorName: "<value>",
+            author_email: "<value>",
+            author_name: "<value>",
             date: "2024-09-29",
             hash: "<value>",
             message: "<value>",
@@ -482,8 +482,8 @@ async function run() {
         localChanges: 776.15,
         log: [
           {
-            authorEmail: "<value>",
-            authorName: "<value>",
+            author_email: "<value>",
+            author_name: "<value>",
             date: "2024-09-29",
             hash: "<value>",
             message: "<value>",

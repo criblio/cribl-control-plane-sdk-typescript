@@ -21,7 +21,7 @@ let value: MasterWorkerEntry = {
       type: "<value>",
       zone: "<value>",
     },
-    connIp: "<value>",
+    conn_ip: "<value>",
     cpus: 7967.06,
     cribl: {
       config: {
