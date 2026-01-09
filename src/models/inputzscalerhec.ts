@@ -4,115 +4,43 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptionsAuthTokensItems,
+  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
+} from "./authenticationmethodoptionsauthtokensitems.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputZscalerHecConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputZscalerHecMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputZscalerHecMode = OpenEnum<typeof InputZscalerHecMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputZscalerHecCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputZscalerHecCompression = OpenEnum<
-  typeof InputZscalerHecCompression
->;
-
-export type InputZscalerHecPqControls = {};
-
-export type InputZscalerHecPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputZscalerHecMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputZscalerHecCompression | undefined;
-  pqControls?: InputZscalerHecPqControls | undefined;
-};
-
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export const InputZscalerHecAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export type InputZscalerHecAuthenticationMethod = OpenEnum<
-  typeof InputZscalerHecAuthenticationMethod
->;
-
-export type InputZscalerHecAuthTokenMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
+import {
+  ItemsTypeConnections,
+  ItemsTypeConnections$inboundSchema,
+  ItemsTypeConnections$Outbound,
+  ItemsTypeConnections$outboundSchema,
+} from "./itemstypeconnections.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  TlsSettingsServerSideType,
+  TlsSettingsServerSideType$inboundSchema,
+  TlsSettingsServerSideType$Outbound,
+  TlsSettingsServerSideType$outboundSchema,
+} from "./tlssettingsserversidetype.js";
 
 export type InputZscalerHecAuthToken = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: InputZscalerHecAuthenticationMethod | undefined;
+  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
   /**
    * Select or create a stored text secret
    */
@@ -130,73 +58,7 @@ export type InputZscalerHecAuthToken = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<InputZscalerHecAuthTokenMetadatum> | undefined;
-};
-
-export const InputZscalerHecMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputZscalerHecMinimumTLSVersion = OpenEnum<
-  typeof InputZscalerHecMinimumTLSVersion
->;
-
-export const InputZscalerHecMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputZscalerHecMaximumTLSVersion = OpenEnum<
-  typeof InputZscalerHecMaximumTLSVersion
->;
-
-export type InputZscalerHecTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  /**
-   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Regex matching allowable common names in peer certificates' subject attribute
-   */
-  commonNameRegex?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  minVersion?: InputZscalerHecMinimumTLSVersion | undefined;
-  maxVersion?: InputZscalerHecMaximumTLSVersion | undefined;
-};
-
-export type InputZscalerHecMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
 };
 
 export type InputZscalerHec = {
@@ -229,8 +91,8 @@ export type InputZscalerHec = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputZscalerHecConnection> | undefined;
-  pq?: InputZscalerHecPq | undefined;
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -243,7 +105,7 @@ export type InputZscalerHec = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<InputZscalerHecAuthToken> | undefined;
-  tls?: InputZscalerHecTLSSettingsServerSide | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -292,7 +154,7 @@ export type InputZscalerHec = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<InputZscalerHecMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -317,238 +179,20 @@ export type InputZscalerHec = {
 };
 
 /** @internal */
-export const InputZscalerHecConnection$inboundSchema: z.ZodType<
-  InputZscalerHecConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputZscalerHecConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputZscalerHecConnection$outboundSchema: z.ZodType<
-  InputZscalerHecConnection$Outbound,
-  z.ZodTypeDef,
-  InputZscalerHecConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputZscalerHecConnectionToJSON(
-  inputZscalerHecConnection: InputZscalerHecConnection,
-): string {
-  return JSON.stringify(
-    InputZscalerHecConnection$outboundSchema.parse(inputZscalerHecConnection),
-  );
-}
-export function inputZscalerHecConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputZscalerHecConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputZscalerHecConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputZscalerHecConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputZscalerHecMode$inboundSchema: z.ZodType<
-  InputZscalerHecMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputZscalerHecMode);
-/** @internal */
-export const InputZscalerHecMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputZscalerHecMode
-> = openEnums.outboundSchema(InputZscalerHecMode);
-
-/** @internal */
-export const InputZscalerHecCompression$inboundSchema: z.ZodType<
-  InputZscalerHecCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputZscalerHecCompression);
-/** @internal */
-export const InputZscalerHecCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputZscalerHecCompression
-> = openEnums.outboundSchema(InputZscalerHecCompression);
-
-/** @internal */
-export const InputZscalerHecPqControls$inboundSchema: z.ZodType<
-  InputZscalerHecPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputZscalerHecPqControls$Outbound = {};
-
-/** @internal */
-export const InputZscalerHecPqControls$outboundSchema: z.ZodType<
-  InputZscalerHecPqControls$Outbound,
-  z.ZodTypeDef,
-  InputZscalerHecPqControls
-> = z.object({});
-
-export function inputZscalerHecPqControlsToJSON(
-  inputZscalerHecPqControls: InputZscalerHecPqControls,
-): string {
-  return JSON.stringify(
-    InputZscalerHecPqControls$outboundSchema.parse(inputZscalerHecPqControls),
-  );
-}
-export function inputZscalerHecPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputZscalerHecPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputZscalerHecPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputZscalerHecPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputZscalerHecPq$inboundSchema: z.ZodType<
-  InputZscalerHecPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputZscalerHecMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputZscalerHecCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputZscalerHecPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputZscalerHecPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputZscalerHecPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputZscalerHecPq$outboundSchema: z.ZodType<
-  InputZscalerHecPq$Outbound,
-  z.ZodTypeDef,
-  InputZscalerHecPq
-> = z.object({
-  mode: InputZscalerHecMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputZscalerHecCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputZscalerHecPqControls$outboundSchema).optional(),
-});
-
-export function inputZscalerHecPqToJSON(
-  inputZscalerHecPq: InputZscalerHecPq,
-): string {
-  return JSON.stringify(
-    InputZscalerHecPq$outboundSchema.parse(inputZscalerHecPq),
-  );
-}
-export function inputZscalerHecPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputZscalerHecPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputZscalerHecPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputZscalerHecPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputZscalerHecAuthenticationMethod$inboundSchema: z.ZodType<
-  InputZscalerHecAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputZscalerHecAuthenticationMethod);
-/** @internal */
-export const InputZscalerHecAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputZscalerHecAuthenticationMethod
-> = openEnums.outboundSchema(InputZscalerHecAuthenticationMethod);
-
-/** @internal */
-export const InputZscalerHecAuthTokenMetadatum$inboundSchema: z.ZodType<
-  InputZscalerHecAuthTokenMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputZscalerHecAuthTokenMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputZscalerHecAuthTokenMetadatum$outboundSchema: z.ZodType<
-  InputZscalerHecAuthTokenMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputZscalerHecAuthTokenMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputZscalerHecAuthTokenMetadatumToJSON(
-  inputZscalerHecAuthTokenMetadatum: InputZscalerHecAuthTokenMetadatum,
-): string {
-  return JSON.stringify(
-    InputZscalerHecAuthTokenMetadatum$outboundSchema.parse(
-      inputZscalerHecAuthTokenMetadatum,
-    ),
-  );
-}
-export function inputZscalerHecAuthTokenMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputZscalerHecAuthTokenMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputZscalerHecAuthTokenMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputZscalerHecAuthTokenMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputZscalerHecAuthToken$inboundSchema: z.ZodType<
   InputZscalerHecAuthToken,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: InputZscalerHecAuthenticationMethod$inboundSchema.default("manual"),
+  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
+    "manual",
+  ),
   tokenSecret: z.string().optional(),
   token: z.string(),
   enabled: z.boolean().default(true),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(
-    z.lazy(() => InputZscalerHecAuthTokenMetadatum$inboundSchema),
-  ).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
 });
 /** @internal */
 export type InputZscalerHecAuthToken$Outbound = {
@@ -558,7 +202,7 @@ export type InputZscalerHecAuthToken$Outbound = {
   enabled: boolean;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<InputZscalerHecAuthTokenMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
 };
 
 /** @internal */
@@ -567,7 +211,7 @@ export const InputZscalerHecAuthToken$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputZscalerHecAuthToken
 > = z.object({
-  authType: InputZscalerHecAuthenticationMethod$outboundSchema.default(
+  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
     "manual",
   ),
   tokenSecret: z.string().optional(),
@@ -575,9 +219,7 @@ export const InputZscalerHecAuthToken$outboundSchema: z.ZodType<
   enabled: z.boolean().default(true),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(
-    z.lazy(() => InputZscalerHecAuthTokenMetadatum$outboundSchema),
-  ).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
 });
 
 export function inputZscalerHecAuthTokenToJSON(
@@ -598,146 +240,6 @@ export function inputZscalerHecAuthTokenFromJSON(
 }
 
 /** @internal */
-export const InputZscalerHecMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputZscalerHecMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputZscalerHecMinimumTLSVersion);
-/** @internal */
-export const InputZscalerHecMinimumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputZscalerHecMinimumTLSVersion
-> = openEnums.outboundSchema(InputZscalerHecMinimumTLSVersion);
-
-/** @internal */
-export const InputZscalerHecMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputZscalerHecMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputZscalerHecMaximumTLSVersion);
-/** @internal */
-export const InputZscalerHecMaximumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputZscalerHecMaximumTLSVersion
-> = openEnums.outboundSchema(InputZscalerHecMaximumTLSVersion);
-
-/** @internal */
-export const InputZscalerHecTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputZscalerHecTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputZscalerHecMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputZscalerHecMaximumTLSVersion$inboundSchema.optional(),
-});
-/** @internal */
-export type InputZscalerHecTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  requestCert: boolean;
-  rejectUnauthorized: boolean;
-  commonNameRegex: string;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const InputZscalerHecTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputZscalerHecTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputZscalerHecTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputZscalerHecMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputZscalerHecMaximumTLSVersion$outboundSchema.optional(),
-});
-
-export function inputZscalerHecTLSSettingsServerSideToJSON(
-  inputZscalerHecTLSSettingsServerSide: InputZscalerHecTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputZscalerHecTLSSettingsServerSide$outboundSchema.parse(
-      inputZscalerHecTLSSettingsServerSide,
-    ),
-  );
-}
-export function inputZscalerHecTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputZscalerHecTLSSettingsServerSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputZscalerHecTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputZscalerHecTLSSettingsServerSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputZscalerHecMetadatum$inboundSchema: z.ZodType<
-  InputZscalerHecMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputZscalerHecMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputZscalerHecMetadatum$outboundSchema: z.ZodType<
-  InputZscalerHecMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputZscalerHecMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputZscalerHecMetadatumToJSON(
-  inputZscalerHecMetadatum: InputZscalerHecMetadatum,
-): string {
-  return JSON.stringify(
-    InputZscalerHecMetadatum$outboundSchema.parse(inputZscalerHecMetadatum),
-  );
-}
-export function inputZscalerHecMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputZscalerHecMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputZscalerHecMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputZscalerHecMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputZscalerHec$inboundSchema: z.ZodType<
   InputZscalerHec,
   z.ZodTypeDef,
@@ -751,15 +253,13 @@ export const InputZscalerHec$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputZscalerHecConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputZscalerHecPq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$inboundSchema))
     .optional(),
-  tls: z.lazy(() => InputZscalerHecTLSSettingsServerSide$inboundSchema)
-    .optional(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -772,8 +272,7 @@ export const InputZscalerHec$inboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   hecAPI: z.string().default("/services/collector"),
-  metadata: z.array(z.lazy(() => InputZscalerHecMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   hecAcks: z.boolean().default(false),
   accessControlAllowOrigin: z.array(z.string()).optional(),
@@ -791,12 +290,12 @@ export type InputZscalerHec$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputZscalerHecConnection$Outbound> | undefined;
-  pq?: InputZscalerHecPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<InputZscalerHecAuthToken$Outbound> | undefined;
-  tls?: InputZscalerHecTLSSettingsServerSide$Outbound | undefined;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -809,7 +308,7 @@ export type InputZscalerHec$Outbound = {
   ipAllowlistRegex: string;
   ipDenylistRegex: string;
   hecAPI: string;
-  metadata?: Array<InputZscalerHecMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   hecAcks: boolean;
   accessControlAllowOrigin?: Array<string> | undefined;
@@ -832,15 +331,13 @@ export const InputZscalerHec$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputZscalerHecConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputZscalerHecPq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$outboundSchema))
     .optional(),
-  tls: z.lazy(() => InputZscalerHecTLSSettingsServerSide$outboundSchema)
-    .optional(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -853,8 +350,7 @@ export const InputZscalerHec$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   hecAPI: z.string().default("/services/collector"),
-  metadata: z.array(z.lazy(() => InputZscalerHecMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   hecAcks: z.boolean().default(false),
   accessControlAllowOrigin: z.array(z.string()).optional(),

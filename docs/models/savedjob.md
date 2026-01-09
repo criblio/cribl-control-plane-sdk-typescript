@@ -16,74 +16,45 @@ const value: models.SavedJobCollection = {
   ],
   environment: "<value>",
   schedule: {
-    enabled: false,
+    enabled: true,
     run: {
       type: "collection",
-      earliest: 4703.26,
-      latest: 1623.48,
+      earliest: 475.38,
+      latest: 1125.35,
       timestampTimezone: "<value>",
       timeWarning: {},
     },
   },
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   collector: {
-    type: "health_check",
+    type: "google_cloud_storage",
     conf: {
-      authentication: "oauth",
-      loginUrl: "",
-      tokenRespAttribute: "<value>",
-      authHeaderExpr: "`Bearer ${token}`",
-      clientSecretParamName: "client_secret",
-      clientSecretParamValue: "<value>",
-      authRequestParams: [
+      authType: "auto",
+      outputName: "<value>",
+      bucket: "<value>",
+      path: "/Applications",
+      extractors: [
         {
-          name: "<value>",
-          value: "<value>",
+          key: "<key>",
+          expression: "<value>",
         },
       ],
-      authRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      discovery: {
-        discoverType: "none",
-      },
-      collectUrl: "https://proper-majority.info/",
-      collectMethod: "get",
-      collectRequestParams: "<value>",
-      collectBody: "<value>",
-      collectRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      authenticateCollect: false,
-      timeout: 30,
-      rejectUnauthorized: false,
-      defaultBreakers: "Cribl",
-      safeHeaders: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      retryRules: {
-        type: "backoff",
-        interval: "<value>",
-        limit: "<value>",
-        multiplier: "<value>",
-        codes: "<value>",
-        enableHeader: "<value>",
-      },
+      endpoint: "<value>",
+      disableTimeFilter: false,
+      recurse: true,
+      maxBatchSize: 10,
+      parquetChunkSizeMB: 5,
+      parquetChunkDownloadTimeout: 600,
     },
   },
   input: {
     breakerRulesets: [
       "<value 1>",
+      "<value 2>",
     ],
     preprocess: {
       command: "<value>",
@@ -152,11 +123,11 @@ const value: models.SavedJobScheduledSearch = {
   ],
   environment: "<value>",
   schedule: {
-    enabled: false,
+    enabled: true,
     run: {
       type: "collection",
-      earliest: 4451.51,
-      latest: 2316.29,
+      earliest: 475.38,
+      latest: 1125.35,
       timestampTimezone: "<value>",
       timeWarning: {},
     },
@@ -164,6 +135,7 @@ const value: models.SavedJobScheduledSearch = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   savedQueryId: "<id>",
 };

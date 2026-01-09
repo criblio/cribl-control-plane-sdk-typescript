@@ -7,116 +7,30 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationProtocolOptionsV3User,
+  AuthenticationProtocolOptionsV3User$inboundSchema,
+  AuthenticationProtocolOptionsV3User$outboundSchema,
+} from "./authenticationprotocoloptionsv3user.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputSnmpConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputSnmpMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputSnmpMode = OpenEnum<typeof InputSnmpMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputSnmpCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputSnmpCompression = OpenEnum<typeof InputSnmpCompression>;
-
-export type InputSnmpPqControls = {};
-
-export type InputSnmpPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputSnmpMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputSnmpCompression | undefined;
-  pqControls?: InputSnmpPqControls | undefined;
-};
-
-export const InputSnmpAuthenticationProtocol = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * MD5
-   */
-  Md5: "md5",
-  /**
-   * SHA1
-   */
-  Sha: "sha",
-  /**
-   * SHA224
-   */
-  Sha224: "sha224",
-  /**
-   * SHA256
-   */
-  Sha256: "sha256",
-  /**
-   * SHA384
-   */
-  Sha384: "sha384",
-  /**
-   * SHA512
-   */
-  Sha512: "sha512",
-} as const;
-export type InputSnmpAuthenticationProtocol = OpenEnum<
-  typeof InputSnmpAuthenticationProtocol
->;
+import {
+  ItemsTypeConnections,
+  ItemsTypeConnections$inboundSchema,
+  ItemsTypeConnections$Outbound,
+  ItemsTypeConnections$outboundSchema,
+} from "./itemstypeconnections.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
 
 export const PrivacyProtocol = {
   /**
@@ -144,7 +58,7 @@ export type PrivacyProtocol = OpenEnum<typeof PrivacyProtocol>;
 
 export type InputSnmpV3User = {
   name: string;
-  authProtocol?: InputSnmpAuthenticationProtocol | undefined;
+  authProtocol?: AuthenticationProtocolOptionsV3User | undefined;
   authKey?: string | undefined;
   privProtocol?: PrivacyProtocol | undefined;
   privKey?: string | undefined;
@@ -163,14 +77,6 @@ export type SNMPv3Authentication = {
    * User credentials for receiving v3 traps
    */
   v3Users?: Array<InputSnmpV3User> | undefined;
-};
-
-export type InputSnmpMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
 };
 
 export type InputSnmp = {
@@ -203,8 +109,8 @@ export type InputSnmp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputSnmpConnection> | undefined;
-  pq?: InputSnmpPq | undefined;
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -228,7 +134,7 @@ export type InputSnmp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputSnmpMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -243,176 +149,6 @@ export type InputSnmp = {
   bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputSnmpConnection$inboundSchema: z.ZodType<
-  InputSnmpConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputSnmpConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputSnmpConnection$outboundSchema: z.ZodType<
-  InputSnmpConnection$Outbound,
-  z.ZodTypeDef,
-  InputSnmpConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputSnmpConnectionToJSON(
-  inputSnmpConnection: InputSnmpConnection,
-): string {
-  return JSON.stringify(
-    InputSnmpConnection$outboundSchema.parse(inputSnmpConnection),
-  );
-}
-export function inputSnmpConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSnmpConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSnmpConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSnmpConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSnmpMode$inboundSchema: z.ZodType<
-  InputSnmpMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSnmpMode);
-/** @internal */
-export const InputSnmpMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSnmpMode
-> = openEnums.outboundSchema(InputSnmpMode);
-
-/** @internal */
-export const InputSnmpCompression$inboundSchema: z.ZodType<
-  InputSnmpCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSnmpCompression);
-/** @internal */
-export const InputSnmpCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSnmpCompression
-> = openEnums.outboundSchema(InputSnmpCompression);
-
-/** @internal */
-export const InputSnmpPqControls$inboundSchema: z.ZodType<
-  InputSnmpPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputSnmpPqControls$Outbound = {};
-
-/** @internal */
-export const InputSnmpPqControls$outboundSchema: z.ZodType<
-  InputSnmpPqControls$Outbound,
-  z.ZodTypeDef,
-  InputSnmpPqControls
-> = z.object({});
-
-export function inputSnmpPqControlsToJSON(
-  inputSnmpPqControls: InputSnmpPqControls,
-): string {
-  return JSON.stringify(
-    InputSnmpPqControls$outboundSchema.parse(inputSnmpPqControls),
-  );
-}
-export function inputSnmpPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSnmpPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSnmpPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSnmpPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSnmpPq$inboundSchema: z.ZodType<
-  InputSnmpPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputSnmpMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSnmpCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSnmpPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputSnmpPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputSnmpPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputSnmpPq$outboundSchema: z.ZodType<
-  InputSnmpPq$Outbound,
-  z.ZodTypeDef,
-  InputSnmpPq
-> = z.object({
-  mode: InputSnmpMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSnmpCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSnmpPqControls$outboundSchema).optional(),
-});
-
-export function inputSnmpPqToJSON(inputSnmpPq: InputSnmpPq): string {
-  return JSON.stringify(InputSnmpPq$outboundSchema.parse(inputSnmpPq));
-}
-export function inputSnmpPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSnmpPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSnmpPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSnmpPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSnmpAuthenticationProtocol$inboundSchema: z.ZodType<
-  InputSnmpAuthenticationProtocol,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSnmpAuthenticationProtocol);
-/** @internal */
-export const InputSnmpAuthenticationProtocol$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSnmpAuthenticationProtocol
-> = openEnums.outboundSchema(InputSnmpAuthenticationProtocol);
 
 /** @internal */
 export const PrivacyProtocol$inboundSchema: z.ZodType<
@@ -434,7 +170,9 @@ export const InputSnmpV3User$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   name: z.string(),
-  authProtocol: InputSnmpAuthenticationProtocol$inboundSchema.default("none"),
+  authProtocol: AuthenticationProtocolOptionsV3User$inboundSchema.default(
+    "none",
+  ),
   authKey: z.string().optional(),
   privProtocol: PrivacyProtocol$inboundSchema.default("none"),
   privKey: z.string().optional(),
@@ -455,7 +193,9 @@ export const InputSnmpV3User$outboundSchema: z.ZodType<
   InputSnmpV3User
 > = z.object({
   name: z.string(),
-  authProtocol: InputSnmpAuthenticationProtocol$outboundSchema.default("none"),
+  authProtocol: AuthenticationProtocolOptionsV3User$outboundSchema.default(
+    "none",
+  ),
   authKey: z.string().optional(),
   privProtocol: PrivacyProtocol$outboundSchema.default("none"),
   privKey: z.string().optional(),
@@ -522,48 +262,6 @@ export function snmPv3AuthenticationFromJSON(
 }
 
 /** @internal */
-export const InputSnmpMetadatum$inboundSchema: z.ZodType<
-  InputSnmpMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputSnmpMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputSnmpMetadatum$outboundSchema: z.ZodType<
-  InputSnmpMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputSnmpMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputSnmpMetadatumToJSON(
-  inputSnmpMetadatum: InputSnmpMetadatum,
-): string {
-  return JSON.stringify(
-    InputSnmpMetadatum$outboundSchema.parse(inputSnmpMetadatum),
-  );
-}
-export function inputSnmpMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSnmpMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSnmpMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSnmpMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputSnmp$inboundSchema: z.ZodType<
   InputSnmp,
   z.ZodTypeDef,
@@ -577,15 +275,14 @@ export const InputSnmp$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSnmpConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSnmpPq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(162),
   snmpV3Auth: z.lazy(() => SNMPv3Authentication$inboundSchema).optional(),
   maxBufferSize: z.number().default(1000),
   ipWhitelistRegex: z.string().default("/.*/"),
-  metadata: z.array(z.lazy(() => InputSnmpMetadatum$inboundSchema)).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   varbindsWithTypes: z.boolean().default(false),
   bestEffortParsing: z.boolean().default(false),
@@ -601,14 +298,14 @@ export type InputSnmp$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputSnmpConnection$Outbound> | undefined;
-  pq?: InputSnmpPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   snmpV3Auth?: SNMPv3Authentication$Outbound | undefined;
   maxBufferSize: number;
   ipWhitelistRegex: string;
-  metadata?: Array<InputSnmpMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   varbindsWithTypes: boolean;
   bestEffortParsing: boolean;
@@ -629,15 +326,14 @@ export const InputSnmp$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSnmpConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSnmpPq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(162),
   snmpV3Auth: z.lazy(() => SNMPv3Authentication$outboundSchema).optional(),
   maxBufferSize: z.number().default(1000),
   ipWhitelistRegex: z.string().default("/.*/"),
-  metadata: z.array(z.lazy(() => InputSnmpMetadatum$outboundSchema)).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   varbindsWithTypes: z.boolean().default(false),
   bestEffortParsing: z.boolean().default(false),

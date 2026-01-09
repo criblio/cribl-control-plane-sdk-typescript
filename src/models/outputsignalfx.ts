@@ -4,174 +4,56 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptionsAuthTokensItems,
+  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
+} from "./authenticationmethodoptionsauthtokensitems.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export const OutputSignalfxAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export type OutputSignalfxAuthenticationMethod = OpenEnum<
-  typeof OutputSignalfxAuthenticationMethod
->;
-
-export type OutputSignalfxExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputSignalfxFailedRequestLoggingMode = {
-  /**
-   * Payload
-   */
-  Payload: "payload",
-  /**
-   * Payload + Headers
-   */
-  PayloadAndHeaders: "payloadAndHeaders",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputSignalfxFailedRequestLoggingMode = OpenEnum<
-  typeof OutputSignalfxFailedRequestLoggingMode
->;
-
-export type OutputSignalfxResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputSignalfxTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputSignalfxBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputSignalfxBackpressureBehavior = OpenEnum<
-  typeof OutputSignalfxBackpressureBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputSignalfxMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputSignalfxMode = OpenEnum<typeof OutputSignalfxMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputSignalfxCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputSignalfxCompression = OpenEnum<
-  typeof OutputSignalfxCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputSignalfxQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputSignalfxQueueFullBehavior = OpenEnum<
-  typeof OutputSignalfxQueueFullBehavior
->;
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  ItemsTypeExtraHttpHeaders,
+  ItemsTypeExtraHttpHeaders$inboundSchema,
+  ItemsTypeExtraHttpHeaders$Outbound,
+  ItemsTypeExtraHttpHeaders$outboundSchema,
+} from "./itemstypeextrahttpheaders.js";
+import {
+  ItemsTypeResponseRetrySettings,
+  ItemsTypeResponseRetrySettings$inboundSchema,
+  ItemsTypeResponseRetrySettings$Outbound,
+  ItemsTypeResponseRetrySettings$outboundSchema,
+} from "./itemstyperesponseretrysettings.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
 export type OutputSignalfxPqControls = {};
 
@@ -200,7 +82,7 @@ export type OutputSignalfx = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: OutputSignalfxAuthenticationMethod | undefined;
+  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
   /**
    * SignalFx realm name, e.g. "us0". For a complete list of available SignalFx realm names, please check [here](https://docs.splunk.com/observability/en/get-started/service-description.html#sd-regions).
    */
@@ -240,7 +122,7 @@ export type OutputSignalfx = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputSignalfxExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -248,7 +130,7 @@ export type OutputSignalfx = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: OutputSignalfxFailedRequestLoggingMode | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -256,8 +138,8 @@ export type OutputSignalfx = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<OutputSignalfxResponseRetrySetting> | undefined;
-  timeoutRetrySettings?: OutputSignalfxTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -265,7 +147,7 @@ export type OutputSignalfx = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputSignalfxBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   description?: string | undefined;
   /**
    * SignalFx API access token (see [here](https://docs.signalfx.com/en/latest/admin-guide/tokens.html#working-with-access-tokens))
@@ -286,7 +168,7 @@ export type OutputSignalfx = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputSignalfxMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -310,237 +192,13 @@ export type OutputSignalfx = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputSignalfxCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputSignalfxQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputSignalfxPqControls | undefined;
 };
-
-/** @internal */
-export const OutputSignalfxAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputSignalfxAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSignalfxAuthenticationMethod);
-/** @internal */
-export const OutputSignalfxAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSignalfxAuthenticationMethod
-> = openEnums.outboundSchema(OutputSignalfxAuthenticationMethod);
-
-/** @internal */
-export const OutputSignalfxExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputSignalfxExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputSignalfxExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputSignalfxExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputSignalfxExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputSignalfxExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function outputSignalfxExtraHttpHeaderToJSON(
-  outputSignalfxExtraHttpHeader: OutputSignalfxExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputSignalfxExtraHttpHeader$outboundSchema.parse(
-      outputSignalfxExtraHttpHeader,
-    ),
-  );
-}
-export function outputSignalfxExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSignalfxExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSignalfxExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSignalfxExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSignalfxFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputSignalfxFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSignalfxFailedRequestLoggingMode);
-/** @internal */
-export const OutputSignalfxFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSignalfxFailedRequestLoggingMode
-> = openEnums.outboundSchema(OutputSignalfxFailedRequestLoggingMode);
-
-/** @internal */
-export const OutputSignalfxResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputSignalfxResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputSignalfxResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputSignalfxResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputSignalfxResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputSignalfxResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputSignalfxResponseRetrySettingToJSON(
-  outputSignalfxResponseRetrySetting: OutputSignalfxResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputSignalfxResponseRetrySetting$outboundSchema.parse(
-      outputSignalfxResponseRetrySetting,
-    ),
-  );
-}
-export function outputSignalfxResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSignalfxResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputSignalfxResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSignalfxResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSignalfxTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputSignalfxTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputSignalfxTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputSignalfxTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputSignalfxTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputSignalfxTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputSignalfxTimeoutRetrySettingsToJSON(
-  outputSignalfxTimeoutRetrySettings: OutputSignalfxTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputSignalfxTimeoutRetrySettings$outboundSchema.parse(
-      outputSignalfxTimeoutRetrySettings,
-    ),
-  );
-}
-export function outputSignalfxTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSignalfxTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputSignalfxTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSignalfxTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSignalfxBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputSignalfxBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSignalfxBackpressureBehavior);
-/** @internal */
-export const OutputSignalfxBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSignalfxBackpressureBehavior
-> = openEnums.outboundSchema(OutputSignalfxBackpressureBehavior);
-
-/** @internal */
-export const OutputSignalfxMode$inboundSchema: z.ZodType<
-  OutputSignalfxMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSignalfxMode);
-/** @internal */
-export const OutputSignalfxMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSignalfxMode
-> = openEnums.outboundSchema(OutputSignalfxMode);
-
-/** @internal */
-export const OutputSignalfxCompression$inboundSchema: z.ZodType<
-  OutputSignalfxCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSignalfxCompression);
-/** @internal */
-export const OutputSignalfxCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSignalfxCompression
-> = openEnums.outboundSchema(OutputSignalfxCompression);
-
-/** @internal */
-export const OutputSignalfxQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputSignalfxQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSignalfxQueueFullBehavior);
-/** @internal */
-export const OutputSignalfxQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSignalfxQueueFullBehavior
-> = openEnums.outboundSchema(OutputSignalfxQueueFullBehavior);
 
 /** @internal */
 export const OutputSignalfxPqControls$inboundSchema: z.ZodType<
@@ -587,7 +245,9 @@ export const OutputSignalfx$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  authType: OutputSignalfxAuthenticationMethod$inboundSchema.default("manual"),
+  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
+    "manual",
+  ),
   realm: z.string().default("us0"),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
@@ -596,38 +256,29 @@ export const OutputSignalfx$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputSignalfxExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputSignalfxFailedRequestLoggingMode$inboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputSignalfxResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputSignalfxTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputSignalfxBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputSignalfxMode$inboundSchema.default("error"),
+  pqMode: ModeOptions$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSignalfxCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputSignalfxQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
+  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputSignalfxPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -647,16 +298,14 @@ export type OutputSignalfx$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputSignalfxExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<OutputSignalfxResponseRetrySetting$Outbound>
+    | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
-  timeoutRetrySettings?:
-    | OutputSignalfxTimeoutRetrySettings$Outbound
-    | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   onBackpressure: string;
   description?: string | undefined;
@@ -687,7 +336,9 @@ export const OutputSignalfx$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  authType: OutputSignalfxAuthenticationMethod$outboundSchema.default("manual"),
+  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
+    "manual",
+  ),
   realm: z.string().default("us0"),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
@@ -696,38 +347,30 @@ export const OutputSignalfx$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputSignalfxExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputSignalfxFailedRequestLoggingMode$outboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputSignalfxResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputSignalfxTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputSignalfxBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputSignalfxMode$outboundSchema.default("error"),
+  pqMode: ModeOptions$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSignalfxCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputSignalfxQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
+  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
   pqControls: z.lazy(() => OutputSignalfxPqControls$outboundSchema).optional(),
 });
 

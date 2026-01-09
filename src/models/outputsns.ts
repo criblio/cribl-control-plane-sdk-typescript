@@ -7,31 +7,27 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const OutputSnsAuthenticationMethod = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type OutputSnsAuthenticationMethod = OpenEnum<
-  typeof OutputSnsAuthenticationMethod
->;
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
 
 /**
  * Signature version to use for signing SNS requests
@@ -45,90 +41,6 @@ export const OutputSnsSignatureVersion = {
  */
 export type OutputSnsSignatureVersion = OpenEnum<
   typeof OutputSnsSignatureVersion
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputSnsBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputSnsBackpressureBehavior = OpenEnum<
-  typeof OutputSnsBackpressureBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputSnsMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputSnsMode = OpenEnum<typeof OutputSnsMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputSnsCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputSnsCompression = OpenEnum<typeof OutputSnsCompression>;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputSnsQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputSnsQueueFullBehavior = OpenEnum<
-  typeof OutputSnsQueueFullBehavior
 >;
 
 export type OutputSnsPqControls = {};
@@ -170,7 +82,7 @@ export type OutputSns = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: OutputSnsAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the SNS is located
@@ -211,7 +123,7 @@ export type OutputSns = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputSnsBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -229,7 +141,7 @@ export type OutputSns = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputSnsMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -253,26 +165,13 @@ export type OutputSns = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputSnsCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputSnsQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputSnsPqControls | undefined;
 };
-
-/** @internal */
-export const OutputSnsAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputSnsAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSnsAuthenticationMethod);
-/** @internal */
-export const OutputSnsAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSnsAuthenticationMethod
-> = openEnums.outboundSchema(OutputSnsAuthenticationMethod);
 
 /** @internal */
 export const OutputSnsSignatureVersion$inboundSchema: z.ZodType<
@@ -286,58 +185,6 @@ export const OutputSnsSignatureVersion$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputSnsSignatureVersion
 > = openEnums.outboundSchema(OutputSnsSignatureVersion);
-
-/** @internal */
-export const OutputSnsBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputSnsBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSnsBackpressureBehavior);
-/** @internal */
-export const OutputSnsBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSnsBackpressureBehavior
-> = openEnums.outboundSchema(OutputSnsBackpressureBehavior);
-
-/** @internal */
-export const OutputSnsMode$inboundSchema: z.ZodType<
-  OutputSnsMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSnsMode);
-/** @internal */
-export const OutputSnsMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSnsMode
-> = openEnums.outboundSchema(OutputSnsMode);
-
-/** @internal */
-export const OutputSnsCompression$inboundSchema: z.ZodType<
-  OutputSnsCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSnsCompression);
-/** @internal */
-export const OutputSnsCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSnsCompression
-> = openEnums.outboundSchema(OutputSnsCompression);
-
-/** @internal */
-export const OutputSnsQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputSnsQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSnsQueueFullBehavior);
-/** @internal */
-export const OutputSnsQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSnsQueueFullBehavior
-> = openEnums.outboundSchema(OutputSnsQueueFullBehavior);
 
 /** @internal */
 export const OutputSnsPqControls$inboundSchema: z.ZodType<
@@ -387,9 +234,7 @@ export const OutputSns$inboundSchema: z.ZodType<
   topicArn: z.string(),
   messageGroupId: z.string(),
   maxRetries: z.number().optional(),
-  awsAuthenticationMethod: OutputSnsAuthenticationMethod$inboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: z.string().default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -400,20 +245,20 @@ export const OutputSns$inboundSchema: z.ZodType<
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
-  onBackpressure: OutputSnsBackpressureBehavior$inboundSchema.default("block"),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputSnsMode$inboundSchema.default("error"),
+  pqMode: ModeOptions$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSnsCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputSnsQueueFullBehavior$inboundSchema.default("block"),
+  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputSnsPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -470,9 +315,7 @@ export const OutputSns$outboundSchema: z.ZodType<
   topicArn: z.string(),
   messageGroupId: z.string(),
   maxRetries: z.number().optional(),
-  awsAuthenticationMethod: OutputSnsAuthenticationMethod$outboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: z.string().default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -483,20 +326,20 @@ export const OutputSns$outboundSchema: z.ZodType<
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
-  onBackpressure: OutputSnsBackpressureBehavior$outboundSchema.default("block"),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputSnsMode$outboundSchema.default("error"),
+  pqMode: ModeOptions$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSnsCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputSnsQueueFullBehavior$outboundSchema.default("block"),
+  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
   pqControls: z.lazy(() => OutputSnsPqControls$outboundSchema).optional(),
 });
 

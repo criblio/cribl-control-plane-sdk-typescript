@@ -4,46 +4,22 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionConfSchemaOTLPTracesOTLPVersion = {
-  /**
-   * 0.10.0
-   */
-  ZeroDot10Dot0: "0.10.0",
-  /**
-   * 1.3.1
-   */
-  OneDot3Dot1: "1.3.1",
-} as const;
-export type FunctionConfSchemaOTLPTracesOTLPVersion = OpenEnum<
-  typeof FunctionConfSchemaOTLPTracesOTLPVersion
->;
+import {
+  OtlpVersionOptions,
+  OtlpVersionOptions$inboundSchema,
+  OtlpVersionOptions$outboundSchema,
+} from "./otlpversionoptions.js";
 
 export type FunctionConfSchemaOtlpTraces = {
   dropNonTraceEvents?: boolean | undefined;
-  otlpVersion?: FunctionConfSchemaOTLPTracesOTLPVersion | undefined;
+  otlpVersion?: OtlpVersionOptions | undefined;
   /**
    * Batch OTLP traces by shared top-level `resource` attributes
    */
   batchOTLPTraces?: boolean | undefined;
 };
-
-/** @internal */
-export const FunctionConfSchemaOTLPTracesOTLPVersion$inboundSchema: z.ZodType<
-  FunctionConfSchemaOTLPTracesOTLPVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(FunctionConfSchemaOTLPTracesOTLPVersion);
-/** @internal */
-export const FunctionConfSchemaOTLPTracesOTLPVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  FunctionConfSchemaOTLPTracesOTLPVersion
-> = openEnums.outboundSchema(FunctionConfSchemaOTLPTracesOTLPVersion);
 
 /** @internal */
 export const FunctionConfSchemaOtlpTraces$inboundSchema: z.ZodType<
@@ -52,9 +28,7 @@ export const FunctionConfSchemaOtlpTraces$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   dropNonTraceEvents: z.boolean().default(false),
-  otlpVersion: FunctionConfSchemaOTLPTracesOTLPVersion$inboundSchema.default(
-    "0.10.0",
-  ),
+  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
   batchOTLPTraces: z.boolean().default(false),
 });
 /** @internal */
@@ -71,9 +45,7 @@ export const FunctionConfSchemaOtlpTraces$outboundSchema: z.ZodType<
   FunctionConfSchemaOtlpTraces
 > = z.object({
   dropNonTraceEvents: z.boolean().default(false),
-  otlpVersion: FunctionConfSchemaOTLPTracesOTLPVersion$outboundSchema.default(
-    "0.10.0",
-  ),
+  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
   batchOTLPTraces: z.boolean().default(false),
 });
 

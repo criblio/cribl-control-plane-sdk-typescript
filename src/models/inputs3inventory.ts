@@ -4,164 +4,48 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  CheckpointingType,
+  CheckpointingType$inboundSchema,
+  CheckpointingType$Outbound,
+  CheckpointingType$outboundSchema,
+} from "./checkpointingtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputS3InventoryConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputS3InventoryMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputS3InventoryMode = OpenEnum<typeof InputS3InventoryMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputS3InventoryCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputS3InventoryCompression = OpenEnum<
-  typeof InputS3InventoryCompression
->;
-
-export type InputS3InventoryPqControls = {};
-
-export type InputS3InventoryPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputS3InventoryMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputS3InventoryCompression | undefined;
-  pqControls?: InputS3InventoryPqControls | undefined;
-};
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const InputS3InventoryAuthenticationMethod = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type InputS3InventoryAuthenticationMethod = OpenEnum<
-  typeof InputS3InventoryAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing S3 requests
- */
-export const InputS3InventorySignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing S3 requests
- */
-export type InputS3InventorySignatureVersion = OpenEnum<
-  typeof InputS3InventorySignatureVersion
->;
-
-export type InputS3InventoryPreprocess = {
-  disabled?: boolean | undefined;
-  /**
-   * Command to feed the data through (via stdin) and process its output (stdout)
-   */
-  command?: string | undefined;
-  /**
-   * Arguments to be added to the custom command
-   */
-  args?: Array<string> | undefined;
-};
-
-export type InputS3InventoryMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputS3InventoryCheckpointing = {
-  /**
-   * Resume processing files after an interruption
-   */
-  enabled?: boolean | undefined;
-  /**
-   * The number of times to retry processing when a processing error occurs. If Skip file on error is enabled, this setting is ignored.
-   */
-  retries?: number | undefined;
-};
-
-export const InputS3InventoryTagAfterProcessing = {
-  False: "false",
-  True: "true",
-} as const;
-export type InputS3InventoryTagAfterProcessing = OpenEnum<
-  typeof InputS3InventoryTagAfterProcessing
->;
+import {
+  ItemsTypeConnections,
+  ItemsTypeConnections$inboundSchema,
+  ItemsTypeConnections$Outbound,
+  ItemsTypeConnections$outboundSchema,
+} from "./itemstypeconnections.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  PreprocessTypeSavedJobCollectionInput,
+  PreprocessTypeSavedJobCollectionInput$inboundSchema,
+  PreprocessTypeSavedJobCollectionInput$Outbound,
+  PreprocessTypeSavedJobCollectionInput$outboundSchema,
+} from "./preprocesstypesavedjobcollectioninput.js";
+import {
+  SignatureVersionOptionsS3CollectorConf,
+  SignatureVersionOptionsS3CollectorConf$inboundSchema,
+  SignatureVersionOptionsS3CollectorConf$outboundSchema,
+} from "./signatureversionoptionss3collectorconf.js";
+import {
+  TagAfterProcessingOptions,
+  TagAfterProcessingOptions$inboundSchema,
+  TagAfterProcessingOptions$outboundSchema,
+} from "./tagafterprocessingoptions.js";
 
 export type InputS3Inventory = {
   /**
@@ -193,8 +77,8 @@ export type InputS3Inventory = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputS3InventoryConnection> | undefined;
-  pq?: InputS3InventoryPq | undefined;
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -210,7 +94,7 @@ export type InputS3Inventory = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: InputS3InventoryAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -223,7 +107,7 @@ export type InputS3Inventory = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: InputS3InventorySignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptionsS3CollectorConf | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -284,11 +168,11 @@ export type InputS3Inventory = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: InputS3InventoryPreprocess | undefined;
+  preprocess?: PreprocessTypeSavedJobCollectionInput | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputS3InventoryMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -297,7 +181,7 @@ export type InputS3Inventory = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  checkpointing?: InputS3InventoryCheckpointing | undefined;
+  checkpointing?: CheckpointingType | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -320,7 +204,7 @@ export type InputS3Inventory = {
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
-  tagAfterProcessing?: InputS3InventoryTagAfterProcessing | undefined;
+  tagAfterProcessing?: TagAfterProcessingOptions | undefined;
   /**
    * The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
@@ -330,338 +214,6 @@ export type InputS3Inventory = {
    */
   processedTagValue?: string | undefined;
 };
-
-/** @internal */
-export const InputS3InventoryConnection$inboundSchema: z.ZodType<
-  InputS3InventoryConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputS3InventoryConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputS3InventoryConnection$outboundSchema: z.ZodType<
-  InputS3InventoryConnection$Outbound,
-  z.ZodTypeDef,
-  InputS3InventoryConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputS3InventoryConnectionToJSON(
-  inputS3InventoryConnection: InputS3InventoryConnection,
-): string {
-  return JSON.stringify(
-    InputS3InventoryConnection$outboundSchema.parse(inputS3InventoryConnection),
-  );
-}
-export function inputS3InventoryConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputS3InventoryConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputS3InventoryConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputS3InventoryConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputS3InventoryMode$inboundSchema: z.ZodType<
-  InputS3InventoryMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputS3InventoryMode);
-/** @internal */
-export const InputS3InventoryMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputS3InventoryMode
-> = openEnums.outboundSchema(InputS3InventoryMode);
-
-/** @internal */
-export const InputS3InventoryCompression$inboundSchema: z.ZodType<
-  InputS3InventoryCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputS3InventoryCompression);
-/** @internal */
-export const InputS3InventoryCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputS3InventoryCompression
-> = openEnums.outboundSchema(InputS3InventoryCompression);
-
-/** @internal */
-export const InputS3InventoryPqControls$inboundSchema: z.ZodType<
-  InputS3InventoryPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputS3InventoryPqControls$Outbound = {};
-
-/** @internal */
-export const InputS3InventoryPqControls$outboundSchema: z.ZodType<
-  InputS3InventoryPqControls$Outbound,
-  z.ZodTypeDef,
-  InputS3InventoryPqControls
-> = z.object({});
-
-export function inputS3InventoryPqControlsToJSON(
-  inputS3InventoryPqControls: InputS3InventoryPqControls,
-): string {
-  return JSON.stringify(
-    InputS3InventoryPqControls$outboundSchema.parse(inputS3InventoryPqControls),
-  );
-}
-export function inputS3InventoryPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputS3InventoryPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputS3InventoryPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputS3InventoryPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputS3InventoryPq$inboundSchema: z.ZodType<
-  InputS3InventoryPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputS3InventoryMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputS3InventoryCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputS3InventoryPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputS3InventoryPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputS3InventoryPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputS3InventoryPq$outboundSchema: z.ZodType<
-  InputS3InventoryPq$Outbound,
-  z.ZodTypeDef,
-  InputS3InventoryPq
-> = z.object({
-  mode: InputS3InventoryMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputS3InventoryCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputS3InventoryPqControls$outboundSchema)
-    .optional(),
-});
-
-export function inputS3InventoryPqToJSON(
-  inputS3InventoryPq: InputS3InventoryPq,
-): string {
-  return JSON.stringify(
-    InputS3InventoryPq$outboundSchema.parse(inputS3InventoryPq),
-  );
-}
-export function inputS3InventoryPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputS3InventoryPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputS3InventoryPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputS3InventoryPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputS3InventoryAuthenticationMethod$inboundSchema: z.ZodType<
-  InputS3InventoryAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputS3InventoryAuthenticationMethod);
-/** @internal */
-export const InputS3InventoryAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputS3InventoryAuthenticationMethod
-> = openEnums.outboundSchema(InputS3InventoryAuthenticationMethod);
-
-/** @internal */
-export const InputS3InventorySignatureVersion$inboundSchema: z.ZodType<
-  InputS3InventorySignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputS3InventorySignatureVersion);
-/** @internal */
-export const InputS3InventorySignatureVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputS3InventorySignatureVersion
-> = openEnums.outboundSchema(InputS3InventorySignatureVersion);
-
-/** @internal */
-export const InputS3InventoryPreprocess$inboundSchema: z.ZodType<
-  InputS3InventoryPreprocess,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  command: z.string().optional(),
-  args: z.array(z.string()).optional(),
-});
-/** @internal */
-export type InputS3InventoryPreprocess$Outbound = {
-  disabled: boolean;
-  command?: string | undefined;
-  args?: Array<string> | undefined;
-};
-
-/** @internal */
-export const InputS3InventoryPreprocess$outboundSchema: z.ZodType<
-  InputS3InventoryPreprocess$Outbound,
-  z.ZodTypeDef,
-  InputS3InventoryPreprocess
-> = z.object({
-  disabled: z.boolean().default(true),
-  command: z.string().optional(),
-  args: z.array(z.string()).optional(),
-});
-
-export function inputS3InventoryPreprocessToJSON(
-  inputS3InventoryPreprocess: InputS3InventoryPreprocess,
-): string {
-  return JSON.stringify(
-    InputS3InventoryPreprocess$outboundSchema.parse(inputS3InventoryPreprocess),
-  );
-}
-export function inputS3InventoryPreprocessFromJSON(
-  jsonString: string,
-): SafeParseResult<InputS3InventoryPreprocess, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputS3InventoryPreprocess$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputS3InventoryPreprocess' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputS3InventoryMetadatum$inboundSchema: z.ZodType<
-  InputS3InventoryMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputS3InventoryMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputS3InventoryMetadatum$outboundSchema: z.ZodType<
-  InputS3InventoryMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputS3InventoryMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputS3InventoryMetadatumToJSON(
-  inputS3InventoryMetadatum: InputS3InventoryMetadatum,
-): string {
-  return JSON.stringify(
-    InputS3InventoryMetadatum$outboundSchema.parse(inputS3InventoryMetadatum),
-  );
-}
-export function inputS3InventoryMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputS3InventoryMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputS3InventoryMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputS3InventoryMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputS3InventoryCheckpointing$inboundSchema: z.ZodType<
-  InputS3InventoryCheckpointing,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.boolean().default(false),
-  retries: z.number().default(5),
-});
-/** @internal */
-export type InputS3InventoryCheckpointing$Outbound = {
-  enabled: boolean;
-  retries: number;
-};
-
-/** @internal */
-export const InputS3InventoryCheckpointing$outboundSchema: z.ZodType<
-  InputS3InventoryCheckpointing$Outbound,
-  z.ZodTypeDef,
-  InputS3InventoryCheckpointing
-> = z.object({
-  enabled: z.boolean().default(false),
-  retries: z.number().default(5),
-});
-
-export function inputS3InventoryCheckpointingToJSON(
-  inputS3InventoryCheckpointing: InputS3InventoryCheckpointing,
-): string {
-  return JSON.stringify(
-    InputS3InventoryCheckpointing$outboundSchema.parse(
-      inputS3InventoryCheckpointing,
-    ),
-  );
-}
-export function inputS3InventoryCheckpointingFromJSON(
-  jsonString: string,
-): SafeParseResult<InputS3InventoryCheckpointing, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputS3InventoryCheckpointing$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputS3InventoryCheckpointing' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputS3InventoryTagAfterProcessing$inboundSchema: z.ZodType<
-  InputS3InventoryTagAfterProcessing,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputS3InventoryTagAfterProcessing);
-/** @internal */
-export const InputS3InventoryTagAfterProcessing$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputS3InventoryTagAfterProcessing
-> = openEnums.outboundSchema(InputS3InventoryTagAfterProcessing);
 
 /** @internal */
 export const InputS3Inventory$inboundSchema: z.ZodType<
@@ -677,20 +229,17 @@ export const InputS3Inventory$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputS3InventoryConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputS3InventoryPq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   queueName: z.string(),
   fileFilter: z.string().default("/.*/"),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: InputS3InventoryAuthenticationMethod$inboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: z.string().default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: InputS3InventorySignatureVersion$inboundSchema.default(
-    "v4",
-  ),
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
+    .default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   breakerRulesets: z.array(z.string()).optional(),
@@ -706,13 +255,11 @@ export const InputS3Inventory$inboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
   enableSQSAssumeRole: z.boolean().default(false),
-  preprocess: z.lazy(() => InputS3InventoryPreprocess$inboundSchema).optional(),
-  metadata: z.array(z.lazy(() => InputS3InventoryMetadatum$inboundSchema))
-    .optional(),
+  preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
-  checkpointing: z.lazy(() => InputS3InventoryCheckpointing$inboundSchema)
-    .optional(),
+  checkpointing: CheckpointingType$inboundSchema.optional(),
   pollTimeout: z.number().default(10),
   checksumSuffix: z.string().default("checksum"),
   maxManifestSizeKB: z.number().int().default(4096),
@@ -720,8 +267,7 @@ export const InputS3Inventory$inboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  tagAfterProcessing: InputS3InventoryTagAfterProcessing$inboundSchema
-    .optional(),
+  tagAfterProcessing: TagAfterProcessingOptions$inboundSchema.optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
 });
@@ -735,8 +281,8 @@ export type InputS3Inventory$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputS3InventoryConnection$Outbound> | undefined;
-  pq?: InputS3InventoryPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   queueName: string;
   fileFilter: string;
   awsAccountId?: string | undefined;
@@ -760,11 +306,11 @@ export type InputS3Inventory$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds: number;
   enableSQSAssumeRole: boolean;
-  preprocess?: InputS3InventoryPreprocess$Outbound | undefined;
-  metadata?: Array<InputS3InventoryMetadatum$Outbound> | undefined;
+  preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   parquetChunkSizeMB: number;
   parquetChunkDownloadTimeout: number;
-  checkpointing?: InputS3InventoryCheckpointing$Outbound | undefined;
+  checkpointing?: CheckpointingType$Outbound | undefined;
   pollTimeout: number;
   checksumSuffix: string;
   maxManifestSizeKB: number;
@@ -791,20 +337,17 @@ export const InputS3Inventory$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputS3InventoryConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputS3InventoryPq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   queueName: z.string(),
   fileFilter: z.string().default("/.*/"),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: InputS3InventoryAuthenticationMethod$outboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: z.string().default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: InputS3InventorySignatureVersion$outboundSchema.default(
-    "v4",
-  ),
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   breakerRulesets: z.array(z.string()).optional(),
@@ -820,14 +363,11 @@ export const InputS3Inventory$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
   enableSQSAssumeRole: z.boolean().default(false),
-  preprocess: z.lazy(() => InputS3InventoryPreprocess$outboundSchema)
-    .optional(),
-  metadata: z.array(z.lazy(() => InputS3InventoryMetadatum$outboundSchema))
-    .optional(),
+  preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
-  checkpointing: z.lazy(() => InputS3InventoryCheckpointing$outboundSchema)
-    .optional(),
+  checkpointing: CheckpointingType$outboundSchema.optional(),
   pollTimeout: z.number().default(10),
   checksumSuffix: z.string().default("checksum"),
   maxManifestSizeKB: z.number().int().default(4096),
@@ -835,8 +375,7 @@ export const InputS3Inventory$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  tagAfterProcessing: InputS3InventoryTagAfterProcessing$outboundSchema
-    .optional(),
+  tagAfterProcessing: TagAfterProcessingOptions$outboundSchema.optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
 });

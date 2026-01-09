@@ -7,7 +7,62 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  ItemsTypeExtraHttpHeaders,
+  ItemsTypeExtraHttpHeaders$inboundSchema,
+  ItemsTypeExtraHttpHeaders$Outbound,
+  ItemsTypeExtraHttpHeaders$outboundSchema,
+} from "./itemstypeextrahttpheaders.js";
+import {
+  ItemsTypeOauthHeaders,
+  ItemsTypeOauthHeaders$inboundSchema,
+  ItemsTypeOauthHeaders$Outbound,
+  ItemsTypeOauthHeaders$outboundSchema,
+} from "./itemstypeoauthheaders.js";
+import {
+  ItemsTypeOauthParams,
+  ItemsTypeOauthParams$inboundSchema,
+  ItemsTypeOauthParams$Outbound,
+  ItemsTypeOauthParams$outboundSchema,
+} from "./itemstypeoauthparams.js";
+import {
+  ItemsTypeResponseRetrySettings,
+  ItemsTypeResponseRetrySettings$inboundSchema,
+  ItemsTypeResponseRetrySettings$Outbound,
+  ItemsTypeResponseRetrySettings$outboundSchema,
+} from "./itemstyperesponseretrysettings.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
 /**
  * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
@@ -43,94 +98,6 @@ export const TimestampPrecision = {
  */
 export type TimestampPrecision = OpenEnum<typeof TimestampPrecision>;
 
-export type OutputInfluxdbExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputInfluxdbFailedRequestLoggingMode = {
-  /**
-   * Payload
-   */
-  Payload: "payload",
-  /**
-   * Payload + Headers
-   */
-  PayloadAndHeaders: "payloadAndHeaders",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputInfluxdbFailedRequestLoggingMode = OpenEnum<
-  typeof OutputInfluxdbFailedRequestLoggingMode
->;
-
-export type OutputInfluxdbResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputInfluxdbTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputInfluxdbBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputInfluxdbBackpressureBehavior = OpenEnum<
-  typeof OutputInfluxdbBackpressureBehavior
->;
-
 /**
  * InfluxDB authentication type
  */
@@ -149,91 +116,7 @@ export type OutputInfluxdbAuthenticationType = OpenEnum<
   typeof OutputInfluxdbAuthenticationType
 >;
 
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputInfluxdbMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputInfluxdbMode = OpenEnum<typeof OutputInfluxdbMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputInfluxdbCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputInfluxdbCompression = OpenEnum<
-  typeof OutputInfluxdbCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputInfluxdbQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputInfluxdbQueueFullBehavior = OpenEnum<
-  typeof OutputInfluxdbQueueFullBehavior
->;
-
 export type OutputInfluxdbPqControls = {};
-
-export type OutputInfluxdbOauthParam = {
-  /**
-   * OAuth parameter name
-   */
-  name: string;
-  /**
-   * OAuth parameter value
-   */
-  value: string;
-};
-
-export type OutputInfluxdbOauthHeader = {
-  /**
-   * OAuth header name
-   */
-  name: string;
-  /**
-   * OAuth header value
-   */
-  value: string;
-};
 
 export type OutputInfluxdb = {
   /**
@@ -312,7 +195,7 @@ export type OutputInfluxdb = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputInfluxdbExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -320,7 +203,7 @@ export type OutputInfluxdb = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: OutputInfluxdbFailedRequestLoggingMode | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -328,8 +211,8 @@ export type OutputInfluxdb = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<OutputInfluxdbResponseRetrySetting> | undefined;
-  timeoutRetrySettings?: OutputInfluxdbTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -337,7 +220,7 @@ export type OutputInfluxdb = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputInfluxdbBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   /**
    * InfluxDB authentication type
    */
@@ -366,7 +249,7 @@ export type OutputInfluxdb = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputInfluxdbMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -390,11 +273,11 @@ export type OutputInfluxdb = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputInfluxdbCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputInfluxdbQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputInfluxdbPqControls | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -437,11 +320,11 @@ export type OutputInfluxdb = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<OutputInfluxdbOauthParam> | undefined;
+  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<OutputInfluxdbOauthHeader> | undefined;
+  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
 };
 
 /** @internal */
@@ -458,178 +341,6 @@ export const TimestampPrecision$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(TimestampPrecision);
 
 /** @internal */
-export const OutputInfluxdbExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputInfluxdbExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputInfluxdbExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputInfluxdbExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputInfluxdbExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputInfluxdbExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function outputInfluxdbExtraHttpHeaderToJSON(
-  outputInfluxdbExtraHttpHeader: OutputInfluxdbExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputInfluxdbExtraHttpHeader$outboundSchema.parse(
-      outputInfluxdbExtraHttpHeader,
-    ),
-  );
-}
-export function outputInfluxdbExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputInfluxdbExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputInfluxdbExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputInfluxdbExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputInfluxdbFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputInfluxdbFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputInfluxdbFailedRequestLoggingMode);
-/** @internal */
-export const OutputInfluxdbFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputInfluxdbFailedRequestLoggingMode
-> = openEnums.outboundSchema(OutputInfluxdbFailedRequestLoggingMode);
-
-/** @internal */
-export const OutputInfluxdbResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputInfluxdbResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputInfluxdbResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputInfluxdbResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputInfluxdbResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputInfluxdbResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputInfluxdbResponseRetrySettingToJSON(
-  outputInfluxdbResponseRetrySetting: OutputInfluxdbResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputInfluxdbResponseRetrySetting$outboundSchema.parse(
-      outputInfluxdbResponseRetrySetting,
-    ),
-  );
-}
-export function outputInfluxdbResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputInfluxdbResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputInfluxdbResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputInfluxdbResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputInfluxdbTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputInfluxdbTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputInfluxdbTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputInfluxdbTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputInfluxdbTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputInfluxdbTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputInfluxdbTimeoutRetrySettingsToJSON(
-  outputInfluxdbTimeoutRetrySettings: OutputInfluxdbTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputInfluxdbTimeoutRetrySettings$outboundSchema.parse(
-      outputInfluxdbTimeoutRetrySettings,
-    ),
-  );
-}
-export function outputInfluxdbTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputInfluxdbTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputInfluxdbTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputInfluxdbTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputInfluxdbBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputInfluxdbBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputInfluxdbBackpressureBehavior);
-/** @internal */
-export const OutputInfluxdbBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputInfluxdbBackpressureBehavior
-> = openEnums.outboundSchema(OutputInfluxdbBackpressureBehavior);
-
-/** @internal */
 export const OutputInfluxdbAuthenticationType$inboundSchema: z.ZodType<
   OutputInfluxdbAuthenticationType,
   z.ZodTypeDef,
@@ -641,45 +352,6 @@ export const OutputInfluxdbAuthenticationType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputInfluxdbAuthenticationType
 > = openEnums.outboundSchema(OutputInfluxdbAuthenticationType);
-
-/** @internal */
-export const OutputInfluxdbMode$inboundSchema: z.ZodType<
-  OutputInfluxdbMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputInfluxdbMode);
-/** @internal */
-export const OutputInfluxdbMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputInfluxdbMode
-> = openEnums.outboundSchema(OutputInfluxdbMode);
-
-/** @internal */
-export const OutputInfluxdbCompression$inboundSchema: z.ZodType<
-  OutputInfluxdbCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputInfluxdbCompression);
-/** @internal */
-export const OutputInfluxdbCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputInfluxdbCompression
-> = openEnums.outboundSchema(OutputInfluxdbCompression);
-
-/** @internal */
-export const OutputInfluxdbQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputInfluxdbQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputInfluxdbQueueFullBehavior);
-/** @internal */
-export const OutputInfluxdbQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputInfluxdbQueueFullBehavior
-> = openEnums.outboundSchema(OutputInfluxdbQueueFullBehavior);
 
 /** @internal */
 export const OutputInfluxdbPqControls$inboundSchema: z.ZodType<
@@ -715,90 +387,6 @@ export function outputInfluxdbPqControlsFromJSON(
 }
 
 /** @internal */
-export const OutputInfluxdbOauthParam$inboundSchema: z.ZodType<
-  OutputInfluxdbOauthParam,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputInfluxdbOauthParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputInfluxdbOauthParam$outboundSchema: z.ZodType<
-  OutputInfluxdbOauthParam$Outbound,
-  z.ZodTypeDef,
-  OutputInfluxdbOauthParam
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function outputInfluxdbOauthParamToJSON(
-  outputInfluxdbOauthParam: OutputInfluxdbOauthParam,
-): string {
-  return JSON.stringify(
-    OutputInfluxdbOauthParam$outboundSchema.parse(outputInfluxdbOauthParam),
-  );
-}
-export function outputInfluxdbOauthParamFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputInfluxdbOauthParam, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputInfluxdbOauthParam$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputInfluxdbOauthParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputInfluxdbOauthHeader$inboundSchema: z.ZodType<
-  OutputInfluxdbOauthHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputInfluxdbOauthHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputInfluxdbOauthHeader$outboundSchema: z.ZodType<
-  OutputInfluxdbOauthHeader$Outbound,
-  z.ZodTypeDef,
-  OutputInfluxdbOauthHeader
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function outputInfluxdbOauthHeaderToJSON(
-  outputInfluxdbOauthHeader: OutputInfluxdbOauthHeader,
-): string {
-  return JSON.stringify(
-    OutputInfluxdbOauthHeader$outboundSchema.parse(outputInfluxdbOauthHeader),
-  );
-}
-export function outputInfluxdbOauthHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputInfluxdbOauthHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputInfluxdbOauthHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputInfluxdbOauthHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const OutputInfluxdb$inboundSchema: z.ZodType<
   OutputInfluxdb,
   z.ZodTypeDef,
@@ -822,23 +410,16 @@ export const OutputInfluxdb$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputInfluxdbExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputInfluxdbFailedRequestLoggingMode$inboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputInfluxdbResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputInfluxdbTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputInfluxdbBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
   authType: OutputInfluxdbAuthenticationType$inboundSchema.default("none"),
   description: z.string().optional(),
   database: z.string().optional(),
@@ -846,16 +427,14 @@ export const OutputInfluxdb$inboundSchema: z.ZodType<
   org: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputInfluxdbMode$inboundSchema.default("error"),
+  pqMode: ModeOptions$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputInfluxdbCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputInfluxdbQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
+  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputInfluxdbPqControls$inboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -868,10 +447,8 @@ export const OutputInfluxdb$inboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(z.lazy(() => OutputInfluxdbOauthParam$inboundSchema))
-    .optional(),
-  oauthHeaders: z.array(z.lazy(() => OutputInfluxdbOauthHeader$inboundSchema))
-    .optional(),
+  oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
+  oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
 });
 /** @internal */
 export type OutputInfluxdb$Outbound = {
@@ -893,16 +470,14 @@ export type OutputInfluxdb$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputInfluxdbExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<OutputInfluxdbResponseRetrySetting$Outbound>
+    | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
-  timeoutRetrySettings?:
-    | OutputInfluxdbTimeoutRetrySettings$Outbound
-    | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   onBackpressure: string;
   authType: string;
@@ -932,8 +507,8 @@ export type OutputInfluxdb$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr: string;
   tokenTimeoutSecs: number;
-  oauthParams?: Array<OutputInfluxdbOauthParam$Outbound> | undefined;
-  oauthHeaders?: Array<OutputInfluxdbOauthHeader$Outbound> | undefined;
+  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
 };
 
 /** @internal */
@@ -960,23 +535,17 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputInfluxdbExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputInfluxdbFailedRequestLoggingMode$outboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputInfluxdbResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputInfluxdbTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputInfluxdbBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
   authType: OutputInfluxdbAuthenticationType$outboundSchema.default("none"),
   description: z.string().optional(),
   database: z.string().optional(),
@@ -984,16 +553,14 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   org: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputInfluxdbMode$outboundSchema.default("error"),
+  pqMode: ModeOptions$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputInfluxdbCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputInfluxdbQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
+  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
   pqControls: z.lazy(() => OutputInfluxdbPqControls$outboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -1006,10 +573,8 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(z.lazy(() => OutputInfluxdbOauthParam$outboundSchema))
-    .optional(),
-  oauthHeaders: z.array(z.lazy(() => OutputInfluxdbOauthHeader$outboundSchema))
-    .optional(),
+  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
 });
 
 export function outputInfluxdbToJSON(outputInfluxdb: OutputInfluxdb): string {

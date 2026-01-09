@@ -6,6 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ItemsTypeAdd,
+  ItemsTypeAdd$inboundSchema,
+  ItemsTypeAdd$Outbound,
+  ItemsTypeAdd$outboundSchema,
+} from "./itemstypeadd.js";
 
 export type PipelineFunctionMaskRule = {
   /**
@@ -22,14 +28,6 @@ export type PipelineFunctionMaskRule = {
   disabled?: boolean | undefined;
 };
 
-export type PipelineFunctionMaskFlag = {
-  name?: string | undefined;
-  /**
-   * JavaScript expression to compute the value (can be constant)
-   */
-  value: string;
-};
-
 export type PipelineFunctionMaskConf = {
   rules: Array<PipelineFunctionMaskRule>;
   /**
@@ -43,7 +41,7 @@ export type PipelineFunctionMaskConf = {
   /**
    * Fields to evaluate if one or more masking rules are matched
    */
-  flags?: Array<PipelineFunctionMaskFlag> | undefined;
+  flags?: Array<ItemsTypeAdd> | undefined;
 };
 
 export type PipelineFunctionMask = {
@@ -120,48 +118,6 @@ export function pipelineFunctionMaskRuleFromJSON(
 }
 
 /** @internal */
-export const PipelineFunctionMaskFlag$inboundSchema: z.ZodType<
-  PipelineFunctionMaskFlag,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-/** @internal */
-export type PipelineFunctionMaskFlag$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const PipelineFunctionMaskFlag$outboundSchema: z.ZodType<
-  PipelineFunctionMaskFlag$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionMaskFlag
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function pipelineFunctionMaskFlagToJSON(
-  pipelineFunctionMaskFlag: PipelineFunctionMaskFlag,
-): string {
-  return JSON.stringify(
-    PipelineFunctionMaskFlag$outboundSchema.parse(pipelineFunctionMaskFlag),
-  );
-}
-export function pipelineFunctionMaskFlagFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionMaskFlag, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PipelineFunctionMaskFlag$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionMaskFlag' from JSON`,
-  );
-}
-
-/** @internal */
 export const PipelineFunctionMaskConf$inboundSchema: z.ZodType<
   PipelineFunctionMaskConf,
   z.ZodTypeDef,
@@ -170,15 +126,14 @@ export const PipelineFunctionMaskConf$inboundSchema: z.ZodType<
   rules: z.array(z.lazy(() => PipelineFunctionMaskRule$inboundSchema)),
   fields: z.array(z.string()).optional(),
   depth: z.number().int().default(5),
-  flags: z.array(z.lazy(() => PipelineFunctionMaskFlag$inboundSchema))
-    .optional(),
+  flags: z.array(ItemsTypeAdd$inboundSchema).optional(),
 });
 /** @internal */
 export type PipelineFunctionMaskConf$Outbound = {
   rules: Array<PipelineFunctionMaskRule$Outbound>;
   fields?: Array<string> | undefined;
   depth: number;
-  flags?: Array<PipelineFunctionMaskFlag$Outbound> | undefined;
+  flags?: Array<ItemsTypeAdd$Outbound> | undefined;
 };
 
 /** @internal */
@@ -190,8 +145,7 @@ export const PipelineFunctionMaskConf$outboundSchema: z.ZodType<
   rules: z.array(z.lazy(() => PipelineFunctionMaskRule$outboundSchema)),
   fields: z.array(z.string()).optional(),
   depth: z.number().int().default(5),
-  flags: z.array(z.lazy(() => PipelineFunctionMaskFlag$outboundSchema))
-    .optional(),
+  flags: z.array(ItemsTypeAdd$outboundSchema).optional(),
 });
 
 export function pipelineFunctionMaskConfToJSON(

@@ -4,196 +4,61 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptionsAuthTokensItems,
+  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
+} from "./authenticationmethodoptionsauthtokensitems.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type OutputCrowdstrikeNextGenSiemExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode = {
-  /**
-   * Payload
-   */
-  Payload: "payload",
-  /**
-   * Payload + Headers
-   */
-  PayloadAndHeaders: "payloadAndHeaders",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode = OpenEnum<
-  typeof OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode
->;
-
-/**
- * When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
- */
-export const OutputCrowdstrikeNextGenSiemRequestFormat = {
-  /**
-   * JSON
-   */
-  Json: "JSON",
-  /**
-   * Raw
-   */
-  Raw: "raw",
-} as const;
-/**
- * When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
- */
-export type OutputCrowdstrikeNextGenSiemRequestFormat = OpenEnum<
-  typeof OutputCrowdstrikeNextGenSiemRequestFormat
->;
-
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export const OutputCrowdstrikeNextGenSiemAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export type OutputCrowdstrikeNextGenSiemAuthenticationMethod = OpenEnum<
-  typeof OutputCrowdstrikeNextGenSiemAuthenticationMethod
->;
-
-export type OutputCrowdstrikeNextGenSiemResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputCrowdstrikeNextGenSiemTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputCrowdstrikeNextGenSiemBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputCrowdstrikeNextGenSiemBackpressureBehavior = OpenEnum<
-  typeof OutputCrowdstrikeNextGenSiemBackpressureBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputCrowdstrikeNextGenSiemMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputCrowdstrikeNextGenSiemMode = OpenEnum<
-  typeof OutputCrowdstrikeNextGenSiemMode
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputCrowdstrikeNextGenSiemCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputCrowdstrikeNextGenSiemCompression = OpenEnum<
-  typeof OutputCrowdstrikeNextGenSiemCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputCrowdstrikeNextGenSiemQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputCrowdstrikeNextGenSiemQueueFullBehavior = OpenEnum<
-  typeof OutputCrowdstrikeNextGenSiemQueueFullBehavior
->;
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  ItemsTypeExtraHttpHeaders,
+  ItemsTypeExtraHttpHeaders$inboundSchema,
+  ItemsTypeExtraHttpHeaders$Outbound,
+  ItemsTypeExtraHttpHeaders$outboundSchema,
+} from "./itemstypeextrahttpheaders.js";
+import {
+  ItemsTypeResponseRetrySettings,
+  ItemsTypeResponseRetrySettings$inboundSchema,
+  ItemsTypeResponseRetrySettings$Outbound,
+  ItemsTypeResponseRetrySettings$outboundSchema,
+} from "./itemstyperesponseretrysettings.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  RequestFormatOptions,
+  RequestFormatOptions$inboundSchema,
+  RequestFormatOptions$outboundSchema,
+} from "./requestformatoptions.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
 export type OutputCrowdstrikeNextGenSiemPqControls = {};
 
@@ -261,9 +126,7 @@ export type OutputCrowdstrikeNextGenSiem = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?:
-    | Array<OutputCrowdstrikeNextGenSiemExtraHttpHeader>
-    | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -271,9 +134,7 @@ export type OutputCrowdstrikeNextGenSiem = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -281,20 +142,16 @@ export type OutputCrowdstrikeNextGenSiem = {
   /**
    * When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
    */
-  format?: OutputCrowdstrikeNextGenSiemRequestFormat | undefined;
+  format?: RequestFormatOptions | undefined;
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: OutputCrowdstrikeNextGenSiemAuthenticationMethod | undefined;
+  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputCrowdstrikeNextGenSiemResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputCrowdstrikeNextGenSiemTimeoutRetrySettings
-    | undefined;
+  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -302,7 +159,7 @@ export type OutputCrowdstrikeNextGenSiem = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputCrowdstrikeNextGenSiemBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   description?: string | undefined;
   token?: string | undefined;
   /**
@@ -320,7 +177,7 @@ export type OutputCrowdstrikeNextGenSiem = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputCrowdstrikeNextGenSiemMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -344,289 +201,13 @@ export type OutputCrowdstrikeNextGenSiem = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputCrowdstrikeNextGenSiemCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputCrowdstrikeNextGenSiemQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputCrowdstrikeNextGenSiemPqControls | undefined;
 };
-
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemExtraHttpHeader$inboundSchema:
-  z.ZodType<
-    OutputCrowdstrikeNextGenSiemExtraHttpHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string().optional(),
-    value: z.string(),
-  });
-/** @internal */
-export type OutputCrowdstrikeNextGenSiemExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemExtraHttpHeader$outboundSchema:
-  z.ZodType<
-    OutputCrowdstrikeNextGenSiemExtraHttpHeader$Outbound,
-    z.ZodTypeDef,
-    OutputCrowdstrikeNextGenSiemExtraHttpHeader
-  > = z.object({
-    name: z.string().optional(),
-    value: z.string(),
-  });
-
-export function outputCrowdstrikeNextGenSiemExtraHttpHeaderToJSON(
-  outputCrowdstrikeNextGenSiemExtraHttpHeader:
-    OutputCrowdstrikeNextGenSiemExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputCrowdstrikeNextGenSiemExtraHttpHeader$outboundSchema.parse(
-      outputCrowdstrikeNextGenSiemExtraHttpHeader,
-    ),
-  );
-}
-export function outputCrowdstrikeNextGenSiemExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputCrowdstrikeNextGenSiemExtraHttpHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputCrowdstrikeNextGenSiemExtraHttpHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputCrowdstrikeNextGenSiemExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode$inboundSchema:
-  z.ZodType<
-    OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode,
-  );
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode
-  > = openEnums.outboundSchema(
-    OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode,
-  );
-
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemRequestFormat$inboundSchema: z.ZodType<
-  OutputCrowdstrikeNextGenSiemRequestFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputCrowdstrikeNextGenSiemRequestFormat);
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemRequestFormat$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, OutputCrowdstrikeNextGenSiemRequestFormat> =
-    openEnums.outboundSchema(OutputCrowdstrikeNextGenSiemRequestFormat);
-
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    OutputCrowdstrikeNextGenSiemAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(OutputCrowdstrikeNextGenSiemAuthenticationMethod);
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputCrowdstrikeNextGenSiemAuthenticationMethod
-  > = openEnums.outboundSchema(
-    OutputCrowdstrikeNextGenSiemAuthenticationMethod,
-  );
-
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemResponseRetrySetting$inboundSchema:
-  z.ZodType<
-    OutputCrowdstrikeNextGenSiemResponseRetrySetting,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    httpStatus: z.number(),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-/** @internal */
-export type OutputCrowdstrikeNextGenSiemResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemResponseRetrySetting$outboundSchema:
-  z.ZodType<
-    OutputCrowdstrikeNextGenSiemResponseRetrySetting$Outbound,
-    z.ZodTypeDef,
-    OutputCrowdstrikeNextGenSiemResponseRetrySetting
-  > = z.object({
-    httpStatus: z.number(),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-
-export function outputCrowdstrikeNextGenSiemResponseRetrySettingToJSON(
-  outputCrowdstrikeNextGenSiemResponseRetrySetting:
-    OutputCrowdstrikeNextGenSiemResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputCrowdstrikeNextGenSiemResponseRetrySetting$outboundSchema.parse(
-      outputCrowdstrikeNextGenSiemResponseRetrySetting,
-    ),
-  );
-}
-export function outputCrowdstrikeNextGenSiemResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputCrowdstrikeNextGenSiemResponseRetrySetting,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputCrowdstrikeNextGenSiemResponseRetrySetting$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputCrowdstrikeNextGenSiemResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$inboundSchema:
-  z.ZodType<
-    OutputCrowdstrikeNextGenSiemTimeoutRetrySettings,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    timeoutRetry: z.boolean().default(false),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-/** @internal */
-export type OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$outboundSchema:
-  z.ZodType<
-    OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$Outbound,
-    z.ZodTypeDef,
-    OutputCrowdstrikeNextGenSiemTimeoutRetrySettings
-  > = z.object({
-    timeoutRetry: z.boolean().default(false),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-
-export function outputCrowdstrikeNextGenSiemTimeoutRetrySettingsToJSON(
-  outputCrowdstrikeNextGenSiemTimeoutRetrySettings:
-    OutputCrowdstrikeNextGenSiemTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$outboundSchema.parse(
-      outputCrowdstrikeNextGenSiemTimeoutRetrySettings,
-    ),
-  );
-}
-export function outputCrowdstrikeNextGenSiemTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputCrowdstrikeNextGenSiemTimeoutRetrySettings,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputCrowdstrikeNextGenSiemTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemBackpressureBehavior$inboundSchema:
-  z.ZodType<
-    OutputCrowdstrikeNextGenSiemBackpressureBehavior,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(OutputCrowdstrikeNextGenSiemBackpressureBehavior);
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemBackpressureBehavior$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputCrowdstrikeNextGenSiemBackpressureBehavior
-  > = openEnums.outboundSchema(
-    OutputCrowdstrikeNextGenSiemBackpressureBehavior,
-  );
-
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemMode$inboundSchema: z.ZodType<
-  OutputCrowdstrikeNextGenSiemMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputCrowdstrikeNextGenSiemMode);
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputCrowdstrikeNextGenSiemMode
-> = openEnums.outboundSchema(OutputCrowdstrikeNextGenSiemMode);
-
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemCompression$inboundSchema: z.ZodType<
-  OutputCrowdstrikeNextGenSiemCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputCrowdstrikeNextGenSiemCompression);
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputCrowdstrikeNextGenSiemCompression
-> = openEnums.outboundSchema(OutputCrowdstrikeNextGenSiemCompression);
-
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemQueueFullBehavior$inboundSchema:
-  z.ZodType<
-    OutputCrowdstrikeNextGenSiemQueueFullBehavior,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(OutputCrowdstrikeNextGenSiemQueueFullBehavior);
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemQueueFullBehavior$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputCrowdstrikeNextGenSiemQueueFullBehavior
-  > = openEnums.outboundSchema(OutputCrowdstrikeNextGenSiemQueueFullBehavior);
 
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemPqControls$inboundSchema: z.ZodType<
@@ -685,47 +266,33 @@ export const OutputCrowdstrikeNextGenSiem$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputCrowdstrikeNextGenSiemExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(true),
-  failedRequestLoggingMode:
-    OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode$inboundSchema.default(
-      "none",
-    ),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  format: OutputCrowdstrikeNextGenSiemRequestFormat$inboundSchema.default(
-    "JSON",
+  format: RequestFormatOptions$inboundSchema.default("JSON"),
+  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
+    "manual",
   ),
-  authType: OutputCrowdstrikeNextGenSiemAuthenticationMethod$inboundSchema
-    .default("manual"),
-  responseRetrySettings: z.array(
-    z.lazy(() =>
-      OutputCrowdstrikeNextGenSiemResponseRetrySetting$inboundSchema
-    ),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputCrowdstrikeNextGenSiemBackpressureBehavior$inboundSchema
-    .default("block"),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputCrowdstrikeNextGenSiemMode$inboundSchema.default("error"),
+  pqMode: ModeOptions$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputCrowdstrikeNextGenSiemCompression$inboundSchema.default(
-    "none",
-  ),
-  pqOnBackpressure: OutputCrowdstrikeNextGenSiemQueueFullBehavior$inboundSchema
-    .default("block"),
+  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputCrowdstrikeNextGenSiemPqControls$inboundSchema)
     .optional(),
 });
@@ -745,20 +312,16 @@ export type OutputCrowdstrikeNextGenSiem$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?:
-    | Array<OutputCrowdstrikeNextGenSiemExtraHttpHeader$Outbound>
-    | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   format: string;
   authType: string;
   responseRetrySettings?:
-    | Array<OutputCrowdstrikeNextGenSiemResponseRetrySetting$Outbound>
+    | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
-  timeoutRetrySettings?:
-    | OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$Outbound
-    | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   onBackpressure: string;
   description?: string | undefined;
@@ -797,49 +360,34 @@ export const OutputCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputCrowdstrikeNextGenSiemExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
   useRoundRobinDns: z.boolean().default(true),
-  failedRequestLoggingMode:
-    OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode$outboundSchema.default(
-      "none",
-    ),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  format: OutputCrowdstrikeNextGenSiemRequestFormat$outboundSchema.default(
-    "JSON",
+  format: RequestFormatOptions$outboundSchema.default("JSON"),
+  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
+    "manual",
   ),
-  authType: OutputCrowdstrikeNextGenSiemAuthenticationMethod$outboundSchema
-    .default("manual"),
-  responseRetrySettings: z.array(
-    z.lazy(() =>
-      OutputCrowdstrikeNextGenSiemResponseRetrySetting$outboundSchema
-    ),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure:
-    OutputCrowdstrikeNextGenSiemBackpressureBehavior$outboundSchema.default(
-      "block",
-    ),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputCrowdstrikeNextGenSiemMode$outboundSchema.default("error"),
+  pqMode: ModeOptions$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputCrowdstrikeNextGenSiemCompression$outboundSchema.default(
-    "none",
-  ),
-  pqOnBackpressure: OutputCrowdstrikeNextGenSiemQueueFullBehavior$outboundSchema
-    .default("block"),
+  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
   pqControls: z.lazy(() =>
     OutputCrowdstrikeNextGenSiemPqControls$outboundSchema
   ).optional(),
