@@ -8,6 +8,17 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ItemsTypeRestCollectMethodGetCollectRequestParams,
+  ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
+  ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound,
+  ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+} from "./itemstyperestcollectmethodgetcollectrequestparams.js";
+import {
+  RetryTypeOptionsHealthCheckCollectorConfRetryRules,
+  RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
+  RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
+} from "./retrytypeoptionshealthcheckcollectorconfretryrules.js";
 
 /**
  * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -54,14 +65,6 @@ export type RestAuthenticationHmacCollectMethod = OpenEnum<
   typeof RestAuthenticationHmacCollectMethod
 >;
 
-export type RestAuthenticationHmacCollectRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-   */
-  value: string;
-};
-
 export const RestAuthenticationHmacPaginationEnum = {
   /**
    * None
@@ -96,35 +99,11 @@ export type RestAuthenticationHmacPagination = {
   type?: RestAuthenticationHmacPaginationEnum | undefined;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const RestAuthenticationHmacRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type RestAuthenticationHmacRetryType = OpenEnum<
-  typeof RestAuthenticationHmacRetryType
->;
-
 export type RestAuthenticationHmacRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: RestAuthenticationHmacRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -165,7 +144,7 @@ export type RestAuthenticationHmac = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestAuthenticationHmacCollectRequestHeader>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   pagination?: RestAuthenticationHmacPagination | undefined;
   /**
@@ -249,14 +228,6 @@ export type RestAuthenticationGoogleOauthSecretCollectMethod = OpenEnum<
   typeof RestAuthenticationGoogleOauthSecretCollectMethod
 >;
 
-export type RestAuthenticationGoogleOauthSecretCollectRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-   */
-  value: string;
-};
-
 export const RestAuthenticationGoogleOauthSecretPaginationEnum = {
   /**
    * None
@@ -291,35 +262,11 @@ export type RestAuthenticationGoogleOauthSecretPagination = {
   type?: RestAuthenticationGoogleOauthSecretPaginationEnum | undefined;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const RestAuthenticationGoogleOauthSecretRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type RestAuthenticationGoogleOauthSecretRetryType = OpenEnum<
-  typeof RestAuthenticationGoogleOauthSecretRetryType
->;
-
 export type RestAuthenticationGoogleOauthSecretRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: RestAuthenticationGoogleOauthSecretRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -368,7 +315,7 @@ export type RestAuthenticationGoogleOauthSecret = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestAuthenticationGoogleOauthSecretCollectRequestHeader>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   pagination?: RestAuthenticationGoogleOauthSecretPagination | undefined;
   /**
@@ -452,14 +399,6 @@ export type RestAuthenticationGoogleOauthCollectMethod = OpenEnum<
   typeof RestAuthenticationGoogleOauthCollectMethod
 >;
 
-export type RestAuthenticationGoogleOauthCollectRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-   */
-  value: string;
-};
-
 export const RestAuthenticationGoogleOauthPaginationEnum = {
   /**
    * None
@@ -494,35 +433,11 @@ export type RestAuthenticationGoogleOauthPagination = {
   type?: RestAuthenticationGoogleOauthPaginationEnum | undefined;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const RestAuthenticationGoogleOauthRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type RestAuthenticationGoogleOauthRetryType = OpenEnum<
-  typeof RestAuthenticationGoogleOauthRetryType
->;
-
 export type RestAuthenticationGoogleOauthRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: RestAuthenticationGoogleOauthRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -571,7 +486,7 @@ export type RestAuthenticationGoogleOauth = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestAuthenticationGoogleOauthCollectRequestHeader>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   pagination?: RestAuthenticationGoogleOauthPagination | undefined;
   /**
@@ -608,22 +523,6 @@ export type RestAuthenticationGoogleOauth = {
   safeHeaders?: Array<string> | undefined;
   retryRules?: RestAuthenticationGoogleOauthRetryRules | undefined;
   __scheduling?: RestAuthenticationGoogleOauthScheduling | undefined;
-};
-
-export type RestAuthenticationOauthSecretAuthRequestParam = {
-  name: string;
-  /**
-   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-   */
-  value: string;
-};
-
-export type RestAuthenticationOauthSecretAuthRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-   */
-  value: string;
 };
 
 /**
@@ -671,14 +570,6 @@ export type RestAuthenticationOauthSecretCollectMethod = OpenEnum<
   typeof RestAuthenticationOauthSecretCollectMethod
 >;
 
-export type RestAuthenticationOauthSecretCollectRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-   */
-  value: string;
-};
-
 export const RestAuthenticationOauthSecretPaginationEnum = {
   /**
    * None
@@ -713,35 +604,11 @@ export type RestAuthenticationOauthSecretPagination = {
   type?: RestAuthenticationOauthSecretPaginationEnum | undefined;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const RestAuthenticationOauthSecretRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type RestAuthenticationOauthSecretRetryType = OpenEnum<
-  typeof RestAuthenticationOauthSecretRetryType
->;
-
 export type RestAuthenticationOauthSecretRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: RestAuthenticationOauthSecretRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -796,10 +663,10 @@ export type RestAuthenticationOauthSecret = {
    * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
    */
   authRequestParams?:
-    | Array<RestAuthenticationOauthSecretAuthRequestParam>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   authRequestHeaders?:
-    | Array<RestAuthenticationOauthSecretAuthRequestHeader>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   discovery?: RestAuthenticationOauthSecretDiscovery | undefined;
   /**
@@ -811,7 +678,7 @@ export type RestAuthenticationOauthSecret = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestAuthenticationOauthSecretCollectRequestHeader>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   pagination?: RestAuthenticationOauthSecretPagination | undefined;
   /**
@@ -848,22 +715,6 @@ export type RestAuthenticationOauthSecret = {
   safeHeaders?: Array<string> | undefined;
   retryRules?: RestAuthenticationOauthSecretRetryRules | undefined;
   __scheduling?: RestAuthenticationOauthSecretScheduling | undefined;
-};
-
-export type RestAuthenticationOauthAuthRequestParam = {
-  name: string;
-  /**
-   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-   */
-  value: string;
-};
-
-export type RestAuthenticationOauthAuthRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-   */
-  value: string;
 };
 
 /**
@@ -911,14 +762,6 @@ export type RestAuthenticationOauthCollectMethod = OpenEnum<
   typeof RestAuthenticationOauthCollectMethod
 >;
 
-export type RestAuthenticationOauthCollectRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-   */
-  value: string;
-};
-
 export const RestAuthenticationOauthPaginationEnum = {
   /**
    * None
@@ -953,35 +796,11 @@ export type RestAuthenticationOauthPagination = {
   type?: RestAuthenticationOauthPaginationEnum | undefined;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const RestAuthenticationOauthRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type RestAuthenticationOauthRetryType = OpenEnum<
-  typeof RestAuthenticationOauthRetryType
->;
-
 export type RestAuthenticationOauthRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: RestAuthenticationOauthRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -1036,10 +855,10 @@ export type RestAuthenticationOauth = {
    * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
    */
   authRequestParams?:
-    | Array<RestAuthenticationOauthAuthRequestParam>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   authRequestHeaders?:
-    | Array<RestAuthenticationOauthAuthRequestHeader>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   discovery?: RestAuthenticationOauthDiscovery | undefined;
   /**
@@ -1051,7 +870,7 @@ export type RestAuthenticationOauth = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestAuthenticationOauthCollectRequestHeader>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   pagination?: RestAuthenticationOauthPagination | undefined;
   /**
@@ -1114,15 +933,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthenticatio
     typeof RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication
   >;
 
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader =
-  {
-    name: string;
-    /**
-     * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-     */
-    value: string;
-  };
-
 /**
  * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
  */
@@ -1174,15 +984,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod
     typeof RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod
   >;
 
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader =
-  {
-    name: string;
-    /**
-     * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-     */
-    value: string;
-  };
-
 export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum =
   {
     /**
@@ -1222,40 +1023,12 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination =
       | undefined;
   };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryType =
-  {
-    /**
-     * Disabled
-     */
-    None: "none",
-    /**
-     * Backoff
-     */
-    Backoff: "backoff",
-    /**
-     * Static
-     */
-    Static: "static",
-  } as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryType =
-  OpenEnum<
-    typeof RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryType
-  >;
-
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules =
   {
     /**
-     * Algorithm to use when performing HTTP retries
+     * The algorithm to use when performing HTTP retries
      */
-    type?:
-      | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryType
-      | undefined;
+    type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
     interval?: any | undefined;
     limit?: any | undefined;
     multiplier?: any | undefined;
@@ -1313,9 +1086,7 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue = {
    */
   authHeaderExpr?: string | undefined;
   authRequestHeaders?:
-    | Array<
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader
-    >
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   discovery?:
     | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery
@@ -1331,9 +1102,7 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader
-    >
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   pagination?:
     | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination
@@ -1402,15 +1171,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthenticati
     typeof RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication
   >;
 
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader =
-  {
-    name: string;
-    /**
-     * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-     */
-    value: string;
-  };
-
 /**
  * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
  */
@@ -1463,15 +1223,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMetho
     typeof RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod
   >;
 
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader =
-  {
-    name: string;
-    /**
-     * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-     */
-    value: string;
-  };
-
 export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum =
   {
     /**
@@ -1511,40 +1262,12 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination =
       | undefined;
   };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryType =
-  {
-    /**
-     * Disabled
-     */
-    None: "none",
-    /**
-     * Backoff
-     */
-    Backoff: "backoff",
-    /**
-     * Static
-     */
-    Static: "static",
-  } as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryType =
-  OpenEnum<
-    typeof RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryType
-  >;
-
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules =
   {
     /**
-     * Algorithm to use when performing HTTP retries
+     * The algorithm to use when performing HTTP retries
      */
-    type?:
-      | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryType
-      | undefined;
+    type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
     interval?: any | undefined;
     limit?: any | undefined;
     multiplier?: any | undefined;
@@ -1606,9 +1329,7 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse = {
    */
   authHeaderExpr?: string | undefined;
   authRequestHeaders?:
-    | Array<
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader
-    >
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   discovery?:
     | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery
@@ -1624,9 +1345,7 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader
-    >
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   pagination?:
     | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination
@@ -1698,15 +1417,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication =
     typeof RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication
   >;
 
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader =
-  {
-    name: string;
-    /**
-     * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-     */
-    value: string;
-  };
-
 /**
  * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
  */
@@ -1756,15 +1466,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod =
     typeof RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod
   >;
 
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader =
-  {
-    name: string;
-    /**
-     * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-     */
-    value: string;
-  };
-
 export const RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum = {
   /**
    * None
@@ -1802,34 +1503,11 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination = {
     | undefined;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryType =
-  OpenEnum<typeof RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryType>;
-
 export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -1883,7 +1561,7 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrue = {
    */
   authHeaderExpr?: string | undefined;
   authRequestHeaders?:
-    | Array<RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   discovery?:
     | RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery
@@ -1899,9 +1577,7 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrue = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader
-    >
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   pagination?:
     | RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination
@@ -1970,15 +1646,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication =
     typeof RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication
   >;
 
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader =
-  {
-    name: string;
-    /**
-     * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-     */
-    value: string;
-  };
-
 /**
  * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
  */
@@ -2028,15 +1695,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod =
     typeof RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod
   >;
 
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader =
-  {
-    name: string;
-    /**
-     * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-     */
-    value: string;
-  };
-
 export const RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum =
   {
     /**
@@ -2075,36 +1733,11 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination = {
     | undefined;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryType =
-  OpenEnum<typeof RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryType>;
-
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryType
-    | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -2162,7 +1795,7 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalse = {
    */
   authHeaderExpr?: string | undefined;
   authRequestHeaders?:
-    | Array<RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   discovery?:
     | RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery
@@ -2178,9 +1811,7 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalse = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader
-    >
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   pagination?:
     | RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination
@@ -2274,14 +1905,6 @@ export type RestAuthenticationBasicSecretCollectMethod = OpenEnum<
   typeof RestAuthenticationBasicSecretCollectMethod
 >;
 
-export type RestAuthenticationBasicSecretCollectRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-   */
-  value: string;
-};
-
 export const RestAuthenticationBasicSecretPaginationEnum = {
   /**
    * None
@@ -2316,35 +1939,11 @@ export type RestAuthenticationBasicSecretPagination = {
   type?: RestAuthenticationBasicSecretPaginationEnum | undefined;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const RestAuthenticationBasicSecretRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type RestAuthenticationBasicSecretRetryType = OpenEnum<
-  typeof RestAuthenticationBasicSecretRetryType
->;
-
 export type RestAuthenticationBasicSecretRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: RestAuthenticationBasicSecretRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -2385,7 +1984,7 @@ export type RestAuthenticationBasicSecret = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestAuthenticationBasicSecretCollectRequestHeader>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   pagination?: RestAuthenticationBasicSecretPagination | undefined;
   /**
@@ -2469,14 +2068,6 @@ export type RestAuthenticationBasicCollectMethod = OpenEnum<
   typeof RestAuthenticationBasicCollectMethod
 >;
 
-export type RestAuthenticationBasicCollectRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-   */
-  value: string;
-};
-
 export const RestAuthenticationBasicPaginationEnum = {
   /**
    * None
@@ -2511,35 +2102,11 @@ export type RestAuthenticationBasicPagination = {
   type?: RestAuthenticationBasicPaginationEnum | undefined;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const RestAuthenticationBasicRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type RestAuthenticationBasicRetryType = OpenEnum<
-  typeof RestAuthenticationBasicRetryType
->;
-
 export type RestAuthenticationBasicRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: RestAuthenticationBasicRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -2578,7 +2145,7 @@ export type RestAuthenticationBasic = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestAuthenticationBasicCollectRequestHeader>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   pagination?: RestAuthenticationBasicPagination | undefined;
   /**
@@ -2662,14 +2229,6 @@ export type RestAuthenticationNoneCollectMethod = OpenEnum<
   typeof RestAuthenticationNoneCollectMethod
 >;
 
-export type RestAuthenticationNoneCollectRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-   */
-  value: string;
-};
-
 export const RestAuthenticationNonePaginationEnum = {
   /**
    * None
@@ -2704,35 +2263,11 @@ export type RestAuthenticationNonePagination = {
   type?: RestAuthenticationNonePaginationEnum | undefined;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const RestAuthenticationNoneRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type RestAuthenticationNoneRetryType = OpenEnum<
-  typeof RestAuthenticationNoneRetryType
->;
-
 export type RestAuthenticationNoneRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: RestAuthenticationNoneRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -2769,7 +2304,7 @@ export type RestAuthenticationNone = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestAuthenticationNoneCollectRequestHeader>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   pagination?: RestAuthenticationNonePagination | undefined;
   /**
@@ -2853,14 +2388,6 @@ export type RestCollectMethodOtherDiscovery = {
   discoverType?: RestCollectMethodOtherDiscoverType | undefined;
 };
 
-export type RestCollectMethodOtherCollectRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-   */
-  value: string;
-};
-
 export const RestCollectMethodOtherPaginationEnum = {
   /**
    * None
@@ -2917,35 +2444,11 @@ export type RestCollectMethodOtherAuthentication = OpenEnum<
   typeof RestCollectMethodOtherAuthentication
 >;
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const RestCollectMethodOtherRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type RestCollectMethodOtherRetryType = OpenEnum<
-  typeof RestCollectMethodOtherRetryType
->;
-
 export type RestCollectMethodOtherRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: RestCollectMethodOtherRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -2978,7 +2481,7 @@ export type RestCollectMethodOther = {
    */
   collectUrl: string;
   collectRequestHeaders?:
-    | Array<RestCollectMethodOtherCollectRequestHeader>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   pagination?: RestCollectMethodOtherPagination | undefined;
   /**
@@ -3066,14 +2569,6 @@ export type RestCollectMethodPostWithBodyDiscovery = {
   discoverType?: RestCollectMethodPostWithBodyDiscoverType | undefined;
 };
 
-export type RestCollectMethodPostWithBodyCollectRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-   */
-  value: string;
-};
-
 export const RestCollectMethodPostWithBodyPaginationEnum = {
   /**
    * None
@@ -3130,35 +2625,11 @@ export type RestCollectMethodPostWithBodyAuthentication = OpenEnum<
   typeof RestCollectMethodPostWithBodyAuthentication
 >;
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const RestCollectMethodPostWithBodyRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type RestCollectMethodPostWithBodyRetryType = OpenEnum<
-  typeof RestCollectMethodPostWithBodyRetryType
->;
-
 export type RestCollectMethodPostWithBodyRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: RestCollectMethodPostWithBodyRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -3191,7 +2662,7 @@ export type RestCollectMethodPostWithBody = {
   collectVerb?: any | undefined;
   collectRequestParams?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestCollectMethodPostWithBodyCollectRequestHeader>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   pagination?: RestCollectMethodPostWithBodyPagination | undefined;
   /**
@@ -3279,14 +2750,6 @@ export type RestCollectMethodPostDiscovery = {
   discoverType?: RestCollectMethodPostDiscoverType | undefined;
 };
 
-export type RestCollectMethodPostCollectRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-   */
-  value: string;
-};
-
 export const RestCollectMethodPostPaginationEnum = {
   /**
    * None
@@ -3343,35 +2806,11 @@ export type RestCollectMethodPostAuthentication = OpenEnum<
   typeof RestCollectMethodPostAuthentication
 >;
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const RestCollectMethodPostRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type RestCollectMethodPostRetryType = OpenEnum<
-  typeof RestCollectMethodPostRetryType
->;
-
 export type RestCollectMethodPostRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: RestCollectMethodPostRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -3404,7 +2843,7 @@ export type RestCollectMethodPost = {
   collectVerb?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestCollectMethodPostCollectRequestHeader>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   pagination?: RestCollectMethodPostPagination | undefined;
   /**
@@ -3492,14 +2931,6 @@ export type RestCollectMethodGetDiscovery = {
   discoverType?: RestCollectMethodGetDiscoverType | undefined;
 };
 
-export type RestCollectMethodGetCollectRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-   */
-  value: string;
-};
-
 export const RestCollectMethodGetPaginationEnum = {
   /**
    * None
@@ -3556,35 +2987,11 @@ export type RestCollectMethodGetAuthentication = OpenEnum<
   typeof RestCollectMethodGetAuthentication
 >;
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const RestCollectMethodGetRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type RestCollectMethodGetRetryType = OpenEnum<
-  typeof RestCollectMethodGetRetryType
->;
-
 export type RestCollectMethodGetRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: RestCollectMethodGetRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -3617,7 +3024,7 @@ export type RestCollectMethodGet = {
   collectVerb?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestCollectMethodGetCollectRequestHeader>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
   pagination?: RestCollectMethodGetPagination | undefined;
   /**
@@ -3754,56 +3161,6 @@ export const RestAuthenticationHmacCollectMethod$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(RestAuthenticationHmacCollectMethod);
 
 /** @internal */
-export const RestAuthenticationHmacCollectRequestHeader$inboundSchema:
-  z.ZodType<RestAuthenticationHmacCollectRequestHeader, z.ZodTypeDef, unknown> =
-    z.object({
-      name: z.string(),
-      value: z.string(),
-    });
-/** @internal */
-export type RestAuthenticationHmacCollectRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RestAuthenticationHmacCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationHmacCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationHmacCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationHmacCollectRequestHeaderToJSON(
-  restAuthenticationHmacCollectRequestHeader:
-    RestAuthenticationHmacCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationHmacCollectRequestHeader$outboundSchema.parse(
-      restAuthenticationHmacCollectRequestHeader,
-    ),
-  );
-}
-export function restAuthenticationHmacCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationHmacCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationHmacCollectRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationHmacCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestAuthenticationHmacPaginationEnum$inboundSchema: z.ZodType<
   RestAuthenticationHmacPaginationEnum,
   z.ZodTypeDef,
@@ -3858,25 +3215,13 @@ export function restAuthenticationHmacPaginationFromJSON(
 }
 
 /** @internal */
-export const RestAuthenticationHmacRetryType$inboundSchema: z.ZodType<
-  RestAuthenticationHmacRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RestAuthenticationHmacRetryType);
-/** @internal */
-export const RestAuthenticationHmacRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  RestAuthenticationHmacRetryType
-> = openEnums.outboundSchema(RestAuthenticationHmacRetryType);
-
-/** @internal */
 export const RestAuthenticationHmacRetryRules$inboundSchema: z.ZodType<
   RestAuthenticationHmacRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RestAuthenticationHmacRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -3905,7 +3250,8 @@ export const RestAuthenticationHmacRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RestAuthenticationHmacRetryRules
 > = z.object({
-  type: RestAuthenticationHmacRetryType$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -4039,7 +3385,7 @@ export const RestAuthenticationHmac$inboundSchema: z.ZodType<
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() => RestAuthenticationHmacCollectRequestHeader$inboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
   ).optional(),
   pagination: z.lazy(() => RestAuthenticationHmacPagination$inboundSchema)
     .optional(),
@@ -4067,7 +3413,7 @@ export type RestAuthenticationHmac$Outbound = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestAuthenticationHmacCollectRequestHeader$Outbound>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   pagination?: RestAuthenticationHmacPagination$Outbound | undefined;
   timeout: number;
@@ -4100,7 +3446,7 @@ export const RestAuthenticationHmac$outboundSchema: z.ZodType<
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() => RestAuthenticationHmacCollectRequestHeader$outboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   pagination: z.lazy(() => RestAuthenticationHmacPagination$outboundSchema)
     .optional(),
@@ -4220,57 +3566,6 @@ export const RestAuthenticationGoogleOauthSecretCollectMethod$outboundSchema:
   );
 
 /** @internal */
-export const RestAuthenticationGoogleOauthSecretCollectRequestHeader$inboundSchema:
-  z.ZodType<
-    RestAuthenticationGoogleOauthSecretCollectRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestAuthenticationGoogleOauthSecretCollectRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RestAuthenticationGoogleOauthSecretCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationGoogleOauthSecretCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationGoogleOauthSecretCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationGoogleOauthSecretCollectRequestHeaderToJSON(
-  restAuthenticationGoogleOauthSecretCollectRequestHeader:
-    RestAuthenticationGoogleOauthSecretCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationGoogleOauthSecretCollectRequestHeader$outboundSchema
-      .parse(restAuthenticationGoogleOauthSecretCollectRequestHeader),
-  );
-}
-export function restAuthenticationGoogleOauthSecretCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationGoogleOauthSecretCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationGoogleOauthSecretCollectRequestHeader$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationGoogleOauthSecretCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestAuthenticationGoogleOauthSecretPaginationEnum$inboundSchema:
   z.ZodType<
     RestAuthenticationGoogleOauthSecretPaginationEnum,
@@ -4342,30 +3637,14 @@ export function restAuthenticationGoogleOauthSecretPaginationFromJSON(
 }
 
 /** @internal */
-export const RestAuthenticationGoogleOauthSecretRetryType$inboundSchema:
-  z.ZodType<
-    RestAuthenticationGoogleOauthSecretRetryType,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(RestAuthenticationGoogleOauthSecretRetryType);
-/** @internal */
-export const RestAuthenticationGoogleOauthSecretRetryType$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationGoogleOauthSecretRetryType
-  > = openEnums.outboundSchema(RestAuthenticationGoogleOauthSecretRetryType);
-
-/** @internal */
 export const RestAuthenticationGoogleOauthSecretRetryRules$inboundSchema:
   z.ZodType<
     RestAuthenticationGoogleOauthSecretRetryRules,
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: RestAuthenticationGoogleOauthSecretRetryType$inboundSchema.default(
-      "backoff",
-    ),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -4395,9 +3674,8 @@ export const RestAuthenticationGoogleOauthSecretRetryRules$outboundSchema:
     z.ZodTypeDef,
     RestAuthenticationGoogleOauthSecretRetryRules
   > = z.object({
-    type: RestAuthenticationGoogleOauthSecretRetryType$outboundSchema.default(
-      "backoff",
-    ),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -4560,9 +3838,7 @@ export const RestAuthenticationGoogleOauthSecret$inboundSchema: z.ZodType<
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() =>
-      RestAuthenticationGoogleOauthSecretCollectRequestHeader$inboundSchema
-    ),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
   ).optional(),
   pagination: z.lazy(() =>
     RestAuthenticationGoogleOauthSecretPagination$inboundSchema
@@ -4595,7 +3871,7 @@ export type RestAuthenticationGoogleOauthSecret$Outbound = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestAuthenticationGoogleOauthSecretCollectRequestHeader$Outbound>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   pagination?:
     | RestAuthenticationGoogleOauthSecretPagination$Outbound
@@ -4636,9 +3912,7 @@ export const RestAuthenticationGoogleOauthSecret$outboundSchema: z.ZodType<
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() =>
-      RestAuthenticationGoogleOauthSecretCollectRequestHeader$outboundSchema
-    ),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   pagination: z.lazy(() =>
     RestAuthenticationGoogleOauthSecretPagination$outboundSchema
@@ -4746,59 +4020,6 @@ export const RestAuthenticationGoogleOauthCollectMethod$outboundSchema:
     openEnums.outboundSchema(RestAuthenticationGoogleOauthCollectMethod);
 
 /** @internal */
-export const RestAuthenticationGoogleOauthCollectRequestHeader$inboundSchema:
-  z.ZodType<
-    RestAuthenticationGoogleOauthCollectRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestAuthenticationGoogleOauthCollectRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RestAuthenticationGoogleOauthCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationGoogleOauthCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationGoogleOauthCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationGoogleOauthCollectRequestHeaderToJSON(
-  restAuthenticationGoogleOauthCollectRequestHeader:
-    RestAuthenticationGoogleOauthCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationGoogleOauthCollectRequestHeader$outboundSchema.parse(
-      restAuthenticationGoogleOauthCollectRequestHeader,
-    ),
-  );
-}
-export function restAuthenticationGoogleOauthCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationGoogleOauthCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationGoogleOauthCollectRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationGoogleOauthCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestAuthenticationGoogleOauthPaginationEnum$inboundSchema:
   z.ZodType<
     RestAuthenticationGoogleOauthPaginationEnum,
@@ -4863,25 +4084,13 @@ export function restAuthenticationGoogleOauthPaginationFromJSON(
 }
 
 /** @internal */
-export const RestAuthenticationGoogleOauthRetryType$inboundSchema: z.ZodType<
-  RestAuthenticationGoogleOauthRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RestAuthenticationGoogleOauthRetryType);
-/** @internal */
-export const RestAuthenticationGoogleOauthRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  RestAuthenticationGoogleOauthRetryType
-> = openEnums.outboundSchema(RestAuthenticationGoogleOauthRetryType);
-
-/** @internal */
 export const RestAuthenticationGoogleOauthRetryRules$inboundSchema: z.ZodType<
   RestAuthenticationGoogleOauthRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RestAuthenticationGoogleOauthRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -4910,9 +4119,8 @@ export const RestAuthenticationGoogleOauthRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RestAuthenticationGoogleOauthRetryRules
 > = z.object({
-  type: RestAuthenticationGoogleOauthRetryType$outboundSchema.default(
-    "backoff",
-  ),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -5069,9 +4277,7 @@ export const RestAuthenticationGoogleOauth$inboundSchema: z.ZodType<
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() =>
-      RestAuthenticationGoogleOauthCollectRequestHeader$inboundSchema
-    ),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
   ).optional(),
   pagination: z.lazy(() =>
     RestAuthenticationGoogleOauthPagination$inboundSchema
@@ -5104,7 +4310,7 @@ export type RestAuthenticationGoogleOauth$Outbound = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestAuthenticationGoogleOauthCollectRequestHeader$Outbound>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   pagination?: RestAuthenticationGoogleOauthPagination$Outbound | undefined;
   timeout: number;
@@ -5138,9 +4344,7 @@ export const RestAuthenticationGoogleOauth$outboundSchema: z.ZodType<
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() =>
-      RestAuthenticationGoogleOauthCollectRequestHeader$outboundSchema
-    ),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   pagination: z.lazy(() =>
     RestAuthenticationGoogleOauthPagination$outboundSchema
@@ -5177,112 +4381,6 @@ export function restAuthenticationGoogleOauthFromJSON(
     jsonString,
     (x) => RestAuthenticationGoogleOauth$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'RestAuthenticationGoogleOauth' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationOauthSecretAuthRequestParam$inboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthSecretAuthRequestParam,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestAuthenticationOauthSecretAuthRequestParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RestAuthenticationOauthSecretAuthRequestParam$outboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthSecretAuthRequestParam$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationOauthSecretAuthRequestParam
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationOauthSecretAuthRequestParamToJSON(
-  restAuthenticationOauthSecretAuthRequestParam:
-    RestAuthenticationOauthSecretAuthRequestParam,
-): string {
-  return JSON.stringify(
-    RestAuthenticationOauthSecretAuthRequestParam$outboundSchema.parse(
-      restAuthenticationOauthSecretAuthRequestParam,
-    ),
-  );
-}
-export function restAuthenticationOauthSecretAuthRequestParamFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationOauthSecretAuthRequestParam,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationOauthSecretAuthRequestParam$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationOauthSecretAuthRequestParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationOauthSecretAuthRequestHeader$inboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthSecretAuthRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestAuthenticationOauthSecretAuthRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RestAuthenticationOauthSecretAuthRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthSecretAuthRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationOauthSecretAuthRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationOauthSecretAuthRequestHeaderToJSON(
-  restAuthenticationOauthSecretAuthRequestHeader:
-    RestAuthenticationOauthSecretAuthRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationOauthSecretAuthRequestHeader$outboundSchema.parse(
-      restAuthenticationOauthSecretAuthRequestHeader,
-    ),
-  );
-}
-export function restAuthenticationOauthSecretAuthRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationOauthSecretAuthRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationOauthSecretAuthRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationOauthSecretAuthRequestHeader' from JSON`,
   );
 }
 
@@ -5353,59 +4451,6 @@ export const RestAuthenticationOauthSecretCollectMethod$outboundSchema:
     openEnums.outboundSchema(RestAuthenticationOauthSecretCollectMethod);
 
 /** @internal */
-export const RestAuthenticationOauthSecretCollectRequestHeader$inboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthSecretCollectRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestAuthenticationOauthSecretCollectRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RestAuthenticationOauthSecretCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthSecretCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationOauthSecretCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationOauthSecretCollectRequestHeaderToJSON(
-  restAuthenticationOauthSecretCollectRequestHeader:
-    RestAuthenticationOauthSecretCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationOauthSecretCollectRequestHeader$outboundSchema.parse(
-      restAuthenticationOauthSecretCollectRequestHeader,
-    ),
-  );
-}
-export function restAuthenticationOauthSecretCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationOauthSecretCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationOauthSecretCollectRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationOauthSecretCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestAuthenticationOauthSecretPaginationEnum$inboundSchema:
   z.ZodType<
     RestAuthenticationOauthSecretPaginationEnum,
@@ -5470,25 +4515,13 @@ export function restAuthenticationOauthSecretPaginationFromJSON(
 }
 
 /** @internal */
-export const RestAuthenticationOauthSecretRetryType$inboundSchema: z.ZodType<
-  RestAuthenticationOauthSecretRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RestAuthenticationOauthSecretRetryType);
-/** @internal */
-export const RestAuthenticationOauthSecretRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  RestAuthenticationOauthSecretRetryType
-> = openEnums.outboundSchema(RestAuthenticationOauthSecretRetryType);
-
-/** @internal */
 export const RestAuthenticationOauthSecretRetryRules$inboundSchema: z.ZodType<
   RestAuthenticationOauthSecretRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RestAuthenticationOauthSecretRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -5517,9 +4550,8 @@ export const RestAuthenticationOauthSecretRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RestAuthenticationOauthSecretRetryRules
 > = z.object({
-  type: RestAuthenticationOauthSecretRetryType$outboundSchema.default(
-    "backoff",
-  ),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -5671,10 +4703,10 @@ export const RestAuthenticationOauthSecret$inboundSchema: z.ZodType<
   clientSecretParamName: z.string().default("client_secret"),
   textSecret: z.string(),
   authRequestParams: z.array(
-    z.lazy(() => RestAuthenticationOauthSecretAuthRequestParam$inboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
   ).optional(),
   authRequestHeaders: z.array(
-    z.lazy(() => RestAuthenticationOauthSecretAuthRequestHeader$inboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
   ).optional(),
   discovery: z.lazy(() => RestAuthenticationOauthSecretDiscovery$inboundSchema)
     .optional(),
@@ -5685,9 +4717,7 @@ export const RestAuthenticationOauthSecret$inboundSchema: z.ZodType<
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() =>
-      RestAuthenticationOauthSecretCollectRequestHeader$inboundSchema
-    ),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
   ).optional(),
   pagination: z.lazy(() =>
     RestAuthenticationOauthSecretPagination$inboundSchema
@@ -5717,10 +4747,10 @@ export type RestAuthenticationOauthSecret$Outbound = {
   clientSecretParamName: string;
   textSecret: string;
   authRequestParams?:
-    | Array<RestAuthenticationOauthSecretAuthRequestParam$Outbound>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   authRequestHeaders?:
-    | Array<RestAuthenticationOauthSecretAuthRequestHeader$Outbound>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   discovery?: RestAuthenticationOauthSecretDiscovery$Outbound | undefined;
   collectUrl: string;
@@ -5729,7 +4759,7 @@ export type RestAuthenticationOauthSecret$Outbound = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestAuthenticationOauthSecretCollectRequestHeader$Outbound>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   pagination?: RestAuthenticationOauthSecretPagination$Outbound | undefined;
   timeout: number;
@@ -5758,10 +4788,10 @@ export const RestAuthenticationOauthSecret$outboundSchema: z.ZodType<
   clientSecretParamName: z.string().default("client_secret"),
   textSecret: z.string(),
   authRequestParams: z.array(
-    z.lazy(() => RestAuthenticationOauthSecretAuthRequestParam$outboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   authRequestHeaders: z.array(
-    z.lazy(() => RestAuthenticationOauthSecretAuthRequestHeader$outboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   discovery: z.lazy(() => RestAuthenticationOauthSecretDiscovery$outboundSchema)
     .optional(),
@@ -5772,9 +4802,7 @@ export const RestAuthenticationOauthSecret$outboundSchema: z.ZodType<
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() =>
-      RestAuthenticationOauthSecretCollectRequestHeader$outboundSchema
-    ),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   pagination: z.lazy(() =>
     RestAuthenticationOauthSecretPagination$outboundSchema
@@ -5811,108 +4839,6 @@ export function restAuthenticationOauthSecretFromJSON(
     jsonString,
     (x) => RestAuthenticationOauthSecret$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'RestAuthenticationOauthSecret' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationOauthAuthRequestParam$inboundSchema: z.ZodType<
-  RestAuthenticationOauthAuthRequestParam,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type RestAuthenticationOauthAuthRequestParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RestAuthenticationOauthAuthRequestParam$outboundSchema: z.ZodType<
-  RestAuthenticationOauthAuthRequestParam$Outbound,
-  z.ZodTypeDef,
-  RestAuthenticationOauthAuthRequestParam
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function restAuthenticationOauthAuthRequestParamToJSON(
-  restAuthenticationOauthAuthRequestParam:
-    RestAuthenticationOauthAuthRequestParam,
-): string {
-  return JSON.stringify(
-    RestAuthenticationOauthAuthRequestParam$outboundSchema.parse(
-      restAuthenticationOauthAuthRequestParam,
-    ),
-  );
-}
-export function restAuthenticationOauthAuthRequestParamFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationOauthAuthRequestParam,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationOauthAuthRequestParam$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationOauthAuthRequestParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationOauthAuthRequestHeader$inboundSchema: z.ZodType<
-  RestAuthenticationOauthAuthRequestHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type RestAuthenticationOauthAuthRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RestAuthenticationOauthAuthRequestHeader$outboundSchema: z.ZodType<
-  RestAuthenticationOauthAuthRequestHeader$Outbound,
-  z.ZodTypeDef,
-  RestAuthenticationOauthAuthRequestHeader
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function restAuthenticationOauthAuthRequestHeaderToJSON(
-  restAuthenticationOauthAuthRequestHeader:
-    RestAuthenticationOauthAuthRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationOauthAuthRequestHeader$outboundSchema.parse(
-      restAuthenticationOauthAuthRequestHeader,
-    ),
-  );
-}
-export function restAuthenticationOauthAuthRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationOauthAuthRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationOauthAuthRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationOauthAuthRequestHeader' from JSON`,
   );
 }
 
@@ -5988,59 +4914,6 @@ export const RestAuthenticationOauthCollectMethod$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(RestAuthenticationOauthCollectMethod);
 
 /** @internal */
-export const RestAuthenticationOauthCollectRequestHeader$inboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthCollectRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestAuthenticationOauthCollectRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RestAuthenticationOauthCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationOauthCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationOauthCollectRequestHeaderToJSON(
-  restAuthenticationOauthCollectRequestHeader:
-    RestAuthenticationOauthCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationOauthCollectRequestHeader$outboundSchema.parse(
-      restAuthenticationOauthCollectRequestHeader,
-    ),
-  );
-}
-export function restAuthenticationOauthCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationOauthCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationOauthCollectRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationOauthCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestAuthenticationOauthPaginationEnum$inboundSchema: z.ZodType<
   RestAuthenticationOauthPaginationEnum,
   z.ZodTypeDef,
@@ -6095,25 +4968,13 @@ export function restAuthenticationOauthPaginationFromJSON(
 }
 
 /** @internal */
-export const RestAuthenticationOauthRetryType$inboundSchema: z.ZodType<
-  RestAuthenticationOauthRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RestAuthenticationOauthRetryType);
-/** @internal */
-export const RestAuthenticationOauthRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  RestAuthenticationOauthRetryType
-> = openEnums.outboundSchema(RestAuthenticationOauthRetryType);
-
-/** @internal */
 export const RestAuthenticationOauthRetryRules$inboundSchema: z.ZodType<
   RestAuthenticationOauthRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RestAuthenticationOauthRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -6142,7 +5003,8 @@ export const RestAuthenticationOauthRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RestAuthenticationOauthRetryRules
 > = z.object({
-  type: RestAuthenticationOauthRetryType$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -6273,10 +5135,10 @@ export const RestAuthenticationOauth$inboundSchema: z.ZodType<
   clientSecretParamName: z.string().default("client_secret"),
   clientSecretParamValue: z.string(),
   authRequestParams: z.array(
-    z.lazy(() => RestAuthenticationOauthAuthRequestParam$inboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
   ).optional(),
   authRequestHeaders: z.array(
-    z.lazy(() => RestAuthenticationOauthAuthRequestHeader$inboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
   ).optional(),
   discovery: z.lazy(() => RestAuthenticationOauthDiscovery$inboundSchema)
     .optional(),
@@ -6288,7 +5150,7 @@ export const RestAuthenticationOauth$inboundSchema: z.ZodType<
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() => RestAuthenticationOauthCollectRequestHeader$inboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
   ).optional(),
   pagination: z.lazy(() => RestAuthenticationOauthPagination$inboundSchema)
     .optional(),
@@ -6315,10 +5177,10 @@ export type RestAuthenticationOauth$Outbound = {
   clientSecretParamName: string;
   clientSecretParamValue: string;
   authRequestParams?:
-    | Array<RestAuthenticationOauthAuthRequestParam$Outbound>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   authRequestHeaders?:
-    | Array<RestAuthenticationOauthAuthRequestHeader$Outbound>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   discovery?: RestAuthenticationOauthDiscovery$Outbound | undefined;
   collectUrl: string;
@@ -6327,7 +5189,7 @@ export type RestAuthenticationOauth$Outbound = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestAuthenticationOauthCollectRequestHeader$Outbound>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   pagination?: RestAuthenticationOauthPagination$Outbound | undefined;
   timeout: number;
@@ -6356,10 +5218,10 @@ export const RestAuthenticationOauth$outboundSchema: z.ZodType<
   clientSecretParamName: z.string().default("client_secret"),
   clientSecretParamValue: z.string(),
   authRequestParams: z.array(
-    z.lazy(() => RestAuthenticationOauthAuthRequestParam$outboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   authRequestHeaders: z.array(
-    z.lazy(() => RestAuthenticationOauthAuthRequestHeader$outboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   discovery: z.lazy(() => RestAuthenticationOauthDiscovery$outboundSchema)
     .optional(),
@@ -6371,7 +5233,7 @@ export const RestAuthenticationOauth$outboundSchema: z.ZodType<
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() => RestAuthenticationOauthCollectRequestHeader$outboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   pagination: z.lazy(() => RestAuthenticationOauthPagination$outboundSchema)
     .optional(),
@@ -6424,60 +5286,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthenticati
   > = openEnums.outboundSchema(
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication,
   );
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader$Outbound =
-  {
-    name: string;
-    value: string;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeaderToJSON(
-  restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader:
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader$outboundSchema
-      .parse(
-        restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader,
-      ),
-  );
-}
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader' from JSON`,
-  );
-}
 
 /** @internal */
 export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType$inboundSchema:
@@ -6571,60 +5379,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMetho
   );
 
 /** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader$Outbound =
-  {
-    name: string;
-    value: string;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeaderToJSON(
-  restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader:
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader$outboundSchema
-      .parse(
-        restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader,
-      ),
-  );
-}
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum$inboundSchema:
   z.ZodType<
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum,
@@ -6697,34 +5451,14 @@ export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginatio
 }
 
 /** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryType$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryType,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryType,
-  );
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryType$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryType
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryType,
-  );
-
-/** @internal */
 export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules$inboundSchema:
   z.ZodType<
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules,
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryType$inboundSchema
-        .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -6755,9 +5489,8 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules$o
     z.ZodTypeDef,
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules
   > = z.object({
-    type:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryType$outboundSchema
-        .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -6917,9 +5650,7 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$inboundSche
     authHeaderKey: z.string().default("Authorization"),
     authHeaderExpr: z.string().default("`Bearer ${token}`"),
     authRequestHeaders: z.array(
-      z.lazy(() =>
-        RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader$inboundSchema
-      ),
+      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
     ).optional(),
     discovery: z.lazy(() =>
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery$inboundSchema
@@ -6932,9 +5663,7 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$inboundSche
     collectRequestParams: z.any().optional(),
     collectBody: z.any().optional(),
     collectRequestHeaders: z.array(
-      z.lazy(() =>
-        RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader$inboundSchema
-      ),
+      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
     ).optional(),
     pagination: z.lazy(() =>
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination$inboundSchema
@@ -6964,9 +5693,7 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$Outbound = {
   authHeaderKey: string;
   authHeaderExpr: string;
   authRequestHeaders?:
-    | Array<
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader$Outbound
-    >
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   discovery?:
     | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery$Outbound
@@ -6977,9 +5704,7 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$Outbound = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader$Outbound
-    >
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   pagination?:
     | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination$Outbound
@@ -7019,9 +5744,7 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$outboundSch
     authHeaderKey: z.string().default("Authorization"),
     authHeaderExpr: z.string().default("`Bearer ${token}`"),
     authRequestHeaders: z.array(
-      z.lazy(() =>
-        RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthRequestHeader$outboundSchema
-      ),
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
     discovery: z.lazy(() =>
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery$outboundSchema
@@ -7034,9 +5757,7 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$outboundSch
     collectRequestParams: z.any().optional(),
     collectBody: z.any().optional(),
     collectRequestHeaders: z.array(
-      z.lazy(() =>
-        RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectRequestHeader$outboundSchema
-      ),
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
     pagination: z.lazy(() =>
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination$outboundSchema
@@ -7099,60 +5820,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthenticat
   > = openEnums.outboundSchema(
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication,
   );
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader$Outbound =
-  {
-    name: string;
-    value: string;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeaderToJSON(
-  restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader:
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader$outboundSchema
-      .parse(
-        restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader,
-      ),
-  );
-}
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader' from JSON`,
-  );
-}
 
 /** @internal */
 export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType$inboundSchema:
@@ -7246,60 +5913,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMeth
   );
 
 /** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader$Outbound =
-  {
-    name: string;
-    value: string;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeaderToJSON(
-  restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader:
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader$outboundSchema
-      .parse(
-        restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader,
-      ),
-  );
-}
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum$inboundSchema:
   z.ZodType<
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum,
@@ -7374,34 +5987,14 @@ export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginati
 }
 
 /** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryType$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryType,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryType,
-  );
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryType$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryType
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryType,
-  );
-
-/** @internal */
 export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules$inboundSchema:
   z.ZodType<
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules,
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryType$inboundSchema
-        .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -7432,9 +6025,8 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules$
     z.ZodTypeDef,
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules
   > = z.object({
-    type:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryType$outboundSchema
-        .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -7599,9 +6191,7 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$inboundSch
     authHeaderKey: z.string().default("Authorization"),
     authHeaderExpr: z.string().default("`Bearer ${token}`"),
     authRequestHeaders: z.array(
-      z.lazy(() =>
-        RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader$inboundSchema
-      ),
+      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
     ).optional(),
     discovery: z.lazy(() =>
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery$inboundSchema
@@ -7614,9 +6204,7 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$inboundSch
     collectRequestParams: z.any().optional(),
     collectBody: z.any().optional(),
     collectRequestHeaders: z.array(
-      z.lazy(() =>
-        RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader$inboundSchema
-      ),
+      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
     ).optional(),
     pagination: z.lazy(() =>
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination$inboundSchema
@@ -7648,9 +6236,7 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$Outbound =
     authHeaderKey: string;
     authHeaderExpr: string;
     authRequestHeaders?:
-      | Array<
-        RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader$Outbound
-      >
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
     discovery?:
       | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery$Outbound
@@ -7661,9 +6247,7 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$Outbound =
     collectRequestParams?: any | undefined;
     collectBody?: any | undefined;
     collectRequestHeaders?:
-      | Array<
-        RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader$Outbound
-      >
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
     pagination?:
       | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination$Outbound
@@ -7704,9 +6288,7 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$outboundSc
     authHeaderKey: z.string().default("Authorization"),
     authHeaderExpr: z.string().default("`Bearer ${token}`"),
     authRequestHeaders: z.array(
-      z.lazy(() =>
-        RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthRequestHeader$outboundSchema
-      ),
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
     discovery: z.lazy(() =>
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery$outboundSchema
@@ -7719,9 +6301,7 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$outboundSc
     collectRequestParams: z.any().optional(),
     collectBody: z.any().optional(),
     collectRequestHeaders: z.array(
-      z.lazy(() =>
-        RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectRequestHeader$outboundSchema
-      ),
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
     pagination: z.lazy(() =>
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination$outboundSchema
@@ -7837,60 +6417,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication$out
   );
 
 /** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader$Outbound =
-  {
-    name: string;
-    value: string;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeaderToJSON(
-  restAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader:
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader$outboundSchema
-      .parse(
-        restAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader,
-      ),
-  );
-}
-export function restAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType$inboundSchema:
   z.ZodType<
     RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType,
@@ -7982,60 +6508,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod$outb
   );
 
 /** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader$Outbound =
-  {
-    name: string;
-    value: string;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeaderToJSON(
-  restAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader:
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader$outboundSchema
-      .parse(
-        restAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader,
-      ),
-  );
-}
-export function restAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum$inboundSchema:
   z.ZodType<
     RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum,
@@ -8108,34 +6580,14 @@ export function restAuthenticationLoginGetAuthTokenFromHeaderTruePaginationFromJ
 }
 
 /** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryType$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryType,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryType,
-  );
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryType$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryType
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryType,
-  );
-
-/** @internal */
 export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules$inboundSchema:
   z.ZodType<
     RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules,
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type:
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryType$inboundSchema
-        .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -8166,9 +6618,8 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules$outboun
     z.ZodTypeDef,
     RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules
   > = z.object({
-    type:
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryType$outboundSchema
-        .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -8327,9 +6778,7 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrue$inboundSchema:
     authHeaderKey: z.string().default("Authorization"),
     authHeaderExpr: z.string().default("`Bearer ${token}`"),
     authRequestHeaders: z.array(
-      z.lazy(() =>
-        RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader$inboundSchema
-      ),
+      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
     ).optional(),
     discovery: z.lazy(() =>
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery$inboundSchema
@@ -8342,9 +6791,7 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrue$inboundSchema:
     collectRequestParams: z.any().optional(),
     collectBody: z.any().optional(),
     collectRequestHeaders: z.array(
-      z.lazy(() =>
-        RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader$inboundSchema
-      ),
+      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
     ).optional(),
     pagination: z.lazy(() =>
       RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination$inboundSchema
@@ -8375,9 +6822,7 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrue$Outbound = {
   authHeaderKey: string;
   authHeaderExpr: string;
   authRequestHeaders?:
-    | Array<
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader$Outbound
-    >
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   discovery?:
     | RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery$Outbound
@@ -8388,9 +6833,7 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrue$Outbound = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader$Outbound
-    >
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   pagination?:
     | RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination$Outbound
@@ -8431,9 +6874,7 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrue$outboundSchema:
     authHeaderKey: z.string().default("Authorization"),
     authHeaderExpr: z.string().default("`Bearer ${token}`"),
     authRequestHeaders: z.array(
-      z.lazy(() =>
-        RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthRequestHeader$outboundSchema
-      ),
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
     discovery: z.lazy(() =>
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery$outboundSchema
@@ -8446,9 +6887,7 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrue$outboundSchema:
     collectRequestParams: z.any().optional(),
     collectBody: z.any().optional(),
     collectRequestHeaders: z.array(
-      z.lazy(() =>
-        RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectRequestHeader$outboundSchema
-      ),
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
     pagination: z.lazy(() =>
       RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination$outboundSchema
@@ -8513,60 +6952,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication$ou
   > = openEnums.outboundSchema(
     RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication,
   );
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader$Outbound =
-  {
-    name: string;
-    value: string;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeaderToJSON(
-  restAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader:
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader$outboundSchema
-      .parse(
-        restAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader,
-      ),
-  );
-}
-export function restAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader' from JSON`,
-  );
-}
 
 /** @internal */
 export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType$inboundSchema:
@@ -8660,60 +7045,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod$out
   );
 
 /** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader$Outbound =
-  {
-    name: string;
-    value: string;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeaderToJSON(
-  restAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader:
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader$outboundSchema
-      .parse(
-        restAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader,
-      ),
-  );
-}
-export function restAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum$inboundSchema:
   z.ZodType<
     RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum,
@@ -8786,34 +7117,14 @@ export function restAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationFrom
 }
 
 /** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryType$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryType,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryType,
-  );
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryType$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryType
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryType,
-  );
-
-/** @internal */
 export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules$inboundSchema:
   z.ZodType<
     RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules,
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type:
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryType$inboundSchema
-        .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -8844,9 +7155,8 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules$outbou
     z.ZodTypeDef,
     RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules
   > = z.object({
-    type:
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryType$outboundSchema
-        .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -9006,9 +7316,7 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalse$inboundSchema:
     authHeaderKey: z.string().default("Authorization"),
     authHeaderExpr: z.string().default("`Bearer ${token}`"),
     authRequestHeaders: z.array(
-      z.lazy(() =>
-        RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader$inboundSchema
-      ),
+      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
     ).optional(),
     discovery: z.lazy(() =>
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery$inboundSchema
@@ -9021,9 +7329,7 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalse$inboundSchema:
     collectRequestParams: z.any().optional(),
     collectBody: z.any().optional(),
     collectRequestHeaders: z.array(
-      z.lazy(() =>
-        RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader$inboundSchema
-      ),
+      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
     ).optional(),
     pagination: z.lazy(() =>
       RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination$inboundSchema
@@ -9055,9 +7361,7 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalse$Outbound = {
   authHeaderKey: string;
   authHeaderExpr: string;
   authRequestHeaders?:
-    | Array<
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader$Outbound
-    >
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   discovery?:
     | RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery$Outbound
@@ -9068,9 +7372,7 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalse$Outbound = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader$Outbound
-    >
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   pagination?:
     | RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination$Outbound
@@ -9112,9 +7414,7 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalse$outboundSchema:
     authHeaderKey: z.string().default("Authorization"),
     authHeaderExpr: z.string().default("`Bearer ${token}`"),
     authRequestHeaders: z.array(
-      z.lazy(() =>
-        RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthRequestHeader$outboundSchema
-      ),
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
     discovery: z.lazy(() =>
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery$outboundSchema
@@ -9127,9 +7427,7 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalse$outboundSchema:
     collectRequestParams: z.any().optional(),
     collectBody: z.any().optional(),
     collectRequestHeaders: z.array(
-      z.lazy(() =>
-        RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectRequestHeader$outboundSchema
-      ),
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
     pagination: z.lazy(() =>
       RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination$outboundSchema
@@ -9290,59 +7588,6 @@ export const RestAuthenticationBasicSecretCollectMethod$outboundSchema:
     openEnums.outboundSchema(RestAuthenticationBasicSecretCollectMethod);
 
 /** @internal */
-export const RestAuthenticationBasicSecretCollectRequestHeader$inboundSchema:
-  z.ZodType<
-    RestAuthenticationBasicSecretCollectRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestAuthenticationBasicSecretCollectRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RestAuthenticationBasicSecretCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationBasicSecretCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationBasicSecretCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationBasicSecretCollectRequestHeaderToJSON(
-  restAuthenticationBasicSecretCollectRequestHeader:
-    RestAuthenticationBasicSecretCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationBasicSecretCollectRequestHeader$outboundSchema.parse(
-      restAuthenticationBasicSecretCollectRequestHeader,
-    ),
-  );
-}
-export function restAuthenticationBasicSecretCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationBasicSecretCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationBasicSecretCollectRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationBasicSecretCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestAuthenticationBasicSecretPaginationEnum$inboundSchema:
   z.ZodType<
     RestAuthenticationBasicSecretPaginationEnum,
@@ -9407,25 +7652,13 @@ export function restAuthenticationBasicSecretPaginationFromJSON(
 }
 
 /** @internal */
-export const RestAuthenticationBasicSecretRetryType$inboundSchema: z.ZodType<
-  RestAuthenticationBasicSecretRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RestAuthenticationBasicSecretRetryType);
-/** @internal */
-export const RestAuthenticationBasicSecretRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  RestAuthenticationBasicSecretRetryType
-> = openEnums.outboundSchema(RestAuthenticationBasicSecretRetryType);
-
-/** @internal */
 export const RestAuthenticationBasicSecretRetryRules$inboundSchema: z.ZodType<
   RestAuthenticationBasicSecretRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RestAuthenticationBasicSecretRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -9454,9 +7687,8 @@ export const RestAuthenticationBasicSecretRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RestAuthenticationBasicSecretRetryRules
 > = z.object({
-  type: RestAuthenticationBasicSecretRetryType$outboundSchema.default(
-    "backoff",
-  ),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -9611,9 +7843,7 @@ export const RestAuthenticationBasicSecret$inboundSchema: z.ZodType<
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() =>
-      RestAuthenticationBasicSecretCollectRequestHeader$inboundSchema
-    ),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
   ).optional(),
   pagination: z.lazy(() =>
     RestAuthenticationBasicSecretPagination$inboundSchema
@@ -9644,7 +7874,7 @@ export type RestAuthenticationBasicSecret$Outbound = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestAuthenticationBasicSecretCollectRequestHeader$Outbound>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   pagination?: RestAuthenticationBasicSecretPagination$Outbound | undefined;
   timeout: number;
@@ -9676,9 +7906,7 @@ export const RestAuthenticationBasicSecret$outboundSchema: z.ZodType<
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() =>
-      RestAuthenticationBasicSecretCollectRequestHeader$outboundSchema
-    ),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   pagination: z.lazy(() =>
     RestAuthenticationBasicSecretPagination$outboundSchema
@@ -9790,59 +8018,6 @@ export const RestAuthenticationBasicCollectMethod$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(RestAuthenticationBasicCollectMethod);
 
 /** @internal */
-export const RestAuthenticationBasicCollectRequestHeader$inboundSchema:
-  z.ZodType<
-    RestAuthenticationBasicCollectRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestAuthenticationBasicCollectRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RestAuthenticationBasicCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationBasicCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationBasicCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationBasicCollectRequestHeaderToJSON(
-  restAuthenticationBasicCollectRequestHeader:
-    RestAuthenticationBasicCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationBasicCollectRequestHeader$outboundSchema.parse(
-      restAuthenticationBasicCollectRequestHeader,
-    ),
-  );
-}
-export function restAuthenticationBasicCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationBasicCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationBasicCollectRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationBasicCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestAuthenticationBasicPaginationEnum$inboundSchema: z.ZodType<
   RestAuthenticationBasicPaginationEnum,
   z.ZodTypeDef,
@@ -9897,25 +8072,13 @@ export function restAuthenticationBasicPaginationFromJSON(
 }
 
 /** @internal */
-export const RestAuthenticationBasicRetryType$inboundSchema: z.ZodType<
-  RestAuthenticationBasicRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RestAuthenticationBasicRetryType);
-/** @internal */
-export const RestAuthenticationBasicRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  RestAuthenticationBasicRetryType
-> = openEnums.outboundSchema(RestAuthenticationBasicRetryType);
-
-/** @internal */
 export const RestAuthenticationBasicRetryRules$inboundSchema: z.ZodType<
   RestAuthenticationBasicRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RestAuthenticationBasicRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -9944,7 +8107,8 @@ export const RestAuthenticationBasicRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RestAuthenticationBasicRetryRules
 > = z.object({
-  type: RestAuthenticationBasicRetryType$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -10080,7 +8244,7 @@ export const RestAuthenticationBasic$inboundSchema: z.ZodType<
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() => RestAuthenticationBasicCollectRequestHeader$inboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
   ).optional(),
   pagination: z.lazy(() => RestAuthenticationBasicPagination$inboundSchema)
     .optional(),
@@ -10109,7 +8273,7 @@ export type RestAuthenticationBasic$Outbound = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestAuthenticationBasicCollectRequestHeader$Outbound>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   pagination?: RestAuthenticationBasicPagination$Outbound | undefined;
   timeout: number;
@@ -10143,7 +8307,7 @@ export const RestAuthenticationBasic$outboundSchema: z.ZodType<
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() => RestAuthenticationBasicCollectRequestHeader$outboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   pagination: z.lazy(() => RestAuthenticationBasicPagination$outboundSchema)
     .optional(),
@@ -10250,56 +8414,6 @@ export const RestAuthenticationNoneCollectMethod$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(RestAuthenticationNoneCollectMethod);
 
 /** @internal */
-export const RestAuthenticationNoneCollectRequestHeader$inboundSchema:
-  z.ZodType<RestAuthenticationNoneCollectRequestHeader, z.ZodTypeDef, unknown> =
-    z.object({
-      name: z.string(),
-      value: z.string(),
-    });
-/** @internal */
-export type RestAuthenticationNoneCollectRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RestAuthenticationNoneCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationNoneCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationNoneCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restAuthenticationNoneCollectRequestHeaderToJSON(
-  restAuthenticationNoneCollectRequestHeader:
-    RestAuthenticationNoneCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationNoneCollectRequestHeader$outboundSchema.parse(
-      restAuthenticationNoneCollectRequestHeader,
-    ),
-  );
-}
-export function restAuthenticationNoneCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationNoneCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationNoneCollectRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationNoneCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestAuthenticationNonePaginationEnum$inboundSchema: z.ZodType<
   RestAuthenticationNonePaginationEnum,
   z.ZodTypeDef,
@@ -10354,25 +8468,13 @@ export function restAuthenticationNonePaginationFromJSON(
 }
 
 /** @internal */
-export const RestAuthenticationNoneRetryType$inboundSchema: z.ZodType<
-  RestAuthenticationNoneRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RestAuthenticationNoneRetryType);
-/** @internal */
-export const RestAuthenticationNoneRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  RestAuthenticationNoneRetryType
-> = openEnums.outboundSchema(RestAuthenticationNoneRetryType);
-
-/** @internal */
 export const RestAuthenticationNoneRetryRules$inboundSchema: z.ZodType<
   RestAuthenticationNoneRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RestAuthenticationNoneRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -10401,7 +8503,8 @@ export const RestAuthenticationNoneRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RestAuthenticationNoneRetryRules
 > = z.object({
-  type: RestAuthenticationNoneRetryType$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -10534,7 +8637,7 @@ export const RestAuthenticationNone$inboundSchema: z.ZodType<
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() => RestAuthenticationNoneCollectRequestHeader$inboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
   ).optional(),
   pagination: z.lazy(() => RestAuthenticationNonePagination$inboundSchema)
     .optional(),
@@ -10561,7 +8664,7 @@ export type RestAuthenticationNone$Outbound = {
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestAuthenticationNoneCollectRequestHeader$Outbound>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   pagination?: RestAuthenticationNonePagination$Outbound | undefined;
   timeout: number;
@@ -10593,7 +8696,7 @@ export const RestAuthenticationNone$outboundSchema: z.ZodType<
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() => RestAuthenticationNoneCollectRequestHeader$outboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   pagination: z.lazy(() => RestAuthenticationNonePagination$outboundSchema)
     .optional(),
@@ -10700,56 +8803,6 @@ export function restCollectMethodOtherDiscoveryFromJSON(
 }
 
 /** @internal */
-export const RestCollectMethodOtherCollectRequestHeader$inboundSchema:
-  z.ZodType<RestCollectMethodOtherCollectRequestHeader, z.ZodTypeDef, unknown> =
-    z.object({
-      name: z.string(),
-      value: z.string(),
-    });
-/** @internal */
-export type RestCollectMethodOtherCollectRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RestCollectMethodOtherCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    RestCollectMethodOtherCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestCollectMethodOtherCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restCollectMethodOtherCollectRequestHeaderToJSON(
-  restCollectMethodOtherCollectRequestHeader:
-    RestCollectMethodOtherCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    RestCollectMethodOtherCollectRequestHeader$outboundSchema.parse(
-      restCollectMethodOtherCollectRequestHeader,
-    ),
-  );
-}
-export function restCollectMethodOtherCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestCollectMethodOtherCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestCollectMethodOtherCollectRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestCollectMethodOtherCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestCollectMethodOtherPaginationEnum$inboundSchema: z.ZodType<
   RestCollectMethodOtherPaginationEnum,
   z.ZodTypeDef,
@@ -10817,25 +8870,13 @@ export const RestCollectMethodOtherAuthentication$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(RestCollectMethodOtherAuthentication);
 
 /** @internal */
-export const RestCollectMethodOtherRetryType$inboundSchema: z.ZodType<
-  RestCollectMethodOtherRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RestCollectMethodOtherRetryType);
-/** @internal */
-export const RestCollectMethodOtherRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  RestCollectMethodOtherRetryType
-> = openEnums.outboundSchema(RestCollectMethodOtherRetryType);
-
-/** @internal */
 export const RestCollectMethodOtherRetryRules$inboundSchema: z.ZodType<
   RestCollectMethodOtherRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RestCollectMethodOtherRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -10864,7 +8905,8 @@ export const RestCollectMethodOtherRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RestCollectMethodOtherRetryRules
 > = z.object({
-  type: RestCollectMethodOtherRetryType$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -10996,7 +9038,7 @@ export const RestCollectMethodOther$inboundSchema: z.ZodType<
     .optional(),
   collectUrl: z.string(),
   collectRequestHeaders: z.array(
-    z.lazy(() => RestCollectMethodOtherCollectRequestHeader$inboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
   ).optional(),
   pagination: z.lazy(() => RestCollectMethodOtherPagination$inboundSchema)
     .optional(),
@@ -11025,7 +9067,7 @@ export type RestCollectMethodOther$Outbound = {
   discovery?: RestCollectMethodOtherDiscovery$Outbound | undefined;
   collectUrl: string;
   collectRequestHeaders?:
-    | Array<RestCollectMethodOtherCollectRequestHeader$Outbound>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   pagination?: RestCollectMethodOtherPagination$Outbound | undefined;
   authentication: string;
@@ -11057,7 +9099,7 @@ export const RestCollectMethodOther$outboundSchema: z.ZodType<
     .optional(),
   collectUrl: z.string(),
   collectRequestHeaders: z.array(
-    z.lazy(() => RestCollectMethodOtherCollectRequestHeader$outboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   pagination: z.lazy(() => RestCollectMethodOtherPagination$outboundSchema)
     .optional(),
@@ -11162,59 +9204,6 @@ export function restCollectMethodPostWithBodyDiscoveryFromJSON(
 }
 
 /** @internal */
-export const RestCollectMethodPostWithBodyCollectRequestHeader$inboundSchema:
-  z.ZodType<
-    RestCollectMethodPostWithBodyCollectRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type RestCollectMethodPostWithBodyCollectRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RestCollectMethodPostWithBodyCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    RestCollectMethodPostWithBodyCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestCollectMethodPostWithBodyCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restCollectMethodPostWithBodyCollectRequestHeaderToJSON(
-  restCollectMethodPostWithBodyCollectRequestHeader:
-    RestCollectMethodPostWithBodyCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    RestCollectMethodPostWithBodyCollectRequestHeader$outboundSchema.parse(
-      restCollectMethodPostWithBodyCollectRequestHeader,
-    ),
-  );
-}
-export function restCollectMethodPostWithBodyCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestCollectMethodPostWithBodyCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestCollectMethodPostWithBodyCollectRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestCollectMethodPostWithBodyCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestCollectMethodPostWithBodyPaginationEnum$inboundSchema:
   z.ZodType<
     RestCollectMethodPostWithBodyPaginationEnum,
@@ -11291,25 +9280,13 @@ export const RestCollectMethodPostWithBodyAuthentication$outboundSchema:
     openEnums.outboundSchema(RestCollectMethodPostWithBodyAuthentication);
 
 /** @internal */
-export const RestCollectMethodPostWithBodyRetryType$inboundSchema: z.ZodType<
-  RestCollectMethodPostWithBodyRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RestCollectMethodPostWithBodyRetryType);
-/** @internal */
-export const RestCollectMethodPostWithBodyRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  RestCollectMethodPostWithBodyRetryType
-> = openEnums.outboundSchema(RestCollectMethodPostWithBodyRetryType);
-
-/** @internal */
 export const RestCollectMethodPostWithBodyRetryRules$inboundSchema: z.ZodType<
   RestCollectMethodPostWithBodyRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RestCollectMethodPostWithBodyRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -11338,9 +9315,8 @@ export const RestCollectMethodPostWithBodyRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RestCollectMethodPostWithBodyRetryRules
 > = z.object({
-  type: RestCollectMethodPostWithBodyRetryType$outboundSchema.default(
-    "backoff",
-  ),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -11493,9 +9469,7 @@ export const RestCollectMethodPostWithBody$inboundSchema: z.ZodType<
   collectVerb: z.any().optional(),
   collectRequestParams: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() =>
-      RestCollectMethodPostWithBodyCollectRequestHeader$inboundSchema
-    ),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
   ).optional(),
   pagination: z.lazy(() =>
     RestCollectMethodPostWithBodyPagination$inboundSchema
@@ -11526,7 +9500,7 @@ export type RestCollectMethodPostWithBody$Outbound = {
   collectVerb?: any | undefined;
   collectRequestParams?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestCollectMethodPostWithBodyCollectRequestHeader$Outbound>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   pagination?: RestCollectMethodPostWithBodyPagination$Outbound | undefined;
   authentication: string;
@@ -11557,9 +9531,7 @@ export const RestCollectMethodPostWithBody$outboundSchema: z.ZodType<
   collectVerb: z.any().optional(),
   collectRequestParams: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() =>
-      RestCollectMethodPostWithBodyCollectRequestHeader$outboundSchema
-    ),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   pagination: z.lazy(() =>
     RestCollectMethodPostWithBodyPagination$outboundSchema
@@ -11671,58 +9643,6 @@ export function restCollectMethodPostDiscoveryFromJSON(
 }
 
 /** @internal */
-export const RestCollectMethodPostCollectRequestHeader$inboundSchema: z.ZodType<
-  RestCollectMethodPostCollectRequestHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type RestCollectMethodPostCollectRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RestCollectMethodPostCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    RestCollectMethodPostCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    RestCollectMethodPostCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function restCollectMethodPostCollectRequestHeaderToJSON(
-  restCollectMethodPostCollectRequestHeader:
-    RestCollectMethodPostCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    RestCollectMethodPostCollectRequestHeader$outboundSchema.parse(
-      restCollectMethodPostCollectRequestHeader,
-    ),
-  );
-}
-export function restCollectMethodPostCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestCollectMethodPostCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestCollectMethodPostCollectRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestCollectMethodPostCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestCollectMethodPostPaginationEnum$inboundSchema: z.ZodType<
   RestCollectMethodPostPaginationEnum,
   z.ZodTypeDef,
@@ -11790,25 +9710,13 @@ export const RestCollectMethodPostAuthentication$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(RestCollectMethodPostAuthentication);
 
 /** @internal */
-export const RestCollectMethodPostRetryType$inboundSchema: z.ZodType<
-  RestCollectMethodPostRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RestCollectMethodPostRetryType);
-/** @internal */
-export const RestCollectMethodPostRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  RestCollectMethodPostRetryType
-> = openEnums.outboundSchema(RestCollectMethodPostRetryType);
-
-/** @internal */
 export const RestCollectMethodPostRetryRules$inboundSchema: z.ZodType<
   RestCollectMethodPostRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RestCollectMethodPostRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -11837,7 +9745,8 @@ export const RestCollectMethodPostRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RestCollectMethodPostRetryRules
 > = z.object({
-  type: RestCollectMethodPostRetryType$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -11968,7 +9877,7 @@ export const RestCollectMethodPost$inboundSchema: z.ZodType<
   collectVerb: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() => RestCollectMethodPostCollectRequestHeader$inboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
   ).optional(),
   pagination: z.lazy(() => RestCollectMethodPostPagination$inboundSchema)
     .optional(),
@@ -11997,7 +9906,7 @@ export type RestCollectMethodPost$Outbound = {
   collectVerb?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestCollectMethodPostCollectRequestHeader$Outbound>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   pagination?: RestCollectMethodPostPagination$Outbound | undefined;
   authentication: string;
@@ -12029,7 +9938,7 @@ export const RestCollectMethodPost$outboundSchema: z.ZodType<
   collectVerb: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() => RestCollectMethodPostCollectRequestHeader$outboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   pagination: z.lazy(() => RestCollectMethodPostPagination$outboundSchema)
     .optional(),
@@ -12135,57 +10044,6 @@ export function restCollectMethodGetDiscoveryFromJSON(
 }
 
 /** @internal */
-export const RestCollectMethodGetCollectRequestHeader$inboundSchema: z.ZodType<
-  RestCollectMethodGetCollectRequestHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type RestCollectMethodGetCollectRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RestCollectMethodGetCollectRequestHeader$outboundSchema: z.ZodType<
-  RestCollectMethodGetCollectRequestHeader$Outbound,
-  z.ZodTypeDef,
-  RestCollectMethodGetCollectRequestHeader
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function restCollectMethodGetCollectRequestHeaderToJSON(
-  restCollectMethodGetCollectRequestHeader:
-    RestCollectMethodGetCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    RestCollectMethodGetCollectRequestHeader$outboundSchema.parse(
-      restCollectMethodGetCollectRequestHeader,
-    ),
-  );
-}
-export function restCollectMethodGetCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestCollectMethodGetCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestCollectMethodGetCollectRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestCollectMethodGetCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const RestCollectMethodGetPaginationEnum$inboundSchema: z.ZodType<
   RestCollectMethodGetPaginationEnum,
   z.ZodTypeDef,
@@ -12253,25 +10111,13 @@ export const RestCollectMethodGetAuthentication$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(RestCollectMethodGetAuthentication);
 
 /** @internal */
-export const RestCollectMethodGetRetryType$inboundSchema: z.ZodType<
-  RestCollectMethodGetRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RestCollectMethodGetRetryType);
-/** @internal */
-export const RestCollectMethodGetRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  RestCollectMethodGetRetryType
-> = openEnums.outboundSchema(RestCollectMethodGetRetryType);
-
-/** @internal */
 export const RestCollectMethodGetRetryRules$inboundSchema: z.ZodType<
   RestCollectMethodGetRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RestCollectMethodGetRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -12300,7 +10146,8 @@ export const RestCollectMethodGetRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RestCollectMethodGetRetryRules
 > = z.object({
-  type: RestCollectMethodGetRetryType$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -12428,7 +10275,7 @@ export const RestCollectMethodGet$inboundSchema: z.ZodType<
   collectVerb: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() => RestCollectMethodGetCollectRequestHeader$inboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
   ).optional(),
   pagination: z.lazy(() => RestCollectMethodGetPagination$inboundSchema)
     .optional(),
@@ -12457,7 +10304,7 @@ export type RestCollectMethodGet$Outbound = {
   collectVerb?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
-    | Array<RestCollectMethodGetCollectRequestHeader$Outbound>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
   pagination?: RestCollectMethodGetPagination$Outbound | undefined;
   authentication: string;
@@ -12489,7 +10336,7 @@ export const RestCollectMethodGet$outboundSchema: z.ZodType<
   collectVerb: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
-    z.lazy(() => RestCollectMethodGetCollectRequestHeader$outboundSchema),
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   pagination: z.lazy(() => RestCollectMethodGetPagination$outboundSchema)
     .optional(),

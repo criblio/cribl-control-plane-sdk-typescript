@@ -6,13 +6,10 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type PackInstallInfoTags = {
-  dataType?: Array<string> | undefined;
-  domain?: Array<string> | undefined;
-  streamtags?: Array<string> | undefined;
-  technology?: Array<string> | undefined;
-};
+import {
+  TagsTypePackInstallInfo,
+  TagsTypePackInstallInfo$inboundSchema,
+} from "./tagstypepackinstallinfo.js";
 
 export type PackInstallInfo = {
   author?: string | undefined;
@@ -28,32 +25,10 @@ export type PackInstallInfo = {
   settings?: { [k: string]: any } | undefined;
   source: string;
   spec?: string | undefined;
-  tags?: PackInstallInfoTags | undefined;
+  tags?: TagsTypePackInstallInfo | undefined;
   version?: string | undefined;
   warnings?: Array<string> | undefined;
 };
-
-/** @internal */
-export const PackInstallInfoTags$inboundSchema: z.ZodType<
-  PackInstallInfoTags,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  dataType: z.array(z.string()).optional(),
-  domain: z.array(z.string()).optional(),
-  streamtags: z.array(z.string()).optional(),
-  technology: z.array(z.string()).optional(),
-});
-
-export function packInstallInfoTagsFromJSON(
-  jsonString: string,
-): SafeParseResult<PackInstallInfoTags, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PackInstallInfoTags$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PackInstallInfoTags' from JSON`,
-  );
-}
 
 /** @internal */
 export const PackInstallInfo$inboundSchema: z.ZodType<
@@ -74,7 +49,7 @@ export const PackInstallInfo$inboundSchema: z.ZodType<
   settings: z.record(z.any()).optional(),
   source: z.string(),
   spec: z.string().optional(),
-  tags: z.lazy(() => PackInstallInfoTags$inboundSchema).optional(),
+  tags: TagsTypePackInstallInfo$inboundSchema.optional(),
   version: z.string().optional(),
   warnings: z.array(z.string()).optional(),
 });

@@ -8,6 +8,12 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ItemsTypePoliciesItemsTemplateTargetPairs,
+  ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema,
+  ItemsTypePoliciesItemsTemplateTargetPairs$Outbound,
+  ItemsTypePoliciesItemsTemplateTargetPairs$outboundSchema,
+} from "./itemstypepoliciesitemstemplatetargetpairs.js";
 
 /**
  * Comparison operator
@@ -43,17 +49,6 @@ export type Condition = {
   value: string | number | boolean;
 };
 
-export type TemplateTargetPair = {
-  /**
-   * ID of the notification template to use
-   */
-  templateId: string;
-  /**
-   * ID of the notification target (output)
-   */
-  targetId: string;
-};
-
 export type Policy = {
   /**
    * Unique identifier for this policy
@@ -78,7 +73,7 @@ export type Policy = {
   /**
    * List of targets to route to and the templates to use
    */
-  templateTargetPairs: Array<TemplateTargetPair>;
+  templateTargetPairs: Array<ItemsTypePoliciesItemsTemplateTargetPairs>;
   /**
    * If true, stop evaluating further policies after this one matches
    */
@@ -177,48 +172,6 @@ export function conditionFromJSON(
 }
 
 /** @internal */
-export const TemplateTargetPair$inboundSchema: z.ZodType<
-  TemplateTargetPair,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  templateId: z.string(),
-  targetId: z.string(),
-});
-/** @internal */
-export type TemplateTargetPair$Outbound = {
-  templateId: string;
-  targetId: string;
-};
-
-/** @internal */
-export const TemplateTargetPair$outboundSchema: z.ZodType<
-  TemplateTargetPair$Outbound,
-  z.ZodTypeDef,
-  TemplateTargetPair
-> = z.object({
-  templateId: z.string(),
-  targetId: z.string(),
-});
-
-export function templateTargetPairToJSON(
-  templateTargetPair: TemplateTargetPair,
-): string {
-  return JSON.stringify(
-    TemplateTargetPair$outboundSchema.parse(templateTargetPair),
-  );
-}
-export function templateTargetPairFromJSON(
-  jsonString: string,
-): SafeParseResult<TemplateTargetPair, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => TemplateTargetPair$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'TemplateTargetPair' from JSON`,
-  );
-}
-
-/** @internal */
 export const Policy$inboundSchema: z.ZodType<Policy, z.ZodTypeDef, unknown> = z
   .object({
     id: z.string(),
@@ -228,7 +181,7 @@ export const Policy$inboundSchema: z.ZodType<Policy, z.ZodTypeDef, unknown> = z
     conditions: z.array(z.array(z.lazy(() => Condition$inboundSchema)))
       .optional(),
     templateTargetPairs: z.array(
-      z.lazy(() => TemplateTargetPair$inboundSchema),
+      ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema,
     ),
     final: z.boolean().default(false),
     order: z.number(),
@@ -240,7 +193,9 @@ export type Policy$Outbound = {
   waitToGroup?: number | undefined;
   groupByLabels?: Array<string> | undefined;
   conditions?: Array<Array<Condition$Outbound>> | undefined;
-  templateTargetPairs: Array<TemplateTargetPair$Outbound>;
+  templateTargetPairs: Array<
+    ItemsTypePoliciesItemsTemplateTargetPairs$Outbound
+  >;
   final: boolean;
   order: number;
 };
@@ -257,7 +212,9 @@ export const Policy$outboundSchema: z.ZodType<
   groupByLabels: z.array(z.string()).optional(),
   conditions: z.array(z.array(z.lazy(() => Condition$outboundSchema)))
     .optional(),
-  templateTargetPairs: z.array(z.lazy(() => TemplateTargetPair$outboundSchema)),
+  templateTargetPairs: z.array(
+    ItemsTypePoliciesItemsTemplateTargetPairs$outboundSchema,
+  ),
   final: z.boolean().default(false),
   order: z.number(),
 });

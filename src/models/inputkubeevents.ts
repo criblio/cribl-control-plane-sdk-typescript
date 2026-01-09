@@ -4,106 +4,32 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputKubeEventsConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputKubeEventsMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputKubeEventsMode = OpenEnum<typeof InputKubeEventsMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputKubeEventsCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputKubeEventsCompression = OpenEnum<
-  typeof InputKubeEventsCompression
->;
-
-export type InputKubeEventsPqControls = {};
-
-export type InputKubeEventsPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputKubeEventsMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputKubeEventsCompression | undefined;
-  pqControls?: InputKubeEventsPqControls | undefined;
-};
-
-export type InputKubeEventsRule = {
-  /**
-   * JavaScript expression applied to Kubernetes objects. Return 'true' to include it.
-   */
-  filter: string;
-  /**
-   * Optional description of this rule's purpose
-   */
-  description?: string | undefined;
-};
-
-export type InputKubeEventsMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
+import {
+  ItemsTypeConnections,
+  ItemsTypeConnections$inboundSchema,
+  ItemsTypeConnections$Outbound,
+  ItemsTypeConnections$outboundSchema,
+} from "./itemstypeconnections.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  ItemsTypeRules,
+  ItemsTypeRules$inboundSchema,
+  ItemsTypeRules$Outbound,
+  ItemsTypeRules$outboundSchema,
+} from "./itemstyperules.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
 
 export type InputKubeEvents = {
   /**
@@ -135,263 +61,18 @@ export type InputKubeEvents = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputKubeEventsConnection> | undefined;
-  pq?: InputKubeEventsPq | undefined;
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
   /**
    * Filtering on event fields
    */
-  rules?: Array<InputKubeEventsRule> | undefined;
+  rules?: Array<ItemsTypeRules> | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputKubeEventsMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputKubeEventsConnection$inboundSchema: z.ZodType<
-  InputKubeEventsConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputKubeEventsConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputKubeEventsConnection$outboundSchema: z.ZodType<
-  InputKubeEventsConnection$Outbound,
-  z.ZodTypeDef,
-  InputKubeEventsConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputKubeEventsConnectionToJSON(
-  inputKubeEventsConnection: InputKubeEventsConnection,
-): string {
-  return JSON.stringify(
-    InputKubeEventsConnection$outboundSchema.parse(inputKubeEventsConnection),
-  );
-}
-export function inputKubeEventsConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKubeEventsConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKubeEventsConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeEventsConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKubeEventsMode$inboundSchema: z.ZodType<
-  InputKubeEventsMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputKubeEventsMode);
-/** @internal */
-export const InputKubeEventsMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputKubeEventsMode
-> = openEnums.outboundSchema(InputKubeEventsMode);
-
-/** @internal */
-export const InputKubeEventsCompression$inboundSchema: z.ZodType<
-  InputKubeEventsCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputKubeEventsCompression);
-/** @internal */
-export const InputKubeEventsCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputKubeEventsCompression
-> = openEnums.outboundSchema(InputKubeEventsCompression);
-
-/** @internal */
-export const InputKubeEventsPqControls$inboundSchema: z.ZodType<
-  InputKubeEventsPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputKubeEventsPqControls$Outbound = {};
-
-/** @internal */
-export const InputKubeEventsPqControls$outboundSchema: z.ZodType<
-  InputKubeEventsPqControls$Outbound,
-  z.ZodTypeDef,
-  InputKubeEventsPqControls
-> = z.object({});
-
-export function inputKubeEventsPqControlsToJSON(
-  inputKubeEventsPqControls: InputKubeEventsPqControls,
-): string {
-  return JSON.stringify(
-    InputKubeEventsPqControls$outboundSchema.parse(inputKubeEventsPqControls),
-  );
-}
-export function inputKubeEventsPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKubeEventsPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKubeEventsPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeEventsPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKubeEventsPq$inboundSchema: z.ZodType<
-  InputKubeEventsPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputKubeEventsMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputKubeEventsCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputKubeEventsPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputKubeEventsPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputKubeEventsPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputKubeEventsPq$outboundSchema: z.ZodType<
-  InputKubeEventsPq$Outbound,
-  z.ZodTypeDef,
-  InputKubeEventsPq
-> = z.object({
-  mode: InputKubeEventsMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputKubeEventsCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputKubeEventsPqControls$outboundSchema).optional(),
-});
-
-export function inputKubeEventsPqToJSON(
-  inputKubeEventsPq: InputKubeEventsPq,
-): string {
-  return JSON.stringify(
-    InputKubeEventsPq$outboundSchema.parse(inputKubeEventsPq),
-  );
-}
-export function inputKubeEventsPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKubeEventsPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKubeEventsPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeEventsPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKubeEventsRule$inboundSchema: z.ZodType<
-  InputKubeEventsRule,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  filter: z.string(),
-  description: z.string().optional(),
-});
-/** @internal */
-export type InputKubeEventsRule$Outbound = {
-  filter: string;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputKubeEventsRule$outboundSchema: z.ZodType<
-  InputKubeEventsRule$Outbound,
-  z.ZodTypeDef,
-  InputKubeEventsRule
-> = z.object({
-  filter: z.string(),
-  description: z.string().optional(),
-});
-
-export function inputKubeEventsRuleToJSON(
-  inputKubeEventsRule: InputKubeEventsRule,
-): string {
-  return JSON.stringify(
-    InputKubeEventsRule$outboundSchema.parse(inputKubeEventsRule),
-  );
-}
-export function inputKubeEventsRuleFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKubeEventsRule, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKubeEventsRule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeEventsRule' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKubeEventsMetadatum$inboundSchema: z.ZodType<
-  InputKubeEventsMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputKubeEventsMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputKubeEventsMetadatum$outboundSchema: z.ZodType<
-  InputKubeEventsMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputKubeEventsMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputKubeEventsMetadatumToJSON(
-  inputKubeEventsMetadatum: InputKubeEventsMetadatum,
-): string {
-  return JSON.stringify(
-    InputKubeEventsMetadatum$outboundSchema.parse(inputKubeEventsMetadatum),
-  );
-}
-export function inputKubeEventsMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKubeEventsMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKubeEventsMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeEventsMetadatum' from JSON`,
-  );
-}
 
 /** @internal */
 export const InputKubeEvents$inboundSchema: z.ZodType<
@@ -407,12 +88,10 @@ export const InputKubeEvents$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputKubeEventsConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputKubeEventsPq$inboundSchema).optional(),
-  rules: z.array(z.lazy(() => InputKubeEventsRule$inboundSchema)).optional(),
-  metadata: z.array(z.lazy(() => InputKubeEventsMetadatum$inboundSchema))
-    .optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  rules: z.array(ItemsTypeRules$inboundSchema).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -425,10 +104,10 @@ export type InputKubeEvents$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputKubeEventsConnection$Outbound> | undefined;
-  pq?: InputKubeEventsPq$Outbound | undefined;
-  rules?: Array<InputKubeEventsRule$Outbound> | undefined;
-  metadata?: Array<InputKubeEventsMetadatum$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  rules?: Array<ItemsTypeRules$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -446,12 +125,10 @@ export const InputKubeEvents$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputKubeEventsConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputKubeEventsPq$outboundSchema).optional(),
-  rules: z.array(z.lazy(() => InputKubeEventsRule$outboundSchema)).optional(),
-  metadata: z.array(z.lazy(() => InputKubeEventsMetadatum$outboundSchema))
-    .optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  rules: z.array(ItemsTypeRules$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 

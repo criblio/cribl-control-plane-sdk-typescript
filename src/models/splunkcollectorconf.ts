@@ -8,6 +8,16 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  OutputModeOptionsSplunkCollectorConf,
+  OutputModeOptionsSplunkCollectorConf$inboundSchema,
+  OutputModeOptionsSplunkCollectorConf$outboundSchema,
+} from "./outputmodeoptionssplunkcollectorconf.js";
+import {
+  RetryTypeOptionsHealthCheckCollectorConfRetryRules,
+  RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
+  RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
+} from "./retrytypeoptionshealthcheckcollectorconfretryrules.js";
 
 /**
  * Authentication method for Discover and Collect REST calls
@@ -41,20 +51,6 @@ export type SplunkAuthenticationLoginSecretAuthentication = OpenEnum<
   typeof SplunkAuthenticationLoginSecretAuthentication
 >;
 
-/**
- * Format of the returned output
- */
-export const SplunkAuthenticationLoginSecretOutputMode = {
-  Csv: "csv",
-  Json: "json",
-} as const;
-/**
- * Format of the returned output
- */
-export type SplunkAuthenticationLoginSecretOutputMode = OpenEnum<
-  typeof SplunkAuthenticationLoginSecretOutputMode
->;
-
 export type SplunkAuthenticationLoginSecretCollectRequestParam = {
   name: string;
   /**
@@ -71,35 +67,11 @@ export type SplunkAuthenticationLoginSecretCollectRequestHeader = {
   value: string;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const SplunkAuthenticationLoginSecretRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type SplunkAuthenticationLoginSecretRetryType = OpenEnum<
-  typeof SplunkAuthenticationLoginSecretRetryType
->;
-
 export type SplunkAuthenticationLoginSecretRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: SplunkAuthenticationLoginSecretRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -157,7 +129,7 @@ export type SplunkAuthenticationLoginSecret = {
   /**
    * Format of the returned output
    */
-  outputMode?: SplunkAuthenticationLoginSecretOutputMode | undefined;
+  outputMode?: OutputModeOptionsSplunkCollectorConf | undefined;
   /**
    * Optional collect request parameters
    */
@@ -225,20 +197,6 @@ export type SplunkAuthenticationLoginAuthentication = OpenEnum<
   typeof SplunkAuthenticationLoginAuthentication
 >;
 
-/**
- * Format of the returned output
- */
-export const SplunkAuthenticationLoginOutputMode = {
-  Csv: "csv",
-  Json: "json",
-} as const;
-/**
- * Format of the returned output
- */
-export type SplunkAuthenticationLoginOutputMode = OpenEnum<
-  typeof SplunkAuthenticationLoginOutputMode
->;
-
 export type SplunkAuthenticationLoginCollectRequestParam = {
   name: string;
   /**
@@ -255,35 +213,11 @@ export type SplunkAuthenticationLoginCollectRequestHeader = {
   value: string;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const SplunkAuthenticationLoginRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type SplunkAuthenticationLoginRetryType = OpenEnum<
-  typeof SplunkAuthenticationLoginRetryType
->;
-
 export type SplunkAuthenticationLoginRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: SplunkAuthenticationLoginRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -339,7 +273,7 @@ export type SplunkAuthenticationLogin = {
   /**
    * Format of the returned output
    */
-  outputMode?: SplunkAuthenticationLoginOutputMode | undefined;
+  outputMode?: OutputModeOptionsSplunkCollectorConf | undefined;
   /**
    * Optional collect request parameters
    */
@@ -407,20 +341,6 @@ export type SplunkAuthenticationTokenSecretAuthentication = OpenEnum<
   typeof SplunkAuthenticationTokenSecretAuthentication
 >;
 
-/**
- * Format of the returned output
- */
-export const SplunkAuthenticationTokenSecretOutputMode = {
-  Csv: "csv",
-  Json: "json",
-} as const;
-/**
- * Format of the returned output
- */
-export type SplunkAuthenticationTokenSecretOutputMode = OpenEnum<
-  typeof SplunkAuthenticationTokenSecretOutputMode
->;
-
 export type SplunkAuthenticationTokenSecretCollectRequestParam = {
   name: string;
   /**
@@ -437,35 +357,11 @@ export type SplunkAuthenticationTokenSecretCollectRequestHeader = {
   value: string;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const SplunkAuthenticationTokenSecretRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type SplunkAuthenticationTokenSecretRetryType = OpenEnum<
-  typeof SplunkAuthenticationTokenSecretRetryType
->;
-
 export type SplunkAuthenticationTokenSecretRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: SplunkAuthenticationTokenSecretRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -507,7 +403,7 @@ export type SplunkAuthenticationTokenSecret = {
   /**
    * Format of the returned output
    */
-  outputMode?: SplunkAuthenticationTokenSecretOutputMode | undefined;
+  outputMode?: OutputModeOptionsSplunkCollectorConf | undefined;
   /**
    * Optional collect request parameters
    */
@@ -575,20 +471,6 @@ export type SplunkAuthenticationTokenAuthentication = OpenEnum<
   typeof SplunkAuthenticationTokenAuthentication
 >;
 
-/**
- * Format of the returned output
- */
-export const SplunkAuthenticationTokenOutputMode = {
-  Csv: "csv",
-  Json: "json",
-} as const;
-/**
- * Format of the returned output
- */
-export type SplunkAuthenticationTokenOutputMode = OpenEnum<
-  typeof SplunkAuthenticationTokenOutputMode
->;
-
 export type SplunkAuthenticationTokenCollectRequestParam = {
   name: string;
   /**
@@ -605,35 +487,11 @@ export type SplunkAuthenticationTokenCollectRequestHeader = {
   value: string;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const SplunkAuthenticationTokenRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type SplunkAuthenticationTokenRetryType = OpenEnum<
-  typeof SplunkAuthenticationTokenRetryType
->;
-
 export type SplunkAuthenticationTokenRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: SplunkAuthenticationTokenRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -672,7 +530,7 @@ export type SplunkAuthenticationToken = {
   /**
    * Format of the returned output
    */
-  outputMode?: SplunkAuthenticationTokenOutputMode | undefined;
+  outputMode?: OutputModeOptionsSplunkCollectorConf | undefined;
   /**
    * Optional collect request parameters
    */
@@ -740,20 +598,6 @@ export type SplunkAuthenticationBasicSecretAuthentication = OpenEnum<
   typeof SplunkAuthenticationBasicSecretAuthentication
 >;
 
-/**
- * Format of the returned output
- */
-export const SplunkAuthenticationBasicSecretOutputMode = {
-  Csv: "csv",
-  Json: "json",
-} as const;
-/**
- * Format of the returned output
- */
-export type SplunkAuthenticationBasicSecretOutputMode = OpenEnum<
-  typeof SplunkAuthenticationBasicSecretOutputMode
->;
-
 export type SplunkAuthenticationBasicSecretCollectRequestParam = {
   name: string;
   /**
@@ -770,35 +614,11 @@ export type SplunkAuthenticationBasicSecretCollectRequestHeader = {
   value: string;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const SplunkAuthenticationBasicSecretRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type SplunkAuthenticationBasicSecretRetryType = OpenEnum<
-  typeof SplunkAuthenticationBasicSecretRetryType
->;
-
 export type SplunkAuthenticationBasicSecretRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: SplunkAuthenticationBasicSecretRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -840,7 +660,7 @@ export type SplunkAuthenticationBasicSecret = {
   /**
    * Format of the returned output
    */
-  outputMode?: SplunkAuthenticationBasicSecretOutputMode | undefined;
+  outputMode?: OutputModeOptionsSplunkCollectorConf | undefined;
   /**
    * Optional collect request parameters
    */
@@ -908,20 +728,6 @@ export type SplunkAuthenticationBasicAuthentication = OpenEnum<
   typeof SplunkAuthenticationBasicAuthentication
 >;
 
-/**
- * Format of the returned output
- */
-export const SplunkAuthenticationBasicOutputMode = {
-  Csv: "csv",
-  Json: "json",
-} as const;
-/**
- * Format of the returned output
- */
-export type SplunkAuthenticationBasicOutputMode = OpenEnum<
-  typeof SplunkAuthenticationBasicOutputMode
->;
-
 export type SplunkAuthenticationBasicCollectRequestParam = {
   name: string;
   /**
@@ -938,35 +744,11 @@ export type SplunkAuthenticationBasicCollectRequestHeader = {
   value: string;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const SplunkAuthenticationBasicRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type SplunkAuthenticationBasicRetryType = OpenEnum<
-  typeof SplunkAuthenticationBasicRetryType
->;
-
 export type SplunkAuthenticationBasicRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: SplunkAuthenticationBasicRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -1012,7 +794,7 @@ export type SplunkAuthenticationBasic = {
   /**
    * Format of the returned output
    */
-  outputMode?: SplunkAuthenticationBasicOutputMode | undefined;
+  outputMode?: OutputModeOptionsSplunkCollectorConf | undefined;
   /**
    * Optional collect request parameters
    */
@@ -1080,20 +862,6 @@ export type SplunkAuthenticationNoneAuthentication = OpenEnum<
   typeof SplunkAuthenticationNoneAuthentication
 >;
 
-/**
- * Format of the returned output
- */
-export const SplunkAuthenticationNoneOutputMode = {
-  Csv: "csv",
-  Json: "json",
-} as const;
-/**
- * Format of the returned output
- */
-export type SplunkAuthenticationNoneOutputMode = OpenEnum<
-  typeof SplunkAuthenticationNoneOutputMode
->;
-
 export type SplunkAuthenticationNoneCollectRequestParam = {
   name: string;
   /**
@@ -1110,35 +878,11 @@ export type SplunkAuthenticationNoneCollectRequestHeader = {
   value: string;
 };
 
-/**
- * Algorithm to use when performing HTTP retries
- */
-export const SplunkAuthenticationNoneRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * Algorithm to use when performing HTTP retries
- */
-export type SplunkAuthenticationNoneRetryType = OpenEnum<
-  typeof SplunkAuthenticationNoneRetryType
->;
-
 export type SplunkAuthenticationNoneRetryRules = {
   /**
-   * Algorithm to use when performing HTTP retries
+   * The algorithm to use when performing HTTP retries
    */
-  type?: SplunkAuthenticationNoneRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -1176,7 +920,7 @@ export type SplunkAuthenticationNone = {
   /**
    * Format of the returned output
    */
-  outputMode?: SplunkAuthenticationNoneOutputMode | undefined;
+  outputMode?: OutputModeOptionsSplunkCollectorConf | undefined;
   /**
    * Optional collect request parameters
    */
@@ -1235,17 +979,6 @@ export const SplunkAuthenticationLoginSecretAuthentication$outboundSchema:
     z.ZodTypeDef,
     SplunkAuthenticationLoginSecretAuthentication
   > = openEnums.outboundSchema(SplunkAuthenticationLoginSecretAuthentication);
-
-/** @internal */
-export const SplunkAuthenticationLoginSecretOutputMode$inboundSchema: z.ZodType<
-  SplunkAuthenticationLoginSecretOutputMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationLoginSecretOutputMode);
-/** @internal */
-export const SplunkAuthenticationLoginSecretOutputMode$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, SplunkAuthenticationLoginSecretOutputMode> =
-    openEnums.outboundSchema(SplunkAuthenticationLoginSecretOutputMode);
 
 /** @internal */
 export const SplunkAuthenticationLoginSecretCollectRequestParam$inboundSchema:
@@ -1354,27 +1087,13 @@ export function splunkAuthenticationLoginSecretCollectRequestHeaderFromJSON(
 }
 
 /** @internal */
-export const SplunkAuthenticationLoginSecretRetryType$inboundSchema: z.ZodType<
-  SplunkAuthenticationLoginSecretRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationLoginSecretRetryType);
-/** @internal */
-export const SplunkAuthenticationLoginSecretRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SplunkAuthenticationLoginSecretRetryType
-> = openEnums.outboundSchema(SplunkAuthenticationLoginSecretRetryType);
-
-/** @internal */
 export const SplunkAuthenticationLoginSecretRetryRules$inboundSchema: z.ZodType<
   SplunkAuthenticationLoginSecretRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: SplunkAuthenticationLoginSecretRetryType$inboundSchema.default(
-    "backoff",
-  ),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -1402,9 +1121,8 @@ export const SplunkAuthenticationLoginSecretRetryRules$outboundSchema:
     z.ZodTypeDef,
     SplunkAuthenticationLoginSecretRetryRules
   > = z.object({
-    type: SplunkAuthenticationLoginSecretRetryType$outboundSchema.default(
-      "backoff",
-    ),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -1460,7 +1178,7 @@ export const SplunkAuthenticationLoginSecret$inboundSchema: z.ZodType<
   earliest: z.string().optional(),
   latest: z.string().optional(),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: SplunkAuthenticationLoginSecretOutputMode$inboundSchema.default(
+  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema.default(
     "json",
   ),
   collectRequestParams: z.array(
@@ -1530,7 +1248,7 @@ export const SplunkAuthenticationLoginSecret$outboundSchema: z.ZodType<
   earliest: z.string().optional(),
   latest: z.string().optional(),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: SplunkAuthenticationLoginSecretOutputMode$outboundSchema.default(
+  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema.default(
     "json",
   ),
   collectRequestParams: z.array(
@@ -1584,19 +1302,6 @@ export const SplunkAuthenticationLoginAuthentication$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationLoginAuthentication
 > = openEnums.outboundSchema(SplunkAuthenticationLoginAuthentication);
-
-/** @internal */
-export const SplunkAuthenticationLoginOutputMode$inboundSchema: z.ZodType<
-  SplunkAuthenticationLoginOutputMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationLoginOutputMode);
-/** @internal */
-export const SplunkAuthenticationLoginOutputMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SplunkAuthenticationLoginOutputMode
-> = openEnums.outboundSchema(SplunkAuthenticationLoginOutputMode);
 
 /** @internal */
 export const SplunkAuthenticationLoginCollectRequestParam$inboundSchema:
@@ -1705,25 +1410,13 @@ export function splunkAuthenticationLoginCollectRequestHeaderFromJSON(
 }
 
 /** @internal */
-export const SplunkAuthenticationLoginRetryType$inboundSchema: z.ZodType<
-  SplunkAuthenticationLoginRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationLoginRetryType);
-/** @internal */
-export const SplunkAuthenticationLoginRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SplunkAuthenticationLoginRetryType
-> = openEnums.outboundSchema(SplunkAuthenticationLoginRetryType);
-
-/** @internal */
 export const SplunkAuthenticationLoginRetryRules$inboundSchema: z.ZodType<
   SplunkAuthenticationLoginRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: SplunkAuthenticationLoginRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -1750,7 +1443,8 @@ export const SplunkAuthenticationLoginRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationLoginRetryRules
 > = z.object({
-  type: SplunkAuthenticationLoginRetryType$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -1802,7 +1496,9 @@ export const SplunkAuthenticationLogin$inboundSchema: z.ZodType<
   earliest: z.string().optional(),
   latest: z.string().optional(),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: SplunkAuthenticationLoginOutputMode$inboundSchema.default("json"),
+  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema.default(
+    "json",
+  ),
   collectRequestParams: z.array(
     z.lazy(() => SplunkAuthenticationLoginCollectRequestParam$inboundSchema),
   ).optional(),
@@ -1867,7 +1563,7 @@ export const SplunkAuthenticationLogin$outboundSchema: z.ZodType<
   earliest: z.string().optional(),
   latest: z.string().optional(),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: SplunkAuthenticationLoginOutputMode$outboundSchema.default(
+  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema.default(
     "json",
   ),
   collectRequestParams: z.array(
@@ -1916,17 +1612,6 @@ export const SplunkAuthenticationTokenSecretAuthentication$outboundSchema:
     z.ZodTypeDef,
     SplunkAuthenticationTokenSecretAuthentication
   > = openEnums.outboundSchema(SplunkAuthenticationTokenSecretAuthentication);
-
-/** @internal */
-export const SplunkAuthenticationTokenSecretOutputMode$inboundSchema: z.ZodType<
-  SplunkAuthenticationTokenSecretOutputMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationTokenSecretOutputMode);
-/** @internal */
-export const SplunkAuthenticationTokenSecretOutputMode$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, SplunkAuthenticationTokenSecretOutputMode> =
-    openEnums.outboundSchema(SplunkAuthenticationTokenSecretOutputMode);
 
 /** @internal */
 export const SplunkAuthenticationTokenSecretCollectRequestParam$inboundSchema:
@@ -2035,27 +1720,13 @@ export function splunkAuthenticationTokenSecretCollectRequestHeaderFromJSON(
 }
 
 /** @internal */
-export const SplunkAuthenticationTokenSecretRetryType$inboundSchema: z.ZodType<
-  SplunkAuthenticationTokenSecretRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationTokenSecretRetryType);
-/** @internal */
-export const SplunkAuthenticationTokenSecretRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SplunkAuthenticationTokenSecretRetryType
-> = openEnums.outboundSchema(SplunkAuthenticationTokenSecretRetryType);
-
-/** @internal */
 export const SplunkAuthenticationTokenSecretRetryRules$inboundSchema: z.ZodType<
   SplunkAuthenticationTokenSecretRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: SplunkAuthenticationTokenSecretRetryType$inboundSchema.default(
-    "backoff",
-  ),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -2083,9 +1754,8 @@ export const SplunkAuthenticationTokenSecretRetryRules$outboundSchema:
     z.ZodTypeDef,
     SplunkAuthenticationTokenSecretRetryRules
   > = z.object({
-    type: SplunkAuthenticationTokenSecretRetryType$outboundSchema.default(
-      "backoff",
-    ),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -2135,7 +1805,7 @@ export const SplunkAuthenticationTokenSecret$inboundSchema: z.ZodType<
   earliest: z.string().optional(),
   latest: z.string().optional(),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: SplunkAuthenticationTokenSecretOutputMode$inboundSchema.default(
+  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema.default(
     "json",
   ),
   collectRequestParams: z.array(
@@ -2195,7 +1865,7 @@ export const SplunkAuthenticationTokenSecret$outboundSchema: z.ZodType<
   earliest: z.string().optional(),
   latest: z.string().optional(),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: SplunkAuthenticationTokenSecretOutputMode$outboundSchema.default(
+  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema.default(
     "json",
   ),
   collectRequestParams: z.array(
@@ -2249,19 +1919,6 @@ export const SplunkAuthenticationTokenAuthentication$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationTokenAuthentication
 > = openEnums.outboundSchema(SplunkAuthenticationTokenAuthentication);
-
-/** @internal */
-export const SplunkAuthenticationTokenOutputMode$inboundSchema: z.ZodType<
-  SplunkAuthenticationTokenOutputMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationTokenOutputMode);
-/** @internal */
-export const SplunkAuthenticationTokenOutputMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SplunkAuthenticationTokenOutputMode
-> = openEnums.outboundSchema(SplunkAuthenticationTokenOutputMode);
 
 /** @internal */
 export const SplunkAuthenticationTokenCollectRequestParam$inboundSchema:
@@ -2370,25 +2027,13 @@ export function splunkAuthenticationTokenCollectRequestHeaderFromJSON(
 }
 
 /** @internal */
-export const SplunkAuthenticationTokenRetryType$inboundSchema: z.ZodType<
-  SplunkAuthenticationTokenRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationTokenRetryType);
-/** @internal */
-export const SplunkAuthenticationTokenRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SplunkAuthenticationTokenRetryType
-> = openEnums.outboundSchema(SplunkAuthenticationTokenRetryType);
-
-/** @internal */
 export const SplunkAuthenticationTokenRetryRules$inboundSchema: z.ZodType<
   SplunkAuthenticationTokenRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: SplunkAuthenticationTokenRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -2415,7 +2060,8 @@ export const SplunkAuthenticationTokenRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationTokenRetryRules
 > = z.object({
-  type: SplunkAuthenticationTokenRetryType$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -2460,7 +2106,9 @@ export const SplunkAuthenticationToken$inboundSchema: z.ZodType<
   earliest: z.string().optional(),
   latest: z.string().optional(),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: SplunkAuthenticationTokenOutputMode$inboundSchema.default("json"),
+  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema.default(
+    "json",
+  ),
   collectRequestParams: z.array(
     z.lazy(() => SplunkAuthenticationTokenCollectRequestParam$inboundSchema),
   ).optional(),
@@ -2513,7 +2161,7 @@ export const SplunkAuthenticationToken$outboundSchema: z.ZodType<
   earliest: z.string().optional(),
   latest: z.string().optional(),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: SplunkAuthenticationTokenOutputMode$outboundSchema.default(
+  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema.default(
     "json",
   ),
   collectRequestParams: z.array(
@@ -2562,17 +2210,6 @@ export const SplunkAuthenticationBasicSecretAuthentication$outboundSchema:
     z.ZodTypeDef,
     SplunkAuthenticationBasicSecretAuthentication
   > = openEnums.outboundSchema(SplunkAuthenticationBasicSecretAuthentication);
-
-/** @internal */
-export const SplunkAuthenticationBasicSecretOutputMode$inboundSchema: z.ZodType<
-  SplunkAuthenticationBasicSecretOutputMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationBasicSecretOutputMode);
-/** @internal */
-export const SplunkAuthenticationBasicSecretOutputMode$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, SplunkAuthenticationBasicSecretOutputMode> =
-    openEnums.outboundSchema(SplunkAuthenticationBasicSecretOutputMode);
 
 /** @internal */
 export const SplunkAuthenticationBasicSecretCollectRequestParam$inboundSchema:
@@ -2681,27 +2318,13 @@ export function splunkAuthenticationBasicSecretCollectRequestHeaderFromJSON(
 }
 
 /** @internal */
-export const SplunkAuthenticationBasicSecretRetryType$inboundSchema: z.ZodType<
-  SplunkAuthenticationBasicSecretRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationBasicSecretRetryType);
-/** @internal */
-export const SplunkAuthenticationBasicSecretRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SplunkAuthenticationBasicSecretRetryType
-> = openEnums.outboundSchema(SplunkAuthenticationBasicSecretRetryType);
-
-/** @internal */
 export const SplunkAuthenticationBasicSecretRetryRules$inboundSchema: z.ZodType<
   SplunkAuthenticationBasicSecretRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: SplunkAuthenticationBasicSecretRetryType$inboundSchema.default(
-    "backoff",
-  ),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -2729,9 +2352,8 @@ export const SplunkAuthenticationBasicSecretRetryRules$outboundSchema:
     z.ZodTypeDef,
     SplunkAuthenticationBasicSecretRetryRules
   > = z.object({
-    type: SplunkAuthenticationBasicSecretRetryType$outboundSchema.default(
-      "backoff",
-    ),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -2781,7 +2403,7 @@ export const SplunkAuthenticationBasicSecret$inboundSchema: z.ZodType<
   earliest: z.string().optional(),
   latest: z.string().optional(),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: SplunkAuthenticationBasicSecretOutputMode$inboundSchema.default(
+  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema.default(
     "json",
   ),
   collectRequestParams: z.array(
@@ -2841,7 +2463,7 @@ export const SplunkAuthenticationBasicSecret$outboundSchema: z.ZodType<
   earliest: z.string().optional(),
   latest: z.string().optional(),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: SplunkAuthenticationBasicSecretOutputMode$outboundSchema.default(
+  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema.default(
     "json",
   ),
   collectRequestParams: z.array(
@@ -2895,19 +2517,6 @@ export const SplunkAuthenticationBasicAuthentication$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationBasicAuthentication
 > = openEnums.outboundSchema(SplunkAuthenticationBasicAuthentication);
-
-/** @internal */
-export const SplunkAuthenticationBasicOutputMode$inboundSchema: z.ZodType<
-  SplunkAuthenticationBasicOutputMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationBasicOutputMode);
-/** @internal */
-export const SplunkAuthenticationBasicOutputMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SplunkAuthenticationBasicOutputMode
-> = openEnums.outboundSchema(SplunkAuthenticationBasicOutputMode);
 
 /** @internal */
 export const SplunkAuthenticationBasicCollectRequestParam$inboundSchema:
@@ -3016,25 +2625,13 @@ export function splunkAuthenticationBasicCollectRequestHeaderFromJSON(
 }
 
 /** @internal */
-export const SplunkAuthenticationBasicRetryType$inboundSchema: z.ZodType<
-  SplunkAuthenticationBasicRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationBasicRetryType);
-/** @internal */
-export const SplunkAuthenticationBasicRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SplunkAuthenticationBasicRetryType
-> = openEnums.outboundSchema(SplunkAuthenticationBasicRetryType);
-
-/** @internal */
 export const SplunkAuthenticationBasicRetryRules$inboundSchema: z.ZodType<
   SplunkAuthenticationBasicRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: SplunkAuthenticationBasicRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -3061,7 +2658,8 @@ export const SplunkAuthenticationBasicRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationBasicRetryRules
 > = z.object({
-  type: SplunkAuthenticationBasicRetryType$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -3107,7 +2705,9 @@ export const SplunkAuthenticationBasic$inboundSchema: z.ZodType<
   earliest: z.string().optional(),
   latest: z.string().optional(),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: SplunkAuthenticationBasicOutputMode$inboundSchema.default("json"),
+  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema.default(
+    "json",
+  ),
   collectRequestParams: z.array(
     z.lazy(() => SplunkAuthenticationBasicCollectRequestParam$inboundSchema),
   ).optional(),
@@ -3162,7 +2762,7 @@ export const SplunkAuthenticationBasic$outboundSchema: z.ZodType<
   earliest: z.string().optional(),
   latest: z.string().optional(),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: SplunkAuthenticationBasicOutputMode$outboundSchema.default(
+  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema.default(
     "json",
   ),
   collectRequestParams: z.array(
@@ -3209,19 +2809,6 @@ export const SplunkAuthenticationNoneAuthentication$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationNoneAuthentication
 > = openEnums.outboundSchema(SplunkAuthenticationNoneAuthentication);
-
-/** @internal */
-export const SplunkAuthenticationNoneOutputMode$inboundSchema: z.ZodType<
-  SplunkAuthenticationNoneOutputMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationNoneOutputMode);
-/** @internal */
-export const SplunkAuthenticationNoneOutputMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SplunkAuthenticationNoneOutputMode
-> = openEnums.outboundSchema(SplunkAuthenticationNoneOutputMode);
 
 /** @internal */
 export const SplunkAuthenticationNoneCollectRequestParam$inboundSchema:
@@ -3330,25 +2917,13 @@ export function splunkAuthenticationNoneCollectRequestHeaderFromJSON(
 }
 
 /** @internal */
-export const SplunkAuthenticationNoneRetryType$inboundSchema: z.ZodType<
-  SplunkAuthenticationNoneRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationNoneRetryType);
-/** @internal */
-export const SplunkAuthenticationNoneRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SplunkAuthenticationNoneRetryType
-> = openEnums.outboundSchema(SplunkAuthenticationNoneRetryType);
-
-/** @internal */
 export const SplunkAuthenticationNoneRetryRules$inboundSchema: z.ZodType<
   SplunkAuthenticationNoneRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: SplunkAuthenticationNoneRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -3375,7 +2950,8 @@ export const SplunkAuthenticationNoneRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationNoneRetryRules
 > = z.object({
-  type: SplunkAuthenticationNoneRetryType$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -3419,7 +2995,9 @@ export const SplunkAuthenticationNone$inboundSchema: z.ZodType<
   earliest: z.string().optional(),
   latest: z.string().optional(),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: SplunkAuthenticationNoneOutputMode$inboundSchema.default("json"),
+  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema.default(
+    "json",
+  ),
   collectRequestParams: z.array(
     z.lazy(() => SplunkAuthenticationNoneCollectRequestParam$inboundSchema),
   ).optional(),
@@ -3471,7 +3049,9 @@ export const SplunkAuthenticationNone$outboundSchema: z.ZodType<
   earliest: z.string().optional(),
   latest: z.string().optional(),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: SplunkAuthenticationNoneOutputMode$outboundSchema.default("json"),
+  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema.default(
+    "json",
+  ),
   collectRequestParams: z.array(
     z.lazy(() => SplunkAuthenticationNoneCollectRequestParam$outboundSchema),
   ).optional(),

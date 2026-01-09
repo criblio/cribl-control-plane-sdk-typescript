@@ -8,91 +8,24 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputSystemStateConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputSystemStateMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputSystemStateMode = OpenEnum<typeof InputSystemStateMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputSystemStateCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputSystemStateCompression = OpenEnum<
-  typeof InputSystemStateCompression
->;
-
-export type InputSystemStatePqControls = {};
-
-export type InputSystemStatePq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputSystemStateMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputSystemStateCompression | undefined;
-  pqControls?: InputSystemStatePqControls | undefined;
-};
-
-export type InputSystemStateMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
+import {
+  ItemsTypeConnections,
+  ItemsTypeConnections$inboundSchema,
+  ItemsTypeConnections$Outbound,
+  ItemsTypeConnections$outboundSchema,
+} from "./itemstypeconnections.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
 
 /**
  * Creates events based on entries collected from the hosts file
@@ -218,13 +151,11 @@ export type Collectors = {
   loginUsers?: LoggedInUsers | undefined;
 };
 
-export const InputSystemStateDataCompressionFormat = {
+export const DataCompressionFormat = {
   None: "none",
   Gzip: "gzip",
 } as const;
-export type InputSystemStateDataCompressionFormat = OpenEnum<
-  typeof InputSystemStateDataCompressionFormat
->;
+export type DataCompressionFormat = OpenEnum<typeof DataCompressionFormat>;
 
 export type InputSystemStatePersistence = {
   /**
@@ -243,7 +174,7 @@ export type InputSystemStatePersistence = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: InputSystemStateDataCompressionFormat | undefined;
+  compress?: DataCompressionFormat | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
    */
@@ -280,8 +211,8 @@ export type InputSystemState = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputSystemStateConnection> | undefined;
-  pq?: InputSystemStatePq | undefined;
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
   /**
    * Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
    */
@@ -289,7 +220,7 @@ export type InputSystemState = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputSystemStateMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   collectors?: Collectors | undefined;
   persistence?: InputSystemStatePersistence | undefined;
   /**
@@ -298,210 +229,6 @@ export type InputSystemState = {
   disableNativeModule?: boolean | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputSystemStateConnection$inboundSchema: z.ZodType<
-  InputSystemStateConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputSystemStateConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputSystemStateConnection$outboundSchema: z.ZodType<
-  InputSystemStateConnection$Outbound,
-  z.ZodTypeDef,
-  InputSystemStateConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputSystemStateConnectionToJSON(
-  inputSystemStateConnection: InputSystemStateConnection,
-): string {
-  return JSON.stringify(
-    InputSystemStateConnection$outboundSchema.parse(inputSystemStateConnection),
-  );
-}
-export function inputSystemStateConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemStateConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemStateConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemStateConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemStateMode$inboundSchema: z.ZodType<
-  InputSystemStateMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSystemStateMode);
-/** @internal */
-export const InputSystemStateMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSystemStateMode
-> = openEnums.outboundSchema(InputSystemStateMode);
-
-/** @internal */
-export const InputSystemStateCompression$inboundSchema: z.ZodType<
-  InputSystemStateCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSystemStateCompression);
-/** @internal */
-export const InputSystemStateCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSystemStateCompression
-> = openEnums.outboundSchema(InputSystemStateCompression);
-
-/** @internal */
-export const InputSystemStatePqControls$inboundSchema: z.ZodType<
-  InputSystemStatePqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputSystemStatePqControls$Outbound = {};
-
-/** @internal */
-export const InputSystemStatePqControls$outboundSchema: z.ZodType<
-  InputSystemStatePqControls$Outbound,
-  z.ZodTypeDef,
-  InputSystemStatePqControls
-> = z.object({});
-
-export function inputSystemStatePqControlsToJSON(
-  inputSystemStatePqControls: InputSystemStatePqControls,
-): string {
-  return JSON.stringify(
-    InputSystemStatePqControls$outboundSchema.parse(inputSystemStatePqControls),
-  );
-}
-export function inputSystemStatePqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemStatePqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemStatePqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemStatePqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemStatePq$inboundSchema: z.ZodType<
-  InputSystemStatePq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputSystemStateMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSystemStateCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSystemStatePqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputSystemStatePq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputSystemStatePqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputSystemStatePq$outboundSchema: z.ZodType<
-  InputSystemStatePq$Outbound,
-  z.ZodTypeDef,
-  InputSystemStatePq
-> = z.object({
-  mode: InputSystemStateMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSystemStateCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSystemStatePqControls$outboundSchema)
-    .optional(),
-});
-
-export function inputSystemStatePqToJSON(
-  inputSystemStatePq: InputSystemStatePq,
-): string {
-  return JSON.stringify(
-    InputSystemStatePq$outboundSchema.parse(inputSystemStatePq),
-  );
-}
-export function inputSystemStatePqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemStatePq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemStatePq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemStatePq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemStateMetadatum$inboundSchema: z.ZodType<
-  InputSystemStateMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputSystemStateMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputSystemStateMetadatum$outboundSchema: z.ZodType<
-  InputSystemStateMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputSystemStateMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputSystemStateMetadatumToJSON(
-  inputSystemStateMetadatum: InputSystemStateMetadatum,
-): string {
-  return JSON.stringify(
-    InputSystemStateMetadatum$outboundSchema.parse(inputSystemStateMetadatum),
-  );
-}
-export function inputSystemStateMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemStateMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemStateMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemStateMetadatum' from JSON`,
-  );
-}
 
 /** @internal */
 export const HostsFile$inboundSchema: z.ZodType<
@@ -956,17 +683,17 @@ export function collectorsFromJSON(
 }
 
 /** @internal */
-export const InputSystemStateDataCompressionFormat$inboundSchema: z.ZodType<
-  InputSystemStateDataCompressionFormat,
+export const DataCompressionFormat$inboundSchema: z.ZodType<
+  DataCompressionFormat,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(InputSystemStateDataCompressionFormat);
+> = openEnums.inboundSchema(DataCompressionFormat);
 /** @internal */
-export const InputSystemStateDataCompressionFormat$outboundSchema: z.ZodType<
+export const DataCompressionFormat$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  InputSystemStateDataCompressionFormat
-> = openEnums.outboundSchema(InputSystemStateDataCompressionFormat);
+  DataCompressionFormat
+> = openEnums.outboundSchema(DataCompressionFormat);
 
 /** @internal */
 export const InputSystemStatePersistence$inboundSchema: z.ZodType<
@@ -978,7 +705,7 @@ export const InputSystemStatePersistence$inboundSchema: z.ZodType<
   timeWindow: z.string().default("10m"),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: InputSystemStateDataCompressionFormat$inboundSchema.default("none"),
+  compress: DataCompressionFormat$inboundSchema.default("none"),
   destPath: z.string().default("$CRIBL_HOME/state/system_state"),
 });
 /** @internal */
@@ -1001,9 +728,7 @@ export const InputSystemStatePersistence$outboundSchema: z.ZodType<
   timeWindow: z.string().default("10m"),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: InputSystemStateDataCompressionFormat$outboundSchema.default(
-    "none",
-  ),
+  compress: DataCompressionFormat$outboundSchema.default("none"),
   destPath: z.string().default("$CRIBL_HOME/state/system_state"),
 });
 
@@ -1040,12 +765,10 @@ export const InputSystemState$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSystemStateConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSystemStatePq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   interval: z.number().default(300),
-  metadata: z.array(z.lazy(() => InputSystemStateMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   collectors: z.lazy(() => Collectors$inboundSchema).optional(),
   persistence: z.lazy(() => InputSystemStatePersistence$inboundSchema)
     .optional(),
@@ -1062,10 +785,10 @@ export type InputSystemState$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputSystemStateConnection$Outbound> | undefined;
-  pq?: InputSystemStatePq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   interval: number;
-  metadata?: Array<InputSystemStateMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   collectors?: Collectors$Outbound | undefined;
   persistence?: InputSystemStatePersistence$Outbound | undefined;
   disableNativeModule: boolean;
@@ -1086,12 +809,10 @@ export const InputSystemState$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSystemStateConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSystemStatePq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   interval: z.number().default(300),
-  metadata: z.array(z.lazy(() => InputSystemStateMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   collectors: z.lazy(() => Collectors$outboundSchema).optional(),
   persistence: z.lazy(() => InputSystemStatePersistence$outboundSchema)
     .optional(),

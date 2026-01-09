@@ -8,139 +8,36 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputElasticConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputElasticMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputElasticMode = OpenEnum<typeof InputElasticMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputElasticCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputElasticCompression = OpenEnum<typeof InputElasticCompression>;
-
-export type InputElasticPqControls = {};
-
-export type InputElasticPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputElasticMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputElasticCompression | undefined;
-  pqControls?: InputElasticPqControls | undefined;
-};
-
-export const InputElasticMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputElasticMinimumTLSVersion = OpenEnum<
-  typeof InputElasticMinimumTLSVersion
->;
-
-export const InputElasticMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputElasticMaximumTLSVersion = OpenEnum<
-  typeof InputElasticMaximumTLSVersion
->;
-
-export type InputElasticTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  /**
-   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Regex matching allowable common names in peer certificates' subject attribute
-   */
-  commonNameRegex?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  minVersion?: InputElasticMinimumTLSVersion | undefined;
-  maxVersion?: InputElasticMaximumTLSVersion | undefined;
-};
+import {
+  ItemsTypeConnections,
+  ItemsTypeConnections$inboundSchema,
+  ItemsTypeConnections$Outbound,
+  ItemsTypeConnections$outboundSchema,
+} from "./itemstypeconnections.js";
+import {
+  ItemsTypeExtraHttpHeaders,
+  ItemsTypeExtraHttpHeaders$inboundSchema,
+  ItemsTypeExtraHttpHeaders$Outbound,
+  ItemsTypeExtraHttpHeaders$outboundSchema,
+} from "./itemstypeextrahttpheaders.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  TlsSettingsServerSideType,
+  TlsSettingsServerSideType$inboundSchema,
+  TlsSettingsServerSideType$Outbound,
+  TlsSettingsServerSideType$outboundSchema,
+} from "./tlssettingsserversidetype.js";
 
 export const InputElasticAuthenticationType = {
   /**
@@ -185,19 +82,6 @@ export const InputElasticAPIVersion = {
  * The API version to use for communicating with the server
  */
 export type InputElasticAPIVersion = OpenEnum<typeof InputElasticAPIVersion>;
-
-export type InputElasticExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-export type InputElasticMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
 
 /**
  * Enter credentials directly, or select a stored secret
@@ -277,8 +161,8 @@ export type InputElastic = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputElasticConnection> | undefined;
-  pq?: InputElasticPq | undefined;
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -287,7 +171,7 @@ export type InputElastic = {
    * Port to listen on
    */
   port: number;
-  tls?: InputElasticTLSSettingsServerSide | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -344,11 +228,11 @@ export type InputElastic = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<InputElasticExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputElasticMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   proxyMode?: InputElasticProxyMode | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -366,260 +250,6 @@ export type InputElastic = {
    */
   customAPIVersion?: string | undefined;
 };
-
-/** @internal */
-export const InputElasticConnection$inboundSchema: z.ZodType<
-  InputElasticConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputElasticConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputElasticConnection$outboundSchema: z.ZodType<
-  InputElasticConnection$Outbound,
-  z.ZodTypeDef,
-  InputElasticConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputElasticConnectionToJSON(
-  inputElasticConnection: InputElasticConnection,
-): string {
-  return JSON.stringify(
-    InputElasticConnection$outboundSchema.parse(inputElasticConnection),
-  );
-}
-export function inputElasticConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputElasticConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputElasticConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputElasticConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputElasticMode$inboundSchema: z.ZodType<
-  InputElasticMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputElasticMode);
-/** @internal */
-export const InputElasticMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputElasticMode
-> = openEnums.outboundSchema(InputElasticMode);
-
-/** @internal */
-export const InputElasticCompression$inboundSchema: z.ZodType<
-  InputElasticCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputElasticCompression);
-/** @internal */
-export const InputElasticCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputElasticCompression
-> = openEnums.outboundSchema(InputElasticCompression);
-
-/** @internal */
-export const InputElasticPqControls$inboundSchema: z.ZodType<
-  InputElasticPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputElasticPqControls$Outbound = {};
-
-/** @internal */
-export const InputElasticPqControls$outboundSchema: z.ZodType<
-  InputElasticPqControls$Outbound,
-  z.ZodTypeDef,
-  InputElasticPqControls
-> = z.object({});
-
-export function inputElasticPqControlsToJSON(
-  inputElasticPqControls: InputElasticPqControls,
-): string {
-  return JSON.stringify(
-    InputElasticPqControls$outboundSchema.parse(inputElasticPqControls),
-  );
-}
-export function inputElasticPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputElasticPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputElasticPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputElasticPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputElasticPq$inboundSchema: z.ZodType<
-  InputElasticPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputElasticMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputElasticCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputElasticPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputElasticPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputElasticPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputElasticPq$outboundSchema: z.ZodType<
-  InputElasticPq$Outbound,
-  z.ZodTypeDef,
-  InputElasticPq
-> = z.object({
-  mode: InputElasticMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputElasticCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputElasticPqControls$outboundSchema).optional(),
-});
-
-export function inputElasticPqToJSON(inputElasticPq: InputElasticPq): string {
-  return JSON.stringify(InputElasticPq$outboundSchema.parse(inputElasticPq));
-}
-export function inputElasticPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputElasticPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputElasticPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputElasticPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputElasticMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputElasticMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputElasticMinimumTLSVersion);
-/** @internal */
-export const InputElasticMinimumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputElasticMinimumTLSVersion
-> = openEnums.outboundSchema(InputElasticMinimumTLSVersion);
-
-/** @internal */
-export const InputElasticMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputElasticMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputElasticMaximumTLSVersion);
-/** @internal */
-export const InputElasticMaximumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputElasticMaximumTLSVersion
-> = openEnums.outboundSchema(InputElasticMaximumTLSVersion);
-
-/** @internal */
-export const InputElasticTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputElasticTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputElasticMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputElasticMaximumTLSVersion$inboundSchema.optional(),
-});
-/** @internal */
-export type InputElasticTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  requestCert: boolean;
-  rejectUnauthorized: boolean;
-  commonNameRegex: string;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const InputElasticTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputElasticTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputElasticTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputElasticMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputElasticMaximumTLSVersion$outboundSchema.optional(),
-});
-
-export function inputElasticTLSSettingsServerSideToJSON(
-  inputElasticTLSSettingsServerSide: InputElasticTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputElasticTLSSettingsServerSide$outboundSchema.parse(
-      inputElasticTLSSettingsServerSide,
-    ),
-  );
-}
-export function inputElasticTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputElasticTLSSettingsServerSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputElasticTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputElasticTLSSettingsServerSide' from JSON`,
-  );
-}
 
 /** @internal */
 export const InputElasticAuthenticationType$inboundSchema: z.ZodType<
@@ -646,92 +276,6 @@ export const InputElasticAPIVersion$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputElasticAPIVersion
 > = openEnums.outboundSchema(InputElasticAPIVersion);
-
-/** @internal */
-export const InputElasticExtraHttpHeader$inboundSchema: z.ZodType<
-  InputElasticExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-/** @internal */
-export type InputElasticExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const InputElasticExtraHttpHeader$outboundSchema: z.ZodType<
-  InputElasticExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  InputElasticExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function inputElasticExtraHttpHeaderToJSON(
-  inputElasticExtraHttpHeader: InputElasticExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    InputElasticExtraHttpHeader$outboundSchema.parse(
-      inputElasticExtraHttpHeader,
-    ),
-  );
-}
-export function inputElasticExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<InputElasticExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputElasticExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputElasticExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputElasticMetadatum$inboundSchema: z.ZodType<
-  InputElasticMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputElasticMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputElasticMetadatum$outboundSchema: z.ZodType<
-  InputElasticMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputElasticMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputElasticMetadatumToJSON(
-  inputElasticMetadatum: InputElasticMetadatum,
-): string {
-  return JSON.stringify(
-    InputElasticMetadatum$outboundSchema.parse(inputElasticMetadatum),
-  );
-}
-export function inputElasticMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputElasticMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputElasticMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputElasticMetadatum' from JSON`,
-  );
-}
 
 /** @internal */
 export const InputElasticAuthenticationMethod$inboundSchema: z.ZodType<
@@ -823,12 +367,11 @@ export const InputElastic$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputElasticConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputElasticPq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: z.lazy(() => InputElasticTLSSettingsServerSide$inboundSchema).optional(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -843,11 +386,8 @@ export const InputElastic$inboundSchema: z.ZodType<
   elasticAPI: z.string().default("/"),
   authType: InputElasticAuthenticationType$inboundSchema.default("none"),
   apiVersion: InputElasticAPIVersion$inboundSchema.default("8.3.2"),
-  extraHttpHeaders: z.array(
-    z.lazy(() => InputElasticExtraHttpHeader$inboundSchema),
-  ).optional(),
-  metadata: z.array(z.lazy(() => InputElasticMetadatum$inboundSchema))
-    .optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   proxyMode: z.lazy(() => InputElasticProxyMode$inboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
@@ -868,11 +408,11 @@ export type InputElastic$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputElasticConnection$Outbound> | undefined;
-  pq?: InputElasticPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
-  tls?: InputElasticTLSSettingsServerSide$Outbound | undefined;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -887,8 +427,8 @@ export type InputElastic$Outbound = {
   elasticAPI: string;
   authType: string;
   apiVersion: string;
-  extraHttpHeaders?: Array<InputElasticExtraHttpHeader$Outbound> | undefined;
-  metadata?: Array<InputElasticMetadatum$Outbound> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   proxyMode?: InputElasticProxyMode$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -912,13 +452,11 @@ export const InputElastic$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputElasticConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputElasticPq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: z.lazy(() => InputElasticTLSSettingsServerSide$outboundSchema)
-    .optional(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -933,11 +471,9 @@ export const InputElastic$outboundSchema: z.ZodType<
   elasticAPI: z.string().default("/"),
   authType: InputElasticAuthenticationType$outboundSchema.default("none"),
   apiVersion: InputElasticAPIVersion$outboundSchema.default("8.3.2"),
-  extraHttpHeaders: z.array(
-    z.lazy(() => InputElasticExtraHttpHeader$outboundSchema),
-  ).optional(),
-  metadata: z.array(z.lazy(() => InputElasticMetadatum$outboundSchema))
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   proxyMode: z.lazy(() => InputElasticProxyMode$outboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),

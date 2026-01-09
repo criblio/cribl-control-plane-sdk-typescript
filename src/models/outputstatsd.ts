@@ -4,114 +4,33 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
+import {
+  DestinationProtocolOptions,
+  DestinationProtocolOptions$inboundSchema,
+  DestinationProtocolOptions$outboundSchema,
+} from "./destinationprotocoloptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Protocol to use when communicating with the destination.
- */
-export const OutputStatsdDestinationProtocol = {
-  /**
-   * UDP
-   */
-  Udp: "udp",
-  /**
-   * TCP
-   */
-  Tcp: "tcp",
-} as const;
-/**
- * Protocol to use when communicating with the destination.
- */
-export type OutputStatsdDestinationProtocol = OpenEnum<
-  typeof OutputStatsdDestinationProtocol
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputStatsdBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputStatsdBackpressureBehavior = OpenEnum<
-  typeof OutputStatsdBackpressureBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputStatsdMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputStatsdMode = OpenEnum<typeof OutputStatsdMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputStatsdCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputStatsdCompression = OpenEnum<typeof OutputStatsdCompression>;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputStatsdQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputStatsdQueueFullBehavior = OpenEnum<
-  typeof OutputStatsdQueueFullBehavior
->;
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
 
 export type OutputStatsdPqControls = {};
 
@@ -140,7 +59,7 @@ export type OutputStatsd = {
   /**
    * Protocol to use when communicating with the destination.
    */
-  protocol?: OutputStatsdDestinationProtocol | undefined;
+  protocol?: DestinationProtocolOptions | undefined;
   /**
    * The hostname of the destination.
    */
@@ -177,7 +96,7 @@ export type OutputStatsd = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputStatsdBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -189,7 +108,7 @@ export type OutputStatsd = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputStatsdMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -213,78 +132,13 @@ export type OutputStatsd = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputStatsdCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputStatsdQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputStatsdPqControls | undefined;
 };
-
-/** @internal */
-export const OutputStatsdDestinationProtocol$inboundSchema: z.ZodType<
-  OutputStatsdDestinationProtocol,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputStatsdDestinationProtocol);
-/** @internal */
-export const OutputStatsdDestinationProtocol$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputStatsdDestinationProtocol
-> = openEnums.outboundSchema(OutputStatsdDestinationProtocol);
-
-/** @internal */
-export const OutputStatsdBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputStatsdBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputStatsdBackpressureBehavior);
-/** @internal */
-export const OutputStatsdBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputStatsdBackpressureBehavior
-> = openEnums.outboundSchema(OutputStatsdBackpressureBehavior);
-
-/** @internal */
-export const OutputStatsdMode$inboundSchema: z.ZodType<
-  OutputStatsdMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputStatsdMode);
-/** @internal */
-export const OutputStatsdMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputStatsdMode
-> = openEnums.outboundSchema(OutputStatsdMode);
-
-/** @internal */
-export const OutputStatsdCompression$inboundSchema: z.ZodType<
-  OutputStatsdCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputStatsdCompression);
-/** @internal */
-export const OutputStatsdCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputStatsdCompression
-> = openEnums.outboundSchema(OutputStatsdCompression);
-
-/** @internal */
-export const OutputStatsdQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputStatsdQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputStatsdQueueFullBehavior);
-/** @internal */
-export const OutputStatsdQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputStatsdQueueFullBehavior
-> = openEnums.outboundSchema(OutputStatsdQueueFullBehavior);
 
 /** @internal */
 export const OutputStatsdPqControls$inboundSchema: z.ZodType<
@@ -331,7 +185,7 @@ export const OutputStatsd$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: OutputStatsdDestinationProtocol$inboundSchema.default("udp"),
+  protocol: DestinationProtocolOptions$inboundSchema.default("udp"),
   host: z.string(),
   port: z.number().default(8125),
   mtu: z.number().default(512),
@@ -341,21 +195,17 @@ export const OutputStatsd$inboundSchema: z.ZodType<
   throttleRatePerSec: z.string().default("0"),
   connectionTimeout: z.number().default(10000),
   writeTimeout: z.number().default(60000),
-  onBackpressure: OutputStatsdBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputStatsdMode$inboundSchema.default("error"),
+  pqMode: ModeOptions$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputStatsdCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputStatsdQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
+  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputStatsdPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -402,7 +252,7 @@ export const OutputStatsd$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: OutputStatsdDestinationProtocol$outboundSchema.default("udp"),
+  protocol: DestinationProtocolOptions$outboundSchema.default("udp"),
   host: z.string(),
   port: z.number().default(8125),
   mtu: z.number().default(512),
@@ -412,21 +262,17 @@ export const OutputStatsd$outboundSchema: z.ZodType<
   throttleRatePerSec: z.string().default("0"),
   connectionTimeout: z.number().default(10000),
   writeTimeout: z.number().default(60000),
-  onBackpressure: OutputStatsdBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputStatsdMode$outboundSchema.default("error"),
+  pqMode: ModeOptions$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputStatsdCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputStatsdQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
+  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
   pqControls: z.lazy(() => OutputStatsdPqControls$outboundSchema).optional(),
 });
 

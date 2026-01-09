@@ -8,28 +8,34 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type HealthCheckAuthenticationOauthSecretAuthRequestParam = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-export type HealthCheckAuthenticationOauthSecretAuthRequestHeader = {
-  /**
-   * Header name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
+import {
+  HiddenDefaultBreakersOptionsDatabaseCollectorConf,
+  HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema,
+  HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema,
+} from "./hiddendefaultbreakersoptionsdatabasecollectorconf.js";
+import {
+  ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders,
+  ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+  ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound,
+  ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+} from "./itemstypehealthcheckauthenticationloginauthrequestheaders.js";
+import {
+  ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders,
+  ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$inboundSchema,
+  ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$Outbound,
+  ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$outboundSchema,
+} from "./itemstypehealthcheckauthenticationoauthauthrequestheaders.js";
+import {
+  ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams,
+  ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$inboundSchema,
+  ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$Outbound,
+  ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$outboundSchema,
+} from "./itemstypehealthcheckauthenticationoauthauthrequestparams.js";
+import {
+  RetryTypeOptionsHealthCheckCollectorConfRetryRules,
+  RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
+  RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
+} from "./retrytypeoptionshealthcheckcollectorconfretryrules.js";
 
 /**
  * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
@@ -101,41 +107,11 @@ export type HealthCheckAuthenticationOauthSecretCollectRequestHeader = {
   value: string;
 };
 
-export const HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers = {
-  Cribl: "Cribl",
-} as const;
-export type HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers =
-  OpenEnum<typeof HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers>;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const HealthCheckAuthenticationOauthSecretRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type HealthCheckAuthenticationOauthSecretRetryType = OpenEnum<
-  typeof HealthCheckAuthenticationOauthSecretRetryType
->;
-
 export type HealthCheckAuthenticationOauthSecretRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: HealthCheckAuthenticationOauthSecretRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -172,13 +148,13 @@ export type HealthCheckAuthenticationOauthSecret = {
    * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
    */
   authRequestParams?:
-    | Array<HealthCheckAuthenticationOauthSecretAuthRequestParam>
+    | Array<ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams>
     | undefined;
   /**
    * Optional authentication request headers.
    */
   authRequestHeaders?:
-    | Array<HealthCheckAuthenticationOauthSecretAuthRequestHeader>
+    | Array<ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders>
     | undefined;
   discovery?: HealthCheckAuthenticationOauthSecretDiscovery | undefined;
   /**
@@ -212,35 +188,13 @@ export type HealthCheckAuthenticationOauthSecret = {
    */
   rejectUnauthorized?: boolean | undefined;
   defaultBreakers?:
-    | HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers
+    | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
   /**
    * List of headers that are safe to log in plain text.
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: HealthCheckAuthenticationOauthSecretRetryRules | undefined;
-};
-
-export type HealthCheckAuthenticationOauthAuthRequestParam = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-export type HealthCheckAuthenticationOauthAuthRequestHeader = {
-  /**
-   * Header name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
 };
 
 /**
@@ -313,42 +267,11 @@ export type HealthCheckAuthenticationOauthCollectRequestHeader = {
   value: string;
 };
 
-export const HealthCheckAuthenticationOauthHiddenDefaultBreakers = {
-  Cribl: "Cribl",
-} as const;
-export type HealthCheckAuthenticationOauthHiddenDefaultBreakers = OpenEnum<
-  typeof HealthCheckAuthenticationOauthHiddenDefaultBreakers
->;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const HealthCheckAuthenticationOauthRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type HealthCheckAuthenticationOauthRetryType = OpenEnum<
-  typeof HealthCheckAuthenticationOauthRetryType
->;
-
 export type HealthCheckAuthenticationOauthRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: HealthCheckAuthenticationOauthRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -385,13 +308,13 @@ export type HealthCheckAuthenticationOauth = {
    * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
    */
   authRequestParams?:
-    | Array<HealthCheckAuthenticationOauthAuthRequestParam>
+    | Array<ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams>
     | undefined;
   /**
    * Optional authentication request headers.
    */
   authRequestHeaders?:
-    | Array<HealthCheckAuthenticationOauthAuthRequestHeader>
+    | Array<ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders>
     | undefined;
   discovery?: HealthCheckAuthenticationOauthDiscovery | undefined;
   /**
@@ -423,24 +346,13 @@ export type HealthCheckAuthenticationOauth = {
    */
   rejectUnauthorized?: boolean | undefined;
   defaultBreakers?:
-    | HealthCheckAuthenticationOauthHiddenDefaultBreakers
+    | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
   /**
    * List of headers that are safe to log in plain text.
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: HealthCheckAuthenticationOauthRetryRules | undefined;
-};
-
-export type HealthCheckAuthenticationLoginSecretAuthRequestHeader = {
-  /**
-   * Header name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header value (can be a constant).
-   */
-  value: string;
 };
 
 /**
@@ -513,41 +425,11 @@ export type HealthCheckAuthenticationLoginSecretCollectRequestHeader = {
   value: string;
 };
 
-export const HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers = {
-  Cribl: "Cribl",
-} as const;
-export type HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers =
-  OpenEnum<typeof HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers>;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const HealthCheckAuthenticationLoginSecretRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type HealthCheckAuthenticationLoginSecretRetryType = OpenEnum<
-  typeof HealthCheckAuthenticationLoginSecretRetryType
->;
-
 export type HealthCheckAuthenticationLoginSecretRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: HealthCheckAuthenticationLoginSecretRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -584,7 +466,7 @@ export type HealthCheckAuthenticationLoginSecret = {
    * Optional authentication request headers.
    */
   authRequestHeaders?:
-    | Array<HealthCheckAuthenticationLoginSecretAuthRequestHeader>
+    | Array<ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders>
     | undefined;
   discovery?: HealthCheckAuthenticationLoginSecretDiscovery | undefined;
   /**
@@ -618,24 +500,13 @@ export type HealthCheckAuthenticationLoginSecret = {
    */
   rejectUnauthorized?: boolean | undefined;
   defaultBreakers?:
-    | HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers
+    | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
   /**
    * List of headers that are safe to log in plain text.
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: HealthCheckAuthenticationLoginSecretRetryRules | undefined;
-};
-
-export type HealthCheckAuthenticationLoginAuthRequestHeader = {
-  /**
-   * Header name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header value (can be a constant).
-   */
-  value: string;
 };
 
 /**
@@ -708,42 +579,11 @@ export type HealthCheckAuthenticationLoginCollectRequestHeader = {
   value: string;
 };
 
-export const HealthCheckAuthenticationLoginHiddenDefaultBreakers = {
-  Cribl: "Cribl",
-} as const;
-export type HealthCheckAuthenticationLoginHiddenDefaultBreakers = OpenEnum<
-  typeof HealthCheckAuthenticationLoginHiddenDefaultBreakers
->;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const HealthCheckAuthenticationLoginRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type HealthCheckAuthenticationLoginRetryType = OpenEnum<
-  typeof HealthCheckAuthenticationLoginRetryType
->;
-
 export type HealthCheckAuthenticationLoginRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: HealthCheckAuthenticationLoginRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -784,7 +624,7 @@ export type HealthCheckAuthenticationLogin = {
    * Optional authentication request headers.
    */
   authRequestHeaders?:
-    | Array<HealthCheckAuthenticationLoginAuthRequestHeader>
+    | Array<ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders>
     | undefined;
   discovery?: HealthCheckAuthenticationLoginDiscovery | undefined;
   /**
@@ -816,7 +656,7 @@ export type HealthCheckAuthenticationLogin = {
    */
   rejectUnauthorized?: boolean | undefined;
   defaultBreakers?:
-    | HealthCheckAuthenticationLoginHiddenDefaultBreakers
+    | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
   /**
    * List of headers that are safe to log in plain text.
@@ -895,41 +735,11 @@ export type HealthCheckAuthenticationBasicSecretCollectRequestHeader = {
   value: string;
 };
 
-export const HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers = {
-  Cribl: "Cribl",
-} as const;
-export type HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers =
-  OpenEnum<typeof HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers>;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const HealthCheckAuthenticationBasicSecretRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type HealthCheckAuthenticationBasicSecretRetryType = OpenEnum<
-  typeof HealthCheckAuthenticationBasicSecretRetryType
->;
-
 export type HealthCheckAuthenticationBasicSecretRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: HealthCheckAuthenticationBasicSecretRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -978,7 +788,7 @@ export type HealthCheckAuthenticationBasicSecret = {
    */
   rejectUnauthorized?: boolean | undefined;
   defaultBreakers?:
-    | HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers
+    | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
   /**
    * List of headers that are safe to log in plain text.
@@ -1057,42 +867,11 @@ export type HealthCheckAuthenticationBasicCollectRequestHeader = {
   value: string;
 };
 
-export const HealthCheckAuthenticationBasicHiddenDefaultBreakers = {
-  Cribl: "Cribl",
-} as const;
-export type HealthCheckAuthenticationBasicHiddenDefaultBreakers = OpenEnum<
-  typeof HealthCheckAuthenticationBasicHiddenDefaultBreakers
->;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const HealthCheckAuthenticationBasicRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type HealthCheckAuthenticationBasicRetryType = OpenEnum<
-  typeof HealthCheckAuthenticationBasicRetryType
->;
-
 export type HealthCheckAuthenticationBasicRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: HealthCheckAuthenticationBasicRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -1143,7 +922,7 @@ export type HealthCheckAuthenticationBasic = {
    */
   rejectUnauthorized?: boolean | undefined;
   defaultBreakers?:
-    | HealthCheckAuthenticationBasicHiddenDefaultBreakers
+    | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
   /**
    * List of headers that are safe to log in plain text.
@@ -1222,42 +1001,11 @@ export type HealthCheckAuthenticationNoneCollectRequestHeader = {
   value: string;
 };
 
-export const HealthCheckAuthenticationNoneHiddenDefaultBreakers = {
-  Cribl: "Cribl",
-} as const;
-export type HealthCheckAuthenticationNoneHiddenDefaultBreakers = OpenEnum<
-  typeof HealthCheckAuthenticationNoneHiddenDefaultBreakers
->;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const HealthCheckAuthenticationNoneRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type HealthCheckAuthenticationNoneRetryType = OpenEnum<
-  typeof HealthCheckAuthenticationNoneRetryType
->;
-
 export type HealthCheckAuthenticationNoneRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: HealthCheckAuthenticationNoneRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -1300,7 +1048,7 @@ export type HealthCheckAuthenticationNone = {
    */
   rejectUnauthorized?: boolean | undefined;
   defaultBreakers?:
-    | HealthCheckAuthenticationNoneHiddenDefaultBreakers
+    | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
   /**
    * List of headers that are safe to log in plain text.
@@ -1398,41 +1146,11 @@ export type HealthCheckCollectMethodPostWithBodyAuthentication = OpenEnum<
   typeof HealthCheckCollectMethodPostWithBodyAuthentication
 >;
 
-export const HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers = {
-  Cribl: "Cribl",
-} as const;
-export type HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers =
-  OpenEnum<typeof HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers>;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const HealthCheckCollectMethodPostWithBodyRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type HealthCheckCollectMethodPostWithBodyRetryType = OpenEnum<
-  typeof HealthCheckCollectMethodPostWithBodyRetryType
->;
-
 export type HealthCheckCollectMethodPostWithBodyRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: HealthCheckCollectMethodPostWithBodyRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -1479,7 +1197,7 @@ export type HealthCheckCollectMethodPostWithBody = {
    */
   rejectUnauthorized?: boolean | undefined;
   defaultBreakers?:
-    | HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers
+    | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
   /**
    * List of headers that are safe to log in plain text.
@@ -1577,42 +1295,11 @@ export type HealthCheckCollectMethodPostAuthentication = OpenEnum<
   typeof HealthCheckCollectMethodPostAuthentication
 >;
 
-export const HealthCheckCollectMethodPostHiddenDefaultBreakers = {
-  Cribl: "Cribl",
-} as const;
-export type HealthCheckCollectMethodPostHiddenDefaultBreakers = OpenEnum<
-  typeof HealthCheckCollectMethodPostHiddenDefaultBreakers
->;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const HealthCheckCollectMethodPostRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type HealthCheckCollectMethodPostRetryType = OpenEnum<
-  typeof HealthCheckCollectMethodPostRetryType
->;
-
 export type HealthCheckCollectMethodPostRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: HealthCheckCollectMethodPostRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -1655,7 +1342,7 @@ export type HealthCheckCollectMethodPost = {
    */
   rejectUnauthorized?: boolean | undefined;
   defaultBreakers?:
-    | HealthCheckCollectMethodPostHiddenDefaultBreakers
+    | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
   /**
    * List of headers that are safe to log in plain text.
@@ -1753,42 +1440,11 @@ export type HealthCheckCollectMethodGetAuthentication = OpenEnum<
   typeof HealthCheckCollectMethodGetAuthentication
 >;
 
-export const HealthCheckCollectMethodGetHiddenDefaultBreakers = {
-  Cribl: "Cribl",
-} as const;
-export type HealthCheckCollectMethodGetHiddenDefaultBreakers = OpenEnum<
-  typeof HealthCheckCollectMethodGetHiddenDefaultBreakers
->;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const HealthCheckCollectMethodGetRetryType = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type HealthCheckCollectMethodGetRetryType = OpenEnum<
-  typeof HealthCheckCollectMethodGetRetryType
->;
-
 export type HealthCheckCollectMethodGetRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: HealthCheckCollectMethodGetRetryType | undefined;
+  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -1831,7 +1487,7 @@ export type HealthCheckCollectMethodGet = {
    */
   rejectUnauthorized?: boolean | undefined;
   defaultBreakers?:
-    | HealthCheckCollectMethodGetHiddenDefaultBreakers
+    | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
   /**
    * List of headers that are safe to log in plain text.
@@ -1848,112 +1504,6 @@ export type HealthCheckCollectorConf =
   | HealthCheckAuthenticationLoginSecret
   | HealthCheckAuthenticationOauth
   | HealthCheckAuthenticationOauthSecret;
-
-/** @internal */
-export const HealthCheckAuthenticationOauthSecretAuthRequestParam$inboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationOauthSecretAuthRequestParam,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type HealthCheckAuthenticationOauthSecretAuthRequestParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const HealthCheckAuthenticationOauthSecretAuthRequestParam$outboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationOauthSecretAuthRequestParam$Outbound,
-    z.ZodTypeDef,
-    HealthCheckAuthenticationOauthSecretAuthRequestParam
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function healthCheckAuthenticationOauthSecretAuthRequestParamToJSON(
-  healthCheckAuthenticationOauthSecretAuthRequestParam:
-    HealthCheckAuthenticationOauthSecretAuthRequestParam,
-): string {
-  return JSON.stringify(
-    HealthCheckAuthenticationOauthSecretAuthRequestParam$outboundSchema.parse(
-      healthCheckAuthenticationOauthSecretAuthRequestParam,
-    ),
-  );
-}
-export function healthCheckAuthenticationOauthSecretAuthRequestParamFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  HealthCheckAuthenticationOauthSecretAuthRequestParam,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      HealthCheckAuthenticationOauthSecretAuthRequestParam$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'HealthCheckAuthenticationOauthSecretAuthRequestParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const HealthCheckAuthenticationOauthSecretAuthRequestHeader$inboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationOauthSecretAuthRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type HealthCheckAuthenticationOauthSecretAuthRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const HealthCheckAuthenticationOauthSecretAuthRequestHeader$outboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationOauthSecretAuthRequestHeader$Outbound,
-    z.ZodTypeDef,
-    HealthCheckAuthenticationOauthSecretAuthRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function healthCheckAuthenticationOauthSecretAuthRequestHeaderToJSON(
-  healthCheckAuthenticationOauthSecretAuthRequestHeader:
-    HealthCheckAuthenticationOauthSecretAuthRequestHeader,
-): string {
-  return JSON.stringify(
-    HealthCheckAuthenticationOauthSecretAuthRequestHeader$outboundSchema.parse(
-      healthCheckAuthenticationOauthSecretAuthRequestHeader,
-    ),
-  );
-}
-export function healthCheckAuthenticationOauthSecretAuthRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  HealthCheckAuthenticationOauthSecretAuthRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      HealthCheckAuthenticationOauthSecretAuthRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'HealthCheckAuthenticationOauthSecretAuthRequestHeader' from JSON`,
-  );
-}
 
 /** @internal */
 export const HealthCheckAuthenticationOauthSecretDiscoverType$inboundSchema:
@@ -2098,49 +1648,14 @@ export function healthCheckAuthenticationOauthSecretCollectRequestHeaderFromJSON
 }
 
 /** @internal */
-export const HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers$inboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers,
-  );
-/** @internal */
-export const HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers
-  > = openEnums.outboundSchema(
-    HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers,
-  );
-
-/** @internal */
-export const HealthCheckAuthenticationOauthSecretRetryType$inboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationOauthSecretRetryType,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(HealthCheckAuthenticationOauthSecretRetryType);
-/** @internal */
-export const HealthCheckAuthenticationOauthSecretRetryType$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    HealthCheckAuthenticationOauthSecretRetryType
-  > = openEnums.outboundSchema(HealthCheckAuthenticationOauthSecretRetryType);
-
-/** @internal */
 export const HealthCheckAuthenticationOauthSecretRetryRules$inboundSchema:
   z.ZodType<
     HealthCheckAuthenticationOauthSecretRetryRules,
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: HealthCheckAuthenticationOauthSecretRetryType$inboundSchema.default(
-      "backoff",
-    ),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -2164,9 +1679,8 @@ export const HealthCheckAuthenticationOauthSecretRetryRules$outboundSchema:
     z.ZodTypeDef,
     HealthCheckAuthenticationOauthSecretRetryRules
   > = z.object({
-    type: HealthCheckAuthenticationOauthSecretRetryType$outboundSchema.default(
-      "backoff",
-    ),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -2213,14 +1727,10 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
   clientSecretParamName: z.string().default("client_secret"),
   textSecret: z.string(),
   authRequestParams: z.array(
-    z.lazy(() =>
-      HealthCheckAuthenticationOauthSecretAuthRequestParam$inboundSchema
-    ),
+    ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$inboundSchema,
   ).optional(),
   authRequestHeaders: z.array(
-    z.lazy(() =>
-      HealthCheckAuthenticationOauthSecretAuthRequestHeader$inboundSchema
-    ),
+    ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$inboundSchema,
   ).optional(),
   discovery: z.lazy(() =>
     HealthCheckAuthenticationOauthSecretDiscovery$inboundSchema
@@ -2241,8 +1751,7 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers$inboundSchema
-      .optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckAuthenticationOauthSecretRetryRules$inboundSchema
@@ -2257,10 +1766,10 @@ export type HealthCheckAuthenticationOauthSecret$Outbound = {
   clientSecretParamName: string;
   textSecret: string;
   authRequestParams?:
-    | Array<HealthCheckAuthenticationOauthSecretAuthRequestParam$Outbound>
+    | Array<ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$Outbound>
     | undefined;
   authRequestHeaders?:
-    | Array<HealthCheckAuthenticationOauthSecretAuthRequestHeader$Outbound>
+    | Array<ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$Outbound>
     | undefined;
   discovery?:
     | HealthCheckAuthenticationOauthSecretDiscovery$Outbound
@@ -2295,14 +1804,10 @@ export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
   clientSecretParamName: z.string().default("client_secret"),
   textSecret: z.string(),
   authRequestParams: z.array(
-    z.lazy(() =>
-      HealthCheckAuthenticationOauthSecretAuthRequestParam$outboundSchema
-    ),
+    ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$outboundSchema,
   ).optional(),
   authRequestHeaders: z.array(
-    z.lazy(() =>
-      HealthCheckAuthenticationOauthSecretAuthRequestHeader$outboundSchema
-    ),
+    ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$outboundSchema,
   ).optional(),
   discovery: z.lazy(() =>
     HealthCheckAuthenticationOauthSecretDiscovery$outboundSchema
@@ -2322,8 +1827,7 @@ export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers$outboundSchema
-      .optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckAuthenticationOauthSecretRetryRules$outboundSchema
@@ -2347,112 +1851,6 @@ export function healthCheckAuthenticationOauthSecretFromJSON(
     (x) =>
       HealthCheckAuthenticationOauthSecret$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'HealthCheckAuthenticationOauthSecret' from JSON`,
-  );
-}
-
-/** @internal */
-export const HealthCheckAuthenticationOauthAuthRequestParam$inboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationOauthAuthRequestParam,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type HealthCheckAuthenticationOauthAuthRequestParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const HealthCheckAuthenticationOauthAuthRequestParam$outboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationOauthAuthRequestParam$Outbound,
-    z.ZodTypeDef,
-    HealthCheckAuthenticationOauthAuthRequestParam
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function healthCheckAuthenticationOauthAuthRequestParamToJSON(
-  healthCheckAuthenticationOauthAuthRequestParam:
-    HealthCheckAuthenticationOauthAuthRequestParam,
-): string {
-  return JSON.stringify(
-    HealthCheckAuthenticationOauthAuthRequestParam$outboundSchema.parse(
-      healthCheckAuthenticationOauthAuthRequestParam,
-    ),
-  );
-}
-export function healthCheckAuthenticationOauthAuthRequestParamFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  HealthCheckAuthenticationOauthAuthRequestParam,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      HealthCheckAuthenticationOauthAuthRequestParam$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'HealthCheckAuthenticationOauthAuthRequestParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const HealthCheckAuthenticationOauthAuthRequestHeader$inboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationOauthAuthRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type HealthCheckAuthenticationOauthAuthRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const HealthCheckAuthenticationOauthAuthRequestHeader$outboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationOauthAuthRequestHeader$Outbound,
-    z.ZodTypeDef,
-    HealthCheckAuthenticationOauthAuthRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function healthCheckAuthenticationOauthAuthRequestHeaderToJSON(
-  healthCheckAuthenticationOauthAuthRequestHeader:
-    HealthCheckAuthenticationOauthAuthRequestHeader,
-): string {
-  return JSON.stringify(
-    HealthCheckAuthenticationOauthAuthRequestHeader$outboundSchema.parse(
-      healthCheckAuthenticationOauthAuthRequestHeader,
-    ),
-  );
-}
-export function healthCheckAuthenticationOauthAuthRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  HealthCheckAuthenticationOauthAuthRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      HealthCheckAuthenticationOauthAuthRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'HealthCheckAuthenticationOauthAuthRequestHeader' from JSON`,
   );
 }
 
@@ -2584,46 +1982,13 @@ export function healthCheckAuthenticationOauthCollectRequestHeaderFromJSON(
 }
 
 /** @internal */
-export const HealthCheckAuthenticationOauthHiddenDefaultBreakers$inboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationOauthHiddenDefaultBreakers,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    HealthCheckAuthenticationOauthHiddenDefaultBreakers,
-  );
-/** @internal */
-export const HealthCheckAuthenticationOauthHiddenDefaultBreakers$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    HealthCheckAuthenticationOauthHiddenDefaultBreakers
-  > = openEnums.outboundSchema(
-    HealthCheckAuthenticationOauthHiddenDefaultBreakers,
-  );
-
-/** @internal */
-export const HealthCheckAuthenticationOauthRetryType$inboundSchema: z.ZodType<
-  HealthCheckAuthenticationOauthRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(HealthCheckAuthenticationOauthRetryType);
-/** @internal */
-export const HealthCheckAuthenticationOauthRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  HealthCheckAuthenticationOauthRetryType
-> = openEnums.outboundSchema(HealthCheckAuthenticationOauthRetryType);
-
-/** @internal */
 export const HealthCheckAuthenticationOauthRetryRules$inboundSchema: z.ZodType<
   HealthCheckAuthenticationOauthRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: HealthCheckAuthenticationOauthRetryType$inboundSchema.default(
-    "backoff",
-  ),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -2646,9 +2011,8 @@ export const HealthCheckAuthenticationOauthRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckAuthenticationOauthRetryRules
 > = z.object({
-  type: HealthCheckAuthenticationOauthRetryType$outboundSchema.default(
-    "backoff",
-  ),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -2695,10 +2059,10 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
   clientSecretParamName: z.string().default("client_secret"),
   clientSecretParamValue: z.string(),
   authRequestParams: z.array(
-    z.lazy(() => HealthCheckAuthenticationOauthAuthRequestParam$inboundSchema),
+    ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$inboundSchema,
   ).optional(),
   authRequestHeaders: z.array(
-    z.lazy(() => HealthCheckAuthenticationOauthAuthRequestHeader$inboundSchema),
+    ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$inboundSchema,
   ).optional(),
   discovery: z.lazy(() => HealthCheckAuthenticationOauthDiscovery$inboundSchema)
     .optional(),
@@ -2716,8 +2080,7 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckAuthenticationOauthHiddenDefaultBreakers$inboundSchema
-      .optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckAuthenticationOauthRetryRules$inboundSchema
@@ -2732,10 +2095,10 @@ export type HealthCheckAuthenticationOauth$Outbound = {
   clientSecretParamName: string;
   clientSecretParamValue: string;
   authRequestParams?:
-    | Array<HealthCheckAuthenticationOauthAuthRequestParam$Outbound>
+    | Array<ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$Outbound>
     | undefined;
   authRequestHeaders?:
-    | Array<HealthCheckAuthenticationOauthAuthRequestHeader$Outbound>
+    | Array<ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$Outbound>
     | undefined;
   discovery?: HealthCheckAuthenticationOauthDiscovery$Outbound | undefined;
   collectUrl: string;
@@ -2766,12 +2129,10 @@ export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
   clientSecretParamName: z.string().default("client_secret"),
   clientSecretParamValue: z.string(),
   authRequestParams: z.array(
-    z.lazy(() => HealthCheckAuthenticationOauthAuthRequestParam$outboundSchema),
+    ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$outboundSchema,
   ).optional(),
   authRequestHeaders: z.array(
-    z.lazy(() =>
-      HealthCheckAuthenticationOauthAuthRequestHeader$outboundSchema
-    ),
+    ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$outboundSchema,
   ).optional(),
   discovery: z.lazy(() =>
     HealthCheckAuthenticationOauthDiscovery$outboundSchema
@@ -2790,8 +2151,7 @@ export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckAuthenticationOauthHiddenDefaultBreakers$outboundSchema
-      .optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckAuthenticationOauthRetryRules$outboundSchema
@@ -2814,59 +2174,6 @@ export function healthCheckAuthenticationOauthFromJSON(
     jsonString,
     (x) => HealthCheckAuthenticationOauth$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'HealthCheckAuthenticationOauth' from JSON`,
-  );
-}
-
-/** @internal */
-export const HealthCheckAuthenticationLoginSecretAuthRequestHeader$inboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationLoginSecretAuthRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type HealthCheckAuthenticationLoginSecretAuthRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const HealthCheckAuthenticationLoginSecretAuthRequestHeader$outboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationLoginSecretAuthRequestHeader$Outbound,
-    z.ZodTypeDef,
-    HealthCheckAuthenticationLoginSecretAuthRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function healthCheckAuthenticationLoginSecretAuthRequestHeaderToJSON(
-  healthCheckAuthenticationLoginSecretAuthRequestHeader:
-    HealthCheckAuthenticationLoginSecretAuthRequestHeader,
-): string {
-  return JSON.stringify(
-    HealthCheckAuthenticationLoginSecretAuthRequestHeader$outboundSchema.parse(
-      healthCheckAuthenticationLoginSecretAuthRequestHeader,
-    ),
-  );
-}
-export function healthCheckAuthenticationLoginSecretAuthRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  HealthCheckAuthenticationLoginSecretAuthRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      HealthCheckAuthenticationLoginSecretAuthRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'HealthCheckAuthenticationLoginSecretAuthRequestHeader' from JSON`,
   );
 }
 
@@ -3013,49 +2320,14 @@ export function healthCheckAuthenticationLoginSecretCollectRequestHeaderFromJSON
 }
 
 /** @internal */
-export const HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers$inboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers,
-  );
-/** @internal */
-export const HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers
-  > = openEnums.outboundSchema(
-    HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers,
-  );
-
-/** @internal */
-export const HealthCheckAuthenticationLoginSecretRetryType$inboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationLoginSecretRetryType,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(HealthCheckAuthenticationLoginSecretRetryType);
-/** @internal */
-export const HealthCheckAuthenticationLoginSecretRetryType$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    HealthCheckAuthenticationLoginSecretRetryType
-  > = openEnums.outboundSchema(HealthCheckAuthenticationLoginSecretRetryType);
-
-/** @internal */
 export const HealthCheckAuthenticationLoginSecretRetryRules$inboundSchema:
   z.ZodType<
     HealthCheckAuthenticationLoginSecretRetryRules,
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: HealthCheckAuthenticationLoginSecretRetryType$inboundSchema.default(
-      "backoff",
-    ),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -3079,9 +2351,8 @@ export const HealthCheckAuthenticationLoginSecretRetryRules$outboundSchema:
     z.ZodTypeDef,
     HealthCheckAuthenticationLoginSecretRetryRules
   > = z.object({
-    type: HealthCheckAuthenticationLoginSecretRetryType$outboundSchema.default(
-      "backoff",
-    ),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -3130,9 +2401,7 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
   tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   authRequestHeaders: z.array(
-    z.lazy(() =>
-      HealthCheckAuthenticationLoginSecretAuthRequestHeader$inboundSchema
-    ),
+    ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
   ).optional(),
   discovery: z.lazy(() =>
     HealthCheckAuthenticationLoginSecretDiscovery$inboundSchema
@@ -3153,8 +2422,7 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers$inboundSchema
-      .optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckAuthenticationLoginSecretRetryRules$inboundSchema
@@ -3169,7 +2437,7 @@ export type HealthCheckAuthenticationLoginSecret$Outbound = {
   tokenRespAttribute?: string | undefined;
   authHeaderExpr: string;
   authRequestHeaders?:
-    | Array<HealthCheckAuthenticationLoginSecretAuthRequestHeader$Outbound>
+    | Array<ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound>
     | undefined;
   discovery?:
     | HealthCheckAuthenticationLoginSecretDiscovery$Outbound
@@ -3206,9 +2474,7 @@ export const HealthCheckAuthenticationLoginSecret$outboundSchema: z.ZodType<
   tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   authRequestHeaders: z.array(
-    z.lazy(() =>
-      HealthCheckAuthenticationLoginSecretAuthRequestHeader$outboundSchema
-    ),
+    ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
   ).optional(),
   discovery: z.lazy(() =>
     HealthCheckAuthenticationLoginSecretDiscovery$outboundSchema
@@ -3228,8 +2494,7 @@ export const HealthCheckAuthenticationLoginSecret$outboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers$outboundSchema
-      .optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckAuthenticationLoginSecretRetryRules$outboundSchema
@@ -3253,59 +2518,6 @@ export function healthCheckAuthenticationLoginSecretFromJSON(
     (x) =>
       HealthCheckAuthenticationLoginSecret$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'HealthCheckAuthenticationLoginSecret' from JSON`,
-  );
-}
-
-/** @internal */
-export const HealthCheckAuthenticationLoginAuthRequestHeader$inboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationLoginAuthRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-/** @internal */
-export type HealthCheckAuthenticationLoginAuthRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const HealthCheckAuthenticationLoginAuthRequestHeader$outboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationLoginAuthRequestHeader$Outbound,
-    z.ZodTypeDef,
-    HealthCheckAuthenticationLoginAuthRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function healthCheckAuthenticationLoginAuthRequestHeaderToJSON(
-  healthCheckAuthenticationLoginAuthRequestHeader:
-    HealthCheckAuthenticationLoginAuthRequestHeader,
-): string {
-  return JSON.stringify(
-    HealthCheckAuthenticationLoginAuthRequestHeader$outboundSchema.parse(
-      healthCheckAuthenticationLoginAuthRequestHeader,
-    ),
-  );
-}
-export function healthCheckAuthenticationLoginAuthRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  HealthCheckAuthenticationLoginAuthRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      HealthCheckAuthenticationLoginAuthRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'HealthCheckAuthenticationLoginAuthRequestHeader' from JSON`,
   );
 }
 
@@ -3437,46 +2649,13 @@ export function healthCheckAuthenticationLoginCollectRequestHeaderFromJSON(
 }
 
 /** @internal */
-export const HealthCheckAuthenticationLoginHiddenDefaultBreakers$inboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationLoginHiddenDefaultBreakers,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    HealthCheckAuthenticationLoginHiddenDefaultBreakers,
-  );
-/** @internal */
-export const HealthCheckAuthenticationLoginHiddenDefaultBreakers$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    HealthCheckAuthenticationLoginHiddenDefaultBreakers
-  > = openEnums.outboundSchema(
-    HealthCheckAuthenticationLoginHiddenDefaultBreakers,
-  );
-
-/** @internal */
-export const HealthCheckAuthenticationLoginRetryType$inboundSchema: z.ZodType<
-  HealthCheckAuthenticationLoginRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(HealthCheckAuthenticationLoginRetryType);
-/** @internal */
-export const HealthCheckAuthenticationLoginRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  HealthCheckAuthenticationLoginRetryType
-> = openEnums.outboundSchema(HealthCheckAuthenticationLoginRetryType);
-
-/** @internal */
 export const HealthCheckAuthenticationLoginRetryRules$inboundSchema: z.ZodType<
   HealthCheckAuthenticationLoginRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: HealthCheckAuthenticationLoginRetryType$inboundSchema.default(
-    "backoff",
-  ),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -3499,9 +2678,8 @@ export const HealthCheckAuthenticationLoginRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckAuthenticationLoginRetryRules
 > = z.object({
-  type: HealthCheckAuthenticationLoginRetryType$outboundSchema.default(
-    "backoff",
-  ),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -3551,7 +2729,7 @@ export const HealthCheckAuthenticationLogin$inboundSchema: z.ZodType<
   tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   authRequestHeaders: z.array(
-    z.lazy(() => HealthCheckAuthenticationLoginAuthRequestHeader$inboundSchema),
+    ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
   ).optional(),
   discovery: z.lazy(() => HealthCheckAuthenticationLoginDiscovery$inboundSchema)
     .optional(),
@@ -3569,8 +2747,7 @@ export const HealthCheckAuthenticationLogin$inboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckAuthenticationLoginHiddenDefaultBreakers$inboundSchema
-      .optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckAuthenticationLoginRetryRules$inboundSchema
@@ -3586,7 +2763,7 @@ export type HealthCheckAuthenticationLogin$Outbound = {
   tokenRespAttribute?: string | undefined;
   authHeaderExpr: string;
   authRequestHeaders?:
-    | Array<HealthCheckAuthenticationLoginAuthRequestHeader$Outbound>
+    | Array<ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound>
     | undefined;
   discovery?: HealthCheckAuthenticationLoginDiscovery$Outbound | undefined;
   collectUrl: string;
@@ -3620,9 +2797,7 @@ export const HealthCheckAuthenticationLogin$outboundSchema: z.ZodType<
   tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   authRequestHeaders: z.array(
-    z.lazy(() =>
-      HealthCheckAuthenticationLoginAuthRequestHeader$outboundSchema
-    ),
+    ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
   ).optional(),
   discovery: z.lazy(() =>
     HealthCheckAuthenticationLoginDiscovery$outboundSchema
@@ -3641,8 +2816,7 @@ export const HealthCheckAuthenticationLogin$outboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckAuthenticationLoginHiddenDefaultBreakers$outboundSchema
-      .optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckAuthenticationLoginRetryRules$outboundSchema
@@ -3811,49 +2985,14 @@ export function healthCheckAuthenticationBasicSecretCollectRequestHeaderFromJSON
 }
 
 /** @internal */
-export const HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers$inboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers,
-  );
-/** @internal */
-export const HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers
-  > = openEnums.outboundSchema(
-    HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers,
-  );
-
-/** @internal */
-export const HealthCheckAuthenticationBasicSecretRetryType$inboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationBasicSecretRetryType,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(HealthCheckAuthenticationBasicSecretRetryType);
-/** @internal */
-export const HealthCheckAuthenticationBasicSecretRetryType$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    HealthCheckAuthenticationBasicSecretRetryType
-  > = openEnums.outboundSchema(HealthCheckAuthenticationBasicSecretRetryType);
-
-/** @internal */
 export const HealthCheckAuthenticationBasicSecretRetryRules$inboundSchema:
   z.ZodType<
     HealthCheckAuthenticationBasicSecretRetryRules,
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: HealthCheckAuthenticationBasicSecretRetryType$inboundSchema.default(
-      "backoff",
-    ),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -3877,9 +3016,8 @@ export const HealthCheckAuthenticationBasicSecretRetryRules$outboundSchema:
     z.ZodTypeDef,
     HealthCheckAuthenticationBasicSecretRetryRules
   > = z.object({
-    type: HealthCheckAuthenticationBasicSecretRetryType$outboundSchema.default(
-      "backoff",
-    ),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -3940,8 +3078,7 @@ export const HealthCheckAuthenticationBasicSecret$inboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers$inboundSchema
-      .optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckAuthenticationBasicSecretRetryRules$inboundSchema
@@ -3997,8 +3134,7 @@ export const HealthCheckAuthenticationBasicSecret$outboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers$outboundSchema
-      .optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckAuthenticationBasicSecretRetryRules$outboundSchema
@@ -4153,46 +3289,13 @@ export function healthCheckAuthenticationBasicCollectRequestHeaderFromJSON(
 }
 
 /** @internal */
-export const HealthCheckAuthenticationBasicHiddenDefaultBreakers$inboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationBasicHiddenDefaultBreakers,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    HealthCheckAuthenticationBasicHiddenDefaultBreakers,
-  );
-/** @internal */
-export const HealthCheckAuthenticationBasicHiddenDefaultBreakers$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    HealthCheckAuthenticationBasicHiddenDefaultBreakers
-  > = openEnums.outboundSchema(
-    HealthCheckAuthenticationBasicHiddenDefaultBreakers,
-  );
-
-/** @internal */
-export const HealthCheckAuthenticationBasicRetryType$inboundSchema: z.ZodType<
-  HealthCheckAuthenticationBasicRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(HealthCheckAuthenticationBasicRetryType);
-/** @internal */
-export const HealthCheckAuthenticationBasicRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  HealthCheckAuthenticationBasicRetryType
-> = openEnums.outboundSchema(HealthCheckAuthenticationBasicRetryType);
-
-/** @internal */
 export const HealthCheckAuthenticationBasicRetryRules$inboundSchema: z.ZodType<
   HealthCheckAuthenticationBasicRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: HealthCheckAuthenticationBasicRetryType$inboundSchema.default(
-    "backoff",
-  ),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -4215,9 +3318,8 @@ export const HealthCheckAuthenticationBasicRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckAuthenticationBasicRetryRules
 > = z.object({
-  type: HealthCheckAuthenticationBasicRetryType$outboundSchema.default(
-    "backoff",
-  ),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -4276,8 +3378,7 @@ export const HealthCheckAuthenticationBasic$inboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckAuthenticationBasicHiddenDefaultBreakers$inboundSchema
-      .optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckAuthenticationBasicRetryRules$inboundSchema
@@ -4330,8 +3431,7 @@ export const HealthCheckAuthenticationBasic$outboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckAuthenticationBasicHiddenDefaultBreakers$outboundSchema
-      .optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckAuthenticationBasicRetryRules$outboundSchema
@@ -4483,44 +3583,13 @@ export function healthCheckAuthenticationNoneCollectRequestHeaderFromJSON(
 }
 
 /** @internal */
-export const HealthCheckAuthenticationNoneHiddenDefaultBreakers$inboundSchema:
-  z.ZodType<
-    HealthCheckAuthenticationNoneHiddenDefaultBreakers,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    HealthCheckAuthenticationNoneHiddenDefaultBreakers,
-  );
-/** @internal */
-export const HealthCheckAuthenticationNoneHiddenDefaultBreakers$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    HealthCheckAuthenticationNoneHiddenDefaultBreakers
-  > = openEnums.outboundSchema(
-    HealthCheckAuthenticationNoneHiddenDefaultBreakers,
-  );
-
-/** @internal */
-export const HealthCheckAuthenticationNoneRetryType$inboundSchema: z.ZodType<
-  HealthCheckAuthenticationNoneRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(HealthCheckAuthenticationNoneRetryType);
-/** @internal */
-export const HealthCheckAuthenticationNoneRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  HealthCheckAuthenticationNoneRetryType
-> = openEnums.outboundSchema(HealthCheckAuthenticationNoneRetryType);
-
-/** @internal */
 export const HealthCheckAuthenticationNoneRetryRules$inboundSchema: z.ZodType<
   HealthCheckAuthenticationNoneRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: HealthCheckAuthenticationNoneRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -4543,9 +3612,8 @@ export const HealthCheckAuthenticationNoneRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckAuthenticationNoneRetryRules
 > = z.object({
-  type: HealthCheckAuthenticationNoneRetryType$outboundSchema.default(
-    "backoff",
-  ),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -4602,7 +3670,7 @@ export const HealthCheckAuthenticationNone$inboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckAuthenticationNoneHiddenDefaultBreakers$inboundSchema.optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckAuthenticationNoneRetryRules$inboundSchema
@@ -4650,8 +3718,7 @@ export const HealthCheckAuthenticationNone$outboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckAuthenticationNoneHiddenDefaultBreakers$outboundSchema
-      .optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckAuthenticationNoneRetryRules$outboundSchema
@@ -4839,49 +3906,14 @@ export const HealthCheckCollectMethodPostWithBodyAuthentication$outboundSchema:
   );
 
 /** @internal */
-export const HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers$inboundSchema:
-  z.ZodType<
-    HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers,
-  );
-/** @internal */
-export const HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers
-  > = openEnums.outboundSchema(
-    HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers,
-  );
-
-/** @internal */
-export const HealthCheckCollectMethodPostWithBodyRetryType$inboundSchema:
-  z.ZodType<
-    HealthCheckCollectMethodPostWithBodyRetryType,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(HealthCheckCollectMethodPostWithBodyRetryType);
-/** @internal */
-export const HealthCheckCollectMethodPostWithBodyRetryType$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    HealthCheckCollectMethodPostWithBodyRetryType
-  > = openEnums.outboundSchema(HealthCheckCollectMethodPostWithBodyRetryType);
-
-/** @internal */
 export const HealthCheckCollectMethodPostWithBodyRetryRules$inboundSchema:
   z.ZodType<
     HealthCheckCollectMethodPostWithBodyRetryRules,
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: HealthCheckCollectMethodPostWithBodyRetryType$inboundSchema.default(
-      "backoff",
-    ),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -4905,9 +3937,8 @@ export const HealthCheckCollectMethodPostWithBodyRetryRules$outboundSchema:
     z.ZodTypeDef,
     HealthCheckCollectMethodPostWithBodyRetryRules
   > = z.object({
-    type: HealthCheckCollectMethodPostWithBodyRetryType$outboundSchema.default(
-      "backoff",
-    ),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+      .default("backoff"),
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -4970,8 +4001,7 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers$inboundSchema
-      .optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckCollectMethodPostWithBodyRetryRules$inboundSchema
@@ -5028,8 +4058,7 @@ export const HealthCheckCollectMethodPostWithBody$outboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers$outboundSchema
-      .optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckCollectMethodPostWithBodyRetryRules$outboundSchema
@@ -5193,44 +4222,13 @@ export const HealthCheckCollectMethodPostAuthentication$outboundSchema:
     openEnums.outboundSchema(HealthCheckCollectMethodPostAuthentication);
 
 /** @internal */
-export const HealthCheckCollectMethodPostHiddenDefaultBreakers$inboundSchema:
-  z.ZodType<
-    HealthCheckCollectMethodPostHiddenDefaultBreakers,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    HealthCheckCollectMethodPostHiddenDefaultBreakers,
-  );
-/** @internal */
-export const HealthCheckCollectMethodPostHiddenDefaultBreakers$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    HealthCheckCollectMethodPostHiddenDefaultBreakers
-  > = openEnums.outboundSchema(
-    HealthCheckCollectMethodPostHiddenDefaultBreakers,
-  );
-
-/** @internal */
-export const HealthCheckCollectMethodPostRetryType$inboundSchema: z.ZodType<
-  HealthCheckCollectMethodPostRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(HealthCheckCollectMethodPostRetryType);
-/** @internal */
-export const HealthCheckCollectMethodPostRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  HealthCheckCollectMethodPostRetryType
-> = openEnums.outboundSchema(HealthCheckCollectMethodPostRetryType);
-
-/** @internal */
 export const HealthCheckCollectMethodPostRetryRules$inboundSchema: z.ZodType<
   HealthCheckCollectMethodPostRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: HealthCheckCollectMethodPostRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -5253,7 +4251,8 @@ export const HealthCheckCollectMethodPostRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckCollectMethodPostRetryRules
 > = z.object({
-  type: HealthCheckCollectMethodPostRetryType$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -5306,7 +4305,7 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckCollectMethodPostHiddenDefaultBreakers$inboundSchema.optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => HealthCheckCollectMethodPostRetryRules$inboundSchema)
     .optional(),
@@ -5354,7 +4353,7 @@ export const HealthCheckCollectMethodPost$outboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckCollectMethodPostHiddenDefaultBreakers$outboundSchema.optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() =>
     HealthCheckCollectMethodPostRetryRules$outboundSchema
@@ -5519,42 +4518,13 @@ export const HealthCheckCollectMethodGetAuthentication$outboundSchema:
     openEnums.outboundSchema(HealthCheckCollectMethodGetAuthentication);
 
 /** @internal */
-export const HealthCheckCollectMethodGetHiddenDefaultBreakers$inboundSchema:
-  z.ZodType<
-    HealthCheckCollectMethodGetHiddenDefaultBreakers,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(HealthCheckCollectMethodGetHiddenDefaultBreakers);
-/** @internal */
-export const HealthCheckCollectMethodGetHiddenDefaultBreakers$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    HealthCheckCollectMethodGetHiddenDefaultBreakers
-  > = openEnums.outboundSchema(
-    HealthCheckCollectMethodGetHiddenDefaultBreakers,
-  );
-
-/** @internal */
-export const HealthCheckCollectMethodGetRetryType$inboundSchema: z.ZodType<
-  HealthCheckCollectMethodGetRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(HealthCheckCollectMethodGetRetryType);
-/** @internal */
-export const HealthCheckCollectMethodGetRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  HealthCheckCollectMethodGetRetryType
-> = openEnums.outboundSchema(HealthCheckCollectMethodGetRetryType);
-
-/** @internal */
 export const HealthCheckCollectMethodGetRetryRules$inboundSchema: z.ZodType<
   HealthCheckCollectMethodGetRetryRules,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: HealthCheckCollectMethodGetRetryType$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -5577,7 +4547,8 @@ export const HealthCheckCollectMethodGetRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckCollectMethodGetRetryRules
 > = z.object({
-  type: HealthCheckCollectMethodGetRetryType$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -5627,7 +4598,7 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckCollectMethodGetHiddenDefaultBreakers$inboundSchema.optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => HealthCheckCollectMethodGetRetryRules$inboundSchema)
     .optional(),
@@ -5675,7 +4646,7 @@ export const HealthCheckCollectMethodGet$outboundSchema: z.ZodType<
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
   defaultBreakers:
-    HealthCheckCollectMethodGetHiddenDefaultBreakers$outboundSchema.optional(),
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => HealthCheckCollectMethodGetRetryRules$outboundSchema)
     .optional(),

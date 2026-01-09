@@ -19,8 +19,8 @@ const value: models.RunnableJobCollection = {
     enabled: false,
     run: {
       type: "collection",
-      earliest: 4246.89,
-      latest: 1357.74,
+      earliest: 3143.53,
+      latest: 995.72,
       timestampTimezone: "<value>",
       timeWarning: {},
     },
@@ -31,18 +31,24 @@ const value: models.RunnableJobCollection = {
     "<value 3>",
   ],
   collector: {
-    type: "filesystem",
+    type: "google_cloud_storage",
     conf: {
+      authType: "auto",
       outputName: "<value>",
-      path: "/Library",
+      bucket: "<value>",
+      path: "/usr/bin",
       extractors: [
         {
           key: "<key>",
           expression: "<value>",
         },
       ],
+      endpoint: "<value>",
+      disableTimeFilter: false,
       recurse: true,
       maxBatchSize: 10,
+      parquetChunkSizeMB: 5,
+      parquetChunkDownloadTimeout: 600,
     },
   },
   input: {
@@ -68,8 +74,8 @@ const value: models.RunnableJobCollection = {
     output: "<value>",
   },
   run: {
-    earliest: 8097.94,
-    latest: 2342.33,
+    earliest: 3511.81,
+    latest: 4537.69,
     timeWarning: {},
     capture: {},
   },
@@ -124,8 +130,8 @@ const value: models.RunnableJobScheduledSearch = {
     enabled: false,
     run: {
       type: "collection",
-      earliest: 2827.78,
-      latest: 2072.76,
+      earliest: 3143.53,
+      latest: 995.72,
       timestampTimezone: "<value>",
       timeWarning: {},
     },
@@ -133,7 +139,6 @@ const value: models.RunnableJobScheduledSearch = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   savedQueryId: "<id>",
 };

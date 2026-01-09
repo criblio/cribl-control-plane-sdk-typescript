@@ -7,114 +7,41 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  DataCompressionFormatOptionsPersistence,
+  DataCompressionFormatOptionsPersistence$inboundSchema,
+  DataCompressionFormatOptionsPersistence$outboundSchema,
+} from "./datacompressionformatoptionspersistence.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputSystemMetricsConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputSystemMetricsPqMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputSystemMetricsPqMode = OpenEnum<
-  typeof InputSystemMetricsPqMode
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputSystemMetricsCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputSystemMetricsCompression = OpenEnum<
-  typeof InputSystemMetricsCompression
->;
-
-export type InputSystemMetricsPqControls = {};
-
-export type InputSystemMetricsPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputSystemMetricsPqMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputSystemMetricsCompression | undefined;
-  pqControls?: InputSystemMetricsPqControls | undefined;
-};
-
-/**
- * Select level of detail for host metrics
- */
-export const InputSystemMetricsHostMode = {
-  /**
-   * Basic
-   */
-  Basic: "basic",
-  /**
-   * All
-   */
-  All: "all",
-  /**
-   * Custom
-   */
-  Custom: "custom",
-  /**
-   * Disabled
-   */
-  Disabled: "disabled",
-} as const;
-/**
- * Select level of detail for host metrics
- */
-export type InputSystemMetricsHostMode = OpenEnum<
-  typeof InputSystemMetricsHostMode
->;
+import {
+  ItemsTypeConnections,
+  ItemsTypeConnections$inboundSchema,
+  ItemsTypeConnections$Outbound,
+  ItemsTypeConnections$outboundSchema,
+} from "./itemstypeconnections.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  ModeOptionsHost,
+  ModeOptionsHost$inboundSchema,
+  ModeOptionsHost$outboundSchema,
+} from "./modeoptionshost.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  ProcessType,
+  ProcessType$inboundSchema,
+  ProcessType$Outbound,
+  ProcessType$outboundSchema,
+} from "./processtype.js";
 
 /**
  * Select the level of detail for system metrics
@@ -363,21 +290,8 @@ export type InputSystemMetricsHost = {
   /**
    * Select level of detail for host metrics
    */
-  mode?: InputSystemMetricsHostMode | undefined;
+  mode?: ModeOptionsHost | undefined;
   custom?: InputSystemMetricsCustom | undefined;
-};
-
-export type InputSystemMetricsSet = {
-  name: string;
-  filter: string;
-  includeChildren?: boolean | undefined;
-};
-
-export type InputSystemMetricsProcess = {
-  /**
-   * Configure sets to collect process metrics
-   */
-  sets?: Array<InputSystemMetricsSet> | undefined;
 };
 
 /**
@@ -441,22 +355,6 @@ export type Container = {
   detail?: boolean | undefined;
 };
 
-export type InputSystemMetricsMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export const InputSystemMetricsDataCompressionFormat = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-export type InputSystemMetricsDataCompressionFormat = OpenEnum<
-  typeof InputSystemMetricsDataCompressionFormat
->;
-
 export type InputSystemMetricsPersistence = {
   /**
    * Spool metrics to disk for Cribl Edge and Search
@@ -474,7 +372,7 @@ export type InputSystemMetricsPersistence = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: InputSystemMetricsDataCompressionFormat | undefined;
+  compress?: DataCompressionFormatOptionsPersistence | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_metrics
    */
@@ -511,202 +409,22 @@ export type InputSystemMetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputSystemMetricsConnection> | undefined;
-  pq?: InputSystemMetricsPq | undefined;
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
   /**
    * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
    */
   interval?: number | undefined;
   host?: InputSystemMetricsHost | undefined;
-  process?: InputSystemMetricsProcess | undefined;
+  process?: ProcessType | undefined;
   container?: Container | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputSystemMetricsMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   persistence?: InputSystemMetricsPersistence | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputSystemMetricsConnection$inboundSchema: z.ZodType<
-  InputSystemMetricsConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputSystemMetricsConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputSystemMetricsConnection$outboundSchema: z.ZodType<
-  InputSystemMetricsConnection$Outbound,
-  z.ZodTypeDef,
-  InputSystemMetricsConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputSystemMetricsConnectionToJSON(
-  inputSystemMetricsConnection: InputSystemMetricsConnection,
-): string {
-  return JSON.stringify(
-    InputSystemMetricsConnection$outboundSchema.parse(
-      inputSystemMetricsConnection,
-    ),
-  );
-}
-export function inputSystemMetricsConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemMetricsConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemMetricsConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemMetricsPqMode$inboundSchema: z.ZodType<
-  InputSystemMetricsPqMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSystemMetricsPqMode);
-/** @internal */
-export const InputSystemMetricsPqMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSystemMetricsPqMode
-> = openEnums.outboundSchema(InputSystemMetricsPqMode);
-
-/** @internal */
-export const InputSystemMetricsCompression$inboundSchema: z.ZodType<
-  InputSystemMetricsCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSystemMetricsCompression);
-/** @internal */
-export const InputSystemMetricsCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSystemMetricsCompression
-> = openEnums.outboundSchema(InputSystemMetricsCompression);
-
-/** @internal */
-export const InputSystemMetricsPqControls$inboundSchema: z.ZodType<
-  InputSystemMetricsPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputSystemMetricsPqControls$Outbound = {};
-
-/** @internal */
-export const InputSystemMetricsPqControls$outboundSchema: z.ZodType<
-  InputSystemMetricsPqControls$Outbound,
-  z.ZodTypeDef,
-  InputSystemMetricsPqControls
-> = z.object({});
-
-export function inputSystemMetricsPqControlsToJSON(
-  inputSystemMetricsPqControls: InputSystemMetricsPqControls,
-): string {
-  return JSON.stringify(
-    InputSystemMetricsPqControls$outboundSchema.parse(
-      inputSystemMetricsPqControls,
-    ),
-  );
-}
-export function inputSystemMetricsPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemMetricsPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemMetricsPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemMetricsPq$inboundSchema: z.ZodType<
-  InputSystemMetricsPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputSystemMetricsPqMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSystemMetricsCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSystemMetricsPqControls$inboundSchema)
-    .optional(),
-});
-/** @internal */
-export type InputSystemMetricsPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputSystemMetricsPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputSystemMetricsPq$outboundSchema: z.ZodType<
-  InputSystemMetricsPq$Outbound,
-  z.ZodTypeDef,
-  InputSystemMetricsPq
-> = z.object({
-  mode: InputSystemMetricsPqMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSystemMetricsCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSystemMetricsPqControls$outboundSchema)
-    .optional(),
-});
-
-export function inputSystemMetricsPqToJSON(
-  inputSystemMetricsPq: InputSystemMetricsPq,
-): string {
-  return JSON.stringify(
-    InputSystemMetricsPq$outboundSchema.parse(inputSystemMetricsPq),
-  );
-}
-export function inputSystemMetricsPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemMetricsPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemMetricsPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemMetricsHostMode$inboundSchema: z.ZodType<
-  InputSystemMetricsHostMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSystemMetricsHostMode);
-/** @internal */
-export const InputSystemMetricsHostMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSystemMetricsHostMode
-> = openEnums.outboundSchema(InputSystemMetricsHostMode);
 
 /** @internal */
 export const InputSystemMetricsSystemMode$inboundSchema: z.ZodType<
@@ -1070,7 +788,7 @@ export const InputSystemMetricsHost$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputSystemMetricsHostMode$inboundSchema.default("basic"),
+  mode: ModeOptionsHost$inboundSchema.default("basic"),
   custom: z.lazy(() => InputSystemMetricsCustom$inboundSchema).optional(),
 });
 /** @internal */
@@ -1085,7 +803,7 @@ export const InputSystemMetricsHost$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSystemMetricsHost
 > = z.object({
-  mode: InputSystemMetricsHostMode$outboundSchema.default("basic"),
+  mode: ModeOptionsHost$outboundSchema.default("basic"),
   custom: z.lazy(() => InputSystemMetricsCustom$outboundSchema).optional(),
 });
 
@@ -1103,90 +821,6 @@ export function inputSystemMetricsHostFromJSON(
     jsonString,
     (x) => InputSystemMetricsHost$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'InputSystemMetricsHost' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemMetricsSet$inboundSchema: z.ZodType<
-  InputSystemMetricsSet,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  filter: z.string(),
-  includeChildren: z.boolean().default(false),
-});
-/** @internal */
-export type InputSystemMetricsSet$Outbound = {
-  name: string;
-  filter: string;
-  includeChildren: boolean;
-};
-
-/** @internal */
-export const InputSystemMetricsSet$outboundSchema: z.ZodType<
-  InputSystemMetricsSet$Outbound,
-  z.ZodTypeDef,
-  InputSystemMetricsSet
-> = z.object({
-  name: z.string(),
-  filter: z.string(),
-  includeChildren: z.boolean().default(false),
-});
-
-export function inputSystemMetricsSetToJSON(
-  inputSystemMetricsSet: InputSystemMetricsSet,
-): string {
-  return JSON.stringify(
-    InputSystemMetricsSet$outboundSchema.parse(inputSystemMetricsSet),
-  );
-}
-export function inputSystemMetricsSetFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemMetricsSet, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemMetricsSet$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsSet' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemMetricsProcess$inboundSchema: z.ZodType<
-  InputSystemMetricsProcess,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sets: z.array(z.lazy(() => InputSystemMetricsSet$inboundSchema)).optional(),
-});
-/** @internal */
-export type InputSystemMetricsProcess$Outbound = {
-  sets?: Array<InputSystemMetricsSet$Outbound> | undefined;
-};
-
-/** @internal */
-export const InputSystemMetricsProcess$outboundSchema: z.ZodType<
-  InputSystemMetricsProcess$Outbound,
-  z.ZodTypeDef,
-  InputSystemMetricsProcess
-> = z.object({
-  sets: z.array(z.lazy(() => InputSystemMetricsSet$outboundSchema)).optional(),
-});
-
-export function inputSystemMetricsProcessToJSON(
-  inputSystemMetricsProcess: InputSystemMetricsProcess,
-): string {
-  return JSON.stringify(
-    InputSystemMetricsProcess$outboundSchema.parse(inputSystemMetricsProcess),
-  );
-}
-export function inputSystemMetricsProcessFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemMetricsProcess, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemMetricsProcess$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsProcess' from JSON`,
   );
 }
 
@@ -1298,63 +932,6 @@ export function containerFromJSON(
 }
 
 /** @internal */
-export const InputSystemMetricsMetadatum$inboundSchema: z.ZodType<
-  InputSystemMetricsMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputSystemMetricsMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputSystemMetricsMetadatum$outboundSchema: z.ZodType<
-  InputSystemMetricsMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputSystemMetricsMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputSystemMetricsMetadatumToJSON(
-  inputSystemMetricsMetadatum: InputSystemMetricsMetadatum,
-): string {
-  return JSON.stringify(
-    InputSystemMetricsMetadatum$outboundSchema.parse(
-      inputSystemMetricsMetadatum,
-    ),
-  );
-}
-export function inputSystemMetricsMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemMetricsMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemMetricsMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemMetricsDataCompressionFormat$inboundSchema: z.ZodType<
-  InputSystemMetricsDataCompressionFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSystemMetricsDataCompressionFormat);
-/** @internal */
-export const InputSystemMetricsDataCompressionFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSystemMetricsDataCompressionFormat
-> = openEnums.outboundSchema(InputSystemMetricsDataCompressionFormat);
-
-/** @internal */
 export const InputSystemMetricsPersistence$inboundSchema: z.ZodType<
   InputSystemMetricsPersistence,
   z.ZodTypeDef,
@@ -1364,7 +941,7 @@ export const InputSystemMetricsPersistence$inboundSchema: z.ZodType<
   timeWindow: z.string().default("10m"),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: InputSystemMetricsDataCompressionFormat$inboundSchema.default(
+  compress: DataCompressionFormatOptionsPersistence$inboundSchema.default(
     "gzip",
   ),
   destPath: z.string().default("$CRIBL_HOME/state/system_metrics"),
@@ -1389,7 +966,7 @@ export const InputSystemMetricsPersistence$outboundSchema: z.ZodType<
   timeWindow: z.string().default("10m"),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: InputSystemMetricsDataCompressionFormat$outboundSchema.default(
+  compress: DataCompressionFormatOptionsPersistence$outboundSchema.default(
     "gzip",
   ),
   destPath: z.string().default("$CRIBL_HOME/state/system_metrics"),
@@ -1428,15 +1005,13 @@ export const InputSystemMetrics$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSystemMetricsConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSystemMetricsPq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   interval: z.number().default(10),
   host: z.lazy(() => InputSystemMetricsHost$inboundSchema).optional(),
-  process: z.lazy(() => InputSystemMetricsProcess$inboundSchema).optional(),
+  process: ProcessType$inboundSchema.optional(),
   container: z.lazy(() => Container$inboundSchema).optional(),
-  metadata: z.array(z.lazy(() => InputSystemMetricsMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   persistence: z.lazy(() => InputSystemMetricsPersistence$inboundSchema)
     .optional(),
   description: z.string().optional(),
@@ -1451,13 +1026,13 @@ export type InputSystemMetrics$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputSystemMetricsConnection$Outbound> | undefined;
-  pq?: InputSystemMetricsPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   interval: number;
   host?: InputSystemMetricsHost$Outbound | undefined;
-  process?: InputSystemMetricsProcess$Outbound | undefined;
+  process?: ProcessType$Outbound | undefined;
   container?: Container$Outbound | undefined;
-  metadata?: Array<InputSystemMetricsMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   persistence?: InputSystemMetricsPersistence$Outbound | undefined;
   description?: string | undefined;
 };
@@ -1476,16 +1051,13 @@ export const InputSystemMetrics$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(
-    z.lazy(() => InputSystemMetricsConnection$outboundSchema),
-  ).optional(),
-  pq: z.lazy(() => InputSystemMetricsPq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   interval: z.number().default(10),
   host: z.lazy(() => InputSystemMetricsHost$outboundSchema).optional(),
-  process: z.lazy(() => InputSystemMetricsProcess$outboundSchema).optional(),
+  process: ProcessType$outboundSchema.optional(),
   container: z.lazy(() => Container$outboundSchema).optional(),
-  metadata: z.array(z.lazy(() => InputSystemMetricsMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   persistence: z.lazy(() => InputSystemMetricsPersistence$outboundSchema)
     .optional(),
   description: z.string().optional(),

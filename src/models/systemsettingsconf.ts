@@ -4,15 +4,25 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ApiTypeSystemSettingsConf,
+  ApiTypeSystemSettingsConf$inboundSchema,
+  ApiTypeSystemSettingsConf$Outbound,
+  ApiTypeSystemSettingsConf$outboundSchema,
+} from "./apitypesystemsettingsconf.js";
 import {
   BackupsSettingsUnion,
   BackupsSettingsUnion$inboundSchema,
   BackupsSettingsUnion$Outbound,
   BackupsSettingsUnion$outboundSchema,
 } from "./backupssettingsunion.js";
+import {
+  CustomLogoTypeSystemSettingsConf,
+  CustomLogoTypeSystemSettingsConf$inboundSchema,
+  CustomLogoTypeSystemSettingsConf$Outbound,
+  CustomLogoTypeSystemSettingsConf$outboundSchema,
+} from "./customlogotypesystemsettingsconf.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PiiSettingsUnion,
@@ -21,17 +31,47 @@ import {
   PiiSettingsUnion$outboundSchema,
 } from "./piisettingsunion.js";
 import {
+  ProxyTypeSystemSettingsConf,
+  ProxyTypeSystemSettingsConf$inboundSchema,
+  ProxyTypeSystemSettingsConf$Outbound,
+  ProxyTypeSystemSettingsConf$outboundSchema,
+} from "./proxytypesystemsettingsconf.js";
+import {
   RollbackSettingsUnion,
   RollbackSettingsUnion$inboundSchema,
   RollbackSettingsUnion$Outbound,
   RollbackSettingsUnion$outboundSchema,
 } from "./rollbacksettingsunion.js";
 import {
+  ShutdownTypeSystemSettingsConf,
+  ShutdownTypeSystemSettingsConf$inboundSchema,
+  ShutdownTypeSystemSettingsConf$Outbound,
+  ShutdownTypeSystemSettingsConf$outboundSchema,
+} from "./shutdowntypesystemsettingsconf.js";
+import {
   SniSettingsUnion,
   SniSettingsUnion$inboundSchema,
   SniSettingsUnion$Outbound,
   SniSettingsUnion$outboundSchema,
 } from "./snisettingsunion.js";
+import {
+  SocketsTypeSystemSettingsConf,
+  SocketsTypeSystemSettingsConf$inboundSchema,
+  SocketsTypeSystemSettingsConf$Outbound,
+  SocketsTypeSystemSettingsConf$outboundSchema,
+} from "./socketstypesystemsettingsconf.js";
+import {
+  SupportTypeSystemSettingsConf,
+  SupportTypeSystemSettingsConf$inboundSchema,
+  SupportTypeSystemSettingsConf$Outbound,
+  SupportTypeSystemSettingsConf$outboundSchema,
+} from "./supporttypesystemsettingsconf.js";
+import {
+  SystemTypeSystemSettingsConf,
+  SystemTypeSystemSettingsConf$inboundSchema,
+  SystemTypeSystemSettingsConf$Outbound,
+  SystemTypeSystemSettingsConf$outboundSchema,
+} from "./systemtypesystemsettingsconf.js";
 import {
   TlsSettingsUnion,
   TlsSettingsUnion$inboundSchema,
@@ -50,538 +90,30 @@ import {
   UpgradeSettings$Outbound,
   UpgradeSettings$outboundSchema,
 } from "./upgradesettings.js";
-
-export type Ssl = {
-  caPath?: string | undefined;
-  certPath: string;
-  disabled: boolean;
-  passphrase: string;
-  privKeyPath: string;
-};
-
-export type Api = {
-  baseUrl?: string | undefined;
-  disableApiCache?: boolean | undefined;
-  disabled: boolean;
-  headers?: { [k: string]: string } | undefined;
-  host: string;
-  idleSessionTTL?: number | undefined;
-  listenOnPort?: boolean | undefined;
-  loginRateLimit?: string | undefined;
-  port: number;
-  protocol?: string | undefined;
-  scripts?: boolean | undefined;
-  sensitiveFields?: Array<string> | undefined;
-  ssl?: Ssl | undefined;
-  ssoRateLimit?: string | undefined;
-  workerRemoteAccess?: boolean | undefined;
-};
-
-export type CustomLogo = {
-  enabled: boolean;
-  logoDescription?: string | undefined;
-  logoImage?: string | undefined;
-};
-
-export type Proxy = {
-  useEnvVars: boolean;
-};
-
-export type Shutdown = {
-  drainTimeout: number;
-};
-
-export type Sockets = {
-  directory?: string | undefined;
-};
-
-export type FeatureFlagOverride = {
-  disabled: boolean;
-  flagId: string;
-};
-
-export type Support = {
-  featureFlagOverrides?: Array<FeatureFlagOverride> | undefined;
-};
-
-export const Upgrade = {
-  False: "false",
-  Api: "api",
-} as const;
-export type Upgrade = OpenEnum<typeof Upgrade>;
-
-export type SystemSettingsConfSystem = {
-  intercom: boolean;
-  upgrade: Upgrade;
-};
-
-export type SystemSettingsConfWorkers = {
-  count: number;
-  enableHeapSnapshots?: boolean | undefined;
-  loadThrottlePerc?: number | undefined;
-  memory: number;
-  minimum: number;
-  startupMaxConns?: number | undefined;
-  startupThrottleTimeout?: number | undefined;
-  v8SingleThread?: boolean | undefined;
-};
+import {
+  WorkersTypeSystemSettingsConf,
+  WorkersTypeSystemSettingsConf$inboundSchema,
+  WorkersTypeSystemSettingsConf$Outbound,
+  WorkersTypeSystemSettingsConf$outboundSchema,
+} from "./workerstypesystemsettingsconf.js";
 
 export type SystemSettingsConf = {
-  api: Api;
+  api: ApiTypeSystemSettingsConf;
   backups: BackupsSettingsUnion;
-  customLogo?: CustomLogo | undefined;
+  customLogo?: CustomLogoTypeSystemSettingsConf | undefined;
   pii: PiiSettingsUnion;
-  proxy: Proxy;
+  proxy: ProxyTypeSystemSettingsConf;
   rollback: RollbackSettingsUnion;
-  shutdown: Shutdown;
+  shutdown: ShutdownTypeSystemSettingsConf;
   sni: SniSettingsUnion;
-  sockets?: Sockets | undefined;
-  support?: Support | undefined;
-  system: SystemSettingsConfSystem;
+  sockets?: SocketsTypeSystemSettingsConf | undefined;
+  support?: SupportTypeSystemSettingsConf | undefined;
+  system: SystemTypeSystemSettingsConf;
   tls: TlsSettingsUnion;
   upgradeGroupSettings: UpgradeGroupSettingsUnion;
   upgradeSettings: UpgradeSettings;
-  workers: SystemSettingsConfWorkers;
+  workers: WorkersTypeSystemSettingsConf;
 };
-
-/** @internal */
-export const Ssl$inboundSchema: z.ZodType<Ssl, z.ZodTypeDef, unknown> = z
-  .object({
-    caPath: z.string().optional(),
-    certPath: z.string(),
-    disabled: z.boolean(),
-    passphrase: z.string(),
-    privKeyPath: z.string(),
-  });
-/** @internal */
-export type Ssl$Outbound = {
-  caPath?: string | undefined;
-  certPath: string;
-  disabled: boolean;
-  passphrase: string;
-  privKeyPath: string;
-};
-
-/** @internal */
-export const Ssl$outboundSchema: z.ZodType<Ssl$Outbound, z.ZodTypeDef, Ssl> = z
-  .object({
-    caPath: z.string().optional(),
-    certPath: z.string(),
-    disabled: z.boolean(),
-    passphrase: z.string(),
-    privKeyPath: z.string(),
-  });
-
-export function sslToJSON(ssl: Ssl): string {
-  return JSON.stringify(Ssl$outboundSchema.parse(ssl));
-}
-export function sslFromJSON(
-  jsonString: string,
-): SafeParseResult<Ssl, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Ssl$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Ssl' from JSON`,
-  );
-}
-
-/** @internal */
-export const Api$inboundSchema: z.ZodType<Api, z.ZodTypeDef, unknown> = z
-  .object({
-    baseUrl: z.string().optional(),
-    disableApiCache: z.boolean().optional(),
-    disabled: z.boolean(),
-    headers: z.record(z.string()).optional(),
-    host: z.string(),
-    idleSessionTTL: z.number().optional(),
-    listenOnPort: z.boolean().optional(),
-    loginRateLimit: z.string().optional(),
-    port: z.number(),
-    protocol: z.string().optional(),
-    scripts: z.boolean().optional(),
-    sensitiveFields: z.array(z.string()).optional(),
-    ssl: z.lazy(() => Ssl$inboundSchema).optional(),
-    ssoRateLimit: z.string().optional(),
-    workerRemoteAccess: z.boolean().optional(),
-  });
-/** @internal */
-export type Api$Outbound = {
-  baseUrl?: string | undefined;
-  disableApiCache?: boolean | undefined;
-  disabled: boolean;
-  headers?: { [k: string]: string } | undefined;
-  host: string;
-  idleSessionTTL?: number | undefined;
-  listenOnPort?: boolean | undefined;
-  loginRateLimit?: string | undefined;
-  port: number;
-  protocol?: string | undefined;
-  scripts?: boolean | undefined;
-  sensitiveFields?: Array<string> | undefined;
-  ssl?: Ssl$Outbound | undefined;
-  ssoRateLimit?: string | undefined;
-  workerRemoteAccess?: boolean | undefined;
-};
-
-/** @internal */
-export const Api$outboundSchema: z.ZodType<Api$Outbound, z.ZodTypeDef, Api> = z
-  .object({
-    baseUrl: z.string().optional(),
-    disableApiCache: z.boolean().optional(),
-    disabled: z.boolean(),
-    headers: z.record(z.string()).optional(),
-    host: z.string(),
-    idleSessionTTL: z.number().optional(),
-    listenOnPort: z.boolean().optional(),
-    loginRateLimit: z.string().optional(),
-    port: z.number(),
-    protocol: z.string().optional(),
-    scripts: z.boolean().optional(),
-    sensitiveFields: z.array(z.string()).optional(),
-    ssl: z.lazy(() => Ssl$outboundSchema).optional(),
-    ssoRateLimit: z.string().optional(),
-    workerRemoteAccess: z.boolean().optional(),
-  });
-
-export function apiToJSON(api: Api): string {
-  return JSON.stringify(Api$outboundSchema.parse(api));
-}
-export function apiFromJSON(
-  jsonString: string,
-): SafeParseResult<Api, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Api$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Api' from JSON`,
-  );
-}
-
-/** @internal */
-export const CustomLogo$inboundSchema: z.ZodType<
-  CustomLogo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.boolean(),
-  logoDescription: z.string().optional(),
-  logoImage: z.string().optional(),
-});
-/** @internal */
-export type CustomLogo$Outbound = {
-  enabled: boolean;
-  logoDescription?: string | undefined;
-  logoImage?: string | undefined;
-};
-
-/** @internal */
-export const CustomLogo$outboundSchema: z.ZodType<
-  CustomLogo$Outbound,
-  z.ZodTypeDef,
-  CustomLogo
-> = z.object({
-  enabled: z.boolean(),
-  logoDescription: z.string().optional(),
-  logoImage: z.string().optional(),
-});
-
-export function customLogoToJSON(customLogo: CustomLogo): string {
-  return JSON.stringify(CustomLogo$outboundSchema.parse(customLogo));
-}
-export function customLogoFromJSON(
-  jsonString: string,
-): SafeParseResult<CustomLogo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CustomLogo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CustomLogo' from JSON`,
-  );
-}
-
-/** @internal */
-export const Proxy$inboundSchema: z.ZodType<Proxy, z.ZodTypeDef, unknown> = z
-  .object({
-    useEnvVars: z.boolean(),
-  });
-/** @internal */
-export type Proxy$Outbound = {
-  useEnvVars: boolean;
-};
-
-/** @internal */
-export const Proxy$outboundSchema: z.ZodType<
-  Proxy$Outbound,
-  z.ZodTypeDef,
-  Proxy
-> = z.object({
-  useEnvVars: z.boolean(),
-});
-
-export function proxyToJSON(proxy: Proxy): string {
-  return JSON.stringify(Proxy$outboundSchema.parse(proxy));
-}
-export function proxyFromJSON(
-  jsonString: string,
-): SafeParseResult<Proxy, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Proxy$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Proxy' from JSON`,
-  );
-}
-
-/** @internal */
-export const Shutdown$inboundSchema: z.ZodType<
-  Shutdown,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  drainTimeout: z.number(),
-});
-/** @internal */
-export type Shutdown$Outbound = {
-  drainTimeout: number;
-};
-
-/** @internal */
-export const Shutdown$outboundSchema: z.ZodType<
-  Shutdown$Outbound,
-  z.ZodTypeDef,
-  Shutdown
-> = z.object({
-  drainTimeout: z.number(),
-});
-
-export function shutdownToJSON(shutdown: Shutdown): string {
-  return JSON.stringify(Shutdown$outboundSchema.parse(shutdown));
-}
-export function shutdownFromJSON(
-  jsonString: string,
-): SafeParseResult<Shutdown, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Shutdown$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Shutdown' from JSON`,
-  );
-}
-
-/** @internal */
-export const Sockets$inboundSchema: z.ZodType<Sockets, z.ZodTypeDef, unknown> =
-  z.object({
-    directory: z.string().optional(),
-  });
-/** @internal */
-export type Sockets$Outbound = {
-  directory?: string | undefined;
-};
-
-/** @internal */
-export const Sockets$outboundSchema: z.ZodType<
-  Sockets$Outbound,
-  z.ZodTypeDef,
-  Sockets
-> = z.object({
-  directory: z.string().optional(),
-});
-
-export function socketsToJSON(sockets: Sockets): string {
-  return JSON.stringify(Sockets$outboundSchema.parse(sockets));
-}
-export function socketsFromJSON(
-  jsonString: string,
-): SafeParseResult<Sockets, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Sockets$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Sockets' from JSON`,
-  );
-}
-
-/** @internal */
-export const FeatureFlagOverride$inboundSchema: z.ZodType<
-  FeatureFlagOverride,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean(),
-  flagId: z.string(),
-});
-/** @internal */
-export type FeatureFlagOverride$Outbound = {
-  disabled: boolean;
-  flagId: string;
-};
-
-/** @internal */
-export const FeatureFlagOverride$outboundSchema: z.ZodType<
-  FeatureFlagOverride$Outbound,
-  z.ZodTypeDef,
-  FeatureFlagOverride
-> = z.object({
-  disabled: z.boolean(),
-  flagId: z.string(),
-});
-
-export function featureFlagOverrideToJSON(
-  featureFlagOverride: FeatureFlagOverride,
-): string {
-  return JSON.stringify(
-    FeatureFlagOverride$outboundSchema.parse(featureFlagOverride),
-  );
-}
-export function featureFlagOverrideFromJSON(
-  jsonString: string,
-): SafeParseResult<FeatureFlagOverride, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FeatureFlagOverride$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FeatureFlagOverride' from JSON`,
-  );
-}
-
-/** @internal */
-export const Support$inboundSchema: z.ZodType<Support, z.ZodTypeDef, unknown> =
-  z.object({
-    featureFlagOverrides: z.array(
-      z.lazy(() => FeatureFlagOverride$inboundSchema),
-    ).optional(),
-  });
-/** @internal */
-export type Support$Outbound = {
-  featureFlagOverrides?: Array<FeatureFlagOverride$Outbound> | undefined;
-};
-
-/** @internal */
-export const Support$outboundSchema: z.ZodType<
-  Support$Outbound,
-  z.ZodTypeDef,
-  Support
-> = z.object({
-  featureFlagOverrides: z.array(
-    z.lazy(() => FeatureFlagOverride$outboundSchema),
-  ).optional(),
-});
-
-export function supportToJSON(support: Support): string {
-  return JSON.stringify(Support$outboundSchema.parse(support));
-}
-export function supportFromJSON(
-  jsonString: string,
-): SafeParseResult<Support, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Support$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Support' from JSON`,
-  );
-}
-
-/** @internal */
-export const Upgrade$inboundSchema: z.ZodType<Upgrade, z.ZodTypeDef, unknown> =
-  openEnums.inboundSchema(Upgrade);
-/** @internal */
-export const Upgrade$outboundSchema: z.ZodType<string, z.ZodTypeDef, Upgrade> =
-  openEnums.outboundSchema(Upgrade);
-
-/** @internal */
-export const SystemSettingsConfSystem$inboundSchema: z.ZodType<
-  SystemSettingsConfSystem,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  intercom: z.boolean(),
-  upgrade: Upgrade$inboundSchema,
-});
-/** @internal */
-export type SystemSettingsConfSystem$Outbound = {
-  intercom: boolean;
-  upgrade: string;
-};
-
-/** @internal */
-export const SystemSettingsConfSystem$outboundSchema: z.ZodType<
-  SystemSettingsConfSystem$Outbound,
-  z.ZodTypeDef,
-  SystemSettingsConfSystem
-> = z.object({
-  intercom: z.boolean(),
-  upgrade: Upgrade$outboundSchema,
-});
-
-export function systemSettingsConfSystemToJSON(
-  systemSettingsConfSystem: SystemSettingsConfSystem,
-): string {
-  return JSON.stringify(
-    SystemSettingsConfSystem$outboundSchema.parse(systemSettingsConfSystem),
-  );
-}
-export function systemSettingsConfSystemFromJSON(
-  jsonString: string,
-): SafeParseResult<SystemSettingsConfSystem, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SystemSettingsConfSystem$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SystemSettingsConfSystem' from JSON`,
-  );
-}
-
-/** @internal */
-export const SystemSettingsConfWorkers$inboundSchema: z.ZodType<
-  SystemSettingsConfWorkers,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number(),
-  enableHeapSnapshots: z.boolean().optional(),
-  loadThrottlePerc: z.number().optional(),
-  memory: z.number(),
-  minimum: z.number(),
-  startupMaxConns: z.number().optional(),
-  startupThrottleTimeout: z.number().optional(),
-  v8SingleThread: z.boolean().optional(),
-});
-/** @internal */
-export type SystemSettingsConfWorkers$Outbound = {
-  count: number;
-  enableHeapSnapshots?: boolean | undefined;
-  loadThrottlePerc?: number | undefined;
-  memory: number;
-  minimum: number;
-  startupMaxConns?: number | undefined;
-  startupThrottleTimeout?: number | undefined;
-  v8SingleThread?: boolean | undefined;
-};
-
-/** @internal */
-export const SystemSettingsConfWorkers$outboundSchema: z.ZodType<
-  SystemSettingsConfWorkers$Outbound,
-  z.ZodTypeDef,
-  SystemSettingsConfWorkers
-> = z.object({
-  count: z.number(),
-  enableHeapSnapshots: z.boolean().optional(),
-  loadThrottlePerc: z.number().optional(),
-  memory: z.number(),
-  minimum: z.number(),
-  startupMaxConns: z.number().optional(),
-  startupThrottleTimeout: z.number().optional(),
-  v8SingleThread: z.boolean().optional(),
-});
-
-export function systemSettingsConfWorkersToJSON(
-  systemSettingsConfWorkers: SystemSettingsConfWorkers,
-): string {
-  return JSON.stringify(
-    SystemSettingsConfWorkers$outboundSchema.parse(systemSettingsConfWorkers),
-  );
-}
-export function systemSettingsConfWorkersFromJSON(
-  jsonString: string,
-): SafeParseResult<SystemSettingsConfWorkers, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SystemSettingsConfWorkers$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SystemSettingsConfWorkers' from JSON`,
-  );
-}
 
 /** @internal */
 export const SystemSettingsConf$inboundSchema: z.ZodType<
@@ -589,39 +121,39 @@ export const SystemSettingsConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  api: z.lazy(() => Api$inboundSchema),
+  api: ApiTypeSystemSettingsConf$inboundSchema,
   backups: BackupsSettingsUnion$inboundSchema,
-  customLogo: z.lazy(() => CustomLogo$inboundSchema).optional(),
+  customLogo: CustomLogoTypeSystemSettingsConf$inboundSchema.optional(),
   pii: PiiSettingsUnion$inboundSchema,
-  proxy: z.lazy(() => Proxy$inboundSchema),
+  proxy: ProxyTypeSystemSettingsConf$inboundSchema,
   rollback: RollbackSettingsUnion$inboundSchema,
-  shutdown: z.lazy(() => Shutdown$inboundSchema),
+  shutdown: ShutdownTypeSystemSettingsConf$inboundSchema,
   sni: SniSettingsUnion$inboundSchema,
-  sockets: z.lazy(() => Sockets$inboundSchema).optional(),
-  support: z.lazy(() => Support$inboundSchema).optional(),
-  system: z.lazy(() => SystemSettingsConfSystem$inboundSchema),
+  sockets: SocketsTypeSystemSettingsConf$inboundSchema.optional(),
+  support: SupportTypeSystemSettingsConf$inboundSchema.optional(),
+  system: SystemTypeSystemSettingsConf$inboundSchema,
   tls: TlsSettingsUnion$inboundSchema,
   upgradeGroupSettings: UpgradeGroupSettingsUnion$inboundSchema,
   upgradeSettings: UpgradeSettings$inboundSchema,
-  workers: z.lazy(() => SystemSettingsConfWorkers$inboundSchema),
+  workers: WorkersTypeSystemSettingsConf$inboundSchema,
 });
 /** @internal */
 export type SystemSettingsConf$Outbound = {
-  api: Api$Outbound;
+  api: ApiTypeSystemSettingsConf$Outbound;
   backups: BackupsSettingsUnion$Outbound;
-  customLogo?: CustomLogo$Outbound | undefined;
+  customLogo?: CustomLogoTypeSystemSettingsConf$Outbound | undefined;
   pii: PiiSettingsUnion$Outbound;
-  proxy: Proxy$Outbound;
+  proxy: ProxyTypeSystemSettingsConf$Outbound;
   rollback: RollbackSettingsUnion$Outbound;
-  shutdown: Shutdown$Outbound;
+  shutdown: ShutdownTypeSystemSettingsConf$Outbound;
   sni: SniSettingsUnion$Outbound;
-  sockets?: Sockets$Outbound | undefined;
-  support?: Support$Outbound | undefined;
-  system: SystemSettingsConfSystem$Outbound;
+  sockets?: SocketsTypeSystemSettingsConf$Outbound | undefined;
+  support?: SupportTypeSystemSettingsConf$Outbound | undefined;
+  system: SystemTypeSystemSettingsConf$Outbound;
   tls: TlsSettingsUnion$Outbound;
   upgradeGroupSettings: UpgradeGroupSettingsUnion$Outbound;
   upgradeSettings: UpgradeSettings$Outbound;
-  workers: SystemSettingsConfWorkers$Outbound;
+  workers: WorkersTypeSystemSettingsConf$Outbound;
 };
 
 /** @internal */
@@ -630,21 +162,21 @@ export const SystemSettingsConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SystemSettingsConf
 > = z.object({
-  api: z.lazy(() => Api$outboundSchema),
+  api: ApiTypeSystemSettingsConf$outboundSchema,
   backups: BackupsSettingsUnion$outboundSchema,
-  customLogo: z.lazy(() => CustomLogo$outboundSchema).optional(),
+  customLogo: CustomLogoTypeSystemSettingsConf$outboundSchema.optional(),
   pii: PiiSettingsUnion$outboundSchema,
-  proxy: z.lazy(() => Proxy$outboundSchema),
+  proxy: ProxyTypeSystemSettingsConf$outboundSchema,
   rollback: RollbackSettingsUnion$outboundSchema,
-  shutdown: z.lazy(() => Shutdown$outboundSchema),
+  shutdown: ShutdownTypeSystemSettingsConf$outboundSchema,
   sni: SniSettingsUnion$outboundSchema,
-  sockets: z.lazy(() => Sockets$outboundSchema).optional(),
-  support: z.lazy(() => Support$outboundSchema).optional(),
-  system: z.lazy(() => SystemSettingsConfSystem$outboundSchema),
+  sockets: SocketsTypeSystemSettingsConf$outboundSchema.optional(),
+  support: SupportTypeSystemSettingsConf$outboundSchema.optional(),
+  system: SystemTypeSystemSettingsConf$outboundSchema,
   tls: TlsSettingsUnion$outboundSchema,
   upgradeGroupSettings: UpgradeGroupSettingsUnion$outboundSchema,
   upgradeSettings: UpgradeSettings$outboundSchema,
-  workers: z.lazy(() => SystemSettingsConfWorkers$outboundSchema),
+  workers: WorkersTypeSystemSettingsConf$outboundSchema,
 });
 
 export function systemSettingsConfToJSON(

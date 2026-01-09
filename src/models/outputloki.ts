@@ -7,30 +7,61 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Format to use when sending logs to Loki (Protobuf or JSON)
- */
-export const OutputLokiMessageFormat = {
-  /**
-   * Protobuf
-   */
-  Protobuf: "protobuf",
-  /**
-   * JSON
-   */
-  Json: "json",
-} as const;
-/**
- * Format to use when sending logs to Loki (Protobuf or JSON)
- */
-export type OutputLokiMessageFormat = OpenEnum<typeof OutputLokiMessageFormat>;
-
-export type OutputLokiLabel = {
-  name?: string | undefined;
-  value: string;
-};
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  ItemsTypeExtraHttpHeaders,
+  ItemsTypeExtraHttpHeaders$inboundSchema,
+  ItemsTypeExtraHttpHeaders$Outbound,
+  ItemsTypeExtraHttpHeaders$outboundSchema,
+} from "./itemstypeextrahttpheaders.js";
+import {
+  ItemsTypeLabels,
+  ItemsTypeLabels$inboundSchema,
+  ItemsTypeLabels$Outbound,
+  ItemsTypeLabels$outboundSchema,
+} from "./itemstypelabels.js";
+import {
+  ItemsTypeResponseRetrySettings,
+  ItemsTypeResponseRetrySettings$inboundSchema,
+  ItemsTypeResponseRetrySettings$Outbound,
+  ItemsTypeResponseRetrySettings$outboundSchema,
+} from "./itemstyperesponseretrysettings.js";
+import {
+  MessageFormatOptions,
+  MessageFormatOptions$inboundSchema,
+  MessageFormatOptions$outboundSchema,
+} from "./messageformatoptions.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
 export const OutputLokiAuthenticationType = {
   /**
@@ -56,154 +87,6 @@ export const OutputLokiAuthenticationType = {
 } as const;
 export type OutputLokiAuthenticationType = OpenEnum<
   typeof OutputLokiAuthenticationType
->;
-
-export type OutputLokiExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputLokiFailedRequestLoggingMode = {
-  /**
-   * Payload
-   */
-  Payload: "payload",
-  /**
-   * Payload + Headers
-   */
-  PayloadAndHeaders: "payloadAndHeaders",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputLokiFailedRequestLoggingMode = OpenEnum<
-  typeof OutputLokiFailedRequestLoggingMode
->;
-
-export type OutputLokiResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputLokiTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputLokiBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputLokiBackpressureBehavior = OpenEnum<
-  typeof OutputLokiBackpressureBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputLokiMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputLokiMode = OpenEnum<typeof OutputLokiMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputLokiCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputLokiCompression = OpenEnum<typeof OutputLokiCompression>;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputLokiQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputLokiQueueFullBehavior = OpenEnum<
-  typeof OutputLokiQueueFullBehavior
 >;
 
 export type OutputLokiPqControls = {};
@@ -241,11 +124,11 @@ export type OutputLoki = {
   /**
    * Format to use when sending logs to Loki (Protobuf or JSON)
    */
-  messageFormat?: OutputLokiMessageFormat | undefined;
+  messageFormat?: MessageFormatOptions | undefined;
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<OutputLokiLabel> | undefined;
+  labels?: Array<ItemsTypeLabels> | undefined;
   authType?: OutputLokiAuthenticationType | undefined;
   /**
    * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
@@ -278,7 +161,7 @@ export type OutputLoki = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputLokiExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -286,7 +169,7 @@ export type OutputLoki = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: OutputLokiFailedRequestLoggingMode | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -294,8 +177,8 @@ export type OutputLoki = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<OutputLokiResponseRetrySetting> | undefined;
-  timeoutRetrySettings?: OutputLokiTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -307,7 +190,7 @@ export type OutputLoki = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputLokiBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -348,7 +231,7 @@ export type OutputLoki = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputLokiMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -372,66 +255,13 @@ export type OutputLoki = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputLokiCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputLokiQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputLokiPqControls | undefined;
 };
-
-/** @internal */
-export const OutputLokiMessageFormat$inboundSchema: z.ZodType<
-  OutputLokiMessageFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputLokiMessageFormat);
-/** @internal */
-export const OutputLokiMessageFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputLokiMessageFormat
-> = openEnums.outboundSchema(OutputLokiMessageFormat);
-
-/** @internal */
-export const OutputLokiLabel$inboundSchema: z.ZodType<
-  OutputLokiLabel,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().default(""),
-  value: z.string(),
-});
-/** @internal */
-export type OutputLokiLabel$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputLokiLabel$outboundSchema: z.ZodType<
-  OutputLokiLabel$Outbound,
-  z.ZodTypeDef,
-  OutputLokiLabel
-> = z.object({
-  name: z.string().default(""),
-  value: z.string(),
-});
-
-export function outputLokiLabelToJSON(
-  outputLokiLabel: OutputLokiLabel,
-): string {
-  return JSON.stringify(OutputLokiLabel$outboundSchema.parse(outputLokiLabel));
-}
-export function outputLokiLabelFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputLokiLabel, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputLokiLabel$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputLokiLabel' from JSON`,
-  );
-}
 
 /** @internal */
 export const OutputLokiAuthenticationType$inboundSchema: z.ZodType<
@@ -445,213 +275,6 @@ export const OutputLokiAuthenticationType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputLokiAuthenticationType
 > = openEnums.outboundSchema(OutputLokiAuthenticationType);
-
-/** @internal */
-export const OutputLokiExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputLokiExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputLokiExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputLokiExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputLokiExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputLokiExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function outputLokiExtraHttpHeaderToJSON(
-  outputLokiExtraHttpHeader: OutputLokiExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputLokiExtraHttpHeader$outboundSchema.parse(outputLokiExtraHttpHeader),
-  );
-}
-export function outputLokiExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputLokiExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputLokiExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputLokiExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputLokiFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputLokiFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputLokiFailedRequestLoggingMode);
-/** @internal */
-export const OutputLokiFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputLokiFailedRequestLoggingMode
-> = openEnums.outboundSchema(OutputLokiFailedRequestLoggingMode);
-
-/** @internal */
-export const OutputLokiResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputLokiResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputLokiResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputLokiResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputLokiResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputLokiResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputLokiResponseRetrySettingToJSON(
-  outputLokiResponseRetrySetting: OutputLokiResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputLokiResponseRetrySetting$outboundSchema.parse(
-      outputLokiResponseRetrySetting,
-    ),
-  );
-}
-export function outputLokiResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputLokiResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputLokiResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputLokiResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputLokiTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputLokiTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputLokiTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputLokiTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputLokiTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputLokiTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputLokiTimeoutRetrySettingsToJSON(
-  outputLokiTimeoutRetrySettings: OutputLokiTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputLokiTimeoutRetrySettings$outboundSchema.parse(
-      outputLokiTimeoutRetrySettings,
-    ),
-  );
-}
-export function outputLokiTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputLokiTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputLokiTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputLokiTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputLokiBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputLokiBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputLokiBackpressureBehavior);
-/** @internal */
-export const OutputLokiBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputLokiBackpressureBehavior
-> = openEnums.outboundSchema(OutputLokiBackpressureBehavior);
-
-/** @internal */
-export const OutputLokiMode$inboundSchema: z.ZodType<
-  OutputLokiMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputLokiMode);
-/** @internal */
-export const OutputLokiMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputLokiMode
-> = openEnums.outboundSchema(OutputLokiMode);
-
-/** @internal */
-export const OutputLokiCompression$inboundSchema: z.ZodType<
-  OutputLokiCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputLokiCompression);
-/** @internal */
-export const OutputLokiCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputLokiCompression
-> = openEnums.outboundSchema(OutputLokiCompression);
-
-/** @internal */
-export const OutputLokiQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputLokiQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputLokiQueueFullBehavior);
-/** @internal */
-export const OutputLokiQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputLokiQueueFullBehavior
-> = openEnums.outboundSchema(OutputLokiQueueFullBehavior);
 
 /** @internal */
 export const OutputLokiPqControls$inboundSchema: z.ZodType<
@@ -700,8 +323,8 @@ export const OutputLoki$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
   message: z.string().optional(),
-  messageFormat: OutputLokiMessageFormat$inboundSchema.default("protobuf"),
-  labels: z.array(z.lazy(() => OutputLokiLabel$inboundSchema)).optional(),
+  messageFormat: MessageFormatOptions$inboundSchema.default("protobuf"),
+  labels: z.array(ItemsTypeLabels$inboundSchema).optional(),
   authType: OutputLokiAuthenticationType$inboundSchema.default("none"),
   concurrency: z.number().default(1),
   maxPayloadSizeKB: z.number().default(4096),
@@ -709,22 +332,17 @@ export const OutputLoki$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(15),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputLokiExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputLokiFailedRequestLoggingMode$inboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputLokiResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputLokiTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
   enableDynamicHeaders: z.boolean().default(false),
-  onBackpressure: OutputLokiBackpressureBehavior$inboundSchema.default("block"),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   compress: z.boolean().default(true),
@@ -735,14 +353,14 @@ export const OutputLoki$inboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputLokiMode$inboundSchema.default("error"),
+  pqMode: ModeOptions$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputLokiCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputLokiQueueFullBehavior$inboundSchema.default("block"),
+  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputLokiPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -756,7 +374,7 @@ export type OutputLoki$Outbound = {
   url: string;
   message?: string | undefined;
   messageFormat: string;
-  labels?: Array<OutputLokiLabel$Outbound> | undefined;
+  labels?: Array<ItemsTypeLabels$Outbound> | undefined;
   authType: string;
   concurrency: number;
   maxPayloadSizeKB: number;
@@ -764,14 +382,14 @@ export type OutputLoki$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputLokiExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<OutputLokiResponseRetrySetting$Outbound>
+    | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
-  timeoutRetrySettings?: OutputLokiTimeoutRetrySettings$Outbound | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   enableDynamicHeaders: boolean;
   onBackpressure: string;
@@ -810,8 +428,8 @@ export const OutputLoki$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
   message: z.string().optional(),
-  messageFormat: OutputLokiMessageFormat$outboundSchema.default("protobuf"),
-  labels: z.array(z.lazy(() => OutputLokiLabel$outboundSchema)).optional(),
+  messageFormat: MessageFormatOptions$outboundSchema.default("protobuf"),
+  labels: z.array(ItemsTypeLabels$outboundSchema).optional(),
   authType: OutputLokiAuthenticationType$outboundSchema.default("none"),
   concurrency: z.number().default(1),
   maxPayloadSizeKB: z.number().default(4096),
@@ -819,24 +437,18 @@ export const OutputLoki$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(15),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputLokiExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputLokiFailedRequestLoggingMode$outboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputLokiResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputLokiTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
   enableDynamicHeaders: z.boolean().default(false),
-  onBackpressure: OutputLokiBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   compress: z.boolean().default(true),
@@ -847,14 +459,14 @@ export const OutputLoki$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputLokiMode$outboundSchema.default("error"),
+  pqMode: ModeOptions$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputLokiCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputLokiQueueFullBehavior$outboundSchema.default("block"),
+  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
   pqControls: z.lazy(() => OutputLokiPqControls$outboundSchema).optional(),
 });
 

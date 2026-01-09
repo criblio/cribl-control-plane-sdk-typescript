@@ -4,202 +4,70 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationTypeOptionsPrometheusAuth,
+  AuthenticationTypeOptionsPrometheusAuth$inboundSchema,
+  AuthenticationTypeOptionsPrometheusAuth$outboundSchema,
+} from "./authenticationtypeoptionsprometheusauth.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type OutputPrometheusExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputPrometheusFailedRequestLoggingMode = {
-  /**
-   * Payload
-   */
-  Payload: "payload",
-  /**
-   * Payload + Headers
-   */
-  PayloadAndHeaders: "payloadAndHeaders",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputPrometheusFailedRequestLoggingMode = OpenEnum<
-  typeof OutputPrometheusFailedRequestLoggingMode
->;
-
-export type OutputPrometheusResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputPrometheusTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputPrometheusBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputPrometheusBackpressureBehavior = OpenEnum<
-  typeof OutputPrometheusBackpressureBehavior
->;
-
-/**
- * Remote Write authentication type
- */
-export const OutputPrometheusAuthenticationType = {
-  None: "none",
-  Basic: "basic",
-  CredentialsSecret: "credentialsSecret",
-  Token: "token",
-  TextSecret: "textSecret",
-  Oauth: "oauth",
-} as const;
-/**
- * Remote Write authentication type
- */
-export type OutputPrometheusAuthenticationType = OpenEnum<
-  typeof OutputPrometheusAuthenticationType
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputPrometheusMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputPrometheusMode = OpenEnum<typeof OutputPrometheusMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputPrometheusCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputPrometheusCompression = OpenEnum<
-  typeof OutputPrometheusCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputPrometheusQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputPrometheusQueueFullBehavior = OpenEnum<
-  typeof OutputPrometheusQueueFullBehavior
->;
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  ItemsTypeExtraHttpHeaders,
+  ItemsTypeExtraHttpHeaders$inboundSchema,
+  ItemsTypeExtraHttpHeaders$Outbound,
+  ItemsTypeExtraHttpHeaders$outboundSchema,
+} from "./itemstypeextrahttpheaders.js";
+import {
+  ItemsTypeOauthHeaders,
+  ItemsTypeOauthHeaders$inboundSchema,
+  ItemsTypeOauthHeaders$Outbound,
+  ItemsTypeOauthHeaders$outboundSchema,
+} from "./itemstypeoauthheaders.js";
+import {
+  ItemsTypeOauthParams,
+  ItemsTypeOauthParams$inboundSchema,
+  ItemsTypeOauthParams$Outbound,
+  ItemsTypeOauthParams$outboundSchema,
+} from "./itemstypeoauthparams.js";
+import {
+  ItemsTypeResponseRetrySettings,
+  ItemsTypeResponseRetrySettings$inboundSchema,
+  ItemsTypeResponseRetrySettings$Outbound,
+  ItemsTypeResponseRetrySettings$outboundSchema,
+} from "./itemstyperesponseretrysettings.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
 export type OutputPrometheusPqControls = {};
-
-export type OutputPrometheusOauthParam = {
-  /**
-   * OAuth parameter name
-   */
-  name: string;
-  /**
-   * OAuth parameter value
-   */
-  value: string;
-};
-
-export type OutputPrometheusOauthHeader = {
-  /**
-   * OAuth header name
-   */
-  name: string;
-  /**
-   * OAuth header value
-   */
-  value: string;
-};
 
 export type OutputPrometheus = {
   /**
@@ -266,7 +134,7 @@ export type OutputPrometheus = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputPrometheusExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -274,9 +142,7 @@ export type OutputPrometheus = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputPrometheusFailedRequestLoggingMode
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -284,10 +150,8 @@ export type OutputPrometheus = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputPrometheusResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?: OutputPrometheusTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -295,11 +159,11 @@ export type OutputPrometheus = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputPrometheusBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   /**
    * Remote Write authentication type
    */
-  authType?: OutputPrometheusAuthenticationType | undefined;
+  authType?: AuthenticationTypeOptionsPrometheusAuth | undefined;
   description?: string | undefined;
   /**
    * How frequently metrics metadata is sent out. Value cannot be smaller than the base Flush period set above.
@@ -316,7 +180,7 @@ export type OutputPrometheus = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputPrometheusMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -340,11 +204,11 @@ export type OutputPrometheus = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputPrometheusCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputPrometheusQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputPrometheusPqControls | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -387,236 +251,12 @@ export type OutputPrometheus = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<OutputPrometheusOauthParam> | undefined;
+  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<OutputPrometheusOauthHeader> | undefined;
+  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
 };
-
-/** @internal */
-export const OutputPrometheusExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputPrometheusExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputPrometheusExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputPrometheusExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputPrometheusExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputPrometheusExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function outputPrometheusExtraHttpHeaderToJSON(
-  outputPrometheusExtraHttpHeader: OutputPrometheusExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputPrometheusExtraHttpHeader$outboundSchema.parse(
-      outputPrometheusExtraHttpHeader,
-    ),
-  );
-}
-export function outputPrometheusExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputPrometheusExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputPrometheusExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputPrometheusExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputPrometheusFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputPrometheusFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputPrometheusFailedRequestLoggingMode);
-/** @internal */
-export const OutputPrometheusFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputPrometheusFailedRequestLoggingMode
-> = openEnums.outboundSchema(OutputPrometheusFailedRequestLoggingMode);
-
-/** @internal */
-export const OutputPrometheusResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputPrometheusResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputPrometheusResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputPrometheusResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputPrometheusResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputPrometheusResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputPrometheusResponseRetrySettingToJSON(
-  outputPrometheusResponseRetrySetting: OutputPrometheusResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputPrometheusResponseRetrySetting$outboundSchema.parse(
-      outputPrometheusResponseRetrySetting,
-    ),
-  );
-}
-export function outputPrometheusResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputPrometheusResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputPrometheusResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputPrometheusResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputPrometheusTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputPrometheusTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputPrometheusTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputPrometheusTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputPrometheusTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputPrometheusTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputPrometheusTimeoutRetrySettingsToJSON(
-  outputPrometheusTimeoutRetrySettings: OutputPrometheusTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputPrometheusTimeoutRetrySettings$outboundSchema.parse(
-      outputPrometheusTimeoutRetrySettings,
-    ),
-  );
-}
-export function outputPrometheusTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputPrometheusTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputPrometheusTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputPrometheusTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputPrometheusBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputPrometheusBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputPrometheusBackpressureBehavior);
-/** @internal */
-export const OutputPrometheusBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputPrometheusBackpressureBehavior
-> = openEnums.outboundSchema(OutputPrometheusBackpressureBehavior);
-
-/** @internal */
-export const OutputPrometheusAuthenticationType$inboundSchema: z.ZodType<
-  OutputPrometheusAuthenticationType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputPrometheusAuthenticationType);
-/** @internal */
-export const OutputPrometheusAuthenticationType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputPrometheusAuthenticationType
-> = openEnums.outboundSchema(OutputPrometheusAuthenticationType);
-
-/** @internal */
-export const OutputPrometheusMode$inboundSchema: z.ZodType<
-  OutputPrometheusMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputPrometheusMode);
-/** @internal */
-export const OutputPrometheusMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputPrometheusMode
-> = openEnums.outboundSchema(OutputPrometheusMode);
-
-/** @internal */
-export const OutputPrometheusCompression$inboundSchema: z.ZodType<
-  OutputPrometheusCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputPrometheusCompression);
-/** @internal */
-export const OutputPrometheusCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputPrometheusCompression
-> = openEnums.outboundSchema(OutputPrometheusCompression);
-
-/** @internal */
-export const OutputPrometheusQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputPrometheusQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputPrometheusQueueFullBehavior);
-/** @internal */
-export const OutputPrometheusQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputPrometheusQueueFullBehavior
-> = openEnums.outboundSchema(OutputPrometheusQueueFullBehavior);
 
 /** @internal */
 export const OutputPrometheusPqControls$inboundSchema: z.ZodType<
@@ -652,92 +292,6 @@ export function outputPrometheusPqControlsFromJSON(
 }
 
 /** @internal */
-export const OutputPrometheusOauthParam$inboundSchema: z.ZodType<
-  OutputPrometheusOauthParam,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputPrometheusOauthParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputPrometheusOauthParam$outboundSchema: z.ZodType<
-  OutputPrometheusOauthParam$Outbound,
-  z.ZodTypeDef,
-  OutputPrometheusOauthParam
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function outputPrometheusOauthParamToJSON(
-  outputPrometheusOauthParam: OutputPrometheusOauthParam,
-): string {
-  return JSON.stringify(
-    OutputPrometheusOauthParam$outboundSchema.parse(outputPrometheusOauthParam),
-  );
-}
-export function outputPrometheusOauthParamFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputPrometheusOauthParam, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputPrometheusOauthParam$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputPrometheusOauthParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputPrometheusOauthHeader$inboundSchema: z.ZodType<
-  OutputPrometheusOauthHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputPrometheusOauthHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputPrometheusOauthHeader$outboundSchema: z.ZodType<
-  OutputPrometheusOauthHeader$Outbound,
-  z.ZodTypeDef,
-  OutputPrometheusOauthHeader
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function outputPrometheusOauthHeaderToJSON(
-  outputPrometheusOauthHeader: OutputPrometheusOauthHeader,
-): string {
-  return JSON.stringify(
-    OutputPrometheusOauthHeader$outboundSchema.parse(
-      outputPrometheusOauthHeader,
-    ),
-  );
-}
-export function outputPrometheusOauthHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputPrometheusOauthHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputPrometheusOauthHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputPrometheusOauthHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const OutputPrometheus$inboundSchema: z.ZodType<
   OutputPrometheus,
   z.ZodTypeDef,
@@ -758,38 +312,31 @@ export const OutputPrometheus$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputPrometheusExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputPrometheusFailedRequestLoggingMode$inboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputPrometheusResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputPrometheusTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputPrometheusBackpressureBehavior$inboundSchema.default(
-    "block",
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  authType: AuthenticationTypeOptionsPrometheusAuth$inboundSchema.default(
+    "none",
   ),
-  authType: OutputPrometheusAuthenticationType$inboundSchema.default("none"),
   description: z.string().optional(),
   metricsFlushPeriodSec: z.number().default(60),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputPrometheusMode$inboundSchema.default("error"),
+  pqMode: ModeOptions$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputPrometheusCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputPrometheusQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
+  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputPrometheusPqControls$inboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -802,10 +349,8 @@ export const OutputPrometheus$inboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(z.lazy(() => OutputPrometheusOauthParam$inboundSchema))
-    .optional(),
-  oauthHeaders: z.array(z.lazy(() => OutputPrometheusOauthHeader$inboundSchema))
-    .optional(),
+  oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
+  oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
 });
 /** @internal */
 export type OutputPrometheus$Outbound = {
@@ -824,18 +369,14 @@ export type OutputPrometheus$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?:
-    | Array<OutputPrometheusExtraHttpHeader$Outbound>
-    | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<OutputPrometheusResponseRetrySetting$Outbound>
+    | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
-  timeoutRetrySettings?:
-    | OutputPrometheusTimeoutRetrySettings$Outbound
-    | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   onBackpressure: string;
   authType: string;
@@ -863,8 +404,8 @@ export type OutputPrometheus$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr: string;
   tokenTimeoutSecs: number;
-  oauthParams?: Array<OutputPrometheusOauthParam$Outbound> | undefined;
-  oauthHeaders?: Array<OutputPrometheusOauthHeader$Outbound> | undefined;
+  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
 };
 
 /** @internal */
@@ -888,38 +429,32 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputPrometheusExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputPrometheusFailedRequestLoggingMode$outboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputPrometheusResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputPrometheusTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputPrometheusBackpressureBehavior$outboundSchema.default(
-    "block",
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  authType: AuthenticationTypeOptionsPrometheusAuth$outboundSchema.default(
+    "none",
   ),
-  authType: OutputPrometheusAuthenticationType$outboundSchema.default("none"),
   description: z.string().optional(),
   metricsFlushPeriodSec: z.number().default(60),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputPrometheusMode$outboundSchema.default("error"),
+  pqMode: ModeOptions$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputPrometheusCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputPrometheusQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
+  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
   pqControls: z.lazy(() => OutputPrometheusPqControls$outboundSchema)
     .optional(),
   username: z.string().optional(),
@@ -933,11 +468,8 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(z.lazy(() => OutputPrometheusOauthParam$outboundSchema))
-    .optional(),
-  oauthHeaders: z.array(
-    z.lazy(() => OutputPrometheusOauthHeader$outboundSchema),
-  ).optional(),
+  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
 });
 
 export function outputPrometheusToJSON(

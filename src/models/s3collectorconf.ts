@@ -8,6 +8,11 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  SignatureVersionOptionsS3CollectorConf,
+  SignatureVersionOptionsS3CollectorConf$inboundSchema,
+  SignatureVersionOptionsS3CollectorConf$outboundSchema,
+} from "./signatureversionoptionss3collectorconf.js";
 
 /**
  * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
@@ -39,20 +44,6 @@ export type S3AwsAuthenticationMethodSecretExtractor = {
    */
   expression: string;
 };
-
-/**
- * Signature version to use for signing S3 requests
- */
-export const S3AwsAuthenticationMethodSecretSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing S3 requests
- */
-export type S3AwsAuthenticationMethodSecretSignatureVersion = OpenEnum<
-  typeof S3AwsAuthenticationMethodSecretSignatureVersion
->;
 
 export type S3AwsAuthenticationMethodSecret = {
   /**
@@ -104,9 +95,7 @@ export type S3AwsAuthenticationMethodSecret = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?:
-    | S3AwsAuthenticationMethodSecretSignatureVersion
-    | undefined;
+  signatureVersion?: SignatureVersionOptionsS3CollectorConf | undefined;
   /**
    * Use AssumeRole credentials
    */
@@ -177,20 +166,6 @@ export type S3AwsAuthenticationMethodManualExtractor = {
   expression: string;
 };
 
-/**
- * Signature version to use for signing S3 requests
- */
-export const S3AwsAuthenticationMethodManualSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing S3 requests
- */
-export type S3AwsAuthenticationMethodManualSignatureVersion = OpenEnum<
-  typeof S3AwsAuthenticationMethodManualSignatureVersion
->;
-
 export type S3AwsAuthenticationMethodManual = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
@@ -245,9 +220,7 @@ export type S3AwsAuthenticationMethodManual = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?:
-    | S3AwsAuthenticationMethodManualSignatureVersion
-    | undefined;
+  signatureVersion?: SignatureVersionOptionsS3CollectorConf | undefined;
   /**
    * Use AssumeRole credentials
    */
@@ -318,20 +291,6 @@ export type S3AwsAuthenticationMethodAutoExtractor = {
   expression: string;
 };
 
-/**
- * Signature version to use for signing S3 requests
- */
-export const S3AwsAuthenticationMethodAutoSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing S3 requests
- */
-export type S3AwsAuthenticationMethodAutoSignatureVersion = OpenEnum<
-  typeof S3AwsAuthenticationMethodAutoSignatureVersion
->;
-
 export type S3AwsAuthenticationMethodAuto = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
@@ -378,7 +337,7 @@ export type S3AwsAuthenticationMethodAuto = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: S3AwsAuthenticationMethodAutoSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptionsS3CollectorConf | undefined;
   /**
    * Use AssumeRole credentials
    */
@@ -449,44 +408,6 @@ export type S3PartitioningSchemeNoneExtractor = {
   expression: string;
 };
 
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const S3PartitioningSchemeNoneAuthenticationMethod = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type S3PartitioningSchemeNoneAuthenticationMethod = OpenEnum<
-  typeof S3PartitioningSchemeNoneAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing S3 requests
- */
-export const S3PartitioningSchemeNoneSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing S3 requests
- */
-export type S3PartitioningSchemeNoneSignatureVersion = OpenEnum<
-  typeof S3PartitioningSchemeNoneSignatureVersion
->;
-
 export type S3PartitioningSchemeNone = {
   /**
    * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
@@ -524,9 +445,7 @@ export type S3PartitioningSchemeNone = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?:
-    | S3PartitioningSchemeNoneAuthenticationMethod
-    | undefined;
+  awsAuthenticationMethod?: string | undefined;
   /**
    * Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
    */
@@ -534,7 +453,7 @@ export type S3PartitioningSchemeNone = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: S3PartitioningSchemeNoneSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptionsS3CollectorConf | undefined;
   /**
    * Use AssumeRole credentials
    */
@@ -604,44 +523,6 @@ export type S3PartitioningSchemeDdssExtractor = {
   expression: string;
 };
 
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const S3PartitioningSchemeDdssAuthenticationMethod = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type S3PartitioningSchemeDdssAuthenticationMethod = OpenEnum<
-  typeof S3PartitioningSchemeDdssAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing S3 requests
- */
-export const S3PartitioningSchemeDdssSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing S3 requests
- */
-export type S3PartitioningSchemeDdssSignatureVersion = OpenEnum<
-  typeof S3PartitioningSchemeDdssSignatureVersion
->;
-
 export type S3PartitioningSchemeDdss = {
   /**
    * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
@@ -678,9 +559,7 @@ export type S3PartitioningSchemeDdss = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?:
-    | S3PartitioningSchemeDdssAuthenticationMethod
-    | undefined;
+  awsAuthenticationMethod?: string | undefined;
   /**
    * Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
    */
@@ -688,7 +567,7 @@ export type S3PartitioningSchemeDdss = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: S3PartitioningSchemeDdssSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptionsS3CollectorConf | undefined;
   /**
    * Use AssumeRole credentials
    */
@@ -804,21 +683,6 @@ export function s3AwsAuthenticationMethodSecretExtractorFromJSON(
 }
 
 /** @internal */
-export const S3AwsAuthenticationMethodSecretSignatureVersion$inboundSchema:
-  z.ZodType<
-    S3AwsAuthenticationMethodSecretSignatureVersion,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(S3AwsAuthenticationMethodSecretSignatureVersion);
-/** @internal */
-export const S3AwsAuthenticationMethodSecretSignatureVersion$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    S3AwsAuthenticationMethodSecretSignatureVersion
-  > = openEnums.outboundSchema(S3AwsAuthenticationMethodSecretSignatureVersion);
-
-/** @internal */
 export const S3AwsAuthenticationMethodSecret$inboundSchema: z.ZodType<
   S3AwsAuthenticationMethodSecret,
   z.ZodTypeDef,
@@ -840,8 +704,8 @@ export const S3AwsAuthenticationMethodSecret$inboundSchema: z.ZodType<
     z.lazy(() => S3AwsAuthenticationMethodSecretExtractor$inboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
-  signatureVersion:
-    S3AwsAuthenticationMethodSecretSignatureVersion$inboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
+    .default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -903,10 +767,8 @@ export const S3AwsAuthenticationMethodSecret$outboundSchema: z.ZodType<
     z.lazy(() => S3AwsAuthenticationMethodSecretExtractor$outboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
-  signatureVersion:
-    S3AwsAuthenticationMethodSecretSignatureVersion$outboundSchema.default(
-      "v4",
-    ),
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -1009,21 +871,6 @@ export function s3AwsAuthenticationMethodManualExtractorFromJSON(
 }
 
 /** @internal */
-export const S3AwsAuthenticationMethodManualSignatureVersion$inboundSchema:
-  z.ZodType<
-    S3AwsAuthenticationMethodManualSignatureVersion,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(S3AwsAuthenticationMethodManualSignatureVersion);
-/** @internal */
-export const S3AwsAuthenticationMethodManualSignatureVersion$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    S3AwsAuthenticationMethodManualSignatureVersion
-  > = openEnums.outboundSchema(S3AwsAuthenticationMethodManualSignatureVersion);
-
-/** @internal */
 export const S3AwsAuthenticationMethodManual$inboundSchema: z.ZodType<
   S3AwsAuthenticationMethodManual,
   z.ZodTypeDef,
@@ -1046,8 +893,8 @@ export const S3AwsAuthenticationMethodManual$inboundSchema: z.ZodType<
     z.lazy(() => S3AwsAuthenticationMethodManualExtractor$inboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
-  signatureVersion:
-    S3AwsAuthenticationMethodManualSignatureVersion$inboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
+    .default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -1111,10 +958,8 @@ export const S3AwsAuthenticationMethodManual$outboundSchema: z.ZodType<
     z.lazy(() => S3AwsAuthenticationMethodManualExtractor$outboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
-  signatureVersion:
-    S3AwsAuthenticationMethodManualSignatureVersion$outboundSchema.default(
-      "v4",
-    ),
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -1208,21 +1053,6 @@ export function s3AwsAuthenticationMethodAutoExtractorFromJSON(
 }
 
 /** @internal */
-export const S3AwsAuthenticationMethodAutoSignatureVersion$inboundSchema:
-  z.ZodType<
-    S3AwsAuthenticationMethodAutoSignatureVersion,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(S3AwsAuthenticationMethodAutoSignatureVersion);
-/** @internal */
-export const S3AwsAuthenticationMethodAutoSignatureVersion$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    S3AwsAuthenticationMethodAutoSignatureVersion
-  > = openEnums.outboundSchema(S3AwsAuthenticationMethodAutoSignatureVersion);
-
-/** @internal */
 export const S3AwsAuthenticationMethodAuto$inboundSchema: z.ZodType<
   S3AwsAuthenticationMethodAuto,
   z.ZodTypeDef,
@@ -1243,7 +1073,7 @@ export const S3AwsAuthenticationMethodAuto$inboundSchema: z.ZodType<
     z.lazy(() => S3AwsAuthenticationMethodAutoExtractor$inboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
-  signatureVersion: S3AwsAuthenticationMethodAutoSignatureVersion$inboundSchema
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
     .default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
@@ -1304,7 +1134,7 @@ export const S3AwsAuthenticationMethodAuto$outboundSchema: z.ZodType<
     z.lazy(() => S3AwsAuthenticationMethodAutoExtractor$outboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
-  signatureVersion: S3AwsAuthenticationMethodAutoSignatureVersion$outboundSchema
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
     .default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
@@ -1391,34 +1221,6 @@ export function s3PartitioningSchemeNoneExtractorFromJSON(
 }
 
 /** @internal */
-export const S3PartitioningSchemeNoneAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    S3PartitioningSchemeNoneAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(S3PartitioningSchemeNoneAuthenticationMethod);
-/** @internal */
-export const S3PartitioningSchemeNoneAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    S3PartitioningSchemeNoneAuthenticationMethod
-  > = openEnums.outboundSchema(S3PartitioningSchemeNoneAuthenticationMethod);
-
-/** @internal */
-export const S3PartitioningSchemeNoneSignatureVersion$inboundSchema: z.ZodType<
-  S3PartitioningSchemeNoneSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(S3PartitioningSchemeNoneSignatureVersion);
-/** @internal */
-export const S3PartitioningSchemeNoneSignatureVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  S3PartitioningSchemeNoneSignatureVersion
-> = openEnums.outboundSchema(S3PartitioningSchemeNoneSignatureVersion);
-
-/** @internal */
 export const S3PartitioningSchemeNone$inboundSchema: z.ZodType<
   S3PartitioningSchemeNone,
   z.ZodTypeDef,
@@ -1436,10 +1238,9 @@ export const S3PartitioningSchemeNone$inboundSchema: z.ZodType<
   extractors: z.array(
     z.lazy(() => S3PartitioningSchemeNoneExtractor$inboundSchema),
   ).optional(),
-  awsAuthenticationMethod:
-    S3PartitioningSchemeNoneAuthenticationMethod$inboundSchema.default("auto"),
+  awsAuthenticationMethod: z.string().default("auto"),
   endpoint: z.string().optional(),
-  signatureVersion: S3PartitioningSchemeNoneSignatureVersion$inboundSchema
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
     .default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
@@ -1494,10 +1295,9 @@ export const S3PartitioningSchemeNone$outboundSchema: z.ZodType<
   extractors: z.array(
     z.lazy(() => S3PartitioningSchemeNoneExtractor$outboundSchema),
   ).optional(),
-  awsAuthenticationMethod:
-    S3PartitioningSchemeNoneAuthenticationMethod$outboundSchema.default("auto"),
+  awsAuthenticationMethod: z.string().default("auto"),
   endpoint: z.string().optional(),
-  signatureVersion: S3PartitioningSchemeNoneSignatureVersion$outboundSchema
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
     .default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
@@ -1581,34 +1381,6 @@ export function s3PartitioningSchemeDdssExtractorFromJSON(
 }
 
 /** @internal */
-export const S3PartitioningSchemeDdssAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    S3PartitioningSchemeDdssAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(S3PartitioningSchemeDdssAuthenticationMethod);
-/** @internal */
-export const S3PartitioningSchemeDdssAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    S3PartitioningSchemeDdssAuthenticationMethod
-  > = openEnums.outboundSchema(S3PartitioningSchemeDdssAuthenticationMethod);
-
-/** @internal */
-export const S3PartitioningSchemeDdssSignatureVersion$inboundSchema: z.ZodType<
-  S3PartitioningSchemeDdssSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(S3PartitioningSchemeDdssSignatureVersion);
-/** @internal */
-export const S3PartitioningSchemeDdssSignatureVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  S3PartitioningSchemeDdssSignatureVersion
-> = openEnums.outboundSchema(S3PartitioningSchemeDdssSignatureVersion);
-
-/** @internal */
 export const S3PartitioningSchemeDdss$inboundSchema: z.ZodType<
   S3PartitioningSchemeDdss,
   z.ZodTypeDef,
@@ -1625,10 +1397,9 @@ export const S3PartitioningSchemeDdss$inboundSchema: z.ZodType<
   extractors: z.array(
     z.lazy(() => S3PartitioningSchemeDdssExtractor$inboundSchema),
   ).optional(),
-  awsAuthenticationMethod:
-    S3PartitioningSchemeDdssAuthenticationMethod$inboundSchema.default("auto"),
+  awsAuthenticationMethod: z.string().default("auto"),
   endpoint: z.string().optional(),
-  signatureVersion: S3PartitioningSchemeDdssSignatureVersion$inboundSchema
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
     .default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
@@ -1683,10 +1454,9 @@ export const S3PartitioningSchemeDdss$outboundSchema: z.ZodType<
   extractors: z.array(
     z.lazy(() => S3PartitioningSchemeDdssExtractor$outboundSchema),
   ).optional(),
-  awsAuthenticationMethod:
-    S3PartitioningSchemeDdssAuthenticationMethod$outboundSchema.default("auto"),
+  awsAuthenticationMethod: z.string().default("auto"),
   endpoint: z.string().optional(),
-  signatureVersion: S3PartitioningSchemeDdssSignatureVersion$outboundSchema
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
     .default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),

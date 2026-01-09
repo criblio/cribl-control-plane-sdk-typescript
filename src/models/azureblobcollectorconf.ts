@@ -5,14 +5,13 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  CertificateTypeAzureBlobAuthTypeClientCert,
+  CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
+  CertificateTypeAzureBlobAuthTypeClientCert$Outbound,
+  CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema,
+} from "./certificatetypeazureblobauthtypeclientcert.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type AzureBlobAuthTypeClientCertCertificate = {
-  /**
-   * The certificate you registered as credentials for your app in the Azure portal
-   */
-  certificateName: string;
-};
 
 export type AzureBlobAuthTypeClientCertExtractor = {
   /**
@@ -42,7 +41,7 @@ export type AzureBlobAuthTypeClientCert = {
    * The service principal's client ID
    */
   clientId: string;
-  certificate: AzureBlobAuthTypeClientCertCertificate;
+  certificate: CertificateTypeAzureBlobAuthTypeClientCert;
   /**
    * The Azure cloud to use. Defaults to Azure Public Cloud.
    */
@@ -306,49 +305,6 @@ export type AzureBlobCollectorConf =
   | AzureBlobAuthTypeClientCert;
 
 /** @internal */
-export const AzureBlobAuthTypeClientCertCertificate$inboundSchema: z.ZodType<
-  AzureBlobAuthTypeClientCertCertificate,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  certificateName: z.string(),
-});
-/** @internal */
-export type AzureBlobAuthTypeClientCertCertificate$Outbound = {
-  certificateName: string;
-};
-
-/** @internal */
-export const AzureBlobAuthTypeClientCertCertificate$outboundSchema: z.ZodType<
-  AzureBlobAuthTypeClientCertCertificate$Outbound,
-  z.ZodTypeDef,
-  AzureBlobAuthTypeClientCertCertificate
-> = z.object({
-  certificateName: z.string(),
-});
-
-export function azureBlobAuthTypeClientCertCertificateToJSON(
-  azureBlobAuthTypeClientCertCertificate:
-    AzureBlobAuthTypeClientCertCertificate,
-): string {
-  return JSON.stringify(
-    AzureBlobAuthTypeClientCertCertificate$outboundSchema.parse(
-      azureBlobAuthTypeClientCertCertificate,
-    ),
-  );
-}
-export function azureBlobAuthTypeClientCertCertificateFromJSON(
-  jsonString: string,
-): SafeParseResult<AzureBlobAuthTypeClientCertCertificate, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      AzureBlobAuthTypeClientCertCertificate$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AzureBlobAuthTypeClientCertCertificate' from JSON`,
-  );
-}
-
-/** @internal */
 export const AzureBlobAuthTypeClientCertExtractor$inboundSchema: z.ZodType<
   AzureBlobAuthTypeClientCertExtractor,
   z.ZodTypeDef,
@@ -403,9 +359,7 @@ export const AzureBlobAuthTypeClientCert$inboundSchema: z.ZodType<
   storageAccountName: z.string(),
   tenantId: z.string(),
   clientId: z.string(),
-  certificate: z.lazy(() =>
-    AzureBlobAuthTypeClientCertCertificate$inboundSchema
-  ),
+  certificate: CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
   azureCloud: z.string().optional(),
   endpointSuffix: z.string().optional(),
   outputName: z.string().optional(),
@@ -427,7 +381,7 @@ export type AzureBlobAuthTypeClientCert$Outbound = {
   storageAccountName: string;
   tenantId: string;
   clientId: string;
-  certificate: AzureBlobAuthTypeClientCertCertificate$Outbound;
+  certificate: CertificateTypeAzureBlobAuthTypeClientCert$Outbound;
   azureCloud?: string | undefined;
   endpointSuffix?: string | undefined;
   outputName?: string | undefined;
@@ -452,9 +406,7 @@ export const AzureBlobAuthTypeClientCert$outboundSchema: z.ZodType<
   storageAccountName: z.string(),
   tenantId: z.string(),
   clientId: z.string(),
-  certificate: z.lazy(() =>
-    AzureBlobAuthTypeClientCertCertificate$outboundSchema
-  ),
+  certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema,
   azureCloud: z.string().optional(),
   endpointSuffix: z.string().optional(),
   outputName: z.string().optional(),

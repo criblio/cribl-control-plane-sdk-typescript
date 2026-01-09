@@ -6,14 +6,7 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionConfSchemaAggregationAdd = {
-  name?: string | undefined;
-  /**
-   * JavaScript expression to compute the value (can be constant)
-   */
-  value: string;
-};
+import { ItemsTypeAdd, ItemsTypeAdd$inboundSchema } from "./itemstypeadd.js";
 
 export type FunctionConfSchemaAggregation = {
   /**
@@ -67,7 +60,7 @@ export type FunctionConfSchemaAggregation = {
   /**
    * Set of key-value pairs to evaluate and add/set
    */
-  add?: Array<FunctionConfSchemaAggregationAdd> | undefined;
+  add?: Array<ItemsTypeAdd> | undefined;
   /**
    * Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
    */
@@ -77,26 +70,6 @@ export type FunctionConfSchemaAggregation = {
    */
   flushOnInputClose: boolean;
 };
-
-/** @internal */
-export const FunctionConfSchemaAggregationAdd$inboundSchema: z.ZodType<
-  FunctionConfSchemaAggregationAdd,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function functionConfSchemaAggregationAddFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionConfSchemaAggregationAdd, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionConfSchemaAggregationAdd$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionConfSchemaAggregationAdd' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionConfSchemaAggregation$inboundSchema: z.ZodType<
@@ -116,8 +89,7 @@ export const FunctionConfSchemaAggregation$inboundSchema: z.ZodType<
   flushMemLimit: z.string().optional(),
   cumulative: z.boolean().default(false),
   searchAggMode: z.string().optional(),
-  add: z.array(z.lazy(() => FunctionConfSchemaAggregationAdd$inboundSchema))
-    .optional(),
+  add: z.array(ItemsTypeAdd$inboundSchema).optional(),
   shouldTreatDotsAsLiterals: z.boolean().default(false),
   flushOnInputClose: z.boolean().default(true),
 });

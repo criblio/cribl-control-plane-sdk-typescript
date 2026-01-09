@@ -16,7 +16,7 @@ let value: GroupCreateRequest = {
   estimatedIngestRate: 5120,
   git: {
     commit: "<value>",
-    localChanges: 5624.35,
+    localChanges: 2849.05,
     log: [
       {
         author_email: "<value>",
@@ -29,10 +29,10 @@ let value: GroupCreateRequest = {
     ],
   },
   id: "<id>",
-  incompatibleWorkerCount: 9063.01,
+  incompatibleWorkerCount: 5624.35,
   inherits: "<value>",
   isFleet: false,
-  isSearch: true,
+  isSearch: false,
   lookupDeployments: [
     {
       context: "<value>",
@@ -47,19 +47,17 @@ let value: GroupCreateRequest = {
   ],
   maxWorkerAge: "<value>",
   name: "<value>",
-  onPrem: false,
-  provisioned: true,
+  onPrem: true,
+  provisioned: false,
   sourceGroupId: "<id>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   tags: "<value>",
-  type: "lake_access",
+  type: "local_search",
   upgradeVersion: "<value>",
-  workerCount: 2070.7,
-  workerRemoteAccess: false,
+  workerCount: 6662.65,
+  workerRemoteAccess: true,
 };
 ```
 
@@ -70,8 +68,8 @@ let value: GroupCreateRequest = {
 | `cloud`                                                                                                                                                   | [models.ConfigGroupCloud](../models/configgroupcloud.md)                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `deployingWorkerCount`                                                                                                                                    | *number*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `description`                                                                                                                                             | *string*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
-| `estimatedIngestRate`                                                                                                                                     | [models.GroupCreateRequestEstimatedIngestRate](../models/groupcreaterequestestimatedingestrate.md)                                                        | :heavy_minus_sign:                                                                                                                                        | Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.) |
-| `git`                                                                                                                                                     | [models.GroupCreateRequestGit](../models/groupcreaterequestgit.md)                                                                                        | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
+| `estimatedIngestRate`                                                                                                                                     | [models.EstimatedIngestRateOptionsConfigGroup](../models/estimatedingestrateoptionsconfiggroup.md)                                                        | :heavy_minus_sign:                                                                                                                                        | Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.) |
+| `git`                                                                                                                                                     | [models.GitTypeConfigGroup](../models/gittypeconfiggroup.md)                                                                                              | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `id`                                                                                                                                                      | *string*                                                                                                                                                  | :heavy_check_mark:                                                                                                                                        | N/A                                                                                                                                                       |
 | `incompatibleWorkerCount`                                                                                                                                 | *number*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `inherits`                                                                                                                                                | *string*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
@@ -85,7 +83,7 @@ let value: GroupCreateRequest = {
 | `sourceGroupId`                                                                                                                                           | *string*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `streamtags`                                                                                                                                              | *string*[]                                                                                                                                                | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `tags`                                                                                                                                                    | *string*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
-| `type`                                                                                                                                                    | [models.GroupCreateRequestType](../models/groupcreaterequesttype.md)                                                                                      | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
+| `type`                                                                                                                                                    | [models.TypeOptionsConfigGroup](../models/typeoptionsconfiggroup.md)                                                                                      | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `upgradeVersion`                                                                                                                                          | *string*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `workerCount`                                                                                                                                             | *number*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `workerRemoteAccess`                                                                                                                                      | *boolean*                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |

@@ -19,7 +19,7 @@ let value: CreateSavedJobRequest = {
     resumeOnBoot: false,
     environment: "<value>",
     schedule: {
-      enabled: false,
+      enabled: true,
       skippable: true,
       resumeMissed: false,
       cronSchedule: "*/5 * * * *",
@@ -32,8 +32,8 @@ let value: CreateSavedJobRequest = {
         jobTimeout: "0",
         mode: "list",
         timeRangeType: "relative",
-        earliest: 4703.26,
-        latest: 1623.48,
+        earliest: 475.38,
+        latest: 1125.35,
         timestampTimezone: "<value>",
         timeWarning: {},
         expression: "true",
@@ -64,6 +64,7 @@ let value: CreateSavedJobRequest = {
       type: "collection",
       breakerRulesets: [
         "<value 1>",
+        "<value 2>",
       ],
       staleChannelFlushMs: 10000,
       sendToRoutes: true,

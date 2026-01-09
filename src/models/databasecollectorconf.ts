@@ -4,17 +4,13 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const DatabaseCollectorConfHiddenDefaultBreakers = {
-  Cribl: "Cribl",
-} as const;
-export type DatabaseCollectorConfHiddenDefaultBreakers = OpenEnum<
-  typeof DatabaseCollectorConfHiddenDefaultBreakers
->;
+import {
+  HiddenDefaultBreakersOptionsDatabaseCollectorConf,
+  HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema,
+  HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema,
+} from "./hiddendefaultbreakersoptionsdatabasecollectorconf.js";
 
 export type DatabaseCollectorConfStateTracking = {
   /**
@@ -40,18 +36,11 @@ export type DatabaseCollectorConf = {
    * Enforces a basic query validation that allows only a single 'select' statement. Disable for more complex queries or when using semicolons. Caution: Disabling query validation allows DDL and DML statements to be executed, which could be destructive to your database.
    */
   queryValidationEnabled?: boolean | undefined;
-  defaultBreakers?: DatabaseCollectorConfHiddenDefaultBreakers | undefined;
+  defaultBreakers?:
+    | HiddenDefaultBreakersOptionsDatabaseCollectorConf
+    | undefined;
   __scheduling?: DatabaseCollectorConfScheduling | undefined;
 };
-
-/** @internal */
-export const DatabaseCollectorConfHiddenDefaultBreakers$inboundSchema:
-  z.ZodType<DatabaseCollectorConfHiddenDefaultBreakers, z.ZodTypeDef, unknown> =
-    openEnums.inboundSchema(DatabaseCollectorConfHiddenDefaultBreakers);
-/** @internal */
-export const DatabaseCollectorConfHiddenDefaultBreakers$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, DatabaseCollectorConfHiddenDefaultBreakers> =
-    openEnums.outboundSchema(DatabaseCollectorConfHiddenDefaultBreakers);
 
 /** @internal */
 export const DatabaseCollectorConfStateTracking$inboundSchema: z.ZodType<
@@ -147,8 +136,8 @@ export const DatabaseCollectorConf$inboundSchema: z.ZodType<
   connectionId: z.string(),
   query: z.string(),
   queryValidationEnabled: z.boolean().default(true),
-  defaultBreakers: DatabaseCollectorConfHiddenDefaultBreakers$inboundSchema
-    .optional(),
+  defaultBreakers:
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   __scheduling: z.lazy(() => DatabaseCollectorConfScheduling$inboundSchema)
     .optional(),
 });
@@ -170,8 +159,8 @@ export const DatabaseCollectorConf$outboundSchema: z.ZodType<
   connectionId: z.string(),
   query: z.string(),
   queryValidationEnabled: z.boolean().default(true),
-  defaultBreakers: DatabaseCollectorConfHiddenDefaultBreakers$outboundSchema
-    .optional(),
+  defaultBreakers:
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   __scheduling: z.lazy(() => DatabaseCollectorConfScheduling$outboundSchema)
     .optional(),
 });
