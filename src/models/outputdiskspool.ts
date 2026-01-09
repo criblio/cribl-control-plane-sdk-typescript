@@ -4,24 +4,13 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  CompressionOptionsPersistence,
+  CompressionOptionsPersistence$inboundSchema,
+  CompressionOptionsPersistence$outboundSchema,
+} from "./compressionoptionspersistence.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Data compression format. Default is gzip.
- */
-export const OutputDiskSpoolCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Data compression format. Default is gzip.
- */
-export type OutputDiskSpoolCompression = OpenEnum<
-  typeof OutputDiskSpoolCompression
->;
 
 export type OutputDiskSpool = {
   /**
@@ -60,26 +49,13 @@ export type OutputDiskSpool = {
   /**
    * Data compression format. Default is gzip.
    */
-  compress?: OutputDiskSpoolCompression | undefined;
+  compress?: CompressionOptionsPersistence | undefined;
   /**
    * JavaScript expression defining how files are partitioned and organized within the time-buckets. If blank, the event's __partition property is used and otherwise, events go directly into the time-bucket directory.
    */
   partitionExpr?: string | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const OutputDiskSpoolCompression$inboundSchema: z.ZodType<
-  OutputDiskSpoolCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDiskSpoolCompression);
-/** @internal */
-export const OutputDiskSpoolCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDiskSpoolCompression
-> = openEnums.outboundSchema(OutputDiskSpoolCompression);
 
 /** @internal */
 export const OutputDiskSpool$inboundSchema: z.ZodType<
@@ -96,7 +72,7 @@ export const OutputDiskSpool$inboundSchema: z.ZodType<
   timeWindow: z.string().default("10m"),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: OutputDiskSpoolCompression$inboundSchema.default("gzip"),
+  compress: CompressionOptionsPersistence$inboundSchema.default("gzip"),
   partitionExpr: z.string().optional(),
   description: z.string().optional(),
 });
@@ -131,7 +107,7 @@ export const OutputDiskSpool$outboundSchema: z.ZodType<
   timeWindow: z.string().default("10m"),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: OutputDiskSpoolCompression$outboundSchema.default("gzip"),
+  compress: CompressionOptionsPersistence$outboundSchema.default("gzip"),
   partitionExpr: z.string().optional(),
   description: z.string().optional(),
 });

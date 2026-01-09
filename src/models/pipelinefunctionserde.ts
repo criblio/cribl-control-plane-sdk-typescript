@@ -8,6 +8,11 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  TypeOptions,
+  TypeOptions$inboundSchema,
+  TypeOptions$outboundSchema,
+} from "./typeoptions.js";
 
 /**
  * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
@@ -29,50 +34,6 @@ export type PipelineFunctionSerdeOperationMode = OpenEnum<
   typeof PipelineFunctionSerdeOperationMode
 >;
 
-/**
- * Parser or formatter type to use
- */
-export const PipelineFunctionSerdeType = {
-  /**
-   * CSV
-   */
-  Csv: "csv",
-  /**
-   * Extended Log File Format
-   */
-  Elff: "elff",
-  /**
-   * Common Log Format
-   */
-  Clf: "clf",
-  /**
-   * Key=Value Pairs
-   */
-  Kvp: "kvp",
-  /**
-   * JSON Object
-   */
-  Json: "json",
-  /**
-   * Delimited values
-   */
-  Delim: "delim",
-  /**
-   * Regular Expression
-   */
-  Regex: "regex",
-  /**
-   * Grok
-   */
-  Grok: "grok",
-} as const;
-/**
- * Parser or formatter type to use
- */
-export type PipelineFunctionSerdeType = OpenEnum<
-  typeof PipelineFunctionSerdeType
->;
-
 export type PipelineFunctionSerdeConf = {
   /**
    * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
@@ -81,7 +42,7 @@ export type PipelineFunctionSerdeConf = {
   /**
    * Parser or formatter type to use
    */
-  type?: PipelineFunctionSerdeType | undefined;
+  type?: TypeOptions | undefined;
   delimChar?: any | undefined;
   quoteChar?: any | undefined;
   escapeChar?: any | undefined;
@@ -139,26 +100,13 @@ export const PipelineFunctionSerdeOperationMode$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(PipelineFunctionSerdeOperationMode);
 
 /** @internal */
-export const PipelineFunctionSerdeType$inboundSchema: z.ZodType<
-  PipelineFunctionSerdeType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(PipelineFunctionSerdeType);
-/** @internal */
-export const PipelineFunctionSerdeType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  PipelineFunctionSerdeType
-> = openEnums.outboundSchema(PipelineFunctionSerdeType);
-
-/** @internal */
 export const PipelineFunctionSerdeConf$inboundSchema: z.ZodType<
   PipelineFunctionSerdeConf,
   z.ZodTypeDef,
   unknown
 > = z.object({
   mode: PipelineFunctionSerdeOperationMode$inboundSchema.default("extract"),
-  type: PipelineFunctionSerdeType$inboundSchema.default("csv"),
+  type: TypeOptions$inboundSchema.default("csv"),
   delimChar: z.any().optional(),
   quoteChar: z.any().optional(),
   escapeChar: z.any().optional(),
@@ -187,7 +135,7 @@ export const PipelineFunctionSerdeConf$outboundSchema: z.ZodType<
   PipelineFunctionSerdeConf
 > = z.object({
   mode: PipelineFunctionSerdeOperationMode$outboundSchema.default("extract"),
-  type: PipelineFunctionSerdeType$outboundSchema.default("csv"),
+  type: TypeOptions$outboundSchema.default("csv"),
   delimChar: z.any().optional(),
   quoteChar: z.any().optional(),
   escapeChar: z.any().optional(),

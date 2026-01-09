@@ -7,7 +7,71 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptions4,
+  CompressionOptions4$inboundSchema,
+  CompressionOptions4$outboundSchema,
+} from "./compressionoptions4.js";
+import {
+  CompressionOptions5,
+  CompressionOptions5$inboundSchema,
+  CompressionOptions5$outboundSchema,
+} from "./compressionoptions5.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  ItemsTypeExtraHttpHeaders,
+  ItemsTypeExtraHttpHeaders$inboundSchema,
+  ItemsTypeExtraHttpHeaders$Outbound,
+  ItemsTypeExtraHttpHeaders$outboundSchema,
+} from "./itemstypeextrahttpheaders.js";
+import {
+  ItemsTypeKeyValueMetadata,
+  ItemsTypeKeyValueMetadata$inboundSchema,
+  ItemsTypeKeyValueMetadata$Outbound,
+  ItemsTypeKeyValueMetadata$outboundSchema,
+} from "./itemstypekeyvaluemetadata.js";
+import {
+  ItemsTypeResponseRetrySettings,
+  ItemsTypeResponseRetrySettings$inboundSchema,
+  ItemsTypeResponseRetrySettings$Outbound,
+  ItemsTypeResponseRetrySettings$outboundSchema,
+} from "./itemstyperesponseretrysettings.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  OtlpVersionOptions1,
+  OtlpVersionOptions1$inboundSchema,
+  OtlpVersionOptions1$outboundSchema,
+} from "./otlpversionoptions1.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
 /**
  * Select a transport option for Dynatrace
@@ -23,95 +87,6 @@ export const OutputDynatraceOtlpProtocol = {
  */
 export type OutputDynatraceOtlpProtocol = OpenEnum<
   typeof OutputDynatraceOtlpProtocol
->;
-
-/**
- * The version of OTLP Protobuf definitions to use when structuring data to send
- */
-export const OutputDynatraceOTLPOTLPVersion = {
-  /**
-   * 1.3.1
-   */
-  OneDot3Dot1: "1.3.1",
-} as const;
-/**
- * The version of OTLP Protobuf definitions to use when structuring data to send
- */
-export type OutputDynatraceOTLPOTLPVersion = OpenEnum<
-  typeof OutputDynatraceOTLPOTLPVersion
->;
-
-/**
- * Type of compression to apply to messages sent to the OpenTelemetry endpoint
- */
-export const OutputDynatraceOtlpCompressCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Deflate
-   */
-  Deflate: "deflate",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Type of compression to apply to messages sent to the OpenTelemetry endpoint
- */
-export type OutputDynatraceOtlpCompressCompression = OpenEnum<
-  typeof OutputDynatraceOtlpCompressCompression
->;
-
-/**
- * Type of compression to apply to messages sent to the OpenTelemetry endpoint
- */
-export const OutputDynatraceOtlpHttpCompressCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Type of compression to apply to messages sent to the OpenTelemetry endpoint
- */
-export type OutputDynatraceOtlpHttpCompressCompression = OpenEnum<
-  typeof OutputDynatraceOtlpHttpCompressCompression
->;
-
-export type OutputDynatraceOtlpMetadatum = {
-  key?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputDynatraceOtlpFailedRequestLoggingMode = {
-  /**
-   * Payload
-   */
-  Payload: "payload",
-  /**
-   * Payload + Headers
-   */
-  PayloadAndHeaders: "payloadAndHeaders",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputDynatraceOtlpFailedRequestLoggingMode = OpenEnum<
-  typeof OutputDynatraceOtlpFailedRequestLoggingMode
 >;
 
 /**
@@ -131,132 +106,6 @@ export const EndpointType = {
  * Select the type of Dynatrace endpoint configured
  */
 export type EndpointType = OpenEnum<typeof EndpointType>;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputDynatraceOtlpBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputDynatraceOtlpBackpressureBehavior = OpenEnum<
-  typeof OutputDynatraceOtlpBackpressureBehavior
->;
-
-export type OutputDynatraceOtlpExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-export type OutputDynatraceOtlpResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputDynatraceOtlpTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputDynatraceOtlpMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputDynatraceOtlpMode = OpenEnum<typeof OutputDynatraceOtlpMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputDynatraceOtlpPqCompressCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputDynatraceOtlpPqCompressCompression = OpenEnum<
-  typeof OutputDynatraceOtlpPqCompressCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputDynatraceOtlpQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputDynatraceOtlpQueueFullBehavior = OpenEnum<
-  typeof OutputDynatraceOtlpQueueFullBehavior
->;
 
 export type OutputDynatraceOtlpPqControls = {};
 
@@ -293,15 +142,15 @@ export type OutputDynatraceOtlp = {
   /**
    * The version of OTLP Protobuf definitions to use when structuring data to send
    */
-  otlpVersion?: OutputDynatraceOTLPOTLPVersion | undefined;
+  otlpVersion?: OtlpVersionOptions1 | undefined;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  compress?: OutputDynatraceOtlpCompressCompression | undefined;
+  compress?: CompressionOptions4 | undefined;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  httpCompress?: OutputDynatraceOtlpHttpCompressCompression | undefined;
+  httpCompress?: CompressionOptions5 | undefined;
   /**
    * If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
    */
@@ -317,7 +166,7 @@ export type OutputDynatraceOtlp = {
   /**
    * List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
    */
-  metadata?: Array<OutputDynatraceOtlpMetadatum> | undefined;
+  metadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -337,9 +186,7 @@ export type OutputDynatraceOtlp = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputDynatraceOtlpFailedRequestLoggingMode
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * Amount of time (milliseconds) to wait for the connection to establish before retrying
    */
@@ -364,7 +211,7 @@ export type OutputDynatraceOtlp = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputDynatraceOtlpBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   description?: string | undefined;
   /**
    * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
@@ -381,7 +228,7 @@ export type OutputDynatraceOtlp = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputDynatraceOtlpExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -389,10 +236,8 @@ export type OutputDynatraceOtlp = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputDynatraceOtlpResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?: OutputDynatraceOtlpTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -408,7 +253,7 @@ export type OutputDynatraceOtlp = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputDynatraceOtlpMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -432,11 +277,11 @@ export type OutputDynatraceOtlp = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputDynatraceOtlpPqCompressCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputDynatraceOtlpQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputDynatraceOtlpPqControls | undefined;
 };
 
@@ -454,97 +299,6 @@ export const OutputDynatraceOtlpProtocol$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputDynatraceOtlpProtocol);
 
 /** @internal */
-export const OutputDynatraceOTLPOTLPVersion$inboundSchema: z.ZodType<
-  OutputDynatraceOTLPOTLPVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDynatraceOTLPOTLPVersion);
-/** @internal */
-export const OutputDynatraceOTLPOTLPVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDynatraceOTLPOTLPVersion
-> = openEnums.outboundSchema(OutputDynatraceOTLPOTLPVersion);
-
-/** @internal */
-export const OutputDynatraceOtlpCompressCompression$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDynatraceOtlpCompressCompression);
-/** @internal */
-export const OutputDynatraceOtlpCompressCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpCompressCompression
-> = openEnums.outboundSchema(OutputDynatraceOtlpCompressCompression);
-
-/** @internal */
-export const OutputDynatraceOtlpHttpCompressCompression$inboundSchema:
-  z.ZodType<OutputDynatraceOtlpHttpCompressCompression, z.ZodTypeDef, unknown> =
-    openEnums.inboundSchema(OutputDynatraceOtlpHttpCompressCompression);
-/** @internal */
-export const OutputDynatraceOtlpHttpCompressCompression$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, OutputDynatraceOtlpHttpCompressCompression> =
-    openEnums.outboundSchema(OutputDynatraceOtlpHttpCompressCompression);
-
-/** @internal */
-export const OutputDynatraceOtlpMetadatum$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-/** @internal */
-export type OutputDynatraceOtlpMetadatum$Outbound = {
-  key: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputDynatraceOtlpMetadatum$outboundSchema: z.ZodType<
-  OutputDynatraceOtlpMetadatum$Outbound,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpMetadatum
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-export function outputDynatraceOtlpMetadatumToJSON(
-  outputDynatraceOtlpMetadatum: OutputDynatraceOtlpMetadatum,
-): string {
-  return JSON.stringify(
-    OutputDynatraceOtlpMetadatum$outboundSchema.parse(
-      outputDynatraceOtlpMetadatum,
-    ),
-  );
-}
-export function outputDynatraceOtlpMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDynatraceOtlpMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDynatraceOtlpMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDynatraceOtlpMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputDynatraceOtlpFailedRequestLoggingMode$inboundSchema:
-  z.ZodType<
-    OutputDynatraceOtlpFailedRequestLoggingMode,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(OutputDynatraceOtlpFailedRequestLoggingMode);
-/** @internal */
-export const OutputDynatraceOtlpFailedRequestLoggingMode$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, OutputDynatraceOtlpFailedRequestLoggingMode> =
-    openEnums.outboundSchema(OutputDynatraceOtlpFailedRequestLoggingMode);
-
-/** @internal */
 export const EndpointType$inboundSchema: z.ZodType<
   EndpointType,
   z.ZodTypeDef,
@@ -556,217 +310,6 @@ export const EndpointType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EndpointType
 > = openEnums.outboundSchema(EndpointType);
-
-/** @internal */
-export const OutputDynatraceOtlpBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDynatraceOtlpBackpressureBehavior);
-/** @internal */
-export const OutputDynatraceOtlpBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpBackpressureBehavior
-> = openEnums.outboundSchema(OutputDynatraceOtlpBackpressureBehavior);
-
-/** @internal */
-export const OutputDynatraceOtlpExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputDynatraceOtlpExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputDynatraceOtlpExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputDynatraceOtlpExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function outputDynatraceOtlpExtraHttpHeaderToJSON(
-  outputDynatraceOtlpExtraHttpHeader: OutputDynatraceOtlpExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputDynatraceOtlpExtraHttpHeader$outboundSchema.parse(
-      outputDynatraceOtlpExtraHttpHeader,
-    ),
-  );
-}
-export function outputDynatraceOtlpExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDynatraceOtlpExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputDynatraceOtlpExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDynatraceOtlpExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputDynatraceOtlpResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputDynatraceOtlpResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputDynatraceOtlpResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputDynatraceOtlpResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputDynatraceOtlpResponseRetrySettingToJSON(
-  outputDynatraceOtlpResponseRetrySetting:
-    OutputDynatraceOtlpResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputDynatraceOtlpResponseRetrySetting$outboundSchema.parse(
-      outputDynatraceOtlpResponseRetrySetting,
-    ),
-  );
-}
-export function outputDynatraceOtlpResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputDynatraceOtlpResponseRetrySetting,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputDynatraceOtlpResponseRetrySetting$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputDynatraceOtlpResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputDynatraceOtlpTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputDynatraceOtlpTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputDynatraceOtlpTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputDynatraceOtlpTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputDynatraceOtlpTimeoutRetrySettingsToJSON(
-  outputDynatraceOtlpTimeoutRetrySettings:
-    OutputDynatraceOtlpTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputDynatraceOtlpTimeoutRetrySettings$outboundSchema.parse(
-      outputDynatraceOtlpTimeoutRetrySettings,
-    ),
-  );
-}
-export function outputDynatraceOtlpTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputDynatraceOtlpTimeoutRetrySettings,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputDynatraceOtlpTimeoutRetrySettings$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputDynatraceOtlpTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputDynatraceOtlpMode$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDynatraceOtlpMode);
-/** @internal */
-export const OutputDynatraceOtlpMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpMode
-> = openEnums.outboundSchema(OutputDynatraceOtlpMode);
-
-/** @internal */
-export const OutputDynatraceOtlpPqCompressCompression$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpPqCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDynatraceOtlpPqCompressCompression);
-/** @internal */
-export const OutputDynatraceOtlpPqCompressCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpPqCompressCompression
-> = openEnums.outboundSchema(OutputDynatraceOtlpPqCompressCompression);
-
-/** @internal */
-export const OutputDynatraceOtlpQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDynatraceOtlpQueueFullBehavior);
-/** @internal */
-export const OutputDynatraceOtlpQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpQueueFullBehavior
-> = openEnums.outboundSchema(OutputDynatraceOtlpQueueFullBehavior);
 
 /** @internal */
 export const OutputDynatraceOtlpPqControls$inboundSchema: z.ZodType<
@@ -819,60 +362,45 @@ export const OutputDynatraceOtlp$inboundSchema: z.ZodType<
   endpoint: z.string().default(
     "https://{your-environment-id}.live.dynatrace.com/api/v2/otlp",
   ),
-  otlpVersion: OutputDynatraceOTLPOTLPVersion$inboundSchema.default("1.3.1"),
-  compress: OutputDynatraceOtlpCompressCompression$inboundSchema.default(
-    "gzip",
-  ),
-  httpCompress: OutputDynatraceOtlpHttpCompressCompression$inboundSchema
-    .default("gzip"),
+  otlpVersion: OtlpVersionOptions1$inboundSchema.default("1.3.1"),
+  compress: CompressionOptions4$inboundSchema.default("gzip"),
+  httpCompress: CompressionOptions5$inboundSchema.default("gzip"),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
-  metadata: z.array(z.lazy(() => OutputDynatraceOtlpMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(2048),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  failedRequestLoggingMode:
-    OutputDynatraceOtlpFailedRequestLoggingMode$inboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
   connectionTimeout: z.number().default(10000),
   keepAliveTime: z.number().default(30),
   keepAlive: z.boolean().default(true),
   endpointType: EndpointType$inboundSchema.default("saas"),
   tokenSecret: z.string(),
   authTokenName: z.string().default("Authorization"),
-  onBackpressure: OutputDynatraceOtlpBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
   description: z.string().optional(),
   rejectUnauthorized: z.boolean().default(true),
   useRoundRobinDns: z.boolean().default(false),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputDynatraceOtlpExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputDynatraceOtlpResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputDynatraceOtlpTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputDynatraceOtlpMode$inboundSchema.default("error"),
+  pqMode: ModeOptions$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputDynatraceOtlpPqCompressCompression$inboundSchema.default(
-    "none",
-  ),
-  pqOnBackpressure: OutputDynatraceOtlpQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
+  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputDynatraceOtlpPqControls$inboundSchema)
     .optional(),
 });
@@ -892,7 +420,7 @@ export type OutputDynatraceOtlp$Outbound = {
   httpTracesEndpointOverride?: string | undefined;
   httpMetricsEndpointOverride?: string | undefined;
   httpLogsEndpointOverride?: string | undefined;
-  metadata?: Array<OutputDynatraceOtlpMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
   concurrency: number;
   maxPayloadSizeKB: number;
   timeoutSec: number;
@@ -908,16 +436,12 @@ export type OutputDynatraceOtlp$Outbound = {
   description?: string | undefined;
   rejectUnauthorized: boolean;
   useRoundRobinDns: boolean;
-  extraHttpHeaders?:
-    | Array<OutputDynatraceOtlpExtraHttpHeader$Outbound>
-    | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<OutputDynatraceOtlpResponseRetrySetting$Outbound>
+    | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
-  timeoutRetrySettings?:
-    | OutputDynatraceOtlpTimeoutRetrySettings$Outbound
-    | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   pqStrictOrdering: boolean;
   pqRatePerSec: number;
@@ -948,59 +472,46 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   endpoint: z.string().default(
     "https://{your-environment-id}.live.dynatrace.com/api/v2/otlp",
   ),
-  otlpVersion: OutputDynatraceOTLPOTLPVersion$outboundSchema.default("1.3.1"),
-  compress: OutputDynatraceOtlpCompressCompression$outboundSchema.default(
-    "gzip",
-  ),
-  httpCompress: OutputDynatraceOtlpHttpCompressCompression$outboundSchema
-    .default("gzip"),
+  otlpVersion: OtlpVersionOptions1$outboundSchema.default("1.3.1"),
+  compress: CompressionOptions4$outboundSchema.default("gzip"),
+  httpCompress: CompressionOptions5$outboundSchema.default("gzip"),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
-  metadata: z.array(z.lazy(() => OutputDynatraceOtlpMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema).optional(),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(2048),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  failedRequestLoggingMode:
-    OutputDynatraceOtlpFailedRequestLoggingMode$outboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   connectionTimeout: z.number().default(10000),
   keepAliveTime: z.number().default(30),
   keepAlive: z.boolean().default(true),
   endpointType: EndpointType$outboundSchema.default("saas"),
   tokenSecret: z.string(),
   authTokenName: z.string().default("Authorization"),
-  onBackpressure: OutputDynatraceOtlpBackpressureBehavior$outboundSchema
-    .default("block"),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
   description: z.string().optional(),
   rejectUnauthorized: z.boolean().default(true),
   useRoundRobinDns: z.boolean().default(false),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputDynatraceOtlpExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputDynatraceOtlpResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputDynatraceOtlpTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputDynatraceOtlpMode$outboundSchema.default("error"),
+  pqMode: ModeOptions$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputDynatraceOtlpPqCompressCompression$outboundSchema.default(
-    "none",
-  ),
-  pqOnBackpressure: OutputDynatraceOtlpQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
+  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
   pqControls: z.lazy(() => OutputDynatraceOtlpPqControls$outboundSchema)
     .optional(),
 });

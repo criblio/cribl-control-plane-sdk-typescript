@@ -75,7 +75,6 @@ async function run() {
       collector: {
         type: "database",
         conf: {
-          type: "database",
           connectionId: "<id>",
           query: "<value>",
           queryValidationEnabled: true,
@@ -86,8 +85,6 @@ async function run() {
             },
           },
         },
-        destructive: false,
-        encoding: "<value>",
       },
       input: {
         type: "collection",
@@ -185,7 +182,6 @@ async function run() {
       collector: {
         type: "database",
         conf: {
-          type: "database",
           connectionId: "<id>",
           query: "<value>",
           queryValidationEnabled: true,
@@ -196,8 +192,6 @@ async function run() {
             },
           },
         },
-        destructive: false,
-        encoding: "<value>",
       },
       input: {
         type: "collection",
@@ -570,7 +564,6 @@ async function run() {
       collector: {
         type: "database",
         conf: {
-          type: "database",
           connectionId: "<id>",
           query: "<value>",
           queryValidationEnabled: true,
@@ -581,8 +574,6 @@ async function run() {
             },
           },
         },
-        destructive: false,
-        encoding: "<value>",
       },
       input: {
         type: "collection",
@@ -684,7 +675,6 @@ async function run() {
       collector: {
         type: "database",
         conf: {
-          type: "database",
           connectionId: "<id>",
           query: "<value>",
           queryValidationEnabled: true,
@@ -695,8 +685,6 @@ async function run() {
             },
           },
         },
-        destructive: false,
-        encoding: "<value>",
       },
       input: {
         type: "collection",

@@ -4,212 +4,31 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
-  CollectorConf,
-  CollectorConf$inboundSchema,
-  CollectorConf$Outbound,
-  CollectorConf$outboundSchema,
-} from "./collectorconf.js";
+  Collector,
+  Collector$inboundSchema,
+  Collector$Outbound,
+  Collector$outboundSchema,
+} from "./collector.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const SavedJobCollectionJobType = {
-  Collection: "collection",
-  Executor: "executor",
-  ScheduledSearch: "scheduledSearch",
-} as const;
-export type SavedJobCollectionJobType = OpenEnum<
-  typeof SavedJobCollectionJobType
->;
-
-export const SavedJobCollectionRunType = {
-  Collection: "collection",
-} as const;
-export type SavedJobCollectionRunType = OpenEnum<
-  typeof SavedJobCollectionRunType
->;
-
-/**
- * Level at which to set task logging
- */
-export const SavedJobCollectionLogLevel = {
-  Error: "error",
-  Warn: "warn",
-  Info: "info",
-  Debug: "debug",
-  Silly: "silly",
-} as const;
-/**
- * Level at which to set task logging
- */
-export type SavedJobCollectionLogLevel = OpenEnum<
-  typeof SavedJobCollectionLogLevel
->;
-
-export type SavedJobCollectionTimeWarning = {};
-
-export type SavedJobCollectionRunSettings = {
-  type?: SavedJobCollectionRunType | undefined;
-  /**
-   * Reschedule tasks that failed with non-fatal errors
-   */
-  rescheduleDroppedTasks?: boolean | undefined;
-  /**
-   * Maximum number of times a task can be rescheduled
-   */
-  maxTaskReschedule?: number | undefined;
-  /**
-   * Level at which to set task logging
-   */
-  logLevel?: SavedJobCollectionLogLevel | undefined;
-  /**
-   * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
-   */
-  jobTimeout?: string | undefined;
-  /**
-   * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
-   */
-  mode?: string | undefined;
-  timeRangeType?: string | undefined;
-  /**
-   * Earliest time to collect data for the selected timezone
-   */
-  earliest?: number | undefined;
-  /**
-   * Latest time to collect data for the selected timezone
-   */
-  latest?: number | undefined;
-  timestampTimezone?: any | undefined;
-  timeWarning?: SavedJobCollectionTimeWarning | undefined;
-  /**
-   * A filter for tokens in the provided collect path and/or the events being collected
-   */
-  expression?: string | undefined;
-  /**
-   * Limits the bundle size for small tasks. For example,
-   *
-   * @remarks
-   *
-   *         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
-   */
-  minTaskSize?: string | undefined;
-  /**
-   * Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
-   *
-   * @remarks
-   *
-   *         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
-   */
-  maxTaskSize?: string | undefined;
-};
-
-/**
- * Configuration for a scheduled job
- */
-export type SavedJobCollectionSchedule = {
-  /**
-   * Enable to configure scheduling for this Collector
-   */
-  enabled?: boolean | undefined;
-  /**
-   * Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
-   */
-  skippable?: boolean | undefined;
-  /**
-   * If Stream Leader (or single instance) restarts, run all missed jobs according to their original schedules
-   */
-  resumeMissed?: boolean | undefined;
-  /**
-   * A cron schedule on which to run this job
-   */
-  cronSchedule?: string | undefined;
-  /**
-   * The maximum number of instances of this scheduled job that may be running at any time
-   */
-  maxConcurrentRuns?: number | undefined;
-  run?: SavedJobCollectionRunSettings | undefined;
-};
-
-export type SavedJobCollectionCollector = {
-  /**
-   * The type of collector to run
-   */
-  type: string;
-  /**
-   * Collector configuration
-   */
-  conf: CollectorConf;
-  /**
-   * Delete any files collected (where applicable)
-   */
-  destructive?: boolean | undefined;
-  /**
-   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
-   */
-  encoding?: string | undefined;
-};
-
-export const SavedJobCollectionInputType = {
-  Collection: "collection",
-} as const;
-export type SavedJobCollectionInputType = OpenEnum<
-  typeof SavedJobCollectionInputType
->;
-
-export type SavedJobCollectionPreprocess = {
-  disabled?: boolean | undefined;
-  /**
-   * Command to feed the data through (via stdin) and process its output (stdout)
-   */
-  command?: string | undefined;
-  /**
-   * Arguments to be added to the custom command
-   */
-  args?: Array<string> | undefined;
-};
-
-export type SavedJobCollectionMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type SavedJobCollectionInput = {
-  type?: SavedJobCollectionInputType | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
-   * Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
-   */
-  sendToRoutes?: boolean | undefined;
-  preprocess?: SavedJobCollectionPreprocess | undefined;
-  /**
-   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-   */
-  throttleRatePerSec?: string | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<SavedJobCollectionMetadatum> | undefined;
-  /**
-   * Pipeline to process results
-   */
-  pipeline?: string | undefined;
-  /**
-   * Destination to send results to
-   */
-  output?: string | undefined;
-};
+import {
+  InputTypeSavedJobCollection,
+  InputTypeSavedJobCollection$inboundSchema,
+  InputTypeSavedJobCollection$Outbound,
+  InputTypeSavedJobCollection$outboundSchema,
+} from "./inputtypesavedjobcollection.js";
+import {
+  JobTypeOptionsSavedJobCollection,
+  JobTypeOptionsSavedJobCollection$inboundSchema,
+  JobTypeOptionsSavedJobCollection$outboundSchema,
+} from "./jobtypeoptionssavedjobcollection.js";
+import {
+  ScheduleTypeSavedJobCollection,
+  ScheduleTypeSavedJobCollection$inboundSchema,
+  ScheduleTypeSavedJobCollection$Outbound,
+  ScheduleTypeSavedJobCollection$outboundSchema,
+} from "./scheduletypesavedjobcollection.js";
 
 export type SavedJobCollection = {
   /**
@@ -217,7 +36,7 @@ export type SavedJobCollection = {
    */
   id?: string | undefined;
   description?: string | undefined;
-  type: SavedJobCollectionJobType;
+  type: JobTypeOptionsSavedJobCollection;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
    */
@@ -241,7 +60,7 @@ export type SavedJobCollection = {
   /**
    * Configuration for a scheduled job
    */
-  schedule?: SavedJobCollectionSchedule | undefined;
+  schedule?: ScheduleTypeSavedJobCollection | undefined;
   /**
    * Tags for filtering and grouping in @{product}
    */
@@ -250,440 +69,12 @@ export type SavedJobCollection = {
    * If enabled, tasks are created and run by the same Worker Node
    */
   workerAffinity?: boolean | undefined;
-  collector: SavedJobCollectionCollector;
-  input?: SavedJobCollectionInput | undefined;
+  /**
+   * Collector configuration
+   */
+  collector: Collector;
+  input?: InputTypeSavedJobCollection | undefined;
 };
-
-/** @internal */
-export const SavedJobCollectionJobType$inboundSchema: z.ZodType<
-  SavedJobCollectionJobType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SavedJobCollectionJobType);
-/** @internal */
-export const SavedJobCollectionJobType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SavedJobCollectionJobType
-> = openEnums.outboundSchema(SavedJobCollectionJobType);
-
-/** @internal */
-export const SavedJobCollectionRunType$inboundSchema: z.ZodType<
-  SavedJobCollectionRunType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SavedJobCollectionRunType);
-/** @internal */
-export const SavedJobCollectionRunType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SavedJobCollectionRunType
-> = openEnums.outboundSchema(SavedJobCollectionRunType);
-
-/** @internal */
-export const SavedJobCollectionLogLevel$inboundSchema: z.ZodType<
-  SavedJobCollectionLogLevel,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SavedJobCollectionLogLevel);
-/** @internal */
-export const SavedJobCollectionLogLevel$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SavedJobCollectionLogLevel
-> = openEnums.outboundSchema(SavedJobCollectionLogLevel);
-
-/** @internal */
-export const SavedJobCollectionTimeWarning$inboundSchema: z.ZodType<
-  SavedJobCollectionTimeWarning,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type SavedJobCollectionTimeWarning$Outbound = {};
-
-/** @internal */
-export const SavedJobCollectionTimeWarning$outboundSchema: z.ZodType<
-  SavedJobCollectionTimeWarning$Outbound,
-  z.ZodTypeDef,
-  SavedJobCollectionTimeWarning
-> = z.object({});
-
-export function savedJobCollectionTimeWarningToJSON(
-  savedJobCollectionTimeWarning: SavedJobCollectionTimeWarning,
-): string {
-  return JSON.stringify(
-    SavedJobCollectionTimeWarning$outboundSchema.parse(
-      savedJobCollectionTimeWarning,
-    ),
-  );
-}
-export function savedJobCollectionTimeWarningFromJSON(
-  jsonString: string,
-): SafeParseResult<SavedJobCollectionTimeWarning, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SavedJobCollectionTimeWarning$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SavedJobCollectionTimeWarning' from JSON`,
-  );
-}
-
-/** @internal */
-export const SavedJobCollectionRunSettings$inboundSchema: z.ZodType<
-  SavedJobCollectionRunSettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: SavedJobCollectionRunType$inboundSchema.optional(),
-  rescheduleDroppedTasks: z.boolean().default(true),
-  maxTaskReschedule: z.number().default(1),
-  logLevel: SavedJobCollectionLogLevel$inboundSchema.default("info"),
-  jobTimeout: z.string().default("0"),
-  mode: z.string().default("list"),
-  timeRangeType: z.string().default("relative"),
-  earliest: z.number().optional(),
-  latest: z.number().optional(),
-  timestampTimezone: z.any().optional(),
-  timeWarning: z.lazy(() => SavedJobCollectionTimeWarning$inboundSchema)
-    .optional(),
-  expression: z.string().default("true"),
-  minTaskSize: z.string().default("1MB"),
-  maxTaskSize: z.string().default("10MB"),
-});
-/** @internal */
-export type SavedJobCollectionRunSettings$Outbound = {
-  type?: string | undefined;
-  rescheduleDroppedTasks: boolean;
-  maxTaskReschedule: number;
-  logLevel: string;
-  jobTimeout: string;
-  mode: string;
-  timeRangeType: string;
-  earliest?: number | undefined;
-  latest?: number | undefined;
-  timestampTimezone?: any | undefined;
-  timeWarning?: SavedJobCollectionTimeWarning$Outbound | undefined;
-  expression: string;
-  minTaskSize: string;
-  maxTaskSize: string;
-};
-
-/** @internal */
-export const SavedJobCollectionRunSettings$outboundSchema: z.ZodType<
-  SavedJobCollectionRunSettings$Outbound,
-  z.ZodTypeDef,
-  SavedJobCollectionRunSettings
-> = z.object({
-  type: SavedJobCollectionRunType$outboundSchema.optional(),
-  rescheduleDroppedTasks: z.boolean().default(true),
-  maxTaskReschedule: z.number().default(1),
-  logLevel: SavedJobCollectionLogLevel$outboundSchema.default("info"),
-  jobTimeout: z.string().default("0"),
-  mode: z.string().default("list"),
-  timeRangeType: z.string().default("relative"),
-  earliest: z.number().optional(),
-  latest: z.number().optional(),
-  timestampTimezone: z.any().optional(),
-  timeWarning: z.lazy(() => SavedJobCollectionTimeWarning$outboundSchema)
-    .optional(),
-  expression: z.string().default("true"),
-  minTaskSize: z.string().default("1MB"),
-  maxTaskSize: z.string().default("10MB"),
-});
-
-export function savedJobCollectionRunSettingsToJSON(
-  savedJobCollectionRunSettings: SavedJobCollectionRunSettings,
-): string {
-  return JSON.stringify(
-    SavedJobCollectionRunSettings$outboundSchema.parse(
-      savedJobCollectionRunSettings,
-    ),
-  );
-}
-export function savedJobCollectionRunSettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<SavedJobCollectionRunSettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SavedJobCollectionRunSettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SavedJobCollectionRunSettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const SavedJobCollectionSchedule$inboundSchema: z.ZodType<
-  SavedJobCollectionSchedule,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.boolean().optional(),
-  skippable: z.boolean().default(true),
-  resumeMissed: z.boolean().default(false),
-  cronSchedule: z.string().default("*/5 * * * *"),
-  maxConcurrentRuns: z.number().default(1),
-  run: z.lazy(() => SavedJobCollectionRunSettings$inboundSchema).optional(),
-});
-/** @internal */
-export type SavedJobCollectionSchedule$Outbound = {
-  enabled?: boolean | undefined;
-  skippable: boolean;
-  resumeMissed: boolean;
-  cronSchedule: string;
-  maxConcurrentRuns: number;
-  run?: SavedJobCollectionRunSettings$Outbound | undefined;
-};
-
-/** @internal */
-export const SavedJobCollectionSchedule$outboundSchema: z.ZodType<
-  SavedJobCollectionSchedule$Outbound,
-  z.ZodTypeDef,
-  SavedJobCollectionSchedule
-> = z.object({
-  enabled: z.boolean().optional(),
-  skippable: z.boolean().default(true),
-  resumeMissed: z.boolean().default(false),
-  cronSchedule: z.string().default("*/5 * * * *"),
-  maxConcurrentRuns: z.number().default(1),
-  run: z.lazy(() => SavedJobCollectionRunSettings$outboundSchema).optional(),
-});
-
-export function savedJobCollectionScheduleToJSON(
-  savedJobCollectionSchedule: SavedJobCollectionSchedule,
-): string {
-  return JSON.stringify(
-    SavedJobCollectionSchedule$outboundSchema.parse(savedJobCollectionSchedule),
-  );
-}
-export function savedJobCollectionScheduleFromJSON(
-  jsonString: string,
-): SafeParseResult<SavedJobCollectionSchedule, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SavedJobCollectionSchedule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SavedJobCollectionSchedule' from JSON`,
-  );
-}
-
-/** @internal */
-export const SavedJobCollectionCollector$inboundSchema: z.ZodType<
-  SavedJobCollectionCollector,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: z.string(),
-  conf: CollectorConf$inboundSchema,
-  destructive: z.boolean().default(false),
-  encoding: z.string().optional(),
-});
-/** @internal */
-export type SavedJobCollectionCollector$Outbound = {
-  type: string;
-  conf: CollectorConf$Outbound;
-  destructive: boolean;
-  encoding?: string | undefined;
-};
-
-/** @internal */
-export const SavedJobCollectionCollector$outboundSchema: z.ZodType<
-  SavedJobCollectionCollector$Outbound,
-  z.ZodTypeDef,
-  SavedJobCollectionCollector
-> = z.object({
-  type: z.string(),
-  conf: CollectorConf$outboundSchema,
-  destructive: z.boolean().default(false),
-  encoding: z.string().optional(),
-});
-
-export function savedJobCollectionCollectorToJSON(
-  savedJobCollectionCollector: SavedJobCollectionCollector,
-): string {
-  return JSON.stringify(
-    SavedJobCollectionCollector$outboundSchema.parse(
-      savedJobCollectionCollector,
-    ),
-  );
-}
-export function savedJobCollectionCollectorFromJSON(
-  jsonString: string,
-): SafeParseResult<SavedJobCollectionCollector, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SavedJobCollectionCollector$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SavedJobCollectionCollector' from JSON`,
-  );
-}
-
-/** @internal */
-export const SavedJobCollectionInputType$inboundSchema: z.ZodType<
-  SavedJobCollectionInputType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SavedJobCollectionInputType);
-/** @internal */
-export const SavedJobCollectionInputType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SavedJobCollectionInputType
-> = openEnums.outboundSchema(SavedJobCollectionInputType);
-
-/** @internal */
-export const SavedJobCollectionPreprocess$inboundSchema: z.ZodType<
-  SavedJobCollectionPreprocess,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  command: z.string().optional(),
-  args: z.array(z.string()).optional(),
-});
-/** @internal */
-export type SavedJobCollectionPreprocess$Outbound = {
-  disabled: boolean;
-  command?: string | undefined;
-  args?: Array<string> | undefined;
-};
-
-/** @internal */
-export const SavedJobCollectionPreprocess$outboundSchema: z.ZodType<
-  SavedJobCollectionPreprocess$Outbound,
-  z.ZodTypeDef,
-  SavedJobCollectionPreprocess
-> = z.object({
-  disabled: z.boolean().default(true),
-  command: z.string().optional(),
-  args: z.array(z.string()).optional(),
-});
-
-export function savedJobCollectionPreprocessToJSON(
-  savedJobCollectionPreprocess: SavedJobCollectionPreprocess,
-): string {
-  return JSON.stringify(
-    SavedJobCollectionPreprocess$outboundSchema.parse(
-      savedJobCollectionPreprocess,
-    ),
-  );
-}
-export function savedJobCollectionPreprocessFromJSON(
-  jsonString: string,
-): SafeParseResult<SavedJobCollectionPreprocess, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SavedJobCollectionPreprocess$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SavedJobCollectionPreprocess' from JSON`,
-  );
-}
-
-/** @internal */
-export const SavedJobCollectionMetadatum$inboundSchema: z.ZodType<
-  SavedJobCollectionMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type SavedJobCollectionMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const SavedJobCollectionMetadatum$outboundSchema: z.ZodType<
-  SavedJobCollectionMetadatum$Outbound,
-  z.ZodTypeDef,
-  SavedJobCollectionMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function savedJobCollectionMetadatumToJSON(
-  savedJobCollectionMetadatum: SavedJobCollectionMetadatum,
-): string {
-  return JSON.stringify(
-    SavedJobCollectionMetadatum$outboundSchema.parse(
-      savedJobCollectionMetadatum,
-    ),
-  );
-}
-export function savedJobCollectionMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<SavedJobCollectionMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SavedJobCollectionMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SavedJobCollectionMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const SavedJobCollectionInput$inboundSchema: z.ZodType<
-  SavedJobCollectionInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: SavedJobCollectionInputType$inboundSchema.default("collection"),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  sendToRoutes: z.boolean().default(true),
-  preprocess: z.lazy(() => SavedJobCollectionPreprocess$inboundSchema)
-    .optional(),
-  throttleRatePerSec: z.string().default("0"),
-  metadata: z.array(z.lazy(() => SavedJobCollectionMetadatum$inboundSchema))
-    .optional(),
-  pipeline: z.string().optional(),
-  output: z.string().optional(),
-});
-/** @internal */
-export type SavedJobCollectionInput$Outbound = {
-  type: string;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  sendToRoutes: boolean;
-  preprocess?: SavedJobCollectionPreprocess$Outbound | undefined;
-  throttleRatePerSec: string;
-  metadata?: Array<SavedJobCollectionMetadatum$Outbound> | undefined;
-  pipeline?: string | undefined;
-  output?: string | undefined;
-};
-
-/** @internal */
-export const SavedJobCollectionInput$outboundSchema: z.ZodType<
-  SavedJobCollectionInput$Outbound,
-  z.ZodTypeDef,
-  SavedJobCollectionInput
-> = z.object({
-  type: SavedJobCollectionInputType$outboundSchema.default("collection"),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  sendToRoutes: z.boolean().default(true),
-  preprocess: z.lazy(() => SavedJobCollectionPreprocess$outboundSchema)
-    .optional(),
-  throttleRatePerSec: z.string().default("0"),
-  metadata: z.array(z.lazy(() => SavedJobCollectionMetadatum$outboundSchema))
-    .optional(),
-  pipeline: z.string().optional(),
-  output: z.string().optional(),
-});
-
-export function savedJobCollectionInputToJSON(
-  savedJobCollectionInput: SavedJobCollectionInput,
-): string {
-  return JSON.stringify(
-    SavedJobCollectionInput$outboundSchema.parse(savedJobCollectionInput),
-  );
-}
-export function savedJobCollectionInputFromJSON(
-  jsonString: string,
-): SafeParseResult<SavedJobCollectionInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SavedJobCollectionInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SavedJobCollectionInput' from JSON`,
-  );
-}
 
 /** @internal */
 export const SavedJobCollection$inboundSchema: z.ZodType<
@@ -693,17 +84,17 @@ export const SavedJobCollection$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   description: z.string().optional(),
-  type: SavedJobCollectionJobType$inboundSchema,
+  type: JobTypeOptionsSavedJobCollection$inboundSchema,
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
   removeFields: z.array(z.string()).optional(),
   resumeOnBoot: z.boolean().default(false),
   environment: z.string().optional(),
-  schedule: z.lazy(() => SavedJobCollectionSchedule$inboundSchema).optional(),
+  schedule: ScheduleTypeSavedJobCollection$inboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),
   workerAffinity: z.boolean().default(false),
-  collector: z.lazy(() => SavedJobCollectionCollector$inboundSchema),
-  input: z.lazy(() => SavedJobCollectionInput$inboundSchema).optional(),
+  collector: Collector$inboundSchema,
+  input: InputTypeSavedJobCollection$inboundSchema.optional(),
 });
 /** @internal */
 export type SavedJobCollection$Outbound = {
@@ -715,11 +106,11 @@ export type SavedJobCollection$Outbound = {
   removeFields?: Array<string> | undefined;
   resumeOnBoot: boolean;
   environment?: string | undefined;
-  schedule?: SavedJobCollectionSchedule$Outbound | undefined;
+  schedule?: ScheduleTypeSavedJobCollection$Outbound | undefined;
   streamtags?: Array<string> | undefined;
   workerAffinity: boolean;
-  collector: SavedJobCollectionCollector$Outbound;
-  input?: SavedJobCollectionInput$Outbound | undefined;
+  collector: Collector$Outbound;
+  input?: InputTypeSavedJobCollection$Outbound | undefined;
 };
 
 /** @internal */
@@ -730,17 +121,17 @@ export const SavedJobCollection$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   description: z.string().optional(),
-  type: SavedJobCollectionJobType$outboundSchema,
+  type: JobTypeOptionsSavedJobCollection$outboundSchema,
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
   removeFields: z.array(z.string()).optional(),
   resumeOnBoot: z.boolean().default(false),
   environment: z.string().optional(),
-  schedule: z.lazy(() => SavedJobCollectionSchedule$outboundSchema).optional(),
+  schedule: ScheduleTypeSavedJobCollection$outboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),
   workerAffinity: z.boolean().default(false),
-  collector: z.lazy(() => SavedJobCollectionCollector$outboundSchema),
-  input: z.lazy(() => SavedJobCollectionInput$outboundSchema).optional(),
+  collector: Collector$outboundSchema,
+  input: InputTypeSavedJobCollection$outboundSchema.optional(),
 });
 
 export function savedJobCollectionToJSON(

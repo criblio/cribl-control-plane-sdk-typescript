@@ -32,6 +32,7 @@ const value: models.InputCollection = {
     args: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
   },
   metadata: [
@@ -118,17 +119,17 @@ const value: models.InputKafka = {
     certPath: "<value>",
     passphrase: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
-  autoCommitInterval: 3766.44,
-  autoCommitThreshold: 1897.81,
+  autoCommitInterval: 1317.99,
+  autoCommitThreshold: 1440.88,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "inasmuch wring trench hmph",
+  description: "gee trolley what yieldingly yummy mentor",
 };
 ```
 
@@ -178,7 +179,7 @@ const value: models.InputMsk = {
       certPath: "<value>",
       passphrase: "<value>",
       minVersion: "TLSv1",
-      maxVersion: "TLSv1.1",
+      maxVersion: "TLSv1.2",
     },
   },
   awsSecretKey: "<value>",
@@ -193,13 +194,12 @@ const value: models.InputMsk = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.3",
+    minVersion: "TLSv1",
     maxVersion: "TLSv1.1",
   },
-  autoCommitInterval: 5538.49,
-  autoCommitThreshold: 2610.43,
-  description:
-    "selfishly unnaturally when if and along whether for beside behind",
+  autoCommitInterval: 9112.9,
+  autoCommitThreshold: 3085.62,
+  description: "admired uh-huh joint book delight positively majestically",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };
@@ -292,8 +292,8 @@ const value: models.InputSplunk = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -303,17 +303,15 @@ const value: models.InputSplunk = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   authTokens: [
     {
       token: "<value>",
-      description: "blah after brr unto daily even",
+      description:
+        "impanel makeover parade vulgarise delightfully when sans instead vivaciously upbeat",
     },
   ],
-  description:
-    "suburban provision punctually as exalt fragrant brr validity soon apud",
+  description: "but psst to pish",
 };
 ```
 
@@ -362,19 +360,19 @@ const value: models.InputSplunkSearch = {
   ],
   retryRules: {
     codes: [
-      321.5,
+      1412.18,
     ],
   },
   breakerRulesets: [
     "<value 1>",
   ],
-  description: "blah yum glittering oh overheard hungry finally upsell",
-  username: "Abner.Mayer46",
-  password: "IdyB7lUGpeaNdPL",
+  description: "after along heartbeat",
+  username: "Mitchel.Stamm",
+  password: "c4WdcGgMmEYENj1",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://sturdy-reporter.com/",
+  loginUrl: "https://oddball-suitcase.org/",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
@@ -438,8 +436,8 @@ const value: models.InputSplunkHec = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   enableHealthCheck: "<value>",
   metadata: [
@@ -455,19 +453,18 @@ const value: models.InputSplunkHec = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  description: "what mockingly excluding",
+  description: "knottily thoughtfully hm times for midst ick",
 };
 ```
 
@@ -546,7 +543,7 @@ const value: models.InputElastic = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.3",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1",
   },
   extraHttpHeaders: [
@@ -562,7 +559,7 @@ const value: models.InputElastic = {
     },
   ],
   proxyMode: {
-    username: "Brooks28",
+    username: "Stan_Connelly",
     password: "5KMRlcpcktj90M0",
     credentialsSecret: "<value>",
     url: "https://scientific-pepper.net",
@@ -615,11 +612,12 @@ const value: models.InputConfluentCloud = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
   },
   topics: [
     "<value 1>",
+    "<value 2>",
   ],
   kafkaSchemaRegistry: {
     auth: {
@@ -632,18 +630,18 @@ const value: models.InputConfluentCloud = {
       privKeyPath: "<value>",
       certPath: "<value>",
       passphrase: "<value>",
-      minVersion: "TLSv1.3",
+      minVersion: "TLSv1",
       maxVersion: "TLSv1.2",
     },
   },
   sasl: {
-    username: "Jackeline.Romaguera12",
-    password: "smhYGwiSlBMbqj6",
+    username: "Seamus67",
+    password: "6PIwQ9BxwvdkIdN",
     credentialsSecret: "<value>",
     keytabLocation: "<value>",
     principal: "<value>",
     brokerServiceClass: "<value>",
-    tokenUrl: "https://wise-vestment.info/",
+    tokenUrl: "https://quiet-airmail.org",
     clientId: "<id>",
     clientTextSecret: "<value>",
     oauthParams: [
@@ -659,15 +657,16 @@ const value: models.InputConfluentCloud = {
       },
     ],
   },
-  autoCommitInterval: 3932.27,
-  autoCommitThreshold: 9711.34,
+  autoCommitInterval: 9236.28,
+  autoCommitThreshold: 4568.71,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "ouch against into boo creative anesthetize roughly",
+  description:
+    "blindly aha madly wonderfully despite championship before ironclad emphasise",
 };
 ```
 
@@ -715,8 +714,8 @@ const value: models.InputGrafana = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   maxActiveReq: 256,
   maxRequestsPerSocket: 0,
@@ -733,7 +732,7 @@ const value: models.InputGrafana = {
   lokiAPI: "/loki/api/v1/push",
   prometheusAuth: {
     authType: "none",
-    username: "Evalyn_Gislason15",
+    username: "Carrie.Heaney",
     password: "R3S3RViAySqW5o8",
     token: "<value>",
     credentialsSecret: "<value>",
@@ -821,7 +820,7 @@ const value: models.InputLoki = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.3",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1",
   },
   metadata: [
@@ -830,13 +829,13 @@ const value: models.InputLoki = {
       value: "<value>",
     },
   ],
-  description: "from what gum playfully phew colossal whose fluffy defendant",
-  username: "Trudie_Kemmer81",
-  password: "p8QCsOXGU2LDuls",
+  description: "aha pfft kowtow bowed excepting er grandpa quirkily word",
+  username: "Mayra43",
+  password: "np8QCsOXGU2LDul",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://disloyal-reasoning.info",
+  loginUrl: "https://submissive-council.net",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
@@ -882,7 +881,7 @@ const value: models.InputPrometheusRw = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1",
   },
   metadata: [
@@ -891,13 +890,13 @@ const value: models.InputPrometheusRw = {
       value: "<value>",
     },
   ],
-  description: "sheepishly upon arcade soybean onto yahoo hydrolyze gee rapid",
-  username: "Verlie.Rosenbaum",
-  password: "_EdB5gTx4wsWVVh",
+  description: "atop huzzah cosset yum",
+  username: "Rosemarie_Marvin38",
+  password: "kiqAEkFnZvKxy5F",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://negative-ceramics.name/",
+  loginUrl: "https://precious-vol.net",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
@@ -1035,10 +1034,10 @@ const value: models.InputEdgePrometheus = {
   podFilter: [
     {
       filter: "<value>",
-      description: "oof wherever circa",
+      description: "yuck meh petticoat",
     },
   ],
-  username: "Adriel_Murray86",
+  username: "Foster98",
   password: "GsqPbiOp5J7DY2j",
   credentialsSecret: "<value>",
 };
@@ -1137,11 +1136,11 @@ const value: models.InputOffice365Service = {
   ],
   retryRules: {
     codes: [
-      3457.75,
-      6170.34,
+      3814.72,
+      1029.82,
     ],
   },
-  description: "which goodwill around slip oddly after often blissfully",
+  description: "sonata consequently potable until ripe",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
@@ -1178,13 +1177,13 @@ const value: models.InputOffice365MsgTrace = {
   ],
   retryRules: {
     codes: [
-      6130.25,
-      1608.52,
+      3814.72,
+      1029.82,
     ],
   },
-  description: "helpfully stage microblog ill-fated ha",
-  username: "Penelope29",
-  password: "2zUumt8MSApxEG0",
+  description: "towards whereas nor flawed disadvantage upon sup",
+  username: "Rahul.Flatley",
+  password: "ApxEG0kJtSiFWcx",
   credentialsSecret: "<value>",
   clientSecret: "<value>",
   tenantId: "<id>",
@@ -1318,8 +1317,8 @@ const value: models.InputFirehose = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -1327,7 +1326,7 @@ const value: models.InputFirehose = {
       value: "<value>",
     },
   ],
-  description: "persecute firm porter",
+  description: "yippee throbbing although valiantly disconnection fiercely in",
 };
 ```
 
@@ -1427,8 +1426,8 @@ const value: models.InputCriblTcp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -1439,10 +1438,11 @@ const value: models.InputCriblTcp = {
   authTokens: [
     {
       tokenSecret: "<value>",
-      description: "as jovially edge",
+      description: "augment case without",
     },
   ],
-  description: "airline enhance reapply needy indeed",
+  description:
+    "when waterspout ribbon upon joyfully yuck disconnection failing lightly mousse",
 };
 ```
 
@@ -1472,7 +1472,7 @@ const value: models.InputCriblHttp = {
   authTokens: [
     {
       tokenSecret: "<value>",
-      description: "wearily weighty bliss language how",
+      description: "augment case without",
     },
   ],
   tls: {
@@ -1481,7 +1481,7 @@ const value: models.InputCriblHttp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1",
   },
   metadata: [
@@ -1490,7 +1490,7 @@ const value: models.InputCriblHttp = {
       value: "<value>",
     },
   ],
-  description: "thyme roadway woot",
+  description: "wearily weighty bliss language how",
 };
 ```
 
@@ -1525,7 +1525,7 @@ const value: models.InputCriblLakeHttp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1",
   },
   metadata: [
@@ -1537,7 +1537,8 @@ const value: models.InputCriblLakeHttp = {
   authTokensExt: [
     {
       token: "<value>",
-      description: "swear aw angrily yearningly ferociously vet trusting yum",
+      description:
+        "after whoever castanet gosh bludgeon fabricate gee incidentally",
       metadata: [
         {
           name: "<value>",
@@ -1549,18 +1550,16 @@ const value: models.InputCriblLakeHttp = {
         defaultDataset: "<value>",
         allowedIndexesAtToken: [
           "<value 1>",
-          "<value 2>",
-          "<value 3>",
         ],
       },
       elasticsearchMetadata: {
-        enabled: false,
+        enabled: true,
         defaultDataset: "<value>",
       },
     },
   ],
   description:
-    "beside cute adult obediently consequently westernise by bug wing insidious",
+    "especially rotating whose towards dental cutover customise upside-down but psst",
 };
 ```
 
@@ -1591,8 +1590,8 @@ const value: models.InputTcpjson = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -1600,7 +1599,8 @@ const value: models.InputTcpjson = {
       value: "<value>",
     },
   ],
-  description: "woot er likewise unlike ravioli whenever",
+  description:
+    "march eek flickering oh although debut needily reluctantly what",
   textSecret: "<value>",
 };
 ```
@@ -1828,7 +1828,7 @@ const value: models.InputKubeEvents = {
   rules: [
     {
       filter: "<value>",
-      description: "which incline beautifully",
+      description: "boggle catalog chip ew",
     },
   ],
   metadata: [
@@ -1837,7 +1837,7 @@ const value: models.InputKubeEvents = {
       value: "<value>",
     },
   ],
-  description: "convection any mmm whereas major so regularly",
+  description: "which incline beautifully",
 };
 ```
 
@@ -1937,6 +1937,7 @@ const value: models.InputCrowdstrike = {
     args: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
   },
   metadata: [
@@ -1947,7 +1948,7 @@ const value: models.InputCrowdstrike = {
   ],
   checkpointing: {},
   encoding: "<value>",
-  description: "excitedly jovially slowly",
+  description: "denitrify after boo duh duh",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   tagAfterProcessing: "true",
@@ -1985,8 +1986,8 @@ const value: models.InputDatadogAgent = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -1995,7 +1996,8 @@ const value: models.InputDatadogAgent = {
     },
   ],
   proxyMode: {},
-  description: "great than while mobility how vastly straight menacing granny",
+  description:
+    "humiliating intensely enthusiastically kindheartedly grown content mmm infatuated like",
 };
 ```
 
@@ -2067,13 +2069,11 @@ const value: models.InputHttpRaw = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   metadata: [
     {
@@ -2084,17 +2084,16 @@ const value: models.InputHttpRaw = {
   allowedPaths: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   allowedMethods: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   authTokensExt: [
     {
       token: "<value>",
-      description:
-        "quaintly concentration very incomparable stale sidetrack incidentally freight er against",
+      description: "confide bulky gadzooks ugh concerning rightfully justly",
       metadata: [
         {
           name: "<value>",
@@ -2103,7 +2102,7 @@ const value: models.InputHttpRaw = {
       ],
     },
   ],
-  description: "know or gift why",
+  description: "before upon wee uh-huh robust however cap calmly drat",
 };
 ```
 
@@ -2208,8 +2207,8 @@ const value: models.InputMetrics = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -2217,8 +2216,8 @@ const value: models.InputMetrics = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 6579.9,
-  description: "cautiously woot similar wretched",
+  udpSocketRxBufSize: 1218.28,
+  description: "untidy braid yippee readily yahoo gah space",
 };
 ```
 
@@ -2269,7 +2268,8 @@ const value: models.InputS3 = {
   ],
   checkpointing: {},
   encoding: "<value>",
-  description: "between between when frequent now until into lumpy into by",
+  description:
+    "ah exploration discourse ouch fooey down reorganisation unique despite",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   processedTagKey: "<value>",
@@ -2315,6 +2315,8 @@ const value: models.InputS3Inventory = {
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
   },
   metadata: [
@@ -2324,11 +2326,10 @@ const value: models.InputS3Inventory = {
     },
   ],
   checkpointing: {},
-  description:
-    "though insert inasmuch likely bah ew gadzooks anenst powerfully",
+  description: "scarily sans monthly",
   awsApiKey: "<value>",
   awsSecret: "<value>",
-  tagAfterProcessing: "true",
+  tagAfterProcessing: "false",
   processedTagKey: "<value>",
   processedTagValue: "<value>",
 };
@@ -2405,7 +2406,7 @@ const value: models.InputOpenTelemetry = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1",
   },
   enableProxyHeader: "<value>",
@@ -2417,13 +2418,13 @@ const value: models.InputOpenTelemetry = {
       value: "<value>",
     },
   ],
-  description: "rewrite cow warmly clearly vamoose",
-  username: "Leonard84",
-  password: "0Rl6tiFKwlIZ_hs",
+  description: "deflect er wee",
+  username: "Angel42",
+  password: "l4T9Z8qy0Rl6tiF",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://quarterly-flame.org/",
+  loginUrl: "https://rectangular-toaster.name/",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
@@ -2469,8 +2470,8 @@ const value: models.InputModelDrivenTelemetry = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -2478,8 +2479,7 @@ const value: models.InputModelDrivenTelemetry = {
       value: "<value>",
     },
   ],
-  description:
-    "toothbrush suddenly while pace now bleak huzzah psst forenenst yet",
+  description: "boohoo carpool so chunder",
 };
 ```
 
@@ -2589,7 +2589,7 @@ const value: models.InputSyslog = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -2597,9 +2597,9 @@ const value: models.InputSyslog = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 9849.4,
+  udpSocketRxBufSize: 4338.64,
   enableLoadBalancing: false,
-  description: "whether ouch boo",
+  description: "positively yuck hmph whoa yet yahoo",
   enableEnhancedProxyHeaderParsing: false,
 };
 ```
@@ -2675,7 +2675,7 @@ const value: models.InputTcp = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -2685,15 +2685,17 @@ const value: models.InputTcp = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
   preprocess: {
     command: "<value>",
     args: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
   },
-  description: "cheerful daily knowledgeably likewise everlasting",
+  description: "license abseil zowie er insignificant",
   textSecret: "<value>",
 };
 ```
@@ -2747,8 +2749,8 @@ const value: models.InputAppscope = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   unixSocketPerms: "<value>",
   textSecret: "<value>",
@@ -3009,8 +3011,8 @@ const value: models.InputWizWebhook = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   breakerRulesets: [
     "<value 1>",
@@ -3026,16 +3028,16 @@ const value: models.InputWizWebhook = {
   allowedPaths: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   allowedMethods: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   authTokensExt: [
     {
       token: "<value>",
-      description: "irritably medium reckless acceptable pish and",
+      description: "confide bulky gadzooks ugh concerning rightfully justly",
       metadata: [
         {
           name: "<value>",
@@ -3044,8 +3046,7 @@ const value: models.InputWizWebhook = {
       ],
     },
   ],
-  description:
-    "instead yet rudely oh bracelet after miserably hunger optimal possible",
+  description: "frizzy spanish merrily instead reboot gurn sew gosh naturally",
 };
 ```
 
@@ -3131,7 +3132,7 @@ const value: models.InputSecurityLake = {
   ],
   checkpointing: {},
   encoding: "<value>",
-  description: "as aw programme ugh log after brr fearless toward pro",
+  description: "lightly before puppet modulo onto sustenance bus snappy brook",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   tagAfterProcessing: "true",
@@ -3186,7 +3187,7 @@ const value: models.InputZscalerHec = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1",
   },
   enableHealthCheck: "<value>",
@@ -3199,18 +3200,16 @@ const value: models.InputZscalerHec = {
   allowedIndexes: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   accessControlAllowOrigin: [
     "<value 1>",
-    "<value 2>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  description: "about what gallivant",
+  description: "reword efface hm oof hawk fencing boulevard because",
 };
 ```
 
@@ -3260,8 +3259,8 @@ const value: models.InputCloudflareHec = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   enableHealthCheck: "<value>",
   hecAPI: "<value>",
@@ -3273,20 +3272,20 @@ const value: models.InputCloudflareHec = {
   ],
   allowedIndexes: [
     "<value 1>",
-  ],
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  accessControlAllowOrigin: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  accessControlAllowHeaders: [
-    "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  description: "cumbersome unwritten while unless right",
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  accessControlAllowOrigin: [
+    "<value 1>",
+  ],
+  accessControlAllowHeaders: [
+    "<value 1>",
+  ],
+  description: "murky not boastfully annex warmly",
 };
 ```
 

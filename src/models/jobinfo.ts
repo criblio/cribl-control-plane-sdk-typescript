@@ -5,33 +5,21 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AdditionalPropertiesTypeJobInfoStats,
+  AdditionalPropertiesTypeJobInfoStats$inboundSchema,
+} from "./additionalpropertiestypejobinfostats.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { JobStatus, JobStatus$inboundSchema } from "./jobstatus.js";
 import { RunnableJob, RunnableJob$inboundSchema } from "./runnablejob.js";
-
-export type Stats = number | { [k: string]: number };
 
 export type JobInfo = {
   args: RunnableJob;
   id: string;
   keep?: boolean | undefined;
-  stats: { [k: string]: number | { [k: string]: number } };
+  stats: { [k: string]: AdditionalPropertiesTypeJobInfoStats };
   status: JobStatus;
 };
-
-/** @internal */
-export const Stats$inboundSchema: z.ZodType<Stats, z.ZodTypeDef, unknown> = z
-  .union([z.number(), z.record(z.number())]);
-
-export function statsFromJSON(
-  jsonString: string,
-): SafeParseResult<Stats, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Stats$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Stats' from JSON`,
-  );
-}
 
 /** @internal */
 export const JobInfo$inboundSchema: z.ZodType<JobInfo, z.ZodTypeDef, unknown> =
@@ -39,7 +27,7 @@ export const JobInfo$inboundSchema: z.ZodType<JobInfo, z.ZodTypeDef, unknown> =
     args: RunnableJob$inboundSchema,
     id: z.string(),
     keep: z.boolean().optional(),
-    stats: z.record(z.union([z.number(), z.record(z.number())])),
+    stats: z.record(AdditionalPropertiesTypeJobInfoStats$inboundSchema),
     status: JobStatus$inboundSchema,
   });
 

@@ -4,281 +4,43 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputMskConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputMskMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputMskMode = OpenEnum<typeof InputMskMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputMskCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputMskCompression = OpenEnum<typeof InputMskCompression>;
-
-export type InputMskPqControls = {};
-
-export type InputMskPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputMskMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputMskCompression | undefined;
-  pqControls?: InputMskPqControls | undefined;
-};
-
-export type InputMskMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-/**
- * Credentials to use when authenticating with the schema registry using basic HTTP authentication
- */
-export type InputMskAuth = {
-  disabled?: boolean | undefined;
-  /**
-   * Select or create a secret that references your credentials
-   */
-  credentialsSecret?: string | undefined;
-};
-
-export const InputMskKafkaSchemaRegistryMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputMskKafkaSchemaRegistryMinimumTLSVersion = OpenEnum<
-  typeof InputMskKafkaSchemaRegistryMinimumTLSVersion
->;
-
-export const InputMskKafkaSchemaRegistryMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputMskKafkaSchemaRegistryMaximumTLSVersion = OpenEnum<
-  typeof InputMskKafkaSchemaRegistryMaximumTLSVersion
->;
-
-export type InputMskKafkaSchemaRegistryTLSSettingsClientSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-   *
-   * @remarks
-   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-   */
-  servername?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  minVersion?: InputMskKafkaSchemaRegistryMinimumTLSVersion | undefined;
-  maxVersion?: InputMskKafkaSchemaRegistryMaximumTLSVersion | undefined;
-};
-
-export type InputMskKafkaSchemaRegistryAuthentication = {
-  disabled?: boolean | undefined;
-  /**
-   * URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
-   */
-  schemaRegistryURL?: string | undefined;
-  /**
-   * Maximum time to wait for a Schema Registry connection to complete successfully
-   */
-  connectionTimeout?: number | undefined;
-  /**
-   * Maximum time to wait for the Schema Registry to respond to a request
-   */
-  requestTimeout?: number | undefined;
-  /**
-   * Maximum number of times to try fetching schemas from the Schema Registry
-   */
-  maxRetries?: number | undefined;
-  /**
-   * Credentials to use when authenticating with the schema registry using basic HTTP authentication
-   */
-  auth?: InputMskAuth | undefined;
-  tls?: InputMskKafkaSchemaRegistryTLSSettingsClientSide | undefined;
-};
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const InputMskAuthenticationMethod = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type InputMskAuthenticationMethod = OpenEnum<
-  typeof InputMskAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing MSK cluster requests
- */
-export const InputMskSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing MSK cluster requests
- */
-export type InputMskSignatureVersion = OpenEnum<
-  typeof InputMskSignatureVersion
->;
-
-export const InputMskMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputMskMinimumTLSVersion = OpenEnum<
-  typeof InputMskMinimumTLSVersion
->;
-
-export const InputMskMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputMskMaximumTLSVersion = OpenEnum<
-  typeof InputMskMaximumTLSVersion
->;
-
-export type InputMskTLSSettingsClientSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-   *
-   * @remarks
-   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-   */
-  servername?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  minVersion?: InputMskMinimumTLSVersion | undefined;
-  maxVersion?: InputMskMaximumTLSVersion | undefined;
-};
+import {
+  ItemsTypeConnections,
+  ItemsTypeConnections$inboundSchema,
+  ItemsTypeConnections$Outbound,
+  ItemsTypeConnections$outboundSchema,
+} from "./itemstypeconnections.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  KafkaSchemaRegistryAuthenticationType,
+  KafkaSchemaRegistryAuthenticationType$inboundSchema,
+  KafkaSchemaRegistryAuthenticationType$Outbound,
+  KafkaSchemaRegistryAuthenticationType$outboundSchema,
+} from "./kafkaschemaregistryauthenticationtype.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  SignatureVersionOptions,
+  SignatureVersionOptions$inboundSchema,
+  SignatureVersionOptions$outboundSchema,
+} from "./signatureversionoptions.js";
+import {
+  TlsSettingsClientSideType1,
+  TlsSettingsClientSideType1$inboundSchema,
+  TlsSettingsClientSideType1$Outbound,
+  TlsSettingsClientSideType1$outboundSchema,
+} from "./tlssettingsclientsidetype1.js";
 
 export type InputMsk = {
   /**
@@ -310,8 +72,8 @@ export type InputMsk = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputMskConnection> | undefined;
-  pq?: InputMskPq | undefined;
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
   /**
    * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
    */
@@ -356,8 +118,8 @@ export type InputMsk = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputMskMetadatum> | undefined;
-  kafkaSchemaRegistry?: InputMskKafkaSchemaRegistryAuthentication | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  kafkaSchemaRegistry?: KafkaSchemaRegistryAuthenticationType | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
    */
@@ -393,7 +155,7 @@ export type InputMsk = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: InputMskAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -406,7 +168,7 @@ export type InputMsk = {
   /**
    * Signature version to use for signing MSK cluster requests
    */
-  signatureVersion?: InputMskSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -431,7 +193,7 @@ export type InputMsk = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
-  tls?: InputMskTLSSettingsClientSide | undefined;
+  tls?: TlsSettingsClientSideType1 | undefined;
   /**
    * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
    */
@@ -461,545 +223,6 @@ export type InputMsk = {
 };
 
 /** @internal */
-export const InputMskConnection$inboundSchema: z.ZodType<
-  InputMskConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputMskConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputMskConnection$outboundSchema: z.ZodType<
-  InputMskConnection$Outbound,
-  z.ZodTypeDef,
-  InputMskConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputMskConnectionToJSON(
-  inputMskConnection: InputMskConnection,
-): string {
-  return JSON.stringify(
-    InputMskConnection$outboundSchema.parse(inputMskConnection),
-  );
-}
-export function inputMskConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputMskConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputMskConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMskConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputMskMode$inboundSchema: z.ZodType<
-  InputMskMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputMskMode);
-/** @internal */
-export const InputMskMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputMskMode
-> = openEnums.outboundSchema(InputMskMode);
-
-/** @internal */
-export const InputMskCompression$inboundSchema: z.ZodType<
-  InputMskCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputMskCompression);
-/** @internal */
-export const InputMskCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputMskCompression
-> = openEnums.outboundSchema(InputMskCompression);
-
-/** @internal */
-export const InputMskPqControls$inboundSchema: z.ZodType<
-  InputMskPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputMskPqControls$Outbound = {};
-
-/** @internal */
-export const InputMskPqControls$outboundSchema: z.ZodType<
-  InputMskPqControls$Outbound,
-  z.ZodTypeDef,
-  InputMskPqControls
-> = z.object({});
-
-export function inputMskPqControlsToJSON(
-  inputMskPqControls: InputMskPqControls,
-): string {
-  return JSON.stringify(
-    InputMskPqControls$outboundSchema.parse(inputMskPqControls),
-  );
-}
-export function inputMskPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputMskPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputMskPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMskPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputMskPq$inboundSchema: z.ZodType<
-  InputMskPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputMskMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputMskCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputMskPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputMskPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputMskPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputMskPq$outboundSchema: z.ZodType<
-  InputMskPq$Outbound,
-  z.ZodTypeDef,
-  InputMskPq
-> = z.object({
-  mode: InputMskMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputMskCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputMskPqControls$outboundSchema).optional(),
-});
-
-export function inputMskPqToJSON(inputMskPq: InputMskPq): string {
-  return JSON.stringify(InputMskPq$outboundSchema.parse(inputMskPq));
-}
-export function inputMskPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputMskPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputMskPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMskPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputMskMetadatum$inboundSchema: z.ZodType<
-  InputMskMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputMskMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputMskMetadatum$outboundSchema: z.ZodType<
-  InputMskMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputMskMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputMskMetadatumToJSON(
-  inputMskMetadatum: InputMskMetadatum,
-): string {
-  return JSON.stringify(
-    InputMskMetadatum$outboundSchema.parse(inputMskMetadatum),
-  );
-}
-export function inputMskMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputMskMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputMskMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMskMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputMskAuth$inboundSchema: z.ZodType<
-  InputMskAuth,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  credentialsSecret: z.string().optional(),
-});
-/** @internal */
-export type InputMskAuth$Outbound = {
-  disabled: boolean;
-  credentialsSecret?: string | undefined;
-};
-
-/** @internal */
-export const InputMskAuth$outboundSchema: z.ZodType<
-  InputMskAuth$Outbound,
-  z.ZodTypeDef,
-  InputMskAuth
-> = z.object({
-  disabled: z.boolean().default(true),
-  credentialsSecret: z.string().optional(),
-});
-
-export function inputMskAuthToJSON(inputMskAuth: InputMskAuth): string {
-  return JSON.stringify(InputMskAuth$outboundSchema.parse(inputMskAuth));
-}
-export function inputMskAuthFromJSON(
-  jsonString: string,
-): SafeParseResult<InputMskAuth, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputMskAuth$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMskAuth' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputMskKafkaSchemaRegistryMinimumTLSVersion$inboundSchema:
-  z.ZodType<
-    InputMskKafkaSchemaRegistryMinimumTLSVersion,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(InputMskKafkaSchemaRegistryMinimumTLSVersion);
-/** @internal */
-export const InputMskKafkaSchemaRegistryMinimumTLSVersion$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    InputMskKafkaSchemaRegistryMinimumTLSVersion
-  > = openEnums.outboundSchema(InputMskKafkaSchemaRegistryMinimumTLSVersion);
-
-/** @internal */
-export const InputMskKafkaSchemaRegistryMaximumTLSVersion$inboundSchema:
-  z.ZodType<
-    InputMskKafkaSchemaRegistryMaximumTLSVersion,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(InputMskKafkaSchemaRegistryMaximumTLSVersion);
-/** @internal */
-export const InputMskKafkaSchemaRegistryMaximumTLSVersion$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    InputMskKafkaSchemaRegistryMaximumTLSVersion
-  > = openEnums.outboundSchema(InputMskKafkaSchemaRegistryMaximumTLSVersion);
-
-/** @internal */
-export const InputMskKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema:
-  z.ZodType<
-    InputMskKafkaSchemaRegistryTLSSettingsClientSide,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    disabled: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
-    servername: z.string().optional(),
-    certificateName: z.string().optional(),
-    caPath: z.string().optional(),
-    privKeyPath: z.string().optional(),
-    certPath: z.string().optional(),
-    passphrase: z.string().optional(),
-    minVersion: InputMskKafkaSchemaRegistryMinimumTLSVersion$inboundSchema
-      .optional(),
-    maxVersion: InputMskKafkaSchemaRegistryMaximumTLSVersion$inboundSchema
-      .optional(),
-  });
-/** @internal */
-export type InputMskKafkaSchemaRegistryTLSSettingsClientSide$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
-  servername?: string | undefined;
-  certificateName?: string | undefined;
-  caPath?: string | undefined;
-  privKeyPath?: string | undefined;
-  certPath?: string | undefined;
-  passphrase?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const InputMskKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema:
-  z.ZodType<
-    InputMskKafkaSchemaRegistryTLSSettingsClientSide$Outbound,
-    z.ZodTypeDef,
-    InputMskKafkaSchemaRegistryTLSSettingsClientSide
-  > = z.object({
-    disabled: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
-    servername: z.string().optional(),
-    certificateName: z.string().optional(),
-    caPath: z.string().optional(),
-    privKeyPath: z.string().optional(),
-    certPath: z.string().optional(),
-    passphrase: z.string().optional(),
-    minVersion: InputMskKafkaSchemaRegistryMinimumTLSVersion$outboundSchema
-      .optional(),
-    maxVersion: InputMskKafkaSchemaRegistryMaximumTLSVersion$outboundSchema
-      .optional(),
-  });
-
-export function inputMskKafkaSchemaRegistryTLSSettingsClientSideToJSON(
-  inputMskKafkaSchemaRegistryTLSSettingsClientSide:
-    InputMskKafkaSchemaRegistryTLSSettingsClientSide,
-): string {
-  return JSON.stringify(
-    InputMskKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema.parse(
-      inputMskKafkaSchemaRegistryTLSSettingsClientSide,
-    ),
-  );
-}
-export function inputMskKafkaSchemaRegistryTLSSettingsClientSideFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputMskKafkaSchemaRegistryTLSSettingsClientSide,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputMskKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputMskKafkaSchemaRegistryTLSSettingsClientSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputMskKafkaSchemaRegistryAuthentication$inboundSchema: z.ZodType<
-  InputMskKafkaSchemaRegistryAuthentication,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  schemaRegistryURL: z.string().default("http://localhost:8081"),
-  connectionTimeout: z.number().default(30000),
-  requestTimeout: z.number().default(30000),
-  maxRetries: z.number().default(1),
-  auth: z.lazy(() => InputMskAuth$inboundSchema).optional(),
-  tls: z.lazy(() =>
-    InputMskKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema
-  ).optional(),
-});
-/** @internal */
-export type InputMskKafkaSchemaRegistryAuthentication$Outbound = {
-  disabled: boolean;
-  schemaRegistryURL: string;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
-  auth?: InputMskAuth$Outbound | undefined;
-  tls?: InputMskKafkaSchemaRegistryTLSSettingsClientSide$Outbound | undefined;
-};
-
-/** @internal */
-export const InputMskKafkaSchemaRegistryAuthentication$outboundSchema:
-  z.ZodType<
-    InputMskKafkaSchemaRegistryAuthentication$Outbound,
-    z.ZodTypeDef,
-    InputMskKafkaSchemaRegistryAuthentication
-  > = z.object({
-    disabled: z.boolean().default(true),
-    schemaRegistryURL: z.string().default("http://localhost:8081"),
-    connectionTimeout: z.number().default(30000),
-    requestTimeout: z.number().default(30000),
-    maxRetries: z.number().default(1),
-    auth: z.lazy(() => InputMskAuth$outboundSchema).optional(),
-    tls: z.lazy(() =>
-      InputMskKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema
-    ).optional(),
-  });
-
-export function inputMskKafkaSchemaRegistryAuthenticationToJSON(
-  inputMskKafkaSchemaRegistryAuthentication:
-    InputMskKafkaSchemaRegistryAuthentication,
-): string {
-  return JSON.stringify(
-    InputMskKafkaSchemaRegistryAuthentication$outboundSchema.parse(
-      inputMskKafkaSchemaRegistryAuthentication,
-    ),
-  );
-}
-export function inputMskKafkaSchemaRegistryAuthenticationFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputMskKafkaSchemaRegistryAuthentication,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputMskKafkaSchemaRegistryAuthentication$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputMskKafkaSchemaRegistryAuthentication' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputMskAuthenticationMethod$inboundSchema: z.ZodType<
-  InputMskAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputMskAuthenticationMethod);
-/** @internal */
-export const InputMskAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputMskAuthenticationMethod
-> = openEnums.outboundSchema(InputMskAuthenticationMethod);
-
-/** @internal */
-export const InputMskSignatureVersion$inboundSchema: z.ZodType<
-  InputMskSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputMskSignatureVersion);
-/** @internal */
-export const InputMskSignatureVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputMskSignatureVersion
-> = openEnums.outboundSchema(InputMskSignatureVersion);
-
-/** @internal */
-export const InputMskMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputMskMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputMskMinimumTLSVersion);
-/** @internal */
-export const InputMskMinimumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputMskMinimumTLSVersion
-> = openEnums.outboundSchema(InputMskMinimumTLSVersion);
-
-/** @internal */
-export const InputMskMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputMskMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputMskMaximumTLSVersion);
-/** @internal */
-export const InputMskMaximumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputMskMaximumTLSVersion
-> = openEnums.outboundSchema(InputMskMaximumTLSVersion);
-
-/** @internal */
-export const InputMskTLSSettingsClientSide$inboundSchema: z.ZodType<
-  InputMskTLSSettingsClientSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: InputMskMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputMskMaximumTLSVersion$inboundSchema.optional(),
-});
-/** @internal */
-export type InputMskTLSSettingsClientSide$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
-  servername?: string | undefined;
-  certificateName?: string | undefined;
-  caPath?: string | undefined;
-  privKeyPath?: string | undefined;
-  certPath?: string | undefined;
-  passphrase?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const InputMskTLSSettingsClientSide$outboundSchema: z.ZodType<
-  InputMskTLSSettingsClientSide$Outbound,
-  z.ZodTypeDef,
-  InputMskTLSSettingsClientSide
-> = z.object({
-  disabled: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: InputMskMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputMskMaximumTLSVersion$outboundSchema.optional(),
-});
-
-export function inputMskTLSSettingsClientSideToJSON(
-  inputMskTLSSettingsClientSide: InputMskTLSSettingsClientSide,
-): string {
-  return JSON.stringify(
-    InputMskTLSSettingsClientSide$outboundSchema.parse(
-      inputMskTLSSettingsClientSide,
-    ),
-  );
-}
-export function inputMskTLSSettingsClientSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputMskTLSSettingsClientSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputMskTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMskTLSSettingsClientSide' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputMsk$inboundSchema: z.ZodType<
   InputMsk,
   z.ZodTypeDef,
@@ -1013,9 +236,8 @@ export const InputMsk$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputMskConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputMskPq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
@@ -1023,10 +245,9 @@ export const InputMsk$inboundSchema: z.ZodType<
   sessionTimeout: z.number().default(30000),
   rebalanceTimeout: z.number().default(60000),
   heartbeatInterval: z.number().default(3000),
-  metadata: z.array(z.lazy(() => InputMskMetadatum$inboundSchema)).optional(),
-  kafkaSchemaRegistry: z.lazy(() =>
-    InputMskKafkaSchemaRegistryAuthentication$inboundSchema
-  ).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$inboundSchema
+    .optional(),
   connectionTimeout: z.number().default(10000),
   requestTimeout: z.number().default(60000),
   maxRetries: z.number().default(5),
@@ -1035,20 +256,18 @@ export const InputMsk$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: InputMskAuthenticationMethod$inboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: z.string().default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: InputMskSignatureVersion$inboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
-  tls: z.lazy(() => InputMskTLSSettingsClientSide$inboundSchema).optional(),
+  tls: TlsSettingsClientSideType1$inboundSchema.optional(),
   autoCommitInterval: z.number().optional(),
   autoCommitThreshold: z.number().optional(),
   maxBytesPerPartition: z.number().default(1048576),
@@ -1068,8 +287,8 @@ export type InputMsk$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputMskConnection$Outbound> | undefined;
-  pq?: InputMskPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
   groupId: string;
@@ -1077,9 +296,9 @@ export type InputMsk$Outbound = {
   sessionTimeout: number;
   rebalanceTimeout: number;
   heartbeatInterval: number;
-  metadata?: Array<InputMskMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   kafkaSchemaRegistry?:
-    | InputMskKafkaSchemaRegistryAuthentication$Outbound
+    | KafkaSchemaRegistryAuthenticationType$Outbound
     | undefined;
   connectionTimeout: number;
   requestTimeout: number;
@@ -1100,7 +319,7 @@ export type InputMsk$Outbound = {
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds: number;
-  tls?: InputMskTLSSettingsClientSide$Outbound | undefined;
+  tls?: TlsSettingsClientSideType1$Outbound | undefined;
   autoCommitInterval?: number | undefined;
   autoCommitThreshold?: number | undefined;
   maxBytesPerPartition: number;
@@ -1125,9 +344,8 @@ export const InputMsk$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputMskConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputMskPq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
@@ -1135,10 +353,9 @@ export const InputMsk$outboundSchema: z.ZodType<
   sessionTimeout: z.number().default(30000),
   rebalanceTimeout: z.number().default(60000),
   heartbeatInterval: z.number().default(3000),
-  metadata: z.array(z.lazy(() => InputMskMetadatum$outboundSchema)).optional(),
-  kafkaSchemaRegistry: z.lazy(() =>
-    InputMskKafkaSchemaRegistryAuthentication$outboundSchema
-  ).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
+    .optional(),
   connectionTimeout: z.number().default(10000),
   requestTimeout: z.number().default(60000),
   maxRetries: z.number().default(5),
@@ -1147,20 +364,18 @@ export const InputMsk$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: InputMskAuthenticationMethod$outboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: z.string().default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: InputMskSignatureVersion$outboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
-  tls: z.lazy(() => InputMskTLSSettingsClientSide$outboundSchema).optional(),
+  tls: TlsSettingsClientSideType1$outboundSchema.optional(),
   autoCommitInterval: z.number().optional(),
   autoCommitThreshold: z.number().optional(),
   maxBytesPerPartition: z.number().default(1048576),

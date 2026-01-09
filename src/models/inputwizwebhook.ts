@@ -4,173 +4,38 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputWizWebhookConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputWizWebhookMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputWizWebhookMode = OpenEnum<typeof InputWizWebhookMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputWizWebhookCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputWizWebhookCompression = OpenEnum<
-  typeof InputWizWebhookCompression
->;
-
-export type InputWizWebhookPqControls = {};
-
-export type InputWizWebhookPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputWizWebhookMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputWizWebhookCompression | undefined;
-  pqControls?: InputWizWebhookPqControls | undefined;
-};
-
-export const InputWizWebhookMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputWizWebhookMinimumTLSVersion = OpenEnum<
-  typeof InputWizWebhookMinimumTLSVersion
->;
-
-export const InputWizWebhookMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputWizWebhookMaximumTLSVersion = OpenEnum<
-  typeof InputWizWebhookMaximumTLSVersion
->;
-
-export type InputWizWebhookTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  /**
-   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Regex matching allowable common names in peer certificates' subject attribute
-   */
-  commonNameRegex?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  minVersion?: InputWizWebhookMinimumTLSVersion | undefined;
-  maxVersion?: InputWizWebhookMaximumTLSVersion | undefined;
-};
-
-export type InputWizWebhookMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputWizWebhookAuthTokensExtMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputWizWebhookAuthTokensExt = {
-  /**
-   * Shared secret to be provided by any client (Authorization: <token>)
-   */
-  token: string;
-  description?: string | undefined;
-  /**
-   * Fields to add to events referencing this token
-   */
-  metadata?: Array<InputWizWebhookAuthTokensExtMetadatum> | undefined;
-};
+import {
+  ItemsTypeAuthTokensExt,
+  ItemsTypeAuthTokensExt$inboundSchema,
+  ItemsTypeAuthTokensExt$Outbound,
+  ItemsTypeAuthTokensExt$outboundSchema,
+} from "./itemstypeauthtokensext.js";
+import {
+  ItemsTypeConnections,
+  ItemsTypeConnections$inboundSchema,
+  ItemsTypeConnections$Outbound,
+  ItemsTypeConnections$outboundSchema,
+} from "./itemstypeconnections.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  TlsSettingsServerSideType,
+  TlsSettingsServerSideType$inboundSchema,
+  TlsSettingsServerSideType$Outbound,
+  TlsSettingsServerSideType$outboundSchema,
+} from "./tlssettingsserversidetype.js";
 
 export type InputWizWebhook = {
   /**
@@ -202,8 +67,8 @@ export type InputWizWebhook = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputWizWebhookConnection> | undefined;
-  pq?: InputWizWebhookPq | undefined;
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -216,7 +81,7 @@ export type InputWizWebhook = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
-  tls?: InputWizWebhookTLSSettingsServerSide | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -272,7 +137,7 @@ export type InputWizWebhook = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputWizWebhookMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   /**
    * List of URI paths accepted by this input. Wildcards are supported (such as /api/v* /hook). Defaults to allow all.
    */
@@ -284,406 +149,9 @@ export type InputWizWebhook = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokensExt?: Array<InputWizWebhookAuthTokensExt> | undefined;
+  authTokensExt?: Array<ItemsTypeAuthTokensExt> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputWizWebhookConnection$inboundSchema: z.ZodType<
-  InputWizWebhookConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputWizWebhookConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputWizWebhookConnection$outboundSchema: z.ZodType<
-  InputWizWebhookConnection$Outbound,
-  z.ZodTypeDef,
-  InputWizWebhookConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputWizWebhookConnectionToJSON(
-  inputWizWebhookConnection: InputWizWebhookConnection,
-): string {
-  return JSON.stringify(
-    InputWizWebhookConnection$outboundSchema.parse(inputWizWebhookConnection),
-  );
-}
-export function inputWizWebhookConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWizWebhookConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWizWebhookConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWizWebhookConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWizWebhookMode$inboundSchema: z.ZodType<
-  InputWizWebhookMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputWizWebhookMode);
-/** @internal */
-export const InputWizWebhookMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputWizWebhookMode
-> = openEnums.outboundSchema(InputWizWebhookMode);
-
-/** @internal */
-export const InputWizWebhookCompression$inboundSchema: z.ZodType<
-  InputWizWebhookCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputWizWebhookCompression);
-/** @internal */
-export const InputWizWebhookCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputWizWebhookCompression
-> = openEnums.outboundSchema(InputWizWebhookCompression);
-
-/** @internal */
-export const InputWizWebhookPqControls$inboundSchema: z.ZodType<
-  InputWizWebhookPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputWizWebhookPqControls$Outbound = {};
-
-/** @internal */
-export const InputWizWebhookPqControls$outboundSchema: z.ZodType<
-  InputWizWebhookPqControls$Outbound,
-  z.ZodTypeDef,
-  InputWizWebhookPqControls
-> = z.object({});
-
-export function inputWizWebhookPqControlsToJSON(
-  inputWizWebhookPqControls: InputWizWebhookPqControls,
-): string {
-  return JSON.stringify(
-    InputWizWebhookPqControls$outboundSchema.parse(inputWizWebhookPqControls),
-  );
-}
-export function inputWizWebhookPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWizWebhookPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWizWebhookPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWizWebhookPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWizWebhookPq$inboundSchema: z.ZodType<
-  InputWizWebhookPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputWizWebhookMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputWizWebhookCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputWizWebhookPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputWizWebhookPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputWizWebhookPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputWizWebhookPq$outboundSchema: z.ZodType<
-  InputWizWebhookPq$Outbound,
-  z.ZodTypeDef,
-  InputWizWebhookPq
-> = z.object({
-  mode: InputWizWebhookMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputWizWebhookCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputWizWebhookPqControls$outboundSchema).optional(),
-});
-
-export function inputWizWebhookPqToJSON(
-  inputWizWebhookPq: InputWizWebhookPq,
-): string {
-  return JSON.stringify(
-    InputWizWebhookPq$outboundSchema.parse(inputWizWebhookPq),
-  );
-}
-export function inputWizWebhookPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWizWebhookPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWizWebhookPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWizWebhookPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWizWebhookMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputWizWebhookMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputWizWebhookMinimumTLSVersion);
-/** @internal */
-export const InputWizWebhookMinimumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputWizWebhookMinimumTLSVersion
-> = openEnums.outboundSchema(InputWizWebhookMinimumTLSVersion);
-
-/** @internal */
-export const InputWizWebhookMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputWizWebhookMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputWizWebhookMaximumTLSVersion);
-/** @internal */
-export const InputWizWebhookMaximumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputWizWebhookMaximumTLSVersion
-> = openEnums.outboundSchema(InputWizWebhookMaximumTLSVersion);
-
-/** @internal */
-export const InputWizWebhookTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputWizWebhookTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputWizWebhookMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputWizWebhookMaximumTLSVersion$inboundSchema.optional(),
-});
-/** @internal */
-export type InputWizWebhookTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  requestCert: boolean;
-  rejectUnauthorized: boolean;
-  commonNameRegex: string;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const InputWizWebhookTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputWizWebhookTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputWizWebhookTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputWizWebhookMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputWizWebhookMaximumTLSVersion$outboundSchema.optional(),
-});
-
-export function inputWizWebhookTLSSettingsServerSideToJSON(
-  inputWizWebhookTLSSettingsServerSide: InputWizWebhookTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputWizWebhookTLSSettingsServerSide$outboundSchema.parse(
-      inputWizWebhookTLSSettingsServerSide,
-    ),
-  );
-}
-export function inputWizWebhookTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWizWebhookTLSSettingsServerSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputWizWebhookTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWizWebhookTLSSettingsServerSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWizWebhookMetadatum$inboundSchema: z.ZodType<
-  InputWizWebhookMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputWizWebhookMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputWizWebhookMetadatum$outboundSchema: z.ZodType<
-  InputWizWebhookMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputWizWebhookMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputWizWebhookMetadatumToJSON(
-  inputWizWebhookMetadatum: InputWizWebhookMetadatum,
-): string {
-  return JSON.stringify(
-    InputWizWebhookMetadatum$outboundSchema.parse(inputWizWebhookMetadatum),
-  );
-}
-export function inputWizWebhookMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWizWebhookMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWizWebhookMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWizWebhookMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWizWebhookAuthTokensExtMetadatum$inboundSchema: z.ZodType<
-  InputWizWebhookAuthTokensExtMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputWizWebhookAuthTokensExtMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputWizWebhookAuthTokensExtMetadatum$outboundSchema: z.ZodType<
-  InputWizWebhookAuthTokensExtMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputWizWebhookAuthTokensExtMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputWizWebhookAuthTokensExtMetadatumToJSON(
-  inputWizWebhookAuthTokensExtMetadatum: InputWizWebhookAuthTokensExtMetadatum,
-): string {
-  return JSON.stringify(
-    InputWizWebhookAuthTokensExtMetadatum$outboundSchema.parse(
-      inputWizWebhookAuthTokensExtMetadatum,
-    ),
-  );
-}
-export function inputWizWebhookAuthTokensExtMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWizWebhookAuthTokensExtMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputWizWebhookAuthTokensExtMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWizWebhookAuthTokensExtMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWizWebhookAuthTokensExt$inboundSchema: z.ZodType<
-  InputWizWebhookAuthTokensExt,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  token: z.string(),
-  description: z.string().optional(),
-  metadata: z.array(
-    z.lazy(() => InputWizWebhookAuthTokensExtMetadatum$inboundSchema),
-  ).optional(),
-});
-/** @internal */
-export type InputWizWebhookAuthTokensExt$Outbound = {
-  token: string;
-  description?: string | undefined;
-  metadata?: Array<InputWizWebhookAuthTokensExtMetadatum$Outbound> | undefined;
-};
-
-/** @internal */
-export const InputWizWebhookAuthTokensExt$outboundSchema: z.ZodType<
-  InputWizWebhookAuthTokensExt$Outbound,
-  z.ZodTypeDef,
-  InputWizWebhookAuthTokensExt
-> = z.object({
-  token: z.string(),
-  description: z.string().optional(),
-  metadata: z.array(
-    z.lazy(() => InputWizWebhookAuthTokensExtMetadatum$outboundSchema),
-  ).optional(),
-});
-
-export function inputWizWebhookAuthTokensExtToJSON(
-  inputWizWebhookAuthTokensExt: InputWizWebhookAuthTokensExt,
-): string {
-  return JSON.stringify(
-    InputWizWebhookAuthTokensExt$outboundSchema.parse(
-      inputWizWebhookAuthTokensExt,
-    ),
-  );
-}
-export function inputWizWebhookAuthTokensExtFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWizWebhookAuthTokensExt, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWizWebhookAuthTokensExt$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWizWebhookAuthTokensExt' from JSON`,
-  );
-}
 
 /** @internal */
 export const InputWizWebhook$inboundSchema: z.ZodType<
@@ -699,14 +167,12 @@ export const InputWizWebhook$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputWizWebhookConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputWizWebhookPq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: z.lazy(() => InputWizWebhookTLSSettingsServerSide$inboundSchema)
-    .optional(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -720,13 +186,10 @@ export const InputWizWebhook$inboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(z.lazy(() => InputWizWebhookMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   allowedPaths: z.array(z.string()).optional(),
   allowedMethods: z.array(z.string()).optional(),
-  authTokensExt: z.array(
-    z.lazy(() => InputWizWebhookAuthTokensExt$inboundSchema),
-  ).optional(),
+  authTokensExt: z.array(ItemsTypeAuthTokensExt$inboundSchema).optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -739,12 +202,12 @@ export type InputWizWebhook$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputWizWebhookConnection$Outbound> | undefined;
-  pq?: InputWizWebhookPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<string> | undefined;
-  tls?: InputWizWebhookTLSSettingsServerSide$Outbound | undefined;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -758,10 +221,10 @@ export type InputWizWebhook$Outbound = {
   ipDenylistRegex: string;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
-  metadata?: Array<InputWizWebhookMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   allowedPaths?: Array<string> | undefined;
   allowedMethods?: Array<string> | undefined;
-  authTokensExt?: Array<InputWizWebhookAuthTokensExt$Outbound> | undefined;
+  authTokensExt?: Array<ItemsTypeAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -779,14 +242,12 @@ export const InputWizWebhook$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputWizWebhookConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputWizWebhookPq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: z.lazy(() => InputWizWebhookTLSSettingsServerSide$outboundSchema)
-    .optional(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -800,13 +261,10 @@ export const InputWizWebhook$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(z.lazy(() => InputWizWebhookMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   allowedPaths: z.array(z.string()).optional(),
   allowedMethods: z.array(z.string()).optional(),
-  authTokensExt: z.array(
-    z.lazy(() => InputWizWebhookAuthTokensExt$outboundSchema),
-  ).optional(),
+  authTokensExt: z.array(ItemsTypeAuthTokensExt$outboundSchema).optional(),
   description: z.string().optional(),
 });
 

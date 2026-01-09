@@ -6,14 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type PipelineFunctionAggregationAdd = {
-  name?: string | undefined;
-  /**
-   * JavaScript expression to compute the value (can be constant)
-   */
-  value: string;
-};
+import {
+  ItemsTypeAdd,
+  ItemsTypeAdd$inboundSchema,
+  ItemsTypeAdd$Outbound,
+  ItemsTypeAdd$outboundSchema,
+} from "./itemstypeadd.js";
 
 export type PipelineFunctionAggregationConf = {
   /**
@@ -67,7 +65,7 @@ export type PipelineFunctionAggregationConf = {
   /**
    * Set of key-value pairs to evaluate and add/set
    */
-  add?: Array<PipelineFunctionAggregationAdd> | undefined;
+  add?: Array<ItemsTypeAdd> | undefined;
   /**
    * Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
    */
@@ -107,50 +105,6 @@ export type PipelineFunctionAggregation = {
 };
 
 /** @internal */
-export const PipelineFunctionAggregationAdd$inboundSchema: z.ZodType<
-  PipelineFunctionAggregationAdd,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-/** @internal */
-export type PipelineFunctionAggregationAdd$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const PipelineFunctionAggregationAdd$outboundSchema: z.ZodType<
-  PipelineFunctionAggregationAdd$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionAggregationAdd
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function pipelineFunctionAggregationAddToJSON(
-  pipelineFunctionAggregationAdd: PipelineFunctionAggregationAdd,
-): string {
-  return JSON.stringify(
-    PipelineFunctionAggregationAdd$outboundSchema.parse(
-      pipelineFunctionAggregationAdd,
-    ),
-  );
-}
-export function pipelineFunctionAggregationAddFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionAggregationAdd, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PipelineFunctionAggregationAdd$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionAggregationAdd' from JSON`,
-  );
-}
-
-/** @internal */
 export const PipelineFunctionAggregationConf$inboundSchema: z.ZodType<
   PipelineFunctionAggregationConf,
   z.ZodTypeDef,
@@ -168,8 +122,7 @@ export const PipelineFunctionAggregationConf$inboundSchema: z.ZodType<
   flushMemLimit: z.string().optional(),
   cumulative: z.boolean().default(false),
   searchAggMode: z.string().optional(),
-  add: z.array(z.lazy(() => PipelineFunctionAggregationAdd$inboundSchema))
-    .optional(),
+  add: z.array(ItemsTypeAdd$inboundSchema).optional(),
   shouldTreatDotsAsLiterals: z.boolean().default(false),
   flushOnInputClose: z.boolean().default(true),
 });
@@ -187,7 +140,7 @@ export type PipelineFunctionAggregationConf$Outbound = {
   flushMemLimit?: string | undefined;
   cumulative: boolean;
   searchAggMode?: string | undefined;
-  add?: Array<PipelineFunctionAggregationAdd$Outbound> | undefined;
+  add?: Array<ItemsTypeAdd$Outbound> | undefined;
   shouldTreatDotsAsLiterals: boolean;
   flushOnInputClose: boolean;
 };
@@ -210,8 +163,7 @@ export const PipelineFunctionAggregationConf$outboundSchema: z.ZodType<
   flushMemLimit: z.string().optional(),
   cumulative: z.boolean().default(false),
   searchAggMode: z.string().optional(),
-  add: z.array(z.lazy(() => PipelineFunctionAggregationAdd$outboundSchema))
-    .optional(),
+  add: z.array(ItemsTypeAdd$outboundSchema).optional(),
   shouldTreatDotsAsLiterals: z.boolean().default(false),
   flushOnInputClose: z.boolean().default(true),
 });

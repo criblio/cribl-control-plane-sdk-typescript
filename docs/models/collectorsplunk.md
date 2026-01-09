@@ -1,264 +1,58 @@
 # CollectorSplunk
 
+Splunk collector configuration
 
-## Supported Types
-
-### `models.CollectorSplunkSplunk1`
+## Example Usage
 
 ```typescript
-const value: models.CollectorSplunkSplunk1 = {
+import { CollectorSplunk } from "cribl-control-plane/models";
+
+let value: CollectorSplunk = {
   type: "splunk",
-  search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
-  collectRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
+  conf: {
+    authentication: "basic",
+    username: "Enrico53",
+    password: "a6l5mrPhEvtGkTu",
+    searchHead: "https://localhost:8089",
+    search: "<value>",
+    earliest: "<value>",
+    latest: "<value>",
+    endpoint: "/services/search/v2/jobs/export",
+    outputMode: "json",
+    collectRequestParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    collectRequestHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    timeout: 0,
+    useRoundRobinDns: false,
+    disableTimeFilter: true,
+    rejectUnauthorized: false,
+    handleEscapedChars: false,
+    retryRules: {
+      type: "backoff",
+      interval: "<value>",
+      limit: "<value>",
+      multiplier: "<value>",
+      codes: "<value>",
+      enableHeader: "<value>",
+      retryConnectTimeout: "<value>",
+      retryConnectReset: "<value>",
     },
-  ],
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
   },
-  username: "Alexane.Hilll59",
-  password: "9YyI4_3ooDZMG1X",
-  credentialsSecret: "<value>",
-  token: "<value>",
-  tokenSecret: "<value>",
 };
 ```
 
-### `models.CollectorSplunkSplunk2`
+## Fields
 
-```typescript
-const value: models.CollectorSplunkSplunk2 = {
-  username: "Alvis65",
-  password: "i86x53iVkYtpEI1",
-  type: "splunk",
-  search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
-  collectRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
-  credentialsSecret: "<value>",
-  token: "<value>",
-  tokenSecret: "<value>",
-};
-```
-
-### `models.CollectorSplunkSplunk3`
-
-```typescript
-const value: models.CollectorSplunkSplunk3 = {
-  credentialsSecret: "<value>",
-  type: "splunk",
-  search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
-  collectRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
-  username: "Kavon.Tremblay",
-  password: "8k7wDi2UeeOWON7",
-  token: "<value>",
-  tokenSecret: "<value>",
-};
-```
-
-### `models.CollectorSplunkSplunk4`
-
-```typescript
-const value: models.CollectorSplunkSplunk4 = {
-  token: "<value>",
-  type: "splunk",
-  search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
-  collectRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
-  username: "Bell_Krajcik64",
-  password: "lbdLAwoGbL5SvJ8",
-  credentialsSecret: "<value>",
-  tokenSecret: "<value>",
-};
-```
-
-### `models.CollectorSplunkSplunk5`
-
-```typescript
-const value: models.CollectorSplunkSplunk5 = {
-  tokenSecret: "<value>",
-  type: "splunk",
-  search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
-  collectRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
-  username: "Katlynn.Mayert",
-  password: "w8sqrWAaQyu7DOe",
-  credentialsSecret: "<value>",
-  token: "<value>",
-};
-```
-
-### `models.CollectorSplunkSplunk6`
-
-```typescript
-const value: models.CollectorSplunkSplunk6 = {
-  username: "Brielle33",
-  password: "XNx0F8oKdJpLV_l",
-  type: "splunk",
-  search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
-  collectRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
-  credentialsSecret: "<value>",
-  token: "<value>",
-  tokenSecret: "<value>",
-};
-```
-
-### `models.CollectorSplunkSplunk7`
-
-```typescript
-const value: models.CollectorSplunkSplunk7 = {
-  credentialsSecret: "<value>",
-  type: "splunk",
-  search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
-  collectRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
-  username: "Dusty.Kihn58",
-  password: "ZLZQe_JLWChBfjq",
-  token: "<value>",
-  tokenSecret: "<value>",
-};
-```
-
+| Field                        | Type                         | Required                     | Description                  |
+| ---------------------------- | ---------------------------- | ---------------------------- | ---------------------------- |
+| `type`                       | *"splunk"*                   | :heavy_check_mark:           | Collector type               |
+| `conf`                       | *models.SplunkCollectorConf* | :heavy_check_mark:           | N/A                          |

@@ -4,95 +4,42 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptionsAuthTokensItems,
+  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
+} from "./authenticationmethodoptionsauthtokensitems.js";
+import {
+  DataCompressionFormatOptionsPersistence,
+  DataCompressionFormatOptionsPersistence$inboundSchema,
+  DataCompressionFormatOptionsPersistence$outboundSchema,
+} from "./datacompressionformatoptionspersistence.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputAppscopeConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputAppscopeMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputAppscopeMode = OpenEnum<typeof InputAppscopeMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputAppscopeCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputAppscopeCompression = OpenEnum<
-  typeof InputAppscopeCompression
->;
-
-export type InputAppscopePqControls = {};
-
-export type InputAppscopePq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputAppscopeMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputAppscopeCompression | undefined;
-  pqControls?: InputAppscopePqControls | undefined;
-};
-
-export type InputAppscopeMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
+import {
+  ItemsTypeConnections,
+  ItemsTypeConnections$inboundSchema,
+  ItemsTypeConnections$Outbound,
+  ItemsTypeConnections$outboundSchema,
+} from "./itemstypeconnections.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  TlsSettingsServerSideType,
+  TlsSettingsServerSideType$inboundSchema,
+  TlsSettingsServerSideType$Outbound,
+  TlsSettingsServerSideType$outboundSchema,
+} from "./tlssettingsserversidetype.js";
 
 export type Allow = {
   /**
@@ -120,14 +67,6 @@ export type InputAppscopeFilter = {
   transportURL?: string | undefined;
 };
 
-export const InputAppscopeDataCompressionFormat = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-export type InputAppscopeDataCompressionFormat = OpenEnum<
-  typeof InputAppscopeDataCompressionFormat
->;
-
 export type InputAppscopePersistence = {
   /**
    * Spool events and metrics on disk for Cribl Edge and Search
@@ -145,83 +84,11 @@ export type InputAppscopePersistence = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: InputAppscopeDataCompressionFormat | undefined;
+  compress?: DataCompressionFormatOptionsPersistence | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/appscope
    */
   destPath?: string | undefined;
-};
-
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export const InputAppscopeAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export type InputAppscopeAuthenticationMethod = OpenEnum<
-  typeof InputAppscopeAuthenticationMethod
->;
-
-export const InputAppscopeMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputAppscopeMinimumTLSVersion = OpenEnum<
-  typeof InputAppscopeMinimumTLSVersion
->;
-
-export const InputAppscopeMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputAppscopeMaximumTLSVersion = OpenEnum<
-  typeof InputAppscopeMaximumTLSVersion
->;
-
-export type InputAppscopeTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  /**
-   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Regex matching allowable common names in peer certificates' subject attribute
-   */
-  commonNameRegex?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  minVersion?: InputAppscopeMinimumTLSVersion | undefined;
-  maxVersion?: InputAppscopeMaximumTLSVersion | undefined;
 };
 
 export type InputAppscope = {
@@ -254,8 +121,8 @@ export type InputAppscope = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputAppscopeConnection> | undefined;
-  pq?: InputAppscopePq | undefined;
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
   /**
    * Regex matching IP addresses that are allowed to establish a connection
    */
@@ -283,7 +150,7 @@ export type InputAppscope = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputAppscopeMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -301,7 +168,7 @@ export type InputAppscope = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: InputAppscopeAuthenticationMethod | undefined;
+  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
   description?: string | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -311,7 +178,7 @@ export type InputAppscope = {
    * Port to listen on
    */
   port?: number | undefined;
-  tls?: InputAppscopeTLSSettingsServerSide | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
   /**
    * Path to the UNIX domain socket to listen on.
    */
@@ -329,207 +196,6 @@ export type InputAppscope = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const InputAppscopeConnection$inboundSchema: z.ZodType<
-  InputAppscopeConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputAppscopeConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputAppscopeConnection$outboundSchema: z.ZodType<
-  InputAppscopeConnection$Outbound,
-  z.ZodTypeDef,
-  InputAppscopeConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputAppscopeConnectionToJSON(
-  inputAppscopeConnection: InputAppscopeConnection,
-): string {
-  return JSON.stringify(
-    InputAppscopeConnection$outboundSchema.parse(inputAppscopeConnection),
-  );
-}
-export function inputAppscopeConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputAppscopeConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputAppscopeConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputAppscopeConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputAppscopeMode$inboundSchema: z.ZodType<
-  InputAppscopeMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputAppscopeMode);
-/** @internal */
-export const InputAppscopeMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputAppscopeMode
-> = openEnums.outboundSchema(InputAppscopeMode);
-
-/** @internal */
-export const InputAppscopeCompression$inboundSchema: z.ZodType<
-  InputAppscopeCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputAppscopeCompression);
-/** @internal */
-export const InputAppscopeCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputAppscopeCompression
-> = openEnums.outboundSchema(InputAppscopeCompression);
-
-/** @internal */
-export const InputAppscopePqControls$inboundSchema: z.ZodType<
-  InputAppscopePqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputAppscopePqControls$Outbound = {};
-
-/** @internal */
-export const InputAppscopePqControls$outboundSchema: z.ZodType<
-  InputAppscopePqControls$Outbound,
-  z.ZodTypeDef,
-  InputAppscopePqControls
-> = z.object({});
-
-export function inputAppscopePqControlsToJSON(
-  inputAppscopePqControls: InputAppscopePqControls,
-): string {
-  return JSON.stringify(
-    InputAppscopePqControls$outboundSchema.parse(inputAppscopePqControls),
-  );
-}
-export function inputAppscopePqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputAppscopePqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputAppscopePqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputAppscopePqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputAppscopePq$inboundSchema: z.ZodType<
-  InputAppscopePq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputAppscopeMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputAppscopeCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputAppscopePqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputAppscopePq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputAppscopePqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputAppscopePq$outboundSchema: z.ZodType<
-  InputAppscopePq$Outbound,
-  z.ZodTypeDef,
-  InputAppscopePq
-> = z.object({
-  mode: InputAppscopeMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputAppscopeCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputAppscopePqControls$outboundSchema).optional(),
-});
-
-export function inputAppscopePqToJSON(
-  inputAppscopePq: InputAppscopePq,
-): string {
-  return JSON.stringify(InputAppscopePq$outboundSchema.parse(inputAppscopePq));
-}
-export function inputAppscopePqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputAppscopePq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputAppscopePq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputAppscopePq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputAppscopeMetadatum$inboundSchema: z.ZodType<
-  InputAppscopeMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputAppscopeMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputAppscopeMetadatum$outboundSchema: z.ZodType<
-  InputAppscopeMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputAppscopeMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputAppscopeMetadatumToJSON(
-  inputAppscopeMetadatum: InputAppscopeMetadatum,
-): string {
-  return JSON.stringify(
-    InputAppscopeMetadatum$outboundSchema.parse(inputAppscopeMetadatum),
-  );
-}
-export function inputAppscopeMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputAppscopeMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputAppscopeMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputAppscopeMetadatum' from JSON`,
-  );
-}
 
 /** @internal */
 export const Allow$inboundSchema: z.ZodType<Allow, z.ZodTypeDef, unknown> = z
@@ -612,19 +278,6 @@ export function inputAppscopeFilterFromJSON(
 }
 
 /** @internal */
-export const InputAppscopeDataCompressionFormat$inboundSchema: z.ZodType<
-  InputAppscopeDataCompressionFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputAppscopeDataCompressionFormat);
-/** @internal */
-export const InputAppscopeDataCompressionFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputAppscopeDataCompressionFormat
-> = openEnums.outboundSchema(InputAppscopeDataCompressionFormat);
-
-/** @internal */
 export const InputAppscopePersistence$inboundSchema: z.ZodType<
   InputAppscopePersistence,
   z.ZodTypeDef,
@@ -634,7 +287,9 @@ export const InputAppscopePersistence$inboundSchema: z.ZodType<
   timeWindow: z.string().default("10m"),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: InputAppscopeDataCompressionFormat$inboundSchema.default("gzip"),
+  compress: DataCompressionFormatOptionsPersistence$inboundSchema.default(
+    "gzip",
+  ),
   destPath: z.string().default("$CRIBL_HOME/state/appscope"),
 });
 /** @internal */
@@ -657,7 +312,9 @@ export const InputAppscopePersistence$outboundSchema: z.ZodType<
   timeWindow: z.string().default("10m"),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: InputAppscopeDataCompressionFormat$outboundSchema.default("gzip"),
+  compress: DataCompressionFormatOptionsPersistence$outboundSchema.default(
+    "gzip",
+  ),
   destPath: z.string().default("$CRIBL_HOME/state/appscope"),
 });
 
@@ -679,117 +336,6 @@ export function inputAppscopePersistenceFromJSON(
 }
 
 /** @internal */
-export const InputAppscopeAuthenticationMethod$inboundSchema: z.ZodType<
-  InputAppscopeAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputAppscopeAuthenticationMethod);
-/** @internal */
-export const InputAppscopeAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputAppscopeAuthenticationMethod
-> = openEnums.outboundSchema(InputAppscopeAuthenticationMethod);
-
-/** @internal */
-export const InputAppscopeMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputAppscopeMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputAppscopeMinimumTLSVersion);
-/** @internal */
-export const InputAppscopeMinimumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputAppscopeMinimumTLSVersion
-> = openEnums.outboundSchema(InputAppscopeMinimumTLSVersion);
-
-/** @internal */
-export const InputAppscopeMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputAppscopeMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputAppscopeMaximumTLSVersion);
-/** @internal */
-export const InputAppscopeMaximumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputAppscopeMaximumTLSVersion
-> = openEnums.outboundSchema(InputAppscopeMaximumTLSVersion);
-
-/** @internal */
-export const InputAppscopeTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputAppscopeTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputAppscopeMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputAppscopeMaximumTLSVersion$inboundSchema.optional(),
-});
-/** @internal */
-export type InputAppscopeTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  requestCert: boolean;
-  rejectUnauthorized: boolean;
-  commonNameRegex: string;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const InputAppscopeTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputAppscopeTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputAppscopeTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputAppscopeMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputAppscopeMaximumTLSVersion$outboundSchema.optional(),
-});
-
-export function inputAppscopeTLSSettingsServerSideToJSON(
-  inputAppscopeTLSSettingsServerSide: InputAppscopeTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputAppscopeTLSSettingsServerSide$outboundSchema.parse(
-      inputAppscopeTLSSettingsServerSide,
-    ),
-  );
-}
-export function inputAppscopeTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputAppscopeTLSSettingsServerSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputAppscopeTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputAppscopeTLSSettingsServerSide' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputAppscope$inboundSchema: z.ZodType<
   InputAppscope,
   z.ZodTypeDef,
@@ -803,28 +349,27 @@ export const InputAppscope$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputAppscopeConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputAppscopePq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   ipWhitelistRegex: z.string().default("/.*/"),
   maxActiveCxn: z.number().default(1000),
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
   enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputAppscopeMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   enableUnixPath: z.boolean().default(false),
   filter: z.lazy(() => InputAppscopeFilter$inboundSchema).optional(),
   persistence: z.lazy(() => InputAppscopePersistence$inboundSchema).optional(),
-  authType: InputAppscopeAuthenticationMethod$inboundSchema.default("manual"),
+  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
+    "manual",
+  ),
   description: z.string().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
-  tls: z.lazy(() => InputAppscopeTLSSettingsServerSide$inboundSchema)
-    .optional(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
   unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
   unixSocketPerms: z.string().optional(),
   authToken: z.string().default(""),
@@ -840,15 +385,15 @@ export type InputAppscope$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputAppscopeConnection$Outbound> | undefined;
-  pq?: InputAppscopePq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   ipWhitelistRegex: string;
   maxActiveCxn: number;
   socketIdleTimeout: number;
   socketEndingMaxWait: number;
   socketMaxLifespan: number;
   enableProxyHeader: boolean;
-  metadata?: Array<InputAppscopeMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
   enableUnixPath: boolean;
@@ -858,7 +403,7 @@ export type InputAppscope$Outbound = {
   description?: string | undefined;
   host?: string | undefined;
   port?: number | undefined;
-  tls?: InputAppscopeTLSSettingsServerSide$Outbound | undefined;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
   unixSocketPath: string;
   unixSocketPerms?: string | undefined;
   authToken: string;
@@ -879,28 +424,27 @@ export const InputAppscope$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputAppscopeConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputAppscopePq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   ipWhitelistRegex: z.string().default("/.*/"),
   maxActiveCxn: z.number().default(1000),
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
   enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputAppscopeMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   enableUnixPath: z.boolean().default(false),
   filter: z.lazy(() => InputAppscopeFilter$outboundSchema).optional(),
   persistence: z.lazy(() => InputAppscopePersistence$outboundSchema).optional(),
-  authType: InputAppscopeAuthenticationMethod$outboundSchema.default("manual"),
+  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
+    "manual",
+  ),
   description: z.string().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
-  tls: z.lazy(() => InputAppscopeTLSSettingsServerSide$outboundSchema)
-    .optional(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
   unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
   unixSocketPerms: z.string().optional(),
   authToken: z.string().default(""),

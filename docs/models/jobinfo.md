@@ -74,10 +74,10 @@ let value: JobInfo = {
 
 ## Fields
 
-| Field                                      | Type                                       | Required                                   | Description                                |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| `args`                                     | *models.RunnableJob*                       | :heavy_check_mark:                         | N/A                                        |
-| `id`                                       | *string*                                   | :heavy_check_mark:                         | N/A                                        |
-| `keep`                                     | *boolean*                                  | :heavy_minus_sign:                         | N/A                                        |
-| `stats`                                    | Record<string, *models.Stats*>             | :heavy_check_mark:                         | N/A                                        |
-| `status`                                   | [models.JobStatus](../models/jobstatus.md) | :heavy_check_mark:                         | N/A                                        |
+| Field                                                         | Type                                                          | Required                                                      | Description                                                   |
+| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| `args`                                                        | *models.RunnableJob*                                          | :heavy_check_mark:                                            | N/A                                                           |
+| `id`                                                          | *string*                                                      | :heavy_check_mark:                                            | N/A                                                           |
+| `keep`                                                        | *boolean*                                                     | :heavy_minus_sign:                                            | N/A                                                           |
+| `stats`                                                       | Record<string, *models.AdditionalPropertiesTypeJobInfoStats*> | :heavy_check_mark:                                            | N/A                                                           |
+| `status`                                                      | [models.JobStatus](../models/jobstatus.md)                    | :heavy_check_mark:                                            | N/A                                                           |

@@ -3,51 +3,25 @@
  */
 
 import * as z from "zod/v3";
-
-export type UpdateHecTokenRequestMetadatum = {
-  name: string;
-  value: string;
-};
+import {
+  EventBreakerRuleFields,
+  EventBreakerRuleFields$Outbound,
+  EventBreakerRuleFields$outboundSchema,
+} from "./eventbreakerrulefields.js";
 
 export type UpdateHecTokenRequest = {
   allowedIndexesAtToken?: Array<string> | undefined;
   description?: string | undefined;
   enabled?: boolean | undefined;
-  metadata?: Array<UpdateHecTokenRequestMetadatum> | undefined;
+  metadata?: Array<EventBreakerRuleFields> | undefined;
 };
-
-/** @internal */
-export type UpdateHecTokenRequestMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const UpdateHecTokenRequestMetadatum$outboundSchema: z.ZodType<
-  UpdateHecTokenRequestMetadatum$Outbound,
-  z.ZodTypeDef,
-  UpdateHecTokenRequestMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function updateHecTokenRequestMetadatumToJSON(
-  updateHecTokenRequestMetadatum: UpdateHecTokenRequestMetadatum,
-): string {
-  return JSON.stringify(
-    UpdateHecTokenRequestMetadatum$outboundSchema.parse(
-      updateHecTokenRequestMetadatum,
-    ),
-  );
-}
 
 /** @internal */
 export type UpdateHecTokenRequest$Outbound = {
   allowedIndexesAtToken?: Array<string> | undefined;
   description?: string | undefined;
   enabled?: boolean | undefined;
-  metadata?: Array<UpdateHecTokenRequestMetadatum$Outbound> | undefined;
+  metadata?: Array<EventBreakerRuleFields$Outbound> | undefined;
 };
 
 /** @internal */
@@ -59,8 +33,7 @@ export const UpdateHecTokenRequest$outboundSchema: z.ZodType<
   allowedIndexesAtToken: z.array(z.string()).optional(),
   description: z.string().optional(),
   enabled: z.boolean().optional(),
-  metadata: z.array(z.lazy(() => UpdateHecTokenRequestMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(EventBreakerRuleFields$outboundSchema).optional(),
 });
 
 export function updateHecTokenRequestToJSON(

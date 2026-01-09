@@ -16,95 +16,52 @@ const value: models.SavedJobCollection = {
   ],
   environment: "<value>",
   schedule: {
-    enabled: false,
+    enabled: true,
     run: {
       type: "collection",
-      earliest: 4703.26,
-      latest: 1623.48,
+      earliest: 475.38,
+      latest: 1125.35,
       timestampTimezone: "<value>",
       timeWarning: {},
     },
   },
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   collector: {
-    type: "<value>",
+    type: "google_cloud_storage",
     conf: {
-      collectMethod: "get",
-      collectRequestParams: [
+      authType: "auto",
+      outputName: "<value>",
+      bucket: "<value>",
+      path: "/Applications",
+      extractors: [
         {
-          name: "<value>",
-          value: "<value>",
+          key: "<key>",
+          expression: "<value>",
         },
       ],
-      discovery: {
-        discoverType: "none",
-      },
-      collectUrl: "https://proper-majority.info/",
-      collectBody: "`{ }`",
-      collectRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      authenticateCollect: false,
-      authentication: "none",
-      timeout: 30,
-      rejectUnauthorized: false,
-      defaultBreakers: "Cribl",
-      safeHeaders: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      retryRules: {
-        type: "backoff",
-        interval: "<value>",
-        limit: "<value>",
-        multiplier: "<value>",
-        codes: "<value>",
-        enableHeader: "<value>",
-      },
-      username: "Andre.Hills-Reilly62",
-      password: "gwiUSzD5T_NZKTX",
-      credentialsSecret: "<value>",
-      loginUrl: "",
-      loginBody:
-        "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-      tokenRespAttribute: "<value>",
-      authHeaderExpr: "`Bearer ${token}`",
-      authRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      clientSecretParamName: "client_secret",
-      clientSecretParamValue: "<value>",
-      authRequestParams: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      textSecret: "<value>",
-      type: "health_check",
+      endpoint: "<value>",
+      disableTimeFilter: false,
+      recurse: true,
+      maxBatchSize: 10,
+      parquetChunkSizeMB: 5,
+      parquetChunkDownloadTimeout: 600,
     },
-    encoding: "<value>",
   },
   input: {
     breakerRulesets: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
     preprocess: {
       command: "<value>",
       args: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
     },
     metadata: [
@@ -166,11 +123,11 @@ const value: models.SavedJobScheduledSearch = {
   ],
   environment: "<value>",
   schedule: {
-    enabled: false,
+    enabled: true,
     run: {
       type: "collection",
-      earliest: 4451.51,
-      latest: 2316.29,
+      earliest: 475.38,
+      latest: 1125.35,
       timestampTimezone: "<value>",
       timeWarning: {},
     },
@@ -178,6 +135,7 @@ const value: models.SavedJobScheduledSearch = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   savedQueryId: "<id>",
 };

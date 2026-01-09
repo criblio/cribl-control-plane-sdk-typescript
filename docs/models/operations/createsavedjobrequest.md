@@ -19,7 +19,7 @@ let value: CreateSavedJobRequest = {
     resumeOnBoot: false,
     environment: "<value>",
     schedule: {
-      enabled: false,
+      enabled: true,
       skippable: true,
       resumeMissed: false,
       cronSchedule: "*/5 * * * *",
@@ -32,8 +32,8 @@ let value: CreateSavedJobRequest = {
         jobTimeout: "0",
         mode: "list",
         timeRangeType: "relative",
-        earliest: 4703.26,
-        latest: 1623.48,
+        earliest: 475.38,
+        latest: 1125.35,
         timestampTimezone: "<value>",
         timeWarning: {},
         expression: "true",
@@ -47,78 +47,24 @@ let value: CreateSavedJobRequest = {
     ],
     workerAffinity: false,
     collector: {
-      type: "<value>",
+      type: "database",
       conf: {
-        collectMethod: "get",
-        collectRequestParams: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
-        ],
-        discovery: {
-          discoverType: "none",
-        },
-        collectUrl: "https://proper-majority.info/",
-        collectBody: "`{ }`",
-        collectRequestHeaders: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
-        ],
-        authenticateCollect: false,
-        authentication: "none",
-        timeout: 30,
-        rejectUnauthorized: false,
+        connectionId: "<id>",
+        query: "<value>",
+        queryValidationEnabled: true,
         defaultBreakers: "Cribl",
-        safeHeaders: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-        retryRules: {
-          type: "backoff",
-          interval: "<value>",
-          limit: "<value>",
-          multiplier: "<value>",
-          codes: "<value>",
-          enableHeader: "<value>",
+        __scheduling: {
+          stateTracking: {
+            enabled: true,
+          },
         },
-        username: "Andre.Hills-Reilly62",
-        password: "gwiUSzD5T_NZKTX",
-        credentialsSecret: "<value>",
-        loginUrl: "",
-        loginBody:
-          "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-        tokenRespAttribute: "<value>",
-        authHeaderExpr: "`Bearer ${token}`",
-        authRequestHeaders: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
-        ],
-        clientSecretParamName: "client_secret",
-        clientSecretParamValue: "<value>",
-        authRequestParams: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
-        ],
-        textSecret: "<value>",
-        type: "health_check",
       },
-      destructive: false,
-      encoding: "<value>",
     },
     input: {
       type: "collection",
       breakerRulesets: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
       staleChannelFlushMs: 10000,
       sendToRoutes: true,
@@ -128,6 +74,7 @@ let value: CreateSavedJobRequest = {
         args: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
       },
       throttleRatePerSec: "0",
