@@ -28,10 +28,21 @@ let value: SavedJobCollection = {
     "<value 1>",
   ],
   collector: {
-    type: "<value>",
+    type: "health_check",
     conf: {
-      collectMethod: "get",
-      collectRequestParams: [
+      authentication: "oauth",
+      loginUrl: "",
+      tokenRespAttribute: "<value>",
+      authHeaderExpr: "`Bearer ${token}`",
+      clientSecretParamName: "client_secret",
+      clientSecretParamValue: "<value>",
+      authRequestParams: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      authRequestHeaders: [
         {
           name: "<value>",
           value: "<value>",
@@ -41,7 +52,9 @@ let value: SavedJobCollection = {
         discoverType: "none",
       },
       collectUrl: "https://proper-majority.info/",
-      collectBody: "`{ }`",
+      collectMethod: "get",
+      collectRequestParams: "<value>",
+      collectBody: "<value>",
       collectRequestHeaders: [
         {
           name: "<value>",
@@ -49,7 +62,6 @@ let value: SavedJobCollection = {
         },
       ],
       authenticateCollect: false,
-      authentication: "none",
       timeout: 30,
       rejectUnauthorized: false,
       defaultBreakers: "Cribl",
@@ -66,44 +78,18 @@ let value: SavedJobCollection = {
         codes: "<value>",
         enableHeader: "<value>",
       },
-      username: "Andre.Hills-Reilly62",
-      password: "gwiUSzD5T_NZKTX",
-      credentialsSecret: "<value>",
-      loginUrl: "",
-      loginBody:
-        "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-      tokenRespAttribute: "<value>",
-      authHeaderExpr: "`Bearer ${token}`",
-      authRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      clientSecretParamName: "client_secret",
-      clientSecretParamValue: "<value>",
-      authRequestParams: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      textSecret: "<value>",
-      type: "health_check",
     },
-    encoding: "<value>",
   },
   input: {
     breakerRulesets: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     preprocess: {
       command: "<value>",
       args: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
     },
     metadata: [
@@ -133,5 +119,5 @@ let value: SavedJobCollection = {
 | `schedule`                                                                                                                                                                                               | [models.SavedJobCollectionSchedule](../models/savedjobcollectionschedule.md)                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                       | Configuration for a scheduled job                                                                                                                                                                        |
 | `streamtags`                                                                                                                                                                                             | *string*[]                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                       | Tags for filtering and grouping in @{product}                                                                                                                                                            |
 | `workerAffinity`                                                                                                                                                                                         | *boolean*                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                       | If enabled, tasks are created and run by the same Worker Node                                                                                                                                            |
-| `collector`                                                                                                                                                                                              | [models.SavedJobCollectionCollector](../models/savedjobcollectioncollector.md)                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                       | N/A                                                                                                                                                                                                      |
+| `collector`                                                                                                                                                                                              | *models.Collector*                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                       | Collector configuration                                                                                                                                                                                  |
 | `input`                                                                                                                                                                                                  | [models.SavedJobCollectionInput](../models/savedjobcollectioninput.md)                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                       | N/A                                                                                                                                                                                                      |

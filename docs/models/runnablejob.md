@@ -31,11 +31,10 @@ const value: models.RunnableJobCollection = {
     "<value 3>",
   ],
   collector: {
-    type: "<value>",
+    type: "filesystem",
     conf: {
-      type: "filesystem",
       outputName: "<value>",
-      path: "/private",
+      path: "/Library",
       extractors: [
         {
           key: "<key>",
@@ -45,13 +44,11 @@ const value: models.RunnableJobCollection = {
       recurse: true,
       maxBatchSize: 10,
     },
-    encoding: "<value>",
   },
   input: {
     breakerRulesets: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
     preprocess: {
       command: "<value>",
@@ -71,8 +68,8 @@ const value: models.RunnableJobCollection = {
     output: "<value>",
   },
   run: {
-    earliest: 2342.33,
-    latest: 5817.49,
+    earliest: 8097.94,
+    latest: 2342.33,
     timeWarning: {},
     capture: {},
   },

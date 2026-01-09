@@ -110,7 +110,7 @@ async function run() {
     outputTestRequest: {
       events: [
         {
-          _raw: "<value>",
+          "_raw": "<value>",
         },
       ],
     },
@@ -145,7 +145,7 @@ async function run() {
     outputTestRequest: {
       events: [
         {
-          _raw: "<value>",
+          "_raw": "<value>",
         },
       ],
     },
