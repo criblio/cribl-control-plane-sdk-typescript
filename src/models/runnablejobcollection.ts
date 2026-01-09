@@ -7,7 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import { CollectorConf, CollectorConf$inboundSchema } from "./collectorconf.js";
+import { Collector, Collector$inboundSchema } from "./collector.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const RunnableJobCollectionJobType = {
@@ -125,25 +125,6 @@ export type RunnableJobCollectionSchedule = {
    */
   maxConcurrentRuns: number;
   run?: RunnableJobCollectionRunSettings | undefined;
-};
-
-export type RunnableJobCollectionCollector = {
-  /**
-   * The type of collector to run
-   */
-  type: string;
-  /**
-   * Collector configuration
-   */
-  conf: CollectorConf;
-  /**
-   * Delete any files collected (where applicable)
-   */
-  destructive: boolean;
-  /**
-   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
-   */
-  encoding?: string | undefined;
 };
 
 export const RunnableJobCollectionInputType = {
@@ -379,7 +360,10 @@ export type RunnableJobCollection = {
    * If enabled, tasks are created and run by the same Worker Node
    */
   workerAffinity: boolean;
-  collector: RunnableJobCollectionCollector;
+  /**
+   * Collector configuration
+   */
+  collector: Collector;
   input?: RunnableJobCollectionInput | undefined;
   run: RunnableJobCollectionRun;
 };
@@ -483,28 +467,6 @@ export function runnableJobCollectionScheduleFromJSON(
     jsonString,
     (x) => RunnableJobCollectionSchedule$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'RunnableJobCollectionSchedule' from JSON`,
-  );
-}
-
-/** @internal */
-export const RunnableJobCollectionCollector$inboundSchema: z.ZodType<
-  RunnableJobCollectionCollector,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: z.string(),
-  conf: CollectorConf$inboundSchema,
-  destructive: z.boolean().default(false),
-  encoding: z.string().optional(),
-});
-
-export function runnableJobCollectionCollectorFromJSON(
-  jsonString: string,
-): SafeParseResult<RunnableJobCollectionCollector, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RunnableJobCollectionCollector$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RunnableJobCollectionCollector' from JSON`,
   );
 }
 
@@ -703,7 +665,7 @@ export const RunnableJobCollection$inboundSchema: z.ZodType<
     .optional(),
   streamtags: z.array(z.string()).optional(),
   workerAffinity: z.boolean().default(false),
-  collector: z.lazy(() => RunnableJobCollectionCollector$inboundSchema),
+  collector: Collector$inboundSchema,
   input: z.lazy(() => RunnableJobCollectionInput$inboundSchema).optional(),
   run: z.lazy(() => RunnableJobCollectionRun$inboundSchema),
 });

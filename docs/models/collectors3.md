@@ -1,125 +1,48 @@
 # CollectorS3
 
+S3 collector configuration
 
-## Supported Types
-
-### `models.CollectorS3S31`
+## Example Usage
 
 ```typescript
-const value: models.CollectorS3S31 = {
+import { CollectorS3 } from "cribl-control-plane/models";
+
+let value: CollectorS3 = {
   type: "s3",
-  outputName: "<value>",
-  bucket: "<value>",
-  region: "<value>",
-  path: "/var",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  endpoint: "<value>",
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  awsApiKey: "<value>",
-  awsSecretKey: "<value>",
-  awsSecret: "<value>",
+  conf: {
+    awsAuthenticationMethod: "auto",
+    outputName: "<value>",
+    bucket: "<value>",
+    parquetChunkSizeMB: 5,
+    parquetChunkDownloadTimeout: 600,
+    region: "<value>",
+    path: "/bin",
+    partitioningScheme: "none",
+    extractors: [
+      {
+        key: "<key>",
+        expression: "<value>",
+      },
+    ],
+    endpoint: "<value>",
+    signatureVersion: "v4",
+    enableAssumeRole: false,
+    assumeRoleArn: "<value>",
+    assumeRoleExternalId: "<id>",
+    durationSeconds: 3600,
+    maxBatchSize: 10,
+    recurse: "<value>",
+    reuseConnections: true,
+    rejectUnauthorized: true,
+    verifyPermissions: true,
+    disableTimeFilter: false,
+  },
 };
 ```
 
-### `models.CollectorS3S32`
+## Fields
 
-```typescript
-const value: models.CollectorS3S32 = {
-  type: "s3",
-  outputName: "<value>",
-  bucket: "<value>",
-  region: "<value>",
-  path: "/opt/bin",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  endpoint: "<value>",
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  awsApiKey: "<value>",
-  awsSecretKey: "<value>",
-  awsSecret: "<value>",
-};
-```
-
-### `models.CollectorS3S33`
-
-```typescript
-const value: models.CollectorS3S33 = {
-  type: "s3",
-  outputName: "<value>",
-  bucket: "<value>",
-  region: "<value>",
-  path: "/home/user",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  endpoint: "<value>",
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  awsApiKey: "<value>",
-  awsSecretKey: "<value>",
-  awsSecret: "<value>",
-};
-```
-
-### `models.CollectorS3S34`
-
-```typescript
-const value: models.CollectorS3S34 = {
-  awsApiKey: "<value>",
-  awsSecretKey: "<value>",
-  type: "s3",
-  outputName: "<value>",
-  bucket: "<value>",
-  region: "<value>",
-  path: "/srv",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  endpoint: "<value>",
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  awsSecret: "<value>",
-};
-```
-
-### `models.CollectorS3S35`
-
-```typescript
-const value: models.CollectorS3S35 = {
-  awsSecret: "<value>",
-  type: "s3",
-  outputName: "<value>",
-  bucket: "<value>",
-  region: "<value>",
-  path: "/mnt",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  endpoint: "<value>",
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  awsApiKey: "<value>",
-  awsSecretKey: "<value>",
-};
-```
-
+| Field                    | Type                     | Required                 | Description              |
+| ------------------------ | ------------------------ | ------------------------ | ------------------------ |
+| `type`                   | *"s3"*                   | :heavy_check_mark:       | Collector type           |
+| `conf`                   | *models.S3CollectorConf* | :heavy_check_mark:       | N/A                      |
