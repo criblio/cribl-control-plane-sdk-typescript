@@ -8,6 +8,7 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import { TypeOptions, TypeOptions$inboundSchema } from "./typeoptions.js";
 
 /**
  * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
@@ -29,50 +30,6 @@ export type FunctionConfSchemaSerdeOperationMode = OpenEnum<
   typeof FunctionConfSchemaSerdeOperationMode
 >;
 
-/**
- * Parser or formatter type to use
- */
-export const FunctionConfSchemaSerdeType = {
-  /**
-   * CSV
-   */
-  Csv: "csv",
-  /**
-   * Extended Log File Format
-   */
-  Elff: "elff",
-  /**
-   * Common Log Format
-   */
-  Clf: "clf",
-  /**
-   * Key=Value Pairs
-   */
-  Kvp: "kvp",
-  /**
-   * JSON Object
-   */
-  Json: "json",
-  /**
-   * Delimited values
-   */
-  Delim: "delim",
-  /**
-   * Regular Expression
-   */
-  Regex: "regex",
-  /**
-   * Grok
-   */
-  Grok: "grok",
-} as const;
-/**
- * Parser or formatter type to use
- */
-export type FunctionConfSchemaSerdeType = OpenEnum<
-  typeof FunctionConfSchemaSerdeType
->;
-
 export type FunctionConfSchemaSerde = {
   /**
    * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
@@ -81,7 +38,7 @@ export type FunctionConfSchemaSerde = {
   /**
    * Parser or formatter type to use
    */
-  type: FunctionConfSchemaSerdeType;
+  type: TypeOptions;
   delimChar?: any | undefined;
   quoteChar?: any | undefined;
   escapeChar?: any | undefined;
@@ -105,20 +62,13 @@ export const FunctionConfSchemaSerdeOperationMode$inboundSchema: z.ZodType<
 > = openEnums.inboundSchema(FunctionConfSchemaSerdeOperationMode);
 
 /** @internal */
-export const FunctionConfSchemaSerdeType$inboundSchema: z.ZodType<
-  FunctionConfSchemaSerdeType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(FunctionConfSchemaSerdeType);
-
-/** @internal */
 export const FunctionConfSchemaSerde$inboundSchema: z.ZodType<
   FunctionConfSchemaSerde,
   z.ZodTypeDef,
   unknown
 > = z.object({
   mode: FunctionConfSchemaSerdeOperationMode$inboundSchema.default("extract"),
-  type: FunctionConfSchemaSerdeType$inboundSchema.default("csv"),
+  type: TypeOptions$inboundSchema.default("csv"),
   delimChar: z.any().optional(),
   quoteChar: z.any().optional(),
   escapeChar: z.any().optional(),

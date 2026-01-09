@@ -4,161 +4,49 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackpressureBehaviorOptions1,
+  BackpressureBehaviorOptions1$inboundSchema,
+  BackpressureBehaviorOptions1$outboundSchema,
+} from "./backpressurebehavioroptions1.js";
+import {
+  CompressionLevelOptions,
+  CompressionLevelOptions$inboundSchema,
+  CompressionLevelOptions$outboundSchema,
+} from "./compressionleveloptions.js";
+import {
+  CompressionOptions2,
+  CompressionOptions2$inboundSchema,
+  CompressionOptions2$outboundSchema,
+} from "./compressionoptions2.js";
+import {
+  DataFormatOptions,
+  DataFormatOptions$inboundSchema,
+  DataFormatOptions$outboundSchema,
+} from "./dataformatoptions.js";
+import {
+  DataPageVersionOptions,
+  DataPageVersionOptions$inboundSchema,
+  DataPageVersionOptions$outboundSchema,
+} from "./datapageversionoptions.js";
+import {
+  DiskSpaceProtectionOptions,
+  DiskSpaceProtectionOptions$inboundSchema,
+  DiskSpaceProtectionOptions$outboundSchema,
+} from "./diskspaceprotectionoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Format of the output data
- */
-export const OutputFilesystemDataFormat = {
-  /**
-   * JSON
-   */
-  Json: "json",
-  /**
-   * Raw
-   */
-  Raw: "raw",
-  /**
-   * Parquet
-   */
-  Parquet: "parquet",
-} as const;
-/**
- * Format of the output data
- */
-export type OutputFilesystemDataFormat = OpenEnum<
-  typeof OutputFilesystemDataFormat
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputFilesystemBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputFilesystemBackpressureBehavior = OpenEnum<
-  typeof OutputFilesystemBackpressureBehavior
->;
-
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export const OutputFilesystemDiskSpaceProtection = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export type OutputFilesystemDiskSpaceProtection = OpenEnum<
-  typeof OutputFilesystemDiskSpaceProtection
->;
-
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export const OutputFilesystemCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export type OutputFilesystemCompression = OpenEnum<
-  typeof OutputFilesystemCompression
->;
-
-/**
- * Compression level to apply before moving files to final destination
- */
-export const OutputFilesystemCompressionLevel = {
-  /**
-   * Best Speed
-   */
-  BestSpeed: "best_speed",
-  /**
-   * Normal
-   */
-  Normal: "normal",
-  /**
-   * Best Compression
-   */
-  BestCompression: "best_compression",
-} as const;
-/**
- * Compression level to apply before moving files to final destination
- */
-export type OutputFilesystemCompressionLevel = OpenEnum<
-  typeof OutputFilesystemCompressionLevel
->;
-
-/**
- * Determines which data types are supported and how they are represented
- */
-export const OutputFilesystemParquetVersion = {
-  /**
-   * 1.0
-   */
-  Parquet10: "PARQUET_1_0",
-  /**
-   * 2.4
-   */
-  Parquet24: "PARQUET_2_4",
-  /**
-   * 2.6
-   */
-  Parquet26: "PARQUET_2_6",
-} as const;
-/**
- * Determines which data types are supported and how they are represented
- */
-export type OutputFilesystemParquetVersion = OpenEnum<
-  typeof OutputFilesystemParquetVersion
->;
-
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export const OutputFilesystemDataPageVersion = {
-  /**
-   * V1
-   */
-  DataPageV1: "DATA_PAGE_V1",
-  /**
-   * V2
-   */
-  DataPageV2: "DATA_PAGE_V2",
-} as const;
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export type OutputFilesystemDataPageVersion = OpenEnum<
-  typeof OutputFilesystemDataPageVersion
->;
-
-export type OutputFilesystemKeyValueMetadatum = {
-  key?: string | undefined;
-  value: string;
-};
+import {
+  ItemsTypeKeyValueMetadata,
+  ItemsTypeKeyValueMetadata$inboundSchema,
+  ItemsTypeKeyValueMetadata$Outbound,
+  ItemsTypeKeyValueMetadata$outboundSchema,
+} from "./itemstypekeyvaluemetadata.js";
+import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+  ParquetVersionOptions$outboundSchema,
+} from "./parquetversionoptions.js";
 
 export type OutputFilesystem = {
   /**
@@ -205,7 +93,7 @@ export type OutputFilesystem = {
   /**
    * Format of the output data
    */
-  format?: OutputFilesystemDataFormat | undefined;
+  format?: DataFormatOptions | undefined;
   /**
    * JavaScript expression to define the output filename prefix (can be constant)
    */
@@ -241,7 +129,7 @@ export type OutputFilesystem = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputFilesystemBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -249,7 +137,7 @@ export type OutputFilesystem = {
   /**
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
-  onDiskFullBackpressure?: OutputFilesystemDiskSpaceProtection | undefined;
+  onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
   /**
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
@@ -258,11 +146,11 @@ export type OutputFilesystem = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: OutputFilesystemCompression | undefined;
+  compress?: CompressionOptions2 | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
-  compressionLevel?: OutputFilesystemCompressionLevel | undefined;
+  compressionLevel?: CompressionLevelOptions | undefined;
   /**
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
@@ -274,11 +162,11 @@ export type OutputFilesystem = {
   /**
    * Determines which data types are supported and how they are represented
    */
-  parquetVersion?: OutputFilesystemParquetVersion | undefined;
+  parquetVersion?: ParquetVersionOptions | undefined;
   /**
    * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
    */
-  parquetDataPageVersion?: OutputFilesystemDataPageVersion | undefined;
+  parquetDataPageVersion?: DataPageVersionOptions | undefined;
   /**
    * The number of rows that every group will contain. The final group can contain a smaller number of rows.
    */
@@ -294,7 +182,7 @@ export type OutputFilesystem = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<OutputFilesystemKeyValueMetadatum> | undefined;
+  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -326,141 +214,6 @@ export type OutputFilesystem = {
 };
 
 /** @internal */
-export const OutputFilesystemDataFormat$inboundSchema: z.ZodType<
-  OutputFilesystemDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputFilesystemDataFormat);
-/** @internal */
-export const OutputFilesystemDataFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputFilesystemDataFormat
-> = openEnums.outboundSchema(OutputFilesystemDataFormat);
-
-/** @internal */
-export const OutputFilesystemBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputFilesystemBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputFilesystemBackpressureBehavior);
-/** @internal */
-export const OutputFilesystemBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputFilesystemBackpressureBehavior
-> = openEnums.outboundSchema(OutputFilesystemBackpressureBehavior);
-
-/** @internal */
-export const OutputFilesystemDiskSpaceProtection$inboundSchema: z.ZodType<
-  OutputFilesystemDiskSpaceProtection,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputFilesystemDiskSpaceProtection);
-/** @internal */
-export const OutputFilesystemDiskSpaceProtection$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputFilesystemDiskSpaceProtection
-> = openEnums.outboundSchema(OutputFilesystemDiskSpaceProtection);
-
-/** @internal */
-export const OutputFilesystemCompression$inboundSchema: z.ZodType<
-  OutputFilesystemCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputFilesystemCompression);
-/** @internal */
-export const OutputFilesystemCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputFilesystemCompression
-> = openEnums.outboundSchema(OutputFilesystemCompression);
-
-/** @internal */
-export const OutputFilesystemCompressionLevel$inboundSchema: z.ZodType<
-  OutputFilesystemCompressionLevel,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputFilesystemCompressionLevel);
-/** @internal */
-export const OutputFilesystemCompressionLevel$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputFilesystemCompressionLevel
-> = openEnums.outboundSchema(OutputFilesystemCompressionLevel);
-
-/** @internal */
-export const OutputFilesystemParquetVersion$inboundSchema: z.ZodType<
-  OutputFilesystemParquetVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputFilesystemParquetVersion);
-/** @internal */
-export const OutputFilesystemParquetVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputFilesystemParquetVersion
-> = openEnums.outboundSchema(OutputFilesystemParquetVersion);
-
-/** @internal */
-export const OutputFilesystemDataPageVersion$inboundSchema: z.ZodType<
-  OutputFilesystemDataPageVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputFilesystemDataPageVersion);
-/** @internal */
-export const OutputFilesystemDataPageVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputFilesystemDataPageVersion
-> = openEnums.outboundSchema(OutputFilesystemDataPageVersion);
-
-/** @internal */
-export const OutputFilesystemKeyValueMetadatum$inboundSchema: z.ZodType<
-  OutputFilesystemKeyValueMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-/** @internal */
-export type OutputFilesystemKeyValueMetadatum$Outbound = {
-  key: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputFilesystemKeyValueMetadatum$outboundSchema: z.ZodType<
-  OutputFilesystemKeyValueMetadatum$Outbound,
-  z.ZodTypeDef,
-  OutputFilesystemKeyValueMetadatum
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-export function outputFilesystemKeyValueMetadatumToJSON(
-  outputFilesystemKeyValueMetadatum: OutputFilesystemKeyValueMetadatum,
-): string {
-  return JSON.stringify(
-    OutputFilesystemKeyValueMetadatum$outboundSchema.parse(
-      outputFilesystemKeyValueMetadatum,
-    ),
-  );
-}
-export function outputFilesystemKeyValueMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputFilesystemKeyValueMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputFilesystemKeyValueMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputFilesystemKeyValueMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
 export const OutputFilesystem$inboundSchema: z.ZodType<
   OutputFilesystem,
   z.ZodTypeDef,
@@ -479,7 +232,7 @@ export const OutputFilesystem$inboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: OutputFilesystemDataFormat$inboundSchema.default("json"),
+  format: DataFormatOptions$inboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -490,32 +243,25 @@ export const OutputFilesystem$inboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputFilesystemBackpressureBehavior$inboundSchema.default(
+  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.default(
     "block",
   ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputFilesystemDiskSpaceProtection$inboundSchema
-    .default("block"),
   forceCloseOnShutdown: z.boolean().default(false),
   description: z.string().optional(),
-  compress: OutputFilesystemCompression$inboundSchema.default("gzip"),
-  compressionLevel: OutputFilesystemCompressionLevel$inboundSchema.default(
-    "best_speed",
-  ),
+  compress: CompressionOptions2$inboundSchema.default("gzip"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
   automaticSchema: z.boolean().default(false),
   parquetSchema: z.string().optional(),
-  parquetVersion: OutputFilesystemParquetVersion$inboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: OutputFilesystemDataPageVersion$inboundSchema.default(
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: DataPageVersionOptions$inboundSchema.default(
     "DATA_PAGE_V2",
   ),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputFilesystemKeyValueMetadatum$inboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -560,9 +306,7 @@ export type OutputFilesystem$Outbound = {
   parquetRowGroupLength: number;
   parquetPageSize: string;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?:
-    | Array<OutputFilesystemKeyValueMetadatum$Outbound>
-    | undefined;
+  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
   enableStatistics: boolean;
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
@@ -591,7 +335,7 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: OutputFilesystemDataFormat$outboundSchema.default("json"),
+  format: DataFormatOptions$outboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -602,31 +346,28 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputFilesystemBackpressureBehavior$outboundSchema.default(
+  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.default(
     "block",
   ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputFilesystemDiskSpaceProtection$outboundSchema
-    .default("block"),
   forceCloseOnShutdown: z.boolean().default(false),
   description: z.string().optional(),
-  compress: OutputFilesystemCompression$outboundSchema.default("gzip"),
-  compressionLevel: OutputFilesystemCompressionLevel$outboundSchema.default(
+  compress: CompressionOptions2$outboundSchema.default("gzip"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
   parquetSchema: z.string().optional(),
-  parquetVersion: OutputFilesystemParquetVersion$outboundSchema.default(
-    "PARQUET_2_6",
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: DataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
   ),
-  parquetDataPageVersion: OutputFilesystemDataPageVersion$outboundSchema
-    .default("DATA_PAGE_V2"),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputFilesystemKeyValueMetadatum$outboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),

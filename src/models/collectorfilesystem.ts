@@ -6,88 +6,23 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  FilesystemCollectorConf,
+  FilesystemCollectorConf$inboundSchema,
+  FilesystemCollectorConf$Outbound,
+  FilesystemCollectorConf$outboundSchema,
+} from "./filesystemcollectorconf.js";
 
-export type CollectorFilesystemExtractor = {
-  /**
-   * A token from the template directory, such as epoch
-   */
-  key: string;
-  /**
-   * JavaScript expression that receives token under "value" variable, and evaluates to populate event fields, such as {date: new Date(+value*1000)}
-   */
-  expression: string;
-};
-
+/**
+ * Filesystem collector configuration
+ */
 export type CollectorFilesystem = {
   /**
-   * Collector type: filesystem
+   * Collector type
    */
   type: "filesystem";
-  /**
-   * Select a predefined configuration (a Destination) to auto-populate Collector settings
-   */
-  outputName?: string | undefined;
-  /**
-   * The directory from which to collect data. Templating is supported, such as /myDir/${datacenter}/${host}/${app}/. Time-based tokens are also supported, such as /myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
-   */
-  path: string;
-  /**
-   * Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
-   */
-  extractors?: Array<CollectorFilesystemExtractor> | undefined;
-  /**
-   * Recurse through subdirectories
-   */
-  recurse?: boolean | undefined;
-  /**
-   * Maximum number of metadata files to batch before recording as results
-   */
-  maxBatchSize?: number | undefined;
+  conf: FilesystemCollectorConf;
 };
-
-/** @internal */
-export const CollectorFilesystemExtractor$inboundSchema: z.ZodType<
-  CollectorFilesystemExtractor,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string(),
-  expression: z.string(),
-});
-/** @internal */
-export type CollectorFilesystemExtractor$Outbound = {
-  key: string;
-  expression: string;
-};
-
-/** @internal */
-export const CollectorFilesystemExtractor$outboundSchema: z.ZodType<
-  CollectorFilesystemExtractor$Outbound,
-  z.ZodTypeDef,
-  CollectorFilesystemExtractor
-> = z.object({
-  key: z.string(),
-  expression: z.string(),
-});
-
-export function collectorFilesystemExtractorToJSON(
-  collectorFilesystemExtractor: CollectorFilesystemExtractor,
-): string {
-  return JSON.stringify(
-    CollectorFilesystemExtractor$outboundSchema.parse(
-      collectorFilesystemExtractor,
-    ),
-  );
-}
-export function collectorFilesystemExtractorFromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorFilesystemExtractor, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorFilesystemExtractor$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorFilesystemExtractor' from JSON`,
-  );
-}
 
 /** @internal */
 export const CollectorFilesystem$inboundSchema: z.ZodType<
@@ -96,21 +31,12 @@ export const CollectorFilesystem$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   type: z.literal("filesystem"),
-  outputName: z.string().optional(),
-  path: z.string(),
-  extractors: z.array(z.lazy(() => CollectorFilesystemExtractor$inboundSchema))
-    .optional(),
-  recurse: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
+  conf: FilesystemCollectorConf$inboundSchema,
 });
 /** @internal */
 export type CollectorFilesystem$Outbound = {
   type: "filesystem";
-  outputName?: string | undefined;
-  path: string;
-  extractors?: Array<CollectorFilesystemExtractor$Outbound> | undefined;
-  recurse: boolean;
-  maxBatchSize: number;
+  conf: FilesystemCollectorConf$Outbound;
 };
 
 /** @internal */
@@ -120,12 +46,7 @@ export const CollectorFilesystem$outboundSchema: z.ZodType<
   CollectorFilesystem
 > = z.object({
   type: z.literal("filesystem"),
-  outputName: z.string().optional(),
-  path: z.string(),
-  extractors: z.array(z.lazy(() => CollectorFilesystemExtractor$outboundSchema))
-    .optional(),
-  recurse: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
+  conf: FilesystemCollectorConf$outboundSchema,
 });
 
 export function collectorFilesystemToJSON(

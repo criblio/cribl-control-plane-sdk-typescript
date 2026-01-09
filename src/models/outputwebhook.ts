@@ -7,20 +7,73 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * The method to use when sending events
- */
-export const OutputWebhookMethod = {
-  Post: "POST",
-  Put: "PUT",
-  Patch: "PATCH",
-} as const;
-/**
- * The method to use when sending events
- */
-export type OutputWebhookMethod = OpenEnum<typeof OutputWebhookMethod>;
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  ItemsTypeExtraHttpHeaders,
+  ItemsTypeExtraHttpHeaders$inboundSchema,
+  ItemsTypeExtraHttpHeaders$Outbound,
+  ItemsTypeExtraHttpHeaders$outboundSchema,
+} from "./itemstypeextrahttpheaders.js";
+import {
+  ItemsTypeOauthHeaders,
+  ItemsTypeOauthHeaders$inboundSchema,
+  ItemsTypeOauthHeaders$Outbound,
+  ItemsTypeOauthHeaders$outboundSchema,
+} from "./itemstypeoauthheaders.js";
+import {
+  ItemsTypeOauthParams,
+  ItemsTypeOauthParams$inboundSchema,
+  ItemsTypeOauthParams$Outbound,
+  ItemsTypeOauthParams$outboundSchema,
+} from "./itemstypeoauthparams.js";
+import {
+  ItemsTypeResponseRetrySettings,
+  ItemsTypeResponseRetrySettings$inboundSchema,
+  ItemsTypeResponseRetrySettings$Outbound,
+  ItemsTypeResponseRetrySettings$outboundSchema,
+} from "./itemstyperesponseretrysettings.js";
+import {
+  MethodOptions,
+  MethodOptions$inboundSchema,
+  MethodOptions$outboundSchema,
+} from "./methodoptions.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
+import {
+  TlsSettingsClientSideType2,
+  TlsSettingsClientSideType2$inboundSchema,
+  TlsSettingsClientSideType2$Outbound,
+  TlsSettingsClientSideType2$outboundSchema,
+} from "./tlssettingsclientsidetype2.js";
 
 /**
  * How to format events before sending out
@@ -47,94 +100,6 @@ export const OutputWebhookFormat = {
  * How to format events before sending out
  */
 export type OutputWebhookFormat = OpenEnum<typeof OutputWebhookFormat>;
-
-export type OutputWebhookExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputWebhookFailedRequestLoggingMode = {
-  /**
-   * Payload
-   */
-  Payload: "payload",
-  /**
-   * Payload + Headers
-   */
-  PayloadAndHeaders: "payloadAndHeaders",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputWebhookFailedRequestLoggingMode = OpenEnum<
-  typeof OutputWebhookFailedRequestLoggingMode
->;
-
-export type OutputWebhookResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputWebhookTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputWebhookBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputWebhookBackpressureBehavior = OpenEnum<
-  typeof OutputWebhookBackpressureBehavior
->;
 
 /**
  * Authentication method to use for the HTTP request
@@ -172,141 +137,7 @@ export type OutputWebhookAuthenticationType = OpenEnum<
   typeof OutputWebhookAuthenticationType
 >;
 
-export const OutputWebhookMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputWebhookMinimumTLSVersion = OpenEnum<
-  typeof OutputWebhookMinimumTLSVersion
->;
-
-export const OutputWebhookMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputWebhookMaximumTLSVersion = OpenEnum<
-  typeof OutputWebhookMaximumTLSVersion
->;
-
-export type OutputWebhookTLSSettingsClientSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-   */
-  servername?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  minVersion?: OutputWebhookMinimumTLSVersion | undefined;
-  maxVersion?: OutputWebhookMaximumTLSVersion | undefined;
-};
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputWebhookMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputWebhookMode = OpenEnum<typeof OutputWebhookMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputWebhookCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputWebhookCompression = OpenEnum<
-  typeof OutputWebhookCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputWebhookQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputWebhookQueueFullBehavior = OpenEnum<
-  typeof OutputWebhookQueueFullBehavior
->;
-
 export type OutputWebhookPqControls = {};
-
-export type OutputWebhookOauthParam = {
-  /**
-   * OAuth parameter name
-   */
-  name: string;
-  /**
-   * OAuth parameter value
-   */
-  value: string;
-};
-
-export type OutputWebhookOauthHeader = {
-  /**
-   * OAuth header name
-   */
-  name: string;
-  /**
-   * OAuth header value
-   */
-  value: string;
-};
 
 export type OutputWebhookUrl = {
   /**
@@ -344,7 +175,7 @@ export type OutputWebhook = {
   /**
    * The method to use when sending events
    */
-  method?: OutputWebhookMethod | undefined;
+  method?: MethodOptions | undefined;
   /**
    * How to format events before sending out
    */
@@ -388,7 +219,7 @@ export type OutputWebhook = {
   /**
    * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
    */
-  extraHttpHeaders?: Array<OutputWebhookExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -396,7 +227,7 @@ export type OutputWebhook = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: OutputWebhookFailedRequestLoggingMode | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -404,8 +235,8 @@ export type OutputWebhook = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<OutputWebhookResponseRetrySetting> | undefined;
-  timeoutRetrySettings?: OutputWebhookTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -413,12 +244,12 @@ export type OutputWebhook = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputWebhookBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   /**
    * Authentication method to use for the HTTP request
    */
   authType?: OutputWebhookAuthenticationType | undefined;
-  tls?: OutputWebhookTLSSettingsClientSide | undefined;
+  tls?: TlsSettingsClientSideType2 | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -471,7 +302,7 @@ export type OutputWebhook = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputWebhookMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -495,11 +326,11 @@ export type OutputWebhook = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputWebhookCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputWebhookQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputWebhookPqControls | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -542,11 +373,11 @@ export type OutputWebhook = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<OutputWebhookOauthParam> | undefined;
+  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<OutputWebhookOauthHeader> | undefined;
+  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
   /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
@@ -567,19 +398,6 @@ export type OutputWebhook = {
 };
 
 /** @internal */
-export const OutputWebhookMethod$inboundSchema: z.ZodType<
-  OutputWebhookMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputWebhookMethod);
-/** @internal */
-export const OutputWebhookMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputWebhookMethod
-> = openEnums.outboundSchema(OutputWebhookMethod);
-
-/** @internal */
 export const OutputWebhookFormat$inboundSchema: z.ZodType<
   OutputWebhookFormat,
   z.ZodTypeDef,
@@ -593,176 +411,6 @@ export const OutputWebhookFormat$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputWebhookFormat);
 
 /** @internal */
-export const OutputWebhookExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputWebhookExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputWebhookExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputWebhookExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputWebhookExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputWebhookExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function outputWebhookExtraHttpHeaderToJSON(
-  outputWebhookExtraHttpHeader: OutputWebhookExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputWebhookExtraHttpHeader$outboundSchema.parse(
-      outputWebhookExtraHttpHeader,
-    ),
-  );
-}
-export function outputWebhookExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWebhookExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWebhookExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWebhookExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputWebhookFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputWebhookFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputWebhookFailedRequestLoggingMode);
-/** @internal */
-export const OutputWebhookFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputWebhookFailedRequestLoggingMode
-> = openEnums.outboundSchema(OutputWebhookFailedRequestLoggingMode);
-
-/** @internal */
-export const OutputWebhookResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputWebhookResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputWebhookResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputWebhookResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputWebhookResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputWebhookResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputWebhookResponseRetrySettingToJSON(
-  outputWebhookResponseRetrySetting: OutputWebhookResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputWebhookResponseRetrySetting$outboundSchema.parse(
-      outputWebhookResponseRetrySetting,
-    ),
-  );
-}
-export function outputWebhookResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWebhookResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWebhookResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWebhookResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputWebhookTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputWebhookTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputWebhookTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputWebhookTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputWebhookTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputWebhookTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputWebhookTimeoutRetrySettingsToJSON(
-  outputWebhookTimeoutRetrySettings: OutputWebhookTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputWebhookTimeoutRetrySettings$outboundSchema.parse(
-      outputWebhookTimeoutRetrySettings,
-    ),
-  );
-}
-export function outputWebhookTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWebhookTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWebhookTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWebhookTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputWebhookBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputWebhookBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputWebhookBackpressureBehavior);
-/** @internal */
-export const OutputWebhookBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputWebhookBackpressureBehavior
-> = openEnums.outboundSchema(OutputWebhookBackpressureBehavior);
-
-/** @internal */
 export const OutputWebhookAuthenticationType$inboundSchema: z.ZodType<
   OutputWebhookAuthenticationType,
   z.ZodTypeDef,
@@ -774,137 +422,6 @@ export const OutputWebhookAuthenticationType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputWebhookAuthenticationType
 > = openEnums.outboundSchema(OutputWebhookAuthenticationType);
-
-/** @internal */
-export const OutputWebhookMinimumTLSVersion$inboundSchema: z.ZodType<
-  OutputWebhookMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputWebhookMinimumTLSVersion);
-/** @internal */
-export const OutputWebhookMinimumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputWebhookMinimumTLSVersion
-> = openEnums.outboundSchema(OutputWebhookMinimumTLSVersion);
-
-/** @internal */
-export const OutputWebhookMaximumTLSVersion$inboundSchema: z.ZodType<
-  OutputWebhookMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputWebhookMaximumTLSVersion);
-/** @internal */
-export const OutputWebhookMaximumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputWebhookMaximumTLSVersion
-> = openEnums.outboundSchema(OutputWebhookMaximumTLSVersion);
-
-/** @internal */
-export const OutputWebhookTLSSettingsClientSide$inboundSchema: z.ZodType<
-  OutputWebhookTLSSettingsClientSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputWebhookMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: OutputWebhookMaximumTLSVersion$inboundSchema.optional(),
-});
-/** @internal */
-export type OutputWebhookTLSSettingsClientSide$Outbound = {
-  disabled: boolean;
-  servername?: string | undefined;
-  certificateName?: string | undefined;
-  caPath?: string | undefined;
-  privKeyPath?: string | undefined;
-  certPath?: string | undefined;
-  passphrase?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const OutputWebhookTLSSettingsClientSide$outboundSchema: z.ZodType<
-  OutputWebhookTLSSettingsClientSide$Outbound,
-  z.ZodTypeDef,
-  OutputWebhookTLSSettingsClientSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputWebhookMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: OutputWebhookMaximumTLSVersion$outboundSchema.optional(),
-});
-
-export function outputWebhookTLSSettingsClientSideToJSON(
-  outputWebhookTLSSettingsClientSide: OutputWebhookTLSSettingsClientSide,
-): string {
-  return JSON.stringify(
-    OutputWebhookTLSSettingsClientSide$outboundSchema.parse(
-      outputWebhookTLSSettingsClientSide,
-    ),
-  );
-}
-export function outputWebhookTLSSettingsClientSideFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWebhookTLSSettingsClientSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputWebhookTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWebhookTLSSettingsClientSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputWebhookMode$inboundSchema: z.ZodType<
-  OutputWebhookMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputWebhookMode);
-/** @internal */
-export const OutputWebhookMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputWebhookMode
-> = openEnums.outboundSchema(OutputWebhookMode);
-
-/** @internal */
-export const OutputWebhookCompression$inboundSchema: z.ZodType<
-  OutputWebhookCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputWebhookCompression);
-/** @internal */
-export const OutputWebhookCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputWebhookCompression
-> = openEnums.outboundSchema(OutputWebhookCompression);
-
-/** @internal */
-export const OutputWebhookQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputWebhookQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputWebhookQueueFullBehavior);
-/** @internal */
-export const OutputWebhookQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputWebhookQueueFullBehavior
-> = openEnums.outboundSchema(OutputWebhookQueueFullBehavior);
 
 /** @internal */
 export const OutputWebhookPqControls$inboundSchema: z.ZodType<
@@ -936,90 +453,6 @@ export function outputWebhookPqControlsFromJSON(
     jsonString,
     (x) => OutputWebhookPqControls$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'OutputWebhookPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputWebhookOauthParam$inboundSchema: z.ZodType<
-  OutputWebhookOauthParam,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputWebhookOauthParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputWebhookOauthParam$outboundSchema: z.ZodType<
-  OutputWebhookOauthParam$Outbound,
-  z.ZodTypeDef,
-  OutputWebhookOauthParam
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function outputWebhookOauthParamToJSON(
-  outputWebhookOauthParam: OutputWebhookOauthParam,
-): string {
-  return JSON.stringify(
-    OutputWebhookOauthParam$outboundSchema.parse(outputWebhookOauthParam),
-  );
-}
-export function outputWebhookOauthParamFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWebhookOauthParam, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWebhookOauthParam$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWebhookOauthParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputWebhookOauthHeader$inboundSchema: z.ZodType<
-  OutputWebhookOauthHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputWebhookOauthHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputWebhookOauthHeader$outboundSchema: z.ZodType<
-  OutputWebhookOauthHeader$Outbound,
-  z.ZodTypeDef,
-  OutputWebhookOauthHeader
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function outputWebhookOauthHeaderToJSON(
-  outputWebhookOauthHeader: OutputWebhookOauthHeader,
-): string {
-  return JSON.stringify(
-    OutputWebhookOauthHeader$outboundSchema.parse(outputWebhookOauthHeader),
-  );
-}
-export function outputWebhookOauthHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWebhookOauthHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWebhookOauthHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWebhookOauthHeader' from JSON`,
   );
 }
 
@@ -1077,7 +510,7 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  method: OutputWebhookMethod$inboundSchema.default("POST"),
+  method: MethodOptions$inboundSchema.default("POST"),
   format: OutputWebhookFormat$inboundSchema.default("ndjson"),
   keepAlive: z.boolean().default(true),
   concurrency: z.number().default(5),
@@ -1087,26 +520,18 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputWebhookExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputWebhookFailedRequestLoggingMode$inboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputWebhookResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputWebhookTimeoutRetrySettings$inboundSchema
-  ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: OutputWebhookBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
-  authType: OutputWebhookAuthenticationType$inboundSchema.default("none"),
-  tls: z.lazy(() => OutputWebhookTLSSettingsClientSide$inboundSchema)
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
     .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  authType: OutputWebhookAuthenticationType$inboundSchema.default("none"),
+  tls: TlsSettingsClientSideType2$inboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   loadBalanced: z.boolean().default(false),
   description: z.string().optional(),
@@ -1120,16 +545,14 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   formatPayloadCode: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputWebhookMode$inboundSchema.default("error"),
+  pqMode: ModeOptions$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputWebhookCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputWebhookQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
+  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputWebhookPqControls$inboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -1142,10 +565,8 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(z.lazy(() => OutputWebhookOauthParam$inboundSchema))
-    .optional(),
-  oauthHeaders: z.array(z.lazy(() => OutputWebhookOauthHeader$inboundSchema))
-    .optional(),
+  oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
+  oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
   url: z.string().optional(),
   excludeSelf: z.boolean().default(false),
   urls: z.array(z.lazy(() => OutputWebhookUrl$inboundSchema)).optional(),
@@ -1170,18 +591,18 @@ export type OutputWebhook$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputWebhookExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<OutputWebhookResponseRetrySetting$Outbound>
+    | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
-  timeoutRetrySettings?: OutputWebhookTimeoutRetrySettings$Outbound | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   onBackpressure: string;
   authType: string;
-  tls?: OutputWebhookTLSSettingsClientSide$Outbound | undefined;
+  tls?: TlsSettingsClientSideType2$Outbound | undefined;
   totalMemoryLimitKB?: number | undefined;
   loadBalanced: boolean;
   description?: string | undefined;
@@ -1215,8 +636,8 @@ export type OutputWebhook$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr: string;
   tokenTimeoutSecs: number;
-  oauthParams?: Array<OutputWebhookOauthParam$Outbound> | undefined;
-  oauthHeaders?: Array<OutputWebhookOauthHeader$Outbound> | undefined;
+  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
   url?: string | undefined;
   excludeSelf: boolean;
   urls?: Array<OutputWebhookUrl$Outbound> | undefined;
@@ -1236,7 +657,7 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  method: OutputWebhookMethod$outboundSchema.default("POST"),
+  method: MethodOptions$outboundSchema.default("POST"),
   format: OutputWebhookFormat$outboundSchema.default("ndjson"),
   keepAlive: z.boolean().default(true),
   concurrency: z.number().default(5),
@@ -1246,26 +667,19 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputWebhookExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputWebhookFailedRequestLoggingMode$outboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputWebhookResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputWebhookTimeoutRetrySettings$outboundSchema
-  ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: OutputWebhookBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
-  authType: OutputWebhookAuthenticationType$outboundSchema.default("none"),
-  tls: z.lazy(() => OutputWebhookTLSSettingsClientSide$outboundSchema)
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
     .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  authType: OutputWebhookAuthenticationType$outboundSchema.default("none"),
+  tls: TlsSettingsClientSideType2$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   loadBalanced: z.boolean().default(false),
   description: z.string().optional(),
@@ -1279,16 +693,14 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   formatPayloadCode: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputWebhookMode$outboundSchema.default("error"),
+  pqMode: ModeOptions$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputWebhookCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputWebhookQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
+  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
   pqControls: z.lazy(() => OutputWebhookPqControls$outboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -1301,10 +713,8 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(z.lazy(() => OutputWebhookOauthParam$outboundSchema))
-    .optional(),
-  oauthHeaders: z.array(z.lazy(() => OutputWebhookOauthHeader$outboundSchema))
-    .optional(),
+  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
   url: z.string().optional(),
   excludeSelf: z.boolean().default(false),
   urls: z.array(z.lazy(() => OutputWebhookUrl$outboundSchema)).optional(),

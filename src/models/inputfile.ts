@@ -8,81 +8,24 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputFileConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputFilePqMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputFilePqMode = OpenEnum<typeof InputFilePqMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputFileCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputFileCompression = OpenEnum<typeof InputFileCompression>;
-
-export type InputFilePqControls = {};
-
-export type InputFilePq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputFilePqMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputFileCompression | undefined;
-  pqControls?: InputFilePqControls | undefined;
-};
+import {
+  ItemsTypeConnections,
+  ItemsTypeConnections$inboundSchema,
+  ItemsTypeConnections$Outbound,
+  ItemsTypeConnections$outboundSchema,
+} from "./itemstypeconnections.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
 
 /**
  * Choose how to discover files to monitor
@@ -101,14 +44,6 @@ export const InputFileMode = {
  * Choose how to discover files to monitor
  */
 export type InputFileMode = OpenEnum<typeof InputFileMode>;
-
-export type InputFileMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
 
 export type InputFile = {
   /**
@@ -140,8 +75,8 @@ export type InputFile = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputFileConnection> | undefined;
-  pq?: InputFilePq | undefined;
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
   /**
    * Choose how to discover files to monitor
    */
@@ -189,7 +124,7 @@ export type InputFile = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputFileMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -219,163 +154,6 @@ export type InputFile = {
 };
 
 /** @internal */
-export const InputFileConnection$inboundSchema: z.ZodType<
-  InputFileConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputFileConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputFileConnection$outboundSchema: z.ZodType<
-  InputFileConnection$Outbound,
-  z.ZodTypeDef,
-  InputFileConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputFileConnectionToJSON(
-  inputFileConnection: InputFileConnection,
-): string {
-  return JSON.stringify(
-    InputFileConnection$outboundSchema.parse(inputFileConnection),
-  );
-}
-export function inputFileConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputFileConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputFileConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputFileConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputFilePqMode$inboundSchema: z.ZodType<
-  InputFilePqMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputFilePqMode);
-/** @internal */
-export const InputFilePqMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputFilePqMode
-> = openEnums.outboundSchema(InputFilePqMode);
-
-/** @internal */
-export const InputFileCompression$inboundSchema: z.ZodType<
-  InputFileCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputFileCompression);
-/** @internal */
-export const InputFileCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputFileCompression
-> = openEnums.outboundSchema(InputFileCompression);
-
-/** @internal */
-export const InputFilePqControls$inboundSchema: z.ZodType<
-  InputFilePqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputFilePqControls$Outbound = {};
-
-/** @internal */
-export const InputFilePqControls$outboundSchema: z.ZodType<
-  InputFilePqControls$Outbound,
-  z.ZodTypeDef,
-  InputFilePqControls
-> = z.object({});
-
-export function inputFilePqControlsToJSON(
-  inputFilePqControls: InputFilePqControls,
-): string {
-  return JSON.stringify(
-    InputFilePqControls$outboundSchema.parse(inputFilePqControls),
-  );
-}
-export function inputFilePqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputFilePqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputFilePqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputFilePqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputFilePq$inboundSchema: z.ZodType<
-  InputFilePq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputFilePqMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputFileCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputFilePqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputFilePq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputFilePqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputFilePq$outboundSchema: z.ZodType<
-  InputFilePq$Outbound,
-  z.ZodTypeDef,
-  InputFilePq
-> = z.object({
-  mode: InputFilePqMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputFileCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputFilePqControls$outboundSchema).optional(),
-});
-
-export function inputFilePqToJSON(inputFilePq: InputFilePq): string {
-  return JSON.stringify(InputFilePq$outboundSchema.parse(inputFilePq));
-}
-export function inputFilePqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputFilePq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputFilePq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputFilePq' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputFileMode$inboundSchema: z.ZodType<
   InputFileMode,
   z.ZodTypeDef,
@@ -387,48 +165,6 @@ export const InputFileMode$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputFileMode
 > = openEnums.outboundSchema(InputFileMode);
-
-/** @internal */
-export const InputFileMetadatum$inboundSchema: z.ZodType<
-  InputFileMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputFileMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputFileMetadatum$outboundSchema: z.ZodType<
-  InputFileMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputFileMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputFileMetadatumToJSON(
-  inputFileMetadatum: InputFileMetadatum,
-): string {
-  return JSON.stringify(
-    InputFileMetadatum$outboundSchema.parse(inputFileMetadatum),
-  );
-}
-export function inputFileMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputFileMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputFileMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputFileMetadatum' from JSON`,
-  );
-}
 
 /** @internal */
 export const InputFile$inboundSchema: z.ZodType<
@@ -444,9 +180,8 @@ export const InputFile$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputFileConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputFilePq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   mode: InputFileMode$inboundSchema.default("manual"),
   interval: z.number().default(10),
   filenames: z.array(z.string()).optional(),
@@ -458,7 +193,7 @@ export const InputFile$inboundSchema: z.ZodType<
   checkFileModTime: z.boolean().default(false),
   forceText: z.boolean().default(false),
   hashLen: z.number().default(256),
-  metadata: z.array(z.lazy(() => InputFileMetadatum$inboundSchema)).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   description: z.string().optional(),
@@ -478,8 +213,8 @@ export type InputFile$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputFileConnection$Outbound> | undefined;
-  pq?: InputFilePq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   mode: string;
   interval: number;
   filenames?: Array<string> | undefined;
@@ -491,7 +226,7 @@ export type InputFile$Outbound = {
   checkFileModTime: boolean;
   forceText: boolean;
   hashLen: number;
-  metadata?: Array<InputFileMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
   description?: string | undefined;
@@ -516,9 +251,8 @@ export const InputFile$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputFileConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputFilePq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   mode: InputFileMode$outboundSchema.default("manual"),
   interval: z.number().default(10),
   filenames: z.array(z.string()).optional(),
@@ -530,7 +264,7 @@ export const InputFile$outboundSchema: z.ZodType<
   checkFileModTime: z.boolean().default(false),
   forceText: z.boolean().default(false),
   hashLen: z.number().default(256),
-  metadata: z.array(z.lazy(() => InputFileMetadatum$outboundSchema)).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   description: z.string().optional(),

@@ -98,20 +98,18 @@ let value: MasterWorkerEntry = {
     localTime: 5260.28,
     metadata: {
       aws: {
-        enabled: true,
+        enabled: false,
         instanceId: "<id>",
         region: "<value>",
         tags: {
           "key": "<value>",
-          "key1": "<value>",
-          "key2": "<value>",
         },
         type: "<value>",
         zone: "<value>",
       },
       azure: {
         enabled: false,
-        hostname: "timely-gastropod.name",
+        hostname: "hidden-hundred.net",
         instanceId: "<id>",
         name: "<value>",
         region: "<value>",
@@ -119,8 +117,6 @@ let value: MasterWorkerEntry = {
         subscriptionId: "<id>",
         tags: {
           "key": "<value>",
-          "key1": "<value>",
-          "key2": "<value>",
         },
         type: "<value>",
         zone: "<value>",
@@ -129,9 +125,8 @@ let value: MasterWorkerEntry = {
         addresses: [
           "<value 1>",
           "<value 2>",
-          "<value 3>",
         ],
-        enabled: true,
+        enabled: false,
         id: "<id>",
         version: "<value>",
       },
@@ -155,16 +150,20 @@ let value: MasterWorkerEntry = {
     },
     node: "<value>",
     os: {
-      addresses: [],
+      addresses: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
     },
     outpost: {
       guid: "<id>",
-      host: "hefty-castanet.org",
+      host: "honored-massage.org",
     },
     platform: "<value>",
     release: "<value>",
-    totalDiskSpace: 7813.43,
-    totalmem: 1569.79,
+    totalDiskSpace: 9804.66,
+    totalmem: 3742.53,
   },
   lastMetrics: {
     "key": "<value>",
@@ -174,20 +173,18 @@ let value: MasterWorkerEntry = {
   lastMsgTime: 8518.59,
   metadata: {
     aws: {
-      enabled: true,
+      enabled: false,
       instanceId: "<id>",
       region: "<value>",
       tags: {
         "key": "<value>",
-        "key1": "<value>",
-        "key2": "<value>",
       },
       type: "<value>",
       zone: "<value>",
     },
     azure: {
       enabled: false,
-      hostname: "timely-gastropod.name",
+      hostname: "hidden-hundred.net",
       instanceId: "<id>",
       name: "<value>",
       region: "<value>",
@@ -195,8 +192,6 @@ let value: MasterWorkerEntry = {
       subscriptionId: "<id>",
       tags: {
         "key": "<value>",
-        "key1": "<value>",
-        "key2": "<value>",
       },
       type: "<value>",
       zone: "<value>",
@@ -205,9 +200,8 @@ let value: MasterWorkerEntry = {
       addresses: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
-      enabled: true,
+      enabled: false,
       id: "<id>",
       version: "<value>",
     },
@@ -230,17 +224,17 @@ let value: MasterWorkerEntry = {
     },
   },
   nodeUpgradeStatus: {
-    active: 1,
-    failed: 0,
+    active: 2,
+    failed: 1,
     skipped: 0,
     state: 1,
-    timestamp: 3581.56,
+    timestamp: 1259.2,
   },
   status: "<value>",
   type: "req",
   workerProcesses: 5121.94,
   workers: {
-    count: 5984.26,
+    count: 1569.79,
   },
 };
 ```

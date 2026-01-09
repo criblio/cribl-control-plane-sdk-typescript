@@ -1137,9 +1137,9 @@ const value: models.PipelineFunctionSort = {
   conf: {
     sortId: "<id>",
     comparisonExpression: "<value>",
-    topN: 3645.17,
-    maxEvents: 9120.6,
-    suppressPreviews: true,
+    topN: 4741.25,
+    maxEvents: 2967.01,
+    suppressPreviews: false,
   },
   groupId: "<id>",
 };
@@ -1190,11 +1190,10 @@ const value: models.PipelineFunctionTee = {
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     env: {
       "key": "<value>",
+      "key1": "<value>",
     },
   },
   groupId: "<id>",

@@ -7,7 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type DistributedSummaryGroups = {
+export type Groups = {
   count: number;
   destinations: number;
   packs: number;
@@ -28,32 +28,29 @@ export type DistributedSummaryWorkers = {
 };
 
 export type DistributedSummary = {
-  groups: DistributedSummaryGroups;
+  groups: Groups;
   workers: DistributedSummaryWorkers;
 };
 
 /** @internal */
-export const DistributedSummaryGroups$inboundSchema: z.ZodType<
-  DistributedSummaryGroups,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number(),
-  destinations: z.number(),
-  packs: z.number(),
-  pipelines: z.number(),
-  quickConnects: z.number(),
-  routes: z.number(),
-  sources: z.number(),
-});
+export const Groups$inboundSchema: z.ZodType<Groups, z.ZodTypeDef, unknown> = z
+  .object({
+    count: z.number(),
+    destinations: z.number(),
+    packs: z.number(),
+    pipelines: z.number(),
+    quickConnects: z.number(),
+    routes: z.number(),
+    sources: z.number(),
+  });
 
-export function distributedSummaryGroupsFromJSON(
+export function groupsFromJSON(
   jsonString: string,
-): SafeParseResult<DistributedSummaryGroups, SDKValidationError> {
+): SafeParseResult<Groups, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => DistributedSummaryGroups$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DistributedSummaryGroups' from JSON`,
+    (x) => Groups$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Groups' from JSON`,
   );
 }
 
@@ -88,7 +85,7 @@ export const DistributedSummary$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  groups: z.lazy(() => DistributedSummaryGroups$inboundSchema),
+  groups: z.lazy(() => Groups$inboundSchema),
   workers: z.lazy(() => DistributedSummaryWorkers$inboundSchema),
 });
 

@@ -7,7 +7,50 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  ItemsTypeExtraHttpHeaders,
+  ItemsTypeExtraHttpHeaders$inboundSchema,
+  ItemsTypeExtraHttpHeaders$Outbound,
+  ItemsTypeExtraHttpHeaders$outboundSchema,
+} from "./itemstypeextrahttpheaders.js";
+import {
+  ItemsTypeResponseRetrySettings,
+  ItemsTypeResponseRetrySettings$inboundSchema,
+  ItemsTypeResponseRetrySettings$Outbound,
+  ItemsTypeResponseRetrySettings$outboundSchema,
+} from "./itemstyperesponseretrysettings.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
 export const OutputGoogleChronicleAPIVersion = {
   /**
@@ -45,41 +88,6 @@ export type OutputGoogleChronicleAuthenticationMethod = OpenEnum<
   typeof OutputGoogleChronicleAuthenticationMethod
 >;
 
-export type OutputGoogleChronicleResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputGoogleChronicleTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
 export const SendEventsAs = {
   /**
    * Unstructured
@@ -91,59 +99,6 @@ export const SendEventsAs = {
   Udm: "udm",
 } as const;
 export type SendEventsAs = OpenEnum<typeof SendEventsAs>;
-
-export type OutputGoogleChronicleExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputGoogleChronicleFailedRequestLoggingMode = {
-  /**
-   * Payload
-   */
-  Payload: "payload",
-  /**
-   * Payload + Headers
-   */
-  PayloadAndHeaders: "payloadAndHeaders",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputGoogleChronicleFailedRequestLoggingMode = OpenEnum<
-  typeof OutputGoogleChronicleFailedRequestLoggingMode
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputGoogleChronicleBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputGoogleChronicleBackpressureBehavior = OpenEnum<
-  typeof OutputGoogleChronicleBackpressureBehavior
->;
 
 export type ExtraLogType = {
   logType: string;
@@ -166,70 +121,6 @@ export const UDMType = {
  * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
  */
 export type UDMType = OpenEnum<typeof UDMType>;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputGoogleChronicleMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputGoogleChronicleMode = OpenEnum<
-  typeof OutputGoogleChronicleMode
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputGoogleChronicleCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputGoogleChronicleCompression = OpenEnum<
-  typeof OutputGoogleChronicleCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputGoogleChronicleQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputGoogleChronicleQueueFullBehavior = OpenEnum<
-  typeof OutputGoogleChronicleQueueFullBehavior
->;
 
 export type OutputGoogleChroniclePqControls = {};
 
@@ -260,10 +151,8 @@ export type OutputGoogleChronicle = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputGoogleChronicleResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?: OutputGoogleChronicleTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -308,13 +197,11 @@ export type OutputGoogleChronicle = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputGoogleChronicleExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputGoogleChronicleFailedRequestLoggingMode
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -326,7 +213,7 @@ export type OutputGoogleChronicle = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputGoogleChronicleBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -387,7 +274,7 @@ export type OutputGoogleChronicle = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputGoogleChronicleMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -411,11 +298,11 @@ export type OutputGoogleChronicle = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputGoogleChronicleCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputGoogleChronicleQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputGoogleChroniclePqControls | undefined;
 };
 
@@ -444,122 +331,6 @@ export const OutputGoogleChronicleAuthenticationMethod$outboundSchema:
     openEnums.outboundSchema(OutputGoogleChronicleAuthenticationMethod);
 
 /** @internal */
-export const OutputGoogleChronicleResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputGoogleChronicleResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputGoogleChronicleResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputGoogleChronicleResponseRetrySetting$outboundSchema:
-  z.ZodType<
-    OutputGoogleChronicleResponseRetrySetting$Outbound,
-    z.ZodTypeDef,
-    OutputGoogleChronicleResponseRetrySetting
-  > = z.object({
-    httpStatus: z.number(),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-
-export function outputGoogleChronicleResponseRetrySettingToJSON(
-  outputGoogleChronicleResponseRetrySetting:
-    OutputGoogleChronicleResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputGoogleChronicleResponseRetrySetting$outboundSchema.parse(
-      outputGoogleChronicleResponseRetrySetting,
-    ),
-  );
-}
-export function outputGoogleChronicleResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputGoogleChronicleResponseRetrySetting,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputGoogleChronicleResponseRetrySetting$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputGoogleChronicleResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGoogleChronicleTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputGoogleChronicleTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputGoogleChronicleTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputGoogleChronicleTimeoutRetrySettings$outboundSchema:
-  z.ZodType<
-    OutputGoogleChronicleTimeoutRetrySettings$Outbound,
-    z.ZodTypeDef,
-    OutputGoogleChronicleTimeoutRetrySettings
-  > = z.object({
-    timeoutRetry: z.boolean().default(false),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-
-export function outputGoogleChronicleTimeoutRetrySettingsToJSON(
-  outputGoogleChronicleTimeoutRetrySettings:
-    OutputGoogleChronicleTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputGoogleChronicleTimeoutRetrySettings$outboundSchema.parse(
-      outputGoogleChronicleTimeoutRetrySettings,
-    ),
-  );
-}
-export function outputGoogleChronicleTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputGoogleChronicleTimeoutRetrySettings,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputGoogleChronicleTimeoutRetrySettings$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputGoogleChronicleTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
 export const SendEventsAs$inboundSchema: z.ZodType<
   SendEventsAs,
   z.ZodTypeDef,
@@ -571,77 +342,6 @@ export const SendEventsAs$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SendEventsAs
 > = openEnums.outboundSchema(SendEventsAs);
-
-/** @internal */
-export const OutputGoogleChronicleExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputGoogleChronicleExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputGoogleChronicleExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputGoogleChronicleExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputGoogleChronicleExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputGoogleChronicleExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function outputGoogleChronicleExtraHttpHeaderToJSON(
-  outputGoogleChronicleExtraHttpHeader: OutputGoogleChronicleExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputGoogleChronicleExtraHttpHeader$outboundSchema.parse(
-      outputGoogleChronicleExtraHttpHeader,
-    ),
-  );
-}
-export function outputGoogleChronicleExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGoogleChronicleExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputGoogleChronicleExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGoogleChronicleExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGoogleChronicleFailedRequestLoggingMode$inboundSchema:
-  z.ZodType<
-    OutputGoogleChronicleFailedRequestLoggingMode,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(OutputGoogleChronicleFailedRequestLoggingMode);
-/** @internal */
-export const OutputGoogleChronicleFailedRequestLoggingMode$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputGoogleChronicleFailedRequestLoggingMode
-  > = openEnums.outboundSchema(OutputGoogleChronicleFailedRequestLoggingMode);
-
-/** @internal */
-export const OutputGoogleChronicleBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputGoogleChronicleBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGoogleChronicleBackpressureBehavior);
-/** @internal */
-export const OutputGoogleChronicleBackpressureBehavior$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, OutputGoogleChronicleBackpressureBehavior> =
-    openEnums.outboundSchema(OutputGoogleChronicleBackpressureBehavior);
 
 /** @internal */
 export const ExtraLogType$inboundSchema: z.ZodType<
@@ -733,45 +433,6 @@ export const UDMType$outboundSchema: z.ZodType<string, z.ZodTypeDef, UDMType> =
   openEnums.outboundSchema(UDMType);
 
 /** @internal */
-export const OutputGoogleChronicleMode$inboundSchema: z.ZodType<
-  OutputGoogleChronicleMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGoogleChronicleMode);
-/** @internal */
-export const OutputGoogleChronicleMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputGoogleChronicleMode
-> = openEnums.outboundSchema(OutputGoogleChronicleMode);
-
-/** @internal */
-export const OutputGoogleChronicleCompression$inboundSchema: z.ZodType<
-  OutputGoogleChronicleCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGoogleChronicleCompression);
-/** @internal */
-export const OutputGoogleChronicleCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputGoogleChronicleCompression
-> = openEnums.outboundSchema(OutputGoogleChronicleCompression);
-
-/** @internal */
-export const OutputGoogleChronicleQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputGoogleChronicleQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGoogleChronicleQueueFullBehavior);
-/** @internal */
-export const OutputGoogleChronicleQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputGoogleChronicleQueueFullBehavior
-> = openEnums.outboundSchema(OutputGoogleChronicleQueueFullBehavior);
-
-/** @internal */
 export const OutputGoogleChroniclePqControls$inboundSchema: z.ZodType<
   OutputGoogleChroniclePqControls,
   z.ZodTypeDef,
@@ -821,12 +482,9 @@ export const OutputGoogleChronicle$inboundSchema: z.ZodType<
   apiVersion: OutputGoogleChronicleAPIVersion$inboundSchema.default("v1"),
   authenticationMethod: OutputGoogleChronicleAuthenticationMethod$inboundSchema
     .default("serviceAccount"),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputGoogleChronicleResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputGoogleChronicleTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
   logFormatType: SendEventsAs$inboundSchema.default("unstructured"),
   region: z.string().optional(),
@@ -837,15 +495,12 @@ export const OutputGoogleChronicle$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(90),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputGoogleChronicleExtraHttpHeader$inboundSchema),
-  ).optional(),
-  failedRequestLoggingMode:
-    OutputGoogleChronicleFailedRequestLoggingMode$inboundSchema.default("none"),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  onBackpressure: OutputGoogleChronicleBackpressureBehavior$inboundSchema
-    .default("block"),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   extraLogTypes: z.array(z.lazy(() => ExtraLogType$inboundSchema)).optional(),
@@ -863,15 +518,14 @@ export const OutputGoogleChronicle$inboundSchema: z.ZodType<
   serviceAccountCredentialsSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputGoogleChronicleMode$inboundSchema.default("error"),
+  pqMode: ModeOptions$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputGoogleChronicleCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputGoogleChronicleQueueFullBehavior$inboundSchema
-    .default("block"),
+  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputGoogleChroniclePqControls$inboundSchema)
     .optional(),
 });
@@ -886,11 +540,9 @@ export type OutputGoogleChronicle$Outbound = {
   apiVersion: string;
   authenticationMethod: string;
   responseRetrySettings?:
-    | Array<OutputGoogleChronicleResponseRetrySetting$Outbound>
+    | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
-  timeoutRetrySettings?:
-    | OutputGoogleChronicleTimeoutRetrySettings$Outbound
-    | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   logFormatType: string;
   region?: string | undefined;
@@ -901,9 +553,7 @@ export type OutputGoogleChronicle$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?:
-    | Array<OutputGoogleChronicleExtraHttpHeader$Outbound>
-    | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   useRoundRobinDns: boolean;
@@ -949,12 +599,9 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   apiVersion: OutputGoogleChronicleAPIVersion$outboundSchema.default("v1"),
   authenticationMethod: OutputGoogleChronicleAuthenticationMethod$outboundSchema
     .default("serviceAccount"),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputGoogleChronicleResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputGoogleChronicleTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
   logFormatType: SendEventsAs$outboundSchema.default("unstructured"),
   region: z.string().optional(),
@@ -965,17 +612,13 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(90),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputGoogleChronicleExtraHttpHeader$outboundSchema),
-  ).optional(),
-  failedRequestLoggingMode:
-    OutputGoogleChronicleFailedRequestLoggingMode$outboundSchema.default(
-      "none",
-    ),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  onBackpressure: OutputGoogleChronicleBackpressureBehavior$outboundSchema
-    .default("block"),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   extraLogTypes: z.array(z.lazy(() => ExtraLogType$outboundSchema)).optional(),
@@ -993,15 +636,14 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   serviceAccountCredentialsSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputGoogleChronicleMode$outboundSchema.default("error"),
+  pqMode: ModeOptions$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputGoogleChronicleCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputGoogleChronicleQueueFullBehavior$outboundSchema
-    .default("block"),
+  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
   pqControls: z.lazy(() => OutputGoogleChroniclePqControls$outboundSchema)
     .optional(),
 });

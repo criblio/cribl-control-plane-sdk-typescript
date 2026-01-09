@@ -4,216 +4,38 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationType1,
+  AuthenticationType1$inboundSchema,
+  AuthenticationType1$Outbound,
+  AuthenticationType1$outboundSchema,
+} from "./authenticationtype1.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputEventhubConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputEventhubMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputEventhubMode = OpenEnum<typeof InputEventhubMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputEventhubCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputEventhubCompression = OpenEnum<
-  typeof InputEventhubCompression
->;
-
-export type InputEventhubPqControls = {};
-
-export type InputEventhubPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputEventhubMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputEventhubCompression | undefined;
-  pqControls?: InputEventhubPqControls | undefined;
-};
-
-/**
- * Enter password directly, or select a stored secret
- */
-export const InputEventhubAuthTypeAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Enter password directly, or select a stored secret
- */
-export type InputEventhubAuthTypeAuthenticationMethod = OpenEnum<
-  typeof InputEventhubAuthTypeAuthenticationMethod
->;
-
-export const InputEventhubSASLMechanism = {
-  /**
-   * PLAIN
-   */
-  Plain: "plain",
-  /**
-   * OAUTHBEARER
-   */
-  Oauthbearer: "oauthbearer",
-} as const;
-export type InputEventhubSASLMechanism = OpenEnum<
-  typeof InputEventhubSASLMechanism
->;
-
-export const InputEventhubClientSecretAuthTypeAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-  Certificate: "certificate",
-} as const;
-export type InputEventhubClientSecretAuthTypeAuthenticationMethod = OpenEnum<
-  typeof InputEventhubClientSecretAuthTypeAuthenticationMethod
->;
-
-/**
- * Endpoint used to acquire authentication tokens from Azure
- */
-export const InputEventhubMicrosoftEntraIDAuthenticationEndpoint = {
-  HttpsLoginMicrosoftonlineCom: "https://login.microsoftonline.com",
-  HttpsLoginMicrosoftonlineUs: "https://login.microsoftonline.us",
-  HttpsLoginPartnerMicrosoftonlineCn:
-    "https://login.partner.microsoftonline.cn",
-} as const;
-/**
- * Endpoint used to acquire authentication tokens from Azure
- */
-export type InputEventhubMicrosoftEntraIDAuthenticationEndpoint = OpenEnum<
-  typeof InputEventhubMicrosoftEntraIDAuthenticationEndpoint
->;
-
-/**
- * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
- */
-export type InputEventhubAuthentication = {
-  disabled?: boolean | undefined;
-  /**
-   * Enter password directly, or select a stored secret
-   */
-  authType?: InputEventhubAuthTypeAuthenticationMethod | undefined;
-  /**
-   * Connection-string primary key, or connection-string secondary key, from the Event Hubs workspace
-   */
-  password?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-  mechanism?: InputEventhubSASLMechanism | undefined;
-  /**
-   * The username for authentication. For Event Hubs, this should always be $ConnectionString.
-   */
-  username?: string | undefined;
-  clientSecretAuthType?:
-    | InputEventhubClientSecretAuthTypeAuthenticationMethod
-    | undefined;
-  /**
-   * client_secret to pass in the OAuth request parameter
-   */
-  clientSecret?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  clientTextSecret?: string | undefined;
-  /**
-   * Select or create a stored certificate
-   */
-  certificateName?: string | undefined;
-  certPath?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  /**
-   * Endpoint used to acquire authentication tokens from Azure
-   */
-  oauthEndpoint?:
-    | InputEventhubMicrosoftEntraIDAuthenticationEndpoint
-    | undefined;
-  /**
-   * client_id to pass in the OAuth request parameter
-   */
-  clientId?: string | undefined;
-  /**
-   * Directory ID (tenant identifier) in Azure Active Directory
-   */
-  tenantId?: string | undefined;
-  /**
-   * Scope to pass in the OAuth request parameter
-   */
-  scope?: string | undefined;
-};
-
-export type InputEventhubTLSSettingsClientSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's)
-   */
-  rejectUnauthorized?: boolean | undefined;
-};
-
-export type InputEventhubMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
+import {
+  ItemsTypeConnections,
+  ItemsTypeConnections$inboundSchema,
+  ItemsTypeConnections$Outbound,
+  ItemsTypeConnections$outboundSchema,
+} from "./itemstypeconnections.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  TlsSettingsClientSideType,
+  TlsSettingsClientSideType$inboundSchema,
+  TlsSettingsClientSideType$Outbound,
+  TlsSettingsClientSideType$outboundSchema,
+} from "./tlssettingsclientsidetype.js";
 
 export type InputEventhub = {
   /**
@@ -245,8 +67,8 @@ export type InputEventhub = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputEventhubConnection> | undefined;
-  pq?: InputEventhubPq | undefined;
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
   /**
    * List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
    */
@@ -298,8 +120,8 @@ export type InputEventhub = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: InputEventhubAuthentication | undefined;
-  tls?: InputEventhubTLSSettingsClientSide | undefined;
+  sasl?: AuthenticationType1 | undefined;
+  tls?: TlsSettingsClientSideType | undefined;
   /**
    *       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
    *
@@ -352,421 +174,9 @@ export type InputEventhub = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputEventhubMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputEventhubConnection$inboundSchema: z.ZodType<
-  InputEventhubConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputEventhubConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputEventhubConnection$outboundSchema: z.ZodType<
-  InputEventhubConnection$Outbound,
-  z.ZodTypeDef,
-  InputEventhubConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputEventhubConnectionToJSON(
-  inputEventhubConnection: InputEventhubConnection,
-): string {
-  return JSON.stringify(
-    InputEventhubConnection$outboundSchema.parse(inputEventhubConnection),
-  );
-}
-export function inputEventhubConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputEventhubConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputEventhubConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputEventhubConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputEventhubMode$inboundSchema: z.ZodType<
-  InputEventhubMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputEventhubMode);
-/** @internal */
-export const InputEventhubMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputEventhubMode
-> = openEnums.outboundSchema(InputEventhubMode);
-
-/** @internal */
-export const InputEventhubCompression$inboundSchema: z.ZodType<
-  InputEventhubCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputEventhubCompression);
-/** @internal */
-export const InputEventhubCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputEventhubCompression
-> = openEnums.outboundSchema(InputEventhubCompression);
-
-/** @internal */
-export const InputEventhubPqControls$inboundSchema: z.ZodType<
-  InputEventhubPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputEventhubPqControls$Outbound = {};
-
-/** @internal */
-export const InputEventhubPqControls$outboundSchema: z.ZodType<
-  InputEventhubPqControls$Outbound,
-  z.ZodTypeDef,
-  InputEventhubPqControls
-> = z.object({});
-
-export function inputEventhubPqControlsToJSON(
-  inputEventhubPqControls: InputEventhubPqControls,
-): string {
-  return JSON.stringify(
-    InputEventhubPqControls$outboundSchema.parse(inputEventhubPqControls),
-  );
-}
-export function inputEventhubPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputEventhubPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputEventhubPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputEventhubPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputEventhubPq$inboundSchema: z.ZodType<
-  InputEventhubPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputEventhubMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputEventhubCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputEventhubPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputEventhubPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputEventhubPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputEventhubPq$outboundSchema: z.ZodType<
-  InputEventhubPq$Outbound,
-  z.ZodTypeDef,
-  InputEventhubPq
-> = z.object({
-  mode: InputEventhubMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputEventhubCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputEventhubPqControls$outboundSchema).optional(),
-});
-
-export function inputEventhubPqToJSON(
-  inputEventhubPq: InputEventhubPq,
-): string {
-  return JSON.stringify(InputEventhubPq$outboundSchema.parse(inputEventhubPq));
-}
-export function inputEventhubPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputEventhubPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputEventhubPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputEventhubPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputEventhubAuthTypeAuthenticationMethod$inboundSchema: z.ZodType<
-  InputEventhubAuthTypeAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputEventhubAuthTypeAuthenticationMethod);
-/** @internal */
-export const InputEventhubAuthTypeAuthenticationMethod$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, InputEventhubAuthTypeAuthenticationMethod> =
-    openEnums.outboundSchema(InputEventhubAuthTypeAuthenticationMethod);
-
-/** @internal */
-export const InputEventhubSASLMechanism$inboundSchema: z.ZodType<
-  InputEventhubSASLMechanism,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputEventhubSASLMechanism);
-/** @internal */
-export const InputEventhubSASLMechanism$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputEventhubSASLMechanism
-> = openEnums.outboundSchema(InputEventhubSASLMechanism);
-
-/** @internal */
-export const InputEventhubClientSecretAuthTypeAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    InputEventhubClientSecretAuthTypeAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    InputEventhubClientSecretAuthTypeAuthenticationMethod,
-  );
-/** @internal */
-export const InputEventhubClientSecretAuthTypeAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    InputEventhubClientSecretAuthTypeAuthenticationMethod
-  > = openEnums.outboundSchema(
-    InputEventhubClientSecretAuthTypeAuthenticationMethod,
-  );
-
-/** @internal */
-export const InputEventhubMicrosoftEntraIDAuthenticationEndpoint$inboundSchema:
-  z.ZodType<
-    InputEventhubMicrosoftEntraIDAuthenticationEndpoint,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    InputEventhubMicrosoftEntraIDAuthenticationEndpoint,
-  );
-/** @internal */
-export const InputEventhubMicrosoftEntraIDAuthenticationEndpoint$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    InputEventhubMicrosoftEntraIDAuthenticationEndpoint
-  > = openEnums.outboundSchema(
-    InputEventhubMicrosoftEntraIDAuthenticationEndpoint,
-  );
-
-/** @internal */
-export const InputEventhubAuthentication$inboundSchema: z.ZodType<
-  InputEventhubAuthentication,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(false),
-  authType: InputEventhubAuthTypeAuthenticationMethod$inboundSchema.default(
-    "manual",
-  ),
-  password: z.string().optional(),
-  textSecret: z.string().optional(),
-  mechanism: InputEventhubSASLMechanism$inboundSchema.default("plain"),
-  username: z.string().default("$ConnectionString"),
-  clientSecretAuthType:
-    InputEventhubClientSecretAuthTypeAuthenticationMethod$inboundSchema.default(
-      "manual",
-    ),
-  clientSecret: z.string().optional(),
-  clientTextSecret: z.string().optional(),
-  certificateName: z.string().optional(),
-  certPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  oauthEndpoint:
-    InputEventhubMicrosoftEntraIDAuthenticationEndpoint$inboundSchema.default(
-      "https://login.microsoftonline.com",
-    ),
-  clientId: z.string().optional(),
-  tenantId: z.string().optional(),
-  scope: z.string().optional(),
-});
-/** @internal */
-export type InputEventhubAuthentication$Outbound = {
-  disabled: boolean;
-  authType: string;
-  password?: string | undefined;
-  textSecret?: string | undefined;
-  mechanism: string;
-  username: string;
-  clientSecretAuthType: string;
-  clientSecret?: string | undefined;
-  clientTextSecret?: string | undefined;
-  certificateName?: string | undefined;
-  certPath?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  oauthEndpoint: string;
-  clientId?: string | undefined;
-  tenantId?: string | undefined;
-  scope?: string | undefined;
-};
-
-/** @internal */
-export const InputEventhubAuthentication$outboundSchema: z.ZodType<
-  InputEventhubAuthentication$Outbound,
-  z.ZodTypeDef,
-  InputEventhubAuthentication
-> = z.object({
-  disabled: z.boolean().default(false),
-  authType: InputEventhubAuthTypeAuthenticationMethod$outboundSchema.default(
-    "manual",
-  ),
-  password: z.string().optional(),
-  textSecret: z.string().optional(),
-  mechanism: InputEventhubSASLMechanism$outboundSchema.default("plain"),
-  username: z.string().default("$ConnectionString"),
-  clientSecretAuthType:
-    InputEventhubClientSecretAuthTypeAuthenticationMethod$outboundSchema
-      .default("manual"),
-  clientSecret: z.string().optional(),
-  clientTextSecret: z.string().optional(),
-  certificateName: z.string().optional(),
-  certPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  oauthEndpoint:
-    InputEventhubMicrosoftEntraIDAuthenticationEndpoint$outboundSchema.default(
-      "https://login.microsoftonline.com",
-    ),
-  clientId: z.string().optional(),
-  tenantId: z.string().optional(),
-  scope: z.string().optional(),
-});
-
-export function inputEventhubAuthenticationToJSON(
-  inputEventhubAuthentication: InputEventhubAuthentication,
-): string {
-  return JSON.stringify(
-    InputEventhubAuthentication$outboundSchema.parse(
-      inputEventhubAuthentication,
-    ),
-  );
-}
-export function inputEventhubAuthenticationFromJSON(
-  jsonString: string,
-): SafeParseResult<InputEventhubAuthentication, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputEventhubAuthentication$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputEventhubAuthentication' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputEventhubTLSSettingsClientSide$inboundSchema: z.ZodType<
-  InputEventhubTLSSettingsClientSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-});
-/** @internal */
-export type InputEventhubTLSSettingsClientSide$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
-};
-
-/** @internal */
-export const InputEventhubTLSSettingsClientSide$outboundSchema: z.ZodType<
-  InputEventhubTLSSettingsClientSide$Outbound,
-  z.ZodTypeDef,
-  InputEventhubTLSSettingsClientSide
-> = z.object({
-  disabled: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-});
-
-export function inputEventhubTLSSettingsClientSideToJSON(
-  inputEventhubTLSSettingsClientSide: InputEventhubTLSSettingsClientSide,
-): string {
-  return JSON.stringify(
-    InputEventhubTLSSettingsClientSide$outboundSchema.parse(
-      inputEventhubTLSSettingsClientSide,
-    ),
-  );
-}
-export function inputEventhubTLSSettingsClientSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputEventhubTLSSettingsClientSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputEventhubTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputEventhubTLSSettingsClientSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputEventhubMetadatum$inboundSchema: z.ZodType<
-  InputEventhubMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputEventhubMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputEventhubMetadatum$outboundSchema: z.ZodType<
-  InputEventhubMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputEventhubMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputEventhubMetadatumToJSON(
-  inputEventhubMetadatum: InputEventhubMetadatum,
-): string {
-  return JSON.stringify(
-    InputEventhubMetadatum$outboundSchema.parse(inputEventhubMetadatum),
-  );
-}
-export function inputEventhubMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputEventhubMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputEventhubMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputEventhubMetadatum' from JSON`,
-  );
-}
 
 /** @internal */
 export const InputEventhub$inboundSchema: z.ZodType<
@@ -782,9 +192,8 @@ export const InputEventhub$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputEventhubConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputEventhubPq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
@@ -797,9 +206,8 @@ export const InputEventhub$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  sasl: z.lazy(() => InputEventhubAuthentication$inboundSchema).optional(),
-  tls: z.lazy(() => InputEventhubTLSSettingsClientSide$inboundSchema)
-    .optional(),
+  sasl: AuthenticationType1$inboundSchema.optional(),
+  tls: TlsSettingsClientSideType$inboundSchema.optional(),
   sessionTimeout: z.number().default(30000),
   rebalanceTimeout: z.number().default(60000),
   heartbeatInterval: z.number().default(3000),
@@ -809,8 +217,7 @@ export const InputEventhub$inboundSchema: z.ZodType<
   maxBytes: z.number().default(10485760),
   maxSocketErrors: z.number().default(0),
   minimizeDuplicates: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputEventhubMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -823,8 +230,8 @@ export type InputEventhub$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputEventhubConnection$Outbound> | undefined;
-  pq?: InputEventhubPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
   groupId: string;
@@ -837,8 +244,8 @@ export type InputEventhub$Outbound = {
   backoffRate: number;
   authenticationTimeout: number;
   reauthenticationThreshold: number;
-  sasl?: InputEventhubAuthentication$Outbound | undefined;
-  tls?: InputEventhubTLSSettingsClientSide$Outbound | undefined;
+  sasl?: AuthenticationType1$Outbound | undefined;
+  tls?: TlsSettingsClientSideType$Outbound | undefined;
   sessionTimeout: number;
   rebalanceTimeout: number;
   heartbeatInterval: number;
@@ -848,7 +255,7 @@ export type InputEventhub$Outbound = {
   maxBytes: number;
   maxSocketErrors: number;
   minimizeDuplicates: boolean;
-  metadata?: Array<InputEventhubMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -866,9 +273,8 @@ export const InputEventhub$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputEventhubConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputEventhubPq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
@@ -881,9 +287,8 @@ export const InputEventhub$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  sasl: z.lazy(() => InputEventhubAuthentication$outboundSchema).optional(),
-  tls: z.lazy(() => InputEventhubTLSSettingsClientSide$outboundSchema)
-    .optional(),
+  sasl: AuthenticationType1$outboundSchema.optional(),
+  tls: TlsSettingsClientSideType$outboundSchema.optional(),
   sessionTimeout: z.number().default(30000),
   rebalanceTimeout: z.number().default(60000),
   heartbeatInterval: z.number().default(3000),
@@ -893,8 +298,7 @@ export const InputEventhub$outboundSchema: z.ZodType<
   maxBytes: z.number().default(10485760),
   maxSocketErrors: z.number().default(0),
   minimizeDuplicates: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputEventhubMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 

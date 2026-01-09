@@ -7,65 +7,53 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AcknowledgmentsOptions,
+  AcknowledgmentsOptions$inboundSchema,
+  AcknowledgmentsOptions$outboundSchema,
+} from "./acknowledgmentsoptions.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Control the number of required acknowledgments
- */
-export const OutputMicrosoftFabricAcknowledgments = {
-  /**
-   * Leader
-   */
-  One: 1,
-  /**
-   * None
-   */
-  Zero: 0,
-  /**
-   * All
-   */
-  Minus1: -1,
-} as const;
-/**
- * Control the number of required acknowledgments
- */
-export type OutputMicrosoftFabricAcknowledgments = OpenEnum<
-  typeof OutputMicrosoftFabricAcknowledgments
->;
-
-/**
- * Format to use to serialize events before writing to the Event Hubs Kafka brokers
- */
-export const OutputMicrosoftFabricRecordDataFormat = {
-  /**
-   * JSON
-   */
-  Json: "json",
-  /**
-   * Field _raw
-   */
-  Raw: "raw",
-} as const;
-/**
- * Format to use to serialize events before writing to the Event Hubs Kafka brokers
- */
-export type OutputMicrosoftFabricRecordDataFormat = OpenEnum<
-  typeof OutputMicrosoftFabricRecordDataFormat
->;
-
-export const OutputMicrosoftFabricSASLMechanism = {
-  /**
-   * PLAIN
-   */
-  Plain: "plain",
-  /**
-   * OAUTHBEARER
-   */
-  Oauthbearer: "oauthbearer",
-} as const;
-export type OutputMicrosoftFabricSASLMechanism = OpenEnum<
-  typeof OutputMicrosoftFabricSASLMechanism
->;
+import {
+  MicrosoftEntraIdAuthenticationEndpointOptionsSasl,
+  MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema,
+  MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema,
+} from "./microsoftentraidauthenticationendpointoptionssasl.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  RecordDataFormatOptions,
+  RecordDataFormatOptions$inboundSchema,
+  RecordDataFormatOptions$outboundSchema,
+} from "./recorddataformatoptions.js";
+import {
+  SaslMechanismOptionsSasl1,
+  SaslMechanismOptionsSasl1$inboundSchema,
+  SaslMechanismOptionsSasl1$outboundSchema,
+} from "./saslmechanismoptionssasl1.js";
+import {
+  TlsSettingsClientSideType,
+  TlsSettingsClientSideType$inboundSchema,
+  TlsSettingsClientSideType$Outbound,
+  TlsSettingsClientSideType$outboundSchema,
+} from "./tlssettingsclientsidetype.js";
 
 export const OutputMicrosoftFabricAuthenticationMethod = {
   Secret: "secret",
@@ -76,26 +64,11 @@ export type OutputMicrosoftFabricAuthenticationMethod = OpenEnum<
 >;
 
 /**
- * Endpoint used to acquire authentication tokens from Azure
- */
-export const OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint = {
-  HttpsLoginMicrosoftonlineCom: "https://login.microsoftonline.com",
-  HttpsLoginMicrosoftonlineUs: "https://login.microsoftonline.us",
-  HttpsLoginPartnerMicrosoftonlineCn:
-    "https://login.partner.microsoftonline.cn",
-} as const;
-/**
- * Endpoint used to acquire authentication tokens from Azure
- */
-export type OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint =
-  OpenEnum<typeof OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint>;
-
-/**
  * Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
  */
 export type OutputMicrosoftFabricAuthentication = {
   disabled?: boolean | undefined;
-  mechanism?: OutputMicrosoftFabricSASLMechanism | undefined;
+  mechanism?: SaslMechanismOptionsSasl1 | undefined;
   /**
    * The username for authentication. This should always be $ConnectionString.
    */
@@ -119,9 +92,7 @@ export type OutputMicrosoftFabricAuthentication = {
   /**
    * Endpoint used to acquire authentication tokens from Azure
    */
-  oauthEndpoint?:
-    | OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint
-    | undefined;
+  oauthEndpoint?: MicrosoftEntraIdAuthenticationEndpointOptionsSasl | undefined;
   /**
    * client_id to pass in the OAuth request parameter
    */
@@ -135,102 +106,6 @@ export type OutputMicrosoftFabricAuthentication = {
    */
   scope?: string | undefined;
 };
-
-export type OutputMicrosoftFabricTLSSettingsClientSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's)
-   */
-  rejectUnauthorized?: boolean | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputMicrosoftFabricBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputMicrosoftFabricBackpressureBehavior = OpenEnum<
-  typeof OutputMicrosoftFabricBackpressureBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputMicrosoftFabricMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputMicrosoftFabricMode = OpenEnum<
-  typeof OutputMicrosoftFabricMode
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputMicrosoftFabricCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputMicrosoftFabricCompression = OpenEnum<
-  typeof OutputMicrosoftFabricCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputMicrosoftFabricQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputMicrosoftFabricQueueFullBehavior = OpenEnum<
-  typeof OutputMicrosoftFabricQueueFullBehavior
->;
 
 export type OutputMicrosoftFabricPqControls = {};
 
@@ -263,11 +138,11 @@ export type OutputMicrosoftFabric = {
   /**
    * Control the number of required acknowledgments
    */
-  ack?: OutputMicrosoftFabricAcknowledgments | undefined;
+  ack?: AcknowledgmentsOptions | undefined;
   /**
    * Format to use to serialize events before writing to the Event Hubs Kafka brokers
    */
-  format?: OutputMicrosoftFabricRecordDataFormat | undefined;
+  format?: RecordDataFormatOptions | undefined;
   /**
    * Maximum size of each record batch before compression. Setting should be < message.max.bytes settings in Event Hubs brokers.
    */
@@ -316,11 +191,11 @@ export type OutputMicrosoftFabric = {
    * Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
    */
   sasl?: OutputMicrosoftFabricAuthentication | undefined;
-  tls?: OutputMicrosoftFabricTLSSettingsClientSide | undefined;
+  tls?: TlsSettingsClientSideType | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputMicrosoftFabricBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   /**
    * Bootstrap server from Fabric Eventstream's endpoint
    */
@@ -337,7 +212,7 @@ export type OutputMicrosoftFabric = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputMicrosoftFabricMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -361,52 +236,13 @@ export type OutputMicrosoftFabric = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputMicrosoftFabricCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputMicrosoftFabricQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputMicrosoftFabricPqControls | undefined;
 };
-
-/** @internal */
-export const OutputMicrosoftFabricAcknowledgments$inboundSchema: z.ZodType<
-  OutputMicrosoftFabricAcknowledgments,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchemaInt(OutputMicrosoftFabricAcknowledgments);
-/** @internal */
-export const OutputMicrosoftFabricAcknowledgments$outboundSchema: z.ZodType<
-  number,
-  z.ZodTypeDef,
-  OutputMicrosoftFabricAcknowledgments
-> = openEnums.outboundSchemaInt(OutputMicrosoftFabricAcknowledgments);
-
-/** @internal */
-export const OutputMicrosoftFabricRecordDataFormat$inboundSchema: z.ZodType<
-  OutputMicrosoftFabricRecordDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMicrosoftFabricRecordDataFormat);
-/** @internal */
-export const OutputMicrosoftFabricRecordDataFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMicrosoftFabricRecordDataFormat
-> = openEnums.outboundSchema(OutputMicrosoftFabricRecordDataFormat);
-
-/** @internal */
-export const OutputMicrosoftFabricSASLMechanism$inboundSchema: z.ZodType<
-  OutputMicrosoftFabricSASLMechanism,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMicrosoftFabricSASLMechanism);
-/** @internal */
-export const OutputMicrosoftFabricSASLMechanism$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMicrosoftFabricSASLMechanism
-> = openEnums.outboundSchema(OutputMicrosoftFabricSASLMechanism);
 
 /** @internal */
 export const OutputMicrosoftFabricAuthenticationMethod$inboundSchema: z.ZodType<
@@ -420,32 +256,13 @@ export const OutputMicrosoftFabricAuthenticationMethod$outboundSchema:
     openEnums.outboundSchema(OutputMicrosoftFabricAuthenticationMethod);
 
 /** @internal */
-export const OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint$inboundSchema:
-  z.ZodType<
-    OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint,
-  );
-/** @internal */
-export const OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint
-  > = openEnums.outboundSchema(
-    OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint,
-  );
-
-/** @internal */
 export const OutputMicrosoftFabricAuthentication$inboundSchema: z.ZodType<
   OutputMicrosoftFabricAuthentication,
   z.ZodTypeDef,
   unknown
 > = z.object({
   disabled: z.boolean().default(false),
-  mechanism: OutputMicrosoftFabricSASLMechanism$inboundSchema.default("plain"),
+  mechanism: SaslMechanismOptionsSasl1$inboundSchema.default("plain"),
   username: z.string().default("$ConnectionString"),
   textSecret: z.string().optional(),
   clientSecretAuthType: OutputMicrosoftFabricAuthenticationMethod$inboundSchema
@@ -455,9 +272,8 @@ export const OutputMicrosoftFabricAuthentication$inboundSchema: z.ZodType<
   certPath: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
-  oauthEndpoint:
-    OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint$inboundSchema
-      .default("https://login.microsoftonline.com"),
+  oauthEndpoint: MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema
+    .default("https://login.microsoftonline.com"),
   clientId: z.string().optional(),
   tenantId: z.string().optional(),
   scope: z.string().optional(),
@@ -487,7 +303,7 @@ export const OutputMicrosoftFabricAuthentication$outboundSchema: z.ZodType<
   OutputMicrosoftFabricAuthentication
 > = z.object({
   disabled: z.boolean().default(false),
-  mechanism: OutputMicrosoftFabricSASLMechanism$outboundSchema.default("plain"),
+  mechanism: SaslMechanismOptionsSasl1$outboundSchema.default("plain"),
   username: z.string().default("$ConnectionString"),
   textSecret: z.string().optional(),
   clientSecretAuthType: OutputMicrosoftFabricAuthenticationMethod$outboundSchema
@@ -498,8 +314,9 @@ export const OutputMicrosoftFabricAuthentication$outboundSchema: z.ZodType<
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   oauthEndpoint:
-    OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint$outboundSchema
-      .default("https://login.microsoftonline.com"),
+    MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema.default(
+      "https://login.microsoftonline.com",
+    ),
   clientId: z.string().optional(),
   tenantId: z.string().optional(),
   scope: z.string().optional(),
@@ -524,106 +341,6 @@ export function outputMicrosoftFabricAuthenticationFromJSON(
     `Failed to parse 'OutputMicrosoftFabricAuthentication' from JSON`,
   );
 }
-
-/** @internal */
-export const OutputMicrosoftFabricTLSSettingsClientSide$inboundSchema:
-  z.ZodType<OutputMicrosoftFabricTLSSettingsClientSide, z.ZodTypeDef, unknown> =
-    z.object({
-      disabled: z.boolean().default(false),
-      rejectUnauthorized: z.boolean().default(true),
-    });
-/** @internal */
-export type OutputMicrosoftFabricTLSSettingsClientSide$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
-};
-
-/** @internal */
-export const OutputMicrosoftFabricTLSSettingsClientSide$outboundSchema:
-  z.ZodType<
-    OutputMicrosoftFabricTLSSettingsClientSide$Outbound,
-    z.ZodTypeDef,
-    OutputMicrosoftFabricTLSSettingsClientSide
-  > = z.object({
-    disabled: z.boolean().default(false),
-    rejectUnauthorized: z.boolean().default(true),
-  });
-
-export function outputMicrosoftFabricTLSSettingsClientSideToJSON(
-  outputMicrosoftFabricTLSSettingsClientSide:
-    OutputMicrosoftFabricTLSSettingsClientSide,
-): string {
-  return JSON.stringify(
-    OutputMicrosoftFabricTLSSettingsClientSide$outboundSchema.parse(
-      outputMicrosoftFabricTLSSettingsClientSide,
-    ),
-  );
-}
-export function outputMicrosoftFabricTLSSettingsClientSideFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputMicrosoftFabricTLSSettingsClientSide,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputMicrosoftFabricTLSSettingsClientSide$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputMicrosoftFabricTLSSettingsClientSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputMicrosoftFabricBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputMicrosoftFabricBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMicrosoftFabricBackpressureBehavior);
-/** @internal */
-export const OutputMicrosoftFabricBackpressureBehavior$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, OutputMicrosoftFabricBackpressureBehavior> =
-    openEnums.outboundSchema(OutputMicrosoftFabricBackpressureBehavior);
-
-/** @internal */
-export const OutputMicrosoftFabricMode$inboundSchema: z.ZodType<
-  OutputMicrosoftFabricMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMicrosoftFabricMode);
-/** @internal */
-export const OutputMicrosoftFabricMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMicrosoftFabricMode
-> = openEnums.outboundSchema(OutputMicrosoftFabricMode);
-
-/** @internal */
-export const OutputMicrosoftFabricCompression$inboundSchema: z.ZodType<
-  OutputMicrosoftFabricCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMicrosoftFabricCompression);
-/** @internal */
-export const OutputMicrosoftFabricCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMicrosoftFabricCompression
-> = openEnums.outboundSchema(OutputMicrosoftFabricCompression);
-
-/** @internal */
-export const OutputMicrosoftFabricQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputMicrosoftFabricQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMicrosoftFabricQueueFullBehavior);
-/** @internal */
-export const OutputMicrosoftFabricQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMicrosoftFabricQueueFullBehavior
-> = openEnums.outboundSchema(OutputMicrosoftFabricQueueFullBehavior);
 
 /** @internal */
 export const OutputMicrosoftFabricPqControls$inboundSchema: z.ZodType<
@@ -673,8 +390,8 @@ export const OutputMicrosoftFabric$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   topic: z.string(),
-  ack: OutputMicrosoftFabricAcknowledgments$inboundSchema.default(1),
-  format: OutputMicrosoftFabricRecordDataFormat$inboundSchema.default("json"),
+  ack: AcknowledgmentsOptions$inboundSchema.default(1),
+  format: RecordDataFormatOptions$inboundSchema.default("json"),
   maxRecordSizeKB: z.number().default(768),
   flushEventCount: z.number().default(1000),
   flushPeriodSec: z.number().default(1),
@@ -688,23 +405,20 @@ export const OutputMicrosoftFabric$inboundSchema: z.ZodType<
   reauthenticationThreshold: z.number().default(10000),
   sasl: z.lazy(() => OutputMicrosoftFabricAuthentication$inboundSchema)
     .optional(),
-  tls: z.lazy(() => OutputMicrosoftFabricTLSSettingsClientSide$inboundSchema)
-    .optional(),
-  onBackpressure: OutputMicrosoftFabricBackpressureBehavior$inboundSchema
-    .default("block"),
+  tls: TlsSettingsClientSideType$inboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
   bootstrap_server: z.string(),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputMicrosoftFabricMode$inboundSchema.default("error"),
+  pqMode: ModeOptions$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputMicrosoftFabricCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputMicrosoftFabricQueueFullBehavior$inboundSchema
-    .default("block"),
+  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputMicrosoftFabricPqControls$inboundSchema)
     .optional(),
 });
@@ -731,7 +445,7 @@ export type OutputMicrosoftFabric$Outbound = {
   authenticationTimeout: number;
   reauthenticationThreshold: number;
   sasl?: OutputMicrosoftFabricAuthentication$Outbound | undefined;
-  tls?: OutputMicrosoftFabricTLSSettingsClientSide$Outbound | undefined;
+  tls?: TlsSettingsClientSideType$Outbound | undefined;
   onBackpressure: string;
   bootstrap_server: string;
   description?: string | undefined;
@@ -761,8 +475,8 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   topic: z.string(),
-  ack: OutputMicrosoftFabricAcknowledgments$outboundSchema.default(1),
-  format: OutputMicrosoftFabricRecordDataFormat$outboundSchema.default("json"),
+  ack: AcknowledgmentsOptions$outboundSchema.default(1),
+  format: RecordDataFormatOptions$outboundSchema.default("json"),
   maxRecordSizeKB: z.number().default(768),
   flushEventCount: z.number().default(1000),
   flushPeriodSec: z.number().default(1),
@@ -776,23 +490,20 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
   reauthenticationThreshold: z.number().default(10000),
   sasl: z.lazy(() => OutputMicrosoftFabricAuthentication$outboundSchema)
     .optional(),
-  tls: z.lazy(() => OutputMicrosoftFabricTLSSettingsClientSide$outboundSchema)
-    .optional(),
-  onBackpressure: OutputMicrosoftFabricBackpressureBehavior$outboundSchema
-    .default("block"),
+  tls: TlsSettingsClientSideType$outboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
   bootstrap_server: z.string(),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputMicrosoftFabricMode$outboundSchema.default("error"),
+  pqMode: ModeOptions$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputMicrosoftFabricCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputMicrosoftFabricQueueFullBehavior$outboundSchema
-    .default("block"),
+  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
   pqControls: z.lazy(() => OutputMicrosoftFabricPqControls$outboundSchema)
     .optional(),
 });
