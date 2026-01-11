@@ -43,7 +43,7 @@ export const InputHttpType = {
 } as const;
 export type InputHttpType = ClosedEnum<typeof InputHttpType>;
 
-export type InputHttpInputCollectionPart1Type1 = {
+export type InputHttpPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
@@ -156,11 +156,12 @@ export type InputHttpInputCollectionPart1Type1 = {
   description?: string | undefined;
 };
 
-export type InputHttpInputCollectionPart0Type1 = {
+export type InputHttpPqEnabledFalseWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -187,6 +188,118 @@ export type InputHttpInputCollectionPart0Type1 = {
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+   */
+  criblAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+   */
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokensExt?: Array<ItemsTypeAuthTokensExt> | undefined;
+  description?: string | undefined;
+};
+
+export type InputHttpSendToRoutesFalseWithConnectionsConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputHttpType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -269,7 +382,7 @@ export type InputHttpInputCollectionPart0Type1 = {
   description?: string | undefined;
 };
 
-export type InputHttpInputCollectionPart1Type = {
+export type InputHttpSendToRoutesTrueWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
@@ -300,119 +413,6 @@ export type InputHttpInputCollectionPart1Type = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
-   */
-  host?: string | undefined;
-  /**
-   * Port to listen on
-   */
-  port: number;
-  /**
-   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-   */
-  authTokens?: Array<string> | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
-  /**
-   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-   */
-  maxActiveReq?: number | undefined;
-  /**
-   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-   */
-  maxRequestsPerSocket?: number | undefined;
-  /**
-   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-   */
-  enableProxyHeader?: boolean | undefined;
-  /**
-   * Add request headers to events, in the __headers field
-   */
-  captureHeaders?: boolean | undefined;
-  /**
-   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-   */
-  activityLogSampleRate?: number | undefined;
-  /**
-   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-   */
-  requestTimeout?: number | undefined;
-  /**
-   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-   */
-  socketTimeout?: number | undefined;
-  /**
-   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-   */
-  keepAliveTimeout?: number | undefined;
-  /**
-   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-   */
-  enableHealthCheck?: boolean | undefined;
-  /**
-   * Messages from matched IP addresses will be processed, unless also matched by the denylist
-   */
-  ipAllowlistRegex?: string | undefined;
-  /**
-   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-   */
-  ipDenylistRegex?: string | undefined;
-  /**
-   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
-   */
-  criblAPI?: string | undefined;
-  /**
-   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
-   */
-  elasticAPI?: string | undefined;
-  /**
-   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
-   */
-  splunkHecAPI?: string | undefined;
-  splunkHecAcks?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  /**
-   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-   */
-  authTokensExt?: Array<ItemsTypeAuthTokensExt> | undefined;
-  description?: string | undefined;
-};
-
-export type InputHttpInputCollectionPart0Type = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputHttpType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -496,10 +496,10 @@ export type InputHttpInputCollectionPart0Type = {
 };
 
 export type InputHttp =
-  | InputHttpInputCollectionPart0Type
-  | InputHttpInputCollectionPart1Type
-  | InputHttpInputCollectionPart0Type1
-  | InputHttpInputCollectionPart1Type1;
+  | InputHttpSendToRoutesTrueWithConnectionsConstraint
+  | InputHttpSendToRoutesFalseWithConnectionsConstraint
+  | InputHttpPqEnabledFalseWithPqConstraint
+  | InputHttpPqEnabledTrueWithPqConstraint;
 
 /** @internal */
 export const InputHttpType$inboundSchema: z.ZodNativeEnum<
@@ -511,8 +511,8 @@ export const InputHttpType$outboundSchema: z.ZodNativeEnum<
 > = InputHttpType$inboundSchema;
 
 /** @internal */
-export const InputHttpInputCollectionPart1Type1$inboundSchema: z.ZodType<
-  InputHttpInputCollectionPart1Type1,
+export const InputHttpPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
+  InputHttpPqEnabledTrueWithPqConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -550,7 +550,7 @@ export const InputHttpInputCollectionPart1Type1$inboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 /** @internal */
-export type InputHttpInputCollectionPart1Type1$Outbound = {
+export type InputHttpPqEnabledTrueWithPqConstraint$Outbound = {
   pqEnabled: boolean;
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
@@ -586,10 +586,10 @@ export type InputHttpInputCollectionPart1Type1$Outbound = {
 };
 
 /** @internal */
-export const InputHttpInputCollectionPart1Type1$outboundSchema: z.ZodType<
-  InputHttpInputCollectionPart1Type1$Outbound,
+export const InputHttpPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
+  InputHttpPqEnabledTrueWithPqConstraint$Outbound,
   z.ZodTypeDef,
-  InputHttpInputCollectionPart1Type1
+  InputHttpPqEnabledTrueWithPqConstraint
 > = z.object({
   pqEnabled: z.boolean().default(false),
   pq: PqType$outboundSchema.optional(),
@@ -625,33 +625,35 @@ export const InputHttpInputCollectionPart1Type1$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-export function inputHttpInputCollectionPart1Type1ToJSON(
-  inputHttpInputCollectionPart1Type1: InputHttpInputCollectionPart1Type1,
+export function inputHttpPqEnabledTrueWithPqConstraintToJSON(
+  inputHttpPqEnabledTrueWithPqConstraint:
+    InputHttpPqEnabledTrueWithPqConstraint,
 ): string {
   return JSON.stringify(
-    InputHttpInputCollectionPart1Type1$outboundSchema.parse(
-      inputHttpInputCollectionPart1Type1,
+    InputHttpPqEnabledTrueWithPqConstraint$outboundSchema.parse(
+      inputHttpPqEnabledTrueWithPqConstraint,
     ),
   );
 }
-export function inputHttpInputCollectionPart1Type1FromJSON(
+export function inputHttpPqEnabledTrueWithPqConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputHttpInputCollectionPart1Type1, SDKValidationError> {
+): SafeParseResult<InputHttpPqEnabledTrueWithPqConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      InputHttpInputCollectionPart1Type1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpInputCollectionPart1Type1' from JSON`,
+      InputHttpPqEnabledTrueWithPqConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpPqEnabledTrueWithPqConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputHttpInputCollectionPart0Type1$inboundSchema: z.ZodType<
-  InputHttpInputCollectionPart0Type1,
+export const InputHttpPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
+  InputHttpPqEnabledFalseWithPqConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
   pqEnabled: z.boolean().default(false),
+  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputHttpType$inboundSchema,
   disabled: z.boolean().default(false),
@@ -660,7 +662,6 @@ export const InputHttpInputCollectionPart0Type1$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
@@ -685,8 +686,9 @@ export const InputHttpInputCollectionPart0Type1$inboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 /** @internal */
-export type InputHttpInputCollectionPart0Type1$Outbound = {
+export type InputHttpPqEnabledFalseWithPqConstraint$Outbound = {
   pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -695,7 +697,6 @@ export type InputHttpInputCollectionPart0Type1$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<string> | undefined;
@@ -721,12 +722,13 @@ export type InputHttpInputCollectionPart0Type1$Outbound = {
 };
 
 /** @internal */
-export const InputHttpInputCollectionPart0Type1$outboundSchema: z.ZodType<
-  InputHttpInputCollectionPart0Type1$Outbound,
+export const InputHttpPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
+  InputHttpPqEnabledFalseWithPqConstraint$Outbound,
   z.ZodTypeDef,
-  InputHttpInputCollectionPart0Type1
+  InputHttpPqEnabledFalseWithPqConstraint
 > = z.object({
   pqEnabled: z.boolean().default(false),
+  pq: PqType$outboundSchema.optional(),
   id: z.string().optional(),
   type: InputHttpType$outboundSchema,
   disabled: z.boolean().default(false),
@@ -735,7 +737,6 @@ export const InputHttpInputCollectionPart0Type1$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
@@ -760,67 +761,74 @@ export const InputHttpInputCollectionPart0Type1$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-export function inputHttpInputCollectionPart0Type1ToJSON(
-  inputHttpInputCollectionPart0Type1: InputHttpInputCollectionPart0Type1,
+export function inputHttpPqEnabledFalseWithPqConstraintToJSON(
+  inputHttpPqEnabledFalseWithPqConstraint:
+    InputHttpPqEnabledFalseWithPqConstraint,
 ): string {
   return JSON.stringify(
-    InputHttpInputCollectionPart0Type1$outboundSchema.parse(
-      inputHttpInputCollectionPart0Type1,
+    InputHttpPqEnabledFalseWithPqConstraint$outboundSchema.parse(
+      inputHttpPqEnabledFalseWithPqConstraint,
     ),
   );
 }
-export function inputHttpInputCollectionPart0Type1FromJSON(
+export function inputHttpPqEnabledFalseWithPqConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputHttpInputCollectionPart0Type1, SDKValidationError> {
+): SafeParseResult<
+  InputHttpPqEnabledFalseWithPqConstraint,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      InputHttpInputCollectionPart0Type1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpInputCollectionPart0Type1' from JSON`,
+      InputHttpPqEnabledFalseWithPqConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputHttpPqEnabledFalseWithPqConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputHttpInputCollectionPart1Type$inboundSchema: z.ZodType<
-  InputHttpInputCollectionPart1Type,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  id: z.string().optional(),
-  type: InputHttpType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  authTokens: z.array(z.string()).optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  criblAPI: z.string().default("/cribl"),
-  elasticAPI: z.string().default("/elastic"),
-  splunkHecAPI: z.string().default("/services/collector"),
-  splunkHecAcks: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  authTokensExt: z.array(ItemsTypeAuthTokensExt$inboundSchema).optional(),
-  description: z.string().optional(),
-});
+export const InputHttpSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputHttpSendToRoutesFalseWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputHttpType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.string()).optional(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    criblAPI: z.string().default("/cribl"),
+    elasticAPI: z.string().default("/elastic"),
+    splunkHecAPI: z.string().default("/services/collector"),
+    splunkHecAcks: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    authTokensExt: z.array(ItemsTypeAuthTokensExt$inboundSchema).optional(),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputHttpInputCollectionPart1Type$Outbound = {
+export type InputHttpSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
   connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
@@ -856,106 +864,116 @@ export type InputHttpInputCollectionPart1Type$Outbound = {
 };
 
 /** @internal */
-export const InputHttpInputCollectionPart1Type$outboundSchema: z.ZodType<
-  InputHttpInputCollectionPart1Type$Outbound,
-  z.ZodTypeDef,
-  InputHttpInputCollectionPart1Type
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  id: z.string().optional(),
-  type: InputHttpType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  authTokens: z.array(z.string()).optional(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  criblAPI: z.string().default("/cribl"),
-  elasticAPI: z.string().default("/elastic"),
-  splunkHecAPI: z.string().default("/services/collector"),
-  splunkHecAcks: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  authTokensExt: z.array(ItemsTypeAuthTokensExt$outboundSchema).optional(),
-  description: z.string().optional(),
-});
+export const InputHttpSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputHttpSendToRoutesFalseWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputHttpSendToRoutesFalseWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputHttpType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.string()).optional(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    criblAPI: z.string().default("/cribl"),
+    elasticAPI: z.string().default("/elastic"),
+    splunkHecAPI: z.string().default("/services/collector"),
+    splunkHecAcks: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    authTokensExt: z.array(ItemsTypeAuthTokensExt$outboundSchema).optional(),
+    description: z.string().optional(),
+  });
 
-export function inputHttpInputCollectionPart1TypeToJSON(
-  inputHttpInputCollectionPart1Type: InputHttpInputCollectionPart1Type,
+export function inputHttpSendToRoutesFalseWithConnectionsConstraintToJSON(
+  inputHttpSendToRoutesFalseWithConnectionsConstraint:
+    InputHttpSendToRoutesFalseWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputHttpInputCollectionPart1Type$outboundSchema.parse(
-      inputHttpInputCollectionPart1Type,
+    InputHttpSendToRoutesFalseWithConnectionsConstraint$outboundSchema.parse(
+      inputHttpSendToRoutesFalseWithConnectionsConstraint,
     ),
   );
 }
-export function inputHttpInputCollectionPart1TypeFromJSON(
+export function inputHttpSendToRoutesFalseWithConnectionsConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputHttpInputCollectionPart1Type, SDKValidationError> {
+): SafeParseResult<
+  InputHttpSendToRoutesFalseWithConnectionsConstraint,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => InputHttpInputCollectionPart1Type$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpInputCollectionPart1Type' from JSON`,
+    (x) =>
+      InputHttpSendToRoutesFalseWithConnectionsConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputHttpSendToRoutesFalseWithConnectionsConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputHttpInputCollectionPart0Type$inboundSchema: z.ZodType<
-  InputHttpInputCollectionPart0Type,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputHttpType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  authTokens: z.array(z.string()).optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  criblAPI: z.string().default("/cribl"),
-  elasticAPI: z.string().default("/elastic"),
-  splunkHecAPI: z.string().default("/services/collector"),
-  splunkHecAcks: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  authTokensExt: z.array(ItemsTypeAuthTokensExt$inboundSchema).optional(),
-  description: z.string().optional(),
-});
+export const InputHttpSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputHttpSendToRoutesTrueWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputHttpType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.string()).optional(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    criblAPI: z.string().default("/cribl"),
+    elasticAPI: z.string().default("/elastic"),
+    splunkHecAPI: z.string().default("/services/collector"),
+    splunkHecAcks: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    authTokensExt: z.array(ItemsTypeAuthTokensExt$inboundSchema).optional(),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputHttpInputCollectionPart0Type$Outbound = {
+export type InputHttpSendToRoutesTrueWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -963,7 +981,6 @@ export type InputHttpInputCollectionPart0Type$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -990,61 +1007,69 @@ export type InputHttpInputCollectionPart0Type$Outbound = {
 };
 
 /** @internal */
-export const InputHttpInputCollectionPart0Type$outboundSchema: z.ZodType<
-  InputHttpInputCollectionPart0Type$Outbound,
-  z.ZodTypeDef,
-  InputHttpInputCollectionPart0Type
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputHttpType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  authTokens: z.array(z.string()).optional(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  criblAPI: z.string().default("/cribl"),
-  elasticAPI: z.string().default("/elastic"),
-  splunkHecAPI: z.string().default("/services/collector"),
-  splunkHecAcks: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  authTokensExt: z.array(ItemsTypeAuthTokensExt$outboundSchema).optional(),
-  description: z.string().optional(),
-});
+export const InputHttpSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputHttpSendToRoutesTrueWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputHttpSendToRoutesTrueWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputHttpType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.string()).optional(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    criblAPI: z.string().default("/cribl"),
+    elasticAPI: z.string().default("/elastic"),
+    splunkHecAPI: z.string().default("/services/collector"),
+    splunkHecAcks: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    authTokensExt: z.array(ItemsTypeAuthTokensExt$outboundSchema).optional(),
+    description: z.string().optional(),
+  });
 
-export function inputHttpInputCollectionPart0TypeToJSON(
-  inputHttpInputCollectionPart0Type: InputHttpInputCollectionPart0Type,
+export function inputHttpSendToRoutesTrueWithConnectionsConstraintToJSON(
+  inputHttpSendToRoutesTrueWithConnectionsConstraint:
+    InputHttpSendToRoutesTrueWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputHttpInputCollectionPart0Type$outboundSchema.parse(
-      inputHttpInputCollectionPart0Type,
+    InputHttpSendToRoutesTrueWithConnectionsConstraint$outboundSchema.parse(
+      inputHttpSendToRoutesTrueWithConnectionsConstraint,
     ),
   );
 }
-export function inputHttpInputCollectionPart0TypeFromJSON(
+export function inputHttpSendToRoutesTrueWithConnectionsConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputHttpInputCollectionPart0Type, SDKValidationError> {
+): SafeParseResult<
+  InputHttpSendToRoutesTrueWithConnectionsConstraint,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => InputHttpInputCollectionPart0Type$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpInputCollectionPart0Type' from JSON`,
+    (x) =>
+      InputHttpSendToRoutesTrueWithConnectionsConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputHttpSendToRoutesTrueWithConnectionsConstraint' from JSON`,
   );
 }
 
@@ -1054,17 +1079,21 @@ export const InputHttp$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => InputHttpInputCollectionPart0Type$inboundSchema),
-  z.lazy(() => InputHttpInputCollectionPart1Type$inboundSchema),
-  z.lazy(() => InputHttpInputCollectionPart0Type1$inboundSchema),
-  z.lazy(() => InputHttpInputCollectionPart1Type1$inboundSchema),
+  z.lazy(() =>
+    InputHttpSendToRoutesTrueWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() =>
+    InputHttpSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() => InputHttpPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputHttpPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputHttp$Outbound =
-  | InputHttpInputCollectionPart0Type$Outbound
-  | InputHttpInputCollectionPart1Type$Outbound
-  | InputHttpInputCollectionPart0Type1$Outbound
-  | InputHttpInputCollectionPart1Type1$Outbound;
+  | InputHttpSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputHttpSendToRoutesFalseWithConnectionsConstraint$Outbound
+  | InputHttpPqEnabledFalseWithPqConstraint$Outbound
+  | InputHttpPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
 export const InputHttp$outboundSchema: z.ZodType<
@@ -1072,10 +1101,14 @@ export const InputHttp$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputHttp
 > = z.union([
-  z.lazy(() => InputHttpInputCollectionPart0Type$outboundSchema),
-  z.lazy(() => InputHttpInputCollectionPart1Type$outboundSchema),
-  z.lazy(() => InputHttpInputCollectionPart0Type1$outboundSchema),
-  z.lazy(() => InputHttpInputCollectionPart1Type1$outboundSchema),
+  z.lazy(() =>
+    InputHttpSendToRoutesTrueWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() =>
+    InputHttpSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() => InputHttpPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputHttpPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 
 export function inputHttpToJSON(inputHttp: InputHttp): string {

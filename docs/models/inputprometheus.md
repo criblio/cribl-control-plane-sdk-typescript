@@ -3,10 +3,16 @@
 
 ## Supported Types
 
-### `models.InputPrometheusInputCollectionPart0Type`
+### `models.InputPrometheusSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputPrometheusInputCollectionPart0Type = {
+const value: models.InputPrometheusSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "prometheus",
   pipeline: "<value>",
@@ -14,18 +20,15 @@ const value: models.InputPrometheusInputCollectionPart0Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
+    "<value 3>",
   ],
   pq: {
     pqControls: {},
   },
   dimensionList: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   metadata: [
     {
@@ -33,11 +36,9 @@ const value: models.InputPrometheusInputCollectionPart0Type = {
       value: "<value>",
     },
   ],
-  description: "oof negotiation closely oval boo",
+  description: "gradient forenenst gah",
   targetList: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   nameList: [
     "<value 1>",
@@ -58,22 +59,85 @@ const value: models.InputPrometheusInputCollectionPart0Type = {
   endpoint: "<value>",
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  username: "Karley33",
-  password: "geDKr2KJA2r_4cv",
+  username: "Alfredo25",
+  password: "zWc98Z0dQa5N1KN",
   credentialsSecret: "<value>",
 };
 ```
 
-### `models.InputPrometheusInputCollectionPart1Type`
+### `models.InputPrometheusSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputPrometheusInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
+const value: models.InputPrometheusSendToRoutesFalseWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "prometheus",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
     },
-  ],
+    dimensionList: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description:
+      "anaesthetise outlandish multicolored rue bookcase gee though veto tensely",
+    targetList: [
+      "<value 1>",
+    ],
+    nameList: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    awsApiKey: "<value>",
+    awsSecret: "<value>",
+    searchFilter: [
+      {
+        Name: "<value>",
+        Values: [
+          "<value 1>",
+          "<value 2>",
+        ],
+      },
+    ],
+    awsSecretKey: "<value>",
+    region: "<value>",
+    endpoint: "<value>",
+    assumeRoleArn: "<value>",
+    assumeRoleExternalId: "<id>",
+    username: "Michel_Abshire24",
+    password: "Jb8SKOUzPkmEw7j",
+    credentialsSecret: "<value>",
+  };
+```
+
+### `models.InputPrometheusPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputPrometheusPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "prometheus",
   pipeline: "<value>",
@@ -81,10 +145,14 @@ const value: models.InputPrometheusInputCollectionPart1Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  pq: {
-    pqControls: {},
-  },
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   dimensionList: [
     "<value 1>",
     "<value 2>",
@@ -95,15 +163,12 @@ const value: models.InputPrometheusInputCollectionPart1Type = {
       value: "<value>",
     },
   ],
-  description: "against gadzooks battle finally",
+  description: "ha nor badly bid",
   targetList: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   nameList: [
     "<value 1>",
-    "<value 2>",
   ],
   awsApiKey: "<value>",
   awsSecret: "<value>",
@@ -121,16 +186,19 @@ const value: models.InputPrometheusInputCollectionPart1Type = {
   endpoint: "<value>",
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  username: "Elena23",
-  password: "Ww0bFOyiO6h0y5l",
+  username: "Pierce.Senger",
+  password: "sQBnNLxowK4o5D2",
   credentialsSecret: "<value>",
 };
 ```
 
-### `models.InputPrometheusInputCollectionPart0Type1`
+### `models.InputPrometheusPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputPrometheusInputCollectionPart0Type1 = {
+const value: models.InputPrometheusPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "prometheus",
   pipeline: "<value>",
@@ -138,6 +206,7 @@ const value: models.InputPrometheusInputCollectionPart0Type1 = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -145,9 +214,6 @@ const value: models.InputPrometheusInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   dimensionList: [
     "<value 1>",
     "<value 2>",
@@ -160,73 +226,10 @@ const value: models.InputPrometheusInputCollectionPart0Type1 = {
     },
   ],
   description:
-    "and frightfully stabilise reiterate conceptualize contractor supposing",
-  targetList: [
-    "<value 1>",
-  ],
-  nameList: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  searchFilter: [
-    {
-      Name: "<value>",
-      Values: [
-        "<value 1>",
-        "<value 2>",
-      ],
-    },
-  ],
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  username: "Justus_Becker",
-  password: "5cHhxF1Kf9LIihD",
-  credentialsSecret: "<value>",
-};
-```
-
-### `models.InputPrometheusInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputPrometheusInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "prometheus",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  dimensionList: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "chime rag brilliant evenly horde costume actually",
+    "geez pish apropos idle which ugh merrily well-to-do juvenile even",
   targetList: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   nameList: [
     "<value 1>",
@@ -247,8 +250,8 @@ const value: models.InputPrometheusInputCollectionPart1Type1 = {
   endpoint: "<value>",
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  username: "Adeline_Waters63",
-  password: "HJ0XMSlmlR_fedr",
+  username: "Jensen79",
+  password: "nE2qJgLYfatUe8s",
   credentialsSecret: "<value>",
 };
 ```

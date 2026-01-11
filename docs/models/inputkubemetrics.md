@@ -3,10 +3,93 @@
 
 ## Supported Types
 
-### `models.InputKubeMetricsInputCollectionPart0Type`
+### `models.InputKubeMetricsSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputKubeMetricsInputCollectionPart0Type = {
+const value: models.InputKubeMetricsSendToRoutesTrueWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "kube_metrics",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    rules: [
+      {
+        filter: "<value>",
+        description:
+          "afore progress ethyl um gratefully pish whose till hydrocarbon",
+      },
+    ],
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    persistence: {},
+    description: "crackle inasmuch and whereas qua",
+  };
+```
+
+### `models.InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value: models.InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "kube_metrics",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    rules: [
+      {
+        filter: "<value>",
+        description:
+          "afore progress ethyl um gratefully pish whose till hydrocarbon",
+      },
+    ],
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    persistence: {},
+    description: "chairperson interestingly sizzling",
+  };
+```
+
+### `models.InputKubeMetricsPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputKubeMetricsPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "kube_metrics",
   pipeline: "<value>",
@@ -21,9 +104,6 @@ const value: models.InputKubeMetricsInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   rules: [
     {
       filter: "<value>",
@@ -38,54 +118,17 @@ const value: models.InputKubeMetricsInputCollectionPart0Type = {
     },
   ],
   persistence: {},
-  description: "veto viciously rejigger norm pretty psst",
+  description: "whoever boo preheat maul backbone vivaciously",
 };
 ```
 
-### `models.InputKubeMetricsInputCollectionPart1Type`
+### `models.InputKubeMetricsPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputKubeMetricsInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "kube_metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
+const value: models.InputKubeMetricsPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
-  rules: [
-    {
-      filter: "<value>",
-      description:
-        "afore progress ethyl um gratefully pish whose till hydrocarbon",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  description:
-    "lest blah think guide enlist congregate roughly intermarry pish",
-};
-```
-
-### `models.InputKubeMetricsInputCollectionPart0Type1`
-
-```typescript
-const value: models.InputKubeMetricsInputCollectionPart0Type1 = {
   id: "<id>",
   type: "kube_metrics",
   pipeline: "<value>",
@@ -99,9 +142,6 @@ const value: models.InputKubeMetricsInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   rules: [
     {
       filter: "<value>",
@@ -116,47 +156,7 @@ const value: models.InputKubeMetricsInputCollectionPart0Type1 = {
     },
   ],
   persistence: {},
-  description: "morbidity inasmuch buzzing furiously along",
-};
-```
-
-### `models.InputKubeMetricsInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputKubeMetricsInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "kube_metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  rules: [
-    {
-      filter: "<value>",
-      description:
-        "afore progress ethyl um gratefully pish whose till hydrocarbon",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  description: "to transcend stir-fry given netsuke pish meh",
+  description: "how once though better",
 };
 ```
 

@@ -3,29 +3,27 @@
 
 ## Supported Types
 
-### `operations.InputLokiInputCollectionPart0Type`
+### `operations.InputLokiSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputLokiInputCollectionPart0Type = {
-  id: "<id>",
-  type: "loki",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
+const value: operations.InputLokiSendToRoutesTrueWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
       output: "<value>",
     },
   ],
+  id: "<id>",
+  type: "loki",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
   pq: {
     pqControls: {},
   },
-  port: 5571.51,
+  port: 4164.86,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -41,13 +39,13 @@ const value: operations.InputLokiInputCollectionPart0Type = {
       value: "<value>",
     },
   ],
-  description: "duh gah summary moral delirious experience",
-  username: "Raheem86",
-  password: "QDAw5JrfQG9cakJ",
+  description: "below worse row hence defensive yet whereas after",
+  username: "Antwan_Hagenes",
+  password: "uDcgz0iatGb39G0",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://altruistic-jet.name/",
+  loginUrl: "https://aching-spring.name/",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
@@ -66,10 +64,10 @@ const value: operations.InputLokiInputCollectionPart0Type = {
 };
 ```
 
-### `operations.InputLokiInputCollectionPart1Type`
+### `operations.InputLokiSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputLokiInputCollectionPart1Type = {
+const value: operations.InputLokiSendToRoutesFalseWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -82,13 +80,136 @@ const value: operations.InputLokiInputCollectionPart1Type = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   pq: {
     pqControls: {},
   },
-  port: 6549.76,
+  port: 7230.4,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "until merrily lieu forswear what blah oddly",
+  username: "Lillie16",
+  password: "rnBo9xiytHyAq0y",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://well-off-swine.name",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `operations.InputLokiPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputLokiPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "loki",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  port: 1586.85,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "lovingly glisten only chatter beneath character",
+  username: "Enrique_Walter",
+  password: "BrXVpTv1zZeiKKx",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://humiliating-whale.name",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `operations.InputLokiPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: operations.InputLokiPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "loki",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  port: 5118.37,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -105,137 +226,13 @@ const value: operations.InputLokiInputCollectionPart1Type = {
     },
   ],
   description:
-    "oxidize throughout overplay discourse testimonial entwine finally vista via",
-  username: "June_Treutel",
-  password: "aANg3opd90TAoGL",
+    "versus willow strategy thorough sashay baggy plus ugh optimistically",
+  username: "Icie.Lowe0",
+  password: "ysvWvQ6Vs_slar0",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://empty-abacus.org/",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-};
-```
-
-### `operations.InputLokiInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputLokiInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "loki",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 7730.74,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "but past yuck ingratiate zowie moral majestically hoarse to",
-  username: "Janae_Nikolaus",
-  password: "X7CDX3MKog0sF1V",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://hateful-riser.info/",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-};
-```
-
-### `operations.InputLokiInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputLokiInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "loki",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  port: 3618.37,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "slowly extremely since deceivingly flustered versus",
-  username: "Francesco91",
-  password: "74e__MVHUu_D_1R",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://dreary-pulse.com/",
+  loginUrl: "https://helpful-platypus.org/",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",

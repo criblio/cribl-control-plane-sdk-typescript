@@ -54,7 +54,7 @@ export const InputPrometheusRwType = {
 } as const;
 export type InputPrometheusRwType = ClosedEnum<typeof InputPrometheusRwType>;
 
-export type InputPrometheusRwInputCollectionPart1Type1 = {
+export type InputPrometheusRwPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
@@ -200,11 +200,12 @@ export type InputPrometheusRwInputCollectionPart1Type1 = {
   oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
 };
 
-export type InputPrometheusRwInputCollectionPart0Type1 = {
+export type InputPrometheusRwPqEnabledFalseWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -231,6 +232,151 @@ export type InputPrometheusRwInputCollectionPart0Type1 = {
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Prometheus requests. Defaults to /write, which will expand as: http://<your‑upstream‑URL>:<your‑port>/write.
+   */
+  prometheusAPI?: string | undefined;
+  /**
+   * Remote Write authentication type
+   */
+  authType?: AuthenticationTypeOptionsPrometheusAuth | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+};
+
+export type InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputPrometheusRwType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -346,7 +492,7 @@ export type InputPrometheusRwInputCollectionPart0Type1 = {
   oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
 };
 
-export type InputPrometheusRwInputCollectionPart1Type = {
+export type InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
@@ -377,152 +523,6 @@ export type InputPrometheusRwInputCollectionPart1Type = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
-   */
-  host?: string | undefined;
-  /**
-   * Port to listen on
-   */
-  port: number;
-  tls?: TlsSettingsServerSideType | undefined;
-  /**
-   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-   */
-  maxActiveReq?: number | undefined;
-  /**
-   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-   */
-  maxRequestsPerSocket?: number | undefined;
-  /**
-   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-   */
-  enableProxyHeader?: boolean | undefined;
-  /**
-   * Add request headers to events, in the __headers field
-   */
-  captureHeaders?: boolean | undefined;
-  /**
-   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-   */
-  activityLogSampleRate?: number | undefined;
-  /**
-   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-   */
-  requestTimeout?: number | undefined;
-  /**
-   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-   */
-  socketTimeout?: number | undefined;
-  /**
-   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-   */
-  keepAliveTimeout?: number | undefined;
-  /**
-   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-   */
-  enableHealthCheck?: boolean | undefined;
-  /**
-   * Messages from matched IP addresses will be processed, unless also matched by the denylist
-   */
-  ipAllowlistRegex?: string | undefined;
-  /**
-   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-   */
-  ipDenylistRegex?: string | undefined;
-  /**
-   * Absolute path on which to listen for Prometheus requests. Defaults to /write, which will expand as: http://<your‑upstream‑URL>:<your‑port>/write.
-   */
-  prometheusAPI?: string | undefined;
-  /**
-   * Remote Write authentication type
-   */
-  authType?: AuthenticationTypeOptionsPrometheusAuth | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  /**
-   * Bearer token to include in the authorization header
-   */
-  token?: string | undefined;
-  /**
-   * Select or create a secret that references your credentials
-   */
-  credentialsSecret?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-  /**
-   * URL for OAuth
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Secret parameter name to pass in request body
-   */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
-};
-
-export type InputPrometheusRwInputCollectionPart0Type = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputPrometheusRwType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -639,10 +639,10 @@ export type InputPrometheusRwInputCollectionPart0Type = {
 };
 
 export type InputPrometheusRw =
-  | InputPrometheusRwInputCollectionPart0Type
-  | InputPrometheusRwInputCollectionPart1Type
-  | InputPrometheusRwInputCollectionPart0Type1
-  | InputPrometheusRwInputCollectionPart1Type1;
+  | InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint
+  | InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint
+  | InputPrometheusRwPqEnabledFalseWithPqConstraint
+  | InputPrometheusRwPqEnabledTrueWithPqConstraint;
 
 /** @internal */
 export const InputPrometheusRwType$inboundSchema: z.ZodNativeEnum<
@@ -654,55 +654,58 @@ export const InputPrometheusRwType$outboundSchema: z.ZodNativeEnum<
 > = InputPrometheusRwType$inboundSchema;
 
 /** @internal */
-export const InputPrometheusRwInputCollectionPart1Type1$inboundSchema:
-  z.ZodType<InputPrometheusRwInputCollectionPart1Type1, z.ZodTypeDef, unknown> =
-    z.object({
-      pqEnabled: z.boolean().default(false),
-      pq: PqType$inboundSchema.optional(),
-      id: z.string().optional(),
-      type: InputPrometheusRwType$inboundSchema,
-      disabled: z.boolean().default(false),
-      pipeline: z.string().optional(),
-      sendToRoutes: z.boolean().default(true),
-      environment: z.string().optional(),
-      streamtags: z.array(z.string()).optional(),
-      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-      host: z.string().default("0.0.0.0"),
-      port: z.number(),
-      tls: TlsSettingsServerSideType$inboundSchema.optional(),
-      maxActiveReq: z.number().default(256),
-      maxRequestsPerSocket: z.number().int().default(0),
-      enableProxyHeader: z.boolean().default(false),
-      captureHeaders: z.boolean().default(false),
-      activityLogSampleRate: z.number().default(100),
-      requestTimeout: z.number().default(0),
-      socketTimeout: z.number().default(0),
-      keepAliveTimeout: z.number().default(5),
-      enableHealthCheck: z.boolean().default(false),
-      ipAllowlistRegex: z.string().default("/.*/"),
-      ipDenylistRegex: z.string().default("/^$/"),
-      prometheusAPI: z.string().default("/write"),
-      authType: AuthenticationTypeOptionsPrometheusAuth$inboundSchema.default(
-        "none",
-      ),
-      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-      description: z.string().optional(),
-      username: z.string().optional(),
-      password: z.string().optional(),
-      token: z.string().optional(),
-      credentialsSecret: z.string().optional(),
-      textSecret: z.string().optional(),
-      loginUrl: z.string().optional(),
-      secretParamName: z.string().optional(),
-      secret: z.string().optional(),
-      tokenAttributeName: z.string().optional(),
-      authHeaderExpr: z.string().default("`Bearer ${token}`"),
-      tokenTimeoutSecs: z.number().default(3600),
-      oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
-      oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
-    });
+export const InputPrometheusRwPqEnabledTrueWithPqConstraint$inboundSchema:
+  z.ZodType<
+    InputPrometheusRwPqEnabledTrueWithPqConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputPrometheusRwType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    prometheusAPI: z.string().default("/write"),
+    authType: AuthenticationTypeOptionsPrometheusAuth$inboundSchema.default(
+      "none",
+    ),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    description: z.string().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    token: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    loginUrl: z.string().optional(),
+    secretParamName: z.string().optional(),
+    secret: z.string().optional(),
+    tokenAttributeName: z.string().optional(),
+    authHeaderExpr: z.string().default("`Bearer ${token}`"),
+    tokenTimeoutSecs: z.number().default(3600),
+    oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
+    oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  });
 /** @internal */
-export type InputPrometheusRwInputCollectionPart1Type1$Outbound = {
+export type InputPrometheusRwPqEnabledTrueWithPqConstraint$Outbound = {
   pqEnabled: boolean;
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
@@ -747,11 +750,11 @@ export type InputPrometheusRwInputCollectionPart1Type1$Outbound = {
 };
 
 /** @internal */
-export const InputPrometheusRwInputCollectionPart1Type1$outboundSchema:
+export const InputPrometheusRwPqEnabledTrueWithPqConstraint$outboundSchema:
   z.ZodType<
-    InputPrometheusRwInputCollectionPart1Type1$Outbound,
+    InputPrometheusRwPqEnabledTrueWithPqConstraint$Outbound,
     z.ZodTypeDef,
-    InputPrometheusRwInputCollectionPart1Type1
+    InputPrometheusRwPqEnabledTrueWithPqConstraint
   > = z.object({
     pqEnabled: z.boolean().default(false),
     pq: PqType$outboundSchema.optional(),
@@ -798,83 +801,87 @@ export const InputPrometheusRwInputCollectionPart1Type1$outboundSchema:
     oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
   });
 
-export function inputPrometheusRwInputCollectionPart1Type1ToJSON(
-  inputPrometheusRwInputCollectionPart1Type1:
-    InputPrometheusRwInputCollectionPart1Type1,
+export function inputPrometheusRwPqEnabledTrueWithPqConstraintToJSON(
+  inputPrometheusRwPqEnabledTrueWithPqConstraint:
+    InputPrometheusRwPqEnabledTrueWithPqConstraint,
 ): string {
   return JSON.stringify(
-    InputPrometheusRwInputCollectionPart1Type1$outboundSchema.parse(
-      inputPrometheusRwInputCollectionPart1Type1,
+    InputPrometheusRwPqEnabledTrueWithPqConstraint$outboundSchema.parse(
+      inputPrometheusRwPqEnabledTrueWithPqConstraint,
     ),
   );
 }
-export function inputPrometheusRwInputCollectionPart1Type1FromJSON(
+export function inputPrometheusRwPqEnabledTrueWithPqConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputPrometheusRwInputCollectionPart1Type1,
+  InputPrometheusRwPqEnabledTrueWithPqConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputPrometheusRwInputCollectionPart1Type1$inboundSchema.parse(
+      InputPrometheusRwPqEnabledTrueWithPqConstraint$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputPrometheusRwInputCollectionPart1Type1' from JSON`,
+    `Failed to parse 'InputPrometheusRwPqEnabledTrueWithPqConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputPrometheusRwInputCollectionPart0Type1$inboundSchema:
-  z.ZodType<InputPrometheusRwInputCollectionPart0Type1, z.ZodTypeDef, unknown> =
-    z.object({
-      pqEnabled: z.boolean().default(false),
-      id: z.string().optional(),
-      type: InputPrometheusRwType$inboundSchema,
-      disabled: z.boolean().default(false),
-      pipeline: z.string().optional(),
-      sendToRoutes: z.boolean().default(true),
-      environment: z.string().optional(),
-      streamtags: z.array(z.string()).optional(),
-      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-      pq: PqType$inboundSchema.optional(),
-      host: z.string().default("0.0.0.0"),
-      port: z.number(),
-      tls: TlsSettingsServerSideType$inboundSchema.optional(),
-      maxActiveReq: z.number().default(256),
-      maxRequestsPerSocket: z.number().int().default(0),
-      enableProxyHeader: z.boolean().default(false),
-      captureHeaders: z.boolean().default(false),
-      activityLogSampleRate: z.number().default(100),
-      requestTimeout: z.number().default(0),
-      socketTimeout: z.number().default(0),
-      keepAliveTimeout: z.number().default(5),
-      enableHealthCheck: z.boolean().default(false),
-      ipAllowlistRegex: z.string().default("/.*/"),
-      ipDenylistRegex: z.string().default("/^$/"),
-      prometheusAPI: z.string().default("/write"),
-      authType: AuthenticationTypeOptionsPrometheusAuth$inboundSchema.default(
-        "none",
-      ),
-      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-      description: z.string().optional(),
-      username: z.string().optional(),
-      password: z.string().optional(),
-      token: z.string().optional(),
-      credentialsSecret: z.string().optional(),
-      textSecret: z.string().optional(),
-      loginUrl: z.string().optional(),
-      secretParamName: z.string().optional(),
-      secret: z.string().optional(),
-      tokenAttributeName: z.string().optional(),
-      authHeaderExpr: z.string().default("`Bearer ${token}`"),
-      tokenTimeoutSecs: z.number().default(3600),
-      oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
-      oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
-    });
+export const InputPrometheusRwPqEnabledFalseWithPqConstraint$inboundSchema:
+  z.ZodType<
+    InputPrometheusRwPqEnabledFalseWithPqConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputPrometheusRwType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    prometheusAPI: z.string().default("/write"),
+    authType: AuthenticationTypeOptionsPrometheusAuth$inboundSchema.default(
+      "none",
+    ),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    description: z.string().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    token: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    loginUrl: z.string().optional(),
+    secretParamName: z.string().optional(),
+    secret: z.string().optional(),
+    tokenAttributeName: z.string().optional(),
+    authHeaderExpr: z.string().default("`Bearer ${token}`"),
+    tokenTimeoutSecs: z.number().default(3600),
+    oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
+    oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  });
 /** @internal */
-export type InputPrometheusRwInputCollectionPart0Type1$Outbound = {
+export type InputPrometheusRwPqEnabledFalseWithPqConstraint$Outbound = {
   pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -883,7 +890,6 @@ export type InputPrometheusRwInputCollectionPart0Type1$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
@@ -918,13 +924,14 @@ export type InputPrometheusRwInputCollectionPart0Type1$Outbound = {
 };
 
 /** @internal */
-export const InputPrometheusRwInputCollectionPart0Type1$outboundSchema:
+export const InputPrometheusRwPqEnabledFalseWithPqConstraint$outboundSchema:
   z.ZodType<
-    InputPrometheusRwInputCollectionPart0Type1$Outbound,
+    InputPrometheusRwPqEnabledFalseWithPqConstraint$Outbound,
     z.ZodTypeDef,
-    InputPrometheusRwInputCollectionPart0Type1
+    InputPrometheusRwPqEnabledFalseWithPqConstraint
   > = z.object({
     pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputPrometheusRwType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -933,6 +940,180 @@ export const InputPrometheusRwInputCollectionPart0Type1$outboundSchema:
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    prometheusAPI: z.string().default("/write"),
+    authType: AuthenticationTypeOptionsPrometheusAuth$outboundSchema.default(
+      "none",
+    ),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    description: z.string().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    token: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    loginUrl: z.string().optional(),
+    secretParamName: z.string().optional(),
+    secret: z.string().optional(),
+    tokenAttributeName: z.string().optional(),
+    authHeaderExpr: z.string().default("`Bearer ${token}`"),
+    tokenTimeoutSecs: z.number().default(3600),
+    oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
+    oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  });
+
+export function inputPrometheusRwPqEnabledFalseWithPqConstraintToJSON(
+  inputPrometheusRwPqEnabledFalseWithPqConstraint:
+    InputPrometheusRwPqEnabledFalseWithPqConstraint,
+): string {
+  return JSON.stringify(
+    InputPrometheusRwPqEnabledFalseWithPqConstraint$outboundSchema.parse(
+      inputPrometheusRwPqEnabledFalseWithPqConstraint,
+    ),
+  );
+}
+export function inputPrometheusRwPqEnabledFalseWithPqConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputPrometheusRwPqEnabledFalseWithPqConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputPrometheusRwPqEnabledFalseWithPqConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputPrometheusRwPqEnabledFalseWithPqConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputPrometheusRwType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    prometheusAPI: z.string().default("/write"),
+    authType: AuthenticationTypeOptionsPrometheusAuth$inboundSchema.default(
+      "none",
+    ),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    description: z.string().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    token: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    loginUrl: z.string().optional(),
+    secretParamName: z.string().optional(),
+    secret: z.string().optional(),
+    tokenAttributeName: z.string().optional(),
+    authHeaderExpr: z.string().default("`Bearer ${token}`"),
+    tokenTimeoutSecs: z.number().default(3600),
+    oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
+    oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  });
+/** @internal */
+export type InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint$Outbound =
+  {
+    sendToRoutes: boolean;
+    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    id?: string | undefined;
+    type: string;
+    disabled: boolean;
+    pipeline?: string | undefined;
+    environment?: string | undefined;
+    pqEnabled: boolean;
+    streamtags?: Array<string> | undefined;
+    pq?: PqType$Outbound | undefined;
+    host: string;
+    port: number;
+    tls?: TlsSettingsServerSideType$Outbound | undefined;
+    maxActiveReq: number;
+    maxRequestsPerSocket: number;
+    enableProxyHeader: boolean;
+    captureHeaders: boolean;
+    activityLogSampleRate: number;
+    requestTimeout: number;
+    socketTimeout: number;
+    keepAliveTimeout: number;
+    enableHealthCheck: boolean;
+    ipAllowlistRegex: string;
+    ipDenylistRegex: string;
+    prometheusAPI: string;
+    authType: string;
+    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+    description?: string | undefined;
+    username?: string | undefined;
+    password?: string | undefined;
+    token?: string | undefined;
+    credentialsSecret?: string | undefined;
+    textSecret?: string | undefined;
+    loginUrl?: string | undefined;
+    secretParamName?: string | undefined;
+    secret?: string | undefined;
+    tokenAttributeName?: string | undefined;
+    authHeaderExpr: string;
+    tokenTimeoutSecs: number;
+    oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
+    oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
+  };
+
+/** @internal */
+export const InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputPrometheusRwType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number(),
@@ -969,133 +1150,133 @@ export const InputPrometheusRwInputCollectionPart0Type1$outboundSchema:
     oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
   });
 
-export function inputPrometheusRwInputCollectionPart0Type1ToJSON(
-  inputPrometheusRwInputCollectionPart0Type1:
-    InputPrometheusRwInputCollectionPart0Type1,
+export function inputPrometheusRwSendToRoutesFalseWithConnectionsConstraintToJSON(
+  inputPrometheusRwSendToRoutesFalseWithConnectionsConstraint:
+    InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputPrometheusRwInputCollectionPart0Type1$outboundSchema.parse(
-      inputPrometheusRwInputCollectionPart0Type1,
-    ),
+    InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+      .parse(inputPrometheusRwSendToRoutesFalseWithConnectionsConstraint),
   );
 }
-export function inputPrometheusRwInputCollectionPart0Type1FromJSON(
+export function inputPrometheusRwSendToRoutesFalseWithConnectionsConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputPrometheusRwInputCollectionPart0Type1,
+  InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputPrometheusRwInputCollectionPart0Type1$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputPrometheusRwInputCollectionPart0Type1' from JSON`,
+      InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputPrometheusRwInputCollectionPart1Type$inboundSchema: z.ZodType<
-  InputPrometheusRwInputCollectionPart1Type,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  id: z.string().optional(),
-  type: InputPrometheusRwType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  prometheusAPI: z.string().default("/write"),
-  authType: AuthenticationTypeOptionsPrometheusAuth$inboundSchema.default(
-    "none",
-  ),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  token: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
-});
+export const InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputPrometheusRwType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    prometheusAPI: z.string().default("/write"),
+    authType: AuthenticationTypeOptionsPrometheusAuth$inboundSchema.default(
+      "none",
+    ),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    description: z.string().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    token: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    loginUrl: z.string().optional(),
+    secretParamName: z.string().optional(),
+    secret: z.string().optional(),
+    tokenAttributeName: z.string().optional(),
+    authHeaderExpr: z.string().default("`Bearer ${token}`"),
+    tokenTimeoutSecs: z.number().default(3600),
+    oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
+    oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  });
 /** @internal */
-export type InputPrometheusRwInputCollectionPart1Type$Outbound = {
-  sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  pq?: PqType$Outbound | undefined;
-  host: string;
-  port: number;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
-  enableProxyHeader: boolean;
-  captureHeaders: boolean;
-  activityLogSampleRate: number;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
-  enableHealthCheck: boolean;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
-  prometheusAPI: string;
-  authType: string;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  token?: string | undefined;
-  credentialsSecret?: string | undefined;
-  textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr: string;
-  tokenTimeoutSecs: number;
-  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
-};
+export type InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint$Outbound =
+  {
+    sendToRoutes: boolean;
+    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    id?: string | undefined;
+    type: string;
+    disabled: boolean;
+    pipeline?: string | undefined;
+    environment?: string | undefined;
+    pqEnabled: boolean;
+    streamtags?: Array<string> | undefined;
+    pq?: PqType$Outbound | undefined;
+    host: string;
+    port: number;
+    tls?: TlsSettingsServerSideType$Outbound | undefined;
+    maxActiveReq: number;
+    maxRequestsPerSocket: number;
+    enableProxyHeader: boolean;
+    captureHeaders: boolean;
+    activityLogSampleRate: number;
+    requestTimeout: number;
+    socketTimeout: number;
+    keepAliveTimeout: number;
+    enableHealthCheck: boolean;
+    ipAllowlistRegex: string;
+    ipDenylistRegex: string;
+    prometheusAPI: string;
+    authType: string;
+    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+    description?: string | undefined;
+    username?: string | undefined;
+    password?: string | undefined;
+    token?: string | undefined;
+    credentialsSecret?: string | undefined;
+    textSecret?: string | undefined;
+    loginUrl?: string | undefined;
+    secretParamName?: string | undefined;
+    secret?: string | undefined;
+    tokenAttributeName?: string | undefined;
+    authHeaderExpr: string;
+    tokenTimeoutSecs: number;
+    oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
+    oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
+  };
 
 /** @internal */
-export const InputPrometheusRwInputCollectionPart1Type$outboundSchema:
+export const InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
   z.ZodType<
-    InputPrometheusRwInputCollectionPart1Type$Outbound,
+    InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint$Outbound,
     z.ZodTypeDef,
-    InputPrometheusRwInputCollectionPart1Type
+    InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
     connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
@@ -1142,202 +1323,27 @@ export const InputPrometheusRwInputCollectionPart1Type$outboundSchema:
     oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
   });
 
-export function inputPrometheusRwInputCollectionPart1TypeToJSON(
-  inputPrometheusRwInputCollectionPart1Type:
-    InputPrometheusRwInputCollectionPart1Type,
+export function inputPrometheusRwSendToRoutesTrueWithConnectionsConstraintToJSON(
+  inputPrometheusRwSendToRoutesTrueWithConnectionsConstraint:
+    InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputPrometheusRwInputCollectionPart1Type$outboundSchema.parse(
-      inputPrometheusRwInputCollectionPart1Type,
-    ),
+    InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint$outboundSchema
+      .parse(inputPrometheusRwSendToRoutesTrueWithConnectionsConstraint),
   );
 }
-export function inputPrometheusRwInputCollectionPart1TypeFromJSON(
+export function inputPrometheusRwSendToRoutesTrueWithConnectionsConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputPrometheusRwInputCollectionPart1Type,
+  InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputPrometheusRwInputCollectionPart1Type$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputPrometheusRwInputCollectionPart1Type' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputPrometheusRwInputCollectionPart0Type$inboundSchema: z.ZodType<
-  InputPrometheusRwInputCollectionPart0Type,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputPrometheusRwType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  prometheusAPI: z.string().default("/write"),
-  authType: AuthenticationTypeOptionsPrometheusAuth$inboundSchema.default(
-    "none",
-  ),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  token: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
-});
-/** @internal */
-export type InputPrometheusRwInputCollectionPart0Type$Outbound = {
-  sendToRoutes: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  host: string;
-  port: number;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
-  enableProxyHeader: boolean;
-  captureHeaders: boolean;
-  activityLogSampleRate: number;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
-  enableHealthCheck: boolean;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
-  prometheusAPI: string;
-  authType: string;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  token?: string | undefined;
-  credentialsSecret?: string | undefined;
-  textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr: string;
-  tokenTimeoutSecs: number;
-  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
-};
-
-/** @internal */
-export const InputPrometheusRwInputCollectionPart0Type$outboundSchema:
-  z.ZodType<
-    InputPrometheusRwInputCollectionPart0Type$Outbound,
-    z.ZodTypeDef,
-    InputPrometheusRwInputCollectionPart0Type
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    id: z.string().optional(),
-    type: InputPrometheusRwType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    pq: PqType$outboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number(),
-    tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    activityLogSampleRate: z.number().default(100),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(5),
-    enableHealthCheck: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    prometheusAPI: z.string().default("/write"),
-    authType: AuthenticationTypeOptionsPrometheusAuth$outboundSchema.default(
-      "none",
-    ),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-    username: z.string().optional(),
-    password: z.string().optional(),
-    token: z.string().optional(),
-    credentialsSecret: z.string().optional(),
-    textSecret: z.string().optional(),
-    loginUrl: z.string().optional(),
-    secretParamName: z.string().optional(),
-    secret: z.string().optional(),
-    tokenAttributeName: z.string().optional(),
-    authHeaderExpr: z.string().default("`Bearer ${token}`"),
-    tokenTimeoutSecs: z.number().default(3600),
-    oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
-    oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
-  });
-
-export function inputPrometheusRwInputCollectionPart0TypeToJSON(
-  inputPrometheusRwInputCollectionPart0Type:
-    InputPrometheusRwInputCollectionPart0Type,
-): string {
-  return JSON.stringify(
-    InputPrometheusRwInputCollectionPart0Type$outboundSchema.parse(
-      inputPrometheusRwInputCollectionPart0Type,
-    ),
-  );
-}
-export function inputPrometheusRwInputCollectionPart0TypeFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputPrometheusRwInputCollectionPart0Type,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputPrometheusRwInputCollectionPart0Type$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputPrometheusRwInputCollectionPart0Type' from JSON`,
+      InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint' from JSON`,
   );
 }
 
@@ -1347,17 +1353,21 @@ export const InputPrometheusRw$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => InputPrometheusRwInputCollectionPart0Type$inboundSchema),
-  z.lazy(() => InputPrometheusRwInputCollectionPart1Type$inboundSchema),
-  z.lazy(() => InputPrometheusRwInputCollectionPart0Type1$inboundSchema),
-  z.lazy(() => InputPrometheusRwInputCollectionPart1Type1$inboundSchema),
+  z.lazy(() =>
+    InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() =>
+    InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() => InputPrometheusRwPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputPrometheusRwPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputPrometheusRw$Outbound =
-  | InputPrometheusRwInputCollectionPart0Type$Outbound
-  | InputPrometheusRwInputCollectionPart1Type$Outbound
-  | InputPrometheusRwInputCollectionPart0Type1$Outbound
-  | InputPrometheusRwInputCollectionPart1Type1$Outbound;
+  | InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint$Outbound
+  | InputPrometheusRwPqEnabledFalseWithPqConstraint$Outbound
+  | InputPrometheusRwPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
 export const InputPrometheusRw$outboundSchema: z.ZodType<
@@ -1365,10 +1375,14 @@ export const InputPrometheusRw$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputPrometheusRw
 > = z.union([
-  z.lazy(() => InputPrometheusRwInputCollectionPart0Type$outboundSchema),
-  z.lazy(() => InputPrometheusRwInputCollectionPart1Type$outboundSchema),
-  z.lazy(() => InputPrometheusRwInputCollectionPart0Type1$outboundSchema),
-  z.lazy(() => InputPrometheusRwInputCollectionPart1Type1$outboundSchema),
+  z.lazy(() =>
+    InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() =>
+    InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() => InputPrometheusRwPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputPrometheusRwPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 
 export function inputPrometheusRwToJSON(

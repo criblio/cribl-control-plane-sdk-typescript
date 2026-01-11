@@ -3,10 +3,169 @@
 
 ## Supported Types
 
-### `models.InputSplunkSearchInputCollectionPart0Type`
+### `models.InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputSplunkSearchInputCollectionPart0Type = {
+const value: models.InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "splunk_search",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    search: "<value>",
+    endpointParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    endpointHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    logLevel: "error",
+    encoding: "<value>",
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    retryRules: {
+      codes: [
+        3836.07,
+      ],
+    },
+    breakerRulesets: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    description: "bench pants rag aw unit even woot",
+    username: "Neha_Altenwerth",
+    password: "LYT8P2tmZIDFLeq",
+    token: "<value>",
+    credentialsSecret: "<value>",
+    textSecret: "<value>",
+    loginUrl: "https://dazzling-wriggler.net",
+    secretParamName: "<value>",
+    secret: "<value>",
+    tokenAttributeName: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    oauthHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  };
+```
+
+### `models.InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  models.InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "splunk_search",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    search: "<value>",
+    endpointParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    endpointHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    logLevel: "warn",
+    encoding: "<value>",
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    retryRules: {
+      codes: [
+        3836.07,
+      ],
+    },
+    breakerRulesets: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    description:
+      "dirty pace slight once diligent phew regal inquisitively shiny drat",
+    username: "Zoila_Weimann41",
+    password: "UZrTSh6ZhGKIPMS",
+    token: "<value>",
+    credentialsSecret: "<value>",
+    textSecret: "<value>",
+    loginUrl: "https://rectangular-pick.net/",
+    secretParamName: "<value>",
+    secret: "<value>",
+    tokenAttributeName: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    oauthHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  };
+```
+
+### `models.InputSplunkSearchPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputSplunkSearchPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "splunk_search",
   pipeline: "<value>",
@@ -14,6 +173,7 @@ const value: models.InputSplunkSearchInputCollectionPart0Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -21,9 +181,6 @@ const value: models.InputSplunkSearchInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   search: "<value>",
   endpointParams: [
     {
@@ -37,7 +194,7 @@ const value: models.InputSplunkSearchInputCollectionPart0Type = {
       value: "<value>",
     },
   ],
-  logLevel: "warn",
+  logLevel: "info",
   encoding: "<value>",
   metadata: [
     {
@@ -55,13 +212,13 @@ const value: models.InputSplunkSearchInputCollectionPart0Type = {
     "<value 2>",
     "<value 3>",
   ],
-  description: "affect ack blah properly yet overtrain insolence",
-  username: "Marlene95",
-  password: "ColaOmYoETIZJrJ",
+  description: "but orchestrate deduct scout save",
+  username: "Ezequiel_Gutkowski",
+  password: "edZG7yZl9biA3Hq",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://kooky-conservation.net/",
+  loginUrl: "https://hopeful-fog.com",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
@@ -80,160 +237,10 @@ const value: models.InputSplunkSearchInputCollectionPart0Type = {
 };
 ```
 
-### `models.InputSplunkSearchInputCollectionPart1Type`
+### `models.InputSplunkSearchPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputSplunkSearchInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "splunk_search",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  search: "<value>",
-  endpointParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  endpointHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  logLevel: "warn",
-  encoding: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    codes: [
-      3836.07,
-    ],
-  },
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  description: "cinema hm rubric unto tomography mousse amongst pulse",
-  username: "Edwin.Bahringer50",
-  password: "XzCqPDVbj45etcA",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://joyful-stitcher.net/",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-};
-```
-
-### `models.InputSplunkSearchInputCollectionPart0Type1`
-
-```typescript
-const value: models.InputSplunkSearchInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "splunk_search",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  search: "<value>",
-  endpointParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  endpointHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  logLevel: "error",
-  encoding: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    codes: [
-      3836.07,
-    ],
-  },
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  description:
-    "tough to until carnival against reword caring pfft plus excepting",
-  username: "Kristoffer.Kulas57",
-  password: "RZ1YNpfgdkm5IlJ",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://snappy-bungalow.net/",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-};
-```
-
-### `models.InputSplunkSearchInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputSplunkSearchInputCollectionPart1Type1 = {
+const value: models.InputSplunkSearchPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -243,7 +250,6 @@ const value: models.InputSplunkSearchInputCollectionPart1Type1 = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -264,7 +270,7 @@ const value: models.InputSplunkSearchInputCollectionPart1Type1 = {
       value: "<value>",
     },
   ],
-  logLevel: "error",
+  logLevel: "info",
   encoding: "<value>",
   metadata: [
     {
@@ -280,15 +286,14 @@ const value: models.InputSplunkSearchInputCollectionPart1Type1 = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  description: "redevelop phrase developing stay outgoing ouch untried",
-  username: "Jordyn64",
-  password: "xMoEWY3DkQOKtcO",
+  description: "syringe cemetery nor pause gnash",
+  username: "Bianka_Jacobs0",
+  password: "6xjtloKf8Sch2p8",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://rowdy-cork.org/",
+  loginUrl: "https://bouncy-tributary.name",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",

@@ -3,10 +3,121 @@
 
 ## Supported Types
 
-### `models.InputOffice365MsgTraceInputCollectionPart0Type`
+### `models.InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputOffice365MsgTraceInputCollectionPart0Type = {
+const value:
+  models.InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "office365_msg_trace",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    startDate: "<value>",
+    endDate: "<value>",
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    retryRules: {
+      codes: [
+        6390.37,
+        2107.49,
+        2764.09,
+      ],
+    },
+    description:
+      "ha sans polite rebuke um since across roger proliferate judgementally",
+    username: "Darian.Hoeger71",
+    password: "VQsi5QueYeCTfuI",
+    credentialsSecret: "<value>",
+    clientSecret: "<value>",
+    tenantId: "<id>",
+    clientId: "<id>",
+    textSecret: "<value>",
+    certOptions: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+    },
+  };
+```
+
+### `models.InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  models.InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "office365_msg_trace",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    startDate: "<value>",
+    endDate: "<value>",
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    retryRules: {
+      codes: [
+        6390.37,
+        2107.49,
+        2764.09,
+      ],
+    },
+    description: "shush splurge yearly",
+    username: "Leann61",
+    password: "MOPPhIWXDUZ2ZYX",
+    credentialsSecret: "<value>",
+    clientSecret: "<value>",
+    tenantId: "<id>",
+    clientId: "<id>",
+    textSecret: "<value>",
+    certOptions: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+    },
+  };
+```
+
+### `models.InputOffice365MsgTracePqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputOffice365MsgTracePqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "office365_msg_trace",
   pipeline: "<value>",
@@ -20,9 +131,6 @@ const value: models.InputOffice365MsgTraceInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   startDate: "<value>",
   endDate: "<value>",
   metadata: [
@@ -38,9 +146,9 @@ const value: models.InputOffice365MsgTraceInputCollectionPart0Type = {
       2764.09,
     ],
   },
-  description: "decryption metabolise stake fluff",
-  username: "Mohammed.Bashirian73",
-  password: "CGO91uGmktF2oVi",
+  description: "appliance partial parsnip",
+  username: "Twila_Kovacek",
+  password: "cZpT4Q4I94F_UH1",
   credentialsSecret: "<value>",
   clientSecret: "<value>",
   tenantId: "<id>",
@@ -55,118 +163,10 @@ const value: models.InputOffice365MsgTraceInputCollectionPart0Type = {
 };
 ```
 
-### `models.InputOffice365MsgTraceInputCollectionPart1Type`
+### `models.InputOffice365MsgTracePqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputOffice365MsgTraceInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "office365_msg_trace",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  startDate: "<value>",
-  endDate: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    codes: [
-      6390.37,
-      2107.49,
-      2764.09,
-    ],
-  },
-  description: "while uh-huh easy",
-  username: "Hailee.Smitham34",
-  password: "DCN0e5nQTb7fo72",
-  credentialsSecret: "<value>",
-  clientSecret: "<value>",
-  tenantId: "<id>",
-  clientId: "<id>",
-  textSecret: "<value>",
-  certOptions: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-  },
-};
-```
-
-### `models.InputOffice365MsgTraceInputCollectionPart0Type1`
-
-```typescript
-const value: models.InputOffice365MsgTraceInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "office365_msg_trace",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  startDate: "<value>",
-  endDate: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    codes: [
-      6390.37,
-      2107.49,
-      2764.09,
-    ],
-  },
-  description: "approximate past status quietly pish gosh bowler unless",
-  username: "Harmony.Torp",
-  password: "CSgpp9cl6lFFIsN",
-  credentialsSecret: "<value>",
-  clientSecret: "<value>",
-  tenantId: "<id>",
-  clientId: "<id>",
-  textSecret: "<value>",
-  certOptions: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-  },
-};
-```
-
-### `models.InputOffice365MsgTraceInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputOffice365MsgTraceInputCollectionPart1Type1 = {
+const value: models.InputOffice365MsgTracePqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -176,7 +176,6 @@ const value: models.InputOffice365MsgTraceInputCollectionPart1Type1 = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -200,9 +199,9 @@ const value: models.InputOffice365MsgTraceInputCollectionPart1Type1 = {
     ],
   },
   description:
-    "famously majestically sympathetically but lack however cruelty while",
-  username: "Keenan_Bashirian0",
-  password: "Izk7VqRTRpLwiqi",
+    "hidden enthusiastically home shrill circulate favorite phooey uncork",
+  username: "Marlee.Mante",
+  password: "fK9PcMPPghyqTM0",
   credentialsSecret: "<value>",
   clientSecret: "<value>",
   tenantId: "<id>",

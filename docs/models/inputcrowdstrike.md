@@ -3,85 +3,146 @@
 
 ## Supported Types
 
-### `models.InputCrowdstrikeInputCollectionPart0Type`
+### `models.InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputCrowdstrikeInputCollectionPart0Type = {
+const value: models.InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "crowdstrike",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    queueName: "<value>",
+    awsAccountId: "<id>",
+    awsSecretKey: "<value>",
+    region: "<value>",
+    endpoint: "<value>",
+    breakerRulesets: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    assumeRoleArn: "<value>",
+    assumeRoleExternalId: "<id>",
+    preprocess: {
+      command: "<value>",
+      args: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    checkpointing: {},
+    encoding: "<value>",
+    description:
+      "inasmuch esteemed apostrophize hold er below geez but onto mentor",
+    awsApiKey: "<value>",
+    awsSecret: "<value>",
+    tagAfterProcessing: "false",
+    processedTagKey: "<value>",
+    processedTagValue: "<value>",
+  };
+```
+
+### `models.InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value: models.InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "crowdstrike",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    queueName: "<value>",
+    awsAccountId: "<id>",
+    awsSecretKey: "<value>",
+    region: "<value>",
+    endpoint: "<value>",
+    breakerRulesets: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    assumeRoleArn: "<value>",
+    assumeRoleExternalId: "<id>",
+    preprocess: {
+      command: "<value>",
+      args: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    checkpointing: {},
+    encoding: "<value>",
+    description: "right arraign boulevard on pinion before first ick",
+    awsApiKey: "<value>",
+    awsSecret: "<value>",
+    tagAfterProcessing: "true",
+    processedTagKey: "<value>",
+    processedTagValue: "<value>",
+  };
+```
+
+### `models.InputCrowdstrikePqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputCrowdstrikePqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "crowdstrike",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  queueName: "<value>",
-  awsAccountId: "<id>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  breakerRulesets: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  preprocess: {
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  checkpointing: {},
-  encoding: "<value>",
-  description:
-    "insert what but pharmacopoeia sweetly corrupt concerning beside clinch although",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  tagAfterProcessing: "false",
-  processedTagKey: "<value>",
-  processedTagValue: "<value>",
-};
-```
-
-### `models.InputCrowdstrikeInputCollectionPart1Type`
-
-```typescript
-const value: models.InputCrowdstrikeInputCollectionPart1Type = {
   connections: [
     {
       pipeline: "<value>",
       output: "<value>",
     },
   ],
-  id: "<id>",
-  type: "crowdstrike",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
   queueName: "<value>",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
@@ -108,8 +169,7 @@ const value: models.InputCrowdstrikeInputCollectionPart1Type = {
   ],
   checkpointing: {},
   encoding: "<value>",
-  description:
-    "lumpy parody deplore feather break snarling tremendously overwork",
+  description: "chairperson off delightfully yowza",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   tagAfterProcessing: "true",
@@ -118,10 +178,13 @@ const value: models.InputCrowdstrikeInputCollectionPart1Type = {
 };
 ```
 
-### `models.InputCrowdstrikeInputCollectionPart0Type1`
+### `models.InputCrowdstrikePqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputCrowdstrikeInputCollectionPart0Type1 = {
+const value: models.InputCrowdstrikePqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "crowdstrike",
   pipeline: "<value>",
@@ -137,9 +200,6 @@ const value: models.InputCrowdstrikeInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   queueName: "<value>",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
@@ -168,68 +228,10 @@ const value: models.InputCrowdstrikeInputCollectionPart0Type1 = {
   ],
   checkpointing: {},
   encoding: "<value>",
-  description: "justly blah that extroverted accompanist concerning",
+  description: "yippee denitrify unabashedly",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   tagAfterProcessing: "true",
-  processedTagKey: "<value>",
-  processedTagValue: "<value>",
-};
-```
-
-### `models.InputCrowdstrikeInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputCrowdstrikeInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "crowdstrike",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  queueName: "<value>",
-  awsAccountId: "<id>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  preprocess: {
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  checkpointing: {},
-  encoding: "<value>",
-  description: "ouch as blah phew whenever yuck bah than perfectly since",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  tagAfterProcessing: "false",
   processedTagKey: "<value>",
   processedTagValue: "<value>",
 };

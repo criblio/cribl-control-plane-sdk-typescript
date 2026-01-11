@@ -3,10 +3,16 @@
 
 ## Supported Types
 
-### `models.InputFirehoseInputCollectionPart0Type`
+### `models.InputFirehoseSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputFirehoseInputCollectionPart0Type = {
+const value: models.InputFirehoseSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "firehose",
   pipeline: "<value>",
@@ -16,16 +22,10 @@ const value: models.InputFirehoseInputCollectionPart0Type = {
     "<value 2>",
     "<value 3>",
   ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
   pq: {
     pqControls: {},
   },
-  port: 143.03,
+  port: 7411.22,
   authTokens: [
     "<value 1>",
     "<value 2>",
@@ -45,57 +45,20 @@ const value: models.InputFirehoseInputCollectionPart0Type = {
       value: "<value>",
     },
   ],
-  description: "printer impostor dearly hutch if farmer hospitable broken",
+  description: "lined french doorpost metal youthfully subdued grok",
 };
 ```
 
-### `models.InputFirehoseInputCollectionPart1Type`
+### `models.InputFirehoseSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputFirehoseInputCollectionPart1Type = {
+const value: models.InputFirehoseSendToRoutesFalseWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
       output: "<value>",
     },
   ],
-  id: "<id>",
-  type: "firehose",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 5021.86,
-  authTokens: [
-    "<value 1>",
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "extent afford courteous wicked young",
-};
-```
-
-### `models.InputFirehoseInputCollectionPart0Type1`
-
-```typescript
-const value: models.InputFirehoseInputCollectionPart0Type1 = {
   id: "<id>",
   type: "firehose",
   pipeline: "<value>",
@@ -103,17 +66,12 @@ const value: models.InputFirehoseInputCollectionPart0Type1 = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
+    "<value 3>",
   ],
   pq: {
     pqControls: {},
   },
-  port: 1121.95,
+  port: 8782.05,
   authTokens: [
     "<value 1>",
     "<value 2>",
@@ -134,15 +92,14 @@ const value: models.InputFirehoseInputCollectionPart0Type1 = {
       value: "<value>",
     },
   ],
-  description:
-    "fund consequently next healthily modulo thrifty bah numeracy pure",
+  description: "supposing petty owlishly perfectly furthermore oh",
 };
 ```
 
-### `models.InputFirehoseInputCollectionPart1Type1`
+### `models.InputFirehosePqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: models.InputFirehoseInputCollectionPart1Type1 = {
+const value: models.InputFirehosePqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -152,6 +109,8 @@ const value: models.InputFirehoseInputCollectionPart1Type1 = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -159,11 +118,9 @@ const value: models.InputFirehoseInputCollectionPart1Type1 = {
       output: "<value>",
     },
   ],
-  port: 7883.32,
+  port: 9686.05,
   authTokens: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -180,7 +137,51 @@ const value: models.InputFirehoseInputCollectionPart1Type1 = {
       value: "<value>",
     },
   ],
-  description: "till till hourly dispose impossible yowza expostulate",
+  description: "wobbly knavishly annually volunteer mesh since yahoo",
+};
+```
+
+### `models.InputFirehosePqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: models.InputFirehosePqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "firehose",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  port: 9238.68,
+  authTokens: [
+    "<value 1>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "finally fooey ha",
 };
 ```
 

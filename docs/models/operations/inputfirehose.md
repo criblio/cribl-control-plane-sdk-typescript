@@ -3,10 +3,108 @@
 
 ## Supported Types
 
-### `operations.InputFirehoseInputCollectionPart0Type`
+### `operations.InputFirehoseSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputFirehoseInputCollectionPart0Type = {
+const value: operations.InputFirehoseSendToRoutesTrueWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "firehose",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 7411.22,
+    authTokens: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "lined french doorpost metal youthfully subdued grok",
+  };
+```
+
+### `operations.InputFirehoseSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  operations.InputFirehoseSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "firehose",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 8782.05,
+    authTokens: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "supposing petty owlishly perfectly furthermore oh",
+  };
+```
+
+### `operations.InputFirehosePqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputFirehosePqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "firehose",
   pipeline: "<value>",
@@ -22,54 +120,7 @@ const value: operations.InputFirehoseInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 143.03,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "printer impostor dearly hutch if farmer hospitable broken",
-};
-```
-
-### `operations.InputFirehoseInputCollectionPart1Type`
-
-```typescript
-const value: operations.InputFirehoseInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "firehose",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 5021.86,
+  port: 9686.05,
   authTokens: [
     "<value 1>",
   ],
@@ -88,14 +139,17 @@ const value: operations.InputFirehoseInputCollectionPart1Type = {
       value: "<value>",
     },
   ],
-  description: "extent afford courteous wicked young",
+  description: "wobbly knavishly annually volunteer mesh since yahoo",
 };
 ```
 
-### `operations.InputFirehoseInputCollectionPart0Type1`
+### `operations.InputFirehosePqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputFirehoseInputCollectionPart0Type1 = {
+const value: operations.InputFirehosePqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "firehose",
   pipeline: "<value>",
@@ -110,14 +164,9 @@ const value: operations.InputFirehoseInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 1121.95,
+  port: 9238.68,
   authTokens: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -134,53 +183,7 @@ const value: operations.InputFirehoseInputCollectionPart0Type1 = {
       value: "<value>",
     },
   ],
-  description:
-    "fund consequently next healthily modulo thrifty bah numeracy pure",
-};
-```
-
-### `operations.InputFirehoseInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputFirehoseInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "firehose",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  port: 7883.32,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "till till hourly dispose impossible yowza expostulate",
+  description: "finally fooey ha",
 };
 ```
 

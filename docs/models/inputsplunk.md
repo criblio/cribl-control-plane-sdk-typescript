@@ -3,10 +3,16 @@
 
 ## Supported Types
 
-### `models.InputSplunkInputCollectionPart0Type`
+### `models.InputSplunkSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputSplunkInputCollectionPart0Type = {
+const value: models.InputSplunkSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "splunk",
   pipeline: "<value>",
@@ -14,18 +20,11 @@ const value: models.InputSplunkInputCollectionPart0Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     pqControls: {},
   },
-  port: 977.39,
+  port: 7166.54,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -53,14 +52,14 @@ const value: models.InputSplunkInputCollectionPart0Type = {
         "diagram against like republican longingly huzzah where unimpressively per",
     },
   ],
-  description: "upright provided up replacement window toady gastropod",
+  description: "or which barracks pro conjecture blissfully",
 };
 ```
 
-### `models.InputSplunkInputCollectionPart1Type`
+### `models.InputSplunkSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputSplunkInputCollectionPart1Type = {
+const value: models.InputSplunkSendToRoutesFalseWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -78,57 +77,7 @@ const value: models.InputSplunkInputCollectionPart1Type = {
   pq: {
     pqControls: {},
   },
-  port: 7188.8,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  authTokens: [
-    {
-      token: "<value>",
-      description:
-        "diagram against like republican longingly huzzah where unimpressively per",
-    },
-  ],
-  description: "scholarship ick meanwhile inasmuch",
-};
-```
-
-### `models.InputSplunkInputCollectionPart0Type1`
-
-```typescript
-const value: models.InputSplunkInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "splunk",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 7222.73,
+  port: 8543.99,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -156,14 +105,15 @@ const value: models.InputSplunkInputCollectionPart0Type1 = {
         "diagram against like republican longingly huzzah where unimpressively per",
     },
   ],
-  description: "frilly next acidic crossly authorized ah frilly",
+  description:
+    "provision designation honesty per matter limp importance phew cruelly",
 };
 ```
 
-### `models.InputSplunkInputCollectionPart1Type1`
+### `models.InputSplunkPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: models.InputSplunkInputCollectionPart1Type1 = {
+const value: models.InputSplunkPqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -182,7 +132,7 @@ const value: models.InputSplunkInputCollectionPart1Type1 = {
       output: "<value>",
     },
   ],
-  port: 8793.65,
+  port: 6496.65,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -201,6 +151,7 @@ const value: models.InputSplunkInputCollectionPart1Type1 = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   authTokens: [
     {
@@ -209,7 +160,58 @@ const value: models.InputSplunkInputCollectionPart1Type1 = {
         "diagram against like republican longingly huzzah where unimpressively per",
     },
   ],
-  description: "beneath that scarcely finally dusk beneath",
+  description:
+    "knavishly fooey opposite bright tremendously before oh far-flung",
+};
+```
+
+### `models.InputSplunkPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: models.InputSplunkPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "splunk",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  port: 2941.64,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  authTokens: [
+    {
+      token: "<value>",
+      description:
+        "diagram against like republican longingly huzzah where unimpressively per",
+    },
+  ],
+  description: "fussy twist yuck besides blah confusion wilt curiously deform",
 };
 ```
 

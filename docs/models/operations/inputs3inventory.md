@@ -3,83 +3,142 @@
 
 ## Supported Types
 
-### `operations.InputS3InventoryInputCollectionPart0Type`
+### `operations.InputS3InventorySendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputS3InventoryInputCollectionPart0Type = {
-  id: "<id>",
-  type: "s3_inventory",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  queueName: "<value>",
-  awsAccountId: "<id>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  preprocess: {
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
+const value:
+  operations.InputS3InventorySendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
     ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
+    id: "<id>",
+    type: "s3_inventory",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
     },
-  ],
-  checkpointing: {},
-  description: "boohoo bourgeoisie coolly design",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  tagAfterProcessing: "true",
-  processedTagKey: "<value>",
-  processedTagValue: "<value>",
-};
+    queueName: "<value>",
+    awsAccountId: "<id>",
+    awsSecretKey: "<value>",
+    region: "<value>",
+    endpoint: "<value>",
+    breakerRulesets: [
+      "<value 1>",
+    ],
+    assumeRoleArn: "<value>",
+    assumeRoleExternalId: "<id>",
+    preprocess: {
+      command: "<value>",
+      args: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    checkpointing: {},
+    description: "viability undergo whenever shampoo deceivingly serve",
+    awsApiKey: "<value>",
+    awsSecret: "<value>",
+    tagAfterProcessing: "true",
+    processedTagKey: "<value>",
+    processedTagValue: "<value>",
+  };
 ```
 
-### `operations.InputS3InventoryInputCollectionPart1Type`
+### `operations.InputS3InventorySendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputS3InventoryInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
+const value:
+  operations.InputS3InventorySendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "s3_inventory",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
     },
-  ],
+    queueName: "<value>",
+    awsAccountId: "<id>",
+    awsSecretKey: "<value>",
+    region: "<value>",
+    endpoint: "<value>",
+    breakerRulesets: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    assumeRoleArn: "<value>",
+    assumeRoleExternalId: "<id>",
+    preprocess: {
+      command: "<value>",
+      args: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    checkpointing: {},
+    description:
+      "wing internalise scout wherever outfit when indeed joyfully opposite",
+    awsApiKey: "<value>",
+    awsSecret: "<value>",
+    tagAfterProcessing: "true",
+    processedTagKey: "<value>",
+    processedTagValue: "<value>",
+  };
+```
+
+### `operations.InputS3InventoryPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputS3InventoryPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "s3_inventory",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
-  pq: {
-    pqControls: {},
-  },
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   queueName: "<value>",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
@@ -88,7 +147,6 @@ const value: operations.InputS3InventoryInputCollectionPart1Type = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
@@ -107,7 +165,7 @@ const value: operations.InputS3InventoryInputCollectionPart1Type = {
     },
   ],
   checkpointing: {},
-  description: "following forenenst whoever unto knowledgeably",
+  description: "sugary tenderly meanwhile",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   tagAfterProcessing: "false",
@@ -116,67 +174,10 @@ const value: operations.InputS3InventoryInputCollectionPart1Type = {
 };
 ```
 
-### `operations.InputS3InventoryInputCollectionPart0Type1`
+### `operations.InputS3InventoryPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputS3InventoryInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "s3_inventory",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  queueName: "<value>",
-  awsAccountId: "<id>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  preprocess: {
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  checkpointing: {},
-  description:
-    "loudly yippee sidetrack an oxygenate solvency jacket cappelletti poppy",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  tagAfterProcessing: "false",
-  processedTagKey: "<value>",
-  processedTagValue: "<value>",
-};
-```
-
-### `operations.InputS3InventoryInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputS3InventoryInputCollectionPart1Type1 = {
+const value: operations.InputS3InventoryPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -201,7 +202,6 @@ const value: operations.InputS3InventoryInputCollectionPart1Type1 = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
@@ -220,8 +220,7 @@ const value: operations.InputS3InventoryInputCollectionPart1Type1 = {
     },
   ],
   checkpointing: {},
-  description:
-    "those brandish frenetically provided yippee meaningfully whoa compete proper aw",
+  description: "per rapid instance potable lest or along cinch",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   tagAfterProcessing: "true",

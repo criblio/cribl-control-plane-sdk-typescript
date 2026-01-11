@@ -3,10 +3,16 @@
 
 ## Supported Types
 
-### `models.InputRawUdpInputCollectionPart0Type`
+### `models.InputRawUdpSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputRawUdpInputCollectionPart0Type = {
+const value: models.InputRawUdpSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "raw_udp",
   pipeline: "<value>",
@@ -14,32 +20,27 @@ const value: models.InputRawUdpInputCollectionPart0Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
+    "<value 3>",
   ],
   pq: {
     pqControls: {},
   },
-  port: 3910.69,
-  udpSocketRxBufSize: 9414.05,
+  port: 5582.13,
+  udpSocketRxBufSize: 3463.45,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "um noisily yowza scrape readmit unlike dash that eek",
+  description: "immediately er mostly ambitious",
 };
 ```
 
-### `models.InputRawUdpInputCollectionPart1Type`
+### `models.InputRawUdpSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputRawUdpInputCollectionPart1Type = {
+const value: models.InputRawUdpSendToRoutesFalseWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -53,26 +54,30 @@ const value: models.InputRawUdpInputCollectionPart1Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   pq: {
     pqControls: {},
   },
-  port: 5054.31,
-  udpSocketRxBufSize: 9737.47,
+  port: 7933.67,
+  udpSocketRxBufSize: 5002.54,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "however near reiterate nor woot sand",
+  description: "roundabout times contravene gripping",
 };
 ```
 
-### `models.InputRawUdpInputCollectionPart0Type1`
+### `models.InputRawUdpPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: models.InputRawUdpInputCollectionPart0Type1 = {
+const value: models.InputRawUdpPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "raw_udp",
   pipeline: "<value>",
@@ -87,11 +92,8 @@ const value: models.InputRawUdpInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 3434.26,
-  udpSocketRxBufSize: 9691.69,
+  port: 9210.82,
+  udpSocketRxBufSize: 3325.14,
   metadata: [
     {
       name: "<value>",
@@ -99,14 +101,14 @@ const value: models.InputRawUdpInputCollectionPart0Type1 = {
     },
   ],
   description:
-    "madly council what reasonable cauliflower overplay hmph immediately provided follower",
+    "comestible hoarse readily whoa numeric bulky boldly indeed pale",
 };
 ```
 
-### `models.InputRawUdpInputCollectionPart1Type1`
+### `models.InputRawUdpPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputRawUdpInputCollectionPart1Type1 = {
+const value: models.InputRawUdpPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -116,6 +118,7 @@ const value: models.InputRawUdpInputCollectionPart1Type1 = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -123,15 +126,15 @@ const value: models.InputRawUdpInputCollectionPart1Type1 = {
       output: "<value>",
     },
   ],
-  port: 8030.91,
-  udpSocketRxBufSize: 7917.1,
+  port: 2026.58,
+  udpSocketRxBufSize: 8364.74,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "pish veg bog birth",
+  description: "huzzah tenement lift advancement apropos weakly",
 };
 ```
 

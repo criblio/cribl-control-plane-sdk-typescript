@@ -3,22 +3,22 @@
 
 ## Supported Types
 
-### `models.InputSqsInputCollectionPart0Type`
+### `models.InputSqsSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputSqsInputCollectionPart0Type = {
+const value: models.InputSqsSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "sqs",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     pqControls: {},
@@ -37,16 +37,16 @@ const value: models.InputSqsInputCollectionPart0Type = {
       value: "<value>",
     },
   ],
-  description: "yahoo upon joyful",
+  description: "before transparency pixellate easy feminize represent etch",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };
 ```
 
-### `models.InputSqsInputCollectionPart1Type`
+### `models.InputSqsSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputSqsInputCollectionPart1Type = {
+const value: models.InputSqsSendToRoutesFalseWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -78,56 +78,16 @@ const value: models.InputSqsInputCollectionPart1Type = {
       value: "<value>",
     },
   ],
-  description: "phew fervently oblong offend eek psst entry lest",
+  description: "unpleasant er populist idolized yum account usefully",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };
 ```
 
-### `models.InputSqsInputCollectionPart0Type1`
+### `models.InputSqsPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: models.InputSqsInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "sqs",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  queueName: "<value>",
-  queueType: "standard",
-  awsAccountId: "<id>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "along trial till fun wobbly",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-};
-```
-
-### `models.InputSqsInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputSqsInputCollectionPart1Type1 = {
+const value: models.InputSqsPqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -158,8 +118,49 @@ const value: models.InputSqsInputCollectionPart1Type1 = {
       value: "<value>",
     },
   ],
-  description:
-    "before hamburger within innocently poor likewise duh especially mousse",
+  description: "measly draw even unbalance malfunction around at if",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+};
+```
+
+### `models.InputSqsPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: models.InputSqsPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "sqs",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  queueName: "<value>",
+  queueType: "fifo",
+  awsAccountId: "<id>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "upon trolley pfft finally yowza duh commodity upon",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };

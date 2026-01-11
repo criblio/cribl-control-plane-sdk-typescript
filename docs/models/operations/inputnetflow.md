@@ -3,108 +3,77 @@
 
 ## Supported Types
 
-### `operations.InputNetflowInputCollectionPart0Type`
+### `operations.InputNetflowSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputNetflowInputCollectionPart0Type = {
-  id: "<id>",
-  type: "netflow",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
+const value: operations.InputNetflowSendToRoutesTrueWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "netflow",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
     },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  udpSocketRxBufSize: 9565.17,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "since unless bind around even hm",
-};
+    udpSocketRxBufSize: 2123.13,
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "coagulate colour redesign lively modulo though",
+  };
 ```
 
-### `operations.InputNetflowInputCollectionPart1Type`
+### `operations.InputNetflowSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputNetflowInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
+const value: operations.InputNetflowSendToRoutesFalseWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "netflow",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
     },
-  ],
-  id: "<id>",
-  type: "netflow",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  udpSocketRxBufSize: 3654.48,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "however puzzled alligator requirement yum",
-};
+    udpSocketRxBufSize: 5603.43,
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "beloved midst aggravating case mid regarding bid",
+  };
 ```
 
-### `operations.InputNetflowInputCollectionPart0Type1`
+### `operations.InputNetflowPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: operations.InputNetflowInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "netflow",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  udpSocketRxBufSize: 4507.93,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "irk even adrenalin beside owlishly drat banish",
-};
-```
-
-### `operations.InputNetflowInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputNetflowInputCollectionPart1Type1 = {
+const value: operations.InputNetflowPqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -123,14 +92,48 @@ const value: operations.InputNetflowInputCollectionPart1Type1 = {
       output: "<value>",
     },
   ],
-  udpSocketRxBufSize: 1701,
+  udpSocketRxBufSize: 7360.29,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "barring till bah after seldom",
+  description:
+    "pine even inveigle house sandy though valuable within preclude ha",
+};
+```
+
+### `operations.InputNetflowPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: operations.InputNetflowPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "netflow",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 5607.22,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "able newsletter insistent artistic lyre nor gurn",
 };
 ```
 

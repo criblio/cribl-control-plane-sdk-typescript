@@ -3,81 +3,10 @@
 
 ## Supported Types
 
-### `models.InputMskInputCollectionPart0Type`
+### `models.InputMskSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputMskInputCollectionPart0Type = {
-  id: "<id>",
-  type: "msk",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  brokers: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  topics: [],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  kafkaSchemaRegistry: {
-    auth: {
-      credentialsSecret: "<value>",
-    },
-    tls: {
-      servername: "<value>",
-      certificateName: "<value>",
-      caPath: "<value>",
-      privKeyPath: "<value>",
-      certPath: "<value>",
-      passphrase: "<value>",
-      minVersion: "TLSv1.2",
-      maxVersion: "TLSv1.3",
-    },
-  },
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  tls: {
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.3",
-  },
-  autoCommitInterval: 7427.55,
-  autoCommitThreshold: 1153.69,
-  description: "repeatedly mask while carefully",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-};
-```
-
-### `models.InputMskInputCollectionPart1Type`
-
-```typescript
-const value: models.InputMskInputCollectionPart1Type = {
+const value: models.InputMskSendToRoutesTrueWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -90,8 +19,6 @@ const value: models.InputMskInputCollectionPart1Type = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   pq: {
     pqControls: {},
@@ -99,10 +26,10 @@ const value: models.InputMskInputCollectionPart1Type = {
   brokers: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   topics: [
     "<value 1>",
-    "<value 2>",
   ],
   metadata: [
     {
@@ -140,19 +67,25 @@ const value: models.InputMskInputCollectionPart1Type = {
     minVersion: "TLSv1.1",
     maxVersion: "TLSv1.3",
   },
-  autoCommitInterval: 8201.36,
-  autoCommitThreshold: 4338.36,
+  autoCommitInterval: 2784.4,
+  autoCommitThreshold: 9105.87,
   description:
-    "wholly radiant on um wherever boldly ugh functional definitive pertain",
+    "easily though fixed exploration above deafening efface whoever lifestyle rust",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };
 ```
 
-### `models.InputMskInputCollectionPart0Type1`
+### `models.InputMskSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputMskInputCollectionPart0Type1 = {
+const value: models.InputMskSendToRoutesFalseWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "msk",
   pipeline: "<value>",
@@ -160,22 +93,19 @@ const value: models.InputMskInputCollectionPart0Type1 = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
+    "<value 3>",
   ],
   pq: {
     pqControls: {},
   },
   brokers: [
     "<value 1>",
+  ],
+  topics: [
+    "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  topics: [],
   metadata: [
     {
       name: "<value>",
@@ -212,18 +142,18 @@ const value: models.InputMskInputCollectionPart0Type1 = {
     minVersion: "TLSv1.1",
     maxVersion: "TLSv1.3",
   },
-  autoCommitInterval: 7661.57,
-  autoCommitThreshold: 1899.54,
-  description: "amidst huzzah behind till meh wherever if",
+  autoCommitInterval: 7805.73,
+  autoCommitThreshold: 7137.81,
+  description: "lobster till ack offend cheerfully",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };
 ```
 
-### `models.InputMskInputCollectionPart1Type1`
+### `models.InputMskPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: models.InputMskInputCollectionPart1Type1 = {
+const value: models.InputMskPqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -233,6 +163,7 @@ const value: models.InputMskInputCollectionPart1Type1 = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -240,11 +171,7 @@ const value: models.InputMskInputCollectionPart1Type1 = {
       output: "<value>",
     },
   ],
-  brokers: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
+  brokers: [],
   topics: [
     "<value 1>",
     "<value 2>",
@@ -285,9 +212,81 @@ const value: models.InputMskInputCollectionPart1Type1 = {
     minVersion: "TLSv1.1",
     maxVersion: "TLSv1.3",
   },
-  autoCommitInterval: 4405.82,
-  autoCommitThreshold: 836,
-  description: "psst instead actually minister pish beyond against finally",
+  autoCommitInterval: 7604.66,
+  autoCommitThreshold: 5100.89,
+  description: "plus yahoo mobilise for needily colon than limply",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+};
+```
+
+### `models.InputMskPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: models.InputMskPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "msk",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  brokers: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  topics: [
+    "<value 1>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.2",
+      maxVersion: "TLSv1.3",
+    },
+  },
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.3",
+  },
+  autoCommitInterval: 5157.89,
+  autoCommitThreshold: 8520.3,
+  description: "magnetize venom our or athwart inasmuch by cake ha ouch",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };

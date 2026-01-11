@@ -3,52 +3,10 @@
 
 ## Supported Types
 
-### `models.InputFileInputCollectionPart0Type`
+### `models.InputFileSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputFileInputCollectionPart0Type = {
-  id: "<id>",
-  type: "file",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  filenames: [
-    "<value 1>",
-  ],
-  minAgeDur: "<value>",
-  maxAgeDur: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  description:
-    "making since serpentine sweetly bootleg oxidise engender angle meanwhile",
-  path: "/usr/include",
-  depth: 9444.45,
-};
-```
-
-### `models.InputFileInputCollectionPart1Type`
-
-```typescript
-const value: models.InputFileInputCollectionPart1Type = {
+const value: models.InputFileSendToRoutesTrueWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -60,79 +18,82 @@ const value: models.InputFileInputCollectionPart1Type = {
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  filenames: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  minAgeDur: "<value>",
-  maxAgeDur: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  description: "anti yearn iridescence fragrant wry however where and",
-  path: "/usr/local/bin",
-  depth: 9860.32,
-};
-```
-
-### `models.InputFileInputCollectionPart0Type1`
-
-```typescript
-const value: models.InputFileInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "file",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  filenames: [
-    "<value 1>",
-  ],
-  minAgeDur: "<value>",
-  maxAgeDur: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  description:
-    "wherever minister as going miscalculate pish hyena kookily microchip yahoo",
-  path: "/var/tmp",
-  depth: 9472.45,
+  pq: {
+    pqControls: {},
+  },
+  filenames: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  minAgeDur: "<value>",
+  maxAgeDur: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  description: "inside slight how miserable velocity",
+  path: "/dev",
+  depth: 352,
 };
 ```
 
-### `models.InputFileInputCollectionPart1Type1`
+### `models.InputFileSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputFileInputCollectionPart1Type1 = {
+const value: models.InputFileSendToRoutesFalseWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  id: "<id>",
+  type: "file",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  filenames: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  minAgeDur: "<value>",
+  maxAgeDur: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  description: "if if following rudely flickering",
+  path: "/var/log",
+  depth: 5756.28,
+};
+```
+
+### `models.InputFilePqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputFilePqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -164,10 +125,55 @@ const value: models.InputFileInputCollectionPart1Type1 = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
-  description: "quarrelsomely restfully petty catch times among uncork",
-  path: "/Network",
-  depth: 4630.03,
+  description: "whale retention bah secret ouch hippodrome than aha hippodrome",
+  path: "/sbin",
+  depth: 4543.17,
+};
+```
+
+### `models.InputFilePqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: models.InputFilePqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "file",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  filenames: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  minAgeDur: "<value>",
+  maxAgeDur: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  description: "fess likewise daily grumpy mmm freckle",
+  path: "/dev",
+  depth: 6623.31,
 };
 ```
 

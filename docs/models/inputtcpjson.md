@@ -3,53 +3,10 @@
 
 ## Supported Types
 
-### `models.InputTcpjsonInputCollectionPart0Type`
+### `models.InputTcpjsonSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputTcpjsonInputCollectionPart0Type = {
-  id: "<id>",
-  type: "tcpjson",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 9337.11,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "pfft entice kindly blah gadzooks",
-  textSecret: "<value>",
-};
-```
-
-### `models.InputTcpjsonInputCollectionPart1Type`
-
-```typescript
-const value: models.InputTcpjsonInputCollectionPart1Type = {
+const value: models.InputTcpjsonSendToRoutesTrueWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -68,7 +25,7 @@ const value: models.InputTcpjsonInputCollectionPart1Type = {
   pq: {
     pqControls: {},
   },
-  port: 8538.34,
+  port: 8871.16,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -84,15 +41,21 @@ const value: models.InputTcpjsonInputCollectionPart1Type = {
       value: "<value>",
     },
   ],
-  description: "um whereas pry woot instructive which hmph dislocate",
+  description: "if yahoo oof why onto knottily shovel unto across",
   textSecret: "<value>",
 };
 ```
 
-### `models.InputTcpjsonInputCollectionPart0Type1`
+### `models.InputTcpjsonSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputTcpjsonInputCollectionPart0Type1 = {
+const value: models.InputTcpjsonSendToRoutesFalseWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "tcpjson",
   pipeline: "<value>",
@@ -102,16 +65,10 @@ const value: models.InputTcpjsonInputCollectionPart0Type1 = {
     "<value 2>",
     "<value 3>",
   ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
   pq: {
     pqControls: {},
   },
-  port: 644.22,
+  port: 4250.85,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -127,15 +84,16 @@ const value: models.InputTcpjsonInputCollectionPart0Type1 = {
       value: "<value>",
     },
   ],
-  description: "jealously almighty table fluffy now",
+  description:
+    "vice swordfish toward armoire interestingly premeditation unlike",
   textSecret: "<value>",
 };
 ```
 
-### `models.InputTcpjsonInputCollectionPart1Type1`
+### `models.InputTcpjsonPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: models.InputTcpjsonInputCollectionPart1Type1 = {
+const value: models.InputTcpjsonPqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -152,7 +110,7 @@ const value: models.InputTcpjsonInputCollectionPart1Type1 = {
       output: "<value>",
     },
   ],
-  port: 1786.05,
+  port: 1572.61,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -168,7 +126,49 @@ const value: models.InputTcpjsonInputCollectionPart1Type1 = {
       value: "<value>",
     },
   ],
-  description: "excluding aw colorize that",
+  description: "staid so vice engage joyfully puny whenever edge",
+  textSecret: "<value>",
+};
+```
+
+### `models.InputTcpjsonPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: models.InputTcpjsonPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "tcpjson",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  port: 1293.79,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "trash controvert joyously junior probe duh finally pish",
   textSecret: "<value>",
 };
 ```

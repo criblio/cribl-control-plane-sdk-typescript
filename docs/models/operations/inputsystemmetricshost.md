@@ -13,7 +13,6 @@ let value: InputSystemMetricsHost = {
     network: {
       devices: [
         "<value 1>",
-        "<value 2>",
       ],
     },
     disk: {
@@ -27,7 +26,6 @@ let value: InputSystemMetricsHost = {
       ],
       fstypes: [
         "<value 1>",
-        "<value 2>",
       ],
     },
   },

@@ -3,28 +3,27 @@
 
 ## Supported Types
 
-### `models.InputWizWebhookInputCollectionPart0Type`
+### `models.InputWizWebhookSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputWizWebhookInputCollectionPart0Type = {
-  id: "<id>",
-  type: "wiz_webhook",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
+const value: models.InputWizWebhookSendToRoutesTrueWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
       output: "<value>",
     },
   ],
+  id: "<id>",
+  type: "wiz_webhook",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
   pq: {
     pqControls: {},
   },
-  port: 7711.32,
+  port: 4002.15,
   authTokens: [
     "<value 1>",
     "<value 2>",
@@ -42,7 +41,6 @@ const value: models.InputWizWebhookInputCollectionPart0Type = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   metadata: [
     {
@@ -52,12 +50,10 @@ const value: models.InputWizWebhookInputCollectionPart0Type = {
   ],
   allowedPaths: [
     "<value 1>",
-    "<value 2>",
   ],
   allowedMethods: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   authTokensExt: [
     {
@@ -71,35 +67,107 @@ const value: models.InputWizWebhookInputCollectionPart0Type = {
       ],
     },
   ],
-  description: "dampen canter grandpa because outlying splash likewise daddy",
+  description:
+    "after fill courageous yet likewise enrage galvanize than even overload",
 };
 ```
 
-### `models.InputWizWebhookInputCollectionPart1Type`
+### `models.InputWizWebhookSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputWizWebhookInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
+const value: models.InputWizWebhookSendToRoutesFalseWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "wiz_webhook",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
     },
-  ],
+    port: 1722.98,
+    authTokens: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    breakerRulesets: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    allowedPaths: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    allowedMethods: [
+      "<value 1>",
+    ],
+    authTokensExt: [
+      {
+        token: "<value>",
+        description:
+          "demob apropos indeed ceramic scrabble however given scorn",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+      },
+    ],
+    description: "inside although up fail",
+  };
+```
+
+### `models.InputWizWebhookPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputWizWebhookPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "wiz_webhook",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 8.15,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  port: 2942,
   authTokens: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -113,6 +181,7 @@ const value: models.InputWizWebhookInputCollectionPart1Type = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   metadata: [
     {
@@ -140,14 +209,18 @@ const value: models.InputWizWebhookInputCollectionPart1Type = {
       ],
     },
   ],
-  description: "populist elegantly unlike",
+  description:
+    "sans overconfidently whoa unnecessarily gummy tender scrabble consequently gosh astride",
 };
 ```
 
-### `models.InputWizWebhookInputCollectionPart0Type1`
+### `models.InputWizWebhookPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputWizWebhookInputCollectionPart0Type1 = {
+const value: models.InputWizWebhookPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "wiz_webhook",
   pipeline: "<value>",
@@ -155,7 +228,6 @@ const value: models.InputWizWebhookInputCollectionPart0Type1 = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -163,14 +235,9 @@ const value: models.InputWizWebhookInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 2650.4,
+  port: 493.08,
   authTokens: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -192,80 +259,13 @@ const value: models.InputWizWebhookInputCollectionPart0Type1 = {
   ],
   allowedPaths: [
     "<value 1>",
-  ],
-  allowedMethods: [
-    "<value 1>",
     "<value 2>",
   ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "demob apropos indeed ceramic scrabble however given scorn",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  description: "brr airline wring tank voluntarily",
-};
-```
-
-### `models.InputWizWebhookInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputWizWebhookInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "wiz_webhook",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  port: 3358.44,
-  authTokens: [
+  allowedMethods: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  allowedPaths: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  allowedMethods: [
-    "<value 1>",
-    "<value 2>",
-  ],
   authTokensExt: [
     {
       token: "<value>",
@@ -278,7 +278,7 @@ const value: models.InputWizWebhookInputCollectionPart1Type1 = {
       ],
     },
   ],
-  description: "lawful zowie statement",
+  description: "terrible vice and weary desecrate schedule nor",
 };
 ```
 

@@ -3,53 +3,10 @@
 
 ## Supported Types
 
-### `models.InputMetricsInputCollectionPart0Type`
+### `models.InputMetricsSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputMetricsInputCollectionPart0Type = {
-  id: "<id>",
-  type: "metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  udpPort: 715.76,
-  tcpPort: 4421.69,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 2639.56,
-  description: "ack provided uh-huh",
-};
-```
-
-### `models.InputMetricsInputCollectionPart1Type`
-
-```typescript
-const value: models.InputMetricsInputCollectionPart1Type = {
+const value: models.InputMetricsSendToRoutesTrueWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -67,8 +24,8 @@ const value: models.InputMetricsInputCollectionPart1Type = {
   pq: {
     pqControls: {},
   },
-  udpPort: 953.29,
-  tcpPort: 1987.9,
+  udpPort: 8754.54,
+  tcpPort: 5646.71,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -84,33 +41,34 @@ const value: models.InputMetricsInputCollectionPart1Type = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 4231.9,
-  description: "thoroughly roger hmph foolishly lazily wobbly",
+  udpSocketRxBufSize: 3026.09,
+  description: "quarrelsomely concrete trek like athwart",
 };
 ```
 
-### `models.InputMetricsInputCollectionPart0Type1`
+### `models.InputMetricsSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputMetricsInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
+const value: models.InputMetricsSendToRoutesFalseWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
       output: "<value>",
     },
   ],
+  id: "<id>",
+  type: "metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
   pq: {
     pqControls: {},
   },
-  udpPort: 6570.3,
-  tcpPort: 6164.02,
+  udpPort: 9928.77,
+  tcpPort: 2789.06,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -126,15 +84,15 @@ const value: models.InputMetricsInputCollectionPart0Type1 = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 2024.53,
-  description: "upon wrongly boohoo yum harangue frightfully because indeed",
+  udpSocketRxBufSize: 7367.2,
+  description: "yahoo garrote muddy before sad er colon extent phew after",
 };
 ```
 
-### `models.InputMetricsInputCollectionPart1Type1`
+### `models.InputMetricsPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: models.InputMetricsInputCollectionPart1Type1 = {
+const value: models.InputMetricsPqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -152,8 +110,8 @@ const value: models.InputMetricsInputCollectionPart1Type1 = {
       output: "<value>",
     },
   ],
-  udpPort: 3905.82,
-  tcpPort: 8452.23,
+  udpPort: 3021.95,
+  tcpPort: 7645.06,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -169,9 +127,53 @@ const value: models.InputMetricsInputCollectionPart1Type1 = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 2456.2,
+  udpSocketRxBufSize: 8688.38,
+  description: "regulate upward frilly disadvantage peppery",
+};
+```
+
+### `models.InputMetricsPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: models.InputMetricsPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  udpPort: 3255.26,
+  tcpPort: 8223.77,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 1151.86,
   description:
-    "surface ah phew midst gah caption because prejudge inasmuch into",
+    "mobilise oof off before worth oof optimal proliferate against on",
 };
 ```
 

@@ -3,128 +3,91 @@
 
 ## Supported Types
 
-### `models.InputModelDrivenTelemetryInputCollectionPart0Type`
+### `models.InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputModelDrivenTelemetryInputCollectionPart0Type = {
-  id: "<id>",
-  type: "model_driven_telemetry",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
+const value:
+  models.InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "model_driven_telemetry",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
     },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
     },
-  ],
-  description: "concerning down mechanically suspiciously",
-};
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "below close afore honored profane idle reel oof",
+  };
 ```
 
-### `models.InputModelDrivenTelemetryInputCollectionPart1Type`
+### `models.InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputModelDrivenTelemetryInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
+const value:
+  models.InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "model_driven_telemetry",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
     },
-  ],
-  id: "<id>",
-  type: "model_driven_telemetry",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
     },
-  ],
-  description: "amid mispronounce postbox tensely electrify farm beside tame",
-};
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description:
+      "courteous bathrobe ingratiate especially dreamily or portray who lobotomise",
+  };
 ```
 
-### `models.InputModelDrivenTelemetryInputCollectionPart0Type1`
+### `models.InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: models.InputModelDrivenTelemetryInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "model_driven_telemetry",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "pinion tune-up digitize off",
-};
-```
-
-### `models.InputModelDrivenTelemetryInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputModelDrivenTelemetryInputCollectionPart1Type1 = {
+const value: models.InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -158,8 +121,46 @@ const value: models.InputModelDrivenTelemetryInputCollectionPart1Type1 = {
       value: "<value>",
     },
   ],
-  description:
-    "immediately oof character intrepid on splurge tributary alert jumbo",
+  description: "round anxiously ferociously slink industrialize down",
+};
+```
+
+### `models.InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: models.InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "model_driven_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "phew submissive ferociously whose amongst brace for till hmph",
 };
 ```
 

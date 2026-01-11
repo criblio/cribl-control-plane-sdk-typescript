@@ -3,10 +3,157 @@
 
 ## Supported Types
 
-### `operations.InputHttpRawInputCollectionPart0Type`
+### `operations.InputHttpRawSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputHttpRawInputCollectionPart0Type = {
+const value: operations.InputHttpRawSendToRoutesTrueWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "http_raw",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 7440.83,
+    authTokens: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    breakerRulesets: [
+      "<value 1>",
+    ],
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    allowedPaths: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    allowedMethods: [
+      "<value 1>",
+    ],
+    authTokensExt: [
+      {
+        token: "<value>",
+        description:
+          "demob apropos indeed ceramic scrabble however given scorn",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+      },
+    ],
+    description: "accurate down quick delightfully emphasise misjudge heavy",
+  };
+```
+
+### `operations.InputHttpRawSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value: operations.InputHttpRawSendToRoutesFalseWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "http_raw",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 3149.88,
+    authTokens: [
+      "<value 1>",
+    ],
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    breakerRulesets: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    allowedPaths: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    allowedMethods: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    authTokensExt: [
+      {
+        token: "<value>",
+        description:
+          "demob apropos indeed ceramic scrabble however given scorn",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+      },
+    ],
+    description:
+      "nimble slap worthy boohoo shrilly beneath quizzically materialise inscribe",
+  };
+```
+
+### `operations.InputHttpRawPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputHttpRawPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "http_raw",
   pipeline: "<value>",
@@ -14,6 +161,7 @@ const value: operations.InputHttpRawInputCollectionPart0Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -21,13 +169,11 @@ const value: operations.InputHttpRawInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 3534.21,
+  port: 2114.19,
   authTokens: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -41,6 +187,7 @@ const value: operations.InputHttpRawInputCollectionPart0Type = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   metadata: [
     {
@@ -51,10 +198,10 @@ const value: operations.InputHttpRawInputCollectionPart0Type = {
   allowedPaths: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   allowedMethods: [
     "<value 1>",
-    "<value 2>",
   ],
   authTokensExt: [
     {
@@ -68,95 +215,23 @@ const value: operations.InputHttpRawInputCollectionPart0Type = {
       ],
     },
   ],
-  description:
-    "gah diligently someplace alongside blissfully thoroughly notwithstanding",
+  description: "potable oddly unpleasant",
 };
 ```
 
-### `operations.InputHttpRawInputCollectionPart1Type`
+### `operations.InputHttpRawPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputHttpRawInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "http_raw",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
+const value: operations.InputHttpRawPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
-  port: 767.37,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  allowedPaths: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  allowedMethods: [
-    "<value 1>",
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "demob apropos indeed ceramic scrabble however given scorn",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  description: "loose wherever even fund",
-};
-```
-
-### `operations.InputHttpRawInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputHttpRawInputCollectionPart0Type1 = {
   id: "<id>",
   type: "http_raw",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -164,10 +239,7 @@ const value: operations.InputHttpRawInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 1694.07,
+  port: 9156.45,
   authTokens: [
     "<value 1>",
     "<value 2>",
@@ -193,12 +265,9 @@ const value: operations.InputHttpRawInputCollectionPart0Type1 = {
   ],
   allowedPaths: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   allowedMethods: [
     "<value 1>",
-    "<value 2>",
   ],
   authTokensExt: [
     {
@@ -212,77 +281,7 @@ const value: operations.InputHttpRawInputCollectionPart0Type1 = {
       ],
     },
   ],
-  description: "times redound independence",
-};
-```
-
-### `operations.InputHttpRawInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputHttpRawInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "http_raw",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  port: 8555.45,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  allowedPaths: [
-    "<value 1>",
-  ],
-  allowedMethods: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "demob apropos indeed ceramic scrabble however given scorn",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  description: "wherever till manipulate presume",
+  description: "ah steep vice honestly which indeed",
 };
 ```
 

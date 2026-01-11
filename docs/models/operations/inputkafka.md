@@ -3,22 +3,24 @@
 
 ## Supported Types
 
-### `operations.InputKafkaInputCollectionPart0Type`
+### `operations.InputKafkaSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputKafkaInputCollectionPart0Type = {
+const value: operations.InputKafkaSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "kafka",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
+    "<value 2>",
+    "<value 3>",
   ],
   pq: {
     pqControls: {},
@@ -27,9 +29,96 @@ const value: operations.InputKafkaInputCollectionPart0Type = {
     "<value 1>",
     "<value 2>",
   ],
+  topics: [],
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.2",
+      maxVersion: "TLSv1.3",
+    },
+  },
+  sasl: {
+    username: "Jocelyn_Casper88",
+    password: "PIwQ9BxwvdkIdNi",
+    credentialsSecret: "<value>",
+    keytabLocation: "<value>",
+    principal: "<value>",
+    brokerServiceClass: "<value>",
+    tokenUrl: "https://alive-spear.com",
+    clientId: "<id>",
+    clientTextSecret: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    saslExtensions: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
+  },
+  autoCommitInterval: 6804.26,
+  autoCommitThreshold: 2759.04,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "profitable ripe wherever husband atop",
+};
+```
+
+### `operations.InputKafkaSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value: operations.InputKafkaSendToRoutesFalseWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  id: "<id>",
+  type: "kafka",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  brokers: [
+    "<value 1>",
+  ],
   topics: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   kafkaSchemaRegistry: {
     auth: {
@@ -79,28 +168,25 @@ const value: operations.InputKafkaInputCollectionPart0Type = {
     minVersion: "TLSv1.2",
     maxVersion: "TLSv1.3",
   },
-  autoCommitInterval: 6716.1,
-  autoCommitThreshold: 9109.43,
+  autoCommitInterval: 3862.85,
+  autoCommitThreshold: 8371.02,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "of phew because duh venture",
+  description: "gee ouch whoever",
 };
 ```
 
-### `operations.InputKafkaInputCollectionPart1Type`
+### `operations.InputKafkaPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: operations.InputKafkaInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: operations.InputKafkaPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "kafka",
   pipeline: "<value>",
@@ -109,9 +195,12 @@ const value: operations.InputKafkaInputCollectionPart1Type = {
     "<value 1>",
     "<value 2>",
   ],
-  pq: {
-    pqControls: {},
-  },
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   brokers: [],
   topics: [],
   kafkaSchemaRegistry: {
@@ -162,8 +251,8 @@ const value: operations.InputKafkaInputCollectionPart1Type = {
     minVersion: "TLSv1.2",
     maxVersion: "TLSv1.3",
   },
-  autoCommitInterval: 4593.66,
-  autoCommitThreshold: 8620.78,
+  autoCommitInterval: 3663.46,
+  autoCommitThreshold: 6185.98,
   metadata: [
     {
       name: "<value>",
@@ -171,14 +260,17 @@ const value: operations.InputKafkaInputCollectionPart1Type = {
     },
   ],
   description:
-    "circular blindly chubby baa dramatize scarily sternly sheepishly",
+    "across tarragon forenenst hm anxiously furlough failing aboard indeed fledgling",
 };
 ```
 
-### `operations.InputKafkaInputCollectionPart0Type1`
+### `operations.InputKafkaPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputKafkaInputCollectionPart0Type1 = {
+const value: operations.InputKafkaPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "kafka",
   pipeline: "<value>",
@@ -186,6 +278,7 @@ const value: operations.InputKafkaInputCollectionPart0Type1 = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -193,16 +286,11 @@ const value: operations.InputKafkaInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   brokers: [
     "<value 1>",
   ],
   topics: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   kafkaSchemaRegistry: {
     auth: {
@@ -252,104 +340,15 @@ const value: operations.InputKafkaInputCollectionPart0Type1 = {
     minVersion: "TLSv1.2",
     maxVersion: "TLSv1.3",
   },
-  autoCommitInterval: 8399.55,
-  autoCommitThreshold: 5712.46,
+  autoCommitInterval: 6724.83,
+  autoCommitThreshold: 7890,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "unrealistic milky whereas given",
-};
-```
-
-### `operations.InputKafkaInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputKafkaInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "kafka",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  brokers: [
-    "<value 1>",
-  ],
-  topics: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  kafkaSchemaRegistry: {
-    auth: {
-      credentialsSecret: "<value>",
-    },
-    tls: {
-      servername: "<value>",
-      certificateName: "<value>",
-      caPath: "<value>",
-      privKeyPath: "<value>",
-      certPath: "<value>",
-      passphrase: "<value>",
-      minVersion: "TLSv1.2",
-      maxVersion: "TLSv1.3",
-    },
-  },
-  sasl: {
-    username: "Jocelyn_Casper88",
-    password: "PIwQ9BxwvdkIdNi",
-    credentialsSecret: "<value>",
-    keytabLocation: "<value>",
-    principal: "<value>",
-    brokerServiceClass: "<value>",
-    tokenUrl: "https://alive-spear.com",
-    clientId: "<id>",
-    clientTextSecret: "<value>",
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    saslExtensions: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  },
-  tls: {
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
-  },
-  autoCommitInterval: 4229.59,
-  autoCommitThreshold: 6580.9,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "toward that even",
+  description: "knottily boohoo until measly soybean bestride amid uh-huh",
 };
 ```
 

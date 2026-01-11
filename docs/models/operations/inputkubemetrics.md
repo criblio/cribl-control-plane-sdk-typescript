@@ -3,10 +3,93 @@
 
 ## Supported Types
 
-### `operations.InputKubeMetricsInputCollectionPart0Type`
+### `operations.InputKubeMetricsSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputKubeMetricsInputCollectionPart0Type = {
+const value:
+  operations.InputKubeMetricsSendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "kube_metrics",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    rules: [
+      {
+        filter: "<value>",
+        description:
+          "afore progress ethyl um gratefully pish whose till hydrocarbon",
+      },
+    ],
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    persistence: {},
+    description: "crackle inasmuch and whereas qua",
+  };
+```
+
+### `operations.InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  operations.InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "kube_metrics",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    rules: [
+      {
+        filter: "<value>",
+        description:
+          "afore progress ethyl um gratefully pish whose till hydrocarbon",
+      },
+    ],
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    persistence: {},
+    description: "chairperson interestingly sizzling",
+  };
+```
+
+### `operations.InputKubeMetricsPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputKubeMetricsPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "kube_metrics",
   pipeline: "<value>",
@@ -21,9 +104,6 @@ const value: operations.InputKubeMetricsInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   rules: [
     {
       filter: "<value>",
@@ -38,54 +118,17 @@ const value: operations.InputKubeMetricsInputCollectionPart0Type = {
     },
   ],
   persistence: {},
-  description: "veto viciously rejigger norm pretty psst",
+  description: "whoever boo preheat maul backbone vivaciously",
 };
 ```
 
-### `operations.InputKubeMetricsInputCollectionPart1Type`
+### `operations.InputKubeMetricsPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputKubeMetricsInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "kube_metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
+const value: operations.InputKubeMetricsPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
-  rules: [
-    {
-      filter: "<value>",
-      description:
-        "afore progress ethyl um gratefully pish whose till hydrocarbon",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  description:
-    "lest blah think guide enlist congregate roughly intermarry pish",
-};
-```
-
-### `operations.InputKubeMetricsInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputKubeMetricsInputCollectionPart0Type1 = {
   id: "<id>",
   type: "kube_metrics",
   pipeline: "<value>",
@@ -99,9 +142,6 @@ const value: operations.InputKubeMetricsInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   rules: [
     {
       filter: "<value>",
@@ -116,47 +156,7 @@ const value: operations.InputKubeMetricsInputCollectionPart0Type1 = {
     },
   ],
   persistence: {},
-  description: "morbidity inasmuch buzzing furiously along",
-};
-```
-
-### `operations.InputKubeMetricsInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputKubeMetricsInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "kube_metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  rules: [
-    {
-      filter: "<value>",
-      description:
-        "afore progress ethyl um gratefully pish whose till hydrocarbon",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  description: "to transcend stir-fry given netsuke pish meh",
+  description: "how once though better",
 };
 ```
 

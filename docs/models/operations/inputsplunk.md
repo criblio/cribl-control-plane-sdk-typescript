@@ -3,10 +3,16 @@
 
 ## Supported Types
 
-### `operations.InputSplunkInputCollectionPart0Type`
+### `operations.InputSplunkSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputSplunkInputCollectionPart0Type = {
+const value: operations.InputSplunkSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "splunk",
   pipeline: "<value>",
@@ -14,18 +20,11 @@ const value: operations.InputSplunkInputCollectionPart0Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     pqControls: {},
   },
-  port: 977.39,
+  port: 7166.54,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -49,23 +48,76 @@ const value: operations.InputSplunkInputCollectionPart0Type = {
   authTokens: [
     {
       token: "<value>",
-      description: "beneath that scarcely finally dusk beneath",
+      description:
+        "fussy twist yuck besides blah confusion wilt curiously deform",
     },
   ],
-  description: "upright provided up replacement window toady gastropod",
+  description: "or which barracks pro conjecture blissfully",
 };
 ```
 
-### `operations.InputSplunkInputCollectionPart1Type`
+### `operations.InputSplunkSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputSplunkInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
+const value: operations.InputSplunkSendToRoutesFalseWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "splunk",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
     },
-  ],
+    port: 8543.99,
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    breakerRulesets: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    authTokens: [
+      {
+        token: "<value>",
+        description:
+          "fussy twist yuck besides blah confusion wilt curiously deform",
+      },
+    ],
+    description:
+      "provision designation honesty per matter limp importance phew cruelly",
+  };
+```
+
+### `operations.InputSplunkPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputSplunkPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "splunk",
   pipeline: "<value>",
@@ -73,49 +125,7 @@ const value: operations.InputSplunkInputCollectionPart1Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 7188.8,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  authTokens: [
-    {
-      token: "<value>",
-      description: "beneath that scarcely finally dusk beneath",
-    },
-  ],
-  description: "scholarship ick meanwhile inasmuch",
-};
-```
-
-### `operations.InputSplunkInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputSplunkInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "splunk",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -123,10 +133,7 @@ const value: operations.InputSplunkInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 7222.73,
+  port: 6496.65,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -150,17 +157,19 @@ const value: operations.InputSplunkInputCollectionPart0Type1 = {
   authTokens: [
     {
       token: "<value>",
-      description: "beneath that scarcely finally dusk beneath",
+      description:
+        "fussy twist yuck besides blah confusion wilt curiously deform",
     },
   ],
-  description: "frilly next acidic crossly authorized ah frilly",
+  description:
+    "knavishly fooey opposite bright tremendously before oh far-flung",
 };
 ```
 
-### `operations.InputSplunkInputCollectionPart1Type1`
+### `operations.InputSplunkPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputSplunkInputCollectionPart1Type1 = {
+const value: operations.InputSplunkPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -170,8 +179,6 @@ const value: operations.InputSplunkInputCollectionPart1Type1 = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -179,7 +186,7 @@ const value: operations.InputSplunkInputCollectionPart1Type1 = {
       output: "<value>",
     },
   ],
-  port: 8793.65,
+  port: 2941.64,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -197,15 +204,16 @@ const value: operations.InputSplunkInputCollectionPart1Type1 = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
   authTokens: [
     {
       token: "<value>",
-      description: "beneath that scarcely finally dusk beneath",
+      description:
+        "fussy twist yuck besides blah confusion wilt curiously deform",
     },
   ],
-  description: "scaffold geez gosh broadcast reluctantly ouch before colorless",
+  description:
+    "deer duh charlatan pliers gloom soulful substantial quintessential bob throughout",
 };
 ```
 

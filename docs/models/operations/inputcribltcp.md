@@ -3,102 +3,109 @@
 
 ## Supported Types
 
-### `operations.InputCriblTcpInputCollectionPart0Type`
+### `operations.InputCriblTcpSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputCriblTcpInputCollectionPart0Type = {
-  id: "<id>",
-  type: "cribl_tcp",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
+const value: operations.InputCriblTcpSendToRoutesTrueWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "cribl_tcp",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
     },
-  ],
+    port: 556.76,
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    authTokens: [
+      {
+        tokenSecret: "<value>",
+        description: "psst whoa zowie when waterspout",
+      },
+    ],
+    description:
+      "as axe supposing joshingly fill furthermore webbed aha poorly first",
+  };
+```
+
+### `operations.InputCriblTcpSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  operations.InputCriblTcpSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "cribl_tcp",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 6453.01,
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    authTokens: [
+      {
+        tokenSecret: "<value>",
+        description: "psst whoa zowie when waterspout",
+      },
+    ],
+    description:
+      "pfft hmph while barracks impanel devise overcooked yesterday forenenst sunbathe",
+  };
+```
+
+### `operations.InputCriblTcpPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputCriblTcpPqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
-  port: 1382.88,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokens: [
-    {
-      tokenSecret: "<value>",
-      description: "psst whoa zowie when waterspout",
-    },
-  ],
-  description: "drat rigidly whereas concerned ack",
-};
-```
-
-### `operations.InputCriblTcpInputCollectionPart1Type`
-
-```typescript
-const value: operations.InputCriblTcpInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "cribl_tcp",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 8253.24,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokens: [
-    {
-      tokenSecret: "<value>",
-      description: "psst whoa zowie when waterspout",
-    },
-  ],
-  description: "department qualified alliance after",
-};
-```
-
-### `operations.InputCriblTcpInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputCriblTcpInputCollectionPart0Type1 = {
   id: "<id>",
   type: "cribl_tcp",
   pipeline: "<value>",
@@ -114,10 +121,7 @@ const value: operations.InputCriblTcpInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 3308.71,
+  port: 6246.55,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -139,14 +143,15 @@ const value: operations.InputCriblTcpInputCollectionPart0Type1 = {
       description: "psst whoa zowie when waterspout",
     },
   ],
-  description: "zowie meh to how immediately wrongly",
+  description:
+    "vice spiteful after selfish towards openly cash valiantly noxious across",
 };
 ```
 
-### `operations.InputCriblTcpInputCollectionPart1Type1`
+### `operations.InputCriblTcpPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputCriblTcpInputCollectionPart1Type1 = {
+const value: operations.InputCriblTcpPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -163,7 +168,7 @@ const value: operations.InputCriblTcpInputCollectionPart1Type1 = {
       output: "<value>",
     },
   ],
-  port: 1912.6,
+  port: 7372.46,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -185,7 +190,8 @@ const value: operations.InputCriblTcpInputCollectionPart1Type1 = {
       description: "psst whoa zowie when waterspout",
     },
   ],
-  description: "mozzarella austere though react impanel",
+  description:
+    "amid sunbathe whenever metabolite aha pfft upwardly thigh chunder while",
 };
 ```
 

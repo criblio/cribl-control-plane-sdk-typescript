@@ -3,16 +3,90 @@
 
 ## Supported Types
 
-### `models.InputWinEventLogsInputCollectionPart0Type`
+### `models.InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputWinEventLogsInputCollectionPart0Type = {
+const value: models.InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "win_event_logs",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    logNames: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "cautiously chime pip ill-fated quirkily baa boo",
+  };
+```
+
+### `models.InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  models.InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "win_event_logs",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    logNames: [],
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "far understated meanwhile",
+  };
+```
+
+### `models.InputWinEventLogsPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputWinEventLogsPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "win_event_logs",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -20,9 +94,6 @@ const value: models.InputWinEventLogsInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   logNames: [],
   metadata: [
     {
@@ -31,46 +102,17 @@ const value: models.InputWinEventLogsInputCollectionPart0Type = {
     },
   ],
   description:
-    "encouragement arrogantly cycle whenever critical tomorrow swim phooey hospitable internalize",
+    "outgoing pish ick whereas monocle to publication outrank for motionless",
 };
 ```
 
-### `models.InputWinEventLogsInputCollectionPart1Type`
+### `models.InputWinEventLogsPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputWinEventLogsInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "win_event_logs",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
+const value: models.InputWinEventLogsPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
-  logNames: [],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "per runway grown personal",
-};
-```
-
-### `models.InputWinEventLogsInputCollectionPart0Type1`
-
-```typescript
-const value: models.InputWinEventLogsInputCollectionPart0Type1 = {
   id: "<id>",
   type: "win_event_logs",
   pipeline: "<value>",
@@ -84,13 +126,8 @@ const value: models.InputWinEventLogsInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   logNames: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   metadata: [
     {
@@ -98,40 +135,7 @@ const value: models.InputWinEventLogsInputCollectionPart0Type1 = {
       value: "<value>",
     },
   ],
-  description: "oof pish fooey seal for warmly lest",
-};
-```
-
-### `models.InputWinEventLogsInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputWinEventLogsInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "win_event_logs",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  logNames: [],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description:
-    "furthermore continually sandy bookcase ultimately next supplier wherever",
+  description: "castanet pivot fast",
 };
 ```
 

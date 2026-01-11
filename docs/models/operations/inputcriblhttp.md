@@ -3,10 +3,109 @@
 
 ## Supported Types
 
-### `operations.InputCriblHttpInputCollectionPart0Type`
+### `operations.InputCriblHttpSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputCriblHttpInputCollectionPart0Type = {
+const value:
+  operations.InputCriblHttpSendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "cribl_http",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 7982.17,
+    authTokens: [
+      {
+        tokenSecret: "<value>",
+        description: "psst whoa zowie when waterspout",
+      },
+    ],
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description:
+      "provision but fatally louse arrange partial without integer for",
+  };
+```
+
+### `operations.InputCriblHttpSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  operations.InputCriblHttpSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "cribl_http",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 1121.18,
+    authTokens: [
+      {
+        tokenSecret: "<value>",
+        description: "psst whoa zowie when waterspout",
+      },
+    ],
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "pillbox once ha inasmuch",
+  };
+```
+
+### `operations.InputCriblHttpPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputCriblHttpPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "cribl_http",
   pipeline: "<value>",
@@ -14,6 +113,7 @@ const value: operations.InputCriblHttpInputCollectionPart0Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -21,10 +121,7 @@ const value: operations.InputCriblHttpInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 5225.46,
+  port: 6636.09,
   authTokens: [
     {
       tokenSecret: "<value>",
@@ -46,32 +143,31 @@ const value: operations.InputCriblHttpInputCollectionPart0Type = {
       value: "<value>",
     },
   ],
-  description: "part once plus concerning fashion",
+  description: "forearm unlike ack supposing",
 };
 ```
 
-### `operations.InputCriblHttpInputCollectionPart1Type`
+### `operations.InputCriblHttpPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputCriblHttpInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: operations.InputCriblHttpPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "cribl_http",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 7201.79,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  port: 8533.48,
   authTokens: [
     {
       tokenSecret: "<value>",
@@ -93,102 +189,7 @@ const value: operations.InputCriblHttpInputCollectionPart1Type = {
       value: "<value>",
     },
   ],
-  description: "which yet yippee inasmuch",
-};
-```
-
-### `operations.InputCriblHttpInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputCriblHttpInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "cribl_http",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 6959.91,
-  authTokens: [
-    {
-      tokenSecret: "<value>",
-      description: "psst whoa zowie when waterspout",
-    },
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description:
-    "progress gee oof pish than barring given ghost blink thoroughly",
-};
-```
-
-### `operations.InputCriblHttpInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputCriblHttpInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "cribl_http",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  port: 732.94,
-  authTokens: [
-    {
-      tokenSecret: "<value>",
-      description: "psst whoa zowie when waterspout",
-    },
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "beard furthermore corporation whenever valiantly",
+  description: "boo bah mixed dazzling than",
 };
 ```
 

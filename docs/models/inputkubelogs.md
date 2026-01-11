@@ -3,54 +3,10 @@
 
 ## Supported Types
 
-### `models.InputKubeLogsInputCollectionPart0Type`
+### `models.InputKubeLogsSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputKubeLogsInputCollectionPart0Type = {
-  id: "<id>",
-  type: "kube_logs",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  rules: [
-    {
-      filter: "<value>",
-      description:
-        "lava unlike unlike kiss till focalise kosher cool amidst per",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  description: "faithfully usher through instead",
-};
-```
-
-### `models.InputKubeLogsInputCollectionPart1Type`
-
-```typescript
-const value: models.InputKubeLogsInputCollectionPart1Type = {
+const value: models.InputKubeLogsSendToRoutesTrueWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -85,15 +41,63 @@ const value: models.InputKubeLogsInputCollectionPart1Type = {
   persistence: {},
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
-  description: "skateboard grade damaged talkative whether enchanted excepting",
+  description: "role morning uncomfortable whose cautious source",
 };
 ```
 
-### `models.InputKubeLogsInputCollectionPart0Type1`
+### `models.InputKubeLogsSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputKubeLogsInputCollectionPart0Type1 = {
+const value: models.InputKubeLogsSendToRoutesFalseWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  id: "<id>",
+  type: "kube_logs",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  rules: [
+    {
+      filter: "<value>",
+      description:
+        "lava unlike unlike kiss till focalise kosher cool amidst per",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  description: "victoriously hippodrome primary unlike",
+};
+```
+
+### `models.InputKubeLogsPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputKubeLogsPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "kube_logs",
   pipeline: "<value>",
@@ -109,9 +113,6 @@ const value: models.InputKubeLogsInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   rules: [
     {
       filter: "<value>",
@@ -129,15 +130,16 @@ const value: models.InputKubeLogsInputCollectionPart0Type1 = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  description: "woot or worth",
+  description: "colorfully easily alongside",
 };
 ```
 
-### `models.InputKubeLogsInputCollectionPart1Type1`
+### `models.InputKubeLogsPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputKubeLogsInputCollectionPart1Type1 = {
+const value: models.InputKubeLogsPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -147,7 +149,6 @@ const value: models.InputKubeLogsInputCollectionPart1Type1 = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -171,9 +172,9 @@ const value: models.InputKubeLogsInputCollectionPart1Type1 = {
   persistence: {},
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
-  description: "affect quaver story kindly",
+  description:
+    "excluding aha athwart ouch hypothesize list nor until mid cultivated",
 };
 ```
 

@@ -3,10 +3,139 @@
 
 ## Supported Types
 
-### `models.InputPrometheusRwInputCollectionPart0Type`
+### `models.InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputPrometheusRwInputCollectionPart0Type = {
+const value: models.InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "prometheus_rw",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 4671.49,
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "as helplessly till spark drive down meanwhile",
+    username: "Sally90",
+    password: "7YQPfMgnsrIvUc6",
+    token: "<value>",
+    credentialsSecret: "<value>",
+    textSecret: "<value>",
+    loginUrl: "https://actual-whale.biz/",
+    secretParamName: "<value>",
+    secret: "<value>",
+    tokenAttributeName: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    oauthHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  };
+```
+
+### `models.InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  models.InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "prometheus_rw",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 886.05,
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "why weakly carelessly and",
+    username: "Damion24",
+    password: "N0qSmCTB173GHQO",
+    token: "<value>",
+    credentialsSecret: "<value>",
+    textSecret: "<value>",
+    loginUrl: "https://milky-charlatan.name/",
+    secretParamName: "<value>",
+    secret: "<value>",
+    tokenAttributeName: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    oauthHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  };
+```
+
+### `models.InputPrometheusRwPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputPrometheusRwPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "prometheus_rw",
   pipeline: "<value>",
@@ -14,6 +143,7 @@ const value: models.InputPrometheusRwInputCollectionPart0Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -21,10 +151,7 @@ const value: models.InputPrometheusRwInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 6490.83,
+  port: 8571.26,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -40,13 +167,13 @@ const value: models.InputPrometheusRwInputCollectionPart0Type = {
       value: "<value>",
     },
   ],
-  description: "fooey uh-huh seldom rear tabulate daily bah",
-  username: "Ernestina_Hintz",
-  password: "IrClJkFHC2gXn0K",
+  description: "hm now er self-assured",
+  username: "Darron83",
+  password: "cuDCe8BJmxUbV66",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://grumpy-unique.net",
+  loginUrl: "https://worthy-meander.org",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
@@ -65,133 +192,10 @@ const value: models.InputPrometheusRwInputCollectionPart0Type = {
 };
 ```
 
-### `models.InputPrometheusRwInputCollectionPart1Type`
+### `models.InputPrometheusRwPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputPrometheusRwInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "prometheus_rw",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 9580.09,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "aha famously mid meh border properly psst scale",
-  username: "King_Dickinson",
-  password: "3aXszN8ToFeAGKk",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://tough-allegation.name",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-};
-```
-
-### `models.InputPrometheusRwInputCollectionPart0Type1`
-
-```typescript
-const value: models.InputPrometheusRwInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "prometheus_rw",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 2978.02,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "cycle seriously ew drag outnumber scoff",
-  username: "Tristian88",
-  password: "hK47MLzMAU8eX5O",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://outrageous-stall.name/",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-};
-```
-
-### `models.InputPrometheusRwInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputPrometheusRwInputCollectionPart1Type1 = {
+const value: models.InputPrometheusRwPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -208,7 +212,7 @@ const value: models.InputPrometheusRwInputCollectionPart1Type1 = {
       output: "<value>",
     },
   ],
-  port: 8352.28,
+  port: 5711.87,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -224,13 +228,13 @@ const value: models.InputPrometheusRwInputCollectionPart1Type1 = {
       value: "<value>",
     },
   ],
-  description: "phooey upbeat psst bank ouch importance shiny outrank shady",
-  username: "Mckayla_Kuhlman",
-  password: "9rHieox3HQYwGAQ",
+  description: "aside worst torn",
+  username: "Ola59",
+  password: "vIKL69xVbLHvjU8",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://slimy-seal.net/",
+  loginUrl: "https://worthless-brochure.biz",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",

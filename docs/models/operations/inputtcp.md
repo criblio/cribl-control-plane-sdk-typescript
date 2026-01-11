@@ -3,10 +3,16 @@
 
 ## Supported Types
 
-### `operations.InputTcpInputCollectionPart0Type`
+### `operations.InputTcpSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputTcpInputCollectionPart0Type = {
+const value: operations.InputTcpSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "tcp",
   pipeline: "<value>",
@@ -16,16 +22,10 @@ const value: operations.InputTcpInputCollectionPart0Type = {
     "<value 2>",
     "<value 3>",
   ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
   pq: {
     pqControls: {},
   },
-  port: 1023.36,
+  port: 9514.36,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -54,15 +54,15 @@ const value: operations.InputTcpInputCollectionPart0Type = {
       "<value 3>",
     ],
   },
-  description: "utter provided whenever gadzooks",
+  description: "whether entomb rosy closed monasticism subtle accidentally",
   textSecret: "<value>",
 };
 ```
 
-### `operations.InputTcpInputCollectionPart1Type`
+### `operations.InputTcpSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputTcpInputCollectionPart1Type = {
+const value: operations.InputTcpSendToRoutesFalseWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -75,11 +75,13 @@ const value: operations.InputTcpInputCollectionPart1Type = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   pq: {
     pqControls: {},
   },
-  port: 1402.69,
+  port: 5420.59,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -97,7 +99,6 @@ const value: operations.InputTcpInputCollectionPart1Type = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
   preprocess: {
     command: "<value>",
@@ -107,16 +108,18 @@ const value: operations.InputTcpInputCollectionPart1Type = {
       "<value 3>",
     ],
   },
-  description:
-    "outside rawhide humidity opposite ack absentmindedly conservative lest ill-fated",
+  description: "until ha fatally probe astride geez vice vastly",
   textSecret: "<value>",
 };
 ```
 
-### `operations.InputTcpInputCollectionPart0Type1`
+### `operations.InputTcpPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: operations.InputTcpInputCollectionPart0Type1 = {
+const value: operations.InputTcpPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "tcp",
   pipeline: "<value>",
@@ -124,7 +127,6 @@ const value: operations.InputTcpInputCollectionPart0Type1 = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -132,10 +134,7 @@ const value: operations.InputTcpInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 4349.54,
+  port: 8762.3,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -162,15 +161,15 @@ const value: operations.InputTcpInputCollectionPart0Type1 = {
       "<value 3>",
     ],
   },
-  description: "aside guide readily psst polished almighty",
+  description: "gee yellow jumbo",
   textSecret: "<value>",
 };
 ```
 
-### `operations.InputTcpInputCollectionPart1Type1`
+### `operations.InputTcpPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputTcpInputCollectionPart1Type1 = {
+const value: operations.InputTcpPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -189,7 +188,7 @@ const value: operations.InputTcpInputCollectionPart1Type1 = {
       output: "<value>",
     },
   ],
-  port: 3226.98,
+  port: 1193.31,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -208,7 +207,6 @@ const value: operations.InputTcpInputCollectionPart1Type1 = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   preprocess: {
     command: "<value>",
@@ -218,7 +216,7 @@ const value: operations.InputTcpInputCollectionPart1Type1 = {
       "<value 3>",
     ],
   },
-  description: "uselessly brr coexist",
+  description: "whereas thump recent cappelletti",
   textSecret: "<value>",
 };
 ```

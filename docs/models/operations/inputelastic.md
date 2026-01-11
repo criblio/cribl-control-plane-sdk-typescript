@@ -3,10 +3,205 @@
 
 ## Supported Types
 
-### `operations.InputElasticInputCollectionPart0Type`
+### `operations.InputElasticSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputElasticInputCollectionPart0Type = {
+const value: operations.InputElasticSendToRoutesTrueWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "elastic",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 2716.47,
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    extraHttpHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    proxyMode: {
+      username: "Everardo_Krajcik4",
+      password: "h4rOBZ6WncEREk2",
+      credentialsSecret: "<value>",
+      url: "https://hateful-foodstuffs.com",
+      removeHeaders: [
+        "<value 1>",
+        "<value 2>",
+      ],
+    },
+    description: "whose overcooked outside where abaft whose phew apud",
+    username: "Osborne_Nikolaus52",
+    password: "ItwQDKODd04EJ1v",
+    credentialsSecret: "<value>",
+    authTokens: [
+      "<value 1>",
+    ],
+  };
+```
+
+### `operations.InputElasticSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value: operations.InputElasticSendToRoutesFalseWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "elastic",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 8923.66,
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    extraHttpHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    proxyMode: {
+      username: "Everardo_Krajcik4",
+      password: "h4rOBZ6WncEREk2",
+      credentialsSecret: "<value>",
+      url: "https://hateful-foodstuffs.com",
+      removeHeaders: [
+        "<value 1>",
+        "<value 2>",
+      ],
+    },
+    description: "shoot solvency adolescent unlucky imaginary inveigle",
+    username: "Meredith.Waters2",
+    password: "kv9fIq1WSPYqmO2",
+    credentialsSecret: "<value>",
+    authTokens: [
+      "<value 1>",
+    ],
+  };
+```
+
+### `operations.InputElasticPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputElasticPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "elastic",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  port: 4401.72,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {
+    username: "Everardo_Krajcik4",
+    password: "h4rOBZ6WncEREk2",
+    credentialsSecret: "<value>",
+    url: "https://hateful-foodstuffs.com",
+    removeHeaders: [
+      "<value 1>",
+      "<value 2>",
+    ],
+  },
+  description: "powerfully mmm legislature legitimize kissingly aw meh",
+  username: "Hulda.Collier9",
+  password: "kEd0afJUmo5fnt_",
+  credentialsSecret: "<value>",
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+  ],
+};
+```
+
+### `operations.InputElasticPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: operations.InputElasticPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "elastic",
   pipeline: "<value>",
@@ -22,10 +217,7 @@ const value: operations.InputElasticInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 5969.33,
+  port: 3532.78,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -48,211 +240,23 @@ const value: operations.InputElasticInputCollectionPart0Type = {
     },
   ],
   proxyMode: {
-    username: "Tony27",
-    password: "tpxXY93r9VLxak1",
+    username: "Everardo_Krajcik4",
+    password: "h4rOBZ6WncEREk2",
     credentialsSecret: "<value>",
-    url: "https://impractical-decryption.net/",
+    url: "https://hateful-foodstuffs.com",
     removeHeaders: [
       "<value 1>",
       "<value 2>",
     ],
   },
-  description: "cop whenever wallop zowie focalise elver vain yahoo",
-  username: "Carmen_Keeling",
-  password: "LXx0ZTG8G74RzsB",
-  credentialsSecret: "<value>",
-  authTokens: [
-    "<value 1>",
-  ],
-};
-```
-
-### `operations.InputElasticInputCollectionPart1Type`
-
-```typescript
-const value: operations.InputElasticInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "elastic",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 2576.41,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  proxyMode: {
-    username: "Tony27",
-    password: "tpxXY93r9VLxak1",
-    credentialsSecret: "<value>",
-    url: "https://impractical-decryption.net/",
-    removeHeaders: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  description: "throughout juggernaut volunteer bah swiftly minus heavily very",
-  username: "Tristian_Swaniawski41",
-  password: "b4fUL0QnvJ8u32c",
+  description: "pish per which pulp sequester rekindle via lampoon",
+  username: "Magnolia_Willms",
+  password: "81WemNqB_DkS1Jb",
   credentialsSecret: "<value>",
   authTokens: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
-  ],
-};
-```
-
-### `operations.InputElasticInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputElasticInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "elastic",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 4265.48,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  proxyMode: {
-    username: "Tony27",
-    password: "tpxXY93r9VLxak1",
-    credentialsSecret: "<value>",
-    url: "https://impractical-decryption.net/",
-    removeHeaders: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  description: "sport now hmph powerless ha yum distorted if huzzah bouncy",
-  username: "Tate35",
-  password: "o9lqKui6lORsB_J",
-  credentialsSecret: "<value>",
-  authTokens: [
-    "<value 1>",
-  ],
-};
-```
-
-### `operations.InputElasticInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputElasticInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "elastic",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  port: 7983.29,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  proxyMode: {
-    username: "Tony27",
-    password: "tpxXY93r9VLxak1",
-    credentialsSecret: "<value>",
-    url: "https://impractical-decryption.net/",
-    removeHeaders: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  description: "resort than cultivated than",
-  username: "Telly_Yost59",
-  password: "cQ0OsXAV0_gzprD",
-  credentialsSecret: "<value>",
-  authTokens: [
-    "<value 1>",
   ],
 };
 ```

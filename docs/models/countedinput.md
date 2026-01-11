@@ -10,6 +10,12 @@ let value: CountedInput = {
   items: [
     {
       sendToRoutes: true,
+      connections: [
+        {
+          pipeline: "<value>",
+          output: "<value>",
+        },
+      ],
       id: "<id>",
       type: "wiz",
       disabled: false,
@@ -19,12 +25,6 @@ let value: CountedInput = {
       streamtags: [
         "<value 1>",
         "<value 2>",
-      ],
-      connections: [
-        {
-          pipeline: "<value>",
-          output: "<value>",
-        },
       ],
       pq: {
         mode: "always",
