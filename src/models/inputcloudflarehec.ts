@@ -9,11 +9,11 @@ import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -108,7 +108,7 @@ export type InputCloudflareHecPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -198,12 +198,11 @@ export type InputCloudflareHecPqEnabledTrueWithPqConstraint = {
   description?: string | undefined;
 };
 
-export type InputCloudflareHecPqEnabledFalseWithPqConstraint = {
+export type InputCloudflareHecPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -229,7 +228,8 @@ export type InputCloudflareHecPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -327,7 +327,7 @@ export type InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -440,15 +440,11 @@ export type InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint = {
   description?: string | undefined;
 };
 
-export type InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint = {
+export type InputCloudflareHecSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -471,6 +467,10 @@ export type InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -562,9 +562,9 @@ export type InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputCloudflareHec =
-  | InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint
+  | InputCloudflareHecSendToRoutesTrueConstraint
   | InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint
-  | InputCloudflareHecPqEnabledFalseWithPqConstraint
+  | InputCloudflareHecPqEnabledFalseConstraint
   | InputCloudflareHecPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -668,7 +668,7 @@ export const InputCloudflareHecPqEnabledTrueWithPqConstraint$inboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number(),
     authTokens: z.array(z.lazy(() => InputCloudflareHecAuthToken$inboundSchema))
@@ -706,7 +706,7 @@ export type InputCloudflareHecPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   host: string;
   port: number;
   authTokens?: Array<InputCloudflareHecAuthToken$Outbound> | undefined;
@@ -749,7 +749,8 @@ export const InputCloudflareHecPqEnabledTrueWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number(),
     authTokens: z.array(
@@ -805,52 +806,50 @@ export function inputCloudflareHecPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputCloudflareHecPqEnabledFalseWithPqConstraint$inboundSchema:
-  z.ZodType<
-    InputCloudflareHecPqEnabledFalseWithPqConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    pqEnabled: z.boolean().default(false),
-    pq: PqType$inboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputCloudflareHecType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number(),
-    authTokens: z.array(z.lazy(() => InputCloudflareHecAuthToken$inboundSchema))
-      .optional(),
-    tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    activityLogSampleRate: z.number().default(100),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(5),
-    enableHealthCheck: z.any().optional(),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    hecAPI: z.string(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    allowedIndexes: z.array(z.string()).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    accessControlAllowOrigin: z.array(z.string()).optional(),
-    accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().default(false),
-    description: z.string().optional(),
-  });
+export const InputCloudflareHecPqEnabledFalseConstraint$inboundSchema:
+  z.ZodType<InputCloudflareHecPqEnabledFalseConstraint, z.ZodTypeDef, unknown> =
+    z.object({
+      pqEnabled: z.boolean().default(false),
+      id: z.string().optional(),
+      type: InputCloudflareHecType$inboundSchema,
+      disabled: z.boolean().default(false),
+      pipeline: z.string().optional(),
+      sendToRoutes: z.boolean().default(true),
+      environment: z.string().optional(),
+      streamtags: z.array(z.string()).optional(),
+      connections: z.array(ItemsTypeConnectionsOptional$inboundSchema)
+        .optional(),
+      pq: PqType$inboundSchema.optional(),
+      host: z.string().default("0.0.0.0"),
+      port: z.number(),
+      authTokens: z.array(
+        z.lazy(() => InputCloudflareHecAuthToken$inboundSchema),
+      ).optional(),
+      tls: TlsSettingsServerSideType$inboundSchema.optional(),
+      maxActiveReq: z.number().default(256),
+      maxRequestsPerSocket: z.number().int().default(0),
+      enableProxyHeader: z.boolean().default(false),
+      captureHeaders: z.boolean().default(false),
+      activityLogSampleRate: z.number().default(100),
+      requestTimeout: z.number().default(0),
+      socketTimeout: z.number().default(0),
+      keepAliveTimeout: z.number().default(5),
+      enableHealthCheck: z.any().optional(),
+      ipAllowlistRegex: z.string().default("/.*/"),
+      ipDenylistRegex: z.string().default("/^$/"),
+      hecAPI: z.string(),
+      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+      allowedIndexes: z.array(z.string()).optional(),
+      breakerRulesets: z.array(z.string()).optional(),
+      staleChannelFlushMs: z.number().default(10000),
+      accessControlAllowOrigin: z.array(z.string()).optional(),
+      accessControlAllowHeaders: z.array(z.string()).optional(),
+      emitTokenMetrics: z.boolean().default(false),
+      description: z.string().optional(),
+    });
 /** @internal */
-export type InputCloudflareHecPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputCloudflareHecPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -858,7 +857,8 @@ export type InputCloudflareHecPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<InputCloudflareHecAuthToken$Outbound> | undefined;
@@ -886,14 +886,13 @@ export type InputCloudflareHecPqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputCloudflareHecPqEnabledFalseWithPqConstraint$outboundSchema:
+export const InputCloudflareHecPqEnabledFalseConstraint$outboundSchema:
   z.ZodType<
-    InputCloudflareHecPqEnabledFalseWithPqConstraint$Outbound,
+    InputCloudflareHecPqEnabledFalseConstraint$Outbound,
     z.ZodTypeDef,
-    InputCloudflareHecPqEnabledFalseWithPqConstraint
+    InputCloudflareHecPqEnabledFalseConstraint
   > = z.object({
     pqEnabled: z.boolean().default(false),
-    pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputCloudflareHecType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -901,7 +900,9 @@ export const InputCloudflareHecPqEnabledFalseWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: PqType$outboundSchema.optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number(),
     authTokens: z.array(
@@ -930,29 +931,29 @@ export const InputCloudflareHecPqEnabledFalseWithPqConstraint$outboundSchema:
     description: z.string().optional(),
   });
 
-export function inputCloudflareHecPqEnabledFalseWithPqConstraintToJSON(
-  inputCloudflareHecPqEnabledFalseWithPqConstraint:
-    InputCloudflareHecPqEnabledFalseWithPqConstraint,
+export function inputCloudflareHecPqEnabledFalseConstraintToJSON(
+  inputCloudflareHecPqEnabledFalseConstraint:
+    InputCloudflareHecPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputCloudflareHecPqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputCloudflareHecPqEnabledFalseWithPqConstraint,
+    InputCloudflareHecPqEnabledFalseConstraint$outboundSchema.parse(
+      inputCloudflareHecPqEnabledFalseConstraint,
     ),
   );
 }
-export function inputCloudflareHecPqEnabledFalseWithPqConstraintFromJSON(
+export function inputCloudflareHecPqEnabledFalseConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputCloudflareHecPqEnabledFalseWithPqConstraint,
+  InputCloudflareHecPqEnabledFalseConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputCloudflareHecPqEnabledFalseWithPqConstraint$inboundSchema.parse(
+      InputCloudflareHecPqEnabledFalseConstraint$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputCloudflareHecPqEnabledFalseWithPqConstraint' from JSON`,
+    `Failed to parse 'InputCloudflareHecPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -964,7 +965,7 @@ export const InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint$inboun
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputCloudflareHecType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -1003,7 +1004,7 @@ export const InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint$inboun
 export type InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint$Outbound =
   {
     sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
     id?: string | undefined;
     type: string;
     disabled: boolean;
@@ -1046,7 +1047,8 @@ export const InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint$outbou
     InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputCloudflareHecType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1108,14 +1110,13 @@ export function inputCloudflareHecSendToRoutesFalseWithConnectionsConstraintFrom
 }
 
 /** @internal */
-export const InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
+export const InputCloudflareHecSendToRoutesTrueConstraint$inboundSchema:
   z.ZodType<
-    InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint,
+    InputCloudflareHecSendToRoutesTrueConstraint,
     z.ZodTypeDef,
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputCloudflareHecType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -1123,6 +1124,7 @@ export const InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint$inbound
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     pq: PqType$inboundSchema.optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number(),
@@ -1151,53 +1153,51 @@ export const InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint$inbound
     description: z.string().optional(),
   });
 /** @internal */
-export type InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint$Outbound =
-  {
-    sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-    id?: string | undefined;
-    type: string;
-    disabled: boolean;
-    pipeline?: string | undefined;
-    environment?: string | undefined;
-    pqEnabled: boolean;
-    streamtags?: Array<string> | undefined;
-    pq?: PqType$Outbound | undefined;
-    host: string;
-    port: number;
-    authTokens?: Array<InputCloudflareHecAuthToken$Outbound> | undefined;
-    tls?: TlsSettingsServerSideType$Outbound | undefined;
-    maxActiveReq: number;
-    maxRequestsPerSocket: number;
-    enableProxyHeader: boolean;
-    captureHeaders: boolean;
-    activityLogSampleRate: number;
-    requestTimeout: number;
-    socketTimeout: number;
-    keepAliveTimeout: number;
-    enableHealthCheck?: any | undefined;
-    ipAllowlistRegex: string;
-    ipDenylistRegex: string;
-    hecAPI: string;
-    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-    allowedIndexes?: Array<string> | undefined;
-    breakerRulesets?: Array<string> | undefined;
-    staleChannelFlushMs: number;
-    accessControlAllowOrigin?: Array<string> | undefined;
-    accessControlAllowHeaders?: Array<string> | undefined;
-    emitTokenMetrics: boolean;
-    description?: string | undefined;
-  };
+export type InputCloudflareHecSendToRoutesTrueConstraint$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<InputCloudflareHecAuthToken$Outbound> | undefined;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck?: any | undefined;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  hecAPI: string;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  allowedIndexes?: Array<string> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  accessControlAllowOrigin?: Array<string> | undefined;
+  accessControlAllowHeaders?: Array<string> | undefined;
+  emitTokenMetrics: boolean;
+  description?: string | undefined;
+};
 
 /** @internal */
-export const InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
+export const InputCloudflareHecSendToRoutesTrueConstraint$outboundSchema:
   z.ZodType<
-    InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint$Outbound,
+    InputCloudflareHecSendToRoutesTrueConstraint$Outbound,
     z.ZodTypeDef,
-    InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint
+    InputCloudflareHecSendToRoutesTrueConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
     id: z.string().optional(),
     type: InputCloudflareHecType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1205,6 +1205,8 @@ export const InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint$outboun
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     pq: PqType$outboundSchema.optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number(),
@@ -1234,27 +1236,29 @@ export const InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint$outboun
     description: z.string().optional(),
   });
 
-export function inputCloudflareHecSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputCloudflareHecSendToRoutesTrueWithConnectionsConstraint:
-    InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint,
+export function inputCloudflareHecSendToRoutesTrueConstraintToJSON(
+  inputCloudflareHecSendToRoutesTrueConstraint:
+    InputCloudflareHecSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-      .parse(inputCloudflareHecSendToRoutesTrueWithConnectionsConstraint),
+    InputCloudflareHecSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputCloudflareHecSendToRoutesTrueConstraint,
+    ),
   );
 }
-export function inputCloudflareHecSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputCloudflareHecSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint,
+  InputCloudflareHecSendToRoutesTrueConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputCloudflareHecSendToRoutesTrueConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputCloudflareHecSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -1264,20 +1268,18 @@ export const InputCloudflareHec$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() =>
-    InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-  ),
+  z.lazy(() => InputCloudflareHecSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputCloudflareHecPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputCloudflareHecPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputCloudflareHecPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputCloudflareHec$Outbound =
-  | InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputCloudflareHecSendToRoutesTrueConstraint$Outbound
   | InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputCloudflareHecPqEnabledFalseWithPqConstraint$Outbound
+  | InputCloudflareHecPqEnabledFalseConstraint$Outbound
   | InputCloudflareHecPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1286,13 +1288,11 @@ export const InputCloudflareHec$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputCloudflareHec
 > = z.union([
-  z.lazy(() =>
-    InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputCloudflareHecSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() => InputCloudflareHecPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputCloudflareHecPqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputCloudflareHecPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 

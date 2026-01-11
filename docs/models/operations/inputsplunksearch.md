@@ -3,82 +3,80 @@
 
 ## Supported Types
 
-### `operations.InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputSplunkSearchSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "splunk_search",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputSplunkSearchSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "splunk_search",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    search: "<value>",
-    endpointParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    endpointHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    logLevel: "error",
-    encoding: "<value>",
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    retryRules: {
-      codes: [
-        3836.07,
-      ],
+  ],
+  pq: {
+    pqControls: {},
+  },
+  search: "<value>",
+  endpointParams: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    breakerRulesets: [
-      "<value 1>",
-      "<value 2>",
+  ],
+  endpointHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  logLevel: "warn",
+  encoding: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  retryRules: {
+    codes: [
+      3836.07,
     ],
-    description: "bench pants rag aw unit even woot",
-    username: "Neha_Altenwerth",
-    password: "LYT8P2tmZIDFLeq",
-    token: "<value>",
-    credentialsSecret: "<value>",
-    textSecret: "<value>",
-    loginUrl: "https://dazzling-wriggler.net",
-    secretParamName: "<value>",
-    secret: "<value>",
-    tokenAttributeName: "<value>",
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    oauthHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  };
+  },
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  description: "righteously separately who",
+  username: "Mozelle.Blanda",
+  password: "NtoXCUASynGS27j",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://carefree-marksman.net",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
 ```
 
 ### `operations.InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint`
@@ -159,21 +157,16 @@ const value:
   };
 ```
 
-### `operations.InputSplunkSearchPqEnabledFalseWithPqConstraint`
+### `operations.InputSplunkSearchPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputSplunkSearchPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputSplunkSearchPqEnabledFalseConstraint = {
   id: "<id>",
   type: "splunk_search",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -181,6 +174,9 @@ const value: operations.InputSplunkSearchPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   search: "<value>",
   endpointParams: [
     {
@@ -194,7 +190,7 @@ const value: operations.InputSplunkSearchPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  logLevel: "info",
+  logLevel: "warn",
   encoding: "<value>",
   metadata: [
     {
@@ -209,16 +205,15 @@ const value: operations.InputSplunkSearchPqEnabledFalseWithPqConstraint = {
   },
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  description: "but orchestrate deduct scout save",
-  username: "Ezequiel_Gutkowski",
-  password: "edZG7yZl9biA3Hq",
+  description:
+    "patiently spotless pace beside abaft phew possession sustenance on versus",
+  username: "Hettie_Nader71",
+  password: "ABcG7gqHMjIPCv5",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://hopeful-fog.com",
+  loginUrl: "https://defensive-defendant.com/",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",

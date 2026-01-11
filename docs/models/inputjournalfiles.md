@@ -3,49 +3,46 @@
 
 ## Supported Types
 
-### `models.InputJournalFilesSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputJournalFilesSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputJournalFilesSendToRoutesTrueWithConnectionsConstraint =
-  {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "journal_files",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-    ],
-    pq: {
-      pqControls: {},
+const value: models.InputJournalFilesSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "journal_files",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    path: "/home",
-    journals: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    rules: [
-      {
-        filter: "<value>",
-        description:
-          "break mathematics finally version functional honored given shoulder",
-      },
-    ],
-    maxAgeDur: "<value>",
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "legging haversack treasure qua",
-  };
+  ],
+  pq: {
+    pqControls: {},
+  },
+  path: "/private/tmp",
+  journals: [
+    "<value 1>",
+  ],
+  rules: [
+    {
+      filter: "<value>",
+      description:
+        "break mathematics finally version functional honored given shoulder",
+    },
+  ],
+  maxAgeDur: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "via growing fooey utterly instead earth limply",
+};
 ```
 
 ### `models.InputJournalFilesSendToRoutesFalseWithConnectionsConstraint`
@@ -91,13 +88,10 @@ const value:
   };
 ```
 
-### `models.InputJournalFilesPqEnabledFalseWithPqConstraint`
+### `models.InputJournalFilesPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputJournalFilesPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputJournalFilesPqEnabledFalseConstraint = {
   id: "<id>",
   type: "journal_files",
   pipeline: "<value>",
@@ -105,6 +99,7 @@ const value: models.InputJournalFilesPqEnabledFalseWithPqConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -112,14 +107,17 @@ const value: models.InputJournalFilesPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  path: "/var/spool",
+  pq: {
+    pqControls: {},
+  },
+  path: "/mnt",
   journals: [
     "<value 1>",
   ],
   rules: [
     {
       filter: "<value>",
-      description: "premeditation giving apud rewarding offensively windy",
+      description: "unless into sweetly",
     },
   ],
   maxAgeDur: "<value>",
@@ -129,7 +127,7 @@ const value: models.InputJournalFilesPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "after papa psst in since boo massage blah marathon",
+  description: "rue troubled as tremendously nervously",
 };
 ```
 

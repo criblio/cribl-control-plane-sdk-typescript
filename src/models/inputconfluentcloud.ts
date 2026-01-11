@@ -14,11 +14,11 @@ import {
 } from "./authenticationtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -82,7 +82,7 @@ export type InputConfluentCloudPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
    */
@@ -189,12 +189,11 @@ export type InputConfluentCloudPqEnabledTrueWithPqConstraint = {
   description?: string | undefined;
 };
 
-export type InputConfluentCloudPqEnabledFalseWithPqConstraint = {
+export type InputConfluentCloudPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -220,7 +219,8 @@ export type InputConfluentCloudPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
    */
@@ -335,7 +335,7 @@ export type InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -465,15 +465,11 @@ export type InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint = {
   description?: string | undefined;
 };
 
-export type InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint = {
+export type InputConfluentCloudSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -496,6 +492,10 @@ export type InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
@@ -604,9 +604,9 @@ export type InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputConfluentCloud =
-  | InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint
+  | InputConfluentCloudSendToRoutesTrueConstraint
   | InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint
-  | InputConfluentCloudPqEnabledFalseWithPqConstraint
+  | InputConfluentCloudPqEnabledFalseConstraint
   | InputConfluentCloudPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -634,7 +634,7 @@ export const InputConfluentCloudPqEnabledTrueWithPqConstraint$inboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     brokers: z.array(z.string()),
     tls: TlsSettingsClientSideType1$inboundSchema.optional(),
     topics: z.array(z.string()),
@@ -673,7 +673,7 @@ export type InputConfluentCloudPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   brokers: Array<string>;
   tls?: TlsSettingsClientSideType1$Outbound | undefined;
   topics: Array<string>;
@@ -719,7 +719,8 @@ export const InputConfluentCloudPqEnabledTrueWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     brokers: z.array(z.string()),
     tls: TlsSettingsClientSideType1$outboundSchema.optional(),
     topics: z.array(z.string()),
@@ -775,14 +776,13 @@ export function inputConfluentCloudPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputConfluentCloudPqEnabledFalseWithPqConstraint$inboundSchema:
+export const InputConfluentCloudPqEnabledFalseConstraint$inboundSchema:
   z.ZodType<
-    InputConfluentCloudPqEnabledFalseWithPqConstraint,
+    InputConfluentCloudPqEnabledFalseConstraint,
     z.ZodTypeDef,
     unknown
   > = z.object({
     pqEnabled: z.boolean().default(false),
-    pq: PqType$inboundSchema.optional(),
     id: z.string().optional(),
     type: InputConfluentCloudType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -790,7 +790,8 @@ export const InputConfluentCloudPqEnabledFalseWithPqConstraint$inboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    pq: PqType$inboundSchema.optional(),
     brokers: z.array(z.string()),
     tls: TlsSettingsClientSideType1$inboundSchema.optional(),
     topics: z.array(z.string()),
@@ -819,9 +820,8 @@ export const InputConfluentCloudPqEnabledFalseWithPqConstraint$inboundSchema:
     description: z.string().optional(),
   });
 /** @internal */
-export type InputConfluentCloudPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputConfluentCloudPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -829,7 +829,8 @@ export type InputConfluentCloudPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
   tls?: TlsSettingsClientSideType1$Outbound | undefined;
   topics: Array<string>;
@@ -860,14 +861,13 @@ export type InputConfluentCloudPqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputConfluentCloudPqEnabledFalseWithPqConstraint$outboundSchema:
+export const InputConfluentCloudPqEnabledFalseConstraint$outboundSchema:
   z.ZodType<
-    InputConfluentCloudPqEnabledFalseWithPqConstraint$Outbound,
+    InputConfluentCloudPqEnabledFalseConstraint$Outbound,
     z.ZodTypeDef,
-    InputConfluentCloudPqEnabledFalseWithPqConstraint
+    InputConfluentCloudPqEnabledFalseConstraint
   > = z.object({
     pqEnabled: z.boolean().default(false),
-    pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputConfluentCloudType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -875,7 +875,9 @@ export const InputConfluentCloudPqEnabledFalseWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: PqType$outboundSchema.optional(),
     brokers: z.array(z.string()),
     tls: TlsSettingsClientSideType1$outboundSchema.optional(),
     topics: z.array(z.string()),
@@ -904,29 +906,29 @@ export const InputConfluentCloudPqEnabledFalseWithPqConstraint$outboundSchema:
     description: z.string().optional(),
   });
 
-export function inputConfluentCloudPqEnabledFalseWithPqConstraintToJSON(
-  inputConfluentCloudPqEnabledFalseWithPqConstraint:
-    InputConfluentCloudPqEnabledFalseWithPqConstraint,
+export function inputConfluentCloudPqEnabledFalseConstraintToJSON(
+  inputConfluentCloudPqEnabledFalseConstraint:
+    InputConfluentCloudPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputConfluentCloudPqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputConfluentCloudPqEnabledFalseWithPqConstraint,
+    InputConfluentCloudPqEnabledFalseConstraint$outboundSchema.parse(
+      inputConfluentCloudPqEnabledFalseConstraint,
     ),
   );
 }
-export function inputConfluentCloudPqEnabledFalseWithPqConstraintFromJSON(
+export function inputConfluentCloudPqEnabledFalseConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputConfluentCloudPqEnabledFalseWithPqConstraint,
+  InputConfluentCloudPqEnabledFalseConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputConfluentCloudPqEnabledFalseWithPqConstraint$inboundSchema.parse(
+      InputConfluentCloudPqEnabledFalseConstraint$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputConfluentCloudPqEnabledFalseWithPqConstraint' from JSON`,
+    `Failed to parse 'InputConfluentCloudPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -938,7 +940,7 @@ export const InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint$inbou
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputConfluentCloudType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -978,7 +980,7 @@ export const InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint$inbou
 export type InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint$Outbound =
   {
     sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
     id?: string | undefined;
     type: string;
     disabled: boolean;
@@ -1024,7 +1026,8 @@ export const InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint$outbo
     InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputConfluentCloudType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1086,14 +1089,13 @@ export function inputConfluentCloudSendToRoutesFalseWithConnectionsConstraintFro
 }
 
 /** @internal */
-export const InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
+export const InputConfluentCloudSendToRoutesTrueConstraint$inboundSchema:
   z.ZodType<
-    InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint,
+    InputConfluentCloudSendToRoutesTrueConstraint,
     z.ZodTypeDef,
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputConfluentCloudType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -1101,6 +1103,7 @@ export const InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$inboun
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     pq: PqType$inboundSchema.optional(),
     brokers: z.array(z.string()),
     tls: TlsSettingsClientSideType1$inboundSchema.optional(),
@@ -1130,56 +1133,54 @@ export const InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$inboun
     description: z.string().optional(),
   });
 /** @internal */
-export type InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$Outbound =
-  {
-    sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-    id?: string | undefined;
-    type: string;
-    disabled: boolean;
-    pipeline?: string | undefined;
-    environment?: string | undefined;
-    pqEnabled: boolean;
-    streamtags?: Array<string> | undefined;
-    pq?: PqType$Outbound | undefined;
-    brokers: Array<string>;
-    tls?: TlsSettingsClientSideType1$Outbound | undefined;
-    topics: Array<string>;
-    groupId: string;
-    fromBeginning: boolean;
-    kafkaSchemaRegistry?:
-      | KafkaSchemaRegistryAuthenticationType$Outbound
-      | undefined;
-    connectionTimeout: number;
-    requestTimeout: number;
-    maxRetries: number;
-    maxBackOff: number;
-    initialBackoff: number;
-    backoffRate: number;
-    authenticationTimeout: number;
-    reauthenticationThreshold: number;
-    sasl?: AuthenticationType$Outbound | undefined;
-    sessionTimeout: number;
-    rebalanceTimeout: number;
-    heartbeatInterval: number;
-    autoCommitInterval?: number | undefined;
-    autoCommitThreshold?: number | undefined;
-    maxBytesPerPartition: number;
-    maxBytes: number;
-    maxSocketErrors: number;
-    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-    description?: string | undefined;
-  };
+export type InputConfluentCloudSendToRoutesTrueConstraint$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  brokers: Array<string>;
+  tls?: TlsSettingsClientSideType1$Outbound | undefined;
+  topics: Array<string>;
+  groupId: string;
+  fromBeginning: boolean;
+  kafkaSchemaRegistry?:
+    | KafkaSchemaRegistryAuthenticationType$Outbound
+    | undefined;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  maxBackOff: number;
+  initialBackoff: number;
+  backoffRate: number;
+  authenticationTimeout: number;
+  reauthenticationThreshold: number;
+  sasl?: AuthenticationType$Outbound | undefined;
+  sessionTimeout: number;
+  rebalanceTimeout: number;
+  heartbeatInterval: number;
+  autoCommitInterval?: number | undefined;
+  autoCommitThreshold?: number | undefined;
+  maxBytesPerPartition: number;
+  maxBytes: number;
+  maxSocketErrors: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
 
 /** @internal */
-export const InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
+export const InputConfluentCloudSendToRoutesTrueConstraint$outboundSchema:
   z.ZodType<
-    InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$Outbound,
+    InputConfluentCloudSendToRoutesTrueConstraint$Outbound,
     z.ZodTypeDef,
-    InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint
+    InputConfluentCloudSendToRoutesTrueConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
     id: z.string().optional(),
     type: InputConfluentCloudType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1187,6 +1188,8 @@ export const InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$outbou
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     pq: PqType$outboundSchema.optional(),
     brokers: z.array(z.string()),
     tls: TlsSettingsClientSideType1$outboundSchema.optional(),
@@ -1216,27 +1219,29 @@ export const InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$outbou
     description: z.string().optional(),
   });
 
-export function inputConfluentCloudSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputConfluentCloudSendToRoutesTrueWithConnectionsConstraint:
-    InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint,
+export function inputConfluentCloudSendToRoutesTrueConstraintToJSON(
+  inputConfluentCloudSendToRoutesTrueConstraint:
+    InputConfluentCloudSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-      .parse(inputConfluentCloudSendToRoutesTrueWithConnectionsConstraint),
+    InputConfluentCloudSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputConfluentCloudSendToRoutesTrueConstraint,
+    ),
   );
 }
-export function inputConfluentCloudSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputConfluentCloudSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint,
+  InputConfluentCloudSendToRoutesTrueConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputConfluentCloudSendToRoutesTrueConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputConfluentCloudSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -1246,20 +1251,18 @@ export const InputConfluentCloud$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() =>
-    InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-  ),
+  z.lazy(() => InputConfluentCloudSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputConfluentCloudPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputConfluentCloudPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputConfluentCloudPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputConfluentCloud$Outbound =
-  | InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputConfluentCloudSendToRoutesTrueConstraint$Outbound
   | InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputConfluentCloudPqEnabledFalseWithPqConstraint$Outbound
+  | InputConfluentCloudPqEnabledFalseConstraint$Outbound
   | InputConfluentCloudPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1268,15 +1271,11 @@ export const InputConfluentCloud$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputConfluentCloud
 > = z.union([
-  z.lazy(() =>
-    InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputConfluentCloudSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() =>
-    InputConfluentCloudPqEnabledFalseWithPqConstraint$outboundSchema
-  ),
+  z.lazy(() => InputConfluentCloudPqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputConfluentCloudPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 

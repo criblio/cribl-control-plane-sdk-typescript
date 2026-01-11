@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `models.InputCriblSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputCriblSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputCriblSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputCriblSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "cribl",
   pipeline: "<value>",
@@ -20,6 +14,12 @@ const value: models.InputCriblSendToRoutesTrueWithConnectionsConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
@@ -31,7 +31,8 @@ const value: models.InputCriblSendToRoutesTrueWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description: "notwithstanding doing treasure silent horse",
+  description:
+    "duh silk gently intently infamous fit pale as jubilantly modulo",
 };
 ```
 
@@ -66,13 +67,10 @@ const value: models.InputCriblSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputCriblPqEnabledFalseWithPqConstraint`
+### `models.InputCriblPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputCriblPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputCriblPqEnabledFalseConstraint = {
   id: "<id>",
   type: "cribl",
   pipeline: "<value>",
@@ -88,6 +86,9 @@ const value: models.InputCriblPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   filter: "<value>",
   metadata: [
     {
@@ -95,8 +96,7 @@ const value: models.InputCriblPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description:
-    "ick triumphantly beneath dime storyboard heavily supposing whereas",
+  description: "because spew downright satisfy dulcimer",
 };
 ```
 

@@ -3,55 +3,56 @@
 
 ## Supported Types
 
-### `operations.InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputOffice365ServiceSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "office365_service",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputOffice365ServiceSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "office365_service",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    tenantId: "<id>",
-    appId: "<id>",
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    contentConfig: [
-      {
-        contentType: "<value>",
-        description: "guilt absent indeed considerate",
-        interval: 2050.4,
-        logLevel: "warn",
-        enabled: true,
-      },
-    ],
-    retryRules: {
-      codes: [
-        6390.37,
-        2107.49,
-        2764.09,
-      ],
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tenantId: "<id>",
+  appId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    description: "when foretell brr excepting near hearten",
-    clientSecret: "<value>",
-    textSecret: "<value>",
-  };
+  ],
+  contentConfig: [
+    {
+      contentType: "<value>",
+      description: "guilt absent indeed considerate",
+      interval: 2050.4,
+      logLevel: "warn",
+      enabled: true,
+    },
+  ],
+  retryRules: {
+    codes: [
+      6390.37,
+      2107.49,
+      2764.09,
+    ],
+  },
+  description:
+    "phew fundraising viciously minor meadow huzzah warped arrogantly",
+  clientSecret: "<value>",
+  textSecret: "<value>",
+};
 ```
 
 ### `operations.InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint`
@@ -108,13 +109,10 @@ const value:
   };
 ```
 
-### `operations.InputOffice365ServicePqEnabledFalseWithPqConstraint`
+### `operations.InputOffice365ServicePqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputOffice365ServicePqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputOffice365ServicePqEnabledFalseConstraint = {
   id: "<id>",
   type: "office365_service",
   pipeline: "<value>",
@@ -129,6 +127,9 @@ const value: operations.InputOffice365ServicePqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   tenantId: "<id>",
   appId: "<id>",
   metadata: [
@@ -153,7 +154,7 @@ const value: operations.InputOffice365ServicePqEnabledFalseWithPqConstraint = {
       2764.09,
     ],
   },
-  description: "excepting jaggedly describe",
+  description: "scenario married oof dependency outnumber gracefully",
   clientSecret: "<value>",
   textSecret: "<value>",
 };

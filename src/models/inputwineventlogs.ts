@@ -9,11 +9,11 @@ import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -99,7 +99,7 @@ export type InputWinEventLogsPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
    */
@@ -143,12 +143,11 @@ export type InputWinEventLogsPqEnabledTrueWithPqConstraint = {
   disableXmlRendering?: boolean | undefined;
 };
 
-export type InputWinEventLogsPqEnabledFalseWithPqConstraint = {
+export type InputWinEventLogsPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -174,7 +173,8 @@ export type InputWinEventLogsPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
    */
@@ -226,7 +226,7 @@ export type InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -293,15 +293,11 @@ export type InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint = {
   disableXmlRendering?: boolean | undefined;
 };
 
-export type InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint = {
+export type InputWinEventLogsSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -324,6 +320,10 @@ export type InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
@@ -369,9 +369,9 @@ export type InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputWinEventLogs =
-  | InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint
+  | InputWinEventLogsSendToRoutesTrueConstraint
   | InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint
-  | InputWinEventLogsPqEnabledFalseWithPqConstraint
+  | InputWinEventLogsPqEnabledFalseConstraint
   | InputWinEventLogsPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -425,7 +425,7 @@ export const InputWinEventLogsPqEnabledTrueWithPqConstraint$inboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     logNames: z.array(z.string()),
     readMode: ReadMode$inboundSchema.default("newest"),
     eventFormat: EventFormat$inboundSchema.default("json"),
@@ -449,7 +449,7 @@ export type InputWinEventLogsPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   logNames: Array<string>;
   readMode: string;
   eventFormat: string;
@@ -479,7 +479,8 @@ export const InputWinEventLogsPqEnabledTrueWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     logNames: z.array(z.string()),
     readMode: ReadMode$outboundSchema.default("newest"),
     eventFormat: EventFormat$outboundSchema.default("json"),
@@ -520,38 +521,36 @@ export function inputWinEventLogsPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputWinEventLogsPqEnabledFalseWithPqConstraint$inboundSchema:
-  z.ZodType<
-    InputWinEventLogsPqEnabledFalseWithPqConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    pqEnabled: z.boolean().default(false),
-    pq: PqType$inboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputWinEventLogsType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    logNames: z.array(z.string()),
-    readMode: ReadMode$inboundSchema.default("newest"),
-    eventFormat: EventFormat$inboundSchema.default("json"),
-    disableNativeModule: z.boolean().default(false),
-    interval: z.number().default(10),
-    batchSize: z.number().default(500),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    maxEventBytes: z.number().default(51200),
-    description: z.string().optional(),
-    disableJsonRendering: z.boolean().default(false),
-    disableXmlRendering: z.boolean().default(true),
-  });
+export const InputWinEventLogsPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputWinEventLogsPqEnabledFalseConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputWinEventLogsType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  logNames: z.array(z.string()),
+  readMode: ReadMode$inboundSchema.default("newest"),
+  eventFormat: EventFormat$inboundSchema.default("json"),
+  disableNativeModule: z.boolean().default(false),
+  interval: z.number().default(10),
+  batchSize: z.number().default(500),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  maxEventBytes: z.number().default(51200),
+  description: z.string().optional(),
+  disableJsonRendering: z.boolean().default(false),
+  disableXmlRendering: z.boolean().default(true),
+});
 /** @internal */
-export type InputWinEventLogsPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputWinEventLogsPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -559,7 +558,8 @@ export type InputWinEventLogsPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   logNames: Array<string>;
   readMode: string;
   eventFormat: string;
@@ -574,14 +574,13 @@ export type InputWinEventLogsPqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputWinEventLogsPqEnabledFalseWithPqConstraint$outboundSchema:
+export const InputWinEventLogsPqEnabledFalseConstraint$outboundSchema:
   z.ZodType<
-    InputWinEventLogsPqEnabledFalseWithPqConstraint$Outbound,
+    InputWinEventLogsPqEnabledFalseConstraint$Outbound,
     z.ZodTypeDef,
-    InputWinEventLogsPqEnabledFalseWithPqConstraint
+    InputWinEventLogsPqEnabledFalseConstraint
   > = z.object({
     pqEnabled: z.boolean().default(false),
-    pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputWinEventLogsType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -589,7 +588,9 @@ export const InputWinEventLogsPqEnabledFalseWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: PqType$outboundSchema.optional(),
     logNames: z.array(z.string()),
     readMode: ReadMode$outboundSchema.default("newest"),
     eventFormat: EventFormat$outboundSchema.default("json"),
@@ -603,29 +604,29 @@ export const InputWinEventLogsPqEnabledFalseWithPqConstraint$outboundSchema:
     disableXmlRendering: z.boolean().default(true),
   });
 
-export function inputWinEventLogsPqEnabledFalseWithPqConstraintToJSON(
-  inputWinEventLogsPqEnabledFalseWithPqConstraint:
-    InputWinEventLogsPqEnabledFalseWithPqConstraint,
+export function inputWinEventLogsPqEnabledFalseConstraintToJSON(
+  inputWinEventLogsPqEnabledFalseConstraint:
+    InputWinEventLogsPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputWinEventLogsPqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputWinEventLogsPqEnabledFalseWithPqConstraint,
+    InputWinEventLogsPqEnabledFalseConstraint$outboundSchema.parse(
+      inputWinEventLogsPqEnabledFalseConstraint,
     ),
   );
 }
-export function inputWinEventLogsPqEnabledFalseWithPqConstraintFromJSON(
+export function inputWinEventLogsPqEnabledFalseConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputWinEventLogsPqEnabledFalseWithPqConstraint,
+  InputWinEventLogsPqEnabledFalseConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputWinEventLogsPqEnabledFalseWithPqConstraint$inboundSchema.parse(
+      InputWinEventLogsPqEnabledFalseConstraint$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputWinEventLogsPqEnabledFalseWithPqConstraint' from JSON`,
+    `Failed to parse 'InputWinEventLogsPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -637,7 +638,7 @@ export const InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint$inbound
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputWinEventLogsType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -662,7 +663,7 @@ export const InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint$inbound
 export type InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint$Outbound =
   {
     sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
     id?: string | undefined;
     type: string;
     disabled: boolean;
@@ -692,7 +693,8 @@ export const InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint$outboun
     InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputWinEventLogsType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -739,14 +741,13 @@ export function inputWinEventLogsSendToRoutesFalseWithConnectionsConstraintFromJ
 }
 
 /** @internal */
-export const InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
+export const InputWinEventLogsSendToRoutesTrueConstraint$inboundSchema:
   z.ZodType<
-    InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint,
+    InputWinEventLogsSendToRoutesTrueConstraint,
     z.ZodTypeDef,
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputWinEventLogsType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -754,6 +755,7 @@ export const InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint$inboundS
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     pq: PqType$inboundSchema.optional(),
     logNames: z.array(z.string()),
     readMode: ReadMode$inboundSchema.default("newest"),
@@ -768,40 +770,38 @@ export const InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint$inboundS
     disableXmlRendering: z.boolean().default(true),
   });
 /** @internal */
-export type InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint$Outbound =
-  {
-    sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-    id?: string | undefined;
-    type: string;
-    disabled: boolean;
-    pipeline?: string | undefined;
-    environment?: string | undefined;
-    pqEnabled: boolean;
-    streamtags?: Array<string> | undefined;
-    pq?: PqType$Outbound | undefined;
-    logNames: Array<string>;
-    readMode: string;
-    eventFormat: string;
-    disableNativeModule: boolean;
-    interval: number;
-    batchSize: number;
-    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-    maxEventBytes: number;
-    description?: string | undefined;
-    disableJsonRendering: boolean;
-    disableXmlRendering: boolean;
-  };
+export type InputWinEventLogsSendToRoutesTrueConstraint$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  logNames: Array<string>;
+  readMode: string;
+  eventFormat: string;
+  disableNativeModule: boolean;
+  interval: number;
+  batchSize: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  maxEventBytes: number;
+  description?: string | undefined;
+  disableJsonRendering: boolean;
+  disableXmlRendering: boolean;
+};
 
 /** @internal */
-export const InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
+export const InputWinEventLogsSendToRoutesTrueConstraint$outboundSchema:
   z.ZodType<
-    InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint$Outbound,
+    InputWinEventLogsSendToRoutesTrueConstraint$Outbound,
     z.ZodTypeDef,
-    InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint
+    InputWinEventLogsSendToRoutesTrueConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
     id: z.string().optional(),
     type: InputWinEventLogsType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -809,6 +809,8 @@ export const InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint$outbound
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     pq: PqType$outboundSchema.optional(),
     logNames: z.array(z.string()),
     readMode: ReadMode$outboundSchema.default("newest"),
@@ -823,27 +825,29 @@ export const InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint$outbound
     disableXmlRendering: z.boolean().default(true),
   });
 
-export function inputWinEventLogsSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputWinEventLogsSendToRoutesTrueWithConnectionsConstraint:
-    InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint,
+export function inputWinEventLogsSendToRoutesTrueConstraintToJSON(
+  inputWinEventLogsSendToRoutesTrueConstraint:
+    InputWinEventLogsSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-      .parse(inputWinEventLogsSendToRoutesTrueWithConnectionsConstraint),
+    InputWinEventLogsSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputWinEventLogsSendToRoutesTrueConstraint,
+    ),
   );
 }
-export function inputWinEventLogsSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputWinEventLogsSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint,
+  InputWinEventLogsSendToRoutesTrueConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputWinEventLogsSendToRoutesTrueConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputWinEventLogsSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -853,20 +857,18 @@ export const InputWinEventLogs$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() =>
-    InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-  ),
+  z.lazy(() => InputWinEventLogsSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputWinEventLogsPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputWinEventLogsPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputWinEventLogsPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputWinEventLogs$Outbound =
-  | InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputWinEventLogsSendToRoutesTrueConstraint$Outbound
   | InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputWinEventLogsPqEnabledFalseWithPqConstraint$Outbound
+  | InputWinEventLogsPqEnabledFalseConstraint$Outbound
   | InputWinEventLogsPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -875,13 +877,11 @@ export const InputWinEventLogs$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputWinEventLogs
 > = z.union([
-  z.lazy(() =>
-    InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputWinEventLogsSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() => InputWinEventLogsPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputWinEventLogsPqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputWinEventLogsPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 

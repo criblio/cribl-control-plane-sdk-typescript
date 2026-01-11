@@ -9,11 +9,11 @@ import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -223,7 +223,7 @@ export type InputWefPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -304,12 +304,11 @@ export type InputWefPqEnabledTrueWithPqConstraint = {
   logFingerprintMismatch?: boolean | undefined;
 };
 
-export type InputWefPqEnabledFalseWithPqConstraint = {
+export type InputWefPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -335,7 +334,8 @@ export type InputWefPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -424,7 +424,7 @@ export type InputWefSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -528,15 +528,11 @@ export type InputWefSendToRoutesFalseWithConnectionsConstraint = {
   logFingerprintMismatch?: boolean | undefined;
 };
 
-export type InputWefSendToRoutesTrueWithConnectionsConstraint = {
+export type InputWefSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -559,6 +555,10 @@ export type InputWefSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -641,9 +641,9 @@ export type InputWefSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputWef =
-  | InputWefSendToRoutesTrueWithConnectionsConstraint
+  | InputWefSendToRoutesTrueConstraint
   | InputWefSendToRoutesFalseWithConnectionsConstraint
-  | InputWefPqEnabledFalseWithPqConstraint
+  | InputWefPqEnabledFalseConstraint
   | InputWefPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -897,7 +897,7 @@ export const InputWefPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(5986),
   authMethod: InputWefAuthenticationMethod$inboundSchema.default("clientCert"),
@@ -931,7 +931,7 @@ export type InputWefPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   host: string;
   port: number;
   authMethod: string;
@@ -970,7 +970,7 @@ export const InputWefPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(5986),
   authMethod: InputWefAuthenticationMethod$outboundSchema.default("clientCert"),
@@ -1015,13 +1015,12 @@ export function inputWefPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputWefPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
-  InputWefPqEnabledFalseWithPqConstraint,
+export const InputWefPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputWefPqEnabledFalseConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
   pqEnabled: z.boolean().default(false),
-  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputWefType$inboundSchema,
   disabled: z.boolean().default(false),
@@ -1029,7 +1028,8 @@ export const InputWefPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(5986),
   authMethod: InputWefAuthenticationMethod$inboundSchema.default("clientCert"),
@@ -1053,9 +1053,8 @@ export const InputWefPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
   logFingerprintMismatch: z.boolean().default(false),
 });
 /** @internal */
-export type InputWefPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputWefPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1063,7 +1062,8 @@ export type InputWefPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   authMethod: string;
@@ -1088,13 +1088,12 @@ export type InputWefPqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputWefPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
-  InputWefPqEnabledFalseWithPqConstraint$Outbound,
+export const InputWefPqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputWefPqEnabledFalseConstraint$Outbound,
   z.ZodTypeDef,
-  InputWefPqEnabledFalseWithPqConstraint
+  InputWefPqEnabledFalseConstraint
 > = z.object({
   pqEnabled: z.boolean().default(false),
-  pq: PqType$outboundSchema.optional(),
   id: z.string().optional(),
   type: InputWefType$outboundSchema,
   disabled: z.boolean().default(false),
@@ -1102,7 +1101,8 @@ export const InputWefPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(5986),
   authMethod: InputWefAuthenticationMethod$outboundSchema.default("clientCert"),
@@ -1126,24 +1126,22 @@ export const InputWefPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
   logFingerprintMismatch: z.boolean().default(false),
 });
 
-export function inputWefPqEnabledFalseWithPqConstraintToJSON(
-  inputWefPqEnabledFalseWithPqConstraint:
-    InputWefPqEnabledFalseWithPqConstraint,
+export function inputWefPqEnabledFalseConstraintToJSON(
+  inputWefPqEnabledFalseConstraint: InputWefPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputWefPqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputWefPqEnabledFalseWithPqConstraint,
+    InputWefPqEnabledFalseConstraint$outboundSchema.parse(
+      inputWefPqEnabledFalseConstraint,
     ),
   );
 }
-export function inputWefPqEnabledFalseWithPqConstraintFromJSON(
+export function inputWefPqEnabledFalseConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputWefPqEnabledFalseWithPqConstraint, SDKValidationError> {
+): SafeParseResult<InputWefPqEnabledFalseConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      InputWefPqEnabledFalseWithPqConstraint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWefPqEnabledFalseWithPqConstraint' from JSON`,
+    (x) => InputWefPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -1155,7 +1153,7 @@ export const InputWefSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputWefType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -1191,7 +1189,7 @@ export const InputWefSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
 /** @internal */
 export type InputWefSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1231,7 +1229,8 @@ export const InputWefSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
     InputWefSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputWefType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1292,50 +1291,46 @@ export function inputWefSendToRoutesFalseWithConnectionsConstraintFromJSON(
 }
 
 /** @internal */
-export const InputWefSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputWefSendToRoutesTrueWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputWefType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number().default(5986),
-    authMethod: InputWefAuthenticationMethod$inboundSchema.default(
-      "clientCert",
-    ),
-    tls: z.lazy(() => MTLSSettings$inboundSchema).optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    keepAliveTimeout: z.number().default(90),
-    enableHealthCheck: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    socketTimeout: z.number().default(0),
-    caFingerprint: z.string().optional(),
-    keytab: z.string().optional(),
-    principal: z.string().optional(),
-    allowMachineIdMismatch: z.boolean().default(false),
-    subscriptions: z.array(z.lazy(() => Subscription$inboundSchema)),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    description: z.string().optional(),
-    logFingerprintMismatch: z.boolean().default(false),
-  });
+export const InputWefSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
+  InputWefSendToRoutesTrueConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputWefType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  authMethod: InputWefAuthenticationMethod$inboundSchema.default("clientCert"),
+  tls: z.lazy(() => MTLSSettings$inboundSchema).optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string().optional(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription$inboundSchema)),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
 /** @internal */
-export type InputWefSendToRoutesTrueWithConnectionsConstraint$Outbound = {
+export type InputWefSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1343,6 +1338,7 @@ export type InputWefSendToRoutesTrueWithConnectionsConstraint$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -1368,70 +1364,61 @@ export type InputWefSendToRoutesTrueWithConnectionsConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputWefSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputWefSendToRoutesTrueWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputWefSendToRoutesTrueWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputWefType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number().default(5986),
-    authMethod: InputWefAuthenticationMethod$outboundSchema.default(
-      "clientCert",
-    ),
-    tls: z.lazy(() => MTLSSettings$outboundSchema).optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    keepAliveTimeout: z.number().default(90),
-    enableHealthCheck: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    socketTimeout: z.number().default(0),
-    caFingerprint: z.string().optional(),
-    keytab: z.string().optional(),
-    principal: z.string().optional(),
-    allowMachineIdMismatch: z.boolean().default(false),
-    subscriptions: z.array(z.lazy(() => Subscription$outboundSchema)),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-    logFingerprintMismatch: z.boolean().default(false),
-  });
+export const InputWefSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
+  InputWefSendToRoutesTrueConstraint$Outbound,
+  z.ZodTypeDef,
+  InputWefSendToRoutesTrueConstraint
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputWefType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  authMethod: InputWefAuthenticationMethod$outboundSchema.default("clientCert"),
+  tls: z.lazy(() => MTLSSettings$outboundSchema).optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string().optional(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription$outboundSchema)),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
 
-export function inputWefSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputWefSendToRoutesTrueWithConnectionsConstraint:
-    InputWefSendToRoutesTrueWithConnectionsConstraint,
+export function inputWefSendToRoutesTrueConstraintToJSON(
+  inputWefSendToRoutesTrueConstraint: InputWefSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputWefSendToRoutesTrueWithConnectionsConstraint$outboundSchema.parse(
-      inputWefSendToRoutesTrueWithConnectionsConstraint,
+    InputWefSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputWefSendToRoutesTrueConstraint,
     ),
   );
 }
-export function inputWefSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputWefSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<
-  InputWefSendToRoutesTrueWithConnectionsConstraint,
-  SDKValidationError
-> {
+): SafeParseResult<InputWefSendToRoutesTrueConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      InputWefSendToRoutesTrueWithConnectionsConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputWefSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputWefSendToRoutesTrueConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -1441,18 +1428,18 @@ export const InputWef$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => InputWefSendToRoutesTrueWithConnectionsConstraint$inboundSchema),
+  z.lazy(() => InputWefSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputWefSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputWefPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputWefPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputWefPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputWef$Outbound =
-  | InputWefSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputWefSendToRoutesTrueConstraint$Outbound
   | InputWefSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputWefPqEnabledFalseWithPqConstraint$Outbound
+  | InputWefPqEnabledFalseConstraint$Outbound
   | InputWefPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1461,13 +1448,11 @@ export const InputWef$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputWef
 > = z.union([
-  z.lazy(() =>
-    InputWefSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputWefSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputWefSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() => InputWefPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputWefPqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputWefPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 

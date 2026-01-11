@@ -3,27 +3,28 @@
 
 ## Supported Types
 
-### `models.InputCriblTcpSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputCriblTcpSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputCriblTcpSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputCriblTcpSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "cribl_tcp",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
-  port: 556.76,
+  port: 4270.71,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -45,8 +46,7 @@ const value: models.InputCriblTcpSendToRoutesTrueWithConnectionsConstraint = {
       description: "psst whoa zowie when waterspout",
     },
   ],
-  description:
-    "as axe supposing joshingly fill furthermore webbed aha poorly first",
+  description: "miskey partially although wilted portray misfire",
 };
 ```
 
@@ -97,21 +97,16 @@ const value: models.InputCriblTcpSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputCriblTcpPqEnabledFalseWithPqConstraint`
+### `models.InputCriblTcpPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputCriblTcpPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputCriblTcpPqEnabledFalseConstraint = {
   id: "<id>",
   type: "cribl_tcp",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -119,7 +114,10 @@ const value: models.InputCriblTcpPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 6246.55,
+  pq: {
+    pqControls: {},
+  },
+  port: 782.77,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -141,8 +139,7 @@ const value: models.InputCriblTcpPqEnabledFalseWithPqConstraint = {
       description: "psst whoa zowie when waterspout",
     },
   ],
-  description:
-    "vice spiteful after selfish towards openly cash valiantly noxious across",
+  description: "giant ha amid hm",
 };
 ```
 

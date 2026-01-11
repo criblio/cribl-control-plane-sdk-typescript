@@ -3,35 +3,34 @@
 
 ## Supported Types
 
-### `models.InputNetflowSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputNetflowSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputNetflowSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputNetflowSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "netflow",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
-  udpSocketRxBufSize: 2123.13,
+  udpSocketRxBufSize: 217.48,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "coagulate colour redesign lively modulo though",
+  description: "upright eyeglasses nor but busy",
 };
 ```
 
@@ -68,13 +67,10 @@ const value: models.InputNetflowSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputNetflowPqEnabledFalseWithPqConstraint`
+### `models.InputNetflowPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputNetflowPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputNetflowPqEnabledFalseConstraint = {
   id: "<id>",
   type: "netflow",
   pipeline: "<value>",
@@ -90,15 +86,17 @@ const value: models.InputNetflowPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  udpSocketRxBufSize: 7360.29,
+  pq: {
+    pqControls: {},
+  },
+  udpSocketRxBufSize: 3674.55,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "pine even inveigle house sandy though valuable within preclude ha",
+  description: "radiant unlike exaggerate hmph unless",
 };
 ```
 

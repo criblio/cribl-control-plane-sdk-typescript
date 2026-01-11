@@ -3,59 +3,62 @@
 
 ## Supported Types
 
-### `operations.InputS3InventorySendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputS3InventorySendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputS3InventorySendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "s3_inventory",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputS3InventorySendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "s3_inventory",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    queueName: "<value>",
-    awsAccountId: "<id>",
-    awsSecretKey: "<value>",
-    region: "<value>",
-    endpoint: "<value>",
-    breakerRulesets: [
+  ],
+  pq: {
+    pqControls: {},
+  },
+  queueName: "<value>",
+  awsAccountId: "<id>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  preprocess: {
+    command: "<value>",
+    args: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
-    assumeRoleArn: "<value>",
-    assumeRoleExternalId: "<id>",
-    preprocess: {
-      command: "<value>",
-      args: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    checkpointing: {},
-    description: "viability undergo whenever shampoo deceivingly serve",
-    awsApiKey: "<value>",
-    awsSecret: "<value>",
-    tagAfterProcessing: "true",
-    processedTagKey: "<value>",
-    processedTagValue: "<value>",
-  };
+  ],
+  checkpointing: {},
+  description: "satisfy coaxingly utterly",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  tagAfterProcessing: "false",
+  processedTagKey: "<value>",
+  processedTagValue: "<value>",
+};
 ```
 
 ### `operations.InputS3InventorySendToRoutesFalseWithConnectionsConstraint`
@@ -118,13 +121,10 @@ const value:
   };
 ```
 
-### `operations.InputS3InventoryPqEnabledFalseWithPqConstraint`
+### `operations.InputS3InventoryPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputS3InventoryPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputS3InventoryPqEnabledFalseConstraint = {
   id: "<id>",
   type: "s3_inventory",
   pipeline: "<value>",
@@ -132,6 +132,7 @@ const value: operations.InputS3InventoryPqEnabledFalseWithPqConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -139,6 +140,9 @@ const value: operations.InputS3InventoryPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   queueName: "<value>",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
@@ -165,10 +169,10 @@ const value: operations.InputS3InventoryPqEnabledFalseWithPqConstraint = {
     },
   ],
   checkpointing: {},
-  description: "sugary tenderly meanwhile",
+  description: "courageously drat hm aw whose including yet deep feather",
   awsApiKey: "<value>",
   awsSecret: "<value>",
-  tagAfterProcessing: "false",
+  tagAfterProcessing: "true",
   processedTagKey: "<value>",
   processedTagValue: "<value>",
 };

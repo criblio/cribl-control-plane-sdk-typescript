@@ -3,52 +3,51 @@
 
 ## Supported Types
 
-### `operations.InputCriblTcpSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputCriblTcpSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputCriblTcpSendToRoutesTrueWithConnectionsConstraint =
-  {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "cribl_tcp",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputCriblTcpSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "cribl_tcp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    port: 556.76,
-    tls: {
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 4270.71,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    authTokens: [
-      {
-        tokenSecret: "<value>",
-        description: "psst whoa zowie when waterspout",
-      },
-    ],
-    description:
-      "as axe supposing joshingly fill furthermore webbed aha poorly first",
-  };
+  ],
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      description: "psst whoa zowie when waterspout",
+    },
+  ],
+  description: "miskey partially although wilted portray misfire",
+};
 ```
 
 ### `operations.InputCriblTcpSendToRoutesFalseWithConnectionsConstraint`
@@ -99,21 +98,16 @@ const value:
   };
 ```
 
-### `operations.InputCriblTcpPqEnabledFalseWithPqConstraint`
+### `operations.InputCriblTcpPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputCriblTcpPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputCriblTcpPqEnabledFalseConstraint = {
   id: "<id>",
   type: "cribl_tcp",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -121,7 +115,10 @@ const value: operations.InputCriblTcpPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 6246.55,
+  pq: {
+    pqControls: {},
+  },
+  port: 782.77,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -143,8 +140,7 @@ const value: operations.InputCriblTcpPqEnabledFalseWithPqConstraint = {
       description: "psst whoa zowie when waterspout",
     },
   ],
-  description:
-    "vice spiteful after selfish towards openly cash valiantly noxious across",
+  description: "giant ha amid hm",
 };
 ```
 

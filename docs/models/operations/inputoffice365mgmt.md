@@ -3,56 +3,56 @@
 
 ## Supported Types
 
-### `operations.InputOffice365MgmtSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputOffice365MgmtSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputOffice365MgmtSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "office365_mgmt",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputOffice365MgmtSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "office365_mgmt",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    tenantId: "<id>",
-    appId: "<id>",
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    publisherIdentifier: "<value>",
-    contentConfig: [
-      {
-        contentType: "<value>",
-        description: "indeed whoever meanwhile beret",
-        interval: 261.22,
-        logLevel: "error",
-        enabled: false,
-      },
-    ],
-    retryRules: {
-      codes: [
-        6390.37,
-        2107.49,
-        2764.09,
-      ],
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tenantId: "<id>",
+  appId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    description: "geez progress pro over",
-    clientSecret: "<value>",
-    textSecret: "<value>",
-  };
+  ],
+  publisherIdentifier: "<value>",
+  contentConfig: [
+    {
+      contentType: "<value>",
+      description: "indeed whoever meanwhile beret",
+      interval: 261.22,
+      logLevel: "error",
+      enabled: false,
+    },
+  ],
+  retryRules: {
+    codes: [
+      6390.37,
+      2107.49,
+      2764.09,
+    ],
+  },
+  description: "uh-huh stranger norm since till",
+  clientSecret: "<value>",
+  textSecret: "<value>",
+};
 ```
 
 ### `operations.InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint`
@@ -109,19 +109,17 @@ const value:
   };
 ```
 
-### `operations.InputOffice365MgmtPqEnabledFalseWithPqConstraint`
+### `operations.InputOffice365MgmtPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputOffice365MgmtPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputOffice365MgmtPqEnabledFalseConstraint = {
   id: "<id>",
   type: "office365_mgmt",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -129,6 +127,9 @@ const value: operations.InputOffice365MgmtPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   tenantId: "<id>",
   appId: "<id>",
   metadata: [
@@ -154,7 +155,8 @@ const value: operations.InputOffice365MgmtPqEnabledFalseWithPqConstraint = {
       2764.09,
     ],
   },
-  description: "smart on phooey twine",
+  description:
+    "enhance admired flowery weird attraction tectonics overspend wombat ecliptic",
   clientSecret: "<value>",
   textSecret: "<value>",
 };

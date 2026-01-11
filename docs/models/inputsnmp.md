@@ -3,23 +3,22 @@
 
 ## Supported Types
 
-### `models.InputSnmpSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputSnmpSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputSnmpSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputSnmpSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "snmp",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
@@ -39,8 +38,9 @@ const value: models.InputSnmpSendToRoutesTrueWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 1474.84,
-  description: "inside knottily within vicinity that mixed skyscraper mmm numb",
+  udpSocketRxBufSize: 8518.06,
+  description:
+    "if instead carelessly till ick hmph happy-go-lucky educated but whenever",
 };
 ```
 
@@ -86,20 +86,16 @@ const value: models.InputSnmpSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputSnmpPqEnabledFalseWithPqConstraint`
+### `models.InputSnmpPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputSnmpPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputSnmpPqEnabledFalseConstraint = {
   id: "<id>",
   type: "snmp",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -107,6 +103,9 @@ const value: models.InputSnmpPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   snmpV3Auth: {
     v3Users: [
       {
@@ -122,9 +121,8 @@ const value: models.InputSnmpPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 4105.88,
-  description:
-    "thread graffiti blindly faraway angrily since buzzing valuable fill",
+  udpSocketRxBufSize: 1010.99,
+  description: "broadly ew abnormally boulevard uproot wallaby piglet",
 };
 ```
 

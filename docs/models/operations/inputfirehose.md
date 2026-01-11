@@ -3,51 +3,51 @@
 
 ## Supported Types
 
-### `operations.InputFirehoseSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputFirehoseSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputFirehoseSendToRoutesTrueWithConnectionsConstraint =
-  {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "firehose",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputFirehoseSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "firehose",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    port: 7411.22,
-    authTokens: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    tls: {
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 2278,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "lined french doorpost metal youthfully subdued grok",
-  };
+  ],
+  description: "whoever arrogantly all whoa meanwhile ugh crooked",
+};
 ```
 
 ### `operations.InputFirehoseSendToRoutesFalseWithConnectionsConstraint`
@@ -98,21 +98,16 @@ const value:
   };
 ```
 
-### `operations.InputFirehosePqEnabledFalseWithPqConstraint`
+### `operations.InputFirehosePqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputFirehosePqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputFirehosePqEnabledFalseConstraint = {
   id: "<id>",
   type: "firehose",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -120,9 +115,14 @@ const value: operations.InputFirehosePqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 9686.05,
+  pq: {
+    pqControls: {},
+  },
+  port: 9080.29,
   authTokens: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -139,7 +139,7 @@ const value: operations.InputFirehosePqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "wobbly knavishly annually volunteer mesh since yahoo",
+  description: "tough eggplant jealously injunction fairly",
 };
 ```
 

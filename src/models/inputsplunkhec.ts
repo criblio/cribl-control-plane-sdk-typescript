@@ -13,11 +13,11 @@ import {
 } from "./authenticationmethodoptionsauthtokensitems.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -101,7 +101,7 @@ export type InputSplunkHecPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -207,12 +207,11 @@ export type InputSplunkHecPqEnabledTrueWithPqConstraint = {
   description?: string | undefined;
 };
 
-export type InputSplunkHecPqEnabledFalseWithPqConstraint = {
+export type InputSplunkHecPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -238,7 +237,8 @@ export type InputSplunkHecPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -352,7 +352,7 @@ export type InputSplunkHecSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -481,15 +481,11 @@ export type InputSplunkHecSendToRoutesFalseWithConnectionsConstraint = {
   description?: string | undefined;
 };
 
-export type InputSplunkHecSendToRoutesTrueWithConnectionsConstraint = {
+export type InputSplunkHecSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -512,6 +508,10 @@ export type InputSplunkHecSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -619,9 +619,9 @@ export type InputSplunkHecSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputSplunkHec =
-  | InputSplunkHecSendToRoutesTrueWithConnectionsConstraint
+  | InputSplunkHecSendToRoutesTrueConstraint
   | InputSplunkHecSendToRoutesFalseWithConnectionsConstraint
-  | InputSplunkHecPqEnabledFalseWithPqConstraint
+  | InputSplunkHecPqEnabledFalseConstraint
   | InputSplunkHecPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -710,7 +710,7 @@ export const InputSplunkHecPqEnabledTrueWithPqConstraint$inboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number(),
     authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$inboundSchema))
@@ -752,7 +752,7 @@ export type InputSplunkHecPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   host: string;
   port: number;
   authTokens?: Array<InputSplunkHecAuthToken$Outbound> | undefined;
@@ -799,7 +799,8 @@ export const InputSplunkHecPqEnabledTrueWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number(),
     authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$outboundSchema))
@@ -858,56 +859,54 @@ export function inputSplunkHecPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputSplunkHecPqEnabledFalseWithPqConstraint$inboundSchema:
-  z.ZodType<
-    InputSplunkHecPqEnabledFalseWithPqConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    pqEnabled: z.boolean().default(false),
-    pq: PqType$inboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputSplunkHecType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number(),
-    authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$inboundSchema))
-      .optional(),
-    tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    activityLogSampleRate: z.number().default(100),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(5),
-    enableHealthCheck: z.any().optional(),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    splunkHecAPI: z.string().default("/services/collector"),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    allowedIndexes: z.array(z.string()).optional(),
-    splunkHecAcks: z.boolean().default(false),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    useFwdTimezone: z.boolean().default(true),
-    dropControlFields: z.boolean().default(true),
-    extractMetrics: z.boolean().default(false),
-    accessControlAllowOrigin: z.array(z.string()).optional(),
-    accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().default(false),
-    description: z.string().optional(),
-  });
+export const InputSplunkHecPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputSplunkHecPqEnabledFalseConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSplunkHecType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$inboundSchema))
+    .optional(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.any().optional(),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  allowedIndexes: z.array(z.string()).optional(),
+  splunkHecAcks: z.boolean().default(false),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  useFwdTimezone: z.boolean().default(true),
+  dropControlFields: z.boolean().default(true),
+  extractMetrics: z.boolean().default(false),
+  accessControlAllowOrigin: z.array(z.string()).optional(),
+  accessControlAllowHeaders: z.array(z.string()).optional(),
+  emitTokenMetrics: z.boolean().default(false),
+  description: z.string().optional(),
+});
 /** @internal */
-export type InputSplunkHecPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputSplunkHecPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -915,7 +914,8 @@ export type InputSplunkHecPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<InputSplunkHecAuthToken$Outbound> | undefined;
@@ -947,76 +947,70 @@ export type InputSplunkHecPqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputSplunkHecPqEnabledFalseWithPqConstraint$outboundSchema:
-  z.ZodType<
-    InputSplunkHecPqEnabledFalseWithPqConstraint$Outbound,
-    z.ZodTypeDef,
-    InputSplunkHecPqEnabledFalseWithPqConstraint
-  > = z.object({
-    pqEnabled: z.boolean().default(false),
-    pq: PqType$outboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputSplunkHecType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number(),
-    authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$outboundSchema))
-      .optional(),
-    tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    activityLogSampleRate: z.number().default(100),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(5),
-    enableHealthCheck: z.any().optional(),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    splunkHecAPI: z.string().default("/services/collector"),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    allowedIndexes: z.array(z.string()).optional(),
-    splunkHecAcks: z.boolean().default(false),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    useFwdTimezone: z.boolean().default(true),
-    dropControlFields: z.boolean().default(true),
-    extractMetrics: z.boolean().default(false),
-    accessControlAllowOrigin: z.array(z.string()).optional(),
-    accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().default(false),
-    description: z.string().optional(),
-  });
+export const InputSplunkHecPqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputSplunkHecPqEnabledFalseConstraint$Outbound,
+  z.ZodTypeDef,
+  InputSplunkHecPqEnabledFalseConstraint
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSplunkHecType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$outboundSchema))
+    .optional(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.any().optional(),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  allowedIndexes: z.array(z.string()).optional(),
+  splunkHecAcks: z.boolean().default(false),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  useFwdTimezone: z.boolean().default(true),
+  dropControlFields: z.boolean().default(true),
+  extractMetrics: z.boolean().default(false),
+  accessControlAllowOrigin: z.array(z.string()).optional(),
+  accessControlAllowHeaders: z.array(z.string()).optional(),
+  emitTokenMetrics: z.boolean().default(false),
+  description: z.string().optional(),
+});
 
-export function inputSplunkHecPqEnabledFalseWithPqConstraintToJSON(
-  inputSplunkHecPqEnabledFalseWithPqConstraint:
-    InputSplunkHecPqEnabledFalseWithPqConstraint,
+export function inputSplunkHecPqEnabledFalseConstraintToJSON(
+  inputSplunkHecPqEnabledFalseConstraint:
+    InputSplunkHecPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputSplunkHecPqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputSplunkHecPqEnabledFalseWithPqConstraint,
+    InputSplunkHecPqEnabledFalseConstraint$outboundSchema.parse(
+      inputSplunkHecPqEnabledFalseConstraint,
     ),
   );
 }
-export function inputSplunkHecPqEnabledFalseWithPqConstraintFromJSON(
+export function inputSplunkHecPqEnabledFalseConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<
-  InputSplunkHecPqEnabledFalseWithPqConstraint,
-  SDKValidationError
-> {
+): SafeParseResult<InputSplunkHecPqEnabledFalseConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      InputSplunkHecPqEnabledFalseWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputSplunkHecPqEnabledFalseWithPqConstraint' from JSON`,
+      InputSplunkHecPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkHecPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -1028,7 +1022,7 @@ export const InputSplunkHecSendToRoutesFalseWithConnectionsConstraint$inboundSch
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputSplunkHecType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -1071,7 +1065,7 @@ export const InputSplunkHecSendToRoutesFalseWithConnectionsConstraint$inboundSch
 export type InputSplunkHecSendToRoutesFalseWithConnectionsConstraint$Outbound =
   {
     sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
     id?: string | undefined;
     type: string;
     disabled: boolean;
@@ -1118,7 +1112,8 @@ export const InputSplunkHecSendToRoutesFalseWithConnectionsConstraint$outboundSc
     InputSplunkHecSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputSplunkHecType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1183,56 +1178,54 @@ export function inputSplunkHecSendToRoutesFalseWithConnectionsConstraintFromJSON
 }
 
 /** @internal */
-export const InputSplunkHecSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputSplunkHecSendToRoutesTrueWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputSplunkHecType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number(),
-    authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$inboundSchema))
-      .optional(),
-    tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    activityLogSampleRate: z.number().default(100),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(5),
-    enableHealthCheck: z.any().optional(),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    splunkHecAPI: z.string().default("/services/collector"),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    allowedIndexes: z.array(z.string()).optional(),
-    splunkHecAcks: z.boolean().default(false),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    useFwdTimezone: z.boolean().default(true),
-    dropControlFields: z.boolean().default(true),
-    extractMetrics: z.boolean().default(false),
-    accessControlAllowOrigin: z.array(z.string()).optional(),
-    accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().default(false),
-    description: z.string().optional(),
-  });
+export const InputSplunkHecSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
+  InputSplunkHecSendToRoutesTrueConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSplunkHecType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$inboundSchema))
+    .optional(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.any().optional(),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  allowedIndexes: z.array(z.string()).optional(),
+  splunkHecAcks: z.boolean().default(false),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  useFwdTimezone: z.boolean().default(true),
+  dropControlFields: z.boolean().default(true),
+  extractMetrics: z.boolean().default(false),
+  accessControlAllowOrigin: z.array(z.string()).optional(),
+  accessControlAllowHeaders: z.array(z.string()).optional(),
+  emitTokenMetrics: z.boolean().default(false),
+  description: z.string().optional(),
+});
 /** @internal */
-export type InputSplunkHecSendToRoutesTrueWithConnectionsConstraint$Outbound = {
+export type InputSplunkHecSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1240,6 +1233,7 @@ export type InputSplunkHecSendToRoutesTrueWithConnectionsConstraint$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -1272,74 +1266,75 @@ export type InputSplunkHecSendToRoutesTrueWithConnectionsConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputSplunkHecSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputSplunkHecSendToRoutesTrueWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputSplunkHecSendToRoutesTrueWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputSplunkHecType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number(),
-    authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$outboundSchema))
-      .optional(),
-    tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    activityLogSampleRate: z.number().default(100),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(5),
-    enableHealthCheck: z.any().optional(),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    splunkHecAPI: z.string().default("/services/collector"),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    allowedIndexes: z.array(z.string()).optional(),
-    splunkHecAcks: z.boolean().default(false),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    useFwdTimezone: z.boolean().default(true),
-    dropControlFields: z.boolean().default(true),
-    extractMetrics: z.boolean().default(false),
-    accessControlAllowOrigin: z.array(z.string()).optional(),
-    accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().default(false),
-    description: z.string().optional(),
-  });
+export const InputSplunkHecSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
+  InputSplunkHecSendToRoutesTrueConstraint$Outbound,
+  z.ZodTypeDef,
+  InputSplunkHecSendToRoutesTrueConstraint
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSplunkHecType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$outboundSchema))
+    .optional(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.any().optional(),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  allowedIndexes: z.array(z.string()).optional(),
+  splunkHecAcks: z.boolean().default(false),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  useFwdTimezone: z.boolean().default(true),
+  dropControlFields: z.boolean().default(true),
+  extractMetrics: z.boolean().default(false),
+  accessControlAllowOrigin: z.array(z.string()).optional(),
+  accessControlAllowHeaders: z.array(z.string()).optional(),
+  emitTokenMetrics: z.boolean().default(false),
+  description: z.string().optional(),
+});
 
-export function inputSplunkHecSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputSplunkHecSendToRoutesTrueWithConnectionsConstraint:
-    InputSplunkHecSendToRoutesTrueWithConnectionsConstraint,
+export function inputSplunkHecSendToRoutesTrueConstraintToJSON(
+  inputSplunkHecSendToRoutesTrueConstraint:
+    InputSplunkHecSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputSplunkHecSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-      .parse(inputSplunkHecSendToRoutesTrueWithConnectionsConstraint),
+    InputSplunkHecSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputSplunkHecSendToRoutesTrueConstraint,
+    ),
   );
 }
-export function inputSplunkHecSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputSplunkHecSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputSplunkHecSendToRoutesTrueWithConnectionsConstraint,
+  InputSplunkHecSendToRoutesTrueConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputSplunkHecSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputSplunkHecSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputSplunkHecSendToRoutesTrueConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputSplunkHecSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -1349,20 +1344,18 @@ export const InputSplunkHec$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() =>
-    InputSplunkHecSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-  ),
+  z.lazy(() => InputSplunkHecSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputSplunkHecSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputSplunkHecPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputSplunkHecPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputSplunkHecPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputSplunkHec$Outbound =
-  | InputSplunkHecSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputSplunkHecSendToRoutesTrueConstraint$Outbound
   | InputSplunkHecSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputSplunkHecPqEnabledFalseWithPqConstraint$Outbound
+  | InputSplunkHecPqEnabledFalseConstraint$Outbound
   | InputSplunkHecPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1371,13 +1364,11 @@ export const InputSplunkHec$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSplunkHec
 > = z.union([
-  z.lazy(() =>
-    InputSplunkHecSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputSplunkHecSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputSplunkHecSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() => InputSplunkHecPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputSplunkHecPqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputSplunkHecPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 

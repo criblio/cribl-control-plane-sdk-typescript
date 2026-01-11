@@ -3,48 +3,48 @@
 
 ## Supported Types
 
-### `operations.InputMetricsSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputMetricsSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputMetricsSendToRoutesTrueWithConnectionsConstraint =
-  {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "metrics",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputMetricsSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    udpPort: 8754.54,
-    tcpPort: 5646.71,
-    tls: {
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  udpPort: 2418.45,
+  tcpPort: 5014.46,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    udpSocketRxBufSize: 3026.09,
-    description: "quarrelsomely concrete trek like athwart",
-  };
+  ],
+  udpSocketRxBufSize: 2670.63,
+  description: "um before dulcimer",
+};
 ```
 
 ### `operations.InputMetricsSendToRoutesFalseWithConnectionsConstraint`
@@ -91,13 +91,10 @@ const value: operations.InputMetricsSendToRoutesFalseWithConnectionsConstraint =
   };
 ```
 
-### `operations.InputMetricsPqEnabledFalseWithPqConstraint`
+### `operations.InputMetricsPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputMetricsPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputMetricsPqEnabledFalseConstraint = {
   id: "<id>",
   type: "metrics",
   pipeline: "<value>",
@@ -112,8 +109,11 @@ const value: operations.InputMetricsPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  udpPort: 3021.95,
-  tcpPort: 7645.06,
+  pq: {
+    pqControls: {},
+  },
+  udpPort: 1864.49,
+  tcpPort: 9651.91,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -129,8 +129,8 @@ const value: operations.InputMetricsPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 8688.38,
-  description: "regulate upward frilly disadvantage peppery",
+  udpSocketRxBufSize: 3318.13,
+  description: "chairperson seemingly er throughout the vanish",
 };
 ```
 

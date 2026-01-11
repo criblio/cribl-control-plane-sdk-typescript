@@ -3,45 +3,45 @@
 
 ## Supported Types
 
-### `operations.InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputModelDrivenTelemetrySendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint =
+const value: operations.InputModelDrivenTelemetrySendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "model_driven_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
     {
-      connections: [
-        {
-          pipeline: "<value>",
-          output: "<value>",
-        },
-      ],
-      id: "<id>",
-      type: "model_driven_telemetry",
       pipeline: "<value>",
-      environment: "<value>",
-      streamtags: [
-        "<value 1>",
-      ],
-      pq: {
-        pqControls: {},
-      },
-      tls: {
-        certificateName: "<value>",
-        privKeyPath: "<value>",
-        passphrase: "<value>",
-        certPath: "<value>",
-        caPath: "<value>",
-        minVersion: "TLSv1",
-        maxVersion: "TLSv1.2",
-      },
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      description: "below close afore honored profane idle reel oof",
-    };
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "safely gigantic deliberately outbid free finally before",
+};
 ```
 
 ### `operations.InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint`
@@ -86,46 +86,45 @@ const value:
     };
 ```
 
-### `operations.InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint`
+### `operations.InputModelDrivenTelemetryPqEnabledFalseConstraint`
 
 ```typescript
-const value:
-  operations.InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint = {
-    pq: {
-      pqControls: {},
+const value: operations.InputModelDrivenTelemetryPqEnabledFalseConstraint = {
+  id: "<id>",
+  type: "model_driven_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    id: "<id>",
-    type: "model_driven_telemetry",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    tls: {
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "round anxiously ferociously slink industrialize down",
-  };
+  ],
+  description: "sham when phooey wildly less norm but vision quietly deprave",
+};
 ```
 
 ### `operations.InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint`

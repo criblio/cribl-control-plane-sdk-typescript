@@ -3,75 +3,74 @@
 
 ## Supported Types
 
-### `models.InputCriblLakeHttpSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputCriblLakeHttpSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  models.InputCriblLakeHttpSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "cribl_lake_http",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      pqControls: {},
+const value: models.InputCriblLakeHttpSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "cribl_lake_http",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    port: 2404.83,
-    authTokens: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    tls: {
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 2932.11,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    authTokensExt: [
-      {
-        token: "<value>",
-        description: "across fooey judgementally cork",
-        metadata: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
+  ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description: "across fooey judgementally cork",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      splunkHecMetadata: {
+        enabled: false,
+        defaultDataset: "<value>",
+        allowedIndexesAtToken: [
+          "<value 1>",
+          "<value 2>",
         ],
-        splunkHecMetadata: {
-          enabled: false,
-          defaultDataset: "<value>",
-          allowedIndexesAtToken: [
-            "<value 1>",
-            "<value 2>",
-          ],
-        },
-        elasticsearchMetadata: {
-          enabled: false,
-          defaultDataset: "<value>",
-        },
       },
-    ],
-    description: "ugh near um sushi lest following scamper",
-  };
+      elasticsearchMetadata: {
+        enabled: false,
+        defaultDataset: "<value>",
+      },
+    },
+  ],
+  description: "a longingly snack colorize cruel bah overconfidently",
+};
 ```
 
 ### `models.InputCriblLakeHttpSendToRoutesFalseWithConnectionsConstraint`
@@ -143,19 +142,17 @@ const value:
   };
 ```
 
-### `models.InputCriblLakeHttpPqEnabledFalseWithPqConstraint`
+### `models.InputCriblLakeHttpPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputCriblLakeHttpPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputCriblLakeHttpPqEnabledFalseConstraint = {
   id: "<id>",
   type: "cribl_lake_http",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -163,10 +160,14 @@ const value: models.InputCriblLakeHttpPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 5873.47,
+  pq: {
+    pqControls: {},
+  },
+  port: 3056.24,
   authTokens: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -207,7 +208,7 @@ const value: models.InputCriblLakeHttpPqEnabledFalseWithPqConstraint = {
       },
     },
   ],
-  description: "exactly inasmuch whoever ha gee pace limited",
+  description: "dearest uh-huh near ruddy even amidst round if reproach",
 };
 ```
 

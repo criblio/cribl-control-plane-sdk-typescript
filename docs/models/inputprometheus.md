@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `models.InputPrometheusSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputPrometheusSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputPrometheusSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputPrometheusSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "prometheus",
   pipeline: "<value>",
@@ -20,7 +14,12 @@ const value: models.InputPrometheusSendToRoutesTrueWithConnectionsConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
@@ -28,7 +27,6 @@ const value: models.InputPrometheusSendToRoutesTrueWithConnectionsConstraint = {
   dimensionList: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   metadata: [
     {
@@ -36,12 +34,16 @@ const value: models.InputPrometheusSendToRoutesTrueWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description: "gradient forenenst gah",
+  description: "pish stealthily spirit continually boohoo",
   targetList: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   nameList: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   awsApiKey: "<value>",
   awsSecret: "<value>",
@@ -59,8 +61,8 @@ const value: models.InputPrometheusSendToRoutesTrueWithConnectionsConstraint = {
   endpoint: "<value>",
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  username: "Alfredo25",
-  password: "zWc98Z0dQa5N1KN",
+  username: "Brad42",
+  password: "wOjcUeVYpA646ri",
   credentialsSecret: "<value>",
 };
 ```
@@ -131,13 +133,10 @@ const value: models.InputPrometheusSendToRoutesFalseWithConnectionsConstraint =
   };
 ```
 
-### `models.InputPrometheusPqEnabledFalseWithPqConstraint`
+### `models.InputPrometheusPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputPrometheusPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputPrometheusPqEnabledFalseConstraint = {
   id: "<id>",
   type: "prometheus",
   pipeline: "<value>",
@@ -153,6 +152,9 @@ const value: models.InputPrometheusPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   dimensionList: [
     "<value 1>",
     "<value 2>",
@@ -163,12 +165,15 @@ const value: models.InputPrometheusPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "ha nor badly bid",
+  description: "boo till mostly",
   targetList: [
     "<value 1>",
+    "<value 2>",
   ],
   nameList: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   awsApiKey: "<value>",
   awsSecret: "<value>",
@@ -186,8 +191,8 @@ const value: models.InputPrometheusPqEnabledFalseWithPqConstraint = {
   endpoint: "<value>",
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  username: "Pierce.Senger",
-  password: "sQBnNLxowK4o5D2",
+  username: "Modesto96",
+  password: "SArc6M7JotrIlkB",
   credentialsSecret: "<value>",
 };
 ```

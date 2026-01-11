@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `models.InputKafkaSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputKafkaSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputKafkaSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputKafkaSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "kafka",
   pipeline: "<value>",
@@ -20,14 +14,18 @@ const value: models.InputKafkaSendToRoutesTrueWithConnectionsConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
   brokers: [
     "<value 1>",
-    "<value 2>",
   ],
   topics: [],
   kafkaSchemaRegistry: {
@@ -78,15 +76,16 @@ const value: models.InputKafkaSendToRoutesTrueWithConnectionsConstraint = {
     minVersion: "TLSv1.2",
     maxVersion: "TLSv1.3",
   },
-  autoCommitInterval: 6804.26,
-  autoCommitThreshold: 2759.04,
+  autoCommitInterval: 8080.24,
+  autoCommitThreshold: 9973.87,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "profitable ripe wherever husband atop",
+  description:
+    "ack upwardly judicious unfortunately voluntarily foretell question t-shirt",
 };
 ```
 
@@ -180,13 +179,10 @@ const value: models.InputKafkaSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputKafkaPqEnabledFalseWithPqConstraint`
+### `models.InputKafkaPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputKafkaPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputKafkaPqEnabledFalseConstraint = {
   id: "<id>",
   type: "kafka",
   pipeline: "<value>",
@@ -201,8 +197,18 @@ const value: models.InputKafkaPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  brokers: [],
-  topics: [],
+  pq: {
+    pqControls: {},
+  },
+  brokers: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  topics: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
   kafkaSchemaRegistry: {
     auth: {
       credentialsSecret: "<value>",
@@ -251,16 +257,15 @@ const value: models.InputKafkaPqEnabledFalseWithPqConstraint = {
     minVersion: "TLSv1.2",
     maxVersion: "TLSv1.3",
   },
-  autoCommitInterval: 3663.46,
-  autoCommitThreshold: 6185.98,
+  autoCommitInterval: 3169.13,
+  autoCommitThreshold: 9403.47,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "across tarragon forenenst hm anxiously furlough failing aboard indeed fledgling",
+  description: "remand detain taut among nervous when",
 };
 ```
 

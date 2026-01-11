@@ -8,11 +8,11 @@ import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -70,7 +70,7 @@ export type InputDatagenPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   samples: Array<Sample>;
   /**
    * Fields to add to events from this input
@@ -79,12 +79,11 @@ export type InputDatagenPqEnabledTrueWithPqConstraint = {
   description?: string | undefined;
 };
 
-export type InputDatagenPqEnabledFalseWithPqConstraint = {
+export type InputDatagenPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -110,7 +109,8 @@ export type InputDatagenPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   samples: Array<Sample>;
   /**
    * Fields to add to events from this input
@@ -127,7 +127,7 @@ export type InputDatagenSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -159,15 +159,11 @@ export type InputDatagenSendToRoutesFalseWithConnectionsConstraint = {
   description?: string | undefined;
 };
 
-export type InputDatagenSendToRoutesTrueWithConnectionsConstraint = {
+export type InputDatagenSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -190,6 +186,10 @@ export type InputDatagenSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   samples: Array<Sample>;
   /**
@@ -200,9 +200,9 @@ export type InputDatagenSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputDatagen =
-  | InputDatagenSendToRoutesTrueWithConnectionsConstraint
+  | InputDatagenSendToRoutesTrueConstraint
   | InputDatagenSendToRoutesFalseWithConnectionsConstraint
-  | InputDatagenPqEnabledFalseWithPqConstraint
+  | InputDatagenPqEnabledFalseConstraint
   | InputDatagenPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -264,7 +264,7 @@ export const InputDatagenPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   samples: z.array(z.lazy(() => Sample$inboundSchema)),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
@@ -280,7 +280,7 @@ export type InputDatagenPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   samples: Array<Sample$Outbound>;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
@@ -302,7 +302,8 @@ export const InputDatagenPqEnabledTrueWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     samples: z.array(z.lazy(() => Sample$outboundSchema)),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     description: z.string().optional(),
@@ -335,27 +336,28 @@ export function inputDatagenPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputDatagenPqEnabledFalseWithPqConstraint$inboundSchema:
-  z.ZodType<InputDatagenPqEnabledFalseWithPqConstraint, z.ZodTypeDef, unknown> =
-    z.object({
-      pqEnabled: z.boolean().default(false),
-      pq: PqType$inboundSchema.optional(),
-      id: z.string().optional(),
-      type: InputDatagenType$inboundSchema,
-      disabled: z.boolean().default(false),
-      pipeline: z.string().optional(),
-      sendToRoutes: z.boolean().default(true),
-      environment: z.string().optional(),
-      streamtags: z.array(z.string()).optional(),
-      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-      samples: z.array(z.lazy(() => Sample$inboundSchema)),
-      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-      description: z.string().optional(),
-    });
+export const InputDatagenPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputDatagenPqEnabledFalseConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputDatagenType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  samples: z.array(z.lazy(() => Sample$inboundSchema)),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+});
 /** @internal */
-export type InputDatagenPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputDatagenPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -363,57 +365,51 @@ export type InputDatagenPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   samples: Array<Sample$Outbound>;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputDatagenPqEnabledFalseWithPqConstraint$outboundSchema:
-  z.ZodType<
-    InputDatagenPqEnabledFalseWithPqConstraint$Outbound,
-    z.ZodTypeDef,
-    InputDatagenPqEnabledFalseWithPqConstraint
-  > = z.object({
-    pqEnabled: z.boolean().default(false),
-    pq: PqType$outboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputDatagenType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    samples: z.array(z.lazy(() => Sample$outboundSchema)),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-  });
+export const InputDatagenPqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputDatagenPqEnabledFalseConstraint$Outbound,
+  z.ZodTypeDef,
+  InputDatagenPqEnabledFalseConstraint
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputDatagenType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  samples: z.array(z.lazy(() => Sample$outboundSchema)),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+});
 
-export function inputDatagenPqEnabledFalseWithPqConstraintToJSON(
-  inputDatagenPqEnabledFalseWithPqConstraint:
-    InputDatagenPqEnabledFalseWithPqConstraint,
+export function inputDatagenPqEnabledFalseConstraintToJSON(
+  inputDatagenPqEnabledFalseConstraint: InputDatagenPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputDatagenPqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputDatagenPqEnabledFalseWithPqConstraint,
+    InputDatagenPqEnabledFalseConstraint$outboundSchema.parse(
+      inputDatagenPqEnabledFalseConstraint,
     ),
   );
 }
-export function inputDatagenPqEnabledFalseWithPqConstraintFromJSON(
+export function inputDatagenPqEnabledFalseConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<
-  InputDatagenPqEnabledFalseWithPqConstraint,
-  SDKValidationError
-> {
+): SafeParseResult<InputDatagenPqEnabledFalseConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      InputDatagenPqEnabledFalseWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputDatagenPqEnabledFalseWithPqConstraint' from JSON`,
+      InputDatagenPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputDatagenPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -425,7 +421,7 @@ export const InputDatagenSendToRoutesFalseWithConnectionsConstraint$inboundSchem
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputDatagenType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -441,7 +437,7 @@ export const InputDatagenSendToRoutesFalseWithConnectionsConstraint$inboundSchem
 /** @internal */
 export type InputDatagenSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -463,7 +459,8 @@ export const InputDatagenSendToRoutesFalseWithConnectionsConstraint$outboundSche
     InputDatagenSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputDatagenType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -503,30 +500,28 @@ export function inputDatagenSendToRoutesFalseWithConnectionsConstraintFromJSON(
 }
 
 /** @internal */
-export const InputDatagenSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputDatagenSendToRoutesTrueWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputDatagenType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    samples: z.array(z.lazy(() => Sample$inboundSchema)),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    description: z.string().optional(),
-  });
+export const InputDatagenSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
+  InputDatagenSendToRoutesTrueConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputDatagenType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  samples: z.array(z.lazy(() => Sample$inboundSchema)),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+});
 /** @internal */
-export type InputDatagenSendToRoutesTrueWithConnectionsConstraint$Outbound = {
+export type InputDatagenSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -534,6 +529,7 @@ export type InputDatagenSendToRoutesTrueWithConnectionsConstraint$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   samples: Array<Sample$Outbound>;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
@@ -541,50 +537,44 @@ export type InputDatagenSendToRoutesTrueWithConnectionsConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputDatagenSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputDatagenSendToRoutesTrueWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputDatagenSendToRoutesTrueWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputDatagenType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    samples: z.array(z.lazy(() => Sample$outboundSchema)),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-  });
+export const InputDatagenSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
+  InputDatagenSendToRoutesTrueConstraint$Outbound,
+  z.ZodTypeDef,
+  InputDatagenSendToRoutesTrueConstraint
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputDatagenType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  samples: z.array(z.lazy(() => Sample$outboundSchema)),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+});
 
-export function inputDatagenSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputDatagenSendToRoutesTrueWithConnectionsConstraint:
-    InputDatagenSendToRoutesTrueWithConnectionsConstraint,
+export function inputDatagenSendToRoutesTrueConstraintToJSON(
+  inputDatagenSendToRoutesTrueConstraint:
+    InputDatagenSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputDatagenSendToRoutesTrueWithConnectionsConstraint$outboundSchema.parse(
-      inputDatagenSendToRoutesTrueWithConnectionsConstraint,
+    InputDatagenSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputDatagenSendToRoutesTrueConstraint,
     ),
   );
 }
-export function inputDatagenSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputDatagenSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<
-  InputDatagenSendToRoutesTrueWithConnectionsConstraint,
-  SDKValidationError
-> {
+): SafeParseResult<InputDatagenSendToRoutesTrueConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      InputDatagenSendToRoutesTrueWithConnectionsConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputDatagenSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputDatagenSendToRoutesTrueConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputDatagenSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -594,20 +584,18 @@ export const InputDatagen$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() =>
-    InputDatagenSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-  ),
+  z.lazy(() => InputDatagenSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputDatagenSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputDatagenPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputDatagenPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputDatagenPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputDatagen$Outbound =
-  | InputDatagenSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputDatagenSendToRoutesTrueConstraint$Outbound
   | InputDatagenSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputDatagenPqEnabledFalseWithPqConstraint$Outbound
+  | InputDatagenPqEnabledFalseConstraint$Outbound
   | InputDatagenPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -616,13 +604,11 @@ export const InputDatagen$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputDatagen
 > = z.union([
-  z.lazy(() =>
-    InputDatagenSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputDatagenSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputDatagenSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() => InputDatagenPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputDatagenPqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputDatagenPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 

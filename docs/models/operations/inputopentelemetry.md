@@ -3,70 +3,68 @@
 
 ## Supported Types
 
-### `operations.InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputOpenTelemetrySendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "open_telemetry",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputOpenTelemetrySendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    tls: {
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    enableProxyHeader: "<value>",
-    captureHeaders: "<value>",
-    activityLogSampleRate: "<value>",
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "generously or until who angrily",
-    username: "Raymundo.Lynch",
-    password: "1Ao7ePdvalsZHN9",
-    token: "<value>",
-    credentialsSecret: "<value>",
-    textSecret: "<value>",
-    loginUrl: "https://zany-ocelot.biz/",
-    secretParamName: "<value>",
-    secret: "<value>",
-    tokenAttributeName: "<value>",
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    oauthHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  };
+  ],
+  description:
+    "ugh dream carp consequently ripe terraform astride woeful but catalog",
+  username: "Marcellus.Marvin62",
+  password: "8dmyF3epuKm4cQI",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://frivolous-king.com/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
 ```
 
 ### `operations.InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint`
@@ -134,13 +132,10 @@ const value:
   };
 ```
 
-### `operations.InputOpenTelemetryPqEnabledFalseWithPqConstraint`
+### `operations.InputOpenTelemetryPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputOpenTelemetryPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputOpenTelemetryPqEnabledFalseConstraint = {
   id: "<id>",
   type: "open_telemetry",
   pipeline: "<value>",
@@ -148,6 +143,7 @@ const value: operations.InputOpenTelemetryPqEnabledFalseWithPqConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -155,6 +151,9 @@ const value: operations.InputOpenTelemetryPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -174,13 +173,13 @@ const value: operations.InputOpenTelemetryPqEnabledFalseWithPqConstraint = {
     },
   ],
   description:
-    "obedience bravely mill officially pish disarm omelet memorable not",
-  username: "Vincent_Botsford",
-  password: "niz775aej3k5Rk_",
+    "pillbox reconstitute while minus but utter next oof alliance yet",
+  username: "Osvaldo_Nolan-Stamm86",
+  password: "BGhD3InqvzUNTjc",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://stable-submitter.org/",
+  loginUrl: "https://big-makeover.org/",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",

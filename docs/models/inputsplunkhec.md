@@ -3,29 +3,27 @@
 
 ## Supported Types
 
-### `models.InputSplunkHecSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputSplunkHecSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputSplunkHecSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputSplunkHecSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "splunk_hec",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
-  port: 6918.82,
+  port: 8774.69,
   authTokens: [
     {
       tokenSecret: "<value>",
@@ -62,8 +60,6 @@ const value: models.InputSplunkHecSendToRoutesTrueWithConnectionsConstraint = {
   ],
   allowedIndexes: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   breakerRulesets: [
     "<value 1>",
@@ -73,11 +69,12 @@ const value: models.InputSplunkHecSendToRoutesTrueWithConnectionsConstraint = {
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
   ],
-  description: "quietly yahoo flat",
+  description: "anti uh-huh rapidly",
 };
 ```
 
@@ -160,13 +157,10 @@ const value: models.InputSplunkHecSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputSplunkHecPqEnabledFalseWithPqConstraint`
+### `models.InputSplunkHecPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputSplunkHecPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputSplunkHecPqEnabledFalseConstraint = {
   id: "<id>",
   type: "splunk_hec",
   pipeline: "<value>",
@@ -182,7 +176,10 @@ const value: models.InputSplunkHecPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 8970.91,
+  pq: {
+    pqControls: {},
+  },
+  port: 2191.44,
   authTokens: [
     {
       tokenSecret: "<value>",
@@ -224,17 +221,15 @@ const value: models.InputSplunkHecPqEnabledFalseWithPqConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
   accessControlAllowOrigin: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
-    "<value 2>",
   ],
-  description: "grave ape dream brief bouncy to",
+  description: "footrest quicker interestingly overcharge",
 };
 ```
 

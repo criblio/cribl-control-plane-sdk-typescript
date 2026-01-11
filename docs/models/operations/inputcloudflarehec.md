@@ -3,80 +3,83 @@
 
 ## Supported Types
 
-### `operations.InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputCloudflareHecSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "cloudflare_hec",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputCloudflareHecSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "cloudflare_hec",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    port: 5570.43,
-    authTokens: [
-      {
-        tokenSecret: "<value>",
-        token: "<value>",
-        description: "depute that armoire",
-        allowedIndexesAtToken: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-        metadata: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
-        ],
-      },
-    ],
-    tls: {
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 663.81,
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      token: "<value>",
+      description: "depute that armoire",
+      allowedIndexesAtToken: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
     },
-    enableHealthCheck: "<value>",
-    hecAPI: "<value>",
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    allowedIndexes: [
-      "<value 1>",
-    ],
-    breakerRulesets: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    accessControlAllowOrigin: [
-      "<value 1>",
-    ],
-    accessControlAllowHeaders: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    description: "tensely flood poetry",
-  };
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableHealthCheck: "<value>",
+  hecAPI: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedIndexes: [
+    "<value 1>",
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  accessControlAllowOrigin: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  accessControlAllowHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  description: "gummy carefree however fairly eek lazy although",
+};
 ```
 
 ### `operations.InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint`
@@ -159,19 +162,18 @@ const value:
   };
 ```
 
-### `operations.InputCloudflareHecPqEnabledFalseWithPqConstraint`
+### `operations.InputCloudflareHecPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputCloudflareHecPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputCloudflareHecPqEnabledFalseConstraint = {
   id: "<id>",
   type: "cloudflare_hec",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -179,7 +181,10 @@ const value: operations.InputCloudflareHecPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 6269.95,
+  pq: {
+    pqControls: {},
+  },
+  port: 3246.78,
   authTokens: [
     {
       tokenSecret: "<value>",
@@ -218,7 +223,6 @@ const value: operations.InputCloudflareHecPqEnabledFalseWithPqConstraint = {
   allowedIndexes: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   breakerRulesets: [
     "<value 1>",
@@ -226,12 +230,13 @@ const value: operations.InputCloudflareHecPqEnabledFalseWithPqConstraint = {
   ],
   accessControlAllowOrigin: [
     "<value 1>",
+    "<value 2>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
   ],
-  description: "devoted sting incomparable",
+  description: "onto where gosh finally after zowie pip",
 };
 ```
 

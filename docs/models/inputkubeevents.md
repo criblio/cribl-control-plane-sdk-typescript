@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `models.InputKubeEventsSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputKubeEventsSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputKubeEventsSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputKubeEventsSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "kube_events",
   pipeline: "<value>",
@@ -21,6 +15,12 @@ const value: models.InputKubeEventsSendToRoutesTrueWithConnectionsConstraint = {
     "<value 1>",
     "<value 2>",
     "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
@@ -38,7 +38,8 @@ const value: models.InputKubeEventsSendToRoutesTrueWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description: "improbable whether eek soliloquy yuck psst when but",
+  description:
+    "towards unnaturally electric although whether politely punctual",
 };
 ```
 
@@ -81,13 +82,10 @@ const value: models.InputKubeEventsSendToRoutesFalseWithConnectionsConstraint =
   };
 ```
 
-### `models.InputKubeEventsPqEnabledFalseWithPqConstraint`
+### `models.InputKubeEventsPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputKubeEventsPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputKubeEventsPqEnabledFalseConstraint = {
   id: "<id>",
   type: "kube_events",
   pipeline: "<value>",
@@ -102,6 +100,9 @@ const value: models.InputKubeEventsPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   rules: [
     {
       filter: "<value>",
@@ -115,7 +116,8 @@ const value: models.InputKubeEventsPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "or which alb ouch eek",
+  description:
+    "usher doing exhausted soft whenever lotion wherever round technologist dead",
 };
 ```
 

@@ -8,11 +8,11 @@ import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -70,7 +70,7 @@ export type InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -95,12 +95,11 @@ export type InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint = {
   description?: string | undefined;
 };
 
-export type InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint = {
+export type InputModelDrivenTelemetryPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -126,7 +125,8 @@ export type InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -160,7 +160,7 @@ export type InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint 
     /**
      * Direct connections to Destinations, and optionally via a Pipeline or a Pack
      */
-    connections?: Array<ItemsTypeConnections> | undefined;
+    connections?: Array<ItemsTypeConnectionsOptional> | undefined;
     /**
      * Unique ID for this input
      */
@@ -208,67 +208,66 @@ export type InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint 
     description?: string | undefined;
   };
 
-export type InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint =
-  {
-    /**
-     * Select whether to send data to Routes, or directly to Destinations.
-     */
-    sendToRoutes?: boolean | undefined;
-    /**
-     * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-     */
-    connections?: Array<ItemsTypeConnections> | undefined;
-    /**
-     * Unique ID for this input
-     */
-    id?: string | undefined;
-    type: InputModelDrivenTelemetryType;
-    disabled?: boolean | undefined;
-    /**
-     * Pipeline to process data from this Source before sending it through the Routes
-     */
-    pipeline?: string | undefined;
-    /**
-     * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-     */
-    environment?: string | undefined;
-    /**
-     * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-     */
-    pqEnabled?: boolean | undefined;
-    /**
-     * Tags for filtering and grouping in @{product}
-     */
-    streamtags?: Array<string> | undefined;
-    pq?: PqType | undefined;
-    /**
-     * Address to bind on. Defaults to 0.0.0.0 (all addresses).
-     */
-    host?: string | undefined;
-    /**
-     * Port to listen on
-     */
-    port?: number | undefined;
-    tls?: TlsSettingsServerSideType | undefined;
-    /**
-     * Fields to add to events from this input
-     */
-    metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-    /**
-     * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-     */
-    maxActiveCxn?: number | undefined;
-    /**
-     * Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
-     */
-    shutdownTimeoutMs?: number | undefined;
-    description?: string | undefined;
-  };
+export type InputModelDrivenTelemetrySendToRoutesTrueConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputModelDrivenTelemetryType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
+   */
+  shutdownTimeoutMs?: number | undefined;
+  description?: string | undefined;
+};
 
 export type InputModelDrivenTelemetry =
-  | InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint
+  | InputModelDrivenTelemetrySendToRoutesTrueConstraint
   | InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint
-  | InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint
+  | InputModelDrivenTelemetryPqEnabledFalseConstraint
   | InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -296,7 +295,7 @@ export const InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint$inboundSchem
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number().default(57000),
     tls: TlsSettingsServerSideType$inboundSchema.optional(),
@@ -316,7 +315,7 @@ export type InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
@@ -342,7 +341,8 @@ export const InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint$outboundSche
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number().default(57000),
     tls: TlsSettingsServerSideType$outboundSchema.optional(),
@@ -378,14 +378,13 @@ export function inputModelDrivenTelemetryPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint$inboundSchema:
+export const InputModelDrivenTelemetryPqEnabledFalseConstraint$inboundSchema:
   z.ZodType<
-    InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint,
+    InputModelDrivenTelemetryPqEnabledFalseConstraint,
     z.ZodTypeDef,
     unknown
   > = z.object({
     pqEnabled: z.boolean().default(false),
-    pq: PqType$inboundSchema.optional(),
     id: z.string().optional(),
     type: InputModelDrivenTelemetryType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -393,7 +392,8 @@ export const InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint$inboundSche
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    pq: PqType$inboundSchema.optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number().default(57000),
     tls: TlsSettingsServerSideType$inboundSchema.optional(),
@@ -403,9 +403,8 @@ export const InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint$inboundSche
     description: z.string().optional(),
   });
 /** @internal */
-export type InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputModelDrivenTelemetryPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -413,7 +412,8 @@ export type InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
@@ -424,14 +424,13 @@ export type InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint$outboundSchema:
+export const InputModelDrivenTelemetryPqEnabledFalseConstraint$outboundSchema:
   z.ZodType<
-    InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint$Outbound,
+    InputModelDrivenTelemetryPqEnabledFalseConstraint$Outbound,
     z.ZodTypeDef,
-    InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint
+    InputModelDrivenTelemetryPqEnabledFalseConstraint
   > = z.object({
     pqEnabled: z.boolean().default(false),
-    pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputModelDrivenTelemetryType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -439,7 +438,9 @@ export const InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint$outboundSch
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: PqType$outboundSchema.optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number().default(57000),
     tls: TlsSettingsServerSideType$outboundSchema.optional(),
@@ -449,27 +450,29 @@ export const InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint$outboundSch
     description: z.string().optional(),
   });
 
-export function inputModelDrivenTelemetryPqEnabledFalseWithPqConstraintToJSON(
-  inputModelDrivenTelemetryPqEnabledFalseWithPqConstraint:
-    InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint,
+export function inputModelDrivenTelemetryPqEnabledFalseConstraintToJSON(
+  inputModelDrivenTelemetryPqEnabledFalseConstraint:
+    InputModelDrivenTelemetryPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint$outboundSchema
-      .parse(inputModelDrivenTelemetryPqEnabledFalseWithPqConstraint),
+    InputModelDrivenTelemetryPqEnabledFalseConstraint$outboundSchema.parse(
+      inputModelDrivenTelemetryPqEnabledFalseConstraint,
+    ),
   );
 }
-export function inputModelDrivenTelemetryPqEnabledFalseWithPqConstraintFromJSON(
+export function inputModelDrivenTelemetryPqEnabledFalseConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint,
+  InputModelDrivenTelemetryPqEnabledFalseConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint' from JSON`,
+      InputModelDrivenTelemetryPqEnabledFalseConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputModelDrivenTelemetryPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -481,7 +484,7 @@ export const InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputModelDrivenTelemetryType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -502,7 +505,7 @@ export const InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint
 export type InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint$Outbound =
   {
     sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
     id?: string | undefined;
     type: string;
     disabled: boolean;
@@ -528,7 +531,8 @@ export const InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint
     InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputModelDrivenTelemetryType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -573,14 +577,13 @@ export function inputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstra
 }
 
 /** @internal */
-export const InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint$inboundSchema:
+export const InputModelDrivenTelemetrySendToRoutesTrueConstraint$inboundSchema:
   z.ZodType<
-    InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint,
+    InputModelDrivenTelemetrySendToRoutesTrueConstraint,
     z.ZodTypeDef,
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputModelDrivenTelemetryType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -588,6 +591,7 @@ export const InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint$
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     pq: PqType$inboundSchema.optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number().default(57000),
@@ -598,36 +602,34 @@ export const InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint$
     description: z.string().optional(),
   });
 /** @internal */
-export type InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint$Outbound =
-  {
-    sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-    id?: string | undefined;
-    type: string;
-    disabled: boolean;
-    pipeline?: string | undefined;
-    environment?: string | undefined;
-    pqEnabled: boolean;
-    streamtags?: Array<string> | undefined;
-    pq?: PqType$Outbound | undefined;
-    host: string;
-    port: number;
-    tls?: TlsSettingsServerSideType$Outbound | undefined;
-    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-    maxActiveCxn: number;
-    shutdownTimeoutMs: number;
-    description?: string | undefined;
-  };
+export type InputModelDrivenTelemetrySendToRoutesTrueConstraint$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  maxActiveCxn: number;
+  shutdownTimeoutMs: number;
+  description?: string | undefined;
+};
 
 /** @internal */
-export const InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint$outboundSchema:
+export const InputModelDrivenTelemetrySendToRoutesTrueConstraint$outboundSchema:
   z.ZodType<
-    InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint$Outbound,
+    InputModelDrivenTelemetrySendToRoutesTrueConstraint$Outbound,
     z.ZodTypeDef,
-    InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint
+    InputModelDrivenTelemetrySendToRoutesTrueConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
     id: z.string().optional(),
     type: InputModelDrivenTelemetryType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -635,6 +637,8 @@ export const InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint$
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     pq: PqType$outboundSchema.optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number().default(57000),
@@ -645,29 +649,29 @@ export const InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint$
     description: z.string().optional(),
   });
 
-export function inputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint:
-    InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint,
+export function inputModelDrivenTelemetrySendToRoutesTrueConstraintToJSON(
+  inputModelDrivenTelemetrySendToRoutesTrueConstraint:
+    InputModelDrivenTelemetrySendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint$outboundSchema
-      .parse(
-        inputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint,
-      ),
+    InputModelDrivenTelemetrySendToRoutesTrueConstraint$outboundSchema.parse(
+      inputModelDrivenTelemetrySendToRoutesTrueConstraint,
+    ),
   );
 }
-export function inputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputModelDrivenTelemetrySendToRoutesTrueConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint,
+  InputModelDrivenTelemetrySendToRoutesTrueConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputModelDrivenTelemetrySendToRoutesTrueConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputModelDrivenTelemetrySendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -678,23 +682,21 @@ export const InputModelDrivenTelemetry$inboundSchema: z.ZodType<
   unknown
 > = z.union([
   z.lazy(() =>
-    InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint$inboundSchema
+    InputModelDrivenTelemetrySendToRoutesTrueConstraint$inboundSchema
   ),
   z.lazy(() =>
     InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() =>
-    InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint$inboundSchema
-  ),
+  z.lazy(() => InputModelDrivenTelemetryPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() =>
     InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint$inboundSchema
   ),
 ]);
 /** @internal */
 export type InputModelDrivenTelemetry$Outbound =
-  | InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputModelDrivenTelemetrySendToRoutesTrueConstraint$Outbound
   | InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint$Outbound
+  | InputModelDrivenTelemetryPqEnabledFalseConstraint$Outbound
   | InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -704,13 +706,13 @@ export const InputModelDrivenTelemetry$outboundSchema: z.ZodType<
   InputModelDrivenTelemetry
 > = z.union([
   z.lazy(() =>
-    InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint$outboundSchema
+    InputModelDrivenTelemetrySendToRoutesTrueConstraint$outboundSchema
   ),
   z.lazy(() =>
     InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
   z.lazy(() =>
-    InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint$outboundSchema
+    InputModelDrivenTelemetryPqEnabledFalseConstraint$outboundSchema
   ),
   z.lazy(() =>
     InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint$outboundSchema

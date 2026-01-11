@@ -3,28 +3,29 @@
 
 ## Supported Types
 
-### `operations.InputSqsSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputSqsSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputSqsSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: operations.InputSqsSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "sqs",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
   queueName: "<value>",
-  queueType: "standard",
+  queueType: "fifo",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
   region: "<value>",
@@ -37,7 +38,7 @@ const value: operations.InputSqsSendToRoutesTrueWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description: "before transparency pixellate easy feminize represent etch",
+  description: "larva ah what excitable whether CD",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };
@@ -84,13 +85,10 @@ const value: operations.InputSqsSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `operations.InputSqsPqEnabledFalseWithPqConstraint`
+### `operations.InputSqsPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputSqsPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputSqsPqEnabledFalseConstraint = {
   id: "<id>",
   type: "sqs",
   pipeline: "<value>",
@@ -104,8 +102,11 @@ const value: operations.InputSqsPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   queueName: "<value>",
-  queueType: "standard",
+  queueType: "fifo",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
   region: "<value>",
@@ -118,7 +119,7 @@ const value: operations.InputSqsPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "measly draw even unbalance malfunction around at if",
+  description: "cautious digital ugh and across",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };

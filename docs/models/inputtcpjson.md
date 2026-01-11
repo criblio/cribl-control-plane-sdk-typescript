@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `models.InputTcpjsonSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputTcpjsonSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputTcpjsonSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputTcpjsonSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "tcpjson",
   pipeline: "<value>",
@@ -22,10 +16,16 @@ const value: models.InputTcpjsonSendToRoutesTrueWithConnectionsConstraint = {
     "<value 2>",
     "<value 3>",
   ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   pq: {
     pqControls: {},
   },
-  port: 8871.16,
+  port: 6544.98,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -41,7 +41,8 @@ const value: models.InputTcpjsonSendToRoutesTrueWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description: "if yahoo oof why onto knottily shovel unto across",
+  description:
+    "monthly habit concrete keenly beneficial indeed drat beautifully husky hence",
   textSecret: "<value>",
 };
 ```
@@ -90,19 +91,17 @@ const value: models.InputTcpjsonSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputTcpjsonPqEnabledFalseWithPqConstraint`
+### `models.InputTcpjsonPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputTcpjsonPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputTcpjsonPqEnabledFalseConstraint = {
   id: "<id>",
   type: "tcpjson",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -110,7 +109,10 @@ const value: models.InputTcpjsonPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 1572.61,
+  pq: {
+    pqControls: {},
+  },
+  port: 6746.41,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -126,7 +128,7 @@ const value: models.InputTcpjsonPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "staid so vice engage joyfully puny whenever edge",
+  description: "boom disarm accredit worth psst beyond through cassava dredger",
   textSecret: "<value>",
 };
 ```

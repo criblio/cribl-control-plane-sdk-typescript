@@ -3,48 +3,45 @@
 
 ## Supported Types
 
-### `models.InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputDatadogAgentSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint =
-  {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "datadog_agent",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      pqControls: {},
+const value: models.InputDatadogAgentSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "datadog_agent",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    port: 7341.73,
-    tls: {
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 544.04,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    proxyMode: {},
-    description: "where yahoo despite pfft forenenst",
-  };
+  ],
+  proxyMode: {},
+  description: "duh whose oh",
+};
 ```
 
 ### `models.InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint`
@@ -89,13 +86,10 @@ const value:
   };
 ```
 
-### `models.InputDatadogAgentPqEnabledFalseWithPqConstraint`
+### `models.InputDatadogAgentPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputDatadogAgentPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputDatadogAgentPqEnabledFalseConstraint = {
   id: "<id>",
   type: "datadog_agent",
   pipeline: "<value>",
@@ -103,7 +97,6 @@ const value: models.InputDatadogAgentPqEnabledFalseWithPqConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -111,7 +104,10 @@ const value: models.InputDatadogAgentPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 9301.71,
+  pq: {
+    pqControls: {},
+  },
+  port: 212.36,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -128,7 +124,7 @@ const value: models.InputDatadogAgentPqEnabledFalseWithPqConstraint = {
     },
   ],
   proxyMode: {},
-  description: "rigidly archive an gosh spirit for pish bitterly but usefully",
+  description: "reproachfully pantyhose scare oh unless how except",
 };
 ```
 

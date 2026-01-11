@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `models.InputExecSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputExecSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputExecSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputExecSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "exec",
   pipeline: "<value>",
@@ -20,12 +14,19 @@ const value: models.InputExecSendToRoutesTrueWithConnectionsConstraint = {
   streamtags: [
     "<value 1>",
   ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   pq: {
     pqControls: {},
   },
   command: "<value>",
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
   metadata: [
     {
@@ -33,7 +34,7 @@ const value: models.InputExecSendToRoutesTrueWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description: "safely hydrolyze creature",
+  description: "but drat what",
 };
 ```
 
@@ -73,19 +74,17 @@ const value: models.InputExecSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputExecPqEnabledFalseWithPqConstraint`
+### `models.InputExecPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputExecPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputExecPqEnabledFalseConstraint = {
   id: "<id>",
   type: "exec",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -93,11 +92,13 @@ const value: models.InputExecPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   command: "<value>",
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   metadata: [
     {
@@ -105,7 +106,7 @@ const value: models.InputExecPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "thankfully besides yuck uh-huh ack",
+  description: "plus term keenly",
 };
 ```
 

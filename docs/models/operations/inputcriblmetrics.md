@@ -3,36 +3,34 @@
 
 ## Supported Types
 
-### `operations.InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputCriblmetricsSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "criblmetrics",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputCriblmetricsSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "criblmetrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "round sting yahoo tiny unless as sleepily",
-  };
+  ],
+  pq: {
+    pqControls: {},
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "verbally intently which during upbeat courtroom which ha",
+};
 ```
 
 ### `operations.InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint`
@@ -68,19 +66,17 @@ const value:
   };
 ```
 
-### `operations.InputCriblmetricsPqEnabledFalseWithPqConstraint`
+### `operations.InputCriblmetricsPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputCriblmetricsPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputCriblmetricsPqEnabledFalseConstraint = {
   id: "<id>",
   type: "criblmetrics",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -88,13 +84,17 @@ const value: operations.InputCriblmetricsPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "reward dull ouch monstrous",
+  description:
+    "jogging efface questioningly accelerator pessimistic whenever nor lanky zowie",
 };
 ```
 

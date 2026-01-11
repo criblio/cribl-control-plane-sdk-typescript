@@ -3,30 +3,38 @@
 
 ## Supported Types
 
-### `operations.InputWizSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputWizSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputWizSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: operations.InputWizSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "wiz",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
-  authUrl: "https://slimy-bog.net",
+  authUrl: "https://thrifty-ostrich.com/",
   authAudienceOverride: "<value>",
   clientId: "<id>",
-  contentConfig: [],
+  contentConfig: [
+    {
+      contentType: "<value>",
+      contentDescription: "<value>",
+      manageState: {},
+      contentQuery: "<value>",
+    },
+  ],
   metadata: [
     {
       name: "<value>",
@@ -38,7 +46,7 @@ const value: operations.InputWizSendToRoutesTrueWithConnectionsConstraint = {
       3836.07,
     ],
   },
-  description: "palate till shyly brandish flickering",
+  description: "vainly madly off meanwhile annual",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
@@ -92,19 +100,18 @@ const value: operations.InputWizSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `operations.InputWizPqEnabledFalseWithPqConstraint`
+### `operations.InputWizPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputWizPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputWizPqEnabledFalseConstraint = {
   id: "<id>",
   type: "wiz",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -112,7 +119,10 @@ const value: operations.InputWizPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  authUrl: "https://decent-exasperation.biz",
+  pq: {
+    pqControls: {},
+  },
+  authUrl: "https://shallow-forgery.org/",
   authAudienceOverride: "<value>",
   clientId: "<id>",
   contentConfig: [],
@@ -127,7 +137,7 @@ const value: operations.InputWizPqEnabledFalseWithPqConstraint = {
       3836.07,
     ],
   },
-  description: "sometimes coolly across fellow",
+  description: "bowler focalise inasmuch nippy under",
   clientSecret: "<value>",
   textSecret: "<value>",
 };

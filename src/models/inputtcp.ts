@@ -13,11 +13,11 @@ import {
 } from "./authenticationmethodoptionsauthtokensitems.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -79,7 +79,7 @@ export type InputTcpPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -145,12 +145,11 @@ export type InputTcpPqEnabledTrueWithPqConstraint = {
   textSecret?: string | undefined;
 };
 
-export type InputTcpPqEnabledFalseWithPqConstraint = {
+export type InputTcpPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -176,7 +175,8 @@ export type InputTcpPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -250,7 +250,7 @@ export type InputTcpSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -339,15 +339,11 @@ export type InputTcpSendToRoutesFalseWithConnectionsConstraint = {
   textSecret?: string | undefined;
 };
 
-export type InputTcpSendToRoutesTrueWithConnectionsConstraint = {
+export type InputTcpSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -370,6 +366,10 @@ export type InputTcpSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -437,9 +437,9 @@ export type InputTcpSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputTcp =
-  | InputTcpSendToRoutesTrueWithConnectionsConstraint
+  | InputTcpSendToRoutesTrueConstraint
   | InputTcpSendToRoutesFalseWithConnectionsConstraint
-  | InputTcpPqEnabledFalseWithPqConstraint
+  | InputTcpPqEnabledFalseConstraint
   | InputTcpPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -464,7 +464,7 @@ export const InputTcpPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   tls: TlsSettingsServerSideType$inboundSchema.optional(),
@@ -497,7 +497,7 @@ export type InputTcpPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
@@ -533,7 +533,7 @@ export const InputTcpPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
@@ -577,13 +577,12 @@ export function inputTcpPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputTcpPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
-  InputTcpPqEnabledFalseWithPqConstraint,
+export const InputTcpPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputTcpPqEnabledFalseConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
   pqEnabled: z.boolean().default(false),
-  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputTcpType$inboundSchema,
   disabled: z.boolean().default(false),
@@ -591,7 +590,8 @@ export const InputTcpPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   tls: TlsSettingsServerSideType$inboundSchema.optional(),
@@ -614,9 +614,8 @@ export const InputTcpPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
   textSecret: z.string().optional(),
 });
 /** @internal */
-export type InputTcpPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputTcpPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -624,7 +623,8 @@ export type InputTcpPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
@@ -646,13 +646,12 @@ export type InputTcpPqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputTcpPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
-  InputTcpPqEnabledFalseWithPqConstraint$Outbound,
+export const InputTcpPqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputTcpPqEnabledFalseConstraint$Outbound,
   z.ZodTypeDef,
-  InputTcpPqEnabledFalseWithPqConstraint
+  InputTcpPqEnabledFalseConstraint
 > = z.object({
   pqEnabled: z.boolean().default(false),
-  pq: PqType$outboundSchema.optional(),
   id: z.string().optional(),
   type: InputTcpType$outboundSchema,
   disabled: z.boolean().default(false),
@@ -660,7 +659,8 @@ export const InputTcpPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
@@ -683,24 +683,22 @@ export const InputTcpPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
 });
 
-export function inputTcpPqEnabledFalseWithPqConstraintToJSON(
-  inputTcpPqEnabledFalseWithPqConstraint:
-    InputTcpPqEnabledFalseWithPqConstraint,
+export function inputTcpPqEnabledFalseConstraintToJSON(
+  inputTcpPqEnabledFalseConstraint: InputTcpPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputTcpPqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputTcpPqEnabledFalseWithPqConstraint,
+    InputTcpPqEnabledFalseConstraint$outboundSchema.parse(
+      inputTcpPqEnabledFalseConstraint,
     ),
   );
 }
-export function inputTcpPqEnabledFalseWithPqConstraintFromJSON(
+export function inputTcpPqEnabledFalseConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputTcpPqEnabledFalseWithPqConstraint, SDKValidationError> {
+): SafeParseResult<InputTcpPqEnabledFalseConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      InputTcpPqEnabledFalseWithPqConstraint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputTcpPqEnabledFalseWithPqConstraint' from JSON`,
+    (x) => InputTcpPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputTcpPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -712,7 +710,7 @@ export const InputTcpSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputTcpType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -745,7 +743,7 @@ export const InputTcpSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
 /** @internal */
 export type InputTcpSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -782,7 +780,8 @@ export const InputTcpSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
     InputTcpSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputTcpType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -840,47 +839,45 @@ export function inputTcpSendToRoutesFalseWithConnectionsConstraintFromJSON(
 }
 
 /** @internal */
-export const InputTcpSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputTcpSendToRoutesTrueWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputTcpType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number(),
-    tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    ipWhitelistRegex: z.string().default("/.*/"),
-    maxActiveCxn: z.number().default(1000),
-    socketIdleTimeout: z.number().default(0),
-    socketEndingMaxWait: z.number().default(30),
-    socketMaxLifespan: z.number().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    enableHeader: z.boolean().default(false),
-    preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
-    description: z.string().optional(),
-    authToken: z.string().default(""),
-    authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-      "manual",
-    ),
-    textSecret: z.string().optional(),
-  });
+export const InputTcpSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
+  InputTcpSendToRoutesTrueConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputTcpType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  enableHeader: z.boolean().default(false),
+  preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
+  description: z.string().optional(),
+  authToken: z.string().default(""),
+  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
+    "manual",
+  ),
+  textSecret: z.string().optional(),
+});
 /** @internal */
-export type InputTcpSendToRoutesTrueWithConnectionsConstraint$Outbound = {
+export type InputTcpSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -888,6 +885,7 @@ export type InputTcpSendToRoutesTrueWithConnectionsConstraint$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -910,67 +908,60 @@ export type InputTcpSendToRoutesTrueWithConnectionsConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputTcpSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputTcpSendToRoutesTrueWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputTcpSendToRoutesTrueWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputTcpType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number(),
-    tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    ipWhitelistRegex: z.string().default("/.*/"),
-    maxActiveCxn: z.number().default(1000),
-    socketIdleTimeout: z.number().default(0),
-    socketEndingMaxWait: z.number().default(30),
-    socketMaxLifespan: z.number().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    enableHeader: z.boolean().default(false),
-    preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
-    description: z.string().optional(),
-    authToken: z.string().default(""),
-    authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-      "manual",
-    ),
-    textSecret: z.string().optional(),
-  });
+export const InputTcpSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
+  InputTcpSendToRoutesTrueConstraint$Outbound,
+  z.ZodTypeDef,
+  InputTcpSendToRoutesTrueConstraint
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputTcpType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  enableHeader: z.boolean().default(false),
+  preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
+  description: z.string().optional(),
+  authToken: z.string().default(""),
+  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
+    "manual",
+  ),
+  textSecret: z.string().optional(),
+});
 
-export function inputTcpSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputTcpSendToRoutesTrueWithConnectionsConstraint:
-    InputTcpSendToRoutesTrueWithConnectionsConstraint,
+export function inputTcpSendToRoutesTrueConstraintToJSON(
+  inputTcpSendToRoutesTrueConstraint: InputTcpSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputTcpSendToRoutesTrueWithConnectionsConstraint$outboundSchema.parse(
-      inputTcpSendToRoutesTrueWithConnectionsConstraint,
+    InputTcpSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputTcpSendToRoutesTrueConstraint,
     ),
   );
 }
-export function inputTcpSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputTcpSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<
-  InputTcpSendToRoutesTrueWithConnectionsConstraint,
-  SDKValidationError
-> {
+): SafeParseResult<InputTcpSendToRoutesTrueConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      InputTcpSendToRoutesTrueWithConnectionsConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputTcpSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputTcpSendToRoutesTrueConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputTcpSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -980,18 +971,18 @@ export const InputTcp$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => InputTcpSendToRoutesTrueWithConnectionsConstraint$inboundSchema),
+  z.lazy(() => InputTcpSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputTcpSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputTcpPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputTcpPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputTcpPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputTcp$Outbound =
-  | InputTcpSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputTcpSendToRoutesTrueConstraint$Outbound
   | InputTcpSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputTcpPqEnabledFalseWithPqConstraint$Outbound
+  | InputTcpPqEnabledFalseConstraint$Outbound
   | InputTcpPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1000,13 +991,11 @@ export const InputTcp$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputTcp
 > = z.union([
-  z.lazy(() =>
-    InputTcpSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputTcpSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputTcpSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() => InputTcpPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputTcpPqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputTcpPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 

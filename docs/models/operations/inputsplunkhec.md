@@ -3,82 +3,78 @@
 
 ## Supported Types
 
-### `operations.InputSplunkHecSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputSplunkHecSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputSplunkHecSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "splunk_hec",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputSplunkHecSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "splunk_hec",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    port: 6918.82,
-    authTokens: [
-      {
-        tokenSecret: "<value>",
-        token: "<value>",
-        description: "detective blind regular",
-        allowedIndexesAtToken: [
-          "<value 1>",
-          "<value 2>",
-        ],
-        metadata: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
-        ],
-      },
-    ],
-    tls: {
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 8774.69,
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      token: "<value>",
+      description: "detective blind regular",
+      allowedIndexesAtToken: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
     },
-    enableHealthCheck: "<value>",
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    allowedIndexes: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    breakerRulesets: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    accessControlAllowOrigin: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    accessControlAllowHeaders: [
-      "<value 1>",
-    ],
-    description: "quietly yahoo flat",
-  };
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableHealthCheck: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedIndexes: [
+    "<value 1>",
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  accessControlAllowOrigin: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  accessControlAllowHeaders: [
+    "<value 1>",
+  ],
+  description: "anti uh-huh rapidly",
+};
 ```
 
 ### `operations.InputSplunkHecSendToRoutesFalseWithConnectionsConstraint`
@@ -160,13 +156,10 @@ const value:
   };
 ```
 
-### `operations.InputSplunkHecPqEnabledFalseWithPqConstraint`
+### `operations.InputSplunkHecPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputSplunkHecPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputSplunkHecPqEnabledFalseConstraint = {
   id: "<id>",
   type: "splunk_hec",
   pipeline: "<value>",
@@ -182,7 +175,10 @@ const value: operations.InputSplunkHecPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 8970.91,
+  pq: {
+    pqControls: {},
+  },
+  port: 2191.44,
   authTokens: [
     {
       tokenSecret: "<value>",
@@ -223,17 +219,15 @@ const value: operations.InputSplunkHecPqEnabledFalseWithPqConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
   accessControlAllowOrigin: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
-    "<value 2>",
   ],
-  description: "grave ape dream brief bouncy to",
+  description: "footrest quicker interestingly overcharge",
 };
 ```
 

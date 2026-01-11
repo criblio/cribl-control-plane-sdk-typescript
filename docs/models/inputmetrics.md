@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `models.InputMetricsSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputMetricsSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputMetricsSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputMetricsSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "metrics",
   pipeline: "<value>",
@@ -20,12 +14,19 @@ const value: models.InputMetricsSendToRoutesTrueWithConnectionsConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
-  udpPort: 8754.54,
-  tcpPort: 5646.71,
+  udpPort: 2418.45,
+  tcpPort: 5014.46,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -41,8 +42,8 @@ const value: models.InputMetricsSendToRoutesTrueWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 3026.09,
-  description: "quarrelsomely concrete trek like athwart",
+  udpSocketRxBufSize: 2670.63,
+  description: "um before dulcimer",
 };
 ```
 
@@ -89,13 +90,10 @@ const value: models.InputMetricsSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputMetricsPqEnabledFalseWithPqConstraint`
+### `models.InputMetricsPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputMetricsPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputMetricsPqEnabledFalseConstraint = {
   id: "<id>",
   type: "metrics",
   pipeline: "<value>",
@@ -110,8 +108,11 @@ const value: models.InputMetricsPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  udpPort: 3021.95,
-  tcpPort: 7645.06,
+  pq: {
+    pqControls: {},
+  },
+  udpPort: 1864.49,
+  tcpPort: 9651.91,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -127,8 +128,8 @@ const value: models.InputMetricsPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 8688.38,
-  description: "regulate upward frilly disadvantage peppery",
+  udpSocketRxBufSize: 3318.13,
+  description: "chairperson seemingly er throughout the vanish",
 };
 ```
 

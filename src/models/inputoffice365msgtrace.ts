@@ -9,11 +9,11 @@ import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -129,7 +129,7 @@ export type InputOffice365MsgTracePqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * URL to use when retrieving report data.
    */
@@ -235,12 +235,11 @@ export type InputOffice365MsgTracePqEnabledTrueWithPqConstraint = {
   certOptions?: CertOptions | undefined;
 };
 
-export type InputOffice365MsgTracePqEnabledFalseWithPqConstraint = {
+export type InputOffice365MsgTracePqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -266,7 +265,8 @@ export type InputOffice365MsgTracePqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * URL to use when retrieving report data.
    */
@@ -380,7 +380,7 @@ export type InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -509,15 +509,11 @@ export type InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint = {
   certOptions?: CertOptions | undefined;
 };
 
-export type InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint = {
+export type InputOffice365MsgTraceSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -540,6 +536,10 @@ export type InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * URL to use when retrieving report data.
@@ -647,9 +647,9 @@ export type InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputOffice365MsgTrace =
-  | InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint
+  | InputOffice365MsgTraceSendToRoutesTrueConstraint
   | InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint
-  | InputOffice365MsgTracePqEnabledFalseWithPqConstraint
+  | InputOffice365MsgTracePqEnabledFalseConstraint
   | InputOffice365MsgTracePqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -743,7 +743,7 @@ export const InputOffice365MsgTracePqEnabledTrueWithPqConstraint$inboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     url: z.string().default(
       "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
     ),
@@ -788,7 +788,7 @@ export type InputOffice365MsgTracePqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   url: string;
   interval: number;
   startDate?: string | undefined;
@@ -835,7 +835,8 @@ export const InputOffice365MsgTracePqEnabledTrueWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     url: z.string().default(
       "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
     ),
@@ -897,14 +898,13 @@ export function inputOffice365MsgTracePqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputOffice365MsgTracePqEnabledFalseWithPqConstraint$inboundSchema:
+export const InputOffice365MsgTracePqEnabledFalseConstraint$inboundSchema:
   z.ZodType<
-    InputOffice365MsgTracePqEnabledFalseWithPqConstraint,
+    InputOffice365MsgTracePqEnabledFalseConstraint,
     z.ZodTypeDef,
     unknown
   > = z.object({
     pqEnabled: z.boolean().default(false),
-    pq: PqType$inboundSchema.optional(),
     id: z.string().optional(),
     type: InputOffice365MsgTraceType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -912,7 +912,8 @@ export const InputOffice365MsgTracePqEnabledFalseWithPqConstraint$inboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    pq: PqType$inboundSchema.optional(),
     url: z.string().default(
       "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
     ),
@@ -947,9 +948,8 @@ export const InputOffice365MsgTracePqEnabledFalseWithPqConstraint$inboundSchema:
     certOptions: z.lazy(() => CertOptions$inboundSchema).optional(),
   });
 /** @internal */
-export type InputOffice365MsgTracePqEnabledFalseWithPqConstraint$Outbound = {
+export type InputOffice365MsgTracePqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -957,7 +957,8 @@ export type InputOffice365MsgTracePqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   url: string;
   interval: number;
   startDate?: string | undefined;
@@ -989,14 +990,13 @@ export type InputOffice365MsgTracePqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputOffice365MsgTracePqEnabledFalseWithPqConstraint$outboundSchema:
+export const InputOffice365MsgTracePqEnabledFalseConstraint$outboundSchema:
   z.ZodType<
-    InputOffice365MsgTracePqEnabledFalseWithPqConstraint$Outbound,
+    InputOffice365MsgTracePqEnabledFalseConstraint$Outbound,
     z.ZodTypeDef,
-    InputOffice365MsgTracePqEnabledFalseWithPqConstraint
+    InputOffice365MsgTracePqEnabledFalseConstraint
   > = z.object({
     pqEnabled: z.boolean().default(false),
-    pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputOffice365MsgTraceType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1004,7 +1004,9 @@ export const InputOffice365MsgTracePqEnabledFalseWithPqConstraint$outboundSchema
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: PqType$outboundSchema.optional(),
     url: z.string().default(
       "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
     ),
@@ -1039,29 +1041,29 @@ export const InputOffice365MsgTracePqEnabledFalseWithPqConstraint$outboundSchema
     certOptions: z.lazy(() => CertOptions$outboundSchema).optional(),
   });
 
-export function inputOffice365MsgTracePqEnabledFalseWithPqConstraintToJSON(
-  inputOffice365MsgTracePqEnabledFalseWithPqConstraint:
-    InputOffice365MsgTracePqEnabledFalseWithPqConstraint,
+export function inputOffice365MsgTracePqEnabledFalseConstraintToJSON(
+  inputOffice365MsgTracePqEnabledFalseConstraint:
+    InputOffice365MsgTracePqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputOffice365MsgTracePqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputOffice365MsgTracePqEnabledFalseWithPqConstraint,
+    InputOffice365MsgTracePqEnabledFalseConstraint$outboundSchema.parse(
+      inputOffice365MsgTracePqEnabledFalseConstraint,
     ),
   );
 }
-export function inputOffice365MsgTracePqEnabledFalseWithPqConstraintFromJSON(
+export function inputOffice365MsgTracePqEnabledFalseConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputOffice365MsgTracePqEnabledFalseWithPqConstraint,
+  InputOffice365MsgTracePqEnabledFalseConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputOffice365MsgTracePqEnabledFalseWithPqConstraint$inboundSchema.parse(
+      InputOffice365MsgTracePqEnabledFalseConstraint$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputOffice365MsgTracePqEnabledFalseWithPqConstraint' from JSON`,
+    `Failed to parse 'InputOffice365MsgTracePqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -1073,7 +1075,7 @@ export const InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint$in
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputOffice365MsgTraceType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -1119,7 +1121,7 @@ export const InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint$in
 export type InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint$Outbound =
   {
     sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
     id?: string | undefined;
     type: string;
     disabled: boolean;
@@ -1166,7 +1168,8 @@ export const InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint$ou
     InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputOffice365MsgTraceType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1234,14 +1237,13 @@ export function inputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint
 }
 
 /** @internal */
-export const InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
+export const InputOffice365MsgTraceSendToRoutesTrueConstraint$inboundSchema:
   z.ZodType<
-    InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint,
+    InputOffice365MsgTraceSendToRoutesTrueConstraint,
     z.ZodTypeDef,
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputOffice365MsgTraceType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -1249,6 +1251,7 @@ export const InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint$inb
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     pq: PqType$inboundSchema.optional(),
     url: z.string().default(
       "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
@@ -1284,57 +1287,55 @@ export const InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint$inb
     certOptions: z.lazy(() => CertOptions$inboundSchema).optional(),
   });
 /** @internal */
-export type InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint$Outbound =
-  {
-    sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-    id?: string | undefined;
-    type: string;
-    disabled: boolean;
-    pipeline?: string | undefined;
-    environment?: string | undefined;
-    pqEnabled: boolean;
-    streamtags?: Array<string> | undefined;
-    pq?: PqType$Outbound | undefined;
-    url: string;
-    interval: number;
-    startDate?: string | undefined;
-    endDate?: string | undefined;
-    timeout: number;
-    disableTimeFilter: boolean;
-    authType: string;
-    rescheduleDroppedTasks: boolean;
-    maxTaskReschedule: number;
-    logLevel: string;
-    jobTimeout: string;
-    keepAliveTime: number;
-    maxMissedKeepAlives: number;
-    ttl: string;
-    ignoreGroupJobsLimit: boolean;
-    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-    retryRules?: RetryRulesType1$Outbound | undefined;
-    description?: string | undefined;
-    username?: string | undefined;
-    password?: string | undefined;
-    credentialsSecret?: string | undefined;
-    clientSecret?: string | undefined;
-    tenantId?: string | undefined;
-    clientId?: string | undefined;
-    resource: string;
-    planType: string;
-    textSecret?: string | undefined;
-    certOptions?: CertOptions$Outbound | undefined;
-  };
+export type InputOffice365MsgTraceSendToRoutesTrueConstraint$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  url: string;
+  interval: number;
+  startDate?: string | undefined;
+  endDate?: string | undefined;
+  timeout: number;
+  disableTimeFilter: boolean;
+  authType: string;
+  rescheduleDroppedTasks: boolean;
+  maxTaskReschedule: number;
+  logLevel: string;
+  jobTimeout: string;
+  keepAliveTime: number;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  retryRules?: RetryRulesType1$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  clientSecret?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  resource: string;
+  planType: string;
+  textSecret?: string | undefined;
+  certOptions?: CertOptions$Outbound | undefined;
+};
 
 /** @internal */
-export const InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
+export const InputOffice365MsgTraceSendToRoutesTrueConstraint$outboundSchema:
   z.ZodType<
-    InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint$Outbound,
+    InputOffice365MsgTraceSendToRoutesTrueConstraint$Outbound,
     z.ZodTypeDef,
-    InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint
+    InputOffice365MsgTraceSendToRoutesTrueConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
     id: z.string().optional(),
     type: InputOffice365MsgTraceType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1342,6 +1343,8 @@ export const InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint$out
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     pq: PqType$outboundSchema.optional(),
     url: z.string().default(
       "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
@@ -1377,27 +1380,29 @@ export const InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint$out
     certOptions: z.lazy(() => CertOptions$outboundSchema).optional(),
   });
 
-export function inputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint:
-    InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint,
+export function inputOffice365MsgTraceSendToRoutesTrueConstraintToJSON(
+  inputOffice365MsgTraceSendToRoutesTrueConstraint:
+    InputOffice365MsgTraceSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-      .parse(inputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint),
+    InputOffice365MsgTraceSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputOffice365MsgTraceSendToRoutesTrueConstraint,
+    ),
   );
 }
-export function inputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputOffice365MsgTraceSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint,
+  InputOffice365MsgTraceSendToRoutesTrueConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputOffice365MsgTraceSendToRoutesTrueConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputOffice365MsgTraceSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -1407,24 +1412,20 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() =>
-    InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-  ),
+  z.lazy(() => InputOffice365MsgTraceSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() =>
-    InputOffice365MsgTracePqEnabledFalseWithPqConstraint$inboundSchema
-  ),
+  z.lazy(() => InputOffice365MsgTracePqEnabledFalseConstraint$inboundSchema),
   z.lazy(() =>
     InputOffice365MsgTracePqEnabledTrueWithPqConstraint$inboundSchema
   ),
 ]);
 /** @internal */
 export type InputOffice365MsgTrace$Outbound =
-  | InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputOffice365MsgTraceSendToRoutesTrueConstraint$Outbound
   | InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputOffice365MsgTracePqEnabledFalseWithPqConstraint$Outbound
+  | InputOffice365MsgTracePqEnabledFalseConstraint$Outbound
   | InputOffice365MsgTracePqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1433,15 +1434,11 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputOffice365MsgTrace
 > = z.union([
-  z.lazy(() =>
-    InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputOffice365MsgTraceSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() =>
-    InputOffice365MsgTracePqEnabledFalseWithPqConstraint$outboundSchema
-  ),
+  z.lazy(() => InputOffice365MsgTracePqEnabledFalseConstraint$outboundSchema),
   z.lazy(() =>
     InputOffice365MsgTracePqEnabledTrueWithPqConstraint$outboundSchema
   ),

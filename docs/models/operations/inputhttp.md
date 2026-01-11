@@ -3,31 +3,31 @@
 
 ## Supported Types
 
-### `operations.InputHttpSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputHttpSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputHttpSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: operations.InputHttpSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "http",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
-  port: 7133.3,
+  port: 9523.14,
   authTokens: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -56,8 +56,7 @@ const value: operations.InputHttpSendToRoutesTrueWithConnectionsConstraint = {
       ],
     },
   ],
-  description:
-    "athwart daily oxidize furthermore lovely whoever acquaintance qua uh-huh unless",
+  description: "psst march perfumed the after huzzah developing though wholly",
 };
 ```
 
@@ -118,19 +117,18 @@ const value: operations.InputHttpSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `operations.InputHttpPqEnabledFalseWithPqConstraint`
+### `operations.InputHttpPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputHttpPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputHttpPqEnabledFalseConstraint = {
   id: "<id>",
   type: "http",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -138,11 +136,13 @@ const value: operations.InputHttpPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 6764.73,
+  pq: {
+    pqControls: {},
+  },
+  port: 6655.45,
   authTokens: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -171,7 +171,7 @@ const value: operations.InputHttpPqEnabledFalseWithPqConstraint = {
       ],
     },
   ],
-  description: "fess of since",
+  description: "over optimistic against speedy whose flashy",
 };
 ```
 

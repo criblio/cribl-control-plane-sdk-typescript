@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `models.InputElasticSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputElasticSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputElasticSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputElasticSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "elastic",
   pipeline: "<value>",
@@ -20,10 +14,16 @@ const value: models.InputElasticSendToRoutesTrueWithConnectionsConstraint = {
   streamtags: [
     "<value 1>",
   ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   pq: {
     pqControls: {},
   },
-  port: 2716.47,
+  port: 2734.88,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -56,12 +56,14 @@ const value: models.InputElasticSendToRoutesTrueWithConnectionsConstraint = {
       "<value 3>",
     ],
   },
-  description: "whose overcooked outside where abaft whose phew apud",
-  username: "Osborne_Nikolaus52",
-  password: "ItwQDKODd04EJ1v",
+  description:
+    "pace inside petticoat yuck as kookily against contradict arbitrate persecute",
+  username: "Tavares.Kilback35",
+  password: "dsGqf0j1J5web6v",
   credentialsSecret: "<value>",
   authTokens: [
     "<value 1>",
+    "<value 2>",
   ],
 };
 ```
@@ -131,13 +133,10 @@ const value: models.InputElasticSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputElasticPqEnabledFalseWithPqConstraint`
+### `models.InputElasticPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputElasticPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputElasticPqEnabledFalseConstraint = {
   id: "<id>",
   type: "elastic",
   pipeline: "<value>",
@@ -152,7 +151,10 @@ const value: models.InputElasticPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 4401.72,
+  pq: {
+    pqControls: {},
+  },
+  port: 6883.53,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -185,13 +187,13 @@ const value: models.InputElasticPqEnabledFalseWithPqConstraint = {
       "<value 3>",
     ],
   },
-  description: "powerfully mmm legislature legitimize kissingly aw meh",
-  username: "Hulda.Collier9",
-  password: "kEd0afJUmo5fnt_",
+  description:
+    "anxiously yogurt scarcely formula wilderness sign impact forenenst thoroughly",
+  username: "Erna.Ritchie",
+  password: "BVNkj2EYmZH3WP3",
   credentialsSecret: "<value>",
   authTokens: [
     "<value 1>",
-    "<value 2>",
   ],
 };
 ```

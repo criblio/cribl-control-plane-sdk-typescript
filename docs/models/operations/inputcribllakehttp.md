@@ -3,75 +3,74 @@
 
 ## Supported Types
 
-### `operations.InputCriblLakeHttpSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputCriblLakeHttpSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputCriblLakeHttpSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "cribl_lake_http",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputCriblLakeHttpSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "cribl_lake_http",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    port: 2404.83,
-    authTokens: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    tls: {
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 2932.11,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    authTokensExt: [
-      {
-        token: "<value>",
-        description: "really afore huzzah stigmatize shy psst revere regularly",
-        metadata: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
+  ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description: "really afore huzzah stigmatize shy psst revere regularly",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      splunkHecMetadata: {
+        enabled: false,
+        defaultDataset: "<value>",
+        allowedIndexesAtToken: [
+          "<value 1>",
+          "<value 2>",
         ],
-        splunkHecMetadata: {
-          enabled: false,
-          defaultDataset: "<value>",
-          allowedIndexesAtToken: [
-            "<value 1>",
-            "<value 2>",
-          ],
-        },
-        elasticsearchMetadata: {
-          enabled: false,
-          defaultDataset: "<value>",
-        },
       },
-    ],
-    description: "ugh near um sushi lest following scamper",
-  };
+      elasticsearchMetadata: {
+        enabled: false,
+        defaultDataset: "<value>",
+      },
+    },
+  ],
+  description: "a longingly snack colorize cruel bah overconfidently",
+};
 ```
 
 ### `operations.InputCriblLakeHttpSendToRoutesFalseWithConnectionsConstraint`
@@ -143,19 +142,17 @@ const value:
   };
 ```
 
-### `operations.InputCriblLakeHttpPqEnabledFalseWithPqConstraint`
+### `operations.InputCriblLakeHttpPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputCriblLakeHttpPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputCriblLakeHttpPqEnabledFalseConstraint = {
   id: "<id>",
   type: "cribl_lake_http",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -163,10 +160,14 @@ const value: operations.InputCriblLakeHttpPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 5873.47,
+  pq: {
+    pqControls: {},
+  },
+  port: 3056.24,
   authTokens: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -207,7 +208,7 @@ const value: operations.InputCriblLakeHttpPqEnabledFalseWithPqConstraint = {
       },
     },
   ],
-  description: "exactly inasmuch whoever ha gee pace limited",
+  description: "dearest uh-huh near ruddy even amidst round if reproach",
 };
 ```
 

@@ -3,27 +3,29 @@
 
 ## Supported Types
 
-### `models.InputWizWebhookSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputWizWebhookSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputWizWebhookSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputWizWebhookSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "wiz_webhook",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
-  port: 4002.15,
+  port: 3337.94,
   authTokens: [
     "<value 1>",
     "<value 2>",
@@ -40,7 +42,6 @@ const value: models.InputWizWebhookSendToRoutesTrueWithConnectionsConstraint = {
   },
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
   metadata: [
     {
@@ -67,8 +68,7 @@ const value: models.InputWizWebhookSendToRoutesTrueWithConnectionsConstraint = {
       ],
     },
   ],
-  description:
-    "after fill courageous yet likewise enrage galvanize than even overload",
+  description: "sometimes since incidentally eventually",
 };
 ```
 
@@ -144,20 +144,16 @@ const value: models.InputWizWebhookSendToRoutesFalseWithConnectionsConstraint =
   };
 ```
 
-### `models.InputWizWebhookPqEnabledFalseWithPqConstraint`
+### `models.InputWizWebhookPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputWizWebhookPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputWizWebhookPqEnabledFalseConstraint = {
   id: "<id>",
   type: "wiz_webhook",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -165,9 +161,14 @@ const value: models.InputWizWebhookPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 2942,
+  pq: {
+    pqControls: {},
+  },
+  port: 38.97,
   authTokens: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -191,11 +192,12 @@ const value: models.InputWizWebhookPqEnabledFalseWithPqConstraint = {
   ],
   allowedPaths: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   allowedMethods: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   authTokensExt: [
     {
@@ -209,8 +211,7 @@ const value: models.InputWizWebhookPqEnabledFalseWithPqConstraint = {
       ],
     },
   ],
-  description:
-    "sans overconfidently whoa unnecessarily gummy tender scrabble consequently gosh astride",
+  description: "by which glorious really",
 };
 ```
 

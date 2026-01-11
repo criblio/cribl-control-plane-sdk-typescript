@@ -3,23 +3,22 @@
 
 ## Supported Types
 
-### `models.InputAppscopeSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputAppscopeSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputAppscopeSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputAppscopeSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "appscope",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
@@ -32,8 +31,6 @@ const value: models.InputAppscopeSendToRoutesTrueWithConnectionsConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   filter: {
     allow: [
@@ -46,9 +43,10 @@ const value: models.InputAppscopeSendToRoutesTrueWithConnectionsConstraint = {
     transportURL: "https://last-prohibition.name/",
   },
   persistence: {},
-  description: "sway search down highly",
-  host: "probable-stock.name",
-  port: 8802.24,
+  description:
+    "presell about and quarrelsomely foot indeed badly ha testify valuable",
+  host: "quiet-shore.com",
+  port: 9523.66,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -121,13 +119,10 @@ const value: models.InputAppscopeSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputAppscopePqEnabledFalseWithPqConstraint`
+### `models.InputAppscopePqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputAppscopePqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputAppscopePqEnabledFalseConstraint = {
   id: "<id>",
   type: "appscope",
   pipeline: "<value>",
@@ -143,6 +138,9 @@ const value: models.InputAppscopePqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   metadata: [
     {
       name: "<value>",
@@ -151,6 +149,8 @@ const value: models.InputAppscopePqEnabledFalseWithPqConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   filter: {
     allow: [
@@ -163,9 +163,9 @@ const value: models.InputAppscopePqEnabledFalseWithPqConstraint = {
     transportURL: "https://last-prohibition.name/",
   },
   persistence: {},
-  description: "or mythology fireplace blah hyphenation outlandish",
-  host: "distorted-willow.info",
-  port: 7845.87,
+  description: "even questionable deliberately",
+  host: "juvenile-jogging.info",
+  port: 6687.61,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",

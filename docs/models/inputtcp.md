@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `models.InputTcpSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputTcpSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputTcpSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputTcpSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "tcp",
   pipeline: "<value>",
@@ -22,10 +16,16 @@ const value: models.InputTcpSendToRoutesTrueWithConnectionsConstraint = {
     "<value 2>",
     "<value 3>",
   ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   pq: {
     pqControls: {},
   },
-  port: 9514.36,
+  port: 3325.7,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -43,8 +43,6 @@ const value: models.InputTcpSendToRoutesTrueWithConnectionsConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   preprocess: {
     command: "<value>",
@@ -54,7 +52,7 @@ const value: models.InputTcpSendToRoutesTrueWithConnectionsConstraint = {
       "<value 3>",
     ],
   },
-  description: "whether entomb rosy closed monasticism subtle accidentally",
+  description: "lava the boo",
   textSecret: "<value>",
 };
 ```
@@ -113,20 +111,16 @@ const value: models.InputTcpSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputTcpPqEnabledFalseWithPqConstraint`
+### `models.InputTcpPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputTcpPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputTcpPqEnabledFalseConstraint = {
   id: "<id>",
   type: "tcp",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -134,7 +128,10 @@ const value: models.InputTcpPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 8762.3,
+  pq: {
+    pqControls: {},
+  },
+  port: 6135.91,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -152,6 +149,8 @@ const value: models.InputTcpPqEnabledFalseWithPqConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   preprocess: {
     command: "<value>",
@@ -161,7 +160,7 @@ const value: models.InputTcpPqEnabledFalseWithPqConstraint = {
       "<value 3>",
     ],
   },
-  description: "gee yellow jumbo",
+  description: "glass serialize depend failing",
   textSecret: "<value>",
 };
 ```

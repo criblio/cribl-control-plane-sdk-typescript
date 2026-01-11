@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `operations.InputExecSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputExecSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputExecSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: operations.InputExecSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "exec",
   pipeline: "<value>",
@@ -20,12 +14,19 @@ const value: operations.InputExecSendToRoutesTrueWithConnectionsConstraint = {
   streamtags: [
     "<value 1>",
   ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   pq: {
     pqControls: {},
   },
   command: "<value>",
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
   metadata: [
     {
@@ -33,7 +34,7 @@ const value: operations.InputExecSendToRoutesTrueWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description: "safely hydrolyze creature",
+  description: "but drat what",
 };
 ```
 
@@ -73,19 +74,17 @@ const value: operations.InputExecSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `operations.InputExecPqEnabledFalseWithPqConstraint`
+### `operations.InputExecPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputExecPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputExecPqEnabledFalseConstraint = {
   id: "<id>",
   type: "exec",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -93,11 +92,13 @@ const value: operations.InputExecPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   command: "<value>",
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   metadata: [
     {
@@ -105,7 +106,7 @@ const value: operations.InputExecPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "thankfully besides yuck uh-huh ack",
+  description: "plus term keenly",
 };
 ```
 

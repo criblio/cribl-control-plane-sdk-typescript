@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `operations.InputRawUdpSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputRawUdpSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputRawUdpSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: operations.InputRawUdpSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "raw_udp",
   pipeline: "<value>",
@@ -22,18 +16,24 @@ const value: operations.InputRawUdpSendToRoutesTrueWithConnectionsConstraint = {
     "<value 2>",
     "<value 3>",
   ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   pq: {
     pqControls: {},
   },
-  port: 5582.13,
-  udpSocketRxBufSize: 3463.45,
+  port: 4871.46,
+  udpSocketRxBufSize: 9165.99,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "immediately er mostly ambitious",
+  description: "overproduce pants what hmph kookily hawk phew",
 };
 ```
 
@@ -72,13 +72,10 @@ const value: operations.InputRawUdpSendToRoutesFalseWithConnectionsConstraint =
   };
 ```
 
-### `operations.InputRawUdpPqEnabledFalseWithPqConstraint`
+### `operations.InputRawUdpPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputRawUdpPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputRawUdpPqEnabledFalseConstraint = {
   id: "<id>",
   type: "raw_udp",
   pipeline: "<value>",
@@ -93,16 +90,18 @@ const value: operations.InputRawUdpPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 9210.82,
-  udpSocketRxBufSize: 3325.14,
+  pq: {
+    pqControls: {},
+  },
+  port: 3350.1,
+  udpSocketRxBufSize: 2815.74,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "comestible hoarse readily whoa numeric bulky boldly indeed pale",
+  description: "yowza furthermore at through",
 };
 ```
 

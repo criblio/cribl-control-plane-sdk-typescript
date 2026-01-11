@@ -3,32 +3,48 @@
 
 ## Supported Types
 
-### `models.InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputConfluentCloudSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  models.InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "confluent_cloud",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-    ],
-    pq: {
-      pqControls: {},
+const value: models.InputConfluentCloudSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "confluent_cloud",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    brokers: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
+  ],
+  pq: {
+    pqControls: {},
+  },
+  brokers: [
+    "<value 1>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.3",
+  },
+  topics: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
     tls: {
       servername: "<value>",
       certificateName: "<value>",
@@ -36,59 +52,43 @@ const value:
       privKeyPath: "<value>",
       certPath: "<value>",
       passphrase: "<value>",
-      minVersion: "TLSv1.1",
+      minVersion: "TLSv1.2",
       maxVersion: "TLSv1.3",
     },
-    topics: [],
-    kafkaSchemaRegistry: {
-      auth: {
-        credentialsSecret: "<value>",
-      },
-      tls: {
-        servername: "<value>",
-        certificateName: "<value>",
-        caPath: "<value>",
-        privKeyPath: "<value>",
-        certPath: "<value>",
-        passphrase: "<value>",
-        minVersion: "TLSv1.2",
-        maxVersion: "TLSv1.3",
-      },
-    },
-    sasl: {
-      username: "Jocelyn_Casper88",
-      password: "PIwQ9BxwvdkIdNi",
-      credentialsSecret: "<value>",
-      keytabLocation: "<value>",
-      principal: "<value>",
-      brokerServiceClass: "<value>",
-      tokenUrl: "https://alive-spear.com",
-      clientId: "<id>",
-      clientTextSecret: "<value>",
-      oauthParams: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      saslExtensions: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-    autoCommitInterval: 5492.17,
-    autoCommitThreshold: 8364.91,
-    metadata: [
+  },
+  sasl: {
+    username: "Jocelyn_Casper88",
+    password: "PIwQ9BxwvdkIdNi",
+    credentialsSecret: "<value>",
+    keytabLocation: "<value>",
+    principal: "<value>",
+    brokerServiceClass: "<value>",
+    tokenUrl: "https://alive-spear.com",
+    clientId: "<id>",
+    clientTextSecret: "<value>",
+    oauthParams: [
       {
         name: "<value>",
         value: "<value>",
       },
     ],
-    description:
-      "sociable dispense gifted longingly expensive vol cheap amidst calmly",
-  };
+    saslExtensions: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
+  autoCommitInterval: 3318.81,
+  autoCommitThreshold: 2609.79,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "phooey slip pretend atop dulcimer gee",
+};
 ```
 
 ### `models.InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint`
@@ -180,19 +180,17 @@ const value:
   };
 ```
 
-### `models.InputConfluentCloudPqEnabledFalseWithPqConstraint`
+### `models.InputConfluentCloudPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputConfluentCloudPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputConfluentCloudPqEnabledFalseConstraint = {
   id: "<id>",
   type: "confluent_cloud",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -200,11 +198,10 @@ const value: models.InputConfluentCloudPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  brokers: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
+  pq: {
+    pqControls: {},
+  },
+  brokers: [],
   tls: {
     servername: "<value>",
     certificateName: "<value>",
@@ -215,7 +212,9 @@ const value: models.InputConfluentCloudPqEnabledFalseWithPqConstraint = {
     minVersion: "TLSv1.1",
     maxVersion: "TLSv1.3",
   },
-  topics: [],
+  topics: [
+    "<value 1>",
+  ],
   kafkaSchemaRegistry: {
     auth: {
       credentialsSecret: "<value>",
@@ -254,16 +253,15 @@ const value: models.InputConfluentCloudPqEnabledFalseWithPqConstraint = {
       },
     ],
   },
-  autoCommitInterval: 7479,
-  autoCommitThreshold: 5734.41,
+  autoCommitInterval: 3059.05,
+  autoCommitThreshold: 3293.82,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "amidst painfully rudely considering joyful drab brightly lest upright",
+  description: "contravene fledgling madly",
 };
 ```
 

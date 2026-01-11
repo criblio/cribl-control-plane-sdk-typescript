@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `models.InputZscalerHecSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputZscalerHecSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputZscalerHecSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputZscalerHecSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "zscaler_hec",
   pipeline: "<value>",
@@ -21,10 +15,16 @@ const value: models.InputZscalerHecSendToRoutesTrueWithConnectionsConstraint = {
     "<value 1>",
     "<value 2>",
   ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   pq: {
     pqControls: {},
   },
-  port: 6573.66,
+  port: 7282.2,
   authTokens: [
     {
       tokenSecret: "<value>",
@@ -66,13 +66,12 @@ const value: models.InputZscalerHecSendToRoutesTrueWithConnectionsConstraint = {
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
-    "<value 2>",
   ],
-  description:
-    "solution supposing or offset malfunction before contradict portray",
+  description: "terribly instead bin tusk tame",
 };
 ```
 
@@ -149,13 +148,10 @@ const value: models.InputZscalerHecSendToRoutesFalseWithConnectionsConstraint =
   };
 ```
 
-### `models.InputZscalerHecPqEnabledFalseWithPqConstraint`
+### `models.InputZscalerHecPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputZscalerHecPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputZscalerHecPqEnabledFalseConstraint = {
   id: "<id>",
   type: "zscaler_hec",
   pipeline: "<value>",
@@ -171,7 +167,10 @@ const value: models.InputZscalerHecPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 1311.02,
+  pq: {
+    pqControls: {},
+  },
+  port: 2701.58,
   authTokens: [
     {
       tokenSecret: "<value>",
@@ -215,8 +214,10 @@ const value: models.InputZscalerHecPqEnabledFalseWithPqConstraint = {
   ],
   accessControlAllowHeaders: [
     "<value 1>",
+    "<value 2>",
   ],
-  description: "as distant guard uselessly",
+  description:
+    "yet wherever imaginary super frantically upside-down vice upset drat",
 };
 ```
 

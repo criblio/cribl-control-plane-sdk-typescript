@@ -13,11 +13,11 @@ import {
 } from "./authenticationmethodoptions1.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -102,7 +102,7 @@ export type InputOffice365ServicePqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Office 365 subscription plan for your organization, typically Office 365 Enterprise
    */
@@ -163,12 +163,11 @@ export type InputOffice365ServicePqEnabledTrueWithPqConstraint = {
   textSecret?: string | undefined;
 };
 
-export type InputOffice365ServicePqEnabledFalseWithPqConstraint = {
+export type InputOffice365ServicePqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -194,7 +193,8 @@ export type InputOffice365ServicePqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Office 365 subscription plan for your organization, typically Office 365 Enterprise
    */
@@ -263,7 +263,7 @@ export type InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -347,15 +347,11 @@ export type InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint = {
   textSecret?: string | undefined;
 };
 
-export type InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint = {
+export type InputOffice365ServiceSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -378,6 +374,10 @@ export type InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Office 365 subscription plan for your organization, typically Office 365 Enterprise
@@ -440,9 +440,9 @@ export type InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputOffice365Service =
-  | InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint
+  | InputOffice365ServiceSendToRoutesTrueConstraint
   | InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint
-  | InputOffice365ServicePqEnabledFalseWithPqConstraint
+  | InputOffice365ServicePqEnabledFalseConstraint
   | InputOffice365ServicePqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -524,7 +524,7 @@ export const InputOffice365ServicePqEnabledTrueWithPqConstraint$inboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     planType: SubscriptionPlanOptions$inboundSchema.default("enterprise_gcc"),
     tenantId: z.string(),
     appId: z.string(),
@@ -555,7 +555,7 @@ export type InputOffice365ServicePqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   planType: string;
   tenantId: string;
   appId: string;
@@ -592,7 +592,8 @@ export const InputOffice365ServicePqEnabledTrueWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     planType: SubscriptionPlanOptions$outboundSchema.default("enterprise_gcc"),
     tenantId: z.string(),
     appId: z.string(),
@@ -640,14 +641,13 @@ export function inputOffice365ServicePqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputOffice365ServicePqEnabledFalseWithPqConstraint$inboundSchema:
+export const InputOffice365ServicePqEnabledFalseConstraint$inboundSchema:
   z.ZodType<
-    InputOffice365ServicePqEnabledFalseWithPqConstraint,
+    InputOffice365ServicePqEnabledFalseConstraint,
     z.ZodTypeDef,
     unknown
   > = z.object({
     pqEnabled: z.boolean().default(false),
-    pq: PqType$inboundSchema.optional(),
     id: z.string().optional(),
     type: InputOffice365ServiceType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -655,7 +655,8 @@ export const InputOffice365ServicePqEnabledFalseWithPqConstraint$inboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    pq: PqType$inboundSchema.optional(),
     planType: SubscriptionPlanOptions$inboundSchema.default("enterprise_gcc"),
     tenantId: z.string(),
     appId: z.string(),
@@ -676,9 +677,8 @@ export const InputOffice365ServicePqEnabledFalseWithPqConstraint$inboundSchema:
     textSecret: z.string().optional(),
   });
 /** @internal */
-export type InputOffice365ServicePqEnabledFalseWithPqConstraint$Outbound = {
+export type InputOffice365ServicePqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -686,7 +686,8 @@ export type InputOffice365ServicePqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   planType: string;
   tenantId: string;
   appId: string;
@@ -708,14 +709,13 @@ export type InputOffice365ServicePqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputOffice365ServicePqEnabledFalseWithPqConstraint$outboundSchema:
+export const InputOffice365ServicePqEnabledFalseConstraint$outboundSchema:
   z.ZodType<
-    InputOffice365ServicePqEnabledFalseWithPqConstraint$Outbound,
+    InputOffice365ServicePqEnabledFalseConstraint$Outbound,
     z.ZodTypeDef,
-    InputOffice365ServicePqEnabledFalseWithPqConstraint
+    InputOffice365ServicePqEnabledFalseConstraint
   > = z.object({
     pqEnabled: z.boolean().default(false),
-    pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputOffice365ServiceType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -723,7 +723,9 @@ export const InputOffice365ServicePqEnabledFalseWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: PqType$outboundSchema.optional(),
     planType: SubscriptionPlanOptions$outboundSchema.default("enterprise_gcc"),
     tenantId: z.string(),
     appId: z.string(),
@@ -744,29 +746,29 @@ export const InputOffice365ServicePqEnabledFalseWithPqConstraint$outboundSchema:
     textSecret: z.string().optional(),
   });
 
-export function inputOffice365ServicePqEnabledFalseWithPqConstraintToJSON(
-  inputOffice365ServicePqEnabledFalseWithPqConstraint:
-    InputOffice365ServicePqEnabledFalseWithPqConstraint,
+export function inputOffice365ServicePqEnabledFalseConstraintToJSON(
+  inputOffice365ServicePqEnabledFalseConstraint:
+    InputOffice365ServicePqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputOffice365ServicePqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputOffice365ServicePqEnabledFalseWithPqConstraint,
+    InputOffice365ServicePqEnabledFalseConstraint$outboundSchema.parse(
+      inputOffice365ServicePqEnabledFalseConstraint,
     ),
   );
 }
-export function inputOffice365ServicePqEnabledFalseWithPqConstraintFromJSON(
+export function inputOffice365ServicePqEnabledFalseConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputOffice365ServicePqEnabledFalseWithPqConstraint,
+  InputOffice365ServicePqEnabledFalseConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputOffice365ServicePqEnabledFalseWithPqConstraint$inboundSchema.parse(
+      InputOffice365ServicePqEnabledFalseConstraint$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputOffice365ServicePqEnabledFalseWithPqConstraint' from JSON`,
+    `Failed to parse 'InputOffice365ServicePqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -778,7 +780,7 @@ export const InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$inb
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputOffice365ServiceType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -810,7 +812,7 @@ export const InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$inb
 export type InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$Outbound =
   {
     sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
     id?: string | undefined;
     type: string;
     disabled: boolean;
@@ -847,7 +849,8 @@ export const InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$out
     InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputOffice365ServiceType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -901,14 +904,13 @@ export function inputOffice365ServiceSendToRoutesFalseWithConnectionsConstraintF
 }
 
 /** @internal */
-export const InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
+export const InputOffice365ServiceSendToRoutesTrueConstraint$inboundSchema:
   z.ZodType<
-    InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint,
+    InputOffice365ServiceSendToRoutesTrueConstraint,
     z.ZodTypeDef,
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputOffice365ServiceType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -916,6 +918,7 @@ export const InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint$inbo
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     pq: PqType$inboundSchema.optional(),
     planType: SubscriptionPlanOptions$inboundSchema.default("enterprise_gcc"),
     tenantId: z.string(),
@@ -937,47 +940,45 @@ export const InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint$inbo
     textSecret: z.string().optional(),
   });
 /** @internal */
-export type InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint$Outbound =
-  {
-    sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-    id?: string | undefined;
-    type: string;
-    disabled: boolean;
-    pipeline?: string | undefined;
-    environment?: string | undefined;
-    pqEnabled: boolean;
-    streamtags?: Array<string> | undefined;
-    pq?: PqType$Outbound | undefined;
-    planType: string;
-    tenantId: string;
-    appId: string;
-    timeout: number;
-    keepAliveTime: number;
-    jobTimeout: string;
-    maxMissedKeepAlives: number;
-    ttl: string;
-    ignoreGroupJobsLimit: boolean;
-    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-    contentConfig?:
-      | Array<InputOffice365ServiceContentConfig$Outbound>
-      | undefined;
-    retryRules?: RetryRulesType1$Outbound | undefined;
-    authType: string;
-    description?: string | undefined;
-    clientSecret?: string | undefined;
-    textSecret?: string | undefined;
-  };
+export type InputOffice365ServiceSendToRoutesTrueConstraint$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  planType: string;
+  tenantId: string;
+  appId: string;
+  timeout: number;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  contentConfig?:
+    | Array<InputOffice365ServiceContentConfig$Outbound>
+    | undefined;
+  retryRules?: RetryRulesType1$Outbound | undefined;
+  authType: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+};
 
 /** @internal */
-export const InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
+export const InputOffice365ServiceSendToRoutesTrueConstraint$outboundSchema:
   z.ZodType<
-    InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint$Outbound,
+    InputOffice365ServiceSendToRoutesTrueConstraint$Outbound,
     z.ZodTypeDef,
-    InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint
+    InputOffice365ServiceSendToRoutesTrueConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
     id: z.string().optional(),
     type: InputOffice365ServiceType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -985,6 +986,8 @@ export const InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint$outb
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     pq: PqType$outboundSchema.optional(),
     planType: SubscriptionPlanOptions$outboundSchema.default("enterprise_gcc"),
     tenantId: z.string(),
@@ -1006,27 +1009,29 @@ export const InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint$outb
     textSecret: z.string().optional(),
   });
 
-export function inputOffice365ServiceSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint:
-    InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint,
+export function inputOffice365ServiceSendToRoutesTrueConstraintToJSON(
+  inputOffice365ServiceSendToRoutesTrueConstraint:
+    InputOffice365ServiceSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-      .parse(inputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint),
+    InputOffice365ServiceSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputOffice365ServiceSendToRoutesTrueConstraint,
+    ),
   );
 }
-export function inputOffice365ServiceSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputOffice365ServiceSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint,
+  InputOffice365ServiceSendToRoutesTrueConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputOffice365ServiceSendToRoutesTrueConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputOffice365ServiceSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -1036,24 +1041,20 @@ export const InputOffice365Service$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() =>
-    InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-  ),
+  z.lazy(() => InputOffice365ServiceSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() =>
-    InputOffice365ServicePqEnabledFalseWithPqConstraint$inboundSchema
-  ),
+  z.lazy(() => InputOffice365ServicePqEnabledFalseConstraint$inboundSchema),
   z.lazy(() =>
     InputOffice365ServicePqEnabledTrueWithPqConstraint$inboundSchema
   ),
 ]);
 /** @internal */
 export type InputOffice365Service$Outbound =
-  | InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputOffice365ServiceSendToRoutesTrueConstraint$Outbound
   | InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputOffice365ServicePqEnabledFalseWithPqConstraint$Outbound
+  | InputOffice365ServicePqEnabledFalseConstraint$Outbound
   | InputOffice365ServicePqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1062,15 +1063,11 @@ export const InputOffice365Service$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputOffice365Service
 > = z.union([
-  z.lazy(() =>
-    InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputOffice365ServiceSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() =>
-    InputOffice365ServicePqEnabledFalseWithPqConstraint$outboundSchema
-  ),
+  z.lazy(() => InputOffice365ServicePqEnabledFalseConstraint$outboundSchema),
   z.lazy(() =>
     InputOffice365ServicePqEnabledTrueWithPqConstraint$outboundSchema
   ),

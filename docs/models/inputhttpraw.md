@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `models.InputHttpRawSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputHttpRawSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputHttpRawSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputHttpRawSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "http_raw",
   pipeline: "<value>",
@@ -20,11 +14,18 @@ const value: models.InputHttpRawSendToRoutesTrueWithConnectionsConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
-  port: 7440.83,
+  port: 3997.97,
   authTokens: [
     "<value 1>",
     "<value 2>",
@@ -55,6 +56,7 @@ const value: models.InputHttpRawSendToRoutesTrueWithConnectionsConstraint = {
   ],
   allowedMethods: [
     "<value 1>",
+    "<value 2>",
   ],
   authTokensExt: [
     {
@@ -68,7 +70,8 @@ const value: models.InputHttpRawSendToRoutesTrueWithConnectionsConstraint = {
       ],
     },
   ],
-  description: "accurate down quick delightfully emphasise misjudge heavy",
+  description:
+    "reporter yet whereas as yak instead blushing wetly inventory dish",
 };
 ```
 
@@ -143,21 +146,16 @@ const value: models.InputHttpRawSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputHttpRawPqEnabledFalseWithPqConstraint`
+### `models.InputHttpRawPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputHttpRawPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputHttpRawPqEnabledFalseConstraint = {
   id: "<id>",
   type: "http_raw",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -165,11 +163,12 @@ const value: models.InputHttpRawPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 2114.19,
+  pq: {
+    pqControls: {},
+  },
+  port: 9843.37,
   authTokens: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -193,8 +192,6 @@ const value: models.InputHttpRawPqEnabledFalseWithPqConstraint = {
   ],
   allowedPaths: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   allowedMethods: [
     "<value 1>",
@@ -211,7 +208,7 @@ const value: models.InputHttpRawPqEnabledFalseWithPqConstraint = {
       ],
     },
   ],
-  description: "potable oddly unpleasant",
+  description: "duh disk kit tenderly swiftly burly pleased psst",
 };
 ```
 

@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `operations.InputWefSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputWefSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputWefSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: operations.InputWefSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "wef",
   pipeline: "<value>",
@@ -20,6 +14,12 @@ const value: operations.InputWefSendToRoutesTrueWithConnectionsConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
@@ -45,7 +45,8 @@ const value: operations.InputWefSendToRoutesTrueWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description: "perspire um upwardly",
+  description:
+    "er and gadzooks sans greedy exasperation times diagram whoever while",
 };
 ```
 
@@ -116,19 +117,18 @@ const value: operations.InputWefSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `operations.InputWefPqEnabledFalseWithPqConstraint`
+### `operations.InputWefPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputWefPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputWefPqEnabledFalseConstraint = {
   id: "<id>",
   type: "wef",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -136,6 +136,9 @@ const value: operations.InputWefPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -179,7 +182,7 @@ const value: operations.InputWefPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "symbolise welcome floss",
+  description: "usefully unimpressively archive what",
 };
 ```
 

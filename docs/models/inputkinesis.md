@@ -3,23 +3,22 @@
 
 ## Supported Types
 
-### `models.InputKinesisSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputKinesisSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputKinesisSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputKinesisSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "kinesis",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
@@ -36,7 +35,7 @@ const value: models.InputKinesisSendToRoutesTrueWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description: "while athletic disappointment barring finer deduction",
+  description: "obediently who talkative",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };
@@ -82,13 +81,10 @@ const value: models.InputKinesisSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputKinesisPqEnabledFalseWithPqConstraint`
+### `models.InputKinesisPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputKinesisPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputKinesisPqEnabledFalseConstraint = {
   id: "<id>",
   type: "kinesis",
   pipeline: "<value>",
@@ -96,6 +92,7 @@ const value: models.InputKinesisPqEnabledFalseWithPqConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -103,6 +100,9 @@ const value: models.InputKinesisPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   streamName: "<value>",
   awsSecretKey: "<value>",
   region: "<value>",
@@ -115,7 +115,8 @@ const value: models.InputKinesisPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "diver self-assured hot beyond windy from zowie",
+  description:
+    "lava nectarine over er vivaciously beard joyful expense allegation versus",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };

@@ -3,63 +3,63 @@
 
 ## Supported Types
 
-### `operations.InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputWindowsMetricsSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
+const value: operations.InputWindowsMetricsSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "windows_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  host: {
+    custom: {
+      system: {},
+      cpu: {},
+      memory: {},
+      network: {
+        devices: [
+          "<value 1>",
+          "<value 2>",
+        ],
       },
-    ],
-    id: "<id>",
-    type: "windows_metrics",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-    ],
-    pq: {
-      pqControls: {},
-    },
-    host: {
-      custom: {
-        system: {},
-        cpu: {},
-        memory: {},
-        network: {
-          devices: [
-            "<value 1>",
-            "<value 2>",
-          ],
-        },
-        disk: {
-          volumes: [
-            "<value 1>",
-            "<value 2>",
-          ],
-        },
+      disk: {
+        volumes: [
+          "<value 1>",
+          "<value 2>",
+        ],
       },
     },
-    process: {
-      sets: [
-        {
-          name: "<value>",
-          filter: "<value>",
-        },
-      ],
-    },
-    metadata: [
+  },
+  process: {
+    sets: [
       {
         name: "<value>",
-        value: "<value>",
+        filter: "<value>",
       },
     ],
-    persistence: {},
-    description: "french and sheathe or surprisingly wherever till",
-  };
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description: "ugh pish likewise guzzle stupendous although vice dismal",
+};
 ```
 
 ### `operations.InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint`
@@ -123,13 +123,10 @@ const value:
   };
 ```
 
-### `operations.InputWindowsMetricsPqEnabledFalseWithPqConstraint`
+### `operations.InputWindowsMetricsPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputWindowsMetricsPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputWindowsMetricsPqEnabledFalseConstraint = {
   id: "<id>",
   type: "windows_metrics",
   pipeline: "<value>",
@@ -144,6 +141,9 @@ const value: operations.InputWindowsMetricsPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   host: {
     custom: {
       system: {},
@@ -178,7 +178,7 @@ const value: operations.InputWindowsMetricsPqEnabledFalseWithPqConstraint = {
     },
   ],
   persistence: {},
-  description: "as throughout since even unaccountably",
+  description: "institute colour prance",
 };
 ```
 

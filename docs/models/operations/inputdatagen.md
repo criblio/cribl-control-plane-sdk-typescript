@@ -3,38 +3,39 @@
 
 ## Supported Types
 
-### `operations.InputDatagenSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputDatagenSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputDatagenSendToRoutesTrueWithConnectionsConstraint =
-  {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "datagen",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputDatagenSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "datagen",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    samples: [],
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description:
-      "glisten sniff angrily plastic toward translation yahoo westernise agreement",
-  };
+  ],
+  pq: {
+    pqControls: {},
+  },
+  samples: [
+    {
+      sample: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "plus seriously chunder communicate",
+};
 ```
 
 ### `operations.InputDatagenSendToRoutesFalseWithConnectionsConstraint`
@@ -71,13 +72,10 @@ const value: operations.InputDatagenSendToRoutesFalseWithConnectionsConstraint =
   };
 ```
 
-### `operations.InputDatagenPqEnabledFalseWithPqConstraint`
+### `operations.InputDatagenPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputDatagenPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputDatagenPqEnabledFalseConstraint = {
   id: "<id>",
   type: "datagen",
   pipeline: "<value>",
@@ -91,18 +89,17 @@ const value: operations.InputDatagenPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  samples: [
-    {
-      sample: "<value>",
-    },
-  ],
+  pq: {
+    pqControls: {},
+  },
+  samples: [],
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "sew rapidly numeracy unless",
+  description: "unsightly that hence yowza republican usually riser freezing",
 };
 ```
 

@@ -14,11 +14,11 @@ import {
 } from "./authenticationtype1.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -74,7 +74,7 @@ export type InputEventhubPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
    */
@@ -184,12 +184,11 @@ export type InputEventhubPqEnabledTrueWithPqConstraint = {
   description?: string | undefined;
 };
 
-export type InputEventhubPqEnabledFalseWithPqConstraint = {
+export type InputEventhubPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -215,7 +214,8 @@ export type InputEventhubPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
    */
@@ -333,7 +333,7 @@ export type InputEventhubSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -466,15 +466,11 @@ export type InputEventhubSendToRoutesFalseWithConnectionsConstraint = {
   description?: string | undefined;
 };
 
-export type InputEventhubSendToRoutesTrueWithConnectionsConstraint = {
+export type InputEventhubSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -497,6 +493,10 @@ export type InputEventhubSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
@@ -608,9 +608,9 @@ export type InputEventhubSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputEventhub =
-  | InputEventhubSendToRoutesTrueWithConnectionsConstraint
+  | InputEventhubSendToRoutesTrueConstraint
   | InputEventhubSendToRoutesFalseWithConnectionsConstraint
-  | InputEventhubPqEnabledFalseWithPqConstraint
+  | InputEventhubPqEnabledFalseConstraint
   | InputEventhubPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -635,7 +635,8 @@ export const InputEventhubPqEnabledTrueWithPqConstraint$inboundSchema:
       sendToRoutes: z.boolean().default(true),
       environment: z.string().optional(),
       streamtags: z.array(z.string()).optional(),
-      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+      connections: z.array(ItemsTypeConnectionsOptional$inboundSchema)
+        .optional(),
       brokers: z.array(z.string()),
       topics: z.array(z.string()),
       groupId: z.string().default("Cribl"),
@@ -673,7 +674,7 @@ export type InputEventhubPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   brokers: Array<string>;
   topics: Array<string>;
   groupId: string;
@@ -717,7 +718,8 @@ export const InputEventhubPqEnabledTrueWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     brokers: z.array(z.string()),
     topics: z.array(z.string()),
     groupId: z.string().default("Cribl"),
@@ -772,52 +774,50 @@ export function inputEventhubPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputEventhubPqEnabledFalseWithPqConstraint$inboundSchema:
-  z.ZodType<
-    InputEventhubPqEnabledFalseWithPqConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    pqEnabled: z.boolean().default(false),
-    pq: PqType$inboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputEventhubType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    brokers: z.array(z.string()),
-    topics: z.array(z.string()),
-    groupId: z.string().default("Cribl"),
-    fromBeginning: z.boolean().default(true),
-    connectionTimeout: z.number().default(10000),
-    requestTimeout: z.number().default(60000),
-    maxRetries: z.number().default(5),
-    maxBackOff: z.number().default(30000),
-    initialBackoff: z.number().default(300),
-    backoffRate: z.number().default(2),
-    authenticationTimeout: z.number().default(10000),
-    reauthenticationThreshold: z.number().default(10000),
-    sasl: AuthenticationType1$inboundSchema.optional(),
-    tls: TlsSettingsClientSideType$inboundSchema.optional(),
-    sessionTimeout: z.number().default(30000),
-    rebalanceTimeout: z.number().default(60000),
-    heartbeatInterval: z.number().default(3000),
-    autoCommitInterval: z.number().optional(),
-    autoCommitThreshold: z.number().optional(),
-    maxBytesPerPartition: z.number().default(1048576),
-    maxBytes: z.number().default(10485760),
-    maxSocketErrors: z.number().default(0),
-    minimizeDuplicates: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    description: z.string().optional(),
-  });
+export const InputEventhubPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputEventhubPqEnabledFalseConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputEventhubType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  sasl: AuthenticationType1$inboundSchema.optional(),
+  tls: TlsSettingsClientSideType$inboundSchema.optional(),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  minimizeDuplicates: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+});
 /** @internal */
-export type InputEventhubPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputEventhubPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -825,7 +825,8 @@ export type InputEventhubPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
   groupId: string;
@@ -854,72 +855,65 @@ export type InputEventhubPqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputEventhubPqEnabledFalseWithPqConstraint$outboundSchema:
-  z.ZodType<
-    InputEventhubPqEnabledFalseWithPqConstraint$Outbound,
-    z.ZodTypeDef,
-    InputEventhubPqEnabledFalseWithPqConstraint
-  > = z.object({
-    pqEnabled: z.boolean().default(false),
-    pq: PqType$outboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputEventhubType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    brokers: z.array(z.string()),
-    topics: z.array(z.string()),
-    groupId: z.string().default("Cribl"),
-    fromBeginning: z.boolean().default(true),
-    connectionTimeout: z.number().default(10000),
-    requestTimeout: z.number().default(60000),
-    maxRetries: z.number().default(5),
-    maxBackOff: z.number().default(30000),
-    initialBackoff: z.number().default(300),
-    backoffRate: z.number().default(2),
-    authenticationTimeout: z.number().default(10000),
-    reauthenticationThreshold: z.number().default(10000),
-    sasl: AuthenticationType1$outboundSchema.optional(),
-    tls: TlsSettingsClientSideType$outboundSchema.optional(),
-    sessionTimeout: z.number().default(30000),
-    rebalanceTimeout: z.number().default(60000),
-    heartbeatInterval: z.number().default(3000),
-    autoCommitInterval: z.number().optional(),
-    autoCommitThreshold: z.number().optional(),
-    maxBytesPerPartition: z.number().default(1048576),
-    maxBytes: z.number().default(10485760),
-    maxSocketErrors: z.number().default(0),
-    minimizeDuplicates: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-  });
+export const InputEventhubPqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputEventhubPqEnabledFalseConstraint$Outbound,
+  z.ZodTypeDef,
+  InputEventhubPqEnabledFalseConstraint
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputEventhubType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  sasl: AuthenticationType1$outboundSchema.optional(),
+  tls: TlsSettingsClientSideType$outboundSchema.optional(),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  minimizeDuplicates: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+});
 
-export function inputEventhubPqEnabledFalseWithPqConstraintToJSON(
-  inputEventhubPqEnabledFalseWithPqConstraint:
-    InputEventhubPqEnabledFalseWithPqConstraint,
+export function inputEventhubPqEnabledFalseConstraintToJSON(
+  inputEventhubPqEnabledFalseConstraint: InputEventhubPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputEventhubPqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputEventhubPqEnabledFalseWithPqConstraint,
+    InputEventhubPqEnabledFalseConstraint$outboundSchema.parse(
+      inputEventhubPqEnabledFalseConstraint,
     ),
   );
 }
-export function inputEventhubPqEnabledFalseWithPqConstraintFromJSON(
+export function inputEventhubPqEnabledFalseConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<
-  InputEventhubPqEnabledFalseWithPqConstraint,
-  SDKValidationError
-> {
+): SafeParseResult<InputEventhubPqEnabledFalseConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      InputEventhubPqEnabledFalseWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputEventhubPqEnabledFalseWithPqConstraint' from JSON`,
+      InputEventhubPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputEventhubPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -931,7 +925,7 @@ export const InputEventhubSendToRoutesFalseWithConnectionsConstraint$inboundSche
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputEventhubType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -969,7 +963,7 @@ export const InputEventhubSendToRoutesFalseWithConnectionsConstraint$inboundSche
 /** @internal */
 export type InputEventhubSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1013,7 +1007,8 @@ export const InputEventhubSendToRoutesFalseWithConnectionsConstraint$outboundSch
     InputEventhubSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputEventhubType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1074,52 +1069,50 @@ export function inputEventhubSendToRoutesFalseWithConnectionsConstraintFromJSON(
 }
 
 /** @internal */
-export const InputEventhubSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputEventhubSendToRoutesTrueWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputEventhubType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    brokers: z.array(z.string()),
-    topics: z.array(z.string()),
-    groupId: z.string().default("Cribl"),
-    fromBeginning: z.boolean().default(true),
-    connectionTimeout: z.number().default(10000),
-    requestTimeout: z.number().default(60000),
-    maxRetries: z.number().default(5),
-    maxBackOff: z.number().default(30000),
-    initialBackoff: z.number().default(300),
-    backoffRate: z.number().default(2),
-    authenticationTimeout: z.number().default(10000),
-    reauthenticationThreshold: z.number().default(10000),
-    sasl: AuthenticationType1$inboundSchema.optional(),
-    tls: TlsSettingsClientSideType$inboundSchema.optional(),
-    sessionTimeout: z.number().default(30000),
-    rebalanceTimeout: z.number().default(60000),
-    heartbeatInterval: z.number().default(3000),
-    autoCommitInterval: z.number().optional(),
-    autoCommitThreshold: z.number().optional(),
-    maxBytesPerPartition: z.number().default(1048576),
-    maxBytes: z.number().default(10485760),
-    maxSocketErrors: z.number().default(0),
-    minimizeDuplicates: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    description: z.string().optional(),
-  });
+export const InputEventhubSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
+  InputEventhubSendToRoutesTrueConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputEventhubType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  sasl: AuthenticationType1$inboundSchema.optional(),
+  tls: TlsSettingsClientSideType$inboundSchema.optional(),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  minimizeDuplicates: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+});
 /** @internal */
-export type InputEventhubSendToRoutesTrueWithConnectionsConstraint$Outbound = {
+export type InputEventhubSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1127,6 +1120,7 @@ export type InputEventhubSendToRoutesTrueWithConnectionsConstraint$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
@@ -1156,71 +1150,71 @@ export type InputEventhubSendToRoutesTrueWithConnectionsConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputEventhubSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputEventhubSendToRoutesTrueWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputEventhubSendToRoutesTrueWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputEventhubType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    brokers: z.array(z.string()),
-    topics: z.array(z.string()),
-    groupId: z.string().default("Cribl"),
-    fromBeginning: z.boolean().default(true),
-    connectionTimeout: z.number().default(10000),
-    requestTimeout: z.number().default(60000),
-    maxRetries: z.number().default(5),
-    maxBackOff: z.number().default(30000),
-    initialBackoff: z.number().default(300),
-    backoffRate: z.number().default(2),
-    authenticationTimeout: z.number().default(10000),
-    reauthenticationThreshold: z.number().default(10000),
-    sasl: AuthenticationType1$outboundSchema.optional(),
-    tls: TlsSettingsClientSideType$outboundSchema.optional(),
-    sessionTimeout: z.number().default(30000),
-    rebalanceTimeout: z.number().default(60000),
-    heartbeatInterval: z.number().default(3000),
-    autoCommitInterval: z.number().optional(),
-    autoCommitThreshold: z.number().optional(),
-    maxBytesPerPartition: z.number().default(1048576),
-    maxBytes: z.number().default(10485760),
-    maxSocketErrors: z.number().default(0),
-    minimizeDuplicates: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-  });
+export const InputEventhubSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
+  InputEventhubSendToRoutesTrueConstraint$Outbound,
+  z.ZodTypeDef,
+  InputEventhubSendToRoutesTrueConstraint
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputEventhubType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  sasl: AuthenticationType1$outboundSchema.optional(),
+  tls: TlsSettingsClientSideType$outboundSchema.optional(),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  minimizeDuplicates: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+});
 
-export function inputEventhubSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputEventhubSendToRoutesTrueWithConnectionsConstraint:
-    InputEventhubSendToRoutesTrueWithConnectionsConstraint,
+export function inputEventhubSendToRoutesTrueConstraintToJSON(
+  inputEventhubSendToRoutesTrueConstraint:
+    InputEventhubSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputEventhubSendToRoutesTrueWithConnectionsConstraint$outboundSchema.parse(
-      inputEventhubSendToRoutesTrueWithConnectionsConstraint,
+    InputEventhubSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputEventhubSendToRoutesTrueConstraint,
     ),
   );
 }
-export function inputEventhubSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputEventhubSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputEventhubSendToRoutesTrueWithConnectionsConstraint,
+  InputEventhubSendToRoutesTrueConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputEventhubSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputEventhubSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputEventhubSendToRoutesTrueConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputEventhubSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -1230,20 +1224,18 @@ export const InputEventhub$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() =>
-    InputEventhubSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-  ),
+  z.lazy(() => InputEventhubSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputEventhubSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputEventhubPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputEventhubPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputEventhubPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputEventhub$Outbound =
-  | InputEventhubSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputEventhubSendToRoutesTrueConstraint$Outbound
   | InputEventhubSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputEventhubPqEnabledFalseWithPqConstraint$Outbound
+  | InputEventhubPqEnabledFalseConstraint$Outbound
   | InputEventhubPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1252,13 +1244,11 @@ export const InputEventhub$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputEventhub
 > = z.union([
-  z.lazy(() =>
-    InputEventhubSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputEventhubSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputEventhubSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() => InputEventhubPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputEventhubPqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputEventhubPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 
