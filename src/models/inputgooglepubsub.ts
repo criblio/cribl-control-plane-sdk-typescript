@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -30,12 +31,22 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 
-export type InputGooglePubsub = {
+export const InputGooglePubsubType = {
+  GooglePubsub: "google_pubsub",
+} as const;
+export type InputGooglePubsubType = ClosedEnum<typeof InputGooglePubsubType>;
+
+export type InputGooglePubsubInputCollectionPart1Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "google_pubsub";
+  type: InputGooglePubsubType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -45,6 +56,274 @@ export type InputGooglePubsub = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
+   */
+  topicName?: string | undefined;
+  /**
+   * ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
+   */
+  subscriptionName: string;
+  /**
+   * Use when the subscription is not created by this Source and topic is not known
+   */
+  monitorSubscription?: boolean | undefined;
+  /**
+   * Create topic if it does not exist
+   */
+  createTopic?: boolean | undefined;
+  /**
+   * Create subscription if it does not exist
+   */
+  createSubscription?: boolean | undefined;
+  /**
+   * Region to retrieve messages from. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+   */
+  region?: string | undefined;
+  /**
+   * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+   */
+  googleAuthMethod?: GoogleAuthenticationMethodOptions | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * If Destination exerts backpressure, this setting limits how many inbound events Stream will queue for processing before it stops retrieving events
+   */
+  maxBacklog?: number | undefined;
+  /**
+   * How many streams to pull messages from at one time. Doubling the value doubles the number of messages this Source pulls from the topic (if available), while consuming more CPU and memory. Defaults to 5.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Pull request timeout, in milliseconds
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
+   */
+  orderedDelivery?: boolean | undefined;
+};
+
+export type InputGooglePubsubInputCollectionPart0Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputGooglePubsubType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
+   */
+  topicName?: string | undefined;
+  /**
+   * ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
+   */
+  subscriptionName: string;
+  /**
+   * Use when the subscription is not created by this Source and topic is not known
+   */
+  monitorSubscription?: boolean | undefined;
+  /**
+   * Create topic if it does not exist
+   */
+  createTopic?: boolean | undefined;
+  /**
+   * Create subscription if it does not exist
+   */
+  createSubscription?: boolean | undefined;
+  /**
+   * Region to retrieve messages from. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+   */
+  region?: string | undefined;
+  /**
+   * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+   */
+  googleAuthMethod?: GoogleAuthenticationMethodOptions | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * If Destination exerts backpressure, this setting limits how many inbound events Stream will queue for processing before it stops retrieving events
+   */
+  maxBacklog?: number | undefined;
+  /**
+   * How many streams to pull messages from at one time. Doubling the value doubles the number of messages this Source pulls from the topic (if available), while consuming more CPU and memory. Defaults to 5.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Pull request timeout, in milliseconds
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
+   */
+  orderedDelivery?: boolean | undefined;
+};
+
+export type InputGooglePubsubInputCollectionPart1Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputGooglePubsubType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
+   */
+  topicName?: string | undefined;
+  /**
+   * ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
+   */
+  subscriptionName: string;
+  /**
+   * Use when the subscription is not created by this Source and topic is not known
+   */
+  monitorSubscription?: boolean | undefined;
+  /**
+   * Create topic if it does not exist
+   */
+  createTopic?: boolean | undefined;
+  /**
+   * Create subscription if it does not exist
+   */
+  createSubscription?: boolean | undefined;
+  /**
+   * Region to retrieve messages from. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+   */
+  region?: string | undefined;
+  /**
+   * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+   */
+  googleAuthMethod?: GoogleAuthenticationMethodOptions | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * If Destination exerts backpressure, this setting limits how many inbound events Stream will queue for processing before it stops retrieving events
+   */
+  maxBacklog?: number | undefined;
+  /**
+   * How many streams to pull messages from at one time. Doubling the value doubles the number of messages this Source pulls from the topic (if available), while consuming more CPU and memory. Defaults to 5.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Pull request timeout, in milliseconds
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
+   */
+  orderedDelivery?: boolean | undefined;
+};
+
+export type InputGooglePubsubInputCollectionPart0Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputGooglePubsubType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -121,17 +400,403 @@ export type InputGooglePubsub = {
   orderedDelivery?: boolean | undefined;
 };
 
+export type InputGooglePubsub =
+  | InputGooglePubsubInputCollectionPart0Type
+  | InputGooglePubsubInputCollectionPart1Type
+  | InputGooglePubsubInputCollectionPart0Type1
+  | InputGooglePubsubInputCollectionPart1Type1;
+
 /** @internal */
-export const InputGooglePubsub$inboundSchema: z.ZodType<
-  InputGooglePubsub,
+export const InputGooglePubsubType$inboundSchema: z.ZodNativeEnum<
+  typeof InputGooglePubsubType
+> = z.nativeEnum(InputGooglePubsubType);
+/** @internal */
+export const InputGooglePubsubType$outboundSchema: z.ZodNativeEnum<
+  typeof InputGooglePubsubType
+> = InputGooglePubsubType$inboundSchema;
+
+/** @internal */
+export const InputGooglePubsubInputCollectionPart1Type1$inboundSchema:
+  z.ZodType<InputGooglePubsubInputCollectionPart1Type1, z.ZodTypeDef, unknown> =
+    z.object({
+      pqEnabled: z.boolean().default(false),
+      pq: PqType$inboundSchema.optional(),
+      id: z.string().optional(),
+      type: InputGooglePubsubType$inboundSchema,
+      disabled: z.boolean().default(false),
+      pipeline: z.string().optional(),
+      sendToRoutes: z.boolean().default(true),
+      environment: z.string().optional(),
+      streamtags: z.array(z.string()).optional(),
+      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+      topicName: z.string().default("cribl"),
+      subscriptionName: z.string(),
+      monitorSubscription: z.boolean().default(false),
+      createTopic: z.boolean().default(false),
+      createSubscription: z.boolean().default(true),
+      region: z.string().optional(),
+      googleAuthMethod: GoogleAuthenticationMethodOptions$inboundSchema.default(
+        "manual",
+      ),
+      serviceAccountCredentials: z.string().optional(),
+      secret: z.string().optional(),
+      maxBacklog: z.number().default(1000),
+      concurrency: z.number().default(5),
+      requestTimeout: z.number().default(60000),
+      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+      description: z.string().optional(),
+      orderedDelivery: z.boolean().default(false),
+    });
+/** @internal */
+export type InputGooglePubsubInputCollectionPart1Type1$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  topicName: string;
+  subscriptionName: string;
+  monitorSubscription: boolean;
+  createTopic: boolean;
+  createSubscription: boolean;
+  region?: string | undefined;
+  googleAuthMethod: string;
+  serviceAccountCredentials?: string | undefined;
+  secret?: string | undefined;
+  maxBacklog: number;
+  concurrency: number;
+  requestTimeout: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  orderedDelivery: boolean;
+};
+
+/** @internal */
+export const InputGooglePubsubInputCollectionPart1Type1$outboundSchema:
+  z.ZodType<
+    InputGooglePubsubInputCollectionPart1Type1$Outbound,
+    z.ZodTypeDef,
+    InputGooglePubsubInputCollectionPart1Type1
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputGooglePubsubType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    topicName: z.string().default("cribl"),
+    subscriptionName: z.string(),
+    monitorSubscription: z.boolean().default(false),
+    createTopic: z.boolean().default(false),
+    createSubscription: z.boolean().default(true),
+    region: z.string().optional(),
+    googleAuthMethod: GoogleAuthenticationMethodOptions$outboundSchema.default(
+      "manual",
+    ),
+    serviceAccountCredentials: z.string().optional(),
+    secret: z.string().optional(),
+    maxBacklog: z.number().default(1000),
+    concurrency: z.number().default(5),
+    requestTimeout: z.number().default(60000),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    description: z.string().optional(),
+    orderedDelivery: z.boolean().default(false),
+  });
+
+export function inputGooglePubsubInputCollectionPart1Type1ToJSON(
+  inputGooglePubsubInputCollectionPart1Type1:
+    InputGooglePubsubInputCollectionPart1Type1,
+): string {
+  return JSON.stringify(
+    InputGooglePubsubInputCollectionPart1Type1$outboundSchema.parse(
+      inputGooglePubsubInputCollectionPart1Type1,
+    ),
+  );
+}
+export function inputGooglePubsubInputCollectionPart1Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputGooglePubsubInputCollectionPart1Type1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputGooglePubsubInputCollectionPart1Type1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputGooglePubsubInputCollectionPart1Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGooglePubsubInputCollectionPart0Type1$inboundSchema:
+  z.ZodType<InputGooglePubsubInputCollectionPart0Type1, z.ZodTypeDef, unknown> =
+    z.object({
+      pqEnabled: z.boolean().default(false),
+      id: z.string().optional(),
+      type: InputGooglePubsubType$inboundSchema,
+      disabled: z.boolean().default(false),
+      pipeline: z.string().optional(),
+      sendToRoutes: z.boolean().default(true),
+      environment: z.string().optional(),
+      streamtags: z.array(z.string()).optional(),
+      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+      pq: PqType$inboundSchema.optional(),
+      topicName: z.string().default("cribl"),
+      subscriptionName: z.string(),
+      monitorSubscription: z.boolean().default(false),
+      createTopic: z.boolean().default(false),
+      createSubscription: z.boolean().default(true),
+      region: z.string().optional(),
+      googleAuthMethod: GoogleAuthenticationMethodOptions$inboundSchema.default(
+        "manual",
+      ),
+      serviceAccountCredentials: z.string().optional(),
+      secret: z.string().optional(),
+      maxBacklog: z.number().default(1000),
+      concurrency: z.number().default(5),
+      requestTimeout: z.number().default(60000),
+      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+      description: z.string().optional(),
+      orderedDelivery: z.boolean().default(false),
+    });
+/** @internal */
+export type InputGooglePubsubInputCollectionPart0Type1$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  topicName: string;
+  subscriptionName: string;
+  monitorSubscription: boolean;
+  createTopic: boolean;
+  createSubscription: boolean;
+  region?: string | undefined;
+  googleAuthMethod: string;
+  serviceAccountCredentials?: string | undefined;
+  secret?: string | undefined;
+  maxBacklog: number;
+  concurrency: number;
+  requestTimeout: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  orderedDelivery: boolean;
+};
+
+/** @internal */
+export const InputGooglePubsubInputCollectionPart0Type1$outboundSchema:
+  z.ZodType<
+    InputGooglePubsubInputCollectionPart0Type1$Outbound,
+    z.ZodTypeDef,
+    InputGooglePubsubInputCollectionPart0Type1
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputGooglePubsubType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    topicName: z.string().default("cribl"),
+    subscriptionName: z.string(),
+    monitorSubscription: z.boolean().default(false),
+    createTopic: z.boolean().default(false),
+    createSubscription: z.boolean().default(true),
+    region: z.string().optional(),
+    googleAuthMethod: GoogleAuthenticationMethodOptions$outboundSchema.default(
+      "manual",
+    ),
+    serviceAccountCredentials: z.string().optional(),
+    secret: z.string().optional(),
+    maxBacklog: z.number().default(1000),
+    concurrency: z.number().default(5),
+    requestTimeout: z.number().default(60000),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    description: z.string().optional(),
+    orderedDelivery: z.boolean().default(false),
+  });
+
+export function inputGooglePubsubInputCollectionPart0Type1ToJSON(
+  inputGooglePubsubInputCollectionPart0Type1:
+    InputGooglePubsubInputCollectionPart0Type1,
+): string {
+  return JSON.stringify(
+    InputGooglePubsubInputCollectionPart0Type1$outboundSchema.parse(
+      inputGooglePubsubInputCollectionPart0Type1,
+    ),
+  );
+}
+export function inputGooglePubsubInputCollectionPart0Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputGooglePubsubInputCollectionPart0Type1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputGooglePubsubInputCollectionPart0Type1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputGooglePubsubInputCollectionPart0Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGooglePubsubInputCollectionPart1Type$inboundSchema: z.ZodType<
+  InputGooglePubsubInputCollectionPart1Type,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
   id: z.string().optional(),
-  type: z.literal("google_pubsub"),
+  type: InputGooglePubsubType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$inboundSchema.optional(),
+  topicName: z.string().default("cribl"),
+  subscriptionName: z.string(),
+  monitorSubscription: z.boolean().default(false),
+  createTopic: z.boolean().default(false),
+  createSubscription: z.boolean().default(true),
+  region: z.string().optional(),
+  googleAuthMethod: GoogleAuthenticationMethodOptions$inboundSchema.default(
+    "manual",
+  ),
+  serviceAccountCredentials: z.string().optional(),
+  secret: z.string().optional(),
+  maxBacklog: z.number().default(1000),
+  concurrency: z.number().default(5),
+  requestTimeout: z.number().default(60000),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+  orderedDelivery: z.boolean().default(false),
+});
+/** @internal */
+export type InputGooglePubsubInputCollectionPart1Type$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  topicName: string;
+  subscriptionName: string;
+  monitorSubscription: boolean;
+  createTopic: boolean;
+  createSubscription: boolean;
+  region?: string | undefined;
+  googleAuthMethod: string;
+  serviceAccountCredentials?: string | undefined;
+  secret?: string | undefined;
+  maxBacklog: number;
+  concurrency: number;
+  requestTimeout: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  orderedDelivery: boolean;
+};
+
+/** @internal */
+export const InputGooglePubsubInputCollectionPart1Type$outboundSchema:
+  z.ZodType<
+    InputGooglePubsubInputCollectionPart1Type$Outbound,
+    z.ZodTypeDef,
+    InputGooglePubsubInputCollectionPart1Type
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputGooglePubsubType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    topicName: z.string().default("cribl"),
+    subscriptionName: z.string(),
+    monitorSubscription: z.boolean().default(false),
+    createTopic: z.boolean().default(false),
+    createSubscription: z.boolean().default(true),
+    region: z.string().optional(),
+    googleAuthMethod: GoogleAuthenticationMethodOptions$outboundSchema.default(
+      "manual",
+    ),
+    serviceAccountCredentials: z.string().optional(),
+    secret: z.string().optional(),
+    maxBacklog: z.number().default(1000),
+    concurrency: z.number().default(5),
+    requestTimeout: z.number().default(60000),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    description: z.string().optional(),
+    orderedDelivery: z.boolean().default(false),
+  });
+
+export function inputGooglePubsubInputCollectionPart1TypeToJSON(
+  inputGooglePubsubInputCollectionPart1Type:
+    InputGooglePubsubInputCollectionPart1Type,
+): string {
+  return JSON.stringify(
+    InputGooglePubsubInputCollectionPart1Type$outboundSchema.parse(
+      inputGooglePubsubInputCollectionPart1Type,
+    ),
+  );
+}
+export function inputGooglePubsubInputCollectionPart1TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputGooglePubsubInputCollectionPart1Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputGooglePubsubInputCollectionPart1Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputGooglePubsubInputCollectionPart1Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGooglePubsubInputCollectionPart0Type$inboundSchema: z.ZodType<
+  InputGooglePubsubInputCollectionPart0Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
   sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputGooglePubsubType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
@@ -156,12 +821,12 @@ export const InputGooglePubsub$inboundSchema: z.ZodType<
   orderedDelivery: z.boolean().default(false),
 });
 /** @internal */
-export type InputGooglePubsub$Outbound = {
+export type InputGooglePubsubInputCollectionPart0Type$Outbound = {
+  sendToRoutes: boolean;
   id?: string | undefined;
-  type: "google_pubsub";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
@@ -185,39 +850,96 @@ export type InputGooglePubsub$Outbound = {
 };
 
 /** @internal */
+export const InputGooglePubsubInputCollectionPart0Type$outboundSchema:
+  z.ZodType<
+    InputGooglePubsubInputCollectionPart0Type$Outbound,
+    z.ZodTypeDef,
+    InputGooglePubsubInputCollectionPart0Type
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputGooglePubsubType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    topicName: z.string().default("cribl"),
+    subscriptionName: z.string(),
+    monitorSubscription: z.boolean().default(false),
+    createTopic: z.boolean().default(false),
+    createSubscription: z.boolean().default(true),
+    region: z.string().optional(),
+    googleAuthMethod: GoogleAuthenticationMethodOptions$outboundSchema.default(
+      "manual",
+    ),
+    serviceAccountCredentials: z.string().optional(),
+    secret: z.string().optional(),
+    maxBacklog: z.number().default(1000),
+    concurrency: z.number().default(5),
+    requestTimeout: z.number().default(60000),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    description: z.string().optional(),
+    orderedDelivery: z.boolean().default(false),
+  });
+
+export function inputGooglePubsubInputCollectionPart0TypeToJSON(
+  inputGooglePubsubInputCollectionPart0Type:
+    InputGooglePubsubInputCollectionPart0Type,
+): string {
+  return JSON.stringify(
+    InputGooglePubsubInputCollectionPart0Type$outboundSchema.parse(
+      inputGooglePubsubInputCollectionPart0Type,
+    ),
+  );
+}
+export function inputGooglePubsubInputCollectionPart0TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputGooglePubsubInputCollectionPart0Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputGooglePubsubInputCollectionPart0Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputGooglePubsubInputCollectionPart0Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGooglePubsub$inboundSchema: z.ZodType<
+  InputGooglePubsub,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputGooglePubsubInputCollectionPart0Type$inboundSchema),
+  z.lazy(() => InputGooglePubsubInputCollectionPart1Type$inboundSchema),
+  z.lazy(() => InputGooglePubsubInputCollectionPart0Type1$inboundSchema),
+  z.lazy(() => InputGooglePubsubInputCollectionPart1Type1$inboundSchema),
+]);
+/** @internal */
+export type InputGooglePubsub$Outbound =
+  | InputGooglePubsubInputCollectionPart0Type$Outbound
+  | InputGooglePubsubInputCollectionPart1Type$Outbound
+  | InputGooglePubsubInputCollectionPart0Type1$Outbound
+  | InputGooglePubsubInputCollectionPart1Type1$Outbound;
+
+/** @internal */
 export const InputGooglePubsub$outboundSchema: z.ZodType<
   InputGooglePubsub$Outbound,
   z.ZodTypeDef,
   InputGooglePubsub
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("google_pubsub"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  topicName: z.string().default("cribl"),
-  subscriptionName: z.string(),
-  monitorSubscription: z.boolean().default(false),
-  createTopic: z.boolean().default(false),
-  createSubscription: z.boolean().default(true),
-  region: z.string().optional(),
-  googleAuthMethod: GoogleAuthenticationMethodOptions$outboundSchema.default(
-    "manual",
-  ),
-  serviceAccountCredentials: z.string().optional(),
-  secret: z.string().optional(),
-  maxBacklog: z.number().default(1000),
-  concurrency: z.number().default(5),
-  requestTimeout: z.number().default(60000),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-  orderedDelivery: z.boolean().default(false),
-});
+> = z.union([
+  z.lazy(() => InputGooglePubsubInputCollectionPart0Type$outboundSchema),
+  z.lazy(() => InputGooglePubsubInputCollectionPart1Type$outboundSchema),
+  z.lazy(() => InputGooglePubsubInputCollectionPart0Type1$outboundSchema),
+  z.lazy(() => InputGooglePubsubInputCollectionPart1Type1$outboundSchema),
+]);
 
 export function inputGooglePubsubToJSON(
   inputGooglePubsub: InputGooglePubsub,

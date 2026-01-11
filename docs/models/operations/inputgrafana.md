@@ -31,8 +31,8 @@ const value: operations.InputGrafanaGrafana1 = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
   prometheusAuth: {
     username: "Keith.Bins85",
@@ -117,8 +117,8 @@ const value: operations.InputGrafanaGrafana2 = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
   prometheusAuth: {
     username: "Abbie50",

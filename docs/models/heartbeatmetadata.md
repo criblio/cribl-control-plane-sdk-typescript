@@ -28,6 +28,7 @@ let value: HeartbeatMetadata = {
       "key": "<value>",
     },
     type: "<value>",
+    vmId: "<id>",
     zone: "<value>",
   },
   hostOs: {

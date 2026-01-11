@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -25,12 +26,22 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 
-export type InputCribl = {
+export const InputCriblType = {
+  Cribl: "cribl",
+} as const;
+export type InputCriblType = ClosedEnum<typeof InputCriblType>;
+
+export type InputCriblInputCollectionPart1Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "cribl";
+  type: InputCriblType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -40,6 +51,121 @@ export type InputCribl = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  filter?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputCriblInputCollectionPart0Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCriblType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
+  filter?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputCriblInputCollectionPart1Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCriblType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  filter?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputCriblInputCollectionPart0Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCriblType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -65,17 +191,266 @@ export type InputCribl = {
   description?: string | undefined;
 };
 
+export type InputCribl =
+  | InputCriblInputCollectionPart0Type
+  | InputCriblInputCollectionPart1Type
+  | InputCriblInputCollectionPart0Type1
+  | InputCriblInputCollectionPart1Type1;
+
 /** @internal */
-export const InputCribl$inboundSchema: z.ZodType<
-  InputCribl,
+export const InputCriblType$inboundSchema: z.ZodNativeEnum<
+  typeof InputCriblType
+> = z.nativeEnum(InputCriblType);
+/** @internal */
+export const InputCriblType$outboundSchema: z.ZodNativeEnum<
+  typeof InputCriblType
+> = InputCriblType$inboundSchema;
+
+/** @internal */
+export const InputCriblInputCollectionPart1Type1$inboundSchema: z.ZodType<
+  InputCriblInputCollectionPart1Type1,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
-  type: z.literal("cribl"),
+  type: InputCriblType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  filter: z.string().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputCriblInputCollectionPart1Type1$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  filter?: string | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblInputCollectionPart1Type1$outboundSchema: z.ZodType<
+  InputCriblInputCollectionPart1Type1$Outbound,
+  z.ZodTypeDef,
+  InputCriblInputCollectionPart1Type1
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$outboundSchema.optional(),
+  id: z.string().optional(),
+  type: InputCriblType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  filter: z.string().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputCriblInputCollectionPart1Type1ToJSON(
+  inputCriblInputCollectionPart1Type1: InputCriblInputCollectionPart1Type1,
+): string {
+  return JSON.stringify(
+    InputCriblInputCollectionPart1Type1$outboundSchema.parse(
+      inputCriblInputCollectionPart1Type1,
+    ),
+  );
+}
+export function inputCriblInputCollectionPart1Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblInputCollectionPart1Type1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputCriblInputCollectionPart1Type1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblInputCollectionPart1Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblInputCollectionPart0Type1$inboundSchema: z.ZodType<
+  InputCriblInputCollectionPart0Type1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputCriblType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  filter: z.string().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputCriblInputCollectionPart0Type1$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  filter?: string | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblInputCollectionPart0Type1$outboundSchema: z.ZodType<
+  InputCriblInputCollectionPart0Type1$Outbound,
+  z.ZodTypeDef,
+  InputCriblInputCollectionPart0Type1
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputCriblType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  filter: z.string().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputCriblInputCollectionPart0Type1ToJSON(
+  inputCriblInputCollectionPart0Type1: InputCriblInputCollectionPart0Type1,
+): string {
+  return JSON.stringify(
+    InputCriblInputCollectionPart0Type1$outboundSchema.parse(
+      inputCriblInputCollectionPart0Type1,
+    ),
+  );
+}
+export function inputCriblInputCollectionPart0Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblInputCollectionPart0Type1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputCriblInputCollectionPart0Type1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblInputCollectionPart0Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblInputCollectionPart1Type$inboundSchema: z.ZodType<
+  InputCriblInputCollectionPart1Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  id: z.string().optional(),
+  type: InputCriblType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$inboundSchema.optional(),
+  filter: z.string().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputCriblInputCollectionPart1Type$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  filter?: string | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblInputCollectionPart1Type$outboundSchema: z.ZodType<
+  InputCriblInputCollectionPart1Type$Outbound,
+  z.ZodTypeDef,
+  InputCriblInputCollectionPart1Type
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  id: z.string().optional(),
+  type: InputCriblType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$outboundSchema.optional(),
+  filter: z.string().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputCriblInputCollectionPart1TypeToJSON(
+  inputCriblInputCollectionPart1Type: InputCriblInputCollectionPart1Type,
+): string {
+  return JSON.stringify(
+    InputCriblInputCollectionPart1Type$outboundSchema.parse(
+      inputCriblInputCollectionPart1Type,
+    ),
+  );
+}
+export function inputCriblInputCollectionPart1TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblInputCollectionPart1Type, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputCriblInputCollectionPart1Type$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblInputCollectionPart1Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblInputCollectionPart0Type$inboundSchema: z.ZodType<
+  InputCriblInputCollectionPart0Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputCriblType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
@@ -86,12 +461,12 @@ export const InputCribl$inboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 /** @internal */
-export type InputCribl$Outbound = {
+export type InputCriblInputCollectionPart0Type$Outbound = {
+  sendToRoutes: boolean;
   id?: string | undefined;
-  type: "cribl";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
@@ -103,16 +478,16 @@ export type InputCribl$Outbound = {
 };
 
 /** @internal */
-export const InputCribl$outboundSchema: z.ZodType<
-  InputCribl$Outbound,
+export const InputCriblInputCollectionPart0Type$outboundSchema: z.ZodType<
+  InputCriblInputCollectionPart0Type$Outbound,
   z.ZodTypeDef,
-  InputCribl
+  InputCriblInputCollectionPart0Type
 > = z.object({
+  sendToRoutes: z.boolean().default(true),
   id: z.string().optional(),
-  type: z.literal("cribl"),
+  type: InputCriblType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
@@ -122,6 +497,56 @@ export const InputCribl$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
+
+export function inputCriblInputCollectionPart0TypeToJSON(
+  inputCriblInputCollectionPart0Type: InputCriblInputCollectionPart0Type,
+): string {
+  return JSON.stringify(
+    InputCriblInputCollectionPart0Type$outboundSchema.parse(
+      inputCriblInputCollectionPart0Type,
+    ),
+  );
+}
+export function inputCriblInputCollectionPart0TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblInputCollectionPart0Type, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputCriblInputCollectionPart0Type$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblInputCollectionPart0Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCribl$inboundSchema: z.ZodType<
+  InputCribl,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputCriblInputCollectionPart0Type$inboundSchema),
+  z.lazy(() => InputCriblInputCollectionPart1Type$inboundSchema),
+  z.lazy(() => InputCriblInputCollectionPart0Type1$inboundSchema),
+  z.lazy(() => InputCriblInputCollectionPart1Type1$inboundSchema),
+]);
+/** @internal */
+export type InputCribl$Outbound =
+  | InputCriblInputCollectionPart0Type$Outbound
+  | InputCriblInputCollectionPart1Type$Outbound
+  | InputCriblInputCollectionPart0Type1$Outbound
+  | InputCriblInputCollectionPart1Type1$Outbound;
+
+/** @internal */
+export const InputCribl$outboundSchema: z.ZodType<
+  InputCribl$Outbound,
+  z.ZodTypeDef,
+  InputCribl
+> = z.union([
+  z.lazy(() => InputCriblInputCollectionPart0Type$outboundSchema),
+  z.lazy(() => InputCriblInputCollectionPart1Type$outboundSchema),
+  z.lazy(() => InputCriblInputCollectionPart0Type1$outboundSchema),
+  z.lazy(() => InputCriblInputCollectionPart1Type1$outboundSchema),
+]);
 
 export function inputCriblToJSON(inputCribl: InputCribl): string {
   return JSON.stringify(InputCribl$outboundSchema.parse(inputCribl));

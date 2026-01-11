@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   DataCompressionFormatOptionsPersistence,
@@ -42,6 +42,11 @@ import {
   ProcessType$Outbound,
   ProcessType$outboundSchema,
 } from "./processtype.js";
+
+export const InputSystemMetricsType = {
+  SystemMetrics: "system_metrics",
+} as const;
+export type InputSystemMetricsType = ClosedEnum<typeof InputSystemMetricsType>;
 
 /**
  * Select the level of detail for system metrics
@@ -379,12 +384,17 @@ export type InputSystemMetricsPersistence = {
   destPath?: string | undefined;
 };
 
-export type InputSystemMetrics = {
+export type InputSystemMetricsInputCollectionPart1Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "system_metrics";
+  type: InputSystemMetricsType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -394,6 +404,142 @@ export type InputSystemMetrics = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+   */
+  interval?: number | undefined;
+  host?: InputSystemMetricsHost | undefined;
+  process?: ProcessType | undefined;
+  container?: Container | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  persistence?: InputSystemMetricsPersistence | undefined;
+  description?: string | undefined;
+};
+
+export type InputSystemMetricsInputCollectionPart0Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSystemMetricsType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+   */
+  interval?: number | undefined;
+  host?: InputSystemMetricsHost | undefined;
+  process?: ProcessType | undefined;
+  container?: Container | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  persistence?: InputSystemMetricsPersistence | undefined;
+  description?: string | undefined;
+};
+
+export type InputSystemMetricsInputCollectionPart1Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSystemMetricsType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+   */
+  interval?: number | undefined;
+  host?: InputSystemMetricsHost | undefined;
+  process?: ProcessType | undefined;
+  container?: Container | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  persistence?: InputSystemMetricsPersistence | undefined;
+  description?: string | undefined;
+};
+
+export type InputSystemMetricsInputCollectionPart0Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSystemMetricsType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -425,6 +571,21 @@ export type InputSystemMetrics = {
   persistence?: InputSystemMetricsPersistence | undefined;
   description?: string | undefined;
 };
+
+export type InputSystemMetrics =
+  | InputSystemMetricsInputCollectionPart0Type
+  | InputSystemMetricsInputCollectionPart1Type
+  | InputSystemMetricsInputCollectionPart0Type1
+  | InputSystemMetricsInputCollectionPart1Type1;
+
+/** @internal */
+export const InputSystemMetricsType$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsType
+> = z.nativeEnum(InputSystemMetricsType);
+/** @internal */
+export const InputSystemMetricsType$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsType
+> = InputSystemMetricsType$inboundSchema;
 
 /** @internal */
 export const InputSystemMetricsSystemMode$inboundSchema: z.ZodType<
@@ -992,37 +1153,332 @@ export function inputSystemMetricsPersistenceFromJSON(
 }
 
 /** @internal */
-export const InputSystemMetrics$inboundSchema: z.ZodType<
-  InputSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("system_metrics"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  interval: z.number().default(10),
-  host: z.lazy(() => InputSystemMetricsHost$inboundSchema).optional(),
-  process: ProcessType$inboundSchema.optional(),
-  container: z.lazy(() => Container$inboundSchema).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  persistence: z.lazy(() => InputSystemMetricsPersistence$inboundSchema)
-    .optional(),
-  description: z.string().optional(),
-});
+export const InputSystemMetricsInputCollectionPart1Type1$inboundSchema:
+  z.ZodType<
+    InputSystemMetricsInputCollectionPart1Type1,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputSystemMetricsType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    interval: z.number().default(10),
+    host: z.lazy(() => InputSystemMetricsHost$inboundSchema).optional(),
+    process: ProcessType$inboundSchema.optional(),
+    container: z.lazy(() => Container$inboundSchema).optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    persistence: z.lazy(() => InputSystemMetricsPersistence$inboundSchema)
+      .optional(),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputSystemMetrics$Outbound = {
+export type InputSystemMetricsInputCollectionPart1Type1$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
-  type: "system_metrics";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  interval: number;
+  host?: InputSystemMetricsHost$Outbound | undefined;
+  process?: ProcessType$Outbound | undefined;
+  container?: Container$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  persistence?: InputSystemMetricsPersistence$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSystemMetricsInputCollectionPart1Type1$outboundSchema:
+  z.ZodType<
+    InputSystemMetricsInputCollectionPart1Type1$Outbound,
+    z.ZodTypeDef,
+    InputSystemMetricsInputCollectionPart1Type1
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputSystemMetricsType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    interval: z.number().default(10),
+    host: z.lazy(() => InputSystemMetricsHost$outboundSchema).optional(),
+    process: ProcessType$outboundSchema.optional(),
+    container: z.lazy(() => Container$outboundSchema).optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    persistence: z.lazy(() => InputSystemMetricsPersistence$outboundSchema)
+      .optional(),
+    description: z.string().optional(),
+  });
+
+export function inputSystemMetricsInputCollectionPart1Type1ToJSON(
+  inputSystemMetricsInputCollectionPart1Type1:
+    InputSystemMetricsInputCollectionPart1Type1,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsInputCollectionPart1Type1$outboundSchema.parse(
+      inputSystemMetricsInputCollectionPart1Type1,
+    ),
+  );
+}
+export function inputSystemMetricsInputCollectionPart1Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputSystemMetricsInputCollectionPart1Type1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputSystemMetricsInputCollectionPart1Type1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputSystemMetricsInputCollectionPart1Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsInputCollectionPart0Type1$inboundSchema:
+  z.ZodType<
+    InputSystemMetricsInputCollectionPart0Type1,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputSystemMetricsType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    pq: PqType$inboundSchema.optional(),
+    interval: z.number().default(10),
+    host: z.lazy(() => InputSystemMetricsHost$inboundSchema).optional(),
+    process: ProcessType$inboundSchema.optional(),
+    container: z.lazy(() => Container$inboundSchema).optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    persistence: z.lazy(() => InputSystemMetricsPersistence$inboundSchema)
+      .optional(),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputSystemMetricsInputCollectionPart0Type1$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  interval: number;
+  host?: InputSystemMetricsHost$Outbound | undefined;
+  process?: ProcessType$Outbound | undefined;
+  container?: Container$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  persistence?: InputSystemMetricsPersistence$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSystemMetricsInputCollectionPart0Type1$outboundSchema:
+  z.ZodType<
+    InputSystemMetricsInputCollectionPart0Type1$Outbound,
+    z.ZodTypeDef,
+    InputSystemMetricsInputCollectionPart0Type1
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputSystemMetricsType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    interval: z.number().default(10),
+    host: z.lazy(() => InputSystemMetricsHost$outboundSchema).optional(),
+    process: ProcessType$outboundSchema.optional(),
+    container: z.lazy(() => Container$outboundSchema).optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    persistence: z.lazy(() => InputSystemMetricsPersistence$outboundSchema)
+      .optional(),
+    description: z.string().optional(),
+  });
+
+export function inputSystemMetricsInputCollectionPart0Type1ToJSON(
+  inputSystemMetricsInputCollectionPart0Type1:
+    InputSystemMetricsInputCollectionPart0Type1,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsInputCollectionPart0Type1$outboundSchema.parse(
+      inputSystemMetricsInputCollectionPart0Type1,
+    ),
+  );
+}
+export function inputSystemMetricsInputCollectionPart0Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputSystemMetricsInputCollectionPart0Type1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputSystemMetricsInputCollectionPart0Type1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputSystemMetricsInputCollectionPart0Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsInputCollectionPart1Type$inboundSchema:
+  z.ZodType<InputSystemMetricsInputCollectionPart1Type, z.ZodTypeDef, unknown> =
+    z.object({
+      sendToRoutes: z.boolean().default(true),
+      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+      id: z.string().optional(),
+      type: InputSystemMetricsType$inboundSchema,
+      disabled: z.boolean().default(false),
+      pipeline: z.string().optional(),
+      environment: z.string().optional(),
+      pqEnabled: z.boolean().default(false),
+      streamtags: z.array(z.string()).optional(),
+      pq: PqType$inboundSchema.optional(),
+      interval: z.number().default(10),
+      host: z.lazy(() => InputSystemMetricsHost$inboundSchema).optional(),
+      process: ProcessType$inboundSchema.optional(),
+      container: z.lazy(() => Container$inboundSchema).optional(),
+      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+      persistence: z.lazy(() => InputSystemMetricsPersistence$inboundSchema)
+        .optional(),
+      description: z.string().optional(),
+    });
+/** @internal */
+export type InputSystemMetricsInputCollectionPart1Type$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  interval: number;
+  host?: InputSystemMetricsHost$Outbound | undefined;
+  process?: ProcessType$Outbound | undefined;
+  container?: Container$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  persistence?: InputSystemMetricsPersistence$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSystemMetricsInputCollectionPart1Type$outboundSchema:
+  z.ZodType<
+    InputSystemMetricsInputCollectionPart1Type$Outbound,
+    z.ZodTypeDef,
+    InputSystemMetricsInputCollectionPart1Type
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputSystemMetricsType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    interval: z.number().default(10),
+    host: z.lazy(() => InputSystemMetricsHost$outboundSchema).optional(),
+    process: ProcessType$outboundSchema.optional(),
+    container: z.lazy(() => Container$outboundSchema).optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    persistence: z.lazy(() => InputSystemMetricsPersistence$outboundSchema)
+      .optional(),
+    description: z.string().optional(),
+  });
+
+export function inputSystemMetricsInputCollectionPart1TypeToJSON(
+  inputSystemMetricsInputCollectionPart1Type:
+    InputSystemMetricsInputCollectionPart1Type,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsInputCollectionPart1Type$outboundSchema.parse(
+      inputSystemMetricsInputCollectionPart1Type,
+    ),
+  );
+}
+export function inputSystemMetricsInputCollectionPart1TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputSystemMetricsInputCollectionPart1Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputSystemMetricsInputCollectionPart1Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputSystemMetricsInputCollectionPart1Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsInputCollectionPart0Type$inboundSchema:
+  z.ZodType<InputSystemMetricsInputCollectionPart0Type, z.ZodTypeDef, unknown> =
+    z.object({
+      sendToRoutes: z.boolean().default(true),
+      id: z.string().optional(),
+      type: InputSystemMetricsType$inboundSchema,
+      disabled: z.boolean().default(false),
+      pipeline: z.string().optional(),
+      environment: z.string().optional(),
+      pqEnabled: z.boolean().default(false),
+      streamtags: z.array(z.string()).optional(),
+      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+      pq: PqType$inboundSchema.optional(),
+      interval: z.number().default(10),
+      host: z.lazy(() => InputSystemMetricsHost$inboundSchema).optional(),
+      process: ProcessType$inboundSchema.optional(),
+      container: z.lazy(() => Container$inboundSchema).optional(),
+      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+      persistence: z.lazy(() => InputSystemMetricsPersistence$inboundSchema)
+        .optional(),
+      description: z.string().optional(),
+    });
+/** @internal */
+export type InputSystemMetricsInputCollectionPart0Type$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
@@ -1038,30 +1494,87 @@ export type InputSystemMetrics$Outbound = {
 };
 
 /** @internal */
+export const InputSystemMetricsInputCollectionPart0Type$outboundSchema:
+  z.ZodType<
+    InputSystemMetricsInputCollectionPart0Type$Outbound,
+    z.ZodTypeDef,
+    InputSystemMetricsInputCollectionPart0Type
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputSystemMetricsType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    interval: z.number().default(10),
+    host: z.lazy(() => InputSystemMetricsHost$outboundSchema).optional(),
+    process: ProcessType$outboundSchema.optional(),
+    container: z.lazy(() => Container$outboundSchema).optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    persistence: z.lazy(() => InputSystemMetricsPersistence$outboundSchema)
+      .optional(),
+    description: z.string().optional(),
+  });
+
+export function inputSystemMetricsInputCollectionPart0TypeToJSON(
+  inputSystemMetricsInputCollectionPart0Type:
+    InputSystemMetricsInputCollectionPart0Type,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsInputCollectionPart0Type$outboundSchema.parse(
+      inputSystemMetricsInputCollectionPart0Type,
+    ),
+  );
+}
+export function inputSystemMetricsInputCollectionPart0TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputSystemMetricsInputCollectionPart0Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputSystemMetricsInputCollectionPart0Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputSystemMetricsInputCollectionPart0Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetrics$inboundSchema: z.ZodType<
+  InputSystemMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputSystemMetricsInputCollectionPart0Type$inboundSchema),
+  z.lazy(() => InputSystemMetricsInputCollectionPart1Type$inboundSchema),
+  z.lazy(() => InputSystemMetricsInputCollectionPart0Type1$inboundSchema),
+  z.lazy(() => InputSystemMetricsInputCollectionPart1Type1$inboundSchema),
+]);
+/** @internal */
+export type InputSystemMetrics$Outbound =
+  | InputSystemMetricsInputCollectionPart0Type$Outbound
+  | InputSystemMetricsInputCollectionPart1Type$Outbound
+  | InputSystemMetricsInputCollectionPart0Type1$Outbound
+  | InputSystemMetricsInputCollectionPart1Type1$Outbound;
+
+/** @internal */
 export const InputSystemMetrics$outboundSchema: z.ZodType<
   InputSystemMetrics$Outbound,
   z.ZodTypeDef,
   InputSystemMetrics
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("system_metrics"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  interval: z.number().default(10),
-  host: z.lazy(() => InputSystemMetricsHost$outboundSchema).optional(),
-  process: ProcessType$outboundSchema.optional(),
-  container: z.lazy(() => Container$outboundSchema).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  persistence: z.lazy(() => InputSystemMetricsPersistence$outboundSchema)
-    .optional(),
-  description: z.string().optional(),
-});
+> = z.union([
+  z.lazy(() => InputSystemMetricsInputCollectionPart0Type$outboundSchema),
+  z.lazy(() => InputSystemMetricsInputCollectionPart1Type$outboundSchema),
+  z.lazy(() => InputSystemMetricsInputCollectionPart0Type1$outboundSchema),
+  z.lazy(() => InputSystemMetricsInputCollectionPart1Type1$outboundSchema),
+]);
 
 export function inputSystemMetricsToJSON(
   inputSystemMetrics: InputSystemMetrics,

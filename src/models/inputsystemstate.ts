@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -26,6 +26,11 @@ import {
   PqType$Outbound,
   PqType$outboundSchema,
 } from "./pqtype.js";
+
+export const InputSystemStateType = {
+  SystemState: "system_state",
+} as const;
+export type InputSystemStateType = ClosedEnum<typeof InputSystemStateType>;
 
 /**
  * Creates events based on entries collected from the hosts file
@@ -181,12 +186,17 @@ export type InputSystemStatePersistence = {
   destPath?: string | undefined;
 };
 
-export type InputSystemState = {
+export type InputSystemStateInputCollectionPart1Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "system_state";
+  type: InputSystemStateType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -196,6 +206,148 @@ export type InputSystemState = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
+   */
+  interval?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  collectors?: Collectors | undefined;
+  persistence?: InputSystemStatePersistence | undefined;
+  /**
+   * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+   */
+  disableNativeModule?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type InputSystemStateInputCollectionPart0Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSystemStateType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
+   */
+  interval?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  collectors?: Collectors | undefined;
+  persistence?: InputSystemStatePersistence | undefined;
+  /**
+   * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+   */
+  disableNativeModule?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type InputSystemStateInputCollectionPart1Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSystemStateType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
+   */
+  interval?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  collectors?: Collectors | undefined;
+  persistence?: InputSystemStatePersistence | undefined;
+  /**
+   * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+   */
+  disableNativeModule?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type InputSystemStateInputCollectionPart0Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSystemStateType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -229,6 +381,21 @@ export type InputSystemState = {
   disableNativeModule?: boolean | undefined;
   description?: string | undefined;
 };
+
+export type InputSystemState =
+  | InputSystemStateInputCollectionPart0Type
+  | InputSystemStateInputCollectionPart1Type
+  | InputSystemStateInputCollectionPart0Type1
+  | InputSystemStateInputCollectionPart1Type1;
+
+/** @internal */
+export const InputSystemStateType$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemStateType
+> = z.nativeEnum(InputSystemStateType);
+/** @internal */
+export const InputSystemStateType$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemStateType
+> = InputSystemStateType$inboundSchema;
 
 /** @internal */
 export const HostsFile$inboundSchema: z.ZodType<
@@ -752,16 +919,303 @@ export function inputSystemStatePersistenceFromJSON(
 }
 
 /** @internal */
-export const InputSystemState$inboundSchema: z.ZodType<
-  InputSystemState,
+export const InputSystemStateInputCollectionPart1Type1$inboundSchema: z.ZodType<
+  InputSystemStateInputCollectionPart1Type1,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
-  type: z.literal("system_state"),
+  type: InputSystemStateType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  interval: z.number().default(300),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  collectors: z.lazy(() => Collectors$inboundSchema).optional(),
+  persistence: z.lazy(() => InputSystemStatePersistence$inboundSchema)
+    .optional(),
+  disableNativeModule: z.boolean().default(false),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputSystemStateInputCollectionPart1Type1$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  interval: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  collectors?: Collectors$Outbound | undefined;
+  persistence?: InputSystemStatePersistence$Outbound | undefined;
+  disableNativeModule: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSystemStateInputCollectionPart1Type1$outboundSchema:
+  z.ZodType<
+    InputSystemStateInputCollectionPart1Type1$Outbound,
+    z.ZodTypeDef,
+    InputSystemStateInputCollectionPart1Type1
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputSystemStateType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    interval: z.number().default(300),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    collectors: z.lazy(() => Collectors$outboundSchema).optional(),
+    persistence: z.lazy(() => InputSystemStatePersistence$outboundSchema)
+      .optional(),
+    disableNativeModule: z.boolean().default(false),
+    description: z.string().optional(),
+  });
+
+export function inputSystemStateInputCollectionPart1Type1ToJSON(
+  inputSystemStateInputCollectionPart1Type1:
+    InputSystemStateInputCollectionPart1Type1,
+): string {
+  return JSON.stringify(
+    InputSystemStateInputCollectionPart1Type1$outboundSchema.parse(
+      inputSystemStateInputCollectionPart1Type1,
+    ),
+  );
+}
+export function inputSystemStateInputCollectionPart1Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputSystemStateInputCollectionPart1Type1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputSystemStateInputCollectionPart1Type1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputSystemStateInputCollectionPart1Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemStateInputCollectionPart0Type1$inboundSchema: z.ZodType<
+  InputSystemStateInputCollectionPart0Type1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSystemStateType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  interval: z.number().default(300),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  collectors: z.lazy(() => Collectors$inboundSchema).optional(),
+  persistence: z.lazy(() => InputSystemStatePersistence$inboundSchema)
+    .optional(),
+  disableNativeModule: z.boolean().default(false),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputSystemStateInputCollectionPart0Type1$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  interval: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  collectors?: Collectors$Outbound | undefined;
+  persistence?: InputSystemStatePersistence$Outbound | undefined;
+  disableNativeModule: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSystemStateInputCollectionPart0Type1$outboundSchema:
+  z.ZodType<
+    InputSystemStateInputCollectionPart0Type1$Outbound,
+    z.ZodTypeDef,
+    InputSystemStateInputCollectionPart0Type1
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputSystemStateType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    interval: z.number().default(300),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    collectors: z.lazy(() => Collectors$outboundSchema).optional(),
+    persistence: z.lazy(() => InputSystemStatePersistence$outboundSchema)
+      .optional(),
+    disableNativeModule: z.boolean().default(false),
+    description: z.string().optional(),
+  });
+
+export function inputSystemStateInputCollectionPart0Type1ToJSON(
+  inputSystemStateInputCollectionPart0Type1:
+    InputSystemStateInputCollectionPart0Type1,
+): string {
+  return JSON.stringify(
+    InputSystemStateInputCollectionPart0Type1$outboundSchema.parse(
+      inputSystemStateInputCollectionPart0Type1,
+    ),
+  );
+}
+export function inputSystemStateInputCollectionPart0Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputSystemStateInputCollectionPart0Type1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputSystemStateInputCollectionPart0Type1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputSystemStateInputCollectionPart0Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemStateInputCollectionPart1Type$inboundSchema: z.ZodType<
+  InputSystemStateInputCollectionPart1Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  id: z.string().optional(),
+  type: InputSystemStateType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$inboundSchema.optional(),
+  interval: z.number().default(300),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  collectors: z.lazy(() => Collectors$inboundSchema).optional(),
+  persistence: z.lazy(() => InputSystemStatePersistence$inboundSchema)
+    .optional(),
+  disableNativeModule: z.boolean().default(false),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputSystemStateInputCollectionPart1Type$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  interval: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  collectors?: Collectors$Outbound | undefined;
+  persistence?: InputSystemStatePersistence$Outbound | undefined;
+  disableNativeModule: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSystemStateInputCollectionPart1Type$outboundSchema: z.ZodType<
+  InputSystemStateInputCollectionPart1Type$Outbound,
+  z.ZodTypeDef,
+  InputSystemStateInputCollectionPart1Type
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  id: z.string().optional(),
+  type: InputSystemStateType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$outboundSchema.optional(),
+  interval: z.number().default(300),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  collectors: z.lazy(() => Collectors$outboundSchema).optional(),
+  persistence: z.lazy(() => InputSystemStatePersistence$outboundSchema)
+    .optional(),
+  disableNativeModule: z.boolean().default(false),
+  description: z.string().optional(),
+});
+
+export function inputSystemStateInputCollectionPart1TypeToJSON(
+  inputSystemStateInputCollectionPart1Type:
+    InputSystemStateInputCollectionPart1Type,
+): string {
+  return JSON.stringify(
+    InputSystemStateInputCollectionPart1Type$outboundSchema.parse(
+      inputSystemStateInputCollectionPart1Type,
+    ),
+  );
+}
+export function inputSystemStateInputCollectionPart1TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputSystemStateInputCollectionPart1Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputSystemStateInputCollectionPart1Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputSystemStateInputCollectionPart1Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemStateInputCollectionPart0Type$inboundSchema: z.ZodType<
+  InputSystemStateInputCollectionPart0Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSystemStateType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
@@ -776,12 +1230,12 @@ export const InputSystemState$inboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 /** @internal */
-export type InputSystemState$Outbound = {
+export type InputSystemStateInputCollectionPart0Type$Outbound = {
+  sendToRoutes: boolean;
   id?: string | undefined;
-  type: "system_state";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
@@ -796,16 +1250,16 @@ export type InputSystemState$Outbound = {
 };
 
 /** @internal */
-export const InputSystemState$outboundSchema: z.ZodType<
-  InputSystemState$Outbound,
+export const InputSystemStateInputCollectionPart0Type$outboundSchema: z.ZodType<
+  InputSystemStateInputCollectionPart0Type$Outbound,
   z.ZodTypeDef,
-  InputSystemState
+  InputSystemStateInputCollectionPart0Type
 > = z.object({
+  sendToRoutes: z.boolean().default(true),
   id: z.string().optional(),
-  type: z.literal("system_state"),
+  type: InputSystemStateType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
@@ -819,6 +1273,62 @@ export const InputSystemState$outboundSchema: z.ZodType<
   disableNativeModule: z.boolean().default(false),
   description: z.string().optional(),
 });
+
+export function inputSystemStateInputCollectionPart0TypeToJSON(
+  inputSystemStateInputCollectionPart0Type:
+    InputSystemStateInputCollectionPart0Type,
+): string {
+  return JSON.stringify(
+    InputSystemStateInputCollectionPart0Type$outboundSchema.parse(
+      inputSystemStateInputCollectionPart0Type,
+    ),
+  );
+}
+export function inputSystemStateInputCollectionPart0TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputSystemStateInputCollectionPart0Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputSystemStateInputCollectionPart0Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputSystemStateInputCollectionPart0Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemState$inboundSchema: z.ZodType<
+  InputSystemState,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputSystemStateInputCollectionPart0Type$inboundSchema),
+  z.lazy(() => InputSystemStateInputCollectionPart1Type$inboundSchema),
+  z.lazy(() => InputSystemStateInputCollectionPart0Type1$inboundSchema),
+  z.lazy(() => InputSystemStateInputCollectionPart1Type1$inboundSchema),
+]);
+/** @internal */
+export type InputSystemState$Outbound =
+  | InputSystemStateInputCollectionPart0Type$Outbound
+  | InputSystemStateInputCollectionPart1Type$Outbound
+  | InputSystemStateInputCollectionPart0Type1$Outbound
+  | InputSystemStateInputCollectionPart1Type1$Outbound;
+
+/** @internal */
+export const InputSystemState$outboundSchema: z.ZodType<
+  InputSystemState$Outbound,
+  z.ZodTypeDef,
+  InputSystemState
+> = z.union([
+  z.lazy(() => InputSystemStateInputCollectionPart0Type$outboundSchema),
+  z.lazy(() => InputSystemStateInputCollectionPart1Type$outboundSchema),
+  z.lazy(() => InputSystemStateInputCollectionPart0Type1$outboundSchema),
+  z.lazy(() => InputSystemStateInputCollectionPart1Type1$outboundSchema),
+]);
 
 export function inputSystemStateToJSON(
   inputSystemState: InputSystemState,

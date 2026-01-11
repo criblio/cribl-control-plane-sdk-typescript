@@ -1,19 +1,18 @@
 # InputCriblmetrics
 
-## Example Usage
+
+## Supported Types
+
+### `models.InputCriblmetricsInputCollectionPart0Type`
 
 ```typescript
-import { InputCriblmetrics } from "cribl-control-plane/models";
-
-let value: InputCriblmetrics = {
+const value: models.InputCriblmetricsInputCollectionPart0Type = {
   id: "<id>",
   type: "criblmetrics",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -30,25 +29,102 @@ let value: InputCriblmetrics = {
       value: "<value>",
     },
   ],
-  description: "playfully growing curl blight cone likely innocently amongst",
+  description:
+    "with unless unless naughty whose unpleasant or complete tense fraternise",
 };
 ```
 
-## Fields
+### `models.InputCriblmetricsInputCollectionPart1Type`
 
-| Field                                                                                                                                                                                                                                                                                                                                                             | Type                                                                                                                                                                                                                                                                                                                                                              | Required                                                                                                                                                                                                                                                                                                                                                          | Description                                                                                                                                                                                                                                                                                                                                                       |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | Unique ID for this input                                                                                                                                                                                                                                                                                                                                          |
-| `type`                                                                                                                                                                                                                                                                                                                                                            | *"criblmetrics"*                                                                                                                                                                                                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                | N/A                                                                                                                                                                                                                                                                                                                                                               |
-| `disabled`                                                                                                                                                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | N/A                                                                                                                                                                                                                                                                                                                                                               |
-| `pipeline`                                                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                                                                                                                                                    |
-| `sendToRoutes`                                                                                                                                                                                                                                                                                                                                                    | *boolean*                                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                                                                                               |
-| `environment`                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                                                                              |
-| `pqEnabled`                                                                                                                                                                                                                                                                                                                                                       | *boolean*                                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                                                                                                      |
-| `streamtags`                                                                                                                                                                                                                                                                                                                                                      | *string*[]                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                                                                                     |
-| `connections`                                                                                                                                                                                                                                                                                                                                                     | [models.ItemsTypeConnections](../models/itemstypeconnections.md)[]                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                                                                                                       |
-| `pq`                                                                                                                                                                                                                                                                                                                                                              | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | N/A                                                                                                                                                                                                                                                                                                                                                               |
-| `prefix`                                                                                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | A prefix that is applied to the metrics provided by Cribl Stream                                                                                                                                                                                                                                                                                                  |
-| `fullFidelity`                                                                                                                                                                                                                                                                                                                                                    | *boolean*                                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`. |
-| `metadata`                                                                                                                                                                                                                                                                                                                                                        | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | Fields to add to events from this input                                                                                                                                                                                                                                                                                                                           |
-| `description`                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | N/A                                                                                                                                                                                                                                                                                                                                                               |
+```typescript
+const value: models.InputCriblmetricsInputCollectionPart1Type = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  id: "<id>",
+  type: "criblmetrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "upliftingly splendid boo vice stormy fowl gee ironclad digital",
+};
+```
+
+### `models.InputCriblmetricsInputCollectionPart0Type1`
+
+```typescript
+const value: models.InputCriblmetricsInputCollectionPart0Type1 = {
+  id: "<id>",
+  type: "criblmetrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "shrill galvanize afterwards huzzah bah miskey duh stall majestically versus",
+};
+```
+
+### `models.InputCriblmetricsInputCollectionPart1Type1`
+
+```typescript
+const value: models.InputCriblmetricsInputCollectionPart1Type1 = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "criblmetrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "against nor outside wash innocently",
+};
+```
+

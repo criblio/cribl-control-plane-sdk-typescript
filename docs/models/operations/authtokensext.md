@@ -7,7 +7,7 @@ import { AuthTokensExt } from "cribl-control-plane/models/operations";
 
 let value: AuthTokensExt = {
   token: "<value>",
-  description: "obtrude chime along",
+  description: "speedily blah oof zowie bookend",
   metadata: [
     {
       name: "<value>",
@@ -15,10 +15,12 @@ let value: AuthTokensExt = {
     },
   ],
   splunkHecMetadata: {
-    enabled: true,
+    enabled: false,
     defaultDataset: "<value>",
     allowedIndexesAtToken: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
   },
   elasticsearchMetadata: {

@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -31,12 +32,22 @@ import {
   TlsSettingsServerSideType$outboundSchema,
 } from "./tlssettingsserversidetype.js";
 
-export type InputMetrics = {
+export const InputMetricsType = {
+  Metrics: "metrics",
+} as const;
+export type InputMetricsType = ClosedEnum<typeof InputMetricsType>;
+
+export type InputMetricsInputCollectionPart1Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "metrics";
+  type: InputMetricsType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -46,6 +57,205 @@ export type InputMetrics = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host?: string | undefined;
+  /**
+   * Enter UDP port number to listen on. Not required if listening on TCP.
+   */
+  udpPort?: number | undefined;
+  /**
+   * Enter TCP port number to listen on. Not required if listening on UDP.
+   */
+  tcpPort?: number | undefined;
+  /**
+   * Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
+   */
+  enableProxyHeader?: boolean | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  description?: string | undefined;
+};
+
+export type InputMetricsInputCollectionPart0Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputMetricsType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host?: string | undefined;
+  /**
+   * Enter UDP port number to listen on. Not required if listening on TCP.
+   */
+  udpPort?: number | undefined;
+  /**
+   * Enter TCP port number to listen on. Not required if listening on UDP.
+   */
+  tcpPort?: number | undefined;
+  /**
+   * Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
+   */
+  enableProxyHeader?: boolean | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  description?: string | undefined;
+};
+
+export type InputMetricsInputCollectionPart1Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputMetricsType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host?: string | undefined;
+  /**
+   * Enter UDP port number to listen on. Not required if listening on TCP.
+   */
+  udpPort?: number | undefined;
+  /**
+   * Enter TCP port number to listen on. Not required if listening on UDP.
+   */
+  tcpPort?: number | undefined;
+  /**
+   * Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
+   */
+  enableProxyHeader?: boolean | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  description?: string | undefined;
+};
+
+export type InputMetricsInputCollectionPart0Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputMetricsType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -99,17 +309,329 @@ export type InputMetrics = {
   description?: string | undefined;
 };
 
+export type InputMetrics =
+  | InputMetricsInputCollectionPart0Type
+  | InputMetricsInputCollectionPart1Type
+  | InputMetricsInputCollectionPart0Type1
+  | InputMetricsInputCollectionPart1Type1;
+
 /** @internal */
-export const InputMetrics$inboundSchema: z.ZodType<
-  InputMetrics,
+export const InputMetricsType$inboundSchema: z.ZodNativeEnum<
+  typeof InputMetricsType
+> = z.nativeEnum(InputMetricsType);
+/** @internal */
+export const InputMetricsType$outboundSchema: z.ZodNativeEnum<
+  typeof InputMetricsType
+> = InputMetricsType$inboundSchema;
+
+/** @internal */
+export const InputMetricsInputCollectionPart1Type1$inboundSchema: z.ZodType<
+  InputMetricsInputCollectionPart1Type1,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
-  type: z.literal("metrics"),
+  type: InputMetricsType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  host: z.string().default("0.0.0.0"),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  enableProxyHeader: z.boolean().default(false),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputMetricsInputCollectionPart1Type1$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  host: string;
+  udpPort?: number | undefined;
+  tcpPort?: number | undefined;
+  maxBufferSize: number;
+  ipWhitelistRegex: string;
+  enableProxyHeader: boolean;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputMetricsInputCollectionPart1Type1$outboundSchema: z.ZodType<
+  InputMetricsInputCollectionPart1Type1$Outbound,
+  z.ZodTypeDef,
+  InputMetricsInputCollectionPart1Type1
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$outboundSchema.optional(),
+  id: z.string().optional(),
+  type: InputMetricsType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  host: z.string().default("0.0.0.0"),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  enableProxyHeader: z.boolean().default(false),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  description: z.string().optional(),
+});
+
+export function inputMetricsInputCollectionPart1Type1ToJSON(
+  inputMetricsInputCollectionPart1Type1: InputMetricsInputCollectionPart1Type1,
+): string {
+  return JSON.stringify(
+    InputMetricsInputCollectionPart1Type1$outboundSchema.parse(
+      inputMetricsInputCollectionPart1Type1,
+    ),
+  );
+}
+export function inputMetricsInputCollectionPart1Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputMetricsInputCollectionPart1Type1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputMetricsInputCollectionPart1Type1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputMetricsInputCollectionPart1Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputMetricsInputCollectionPart0Type1$inboundSchema: z.ZodType<
+  InputMetricsInputCollectionPart0Type1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputMetricsType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  enableProxyHeader: z.boolean().default(false),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputMetricsInputCollectionPart0Type1$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  udpPort?: number | undefined;
+  tcpPort?: number | undefined;
+  maxBufferSize: number;
+  ipWhitelistRegex: string;
+  enableProxyHeader: boolean;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputMetricsInputCollectionPart0Type1$outboundSchema: z.ZodType<
+  InputMetricsInputCollectionPart0Type1$Outbound,
+  z.ZodTypeDef,
+  InputMetricsInputCollectionPart0Type1
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputMetricsType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  enableProxyHeader: z.boolean().default(false),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  description: z.string().optional(),
+});
+
+export function inputMetricsInputCollectionPart0Type1ToJSON(
+  inputMetricsInputCollectionPart0Type1: InputMetricsInputCollectionPart0Type1,
+): string {
+  return JSON.stringify(
+    InputMetricsInputCollectionPart0Type1$outboundSchema.parse(
+      inputMetricsInputCollectionPart0Type1,
+    ),
+  );
+}
+export function inputMetricsInputCollectionPart0Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputMetricsInputCollectionPart0Type1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputMetricsInputCollectionPart0Type1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputMetricsInputCollectionPart0Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputMetricsInputCollectionPart1Type$inboundSchema: z.ZodType<
+  InputMetricsInputCollectionPart1Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  id: z.string().optional(),
+  type: InputMetricsType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  enableProxyHeader: z.boolean().default(false),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputMetricsInputCollectionPart1Type$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  udpPort?: number | undefined;
+  tcpPort?: number | undefined;
+  maxBufferSize: number;
+  ipWhitelistRegex: string;
+  enableProxyHeader: boolean;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputMetricsInputCollectionPart1Type$outboundSchema: z.ZodType<
+  InputMetricsInputCollectionPart1Type$Outbound,
+  z.ZodTypeDef,
+  InputMetricsInputCollectionPart1Type
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  id: z.string().optional(),
+  type: InputMetricsType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  enableProxyHeader: z.boolean().default(false),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  description: z.string().optional(),
+});
+
+export function inputMetricsInputCollectionPart1TypeToJSON(
+  inputMetricsInputCollectionPart1Type: InputMetricsInputCollectionPart1Type,
+): string {
+  return JSON.stringify(
+    InputMetricsInputCollectionPart1Type$outboundSchema.parse(
+      inputMetricsInputCollectionPart1Type,
+    ),
+  );
+}
+export function inputMetricsInputCollectionPart1TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<InputMetricsInputCollectionPart1Type, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputMetricsInputCollectionPart1Type$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputMetricsInputCollectionPart1Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputMetricsInputCollectionPart0Type$inboundSchema: z.ZodType<
+  InputMetricsInputCollectionPart0Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputMetricsType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
@@ -127,12 +649,12 @@ export const InputMetrics$inboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 /** @internal */
-export type InputMetrics$Outbound = {
+export type InputMetricsInputCollectionPart0Type$Outbound = {
+  sendToRoutes: boolean;
   id?: string | undefined;
-  type: "metrics";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
@@ -151,16 +673,16 @@ export type InputMetrics$Outbound = {
 };
 
 /** @internal */
-export const InputMetrics$outboundSchema: z.ZodType<
-  InputMetrics$Outbound,
+export const InputMetricsInputCollectionPart0Type$outboundSchema: z.ZodType<
+  InputMetricsInputCollectionPart0Type$Outbound,
   z.ZodTypeDef,
-  InputMetrics
+  InputMetricsInputCollectionPart0Type
 > = z.object({
+  sendToRoutes: z.boolean().default(true),
   id: z.string().optional(),
-  type: z.literal("metrics"),
+  type: InputMetricsType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
@@ -177,6 +699,56 @@ export const InputMetrics$outboundSchema: z.ZodType<
   udpSocketRxBufSize: z.number().optional(),
   description: z.string().optional(),
 });
+
+export function inputMetricsInputCollectionPart0TypeToJSON(
+  inputMetricsInputCollectionPart0Type: InputMetricsInputCollectionPart0Type,
+): string {
+  return JSON.stringify(
+    InputMetricsInputCollectionPart0Type$outboundSchema.parse(
+      inputMetricsInputCollectionPart0Type,
+    ),
+  );
+}
+export function inputMetricsInputCollectionPart0TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<InputMetricsInputCollectionPart0Type, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputMetricsInputCollectionPart0Type$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputMetricsInputCollectionPart0Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputMetrics$inboundSchema: z.ZodType<
+  InputMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputMetricsInputCollectionPart0Type$inboundSchema),
+  z.lazy(() => InputMetricsInputCollectionPart1Type$inboundSchema),
+  z.lazy(() => InputMetricsInputCollectionPart0Type1$inboundSchema),
+  z.lazy(() => InputMetricsInputCollectionPart1Type1$inboundSchema),
+]);
+/** @internal */
+export type InputMetrics$Outbound =
+  | InputMetricsInputCollectionPart0Type$Outbound
+  | InputMetricsInputCollectionPart1Type$Outbound
+  | InputMetricsInputCollectionPart0Type1$Outbound
+  | InputMetricsInputCollectionPart1Type1$Outbound;
+
+/** @internal */
+export const InputMetrics$outboundSchema: z.ZodType<
+  InputMetrics$Outbound,
+  z.ZodTypeDef,
+  InputMetrics
+> = z.union([
+  z.lazy(() => InputMetricsInputCollectionPart0Type$outboundSchema),
+  z.lazy(() => InputMetricsInputCollectionPart1Type$outboundSchema),
+  z.lazy(() => InputMetricsInputCollectionPart0Type1$outboundSchema),
+  z.lazy(() => InputMetricsInputCollectionPart1Type1$outboundSchema),
+]);
 
 export function inputMetricsToJSON(inputMetrics: InputMetrics): string {
   return JSON.stringify(InputMetrics$outboundSchema.parse(inputMetrics));

@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -31,12 +32,24 @@ import {
   TlsSettingsServerSideType$outboundSchema,
 } from "./tlssettingsserversidetype.js";
 
-export type InputModelDrivenTelemetry = {
+export const InputModelDrivenTelemetryType = {
+  ModelDrivenTelemetry: "model_driven_telemetry",
+} as const;
+export type InputModelDrivenTelemetryType = ClosedEnum<
+  typeof InputModelDrivenTelemetryType
+>;
+
+export type InputModelDrivenTelemetryInputCollectionPart1Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "model_driven_telemetry";
+  type: InputModelDrivenTelemetryType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -46,6 +59,169 @@ export type InputModelDrivenTelemetry = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
+   */
+  shutdownTimeoutMs?: number | undefined;
+  description?: string | undefined;
+};
+
+export type InputModelDrivenTelemetryInputCollectionPart0Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputModelDrivenTelemetryType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
+   */
+  shutdownTimeoutMs?: number | undefined;
+  description?: string | undefined;
+};
+
+export type InputModelDrivenTelemetryInputCollectionPart1Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputModelDrivenTelemetryType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
+   */
+  shutdownTimeoutMs?: number | undefined;
+  description?: string | undefined;
+};
+
+export type InputModelDrivenTelemetryInputCollectionPart0Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputModelDrivenTelemetryType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -87,37 +263,347 @@ export type InputModelDrivenTelemetry = {
   description?: string | undefined;
 };
 
+export type InputModelDrivenTelemetry =
+  | InputModelDrivenTelemetryInputCollectionPart0Type
+  | InputModelDrivenTelemetryInputCollectionPart1Type
+  | InputModelDrivenTelemetryInputCollectionPart0Type1
+  | InputModelDrivenTelemetryInputCollectionPart1Type1;
+
 /** @internal */
-export const InputModelDrivenTelemetry$inboundSchema: z.ZodType<
-  InputModelDrivenTelemetry,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("model_driven_telemetry"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(57000),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  maxActiveCxn: z.number().default(1000),
-  shutdownTimeoutMs: z.number().default(5000),
-  description: z.string().optional(),
-});
+export const InputModelDrivenTelemetryType$inboundSchema: z.ZodNativeEnum<
+  typeof InputModelDrivenTelemetryType
+> = z.nativeEnum(InputModelDrivenTelemetryType);
 /** @internal */
-export type InputModelDrivenTelemetry$Outbound = {
+export const InputModelDrivenTelemetryType$outboundSchema: z.ZodNativeEnum<
+  typeof InputModelDrivenTelemetryType
+> = InputModelDrivenTelemetryType$inboundSchema;
+
+/** @internal */
+export const InputModelDrivenTelemetryInputCollectionPart1Type1$inboundSchema:
+  z.ZodType<
+    InputModelDrivenTelemetryInputCollectionPart1Type1,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputModelDrivenTelemetryType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(57000),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    maxActiveCxn: z.number().default(1000),
+    shutdownTimeoutMs: z.number().default(5000),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputModelDrivenTelemetryInputCollectionPart1Type1$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
-  type: "model_driven_telemetry";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  host: string;
+  port: number;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  maxActiveCxn: number;
+  shutdownTimeoutMs: number;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputModelDrivenTelemetryInputCollectionPart1Type1$outboundSchema:
+  z.ZodType<
+    InputModelDrivenTelemetryInputCollectionPart1Type1$Outbound,
+    z.ZodTypeDef,
+    InputModelDrivenTelemetryInputCollectionPart1Type1
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputModelDrivenTelemetryType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(57000),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    maxActiveCxn: z.number().default(1000),
+    shutdownTimeoutMs: z.number().default(5000),
+    description: z.string().optional(),
+  });
+
+export function inputModelDrivenTelemetryInputCollectionPart1Type1ToJSON(
+  inputModelDrivenTelemetryInputCollectionPart1Type1:
+    InputModelDrivenTelemetryInputCollectionPart1Type1,
+): string {
+  return JSON.stringify(
+    InputModelDrivenTelemetryInputCollectionPart1Type1$outboundSchema.parse(
+      inputModelDrivenTelemetryInputCollectionPart1Type1,
+    ),
+  );
+}
+export function inputModelDrivenTelemetryInputCollectionPart1Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputModelDrivenTelemetryInputCollectionPart1Type1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputModelDrivenTelemetryInputCollectionPart1Type1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputModelDrivenTelemetryInputCollectionPart1Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputModelDrivenTelemetryInputCollectionPart0Type1$inboundSchema:
+  z.ZodType<
+    InputModelDrivenTelemetryInputCollectionPart0Type1,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputModelDrivenTelemetryType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(57000),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    maxActiveCxn: z.number().default(1000),
+    shutdownTimeoutMs: z.number().default(5000),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputModelDrivenTelemetryInputCollectionPart0Type1$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  maxActiveCxn: number;
+  shutdownTimeoutMs: number;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputModelDrivenTelemetryInputCollectionPart0Type1$outboundSchema:
+  z.ZodType<
+    InputModelDrivenTelemetryInputCollectionPart0Type1$Outbound,
+    z.ZodTypeDef,
+    InputModelDrivenTelemetryInputCollectionPart0Type1
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputModelDrivenTelemetryType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(57000),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    maxActiveCxn: z.number().default(1000),
+    shutdownTimeoutMs: z.number().default(5000),
+    description: z.string().optional(),
+  });
+
+export function inputModelDrivenTelemetryInputCollectionPart0Type1ToJSON(
+  inputModelDrivenTelemetryInputCollectionPart0Type1:
+    InputModelDrivenTelemetryInputCollectionPart0Type1,
+): string {
+  return JSON.stringify(
+    InputModelDrivenTelemetryInputCollectionPart0Type1$outboundSchema.parse(
+      inputModelDrivenTelemetryInputCollectionPart0Type1,
+    ),
+  );
+}
+export function inputModelDrivenTelemetryInputCollectionPart0Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputModelDrivenTelemetryInputCollectionPart0Type1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputModelDrivenTelemetryInputCollectionPart0Type1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputModelDrivenTelemetryInputCollectionPart0Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputModelDrivenTelemetryInputCollectionPart1Type$inboundSchema:
+  z.ZodType<
+    InputModelDrivenTelemetryInputCollectionPart1Type,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputModelDrivenTelemetryType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(57000),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    maxActiveCxn: z.number().default(1000),
+    shutdownTimeoutMs: z.number().default(5000),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputModelDrivenTelemetryInputCollectionPart1Type$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  maxActiveCxn: number;
+  shutdownTimeoutMs: number;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputModelDrivenTelemetryInputCollectionPart1Type$outboundSchema:
+  z.ZodType<
+    InputModelDrivenTelemetryInputCollectionPart1Type$Outbound,
+    z.ZodTypeDef,
+    InputModelDrivenTelemetryInputCollectionPart1Type
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputModelDrivenTelemetryType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(57000),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    maxActiveCxn: z.number().default(1000),
+    shutdownTimeoutMs: z.number().default(5000),
+    description: z.string().optional(),
+  });
+
+export function inputModelDrivenTelemetryInputCollectionPart1TypeToJSON(
+  inputModelDrivenTelemetryInputCollectionPart1Type:
+    InputModelDrivenTelemetryInputCollectionPart1Type,
+): string {
+  return JSON.stringify(
+    InputModelDrivenTelemetryInputCollectionPart1Type$outboundSchema.parse(
+      inputModelDrivenTelemetryInputCollectionPart1Type,
+    ),
+  );
+}
+export function inputModelDrivenTelemetryInputCollectionPart1TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputModelDrivenTelemetryInputCollectionPart1Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputModelDrivenTelemetryInputCollectionPart1Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputModelDrivenTelemetryInputCollectionPart1Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputModelDrivenTelemetryInputCollectionPart0Type$inboundSchema:
+  z.ZodType<
+    InputModelDrivenTelemetryInputCollectionPart0Type,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputModelDrivenTelemetryType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(57000),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    maxActiveCxn: z.number().default(1000),
+    shutdownTimeoutMs: z.number().default(5000),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputModelDrivenTelemetryInputCollectionPart0Type$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
@@ -133,29 +619,98 @@ export type InputModelDrivenTelemetry$Outbound = {
 };
 
 /** @internal */
+export const InputModelDrivenTelemetryInputCollectionPart0Type$outboundSchema:
+  z.ZodType<
+    InputModelDrivenTelemetryInputCollectionPart0Type$Outbound,
+    z.ZodTypeDef,
+    InputModelDrivenTelemetryInputCollectionPart0Type
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputModelDrivenTelemetryType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(57000),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    maxActiveCxn: z.number().default(1000),
+    shutdownTimeoutMs: z.number().default(5000),
+    description: z.string().optional(),
+  });
+
+export function inputModelDrivenTelemetryInputCollectionPart0TypeToJSON(
+  inputModelDrivenTelemetryInputCollectionPart0Type:
+    InputModelDrivenTelemetryInputCollectionPart0Type,
+): string {
+  return JSON.stringify(
+    InputModelDrivenTelemetryInputCollectionPart0Type$outboundSchema.parse(
+      inputModelDrivenTelemetryInputCollectionPart0Type,
+    ),
+  );
+}
+export function inputModelDrivenTelemetryInputCollectionPart0TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputModelDrivenTelemetryInputCollectionPart0Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputModelDrivenTelemetryInputCollectionPart0Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputModelDrivenTelemetryInputCollectionPart0Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputModelDrivenTelemetry$inboundSchema: z.ZodType<
+  InputModelDrivenTelemetry,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputModelDrivenTelemetryInputCollectionPart0Type$inboundSchema),
+  z.lazy(() => InputModelDrivenTelemetryInputCollectionPart1Type$inboundSchema),
+  z.lazy(() =>
+    InputModelDrivenTelemetryInputCollectionPart0Type1$inboundSchema
+  ),
+  z.lazy(() =>
+    InputModelDrivenTelemetryInputCollectionPart1Type1$inboundSchema
+  ),
+]);
+/** @internal */
+export type InputModelDrivenTelemetry$Outbound =
+  | InputModelDrivenTelemetryInputCollectionPart0Type$Outbound
+  | InputModelDrivenTelemetryInputCollectionPart1Type$Outbound
+  | InputModelDrivenTelemetryInputCollectionPart0Type1$Outbound
+  | InputModelDrivenTelemetryInputCollectionPart1Type1$Outbound;
+
+/** @internal */
 export const InputModelDrivenTelemetry$outboundSchema: z.ZodType<
   InputModelDrivenTelemetry$Outbound,
   z.ZodTypeDef,
   InputModelDrivenTelemetry
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("model_driven_telemetry"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(57000),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  maxActiveCxn: z.number().default(1000),
-  shutdownTimeoutMs: z.number().default(5000),
-  description: z.string().optional(),
-});
+> = z.union([
+  z.lazy(() =>
+    InputModelDrivenTelemetryInputCollectionPart0Type$outboundSchema
+  ),
+  z.lazy(() =>
+    InputModelDrivenTelemetryInputCollectionPart1Type$outboundSchema
+  ),
+  z.lazy(() =>
+    InputModelDrivenTelemetryInputCollectionPart0Type1$outboundSchema
+  ),
+  z.lazy(() =>
+    InputModelDrivenTelemetryInputCollectionPart1Type1$outboundSchema
+  ),
+]);
 
 export function inputModelDrivenTelemetryToJSON(
   inputModelDrivenTelemetry: InputModelDrivenTelemetry,

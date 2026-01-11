@@ -24,8 +24,8 @@ let value: OutputCriblHttp = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
   },
   excludeFields: [
     "<value 1>",

@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -31,6 +32,11 @@ import {
   TlsSettingsServerSideType$outboundSchema,
 } from "./tlssettingsserversidetype.js";
 
+export const InputDatadogAgentType = {
+  DatadogAgent: "datadog_agent",
+} as const;
+export type InputDatadogAgentType = ClosedEnum<typeof InputDatadogAgentType>;
+
 export type InputDatadogAgentProxyMode = {
   /**
    * Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
@@ -42,12 +48,17 @@ export type InputDatadogAgentProxyMode = {
   rejectUnauthorized?: boolean | undefined;
 };
 
-export type InputDatadogAgent = {
+export type InputDatadogAgentInputCollectionPart1Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "datadog_agent";
+  type: InputDatadogAgentType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -57,6 +68,292 @@ export type InputDatadogAgent = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  proxyMode?: InputDatadogAgentProxyMode | undefined;
+  description?: string | undefined;
+};
+
+export type InputDatadogAgentInputCollectionPart0Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputDatadogAgentType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  proxyMode?: InputDatadogAgentProxyMode | undefined;
+  description?: string | undefined;
+};
+
+export type InputDatadogAgentInputCollectionPart1Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputDatadogAgentType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  proxyMode?: InputDatadogAgentProxyMode | undefined;
+  description?: string | undefined;
+};
+
+export type InputDatadogAgentInputCollectionPart0Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputDatadogAgentType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -139,6 +436,21 @@ export type InputDatadogAgent = {
   description?: string | undefined;
 };
 
+export type InputDatadogAgent =
+  | InputDatadogAgentInputCollectionPart0Type
+  | InputDatadogAgentInputCollectionPart1Type
+  | InputDatadogAgentInputCollectionPart0Type1
+  | InputDatadogAgentInputCollectionPart1Type1;
+
+/** @internal */
+export const InputDatadogAgentType$inboundSchema: z.ZodNativeEnum<
+  typeof InputDatadogAgentType
+> = z.nativeEnum(InputDatadogAgentType);
+/** @internal */
+export const InputDatadogAgentType$outboundSchema: z.ZodNativeEnum<
+  typeof InputDatadogAgentType
+> = InputDatadogAgentType$inboundSchema;
+
 /** @internal */
 export const InputDatadogAgentProxyMode$inboundSchema: z.ZodType<
   InputDatadogAgentProxyMode,
@@ -182,16 +494,407 @@ export function inputDatadogAgentProxyModeFromJSON(
 }
 
 /** @internal */
-export const InputDatadogAgent$inboundSchema: z.ZodType<
-  InputDatadogAgent,
+export const InputDatadogAgentInputCollectionPart1Type1$inboundSchema:
+  z.ZodType<InputDatadogAgentInputCollectionPart1Type1, z.ZodTypeDef, unknown> =
+    z.object({
+      pqEnabled: z.boolean().default(false),
+      pq: PqType$inboundSchema.optional(),
+      id: z.string().optional(),
+      type: InputDatadogAgentType$inboundSchema,
+      disabled: z.boolean().default(false),
+      pipeline: z.string().optional(),
+      sendToRoutes: z.boolean().default(true),
+      environment: z.string().optional(),
+      streamtags: z.array(z.string()).optional(),
+      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+      host: z.string().default("0.0.0.0"),
+      port: z.number(),
+      tls: TlsSettingsServerSideType$inboundSchema.optional(),
+      maxActiveReq: z.number().default(256),
+      maxRequestsPerSocket: z.number().int().default(0),
+      enableProxyHeader: z.boolean().default(false),
+      captureHeaders: z.boolean().default(false),
+      activityLogSampleRate: z.number().default(100),
+      requestTimeout: z.number().default(0),
+      socketTimeout: z.number().default(0),
+      keepAliveTimeout: z.number().default(5),
+      enableHealthCheck: z.boolean().default(false),
+      ipAllowlistRegex: z.string().default("/.*/"),
+      ipDenylistRegex: z.string().default("/^$/"),
+      extractMetrics: z.boolean().default(false),
+      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+      proxyMode: z.lazy(() => InputDatadogAgentProxyMode$inboundSchema)
+        .optional(),
+      description: z.string().optional(),
+    });
+/** @internal */
+export type InputDatadogAgentInputCollectionPart1Type1$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  host: string;
+  port: number;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  extractMetrics: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  proxyMode?: InputDatadogAgentProxyMode$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputDatadogAgentInputCollectionPart1Type1$outboundSchema:
+  z.ZodType<
+    InputDatadogAgentInputCollectionPart1Type1$Outbound,
+    z.ZodTypeDef,
+    InputDatadogAgentInputCollectionPart1Type1
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputDatadogAgentType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    extractMetrics: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    proxyMode: z.lazy(() => InputDatadogAgentProxyMode$outboundSchema)
+      .optional(),
+    description: z.string().optional(),
+  });
+
+export function inputDatadogAgentInputCollectionPart1Type1ToJSON(
+  inputDatadogAgentInputCollectionPart1Type1:
+    InputDatadogAgentInputCollectionPart1Type1,
+): string {
+  return JSON.stringify(
+    InputDatadogAgentInputCollectionPart1Type1$outboundSchema.parse(
+      inputDatadogAgentInputCollectionPart1Type1,
+    ),
+  );
+}
+export function inputDatadogAgentInputCollectionPart1Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputDatadogAgentInputCollectionPart1Type1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputDatadogAgentInputCollectionPart1Type1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputDatadogAgentInputCollectionPart1Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputDatadogAgentInputCollectionPart0Type1$inboundSchema:
+  z.ZodType<InputDatadogAgentInputCollectionPart0Type1, z.ZodTypeDef, unknown> =
+    z.object({
+      pqEnabled: z.boolean().default(false),
+      id: z.string().optional(),
+      type: InputDatadogAgentType$inboundSchema,
+      disabled: z.boolean().default(false),
+      pipeline: z.string().optional(),
+      sendToRoutes: z.boolean().default(true),
+      environment: z.string().optional(),
+      streamtags: z.array(z.string()).optional(),
+      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+      pq: PqType$inboundSchema.optional(),
+      host: z.string().default("0.0.0.0"),
+      port: z.number(),
+      tls: TlsSettingsServerSideType$inboundSchema.optional(),
+      maxActiveReq: z.number().default(256),
+      maxRequestsPerSocket: z.number().int().default(0),
+      enableProxyHeader: z.boolean().default(false),
+      captureHeaders: z.boolean().default(false),
+      activityLogSampleRate: z.number().default(100),
+      requestTimeout: z.number().default(0),
+      socketTimeout: z.number().default(0),
+      keepAliveTimeout: z.number().default(5),
+      enableHealthCheck: z.boolean().default(false),
+      ipAllowlistRegex: z.string().default("/.*/"),
+      ipDenylistRegex: z.string().default("/^$/"),
+      extractMetrics: z.boolean().default(false),
+      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+      proxyMode: z.lazy(() => InputDatadogAgentProxyMode$inboundSchema)
+        .optional(),
+      description: z.string().optional(),
+    });
+/** @internal */
+export type InputDatadogAgentInputCollectionPart0Type1$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  extractMetrics: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  proxyMode?: InputDatadogAgentProxyMode$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputDatadogAgentInputCollectionPart0Type1$outboundSchema:
+  z.ZodType<
+    InputDatadogAgentInputCollectionPart0Type1$Outbound,
+    z.ZodTypeDef,
+    InputDatadogAgentInputCollectionPart0Type1
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputDatadogAgentType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    extractMetrics: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    proxyMode: z.lazy(() => InputDatadogAgentProxyMode$outboundSchema)
+      .optional(),
+    description: z.string().optional(),
+  });
+
+export function inputDatadogAgentInputCollectionPart0Type1ToJSON(
+  inputDatadogAgentInputCollectionPart0Type1:
+    InputDatadogAgentInputCollectionPart0Type1,
+): string {
+  return JSON.stringify(
+    InputDatadogAgentInputCollectionPart0Type1$outboundSchema.parse(
+      inputDatadogAgentInputCollectionPart0Type1,
+    ),
+  );
+}
+export function inputDatadogAgentInputCollectionPart0Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputDatadogAgentInputCollectionPart0Type1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputDatadogAgentInputCollectionPart0Type1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputDatadogAgentInputCollectionPart0Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputDatadogAgentInputCollectionPart1Type$inboundSchema: z.ZodType<
+  InputDatadogAgentInputCollectionPart1Type,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
   id: z.string().optional(),
-  type: z.literal("datadog_agent"),
+  type: InputDatadogAgentType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  extractMetrics: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputDatadogAgentProxyMode$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputDatadogAgentInputCollectionPart1Type$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  extractMetrics: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  proxyMode?: InputDatadogAgentProxyMode$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputDatadogAgentInputCollectionPart1Type$outboundSchema:
+  z.ZodType<
+    InputDatadogAgentInputCollectionPart1Type$Outbound,
+    z.ZodTypeDef,
+    InputDatadogAgentInputCollectionPart1Type
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputDatadogAgentType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    extractMetrics: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    proxyMode: z.lazy(() => InputDatadogAgentProxyMode$outboundSchema)
+      .optional(),
+    description: z.string().optional(),
+  });
+
+export function inputDatadogAgentInputCollectionPart1TypeToJSON(
+  inputDatadogAgentInputCollectionPart1Type:
+    InputDatadogAgentInputCollectionPart1Type,
+): string {
+  return JSON.stringify(
+    InputDatadogAgentInputCollectionPart1Type$outboundSchema.parse(
+      inputDatadogAgentInputCollectionPart1Type,
+    ),
+  );
+}
+export function inputDatadogAgentInputCollectionPart1TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputDatadogAgentInputCollectionPart1Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputDatadogAgentInputCollectionPart1Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputDatadogAgentInputCollectionPart1Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputDatadogAgentInputCollectionPart0Type$inboundSchema: z.ZodType<
+  InputDatadogAgentInputCollectionPart0Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
   sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputDatadogAgentType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
@@ -217,12 +920,12 @@ export const InputDatadogAgent$inboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 /** @internal */
-export type InputDatadogAgent$Outbound = {
+export type InputDatadogAgentInputCollectionPart0Type$Outbound = {
+  sendToRoutes: boolean;
   id?: string | undefined;
-  type: "datadog_agent";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
@@ -249,40 +952,98 @@ export type InputDatadogAgent$Outbound = {
 };
 
 /** @internal */
+export const InputDatadogAgentInputCollectionPart0Type$outboundSchema:
+  z.ZodType<
+    InputDatadogAgentInputCollectionPart0Type$Outbound,
+    z.ZodTypeDef,
+    InputDatadogAgentInputCollectionPart0Type
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputDatadogAgentType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    extractMetrics: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    proxyMode: z.lazy(() => InputDatadogAgentProxyMode$outboundSchema)
+      .optional(),
+    description: z.string().optional(),
+  });
+
+export function inputDatadogAgentInputCollectionPart0TypeToJSON(
+  inputDatadogAgentInputCollectionPart0Type:
+    InputDatadogAgentInputCollectionPart0Type,
+): string {
+  return JSON.stringify(
+    InputDatadogAgentInputCollectionPart0Type$outboundSchema.parse(
+      inputDatadogAgentInputCollectionPart0Type,
+    ),
+  );
+}
+export function inputDatadogAgentInputCollectionPart0TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputDatadogAgentInputCollectionPart0Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputDatadogAgentInputCollectionPart0Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputDatadogAgentInputCollectionPart0Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputDatadogAgent$inboundSchema: z.ZodType<
+  InputDatadogAgent,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputDatadogAgentInputCollectionPart0Type$inboundSchema),
+  z.lazy(() => InputDatadogAgentInputCollectionPart1Type$inboundSchema),
+  z.lazy(() => InputDatadogAgentInputCollectionPart0Type1$inboundSchema),
+  z.lazy(() => InputDatadogAgentInputCollectionPart1Type1$inboundSchema),
+]);
+/** @internal */
+export type InputDatadogAgent$Outbound =
+  | InputDatadogAgentInputCollectionPart0Type$Outbound
+  | InputDatadogAgentInputCollectionPart1Type$Outbound
+  | InputDatadogAgentInputCollectionPart0Type1$Outbound
+  | InputDatadogAgentInputCollectionPart1Type1$Outbound;
+
+/** @internal */
 export const InputDatadogAgent$outboundSchema: z.ZodType<
   InputDatadogAgent$Outbound,
   z.ZodTypeDef,
   InputDatadogAgent
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("datadog_agent"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  extractMetrics: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  proxyMode: z.lazy(() => InputDatadogAgentProxyMode$outboundSchema).optional(),
-  description: z.string().optional(),
-});
+> = z.union([
+  z.lazy(() => InputDatadogAgentInputCollectionPart0Type$outboundSchema),
+  z.lazy(() => InputDatadogAgentInputCollectionPart1Type$outboundSchema),
+  z.lazy(() => InputDatadogAgentInputCollectionPart0Type1$outboundSchema),
+  z.lazy(() => InputDatadogAgentInputCollectionPart1Type1$outboundSchema),
+]);
 
 export function inputDatadogAgentToJSON(
   inputDatadogAgent: InputDatadogAgent,

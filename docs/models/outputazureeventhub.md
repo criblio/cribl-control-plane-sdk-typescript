@@ -22,7 +22,7 @@ let value: OutputAzureEventhub = {
   brokers: [],
   topic: "<value>",
   sasl: {
-    password: "ZcrxTx4Amn7CtfA",
+    password: "crxTx4Amn7CtfAT",
     textSecret: "<value>",
     clientSecret: "<value>",
     clientTextSecret: "<value>",

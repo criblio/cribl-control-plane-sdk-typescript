@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -27,24 +27,38 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 
+export const InputExecInputCollectionPart1Type1Type = {
+  Exec: "exec",
+} as const;
+export type InputExecInputCollectionPart1Type1Type = ClosedEnum<
+  typeof InputExecInputCollectionPart1Type1Type
+>;
+
 /**
  * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
  */
-export const ScheduleType = {
+export const InputCollectionPart1Type1ScheduleType = {
   Interval: "interval",
   CronSchedule: "cronSchedule",
 } as const;
 /**
  * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
  */
-export type ScheduleType = OpenEnum<typeof ScheduleType>;
+export type InputCollectionPart1Type1ScheduleType = OpenEnum<
+  typeof InputCollectionPart1Type1ScheduleType
+>;
 
-export type InputExec = {
+export type InputExecInputCollectionPart1Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "exec";
+  type: InputExecInputCollectionPart1Type1Type;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -54,6 +68,265 @@ export type InputExec = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Command to execute; supports Bourne shell (or CMD on Windows) syntax
+   */
+  command: string;
+  /**
+   * Maximum number of retry attempts in the event that the command fails
+   */
+  retries?: number | undefined;
+  /**
+   * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+   */
+  scheduleType?: InputCollectionPart1Type1ScheduleType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Interval between command executions in seconds.
+   */
+  interval?: number | undefined;
+  /**
+   * Cron schedule to execute the command on.
+   */
+  cronSchedule?: string | undefined;
+};
+
+export const InputExecInputCollectionPart0Type1Type = {
+  Exec: "exec",
+} as const;
+export type InputExecInputCollectionPart0Type1Type = ClosedEnum<
+  typeof InputExecInputCollectionPart0Type1Type
+>;
+
+/**
+ * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+ */
+export const InputCollectionPart0Type1ScheduleType = {
+  Interval: "interval",
+  CronSchedule: "cronSchedule",
+} as const;
+/**
+ * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+ */
+export type InputCollectionPart0Type1ScheduleType = OpenEnum<
+  typeof InputCollectionPart0Type1ScheduleType
+>;
+
+export type InputExecInputCollectionPart0Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputExecInputCollectionPart0Type1Type;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Command to execute; supports Bourne shell (or CMD on Windows) syntax
+   */
+  command: string;
+  /**
+   * Maximum number of retry attempts in the event that the command fails
+   */
+  retries?: number | undefined;
+  /**
+   * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+   */
+  scheduleType?: InputCollectionPart0Type1ScheduleType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Interval between command executions in seconds.
+   */
+  interval?: number | undefined;
+  /**
+   * Cron schedule to execute the command on.
+   */
+  cronSchedule?: string | undefined;
+};
+
+export const InputExecInputCollectionPart1TypeType = {
+  Exec: "exec",
+} as const;
+export type InputExecInputCollectionPart1TypeType = ClosedEnum<
+  typeof InputExecInputCollectionPart1TypeType
+>;
+
+/**
+ * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+ */
+export const InputCollectionPart1TypeScheduleType = {
+  Interval: "interval",
+  CronSchedule: "cronSchedule",
+} as const;
+/**
+ * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+ */
+export type InputCollectionPart1TypeScheduleType = OpenEnum<
+  typeof InputCollectionPart1TypeScheduleType
+>;
+
+export type InputExecInputCollectionPart1Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputExecInputCollectionPart1TypeType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Command to execute; supports Bourne shell (or CMD on Windows) syntax
+   */
+  command: string;
+  /**
+   * Maximum number of retry attempts in the event that the command fails
+   */
+  retries?: number | undefined;
+  /**
+   * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+   */
+  scheduleType?: InputCollectionPart1TypeScheduleType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Interval between command executions in seconds.
+   */
+  interval?: number | undefined;
+  /**
+   * Cron schedule to execute the command on.
+   */
+  cronSchedule?: string | undefined;
+};
+
+export const InputExecInputCollectionPart0TypeType = {
+  Exec: "exec",
+} as const;
+export type InputExecInputCollectionPart0TypeType = ClosedEnum<
+  typeof InputExecInputCollectionPart0TypeType
+>;
+
+/**
+ * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+ */
+export const InputCollectionPart0TypeScheduleType = {
+  Interval: "interval",
+  CronSchedule: "cronSchedule",
+} as const;
+/**
+ * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+ */
+export type InputCollectionPart0TypeScheduleType = OpenEnum<
+  typeof InputCollectionPart0TypeScheduleType
+>;
+
+export type InputExecInputCollectionPart0Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputExecInputCollectionPart0TypeType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -82,7 +355,7 @@ export type InputExec = {
   /**
    * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
    */
-  scheduleType?: ScheduleType | undefined;
+  scheduleType?: InputCollectionPart0TypeScheduleType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -106,38 +379,56 @@ export type InputExec = {
   cronSchedule?: string | undefined;
 };
 
-/** @internal */
-export const ScheduleType$inboundSchema: z.ZodType<
-  ScheduleType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(ScheduleType);
-/** @internal */
-export const ScheduleType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ScheduleType
-> = openEnums.outboundSchema(ScheduleType);
+export type InputExec =
+  | InputExecInputCollectionPart0Type
+  | InputExecInputCollectionPart1Type
+  | InputExecInputCollectionPart0Type1
+  | InputExecInputCollectionPart1Type1;
 
 /** @internal */
-export const InputExec$inboundSchema: z.ZodType<
-  InputExec,
+export const InputExecInputCollectionPart1Type1Type$inboundSchema:
+  z.ZodNativeEnum<typeof InputExecInputCollectionPart1Type1Type> = z.nativeEnum(
+    InputExecInputCollectionPart1Type1Type,
+  );
+/** @internal */
+export const InputExecInputCollectionPart1Type1Type$outboundSchema:
+  z.ZodNativeEnum<typeof InputExecInputCollectionPart1Type1Type> =
+    InputExecInputCollectionPart1Type1Type$inboundSchema;
+
+/** @internal */
+export const InputCollectionPart1Type1ScheduleType$inboundSchema: z.ZodType<
+  InputCollectionPart1Type1ScheduleType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputCollectionPart1Type1ScheduleType);
+/** @internal */
+export const InputCollectionPart1Type1ScheduleType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputCollectionPart1Type1ScheduleType
+> = openEnums.outboundSchema(InputCollectionPart1Type1ScheduleType);
+
+/** @internal */
+export const InputExecInputCollectionPart1Type1$inboundSchema: z.ZodType<
+  InputExecInputCollectionPart1Type1,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
-  type: z.literal("exec"),
+  type: InputExecInputCollectionPart1Type1Type$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
   command: z.string(),
   retries: z.number().default(10),
-  scheduleType: ScheduleType$inboundSchema.default("interval"),
+  scheduleType: InputCollectionPart1Type1ScheduleType$inboundSchema.default(
+    "interval",
+  ),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
@@ -146,12 +437,380 @@ export const InputExec$inboundSchema: z.ZodType<
   cronSchedule: z.string().default("* * * * *"),
 });
 /** @internal */
-export type InputExec$Outbound = {
+export type InputExecInputCollectionPart1Type1$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
-  type: "exec";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  command: string;
+  retries: number;
+  scheduleType: string;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  interval: number;
+  cronSchedule: string;
+};
+
+/** @internal */
+export const InputExecInputCollectionPart1Type1$outboundSchema: z.ZodType<
+  InputExecInputCollectionPart1Type1$Outbound,
+  z.ZodTypeDef,
+  InputExecInputCollectionPart1Type1
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$outboundSchema.optional(),
+  id: z.string().optional(),
+  type: InputExecInputCollectionPart1Type1Type$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  command: z.string(),
+  retries: z.number().default(10),
+  scheduleType: InputCollectionPart1Type1ScheduleType$outboundSchema.default(
+    "interval",
+  ),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+  interval: z.number().default(60),
+  cronSchedule: z.string().default("* * * * *"),
+});
+
+export function inputExecInputCollectionPart1Type1ToJSON(
+  inputExecInputCollectionPart1Type1: InputExecInputCollectionPart1Type1,
+): string {
+  return JSON.stringify(
+    InputExecInputCollectionPart1Type1$outboundSchema.parse(
+      inputExecInputCollectionPart1Type1,
+    ),
+  );
+}
+export function inputExecInputCollectionPart1Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputExecInputCollectionPart1Type1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputExecInputCollectionPart1Type1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputExecInputCollectionPart1Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputExecInputCollectionPart0Type1Type$inboundSchema:
+  z.ZodNativeEnum<typeof InputExecInputCollectionPart0Type1Type> = z.nativeEnum(
+    InputExecInputCollectionPart0Type1Type,
+  );
+/** @internal */
+export const InputExecInputCollectionPart0Type1Type$outboundSchema:
+  z.ZodNativeEnum<typeof InputExecInputCollectionPart0Type1Type> =
+    InputExecInputCollectionPart0Type1Type$inboundSchema;
+
+/** @internal */
+export const InputCollectionPart0Type1ScheduleType$inboundSchema: z.ZodType<
+  InputCollectionPart0Type1ScheduleType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputCollectionPart0Type1ScheduleType);
+/** @internal */
+export const InputCollectionPart0Type1ScheduleType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputCollectionPart0Type1ScheduleType
+> = openEnums.outboundSchema(InputCollectionPart0Type1ScheduleType);
+
+/** @internal */
+export const InputExecInputCollectionPart0Type1$inboundSchema: z.ZodType<
+  InputExecInputCollectionPart0Type1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputExecInputCollectionPart0Type1Type$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  command: z.string(),
+  retries: z.number().default(10),
+  scheduleType: InputCollectionPart0Type1ScheduleType$inboundSchema.default(
+    "interval",
+  ),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+  interval: z.number().default(60),
+  cronSchedule: z.string().default("* * * * *"),
+});
+/** @internal */
+export type InputExecInputCollectionPart0Type1$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  command: string;
+  retries: number;
+  scheduleType: string;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  interval: number;
+  cronSchedule: string;
+};
+
+/** @internal */
+export const InputExecInputCollectionPart0Type1$outboundSchema: z.ZodType<
+  InputExecInputCollectionPart0Type1$Outbound,
+  z.ZodTypeDef,
+  InputExecInputCollectionPart0Type1
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputExecInputCollectionPart0Type1Type$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  command: z.string(),
+  retries: z.number().default(10),
+  scheduleType: InputCollectionPart0Type1ScheduleType$outboundSchema.default(
+    "interval",
+  ),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+  interval: z.number().default(60),
+  cronSchedule: z.string().default("* * * * *"),
+});
+
+export function inputExecInputCollectionPart0Type1ToJSON(
+  inputExecInputCollectionPart0Type1: InputExecInputCollectionPart0Type1,
+): string {
+  return JSON.stringify(
+    InputExecInputCollectionPart0Type1$outboundSchema.parse(
+      inputExecInputCollectionPart0Type1,
+    ),
+  );
+}
+export function inputExecInputCollectionPart0Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputExecInputCollectionPart0Type1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputExecInputCollectionPart0Type1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputExecInputCollectionPart0Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputExecInputCollectionPart1TypeType$inboundSchema:
+  z.ZodNativeEnum<typeof InputExecInputCollectionPart1TypeType> = z.nativeEnum(
+    InputExecInputCollectionPart1TypeType,
+  );
+/** @internal */
+export const InputExecInputCollectionPart1TypeType$outboundSchema:
+  z.ZodNativeEnum<typeof InputExecInputCollectionPart1TypeType> =
+    InputExecInputCollectionPart1TypeType$inboundSchema;
+
+/** @internal */
+export const InputCollectionPart1TypeScheduleType$inboundSchema: z.ZodType<
+  InputCollectionPart1TypeScheduleType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputCollectionPart1TypeScheduleType);
+/** @internal */
+export const InputCollectionPart1TypeScheduleType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputCollectionPart1TypeScheduleType
+> = openEnums.outboundSchema(InputCollectionPart1TypeScheduleType);
+
+/** @internal */
+export const InputExecInputCollectionPart1Type$inboundSchema: z.ZodType<
+  InputExecInputCollectionPart1Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  id: z.string().optional(),
+  type: InputExecInputCollectionPart1TypeType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$inboundSchema.optional(),
+  command: z.string(),
+  retries: z.number().default(10),
+  scheduleType: InputCollectionPart1TypeScheduleType$inboundSchema.default(
+    "interval",
+  ),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+  interval: z.number().default(60),
+  cronSchedule: z.string().default("* * * * *"),
+});
+/** @internal */
+export type InputExecInputCollectionPart1Type$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  command: string;
+  retries: number;
+  scheduleType: string;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  interval: number;
+  cronSchedule: string;
+};
+
+/** @internal */
+export const InputExecInputCollectionPart1Type$outboundSchema: z.ZodType<
+  InputExecInputCollectionPart1Type$Outbound,
+  z.ZodTypeDef,
+  InputExecInputCollectionPart1Type
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  id: z.string().optional(),
+  type: InputExecInputCollectionPart1TypeType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$outboundSchema.optional(),
+  command: z.string(),
+  retries: z.number().default(10),
+  scheduleType: InputCollectionPart1TypeScheduleType$outboundSchema.default(
+    "interval",
+  ),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+  interval: z.number().default(60),
+  cronSchedule: z.string().default("* * * * *"),
+});
+
+export function inputExecInputCollectionPart1TypeToJSON(
+  inputExecInputCollectionPart1Type: InputExecInputCollectionPart1Type,
+): string {
+  return JSON.stringify(
+    InputExecInputCollectionPart1Type$outboundSchema.parse(
+      inputExecInputCollectionPart1Type,
+    ),
+  );
+}
+export function inputExecInputCollectionPart1TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<InputExecInputCollectionPart1Type, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputExecInputCollectionPart1Type$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputExecInputCollectionPart1Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputExecInputCollectionPart0TypeType$inboundSchema:
+  z.ZodNativeEnum<typeof InputExecInputCollectionPart0TypeType> = z.nativeEnum(
+    InputExecInputCollectionPart0TypeType,
+  );
+/** @internal */
+export const InputExecInputCollectionPart0TypeType$outboundSchema:
+  z.ZodNativeEnum<typeof InputExecInputCollectionPart0TypeType> =
+    InputExecInputCollectionPart0TypeType$inboundSchema;
+
+/** @internal */
+export const InputCollectionPart0TypeScheduleType$inboundSchema: z.ZodType<
+  InputCollectionPart0TypeScheduleType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputCollectionPart0TypeScheduleType);
+/** @internal */
+export const InputCollectionPart0TypeScheduleType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputCollectionPart0TypeScheduleType
+> = openEnums.outboundSchema(InputCollectionPart0TypeScheduleType);
+
+/** @internal */
+export const InputExecInputCollectionPart0Type$inboundSchema: z.ZodType<
+  InputExecInputCollectionPart0Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputExecInputCollectionPart0TypeType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  command: z.string(),
+  retries: z.number().default(10),
+  scheduleType: InputCollectionPart0TypeScheduleType$inboundSchema.default(
+    "interval",
+  ),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+  interval: z.number().default(60),
+  cronSchedule: z.string().default("* * * * *"),
+});
+/** @internal */
+export type InputExecInputCollectionPart0Type$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
@@ -169,16 +828,16 @@ export type InputExec$Outbound = {
 };
 
 /** @internal */
-export const InputExec$outboundSchema: z.ZodType<
-  InputExec$Outbound,
+export const InputExecInputCollectionPart0Type$outboundSchema: z.ZodType<
+  InputExecInputCollectionPart0Type$Outbound,
   z.ZodTypeDef,
-  InputExec
+  InputExecInputCollectionPart0Type
 > = z.object({
+  sendToRoutes: z.boolean().default(true),
   id: z.string().optional(),
-  type: z.literal("exec"),
+  type: InputExecInputCollectionPart0TypeType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
@@ -186,7 +845,9 @@ export const InputExec$outboundSchema: z.ZodType<
   pq: PqType$outboundSchema.optional(),
   command: z.string(),
   retries: z.number().default(10),
-  scheduleType: ScheduleType$outboundSchema.default("interval"),
+  scheduleType: InputCollectionPart0TypeScheduleType$outboundSchema.default(
+    "interval",
+  ),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
@@ -194,6 +855,55 @@ export const InputExec$outboundSchema: z.ZodType<
   interval: z.number().default(60),
   cronSchedule: z.string().default("* * * * *"),
 });
+
+export function inputExecInputCollectionPart0TypeToJSON(
+  inputExecInputCollectionPart0Type: InputExecInputCollectionPart0Type,
+): string {
+  return JSON.stringify(
+    InputExecInputCollectionPart0Type$outboundSchema.parse(
+      inputExecInputCollectionPart0Type,
+    ),
+  );
+}
+export function inputExecInputCollectionPart0TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<InputExecInputCollectionPart0Type, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputExecInputCollectionPart0Type$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputExecInputCollectionPart0Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputExec$inboundSchema: z.ZodType<
+  InputExec,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputExecInputCollectionPart0Type$inboundSchema),
+  z.lazy(() => InputExecInputCollectionPart1Type$inboundSchema),
+  z.lazy(() => InputExecInputCollectionPart0Type1$inboundSchema),
+  z.lazy(() => InputExecInputCollectionPart1Type1$inboundSchema),
+]);
+/** @internal */
+export type InputExec$Outbound =
+  | InputExecInputCollectionPart0Type$Outbound
+  | InputExecInputCollectionPart1Type$Outbound
+  | InputExecInputCollectionPart0Type1$Outbound
+  | InputExecInputCollectionPart1Type1$Outbound;
+
+/** @internal */
+export const InputExec$outboundSchema: z.ZodType<
+  InputExec$Outbound,
+  z.ZodTypeDef,
+  InputExec
+> = z.union([
+  z.lazy(() => InputExecInputCollectionPart0Type$outboundSchema),
+  z.lazy(() => InputExecInputCollectionPart1Type$outboundSchema),
+  z.lazy(() => InputExecInputCollectionPart0Type1$outboundSchema),
+  z.lazy(() => InputExecInputCollectionPart1Type1$outboundSchema),
+]);
 
 export function inputExecToJSON(inputExec: InputExec): string {
   return JSON.stringify(InputExec$outboundSchema.parse(inputExec));
