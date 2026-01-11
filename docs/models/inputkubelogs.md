@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `models.InputKubeLogsSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputKubeLogsSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputKubeLogsSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputKubeLogsSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "kube_logs",
   pipeline: "<value>",
@@ -21,6 +15,12 @@ const value: models.InputKubeLogsSendToRoutesTrueWithConnectionsConstraint = {
     "<value 1>",
     "<value 2>",
     "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
@@ -42,8 +42,9 @@ const value: models.InputKubeLogsSendToRoutesTrueWithConnectionsConstraint = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  description: "role morning uncomfortable whose cautious source",
+  description: "championship softly convalesce hence good-natured amongst",
 };
 ```
 
@@ -91,21 +92,16 @@ const value: models.InputKubeLogsSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputKubeLogsPqEnabledFalseWithPqConstraint`
+### `models.InputKubeLogsPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputKubeLogsPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputKubeLogsPqEnabledFalseConstraint = {
   id: "<id>",
   type: "kube_logs",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -113,6 +109,9 @@ const value: models.InputKubeLogsPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   rules: [
     {
       filter: "<value>",
@@ -132,7 +131,7 @@ const value: models.InputKubeLogsPqEnabledFalseWithPqConstraint = {
     "<value 2>",
     "<value 3>",
   ],
-  description: "colorfully easily alongside",
+  description: "folklore webbed bell unto pro gosh zowie actually by terrorise",
 };
 ```
 

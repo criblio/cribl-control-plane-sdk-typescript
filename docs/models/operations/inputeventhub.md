@@ -3,60 +3,58 @@
 
 ## Supported Types
 
-### `operations.InputEventhubSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputEventhubSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputEventhubSendToRoutesTrueWithConnectionsConstraint =
-  {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "eventhub",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputEventhubSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "eventhub",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    brokers: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    topics: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    sasl: {
-      password: "crxTx4Amn7CtfAT",
-      textSecret: "<value>",
-      clientSecret: "<value>",
-      clientTextSecret: "<value>",
-      certificateName: "<value>",
-      certPath: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      clientId: "<id>",
-      tenantId: "<id>",
-      scope: "<value>",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  brokers: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  topics: [
+    "<value 1>",
+  ],
+  sasl: {
+    password: "crxTx4Amn7CtfAT",
+    textSecret: "<value>",
+    clientSecret: "<value>",
+    clientTextSecret: "<value>",
+    certificateName: "<value>",
+    certPath: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    clientId: "<id>",
+    tenantId: "<id>",
+    scope: "<value>",
+  },
+  tls: {},
+  autoCommitInterval: 9665.45,
+  autoCommitThreshold: 9548.51,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    tls: {},
-    autoCommitInterval: 1554.76,
-    autoCommitThreshold: 9262.76,
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "drat crowded via opposite lampoon annually burly",
-  };
+  ],
+  description: "phooey airmail case garage briskly",
+};
 ```
 
 ### `operations.InputEventhubSendToRoutesFalseWithConnectionsConstraint`
@@ -116,13 +114,10 @@ const value:
   };
 ```
 
-### `operations.InputEventhubPqEnabledFalseWithPqConstraint`
+### `operations.InputEventhubPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputEventhubPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputEventhubPqEnabledFalseConstraint = {
   id: "<id>",
   type: "eventhub",
   pipeline: "<value>",
@@ -138,12 +133,14 @@ const value: operations.InputEventhubPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  brokers: [
+  pq: {
+    pqControls: {},
+  },
+  brokers: [],
+  topics: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  topics: [],
   sasl: {
     password: "crxTx4Amn7CtfAT",
     textSecret: "<value>",
@@ -158,8 +155,8 @@ const value: operations.InputEventhubPqEnabledFalseWithPqConstraint = {
     scope: "<value>",
   },
   tls: {},
-  autoCommitInterval: 3439.86,
-  autoCommitThreshold: 5305.08,
+  autoCommitInterval: 3446.15,
+  autoCommitThreshold: 2140.19,
   metadata: [
     {
       name: "<value>",
@@ -167,7 +164,7 @@ const value: operations.InputEventhubPqEnabledFalseWithPqConstraint = {
     },
   ],
   description:
-    "presell suspiciously mmm modulo dicker practical babushka seriously confiscate",
+    "gah why uselessly although off consign colorfully deserted stock",
 };
 ```
 

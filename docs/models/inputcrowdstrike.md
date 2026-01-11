@@ -3,63 +3,61 @@
 
 ## Supported Types
 
-### `models.InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputCrowdstrikeSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint =
-  {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "crowdstrike",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
+const value: models.InputCrowdstrikeSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "crowdstrike",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  queueName: "<value>",
+  awsAccountId: "<id>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  preprocess: {
+    command: "<value>",
+    args: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
-    pq: {
-      pqControls: {},
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    queueName: "<value>",
-    awsAccountId: "<id>",
-    awsSecretKey: "<value>",
-    region: "<value>",
-    endpoint: "<value>",
-    breakerRulesets: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    assumeRoleArn: "<value>",
-    assumeRoleExternalId: "<id>",
-    preprocess: {
-      command: "<value>",
-      args: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-    },
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    checkpointing: {},
-    encoding: "<value>",
-    description:
-      "inasmuch esteemed apostrophize hold er below geez but onto mentor",
-    awsApiKey: "<value>",
-    awsSecret: "<value>",
-    tagAfterProcessing: "false",
-    processedTagKey: "<value>",
-    processedTagValue: "<value>",
-  };
+  ],
+  checkpointing: {},
+  encoding: "<value>",
+  description:
+    "factorize actually who where arrogantly however event communicate down",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  tagAfterProcessing: "false",
+  processedTagKey: "<value>",
+  processedTagValue: "<value>",
+};
 ```
 
 ### `models.InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint`
@@ -121,13 +119,10 @@ const value: models.InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint =
   };
 ```
 
-### `models.InputCrowdstrikePqEnabledFalseWithPqConstraint`
+### `models.InputCrowdstrikePqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputCrowdstrikePqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputCrowdstrikePqEnabledFalseConstraint = {
   id: "<id>",
   type: "crowdstrike",
   pipeline: "<value>",
@@ -135,7 +130,6 @@ const value: models.InputCrowdstrikePqEnabledFalseWithPqConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -143,6 +137,9 @@ const value: models.InputCrowdstrikePqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   queueName: "<value>",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
@@ -150,6 +147,7 @@ const value: models.InputCrowdstrikePqEnabledFalseWithPqConstraint = {
   endpoint: "<value>",
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
@@ -169,10 +167,10 @@ const value: models.InputCrowdstrikePqEnabledFalseWithPqConstraint = {
   ],
   checkpointing: {},
   encoding: "<value>",
-  description: "chairperson off delightfully yowza",
+  description: "kooky monocle crushing stock aha incidentally possible",
   awsApiKey: "<value>",
   awsSecret: "<value>",
-  tagAfterProcessing: "true",
+  tagAfterProcessing: "false",
   processedTagKey: "<value>",
   processedTagValue: "<value>",
 };

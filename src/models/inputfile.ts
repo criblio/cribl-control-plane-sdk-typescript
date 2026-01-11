@@ -9,11 +9,11 @@ import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -85,7 +85,7 @@ export type InputFilePqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Choose how to discover files to monitor
    */
@@ -162,17 +162,17 @@ export type InputFilePqEnabledTrueWithPqConstraint = {
   includeUnidentifiableBinary?: boolean | undefined;
 };
 
-export const InputFilePqEnabledFalseWithPqConstraintType = {
+export const InputFilePqEnabledFalseConstraintType = {
   File: "file",
 } as const;
-export type InputFilePqEnabledFalseWithPqConstraintType = ClosedEnum<
-  typeof InputFilePqEnabledFalseWithPqConstraintType
+export type InputFilePqEnabledFalseConstraintType = ClosedEnum<
+  typeof InputFilePqEnabledFalseConstraintType
 >;
 
 /**
  * Choose how to discover files to monitor
  */
-export const PqEnabledFalseWithPqConstraintMode = {
+export const PqEnabledFalseConstraintMode = {
   /**
    * Manual
    */
@@ -185,21 +185,20 @@ export const PqEnabledFalseWithPqConstraintMode = {
 /**
  * Choose how to discover files to monitor
  */
-export type PqEnabledFalseWithPqConstraintMode = OpenEnum<
-  typeof PqEnabledFalseWithPqConstraintMode
+export type PqEnabledFalseConstraintMode = OpenEnum<
+  typeof PqEnabledFalseConstraintMode
 >;
 
-export type InputFilePqEnabledFalseWithPqConstraint = {
+export type InputFilePqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputFilePqEnabledFalseWithPqConstraintType;
+  type: InputFilePqEnabledFalseConstraintType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -220,11 +219,12 @@ export type InputFilePqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Choose how to discover files to monitor
    */
-  mode?: PqEnabledFalseWithPqConstraintMode | undefined;
+  mode?: PqEnabledFalseConstraintMode | undefined;
   /**
    * Time, in seconds, between scanning for files
    */
@@ -331,7 +331,7 @@ export type InputFileSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -431,17 +431,17 @@ export type InputFileSendToRoutesFalseWithConnectionsConstraint = {
   includeUnidentifiableBinary?: boolean | undefined;
 };
 
-export const InputFileSendToRoutesTrueWithConnectionsConstraintType = {
+export const InputFileSendToRoutesTrueConstraintType = {
   File: "file",
 } as const;
-export type InputFileSendToRoutesTrueWithConnectionsConstraintType = ClosedEnum<
-  typeof InputFileSendToRoutesTrueWithConnectionsConstraintType
+export type InputFileSendToRoutesTrueConstraintType = ClosedEnum<
+  typeof InputFileSendToRoutesTrueConstraintType
 >;
 
 /**
  * Choose how to discover files to monitor
  */
-export const SendToRoutesTrueWithConnectionsConstraintMode = {
+export const SendToRoutesTrueConstraintMode = {
   /**
    * Manual
    */
@@ -454,24 +454,20 @@ export const SendToRoutesTrueWithConnectionsConstraintMode = {
 /**
  * Choose how to discover files to monitor
  */
-export type SendToRoutesTrueWithConnectionsConstraintMode = OpenEnum<
-  typeof SendToRoutesTrueWithConnectionsConstraintMode
+export type SendToRoutesTrueConstraintMode = OpenEnum<
+  typeof SendToRoutesTrueConstraintMode
 >;
 
-export type InputFileSendToRoutesTrueWithConnectionsConstraint = {
+export type InputFileSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
   /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputFileSendToRoutesTrueWithConnectionsConstraintType;
+  type: InputFileSendToRoutesTrueConstraintType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -489,11 +485,15 @@ export type InputFileSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Choose how to discover files to monitor
    */
-  mode?: SendToRoutesTrueWithConnectionsConstraintMode | undefined;
+  mode?: SendToRoutesTrueConstraintMode | undefined;
   /**
    * Time, in seconds, between scanning for files
    */
@@ -567,9 +567,9 @@ export type InputFileSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputFile =
-  | InputFileSendToRoutesTrueWithConnectionsConstraint
+  | InputFileSendToRoutesTrueConstraint
   | InputFileSendToRoutesFalseWithConnectionsConstraint
-  | InputFilePqEnabledFalseWithPqConstraint
+  | InputFilePqEnabledFalseConstraint
   | InputFilePqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -609,7 +609,7 @@ export const InputFilePqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   mode: PqEnabledTrueWithPqConstraintMode$inboundSchema.default("manual"),
   interval: z.number().default(10),
   filenames: z.array(z.string()).optional(),
@@ -642,7 +642,7 @@ export type InputFilePqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   mode: string;
   interval: number;
   filenames?: Array<string> | undefined;
@@ -680,7 +680,7 @@ export const InputFilePqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   mode: PqEnabledTrueWithPqConstraintMode$outboundSchema.default("manual"),
   interval: z.number().default(10),
   filenames: z.array(z.string()).optional(),
@@ -725,44 +725,45 @@ export function inputFilePqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputFilePqEnabledFalseWithPqConstraintType$inboundSchema:
-  z.ZodNativeEnum<typeof InputFilePqEnabledFalseWithPqConstraintType> = z
-    .nativeEnum(InputFilePqEnabledFalseWithPqConstraintType);
+export const InputFilePqEnabledFalseConstraintType$inboundSchema:
+  z.ZodNativeEnum<typeof InputFilePqEnabledFalseConstraintType> = z.nativeEnum(
+    InputFilePqEnabledFalseConstraintType,
+  );
 /** @internal */
-export const InputFilePqEnabledFalseWithPqConstraintType$outboundSchema:
-  z.ZodNativeEnum<typeof InputFilePqEnabledFalseWithPqConstraintType> =
-    InputFilePqEnabledFalseWithPqConstraintType$inboundSchema;
+export const InputFilePqEnabledFalseConstraintType$outboundSchema:
+  z.ZodNativeEnum<typeof InputFilePqEnabledFalseConstraintType> =
+    InputFilePqEnabledFalseConstraintType$inboundSchema;
 
 /** @internal */
-export const PqEnabledFalseWithPqConstraintMode$inboundSchema: z.ZodType<
-  PqEnabledFalseWithPqConstraintMode,
+export const PqEnabledFalseConstraintMode$inboundSchema: z.ZodType<
+  PqEnabledFalseConstraintMode,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(PqEnabledFalseWithPqConstraintMode);
+> = openEnums.inboundSchema(PqEnabledFalseConstraintMode);
 /** @internal */
-export const PqEnabledFalseWithPqConstraintMode$outboundSchema: z.ZodType<
+export const PqEnabledFalseConstraintMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  PqEnabledFalseWithPqConstraintMode
-> = openEnums.outboundSchema(PqEnabledFalseWithPqConstraintMode);
+  PqEnabledFalseConstraintMode
+> = openEnums.outboundSchema(PqEnabledFalseConstraintMode);
 
 /** @internal */
-export const InputFilePqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
-  InputFilePqEnabledFalseWithPqConstraint,
+export const InputFilePqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputFilePqEnabledFalseConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
   pqEnabled: z.boolean().default(false),
-  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
-  type: InputFilePqEnabledFalseWithPqConstraintType$inboundSchema,
+  type: InputFilePqEnabledFalseConstraintType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  mode: PqEnabledFalseWithPqConstraintMode$inboundSchema.default("manual"),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  mode: PqEnabledFalseConstraintMode$inboundSchema.default("manual"),
   interval: z.number().default(10),
   filenames: z.array(z.string()).optional(),
   filterArchivedFiles: z.boolean().default(false),
@@ -784,9 +785,8 @@ export const InputFilePqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
   includeUnidentifiableBinary: z.boolean().default(false),
 });
 /** @internal */
-export type InputFilePqEnabledFalseWithPqConstraint$Outbound = {
+export type InputFilePqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -794,7 +794,8 @@ export type InputFilePqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   mode: string;
   interval: number;
   filenames?: Array<string> | undefined;
@@ -818,22 +819,22 @@ export type InputFilePqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputFilePqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
-  InputFilePqEnabledFalseWithPqConstraint$Outbound,
+export const InputFilePqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputFilePqEnabledFalseConstraint$Outbound,
   z.ZodTypeDef,
-  InputFilePqEnabledFalseWithPqConstraint
+  InputFilePqEnabledFalseConstraint
 > = z.object({
   pqEnabled: z.boolean().default(false),
-  pq: PqType$outboundSchema.optional(),
   id: z.string().optional(),
-  type: InputFilePqEnabledFalseWithPqConstraintType$outboundSchema,
+  type: InputFilePqEnabledFalseConstraintType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  mode: PqEnabledFalseWithPqConstraintMode$outboundSchema.default("manual"),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  mode: PqEnabledFalseConstraintMode$outboundSchema.default("manual"),
   interval: z.number().default(10),
   filenames: z.array(z.string()).optional(),
   filterArchivedFiles: z.boolean().default(false),
@@ -855,29 +856,22 @@ export const InputFilePqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
   includeUnidentifiableBinary: z.boolean().default(false),
 });
 
-export function inputFilePqEnabledFalseWithPqConstraintToJSON(
-  inputFilePqEnabledFalseWithPqConstraint:
-    InputFilePqEnabledFalseWithPqConstraint,
+export function inputFilePqEnabledFalseConstraintToJSON(
+  inputFilePqEnabledFalseConstraint: InputFilePqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputFilePqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputFilePqEnabledFalseWithPqConstraint,
+    InputFilePqEnabledFalseConstraint$outboundSchema.parse(
+      inputFilePqEnabledFalseConstraint,
     ),
   );
 }
-export function inputFilePqEnabledFalseWithPqConstraintFromJSON(
+export function inputFilePqEnabledFalseConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<
-  InputFilePqEnabledFalseWithPqConstraint,
-  SDKValidationError
-> {
+): SafeParseResult<InputFilePqEnabledFalseConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      InputFilePqEnabledFalseWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputFilePqEnabledFalseWithPqConstraint' from JSON`,
+    (x) => InputFilePqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputFilePqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -915,7 +909,7 @@ export const InputFileSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputFileSendToRoutesFalseWithConnectionsConstraintType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -950,7 +944,7 @@ export const InputFileSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
 /** @internal */
 export type InputFileSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -989,7 +983,8 @@ export const InputFileSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
     InputFileSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type:
       InputFileSendToRoutesFalseWithConnectionsConstraintType$outboundSchema,
@@ -1050,75 +1045,67 @@ export function inputFileSendToRoutesFalseWithConnectionsConstraintFromJSON(
 }
 
 /** @internal */
-export const InputFileSendToRoutesTrueWithConnectionsConstraintType$inboundSchema:
-  z.ZodNativeEnum<
-    typeof InputFileSendToRoutesTrueWithConnectionsConstraintType
-  > = z.nativeEnum(InputFileSendToRoutesTrueWithConnectionsConstraintType);
+export const InputFileSendToRoutesTrueConstraintType$inboundSchema:
+  z.ZodNativeEnum<typeof InputFileSendToRoutesTrueConstraintType> = z
+    .nativeEnum(InputFileSendToRoutesTrueConstraintType);
 /** @internal */
-export const InputFileSendToRoutesTrueWithConnectionsConstraintType$outboundSchema:
-  z.ZodNativeEnum<
-    typeof InputFileSendToRoutesTrueWithConnectionsConstraintType
-  > = InputFileSendToRoutesTrueWithConnectionsConstraintType$inboundSchema;
+export const InputFileSendToRoutesTrueConstraintType$outboundSchema:
+  z.ZodNativeEnum<typeof InputFileSendToRoutesTrueConstraintType> =
+    InputFileSendToRoutesTrueConstraintType$inboundSchema;
 
 /** @internal */
-export const SendToRoutesTrueWithConnectionsConstraintMode$inboundSchema:
-  z.ZodType<
-    SendToRoutesTrueWithConnectionsConstraintMode,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(SendToRoutesTrueWithConnectionsConstraintMode);
+export const SendToRoutesTrueConstraintMode$inboundSchema: z.ZodType<
+  SendToRoutesTrueConstraintMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(SendToRoutesTrueConstraintMode);
 /** @internal */
-export const SendToRoutesTrueWithConnectionsConstraintMode$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    SendToRoutesTrueWithConnectionsConstraintMode
-  > = openEnums.outboundSchema(SendToRoutesTrueWithConnectionsConstraintMode);
+export const SendToRoutesTrueConstraintMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SendToRoutesTrueConstraintMode
+> = openEnums.outboundSchema(SendToRoutesTrueConstraintMode);
 
 /** @internal */
-export const InputFileSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputFileSendToRoutesTrueWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputFileSendToRoutesTrueWithConnectionsConstraintType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    mode: SendToRoutesTrueWithConnectionsConstraintMode$inboundSchema.default(
-      "manual",
-    ),
-    interval: z.number().default(10),
-    filenames: z.array(z.string()).optional(),
-    filterArchivedFiles: z.boolean().default(false),
-    tailOnly: z.boolean().default(true),
-    idleTimeout: z.number().default(300),
-    minAgeDur: z.string().optional(),
-    maxAgeDur: z.string().optional(),
-    checkFileModTime: z.boolean().default(false),
-    forceText: z.boolean().default(false),
-    hashLen: z.number().default(256),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    description: z.string().optional(),
-    path: z.string().optional(),
-    depth: z.number().optional(),
-    suppressMissingPathErrors: z.boolean().default(false),
-    deleteFiles: z.boolean().default(false),
-    includeUnidentifiableBinary: z.boolean().default(false),
-  });
+export const InputFileSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
+  InputFileSendToRoutesTrueConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputFileSendToRoutesTrueConstraintType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  mode: SendToRoutesTrueConstraintMode$inboundSchema.default("manual"),
+  interval: z.number().default(10),
+  filenames: z.array(z.string()).optional(),
+  filterArchivedFiles: z.boolean().default(false),
+  tailOnly: z.boolean().default(true),
+  idleTimeout: z.number().default(300),
+  minAgeDur: z.string().optional(),
+  maxAgeDur: z.string().optional(),
+  checkFileModTime: z.boolean().default(false),
+  forceText: z.boolean().default(false),
+  hashLen: z.number().default(256),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  description: z.string().optional(),
+  path: z.string().optional(),
+  depth: z.number().optional(),
+  suppressMissingPathErrors: z.boolean().default(false),
+  deleteFiles: z.boolean().default(false),
+  includeUnidentifiableBinary: z.boolean().default(false),
+});
 /** @internal */
-export type InputFileSendToRoutesTrueWithConnectionsConstraint$Outbound = {
+export type InputFileSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1126,6 +1113,7 @@ export type InputFileSendToRoutesTrueWithConnectionsConstraint$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   mode: string;
   interval: number;
@@ -1150,69 +1138,60 @@ export type InputFileSendToRoutesTrueWithConnectionsConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputFileSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputFileSendToRoutesTrueWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputFileSendToRoutesTrueWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputFileSendToRoutesTrueWithConnectionsConstraintType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    mode: SendToRoutesTrueWithConnectionsConstraintMode$outboundSchema.default(
-      "manual",
-    ),
-    interval: z.number().default(10),
-    filenames: z.array(z.string()).optional(),
-    filterArchivedFiles: z.boolean().default(false),
-    tailOnly: z.boolean().default(true),
-    idleTimeout: z.number().default(300),
-    minAgeDur: z.string().optional(),
-    maxAgeDur: z.string().optional(),
-    checkFileModTime: z.boolean().default(false),
-    forceText: z.boolean().default(false),
-    hashLen: z.number().default(256),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    description: z.string().optional(),
-    path: z.string().optional(),
-    depth: z.number().optional(),
-    suppressMissingPathErrors: z.boolean().default(false),
-    deleteFiles: z.boolean().default(false),
-    includeUnidentifiableBinary: z.boolean().default(false),
-  });
+export const InputFileSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
+  InputFileSendToRoutesTrueConstraint$Outbound,
+  z.ZodTypeDef,
+  InputFileSendToRoutesTrueConstraint
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputFileSendToRoutesTrueConstraintType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  mode: SendToRoutesTrueConstraintMode$outboundSchema.default("manual"),
+  interval: z.number().default(10),
+  filenames: z.array(z.string()).optional(),
+  filterArchivedFiles: z.boolean().default(false),
+  tailOnly: z.boolean().default(true),
+  idleTimeout: z.number().default(300),
+  minAgeDur: z.string().optional(),
+  maxAgeDur: z.string().optional(),
+  checkFileModTime: z.boolean().default(false),
+  forceText: z.boolean().default(false),
+  hashLen: z.number().default(256),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  description: z.string().optional(),
+  path: z.string().optional(),
+  depth: z.number().optional(),
+  suppressMissingPathErrors: z.boolean().default(false),
+  deleteFiles: z.boolean().default(false),
+  includeUnidentifiableBinary: z.boolean().default(false),
+});
 
-export function inputFileSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputFileSendToRoutesTrueWithConnectionsConstraint:
-    InputFileSendToRoutesTrueWithConnectionsConstraint,
+export function inputFileSendToRoutesTrueConstraintToJSON(
+  inputFileSendToRoutesTrueConstraint: InputFileSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputFileSendToRoutesTrueWithConnectionsConstraint$outboundSchema.parse(
-      inputFileSendToRoutesTrueWithConnectionsConstraint,
+    InputFileSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputFileSendToRoutesTrueConstraint,
     ),
   );
 }
-export function inputFileSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputFileSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<
-  InputFileSendToRoutesTrueWithConnectionsConstraint,
-  SDKValidationError
-> {
+): SafeParseResult<InputFileSendToRoutesTrueConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      InputFileSendToRoutesTrueWithConnectionsConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputFileSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputFileSendToRoutesTrueConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputFileSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -1222,20 +1201,18 @@ export const InputFile$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() =>
-    InputFileSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-  ),
+  z.lazy(() => InputFileSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputFileSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputFilePqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputFilePqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputFilePqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputFile$Outbound =
-  | InputFileSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputFileSendToRoutesTrueConstraint$Outbound
   | InputFileSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputFilePqEnabledFalseWithPqConstraint$Outbound
+  | InputFilePqEnabledFalseConstraint$Outbound
   | InputFilePqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1244,13 +1221,11 @@ export const InputFile$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputFile
 > = z.union([
-  z.lazy(() =>
-    InputFileSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputFileSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputFileSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() => InputFilePqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputFilePqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputFilePqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 

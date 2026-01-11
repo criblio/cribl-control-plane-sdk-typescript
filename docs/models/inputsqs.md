@@ -3,28 +3,29 @@
 
 ## Supported Types
 
-### `models.InputSqsSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputSqsSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputSqsSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputSqsSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "sqs",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
   queueName: "<value>",
-  queueType: "standard",
+  queueType: "fifo",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
   region: "<value>",
@@ -37,7 +38,7 @@ const value: models.InputSqsSendToRoutesTrueWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description: "before transparency pixellate easy feminize represent etch",
+  description: "larva ah what excitable whether CD",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };
@@ -84,13 +85,10 @@ const value: models.InputSqsSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputSqsPqEnabledFalseWithPqConstraint`
+### `models.InputSqsPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputSqsPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputSqsPqEnabledFalseConstraint = {
   id: "<id>",
   type: "sqs",
   pipeline: "<value>",
@@ -104,8 +102,11 @@ const value: models.InputSqsPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   queueName: "<value>",
-  queueType: "standard",
+  queueType: "fifo",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
   region: "<value>",
@@ -118,7 +119,7 @@ const value: models.InputSqsPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "measly draw even unbalance malfunction around at if",
+  description: "cautious digital ugh and across",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };

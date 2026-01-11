@@ -3,34 +3,31 @@
 
 ## Supported Types
 
-### `operations.InputMskSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputMskSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputMskSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: operations.InputMskSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "msk",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
   brokers: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  topics: [
-    "<value 1>",
-  ],
+  topics: [],
   metadata: [
     {
       name: "<value>",
@@ -67,10 +64,9 @@ const value: operations.InputMskSendToRoutesTrueWithConnectionsConstraint = {
     minVersion: "TLSv1.1",
     maxVersion: "TLSv1.3",
   },
-  autoCommitInterval: 2784.4,
-  autoCommitThreshold: 9105.87,
-  description:
-    "easily though fixed exploration above deafening efface whoever lifestyle rust",
+  autoCommitInterval: 5430.48,
+  autoCommitThreshold: 9871.3,
+  description: "lest slowly major confound in dandelion",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };
@@ -150,13 +146,10 @@ const value: operations.InputMskSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `operations.InputMskPqEnabledFalseWithPqConstraint`
+### `operations.InputMskPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputMskPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputMskPqEnabledFalseConstraint = {
   id: "<id>",
   type: "msk",
   pipeline: "<value>",
@@ -171,10 +164,15 @@ const value: operations.InputMskPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  brokers: [],
-  topics: [
+  pq: {
+    pqControls: {},
+  },
+  brokers: [
     "<value 1>",
     "<value 2>",
+  ],
+  topics: [
+    "<value 1>",
   ],
   metadata: [
     {
@@ -212,9 +210,9 @@ const value: operations.InputMskPqEnabledFalseWithPqConstraint = {
     minVersion: "TLSv1.1",
     maxVersion: "TLSv1.3",
   },
-  autoCommitInterval: 7604.66,
-  autoCommitThreshold: 5100.89,
-  description: "plus yahoo mobilise for needily colon than limply",
+  autoCommitInterval: 7639.31,
+  autoCommitThreshold: 971.61,
+  description: "shanghai nor among once gee",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };

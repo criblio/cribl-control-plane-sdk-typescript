@@ -3,23 +3,22 @@
 
 ## Supported Types
 
-### `models.InputEventhubSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputEventhubSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputEventhubSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputEventhubSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "eventhub",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
@@ -27,10 +26,10 @@ const value: models.InputEventhubSendToRoutesTrueWithConnectionsConstraint = {
   brokers: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   topics: [
     "<value 1>",
-    "<value 2>",
   ],
   sasl: {
     password: "crxTx4Amn7CtfAT",
@@ -46,15 +45,15 @@ const value: models.InputEventhubSendToRoutesTrueWithConnectionsConstraint = {
     scope: "<value>",
   },
   tls: {},
-  autoCommitInterval: 1554.76,
-  autoCommitThreshold: 9262.76,
+  autoCommitInterval: 9665.45,
+  autoCommitThreshold: 9548.51,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "drat crowded via opposite lampoon annually burly",
+  description: "phooey airmail case garage briskly",
 };
 ```
 
@@ -114,13 +113,10 @@ const value: models.InputEventhubSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputEventhubPqEnabledFalseWithPqConstraint`
+### `models.InputEventhubPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputEventhubPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputEventhubPqEnabledFalseConstraint = {
   id: "<id>",
   type: "eventhub",
   pipeline: "<value>",
@@ -136,12 +132,14 @@ const value: models.InputEventhubPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  brokers: [
+  pq: {
+    pqControls: {},
+  },
+  brokers: [],
+  topics: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  topics: [],
   sasl: {
     password: "crxTx4Amn7CtfAT",
     textSecret: "<value>",
@@ -156,8 +154,8 @@ const value: models.InputEventhubPqEnabledFalseWithPqConstraint = {
     scope: "<value>",
   },
   tls: {},
-  autoCommitInterval: 3439.86,
-  autoCommitThreshold: 5305.08,
+  autoCommitInterval: 3446.15,
+  autoCommitThreshold: 2140.19,
   metadata: [
     {
       name: "<value>",
@@ -165,7 +163,7 @@ const value: models.InputEventhubPqEnabledFalseWithPqConstraint = {
     },
   ],
   description:
-    "presell suspiciously mmm modulo dicker practical babushka seriously confiscate",
+    "gah why uselessly although off consign colorfully deserted stock",
 };
 ```
 

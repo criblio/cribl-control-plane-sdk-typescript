@@ -3,44 +3,42 @@
 
 ## Supported Types
 
-### `operations.InputKinesisSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputKinesisSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputKinesisSendToRoutesTrueWithConnectionsConstraint =
-  {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "kinesis",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputKinesisSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "kinesis",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    streamName: "<value>",
-    awsSecretKey: "<value>",
-    region: "<value>",
-    endpoint: "<value>",
-    assumeRoleArn: "<value>",
-    assumeRoleExternalId: "<id>",
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "while athletic disappointment barring finer deduction",
-    awsApiKey: "<value>",
-    awsSecret: "<value>",
-  };
+  ],
+  pq: {
+    pqControls: {},
+  },
+  streamName: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "obediently who talkative",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+};
 ```
 
 ### `operations.InputKinesisSendToRoutesFalseWithConnectionsConstraint`
@@ -84,13 +82,10 @@ const value: operations.InputKinesisSendToRoutesFalseWithConnectionsConstraint =
   };
 ```
 
-### `operations.InputKinesisPqEnabledFalseWithPqConstraint`
+### `operations.InputKinesisPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputKinesisPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputKinesisPqEnabledFalseConstraint = {
   id: "<id>",
   type: "kinesis",
   pipeline: "<value>",
@@ -98,6 +93,7 @@ const value: operations.InputKinesisPqEnabledFalseWithPqConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -105,6 +101,9 @@ const value: operations.InputKinesisPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   streamName: "<value>",
   awsSecretKey: "<value>",
   region: "<value>",
@@ -117,7 +116,8 @@ const value: operations.InputKinesisPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "diver self-assured hot beyond windy from zowie",
+  description:
+    "lava nectarine over er vivaciously beard joyful expense allegation versus",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };

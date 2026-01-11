@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `operations.InputS3SendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputS3SendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputS3SendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: operations.InputS3SendToRoutesTrueConstraint = {
   id: "<id>",
   type: "s3",
   pipeline: "<value>",
@@ -21,6 +15,12 @@ const value: operations.InputS3SendToRoutesTrueWithConnectionsConstraint = {
     "<value 1>",
     "<value 2>",
     "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
@@ -32,6 +32,7 @@ const value: operations.InputS3SendToRoutesTrueWithConnectionsConstraint = {
   endpoint: "<value>",
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
@@ -51,7 +52,7 @@ const value: operations.InputS3SendToRoutesTrueWithConnectionsConstraint = {
   ],
   checkpointing: {},
   encoding: "<value>",
-  description: "considering carnival longboat throughout unhappy despite",
+  description: "draft unearth fast failing greedy",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   processedTagKey: "<value>",
@@ -118,20 +119,16 @@ const value: operations.InputS3SendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `operations.InputS3PqEnabledFalseWithPqConstraint`
+### `operations.InputS3PqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputS3PqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputS3PqEnabledFalseConstraint = {
   id: "<id>",
   type: "s3",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -139,6 +136,9 @@ const value: operations.InputS3PqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   queueName: "<value>",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
@@ -147,6 +147,7 @@ const value: operations.InputS3PqEnabledFalseWithPqConstraint = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
@@ -166,7 +167,7 @@ const value: operations.InputS3PqEnabledFalseWithPqConstraint = {
   ],
   checkpointing: {},
   encoding: "<value>",
-  description: "heavily save yummy writhing extension",
+  description: "contradict inquisitively implode unaccountably forager angrily",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   processedTagKey: "<value>",

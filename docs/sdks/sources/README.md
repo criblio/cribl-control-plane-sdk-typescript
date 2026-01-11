@@ -107,12 +107,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.sources.create({
     sendToRoutes: true,
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
     id: "appscope-source",
     type: "appscope",
     disabled: false,
@@ -123,6 +117,12 @@ async function run() {
       "<value 1>",
       "<value 2>",
       "<value 3>",
+    ],
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
     ],
     pq: {
       mode: "always",
@@ -218,12 +218,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await sourcesCreate(criblControlPlane, {
     sendToRoutes: true,
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
     id: "appscope-source",
     type: "appscope",
     disabled: false,
@@ -234,6 +228,12 @@ async function run() {
       "<value 1>",
       "<value 2>",
       "<value 3>",
+    ],
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
     ],
     pq: {
       mode: "always",
@@ -435,12 +435,6 @@ async function run() {
     id: "<id>",
     input: {
       sendToRoutes: true,
-      connections: [
-        {
-          pipeline: "<value>",
-          output: "<value>",
-        },
-      ],
       id: "appscope-source",
       type: "appscope",
       disabled: false,
@@ -450,6 +444,12 @@ async function run() {
       streamtags: [
         "<value 1>",
         "<value 2>",
+      ],
+      connections: [
+        {
+          pipeline: "<value>",
+          output: "<value>",
+        },
       ],
       pq: {
         mode: "always",
@@ -548,12 +548,6 @@ async function run() {
     id: "<id>",
     input: {
       sendToRoutes: true,
-      connections: [
-        {
-          pipeline: "<value>",
-          output: "<value>",
-        },
-      ],
       id: "appscope-source",
       type: "appscope",
       disabled: false,
@@ -563,6 +557,12 @@ async function run() {
       streamtags: [
         "<value 1>",
         "<value 2>",
+      ],
+      connections: [
+        {
+          pipeline: "<value>",
+          output: "<value>",
+        },
       ],
       pq: {
         mode: "always",

@@ -9,11 +9,11 @@ import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -86,7 +86,7 @@ export type InputSqsPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -172,12 +172,11 @@ export type InputSqsPqEnabledTrueWithPqConstraint = {
   numReceivers?: number | undefined;
 };
 
-export type InputSqsPqEnabledFalseWithPqConstraint = {
+export type InputSqsPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -203,7 +202,8 @@ export type InputSqsPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -297,7 +297,7 @@ export type InputSqsSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -406,15 +406,11 @@ export type InputSqsSendToRoutesFalseWithConnectionsConstraint = {
   numReceivers?: number | undefined;
 };
 
-export type InputSqsSendToRoutesTrueWithConnectionsConstraint = {
+export type InputSqsSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -437,6 +433,10 @@ export type InputSqsSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
@@ -524,9 +524,9 @@ export type InputSqsSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputSqs =
-  | InputSqsSendToRoutesTrueWithConnectionsConstraint
+  | InputSqsSendToRoutesTrueConstraint
   | InputSqsSendToRoutesFalseWithConnectionsConstraint
-  | InputSqsPqEnabledFalseWithPqConstraint
+  | InputSqsPqEnabledFalseConstraint
   | InputSqsPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -564,7 +564,7 @@ export const InputSqsPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   queueName: z.string(),
   queueType: InputSqsQueueType$inboundSchema,
   awsAccountId: z.string().optional(),
@@ -600,7 +600,7 @@ export type InputSqsPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   queueName: string;
   queueType: string;
   awsAccountId?: string | undefined;
@@ -641,7 +641,7 @@ export const InputSqsPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   queueName: z.string(),
   queueType: InputSqsQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
@@ -688,13 +688,12 @@ export function inputSqsPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputSqsPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
-  InputSqsPqEnabledFalseWithPqConstraint,
+export const InputSqsPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputSqsPqEnabledFalseConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
   pqEnabled: z.boolean().default(false),
-  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputSqsType$inboundSchema,
   disabled: z.boolean().default(false),
@@ -702,7 +701,8 @@ export const InputSqsPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   queueName: z.string(),
   queueType: InputSqsQueueType$inboundSchema,
   awsAccountId: z.string().optional(),
@@ -728,9 +728,8 @@ export const InputSqsPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
   numReceivers: z.number().default(3),
 });
 /** @internal */
-export type InputSqsPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputSqsPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -738,7 +737,8 @@ export type InputSqsPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   queueName: string;
   queueType: string;
   awsAccountId?: string | undefined;
@@ -765,13 +765,12 @@ export type InputSqsPqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputSqsPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
-  InputSqsPqEnabledFalseWithPqConstraint$Outbound,
+export const InputSqsPqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputSqsPqEnabledFalseConstraint$Outbound,
   z.ZodTypeDef,
-  InputSqsPqEnabledFalseWithPqConstraint
+  InputSqsPqEnabledFalseConstraint
 > = z.object({
   pqEnabled: z.boolean().default(false),
-  pq: PqType$outboundSchema.optional(),
   id: z.string().optional(),
   type: InputSqsType$outboundSchema,
   disabled: z.boolean().default(false),
@@ -779,7 +778,8 @@ export const InputSqsPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   queueName: z.string(),
   queueType: InputSqsQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
@@ -805,24 +805,22 @@ export const InputSqsPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
   numReceivers: z.number().default(3),
 });
 
-export function inputSqsPqEnabledFalseWithPqConstraintToJSON(
-  inputSqsPqEnabledFalseWithPqConstraint:
-    InputSqsPqEnabledFalseWithPqConstraint,
+export function inputSqsPqEnabledFalseConstraintToJSON(
+  inputSqsPqEnabledFalseConstraint: InputSqsPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputSqsPqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputSqsPqEnabledFalseWithPqConstraint,
+    InputSqsPqEnabledFalseConstraint$outboundSchema.parse(
+      inputSqsPqEnabledFalseConstraint,
     ),
   );
 }
-export function inputSqsPqEnabledFalseWithPqConstraintFromJSON(
+export function inputSqsPqEnabledFalseConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputSqsPqEnabledFalseWithPqConstraint, SDKValidationError> {
+): SafeParseResult<InputSqsPqEnabledFalseConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      InputSqsPqEnabledFalseWithPqConstraint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSqsPqEnabledFalseWithPqConstraint' from JSON`,
+    (x) => InputSqsPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSqsPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -834,7 +832,7 @@ export const InputSqsSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputSqsType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -870,7 +868,7 @@ export const InputSqsSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
 /** @internal */
 export type InputSqsSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -912,7 +910,8 @@ export const InputSqsSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
     InputSqsSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputSqsType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -973,50 +972,48 @@ export function inputSqsSendToRoutesFalseWithConnectionsConstraintFromJSON(
 }
 
 /** @internal */
-export const InputSqsSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputSqsSendToRoutesTrueWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputSqsType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    queueName: z.string(),
-    queueType: InputSqsQueueType$inboundSchema,
-    awsAccountId: z.string().optional(),
-    createQueue: z.boolean().default(false),
-    awsAuthenticationMethod: z.string().default("auto"),
-    awsSecretKey: z.string().optional(),
-    region: z.string().optional(),
-    endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptions3$inboundSchema.default("v4"),
-    reuseConnections: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
-    enableAssumeRole: z.boolean().default(false),
-    assumeRoleArn: z.string().optional(),
-    assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
-    maxMessages: z.number().default(10),
-    visibilityTimeout: z.number().default(600),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    pollTimeout: z.number().default(10),
-    description: z.string().optional(),
-    awsApiKey: z.string().optional(),
-    awsSecret: z.string().optional(),
-    numReceivers: z.number().default(3),
-  });
+export const InputSqsSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
+  InputSqsSendToRoutesTrueConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSqsType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  queueName: z.string(),
+  queueType: InputSqsQueueType$inboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsAuthenticationMethod: z.string().default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions3$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().default(3),
+});
 /** @internal */
-export type InputSqsSendToRoutesTrueWithConnectionsConstraint$Outbound = {
+export type InputSqsSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1024,6 +1021,7 @@ export type InputSqsSendToRoutesTrueWithConnectionsConstraint$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   queueName: string;
   queueType: string;
@@ -1051,70 +1049,63 @@ export type InputSqsSendToRoutesTrueWithConnectionsConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputSqsSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputSqsSendToRoutesTrueWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputSqsSendToRoutesTrueWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputSqsType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    queueName: z.string(),
-    queueType: InputSqsQueueType$outboundSchema,
-    awsAccountId: z.string().optional(),
-    createQueue: z.boolean().default(false),
-    awsAuthenticationMethod: z.string().default("auto"),
-    awsSecretKey: z.string().optional(),
-    region: z.string().optional(),
-    endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptions3$outboundSchema.default("v4"),
-    reuseConnections: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
-    enableAssumeRole: z.boolean().default(false),
-    assumeRoleArn: z.string().optional(),
-    assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
-    maxMessages: z.number().default(10),
-    visibilityTimeout: z.number().default(600),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    pollTimeout: z.number().default(10),
-    description: z.string().optional(),
-    awsApiKey: z.string().optional(),
-    awsSecret: z.string().optional(),
-    numReceivers: z.number().default(3),
-  });
+export const InputSqsSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
+  InputSqsSendToRoutesTrueConstraint$Outbound,
+  z.ZodTypeDef,
+  InputSqsSendToRoutesTrueConstraint
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSqsType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  queueType: InputSqsQueueType$outboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsAuthenticationMethod: z.string().default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions3$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().default(3),
+});
 
-export function inputSqsSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputSqsSendToRoutesTrueWithConnectionsConstraint:
-    InputSqsSendToRoutesTrueWithConnectionsConstraint,
+export function inputSqsSendToRoutesTrueConstraintToJSON(
+  inputSqsSendToRoutesTrueConstraint: InputSqsSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputSqsSendToRoutesTrueWithConnectionsConstraint$outboundSchema.parse(
-      inputSqsSendToRoutesTrueWithConnectionsConstraint,
+    InputSqsSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputSqsSendToRoutesTrueConstraint,
     ),
   );
 }
-export function inputSqsSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputSqsSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<
-  InputSqsSendToRoutesTrueWithConnectionsConstraint,
-  SDKValidationError
-> {
+): SafeParseResult<InputSqsSendToRoutesTrueConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      InputSqsSendToRoutesTrueWithConnectionsConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputSqsSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputSqsSendToRoutesTrueConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSqsSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -1124,18 +1115,18 @@ export const InputSqs$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => InputSqsSendToRoutesTrueWithConnectionsConstraint$inboundSchema),
+  z.lazy(() => InputSqsSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputSqsSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputSqsPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputSqsPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputSqsPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputSqs$Outbound =
-  | InputSqsSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputSqsSendToRoutesTrueConstraint$Outbound
   | InputSqsSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputSqsPqEnabledFalseWithPqConstraint$Outbound
+  | InputSqsPqEnabledFalseConstraint$Outbound
   | InputSqsPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1144,13 +1135,11 @@ export const InputSqs$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSqs
 > = z.union([
-  z.lazy(() =>
-    InputSqsSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputSqsSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputSqsSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() => InputSqsPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputSqsPqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputSqsPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 

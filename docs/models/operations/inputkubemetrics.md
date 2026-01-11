@@ -3,44 +3,44 @@
 
 ## Supported Types
 
-### `operations.InputKubeMetricsSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputKubeMetricsSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputKubeMetricsSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "kube_metrics",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputKubeMetricsSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "kube_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    rules: [
-      {
-        filter: "<value>",
-        description:
-          "afore progress ethyl um gratefully pish whose till hydrocarbon",
-      },
-    ],
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    persistence: {},
-    description: "crackle inasmuch and whereas qua",
-  };
+  ],
+  pq: {
+    pqControls: {},
+  },
+  rules: [
+    {
+      filter: "<value>",
+      description:
+        "afore progress ethyl um gratefully pish whose till hydrocarbon",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description: "eventually er given pish",
+};
 ```
 
 ### `operations.InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint`
@@ -83,13 +83,10 @@ const value:
   };
 ```
 
-### `operations.InputKubeMetricsPqEnabledFalseWithPqConstraint`
+### `operations.InputKubeMetricsPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputKubeMetricsPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputKubeMetricsPqEnabledFalseConstraint = {
   id: "<id>",
   type: "kube_metrics",
   pipeline: "<value>",
@@ -97,6 +94,7 @@ const value: operations.InputKubeMetricsPqEnabledFalseWithPqConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -104,6 +102,9 @@ const value: operations.InputKubeMetricsPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   rules: [
     {
       filter: "<value>",
@@ -118,7 +119,8 @@ const value: operations.InputKubeMetricsPqEnabledFalseWithPqConstraint = {
     },
   ],
   persistence: {},
-  description: "whoever boo preheat maul backbone vivaciously",
+  description:
+    "apud reflecting slink whose how frantically apropos phew parody",
 };
 ```
 

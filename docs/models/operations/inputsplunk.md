@@ -3,28 +3,27 @@
 
 ## Supported Types
 
-### `operations.InputSplunkSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputSplunkSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputSplunkSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: operations.InputSplunkSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "splunk",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
-  port: 7166.54,
+  port: 8986.77,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -42,8 +41,6 @@ const value: operations.InputSplunkSendToRoutesTrueWithConnectionsConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   authTokens: [
     {
@@ -52,7 +49,7 @@ const value: operations.InputSplunkSendToRoutesTrueWithConnectionsConstraint = {
         "fussy twist yuck besides blah confusion wilt curiously deform",
     },
   ],
-  description: "or which barracks pro conjecture blissfully",
+  description: "so case marksman",
 };
 ```
 
@@ -111,13 +108,10 @@ const value: operations.InputSplunkSendToRoutesFalseWithConnectionsConstraint =
   };
 ```
 
-### `operations.InputSplunkPqEnabledFalseWithPqConstraint`
+### `operations.InputSplunkPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputSplunkPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputSplunkPqEnabledFalseConstraint = {
   id: "<id>",
   type: "splunk",
   pipeline: "<value>",
@@ -133,7 +127,10 @@ const value: operations.InputSplunkPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 6496.65,
+  pq: {
+    pqControls: {},
+  },
+  port: 9562.9,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -151,8 +148,6 @@ const value: operations.InputSplunkPqEnabledFalseWithPqConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   authTokens: [
     {
@@ -161,8 +156,7 @@ const value: operations.InputSplunkPqEnabledFalseWithPqConstraint = {
         "fussy twist yuck besides blah confusion wilt curiously deform",
     },
   ],
-  description:
-    "knavishly fooey opposite bright tremendously before oh far-flung",
+  description: "internalize till what slather mathematics worthwhile rim",
 };
 ```
 

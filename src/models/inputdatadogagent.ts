@@ -8,11 +8,11 @@ import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -79,7 +79,7 @@ export type InputDatadogAgentPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -145,12 +145,11 @@ export type InputDatadogAgentPqEnabledTrueWithPqConstraint = {
   description?: string | undefined;
 };
 
-export type InputDatadogAgentPqEnabledFalseWithPqConstraint = {
+export type InputDatadogAgentPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -176,7 +175,8 @@ export type InputDatadogAgentPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -250,7 +250,7 @@ export type InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -339,15 +339,11 @@ export type InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint = {
   description?: string | undefined;
 };
 
-export type InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint = {
+export type InputDatadogAgentSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -370,6 +366,10 @@ export type InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -437,9 +437,9 @@ export type InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputDatadogAgent =
-  | InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint
+  | InputDatadogAgentSendToRoutesTrueConstraint
   | InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint
-  | InputDatadogAgentPqEnabledFalseWithPqConstraint
+  | InputDatadogAgentPqEnabledFalseConstraint
   | InputDatadogAgentPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -509,7 +509,7 @@ export const InputDatadogAgentPqEnabledTrueWithPqConstraint$inboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number(),
     tls: TlsSettingsServerSideType$inboundSchema.optional(),
@@ -541,7 +541,7 @@ export type InputDatadogAgentPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
@@ -578,7 +578,8 @@ export const InputDatadogAgentPqEnabledTrueWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number(),
     tls: TlsSettingsServerSideType$outboundSchema.optional(),
@@ -627,46 +628,43 @@ export function inputDatadogAgentPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputDatadogAgentPqEnabledFalseWithPqConstraint$inboundSchema:
-  z.ZodType<
-    InputDatadogAgentPqEnabledFalseWithPqConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    pqEnabled: z.boolean().default(false),
-    pq: PqType$inboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputDatadogAgentType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number(),
-    tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    activityLogSampleRate: z.number().default(100),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(5),
-    enableHealthCheck: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    extractMetrics: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    proxyMode: z.lazy(() => InputDatadogAgentProxyMode$inboundSchema)
-      .optional(),
-    description: z.string().optional(),
-  });
+export const InputDatadogAgentPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputDatadogAgentPqEnabledFalseConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputDatadogAgentType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  extractMetrics: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputDatadogAgentProxyMode$inboundSchema).optional(),
+  description: z.string().optional(),
+});
 /** @internal */
-export type InputDatadogAgentPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputDatadogAgentPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -674,7 +672,8 @@ export type InputDatadogAgentPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
@@ -696,14 +695,13 @@ export type InputDatadogAgentPqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputDatadogAgentPqEnabledFalseWithPqConstraint$outboundSchema:
+export const InputDatadogAgentPqEnabledFalseConstraint$outboundSchema:
   z.ZodType<
-    InputDatadogAgentPqEnabledFalseWithPqConstraint$Outbound,
+    InputDatadogAgentPqEnabledFalseConstraint$Outbound,
     z.ZodTypeDef,
-    InputDatadogAgentPqEnabledFalseWithPqConstraint
+    InputDatadogAgentPqEnabledFalseConstraint
   > = z.object({
     pqEnabled: z.boolean().default(false),
-    pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputDatadogAgentType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -711,7 +709,9 @@ export const InputDatadogAgentPqEnabledFalseWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: PqType$outboundSchema.optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number(),
     tls: TlsSettingsServerSideType$outboundSchema.optional(),
@@ -733,29 +733,29 @@ export const InputDatadogAgentPqEnabledFalseWithPqConstraint$outboundSchema:
     description: z.string().optional(),
   });
 
-export function inputDatadogAgentPqEnabledFalseWithPqConstraintToJSON(
-  inputDatadogAgentPqEnabledFalseWithPqConstraint:
-    InputDatadogAgentPqEnabledFalseWithPqConstraint,
+export function inputDatadogAgentPqEnabledFalseConstraintToJSON(
+  inputDatadogAgentPqEnabledFalseConstraint:
+    InputDatadogAgentPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputDatadogAgentPqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputDatadogAgentPqEnabledFalseWithPqConstraint,
+    InputDatadogAgentPqEnabledFalseConstraint$outboundSchema.parse(
+      inputDatadogAgentPqEnabledFalseConstraint,
     ),
   );
 }
-export function inputDatadogAgentPqEnabledFalseWithPqConstraintFromJSON(
+export function inputDatadogAgentPqEnabledFalseConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputDatadogAgentPqEnabledFalseWithPqConstraint,
+  InputDatadogAgentPqEnabledFalseConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputDatadogAgentPqEnabledFalseWithPqConstraint$inboundSchema.parse(
+      InputDatadogAgentPqEnabledFalseConstraint$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputDatadogAgentPqEnabledFalseWithPqConstraint' from JSON`,
+    `Failed to parse 'InputDatadogAgentPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -767,7 +767,7 @@ export const InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint$inbound
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputDatadogAgentType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -800,7 +800,7 @@ export const InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint$inbound
 export type InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint$Outbound =
   {
     sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
     id?: string | undefined;
     type: string;
     disabled: boolean;
@@ -837,7 +837,8 @@ export const InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint$outboun
     InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputDatadogAgentType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -892,14 +893,13 @@ export function inputDatadogAgentSendToRoutesFalseWithConnectionsConstraintFromJ
 }
 
 /** @internal */
-export const InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
+export const InputDatadogAgentSendToRoutesTrueConstraint$inboundSchema:
   z.ZodType<
-    InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint,
+    InputDatadogAgentSendToRoutesTrueConstraint,
     z.ZodTypeDef,
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputDatadogAgentType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -907,6 +907,7 @@ export const InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint$inboundS
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     pq: PqType$inboundSchema.optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number(),
@@ -929,47 +930,45 @@ export const InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint$inboundS
     description: z.string().optional(),
   });
 /** @internal */
-export type InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint$Outbound =
-  {
-    sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-    id?: string | undefined;
-    type: string;
-    disabled: boolean;
-    pipeline?: string | undefined;
-    environment?: string | undefined;
-    pqEnabled: boolean;
-    streamtags?: Array<string> | undefined;
-    pq?: PqType$Outbound | undefined;
-    host: string;
-    port: number;
-    tls?: TlsSettingsServerSideType$Outbound | undefined;
-    maxActiveReq: number;
-    maxRequestsPerSocket: number;
-    enableProxyHeader: boolean;
-    captureHeaders: boolean;
-    activityLogSampleRate: number;
-    requestTimeout: number;
-    socketTimeout: number;
-    keepAliveTimeout: number;
-    enableHealthCheck: boolean;
-    ipAllowlistRegex: string;
-    ipDenylistRegex: string;
-    extractMetrics: boolean;
-    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-    proxyMode?: InputDatadogAgentProxyMode$Outbound | undefined;
-    description?: string | undefined;
-  };
+export type InputDatadogAgentSendToRoutesTrueConstraint$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  extractMetrics: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  proxyMode?: InputDatadogAgentProxyMode$Outbound | undefined;
+  description?: string | undefined;
+};
 
 /** @internal */
-export const InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
+export const InputDatadogAgentSendToRoutesTrueConstraint$outboundSchema:
   z.ZodType<
-    InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint$Outbound,
+    InputDatadogAgentSendToRoutesTrueConstraint$Outbound,
     z.ZodTypeDef,
-    InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint
+    InputDatadogAgentSendToRoutesTrueConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
     id: z.string().optional(),
     type: InputDatadogAgentType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -977,6 +976,8 @@ export const InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint$outbound
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     pq: PqType$outboundSchema.optional(),
     host: z.string().default("0.0.0.0"),
     port: z.number(),
@@ -999,27 +1000,29 @@ export const InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint$outbound
     description: z.string().optional(),
   });
 
-export function inputDatadogAgentSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputDatadogAgentSendToRoutesTrueWithConnectionsConstraint:
-    InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint,
+export function inputDatadogAgentSendToRoutesTrueConstraintToJSON(
+  inputDatadogAgentSendToRoutesTrueConstraint:
+    InputDatadogAgentSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-      .parse(inputDatadogAgentSendToRoutesTrueWithConnectionsConstraint),
+    InputDatadogAgentSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputDatadogAgentSendToRoutesTrueConstraint,
+    ),
   );
 }
-export function inputDatadogAgentSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputDatadogAgentSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint,
+  InputDatadogAgentSendToRoutesTrueConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputDatadogAgentSendToRoutesTrueConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputDatadogAgentSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -1029,20 +1032,18 @@ export const InputDatadogAgent$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() =>
-    InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-  ),
+  z.lazy(() => InputDatadogAgentSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputDatadogAgentPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputDatadogAgentPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputDatadogAgentPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputDatadogAgent$Outbound =
-  | InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputDatadogAgentSendToRoutesTrueConstraint$Outbound
   | InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputDatadogAgentPqEnabledFalseWithPqConstraint$Outbound
+  | InputDatadogAgentPqEnabledFalseConstraint$Outbound
   | InputDatadogAgentPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1051,13 +1052,11 @@ export const InputDatadogAgent$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputDatadogAgent
 > = z.union([
-  z.lazy(() =>
-    InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputDatadogAgentSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() => InputDatadogAgentPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputDatadogAgentPqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputDatadogAgentPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 

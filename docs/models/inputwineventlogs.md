@@ -3,40 +3,40 @@
 
 ## Supported Types
 
-### `models.InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputWinEventLogsSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint =
-  {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "win_event_logs",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    pq: {
-      pqControls: {},
+const value: models.InputWinEventLogsSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "win_event_logs",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    logNames: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "cautiously chime pip ill-fated quirkily baa boo",
-  };
+  ],
+  pq: {
+    pqControls: {},
+  },
+  logNames: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "cinder whether lend",
+};
 ```
 
 ### `models.InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint`
@@ -72,13 +72,10 @@ const value:
   };
 ```
 
-### `models.InputWinEventLogsPqEnabledFalseWithPqConstraint`
+### `models.InputWinEventLogsPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputWinEventLogsPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputWinEventLogsPqEnabledFalseConstraint = {
   id: "<id>",
   type: "win_event_logs",
   pipeline: "<value>",
@@ -86,7 +83,6 @@ const value: models.InputWinEventLogsPqEnabledFalseWithPqConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -94,15 +90,19 @@ const value: models.InputWinEventLogsPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  logNames: [],
+  pq: {
+    pqControls: {},
+  },
+  logNames: [
+    "<value 1>",
+  ],
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "outgoing pish ick whereas monocle to publication outrank for motionless",
+  description: "joint aha cooperative",
 };
 ```
 

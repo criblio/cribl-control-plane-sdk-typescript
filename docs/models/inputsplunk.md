@@ -3,28 +3,27 @@
 
 ## Supported Types
 
-### `models.InputSplunkSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputSplunkSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputSplunkSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputSplunkSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "splunk",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
-  port: 7166.54,
+  port: 8986.77,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -42,8 +41,6 @@ const value: models.InputSplunkSendToRoutesTrueWithConnectionsConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   authTokens: [
     {
@@ -52,7 +49,7 @@ const value: models.InputSplunkSendToRoutesTrueWithConnectionsConstraint = {
         "diagram against like republican longingly huzzah where unimpressively per",
     },
   ],
-  description: "or which barracks pro conjecture blissfully",
+  description: "so case marksman",
 };
 ```
 
@@ -110,13 +107,10 @@ const value: models.InputSplunkSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputSplunkPqEnabledFalseWithPqConstraint`
+### `models.InputSplunkPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputSplunkPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputSplunkPqEnabledFalseConstraint = {
   id: "<id>",
   type: "splunk",
   pipeline: "<value>",
@@ -132,7 +126,10 @@ const value: models.InputSplunkPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 6496.65,
+  pq: {
+    pqControls: {},
+  },
+  port: 9562.9,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -150,8 +147,6 @@ const value: models.InputSplunkPqEnabledFalseWithPqConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   authTokens: [
     {
@@ -160,8 +155,7 @@ const value: models.InputSplunkPqEnabledFalseWithPqConstraint = {
         "diagram against like republican longingly huzzah where unimpressively per",
     },
   ],
-  description:
-    "knavishly fooey opposite bright tremendously before oh far-flung",
+  description: "internalize till what slather mathematics worthwhile rim",
 };
 ```
 

@@ -3,67 +3,68 @@
 
 ## Supported Types
 
-### `operations.InputPrometheusSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputPrometheusSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputPrometheusSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "prometheus",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputPrometheusSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    dimensionList: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "gradient forenenst gah",
-    targetList: [
-      "<value 1>",
-    ],
-    nameList: [
-      "<value 1>",
-    ],
-    awsApiKey: "<value>",
-    awsSecret: "<value>",
-    searchFilter: [
-      {
-        Name: "<value>",
-        Values: [
-          "<value 1>",
-          "<value 2>",
-        ],
-      },
-    ],
-    awsSecretKey: "<value>",
-    region: "<value>",
-    endpoint: "<value>",
-    assumeRoleArn: "<value>",
-    assumeRoleExternalId: "<id>",
-    username: "Alfredo25",
-    password: "zWc98Z0dQa5N1KN",
-    credentialsSecret: "<value>",
-  };
+  ],
+  pq: {
+    pqControls: {},
+  },
+  dimensionList: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "pish stealthily spirit continually boohoo",
+  targetList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  nameList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  searchFilter: [
+    {
+      Name: "<value>",
+      Values: [
+        "<value 1>",
+        "<value 2>",
+      ],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  username: "Brad42",
+  password: "wOjcUeVYpA646ri",
+  credentialsSecret: "<value>",
+};
 ```
 
 ### `operations.InputPrometheusSendToRoutesFalseWithConnectionsConstraint`
@@ -132,13 +133,10 @@ const value:
   };
 ```
 
-### `operations.InputPrometheusPqEnabledFalseWithPqConstraint`
+### `operations.InputPrometheusPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputPrometheusPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputPrometheusPqEnabledFalseConstraint = {
   id: "<id>",
   type: "prometheus",
   pipeline: "<value>",
@@ -154,6 +152,9 @@ const value: operations.InputPrometheusPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   dimensionList: [
     "<value 1>",
     "<value 2>",
@@ -164,12 +165,15 @@ const value: operations.InputPrometheusPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "ha nor badly bid",
+  description: "boo till mostly",
   targetList: [
     "<value 1>",
+    "<value 2>",
   ],
   nameList: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   awsApiKey: "<value>",
   awsSecret: "<value>",
@@ -187,8 +191,8 @@ const value: operations.InputPrometheusPqEnabledFalseWithPqConstraint = {
   endpoint: "<value>",
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  username: "Pierce.Senger",
-  password: "sQBnNLxowK4o5D2",
+  username: "Modesto96",
+  password: "SArc6M7JotrIlkB",
   credentialsSecret: "<value>",
 };
 ```

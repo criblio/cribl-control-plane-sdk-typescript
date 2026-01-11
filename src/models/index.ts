@@ -342,7 +342,7 @@ export * from "./itemstypeadd.js";
 export * from "./itemstypeauthtokens.js";
 export * from "./itemstypeauthtokens1.js";
 export * from "./itemstypeauthtokensext.js";
-export * from "./itemstypeconnections.js";
+export * from "./itemstypeconnectionsoptional.js";
 export * from "./itemstypeextrahttpheaders.js";
 export * from "./itemstypehealthcheckauthenticationloginauthrequestheaders.js";
 export * from "./itemstypehealthcheckauthenticationoauthauthrequestheaders.js";

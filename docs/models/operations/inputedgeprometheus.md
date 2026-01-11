@@ -3,78 +3,73 @@
 
 ## Supported Types
 
-### `operations.InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputEdgePrometheusSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "edge_prometheus",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputEdgePrometheusSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "edge_prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    dimensionList: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    persistence: {},
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "destock astride editor admonish yarmulke uncommon",
-    targets: [
-      {
-        host: "salty-coast.biz",
-      },
-    ],
-    nameList: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    awsApiKey: "<value>",
-    awsSecret: "<value>",
-    searchFilter: [
-      {
-        Name: "<value>",
-        Values: [
-          "<value 1>",
-          "<value 2>",
-        ],
-      },
-    ],
-    awsSecretKey: "<value>",
-    region: "<value>",
-    endpoint: "<value>",
-    assumeRoleArn: "<value>",
-    assumeRoleExternalId: "<id>",
-    podFilter: [
-      {
-        filter: "<value>",
-        description: "nun cruelly owlishly ouch",
-      },
-    ],
-    username: "Madge87",
-    password: "QNVMHEmHDey4Sui",
-    credentialsSecret: "<value>",
-  };
+  ],
+  pq: {
+    pqControls: {},
+  },
+  dimensionList: [
+    "<value 1>",
+  ],
+  persistence: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "tarragon until brr ha nucleotidase",
+  targets: [
+    {
+      host: "salty-coast.biz",
+    },
+  ],
+  nameList: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  searchFilter: [
+    {
+      Name: "<value>",
+      Values: [
+        "<value 1>",
+        "<value 2>",
+      ],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  podFilter: [
+    {
+      filter: "<value>",
+      description: "nun cruelly owlishly ouch",
+    },
+  ],
+  username: "Barney62",
+  password: "dOZJgt3iUKUu67m",
+  credentialsSecret: "<value>",
+};
 ```
 
 ### `operations.InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint`
@@ -151,13 +146,10 @@ const value:
   };
 ```
 
-### `operations.InputEdgePrometheusPqEnabledFalseWithPqConstraint`
+### `operations.InputEdgePrometheusPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputEdgePrometheusPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputEdgePrometheusPqEnabledFalseConstraint = {
   id: "<id>",
   type: "edge_prometheus",
   pipeline: "<value>",
@@ -173,8 +165,12 @@ const value: operations.InputEdgePrometheusPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   dimensionList: [
     "<value 1>",
+    "<value 2>",
   ],
   persistence: {},
   metadata: [
@@ -183,7 +179,7 @@ const value: operations.InputEdgePrometheusPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "after eggplant ouch",
+  description: "scent ad ravel primary pity fooey usually furthermore",
   targets: [
     {
       host: "salty-coast.biz",
@@ -215,8 +211,8 @@ const value: operations.InputEdgePrometheusPqEnabledFalseWithPqConstraint = {
       description: "nun cruelly owlishly ouch",
     },
   ],
-  username: "Charlene.Runolfsson",
-  password: "VZA5vZUl6mXXsRw",
+  username: "Lorena.Kautzer4",
+  password: "65XMWXNJSE2VZQE",
   credentialsSecret: "<value>",
 };
 ```

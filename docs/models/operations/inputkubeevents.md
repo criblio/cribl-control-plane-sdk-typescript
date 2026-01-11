@@ -3,44 +3,44 @@
 
 ## Supported Types
 
-### `operations.InputKubeEventsSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputKubeEventsSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputKubeEventsSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "kube_events",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputKubeEventsSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "kube_events",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    rules: [
-      {
-        filter: "<value>",
-        description:
-          "afore progress ethyl um gratefully pish whose till hydrocarbon",
-      },
-    ],
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "improbable whether eek soliloquy yuck psst when but",
-  };
+  ],
+  pq: {
+    pqControls: {},
+  },
+  rules: [
+    {
+      filter: "<value>",
+      description:
+        "afore progress ethyl um gratefully pish whose till hydrocarbon",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "towards unnaturally electric although whether politely punctual",
+};
 ```
 
 ### `operations.InputKubeEventsSendToRoutesFalseWithConnectionsConstraint`
@@ -82,13 +82,10 @@ const value:
   };
 ```
 
-### `operations.InputKubeEventsPqEnabledFalseWithPqConstraint`
+### `operations.InputKubeEventsPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputKubeEventsPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputKubeEventsPqEnabledFalseConstraint = {
   id: "<id>",
   type: "kube_events",
   pipeline: "<value>",
@@ -103,6 +100,9 @@ const value: operations.InputKubeEventsPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   rules: [
     {
       filter: "<value>",
@@ -116,7 +116,8 @@ const value: operations.InputKubeEventsPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "or which alb ouch eek",
+  description:
+    "usher doing exhausted soft whenever lotion wherever round technologist dead",
 };
 ```
 

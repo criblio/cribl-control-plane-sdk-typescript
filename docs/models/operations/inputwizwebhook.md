@@ -3,75 +3,73 @@
 
 ## Supported Types
 
-### `operations.InputWizWebhookSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputWizWebhookSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputWizWebhookSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "wiz_webhook",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputWizWebhookSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "wiz_webhook",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    port: 4002.15,
-    authTokens: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    tls: {
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 3337.94,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    breakerRulesets: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    allowedPaths: [
-      "<value 1>",
-    ],
-    allowedMethods: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    authTokensExt: [
-      {
-        token: "<value>",
-        description:
-          "demob apropos indeed ceramic scrabble however given scorn",
-        metadata: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
-        ],
-      },
-    ],
-    description:
-      "after fill courageous yet likewise enrage galvanize than even overload",
-  };
+  ],
+  allowedPaths: [
+    "<value 1>",
+  ],
+  allowedMethods: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description: "demob apropos indeed ceramic scrabble however given scorn",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  description: "sometimes since incidentally eventually",
+};
 ```
 
 ### `operations.InputWizWebhookSendToRoutesFalseWithConnectionsConstraint`
@@ -146,20 +144,16 @@ const value:
   };
 ```
 
-### `operations.InputWizWebhookPqEnabledFalseWithPqConstraint`
+### `operations.InputWizWebhookPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputWizWebhookPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputWizWebhookPqEnabledFalseConstraint = {
   id: "<id>",
   type: "wiz_webhook",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -167,9 +161,14 @@ const value: operations.InputWizWebhookPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 2942,
+  pq: {
+    pqControls: {},
+  },
+  port: 38.97,
   authTokens: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -193,11 +192,12 @@ const value: operations.InputWizWebhookPqEnabledFalseWithPqConstraint = {
   ],
   allowedPaths: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   allowedMethods: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   authTokensExt: [
     {
@@ -211,8 +211,7 @@ const value: operations.InputWizWebhookPqEnabledFalseWithPqConstraint = {
       ],
     },
   ],
-  description:
-    "sans overconfidently whoa unnecessarily gummy tender scrabble consequently gosh astride",
+  description: "by which glorious really",
 };
 ```
 

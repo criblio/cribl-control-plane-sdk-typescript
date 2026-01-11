@@ -3,48 +3,48 @@
 
 ## Supported Types
 
-### `operations.InputKubeLogsSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputKubeLogsSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputKubeLogsSendToRoutesTrueWithConnectionsConstraint =
-  {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "kube_logs",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputKubeLogsSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "kube_logs",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    rules: [
-      {
-        filter: "<value>",
-        description: "hmph supposing thoughtfully however pepper",
-      },
-    ],
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    persistence: {},
-    breakerRulesets: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    description: "role morning uncomfortable whose cautious source",
-  };
+  ],
+  pq: {
+    pqControls: {},
+  },
+  rules: [
+    {
+      filter: "<value>",
+      description: "hmph supposing thoughtfully however pepper",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  description: "championship softly convalesce hence good-natured amongst",
+};
 ```
 
 ### `operations.InputKubeLogsSendToRoutesFalseWithConnectionsConstraint`
@@ -91,21 +91,16 @@ const value:
   };
 ```
 
-### `operations.InputKubeLogsPqEnabledFalseWithPqConstraint`
+### `operations.InputKubeLogsPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputKubeLogsPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputKubeLogsPqEnabledFalseConstraint = {
   id: "<id>",
   type: "kube_logs",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -113,6 +108,9 @@ const value: operations.InputKubeLogsPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   rules: [
     {
       filter: "<value>",
@@ -131,7 +129,7 @@ const value: operations.InputKubeLogsPqEnabledFalseWithPqConstraint = {
     "<value 2>",
     "<value 3>",
   ],
-  description: "colorfully easily alongside",
+  description: "folklore webbed bell unto pro gosh zowie actually by terrorise",
 };
 ```
 

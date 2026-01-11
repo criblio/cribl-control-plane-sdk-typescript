@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `models.InputWefSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputWefSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputWefSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputWefSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "wef",
   pipeline: "<value>",
@@ -20,6 +14,12 @@ const value: models.InputWefSendToRoutesTrueWithConnectionsConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
@@ -45,7 +45,8 @@ const value: models.InputWefSendToRoutesTrueWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description: "perspire um upwardly",
+  description:
+    "er and gadzooks sans greedy exasperation times diagram whoever while",
 };
 ```
 
@@ -113,19 +114,18 @@ const value: models.InputWefSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputWefPqEnabledFalseWithPqConstraint`
+### `models.InputWefPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputWefPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputWefPqEnabledFalseConstraint = {
   id: "<id>",
   type: "wef",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -133,6 +133,9 @@ const value: models.InputWefPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -173,7 +176,7 @@ const value: models.InputWefPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "symbolise welcome floss",
+  description: "usefully unimpressively archive what",
 };
 ```
 

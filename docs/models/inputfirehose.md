@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `models.InputFirehoseSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputFirehoseSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputFirehoseSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputFirehoseSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "firehose",
   pipeline: "<value>",
@@ -22,13 +16,20 @@ const value: models.InputFirehoseSendToRoutesTrueWithConnectionsConstraint = {
     "<value 2>",
     "<value 3>",
   ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   pq: {
     pqControls: {},
   },
-  port: 7411.22,
+  port: 2278,
   authTokens: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -45,7 +46,7 @@ const value: models.InputFirehoseSendToRoutesTrueWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description: "lined french doorpost metal youthfully subdued grok",
+  description: "whoever arrogantly all whoa meanwhile ugh crooked",
 };
 ```
 
@@ -96,21 +97,16 @@ const value: models.InputFirehoseSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputFirehosePqEnabledFalseWithPqConstraint`
+### `models.InputFirehosePqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputFirehosePqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputFirehosePqEnabledFalseConstraint = {
   id: "<id>",
   type: "firehose",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -118,9 +114,14 @@ const value: models.InputFirehosePqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 9686.05,
+  pq: {
+    pqControls: {},
+  },
+  port: 9080.29,
   authTokens: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -137,7 +138,7 @@ const value: models.InputFirehosePqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "wobbly knavishly annually volunteer mesh since yahoo",
+  description: "tough eggplant jealously injunction fairly",
 };
 ```
 

@@ -3,82 +3,83 @@
 
 ## Supported Types
 
-### `models.InputSystemMetricsSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputSystemMetricsSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  models.InputSystemMetricsSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
+const value: models.InputSystemMetricsSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "system_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  host: {
+    custom: {
+      system: {},
+      cpu: {},
+      memory: {},
+      network: {
+        devices: [
+          "<value 1>",
+          "<value 2>",
+        ],
       },
-    ],
-    id: "<id>",
-    type: "system_metrics",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-    ],
-    pq: {
-      pqControls: {},
-    },
-    host: {
-      custom: {
-        system: {},
-        cpu: {},
-        memory: {},
-        network: {
-          devices: [
-            "<value 1>",
-            "<value 2>",
-          ],
-        },
-        disk: {
-          devices: [
-            "<value 1>",
-          ],
-          mountpoints: [
-            "<value 1>",
-            "<value 2>",
-          ],
-          fstypes: [
-            "<value 1>",
-            "<value 2>",
-          ],
-        },
+      disk: {
+        devices: [
+          "<value 1>",
+        ],
+        mountpoints: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        fstypes: [
+          "<value 1>",
+          "<value 2>",
+        ],
       },
     },
-    process: {
-      sets: [
-        {
-          name: "<value>",
-          filter: "<value>",
-        },
-      ],
-    },
-    container: {
-      dockerSocket: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      filters: [
-        {
-          expr: "<value>",
-        },
-      ],
-    },
-    metadata: [
+  },
+  process: {
+    sets: [
       {
         name: "<value>",
-        value: "<value>",
+        filter: "<value>",
       },
     ],
-    persistence: {},
-    description: "or yuck clinking amid chatter where among once though",
-  };
+  },
+  container: {
+    dockerSocket: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    filters: [
+      {
+        expr: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description: "gee editor while ha wholly whether although testify after",
+};
 ```
 
 ### `models.InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint`
@@ -160,20 +161,16 @@ const value:
   };
 ```
 
-### `models.InputSystemMetricsPqEnabledFalseWithPqConstraint`
+### `models.InputSystemMetricsPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputSystemMetricsPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputSystemMetricsPqEnabledFalseConstraint = {
   id: "<id>",
   type: "system_metrics",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -181,6 +178,9 @@ const value: models.InputSystemMetricsPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   host: {
     custom: {
       system: {},
@@ -235,7 +235,7 @@ const value: models.InputSystemMetricsPqEnabledFalseWithPqConstraint = {
   ],
   persistence: {},
   description:
-    "potentially kindheartedly scent lazily knowingly in-joke or phew",
+    "festival what hippodrome before now whether scenario fatally of",
 };
 ```
 

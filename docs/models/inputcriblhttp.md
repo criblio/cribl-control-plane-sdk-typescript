@@ -3,27 +3,28 @@
 
 ## Supported Types
 
-### `models.InputCriblHttpSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputCriblHttpSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputCriblHttpSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputCriblHttpSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "cribl_http",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
-  port: 7982.17,
+  port: 698.25,
   authTokens: [
     {
       tokenSecret: "<value>",
@@ -45,8 +46,7 @@ const value: models.InputCriblHttpSendToRoutesTrueWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description:
-    "provision but fatally louse arrange partial without integer for",
+  description: "ready highlight save even",
 };
 ```
 
@@ -97,13 +97,10 @@ const value: models.InputCriblHttpSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputCriblHttpPqEnabledFalseWithPqConstraint`
+### `models.InputCriblHttpPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputCriblHttpPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputCriblHttpPqEnabledFalseConstraint = {
   id: "<id>",
   type: "cribl_http",
   pipeline: "<value>",
@@ -119,7 +116,10 @@ const value: models.InputCriblHttpPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 6636.09,
+  pq: {
+    pqControls: {},
+  },
+  port: 4851.8,
   authTokens: [
     {
       tokenSecret: "<value>",
@@ -141,7 +141,7 @@ const value: models.InputCriblHttpPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "forearm unlike ack supposing",
+  description: "quick-witted smoggy earth overburden wound tiny scent nicely",
 };
 ```
 

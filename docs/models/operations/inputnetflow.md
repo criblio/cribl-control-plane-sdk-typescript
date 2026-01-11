@@ -3,37 +3,35 @@
 
 ## Supported Types
 
-### `operations.InputNetflowSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputNetflowSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputNetflowSendToRoutesTrueWithConnectionsConstraint =
-  {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "netflow",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputNetflowSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "netflow",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    udpSocketRxBufSize: 2123.13,
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "coagulate colour redesign lively modulo though",
-  };
+  ],
+  pq: {
+    pqControls: {},
+  },
+  udpSocketRxBufSize: 217.48,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "upright eyeglasses nor but busy",
+};
 ```
 
 ### `operations.InputNetflowSendToRoutesFalseWithConnectionsConstraint`
@@ -70,13 +68,10 @@ const value: operations.InputNetflowSendToRoutesFalseWithConnectionsConstraint =
   };
 ```
 
-### `operations.InputNetflowPqEnabledFalseWithPqConstraint`
+### `operations.InputNetflowPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputNetflowPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputNetflowPqEnabledFalseConstraint = {
   id: "<id>",
   type: "netflow",
   pipeline: "<value>",
@@ -92,15 +87,17 @@ const value: operations.InputNetflowPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  udpSocketRxBufSize: 7360.29,
+  pq: {
+    pqControls: {},
+  },
+  udpSocketRxBufSize: 3674.55,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "pine even inveigle house sandy though valuable within preclude ha",
+  description: "radiant unlike exaggerate hmph unless",
 };
 ```
 

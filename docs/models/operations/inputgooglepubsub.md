@@ -3,41 +3,41 @@
 
 ## Supported Types
 
-### `operations.InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputGooglePubsubSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "google_pubsub",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputGooglePubsubSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "google_pubsub",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    subscriptionName: "<value>",
-    region: "<value>",
-    serviceAccountCredentials: "<value>",
-    secret: "<value>",
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "blank actual than blah continually",
-  };
+  ],
+  pq: {
+    pqControls: {},
+  },
+  subscriptionName: "<value>",
+  region: "<value>",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "intent naturally shoot yahoo when frenetically thunderbolt joyfully which",
+};
 ```
 
 ### `operations.InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint`
@@ -76,21 +76,16 @@ const value:
   };
 ```
 
-### `operations.InputGooglePubsubPqEnabledFalseWithPqConstraint`
+### `operations.InputGooglePubsubPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputGooglePubsubPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputGooglePubsubPqEnabledFalseConstraint = {
   id: "<id>",
   type: "google_pubsub",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -98,6 +93,9 @@ const value: operations.InputGooglePubsubPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   subscriptionName: "<value>",
   region: "<value>",
   serviceAccountCredentials: "<value>",
@@ -108,7 +106,7 @@ const value: operations.InputGooglePubsubPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "gum testimonial who provided uh-huh anti",
+  description: "graduate if furthermore",
 };
 ```
 

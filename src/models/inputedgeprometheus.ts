@@ -15,11 +15,11 @@ import {
 } from "./diskspoolingtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -169,7 +169,7 @@ export type InputEdgePrometheusPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Other dimensions to include in events
    */
@@ -305,12 +305,11 @@ export type InputEdgePrometheusPqEnabledTrueWithPqConstraint = {
   credentialsSecret?: string | undefined;
 };
 
-export type InputEdgePrometheusPqEnabledFalseWithPqConstraint = {
+export type InputEdgePrometheusPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -336,7 +335,8 @@ export type InputEdgePrometheusPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Other dimensions to include in events
    */
@@ -480,7 +480,7 @@ export type InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -639,15 +639,11 @@ export type InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint = {
   credentialsSecret?: string | undefined;
 };
 
-export type InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint = {
+export type InputEdgePrometheusSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -670,6 +666,10 @@ export type InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Other dimensions to include in events
@@ -807,9 +807,9 @@ export type InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputEdgePrometheus =
-  | InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint
+  | InputEdgePrometheusSendToRoutesTrueConstraint
   | InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint
-  | InputEdgePrometheusPqEnabledFalseWithPqConstraint
+  | InputEdgePrometheusPqEnabledFalseConstraint
   | InputEdgePrometheusPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -942,7 +942,7 @@ export const InputEdgePrometheusPqEnabledTrueWithPqConstraint$inboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     dimensionList: z.array(z.string()).optional(),
     discoveryType: InputEdgePrometheusDiscoveryType$inboundSchema.default(
       "static",
@@ -1001,7 +1001,7 @@ export type InputEdgePrometheusPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   dimensionList?: Array<string> | undefined;
   discoveryType: string;
   interval: number;
@@ -1056,7 +1056,8 @@ export const InputEdgePrometheusPqEnabledTrueWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     dimensionList: z.array(z.string()).optional(),
     discoveryType: InputEdgePrometheusDiscoveryType$outboundSchema.default(
       "static",
@@ -1132,14 +1133,13 @@ export function inputEdgePrometheusPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputEdgePrometheusPqEnabledFalseWithPqConstraint$inboundSchema:
+export const InputEdgePrometheusPqEnabledFalseConstraint$inboundSchema:
   z.ZodType<
-    InputEdgePrometheusPqEnabledFalseWithPqConstraint,
+    InputEdgePrometheusPqEnabledFalseConstraint,
     z.ZodTypeDef,
     unknown
   > = z.object({
     pqEnabled: z.boolean().default(false),
-    pq: PqType$inboundSchema.optional(),
     id: z.string().optional(),
     type: InputEdgePrometheusType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -1147,7 +1147,8 @@ export const InputEdgePrometheusPqEnabledFalseWithPqConstraint$inboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    pq: PqType$inboundSchema.optional(),
     dimensionList: z.array(z.string()).optional(),
     discoveryType: InputEdgePrometheusDiscoveryType$inboundSchema.default(
       "static",
@@ -1196,9 +1197,8 @@ export const InputEdgePrometheusPqEnabledFalseWithPqConstraint$inboundSchema:
     credentialsSecret: z.string().optional(),
   });
 /** @internal */
-export type InputEdgePrometheusPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputEdgePrometheusPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1206,7 +1206,8 @@ export type InputEdgePrometheusPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   dimensionList?: Array<string> | undefined;
   discoveryType: string;
   interval: number;
@@ -1246,14 +1247,13 @@ export type InputEdgePrometheusPqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputEdgePrometheusPqEnabledFalseWithPqConstraint$outboundSchema:
+export const InputEdgePrometheusPqEnabledFalseConstraint$outboundSchema:
   z.ZodType<
-    InputEdgePrometheusPqEnabledFalseWithPqConstraint$Outbound,
+    InputEdgePrometheusPqEnabledFalseConstraint$Outbound,
     z.ZodTypeDef,
-    InputEdgePrometheusPqEnabledFalseWithPqConstraint
+    InputEdgePrometheusPqEnabledFalseConstraint
   > = z.object({
     pqEnabled: z.boolean().default(false),
-    pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputEdgePrometheusType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1261,7 +1261,9 @@ export const InputEdgePrometheusPqEnabledFalseWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: PqType$outboundSchema.optional(),
     dimensionList: z.array(z.string()).optional(),
     discoveryType: InputEdgePrometheusDiscoveryType$outboundSchema.default(
       "static",
@@ -1310,29 +1312,29 @@ export const InputEdgePrometheusPqEnabledFalseWithPqConstraint$outboundSchema:
     credentialsSecret: z.string().optional(),
   });
 
-export function inputEdgePrometheusPqEnabledFalseWithPqConstraintToJSON(
-  inputEdgePrometheusPqEnabledFalseWithPqConstraint:
-    InputEdgePrometheusPqEnabledFalseWithPqConstraint,
+export function inputEdgePrometheusPqEnabledFalseConstraintToJSON(
+  inputEdgePrometheusPqEnabledFalseConstraint:
+    InputEdgePrometheusPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputEdgePrometheusPqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputEdgePrometheusPqEnabledFalseWithPqConstraint,
+    InputEdgePrometheusPqEnabledFalseConstraint$outboundSchema.parse(
+      inputEdgePrometheusPqEnabledFalseConstraint,
     ),
   );
 }
-export function inputEdgePrometheusPqEnabledFalseWithPqConstraintFromJSON(
+export function inputEdgePrometheusPqEnabledFalseConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputEdgePrometheusPqEnabledFalseWithPqConstraint,
+  InputEdgePrometheusPqEnabledFalseConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputEdgePrometheusPqEnabledFalseWithPqConstraint$inboundSchema.parse(
+      InputEdgePrometheusPqEnabledFalseConstraint$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputEdgePrometheusPqEnabledFalseWithPqConstraint' from JSON`,
+    `Failed to parse 'InputEdgePrometheusPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -1344,7 +1346,7 @@ export const InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$inbou
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputEdgePrometheusType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -1404,7 +1406,7 @@ export const InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$inbou
 export type InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$Outbound =
   {
     sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
     id?: string | undefined;
     type: string;
     disabled: boolean;
@@ -1459,7 +1461,8 @@ export const InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$outbo
     InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputEdgePrometheusType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1541,14 +1544,13 @@ export function inputEdgePrometheusSendToRoutesFalseWithConnectionsConstraintFro
 }
 
 /** @internal */
-export const InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
+export const InputEdgePrometheusSendToRoutesTrueConstraint$inboundSchema:
   z.ZodType<
-    InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint,
+    InputEdgePrometheusSendToRoutesTrueConstraint,
     z.ZodTypeDef,
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputEdgePrometheusType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -1556,6 +1558,7 @@ export const InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint$inboun
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     pq: PqType$inboundSchema.optional(),
     dimensionList: z.array(z.string()).optional(),
     discoveryType: InputEdgePrometheusDiscoveryType$inboundSchema.default(
@@ -1605,65 +1608,63 @@ export const InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint$inboun
     credentialsSecret: z.string().optional(),
   });
 /** @internal */
-export type InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint$Outbound =
-  {
-    sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-    id?: string | undefined;
-    type: string;
-    disabled: boolean;
-    pipeline?: string | undefined;
-    environment?: string | undefined;
-    pqEnabled: boolean;
-    streamtags?: Array<string> | undefined;
-    pq?: PqType$Outbound | undefined;
-    dimensionList?: Array<string> | undefined;
-    discoveryType: string;
-    interval: number;
-    timeout: number;
-    persistence?: DiskSpoolingType$Outbound | undefined;
-    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-    authType: string;
-    description?: string | undefined;
-    targets?: Array<Target$Outbound> | undefined;
-    recordType: string;
-    scrapePort: number;
-    nameList?: Array<string> | undefined;
-    scrapeProtocol: string;
-    scrapePath: string;
-    awsAuthenticationMethod: string;
-    awsApiKey?: string | undefined;
-    awsSecret?: string | undefined;
-    usePublicIp: boolean;
-    searchFilter?: Array<ItemsTypeSearchFilter$Outbound> | undefined;
-    awsSecretKey?: string | undefined;
-    region?: string | undefined;
-    endpoint?: string | undefined;
-    signatureVersion: string;
-    reuseConnections: boolean;
-    rejectUnauthorized: boolean;
-    enableAssumeRole: boolean;
-    assumeRoleArn?: string | undefined;
-    assumeRoleExternalId?: string | undefined;
-    durationSeconds: number;
-    scrapeProtocolExpr: string;
-    scrapePortExpr: string;
-    scrapePathExpr: string;
-    podFilter?: Array<PodFilter$Outbound> | undefined;
-    username?: string | undefined;
-    password?: string | undefined;
-    credentialsSecret?: string | undefined;
-  };
+export type InputEdgePrometheusSendToRoutesTrueConstraint$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  dimensionList?: Array<string> | undefined;
+  discoveryType: string;
+  interval: number;
+  timeout: number;
+  persistence?: DiskSpoolingType$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  authType: string;
+  description?: string | undefined;
+  targets?: Array<Target$Outbound> | undefined;
+  recordType: string;
+  scrapePort: number;
+  nameList?: Array<string> | undefined;
+  scrapeProtocol: string;
+  scrapePath: string;
+  awsAuthenticationMethod: string;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  usePublicIp: boolean;
+  searchFilter?: Array<ItemsTypeSearchFilter$Outbound> | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  scrapeProtocolExpr: string;
+  scrapePortExpr: string;
+  scrapePathExpr: string;
+  podFilter?: Array<PodFilter$Outbound> | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+};
 
 /** @internal */
-export const InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
+export const InputEdgePrometheusSendToRoutesTrueConstraint$outboundSchema:
   z.ZodType<
-    InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint$Outbound,
+    InputEdgePrometheusSendToRoutesTrueConstraint$Outbound,
     z.ZodTypeDef,
-    InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint
+    InputEdgePrometheusSendToRoutesTrueConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
     id: z.string().optional(),
     type: InputEdgePrometheusType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1671,6 +1672,8 @@ export const InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint$outbou
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     pq: PqType$outboundSchema.optional(),
     dimensionList: z.array(z.string()).optional(),
     discoveryType: InputEdgePrometheusDiscoveryType$outboundSchema.default(
@@ -1720,27 +1723,29 @@ export const InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint$outbou
     credentialsSecret: z.string().optional(),
   });
 
-export function inputEdgePrometheusSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint:
-    InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint,
+export function inputEdgePrometheusSendToRoutesTrueConstraintToJSON(
+  inputEdgePrometheusSendToRoutesTrueConstraint:
+    InputEdgePrometheusSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-      .parse(inputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint),
+    InputEdgePrometheusSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputEdgePrometheusSendToRoutesTrueConstraint,
+    ),
   );
 }
-export function inputEdgePrometheusSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputEdgePrometheusSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint,
+  InputEdgePrometheusSendToRoutesTrueConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputEdgePrometheusSendToRoutesTrueConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputEdgePrometheusSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -1750,20 +1755,18 @@ export const InputEdgePrometheus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() =>
-    InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-  ),
+  z.lazy(() => InputEdgePrometheusSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputEdgePrometheusPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputEdgePrometheusPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputEdgePrometheusPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputEdgePrometheus$Outbound =
-  | InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputEdgePrometheusSendToRoutesTrueConstraint$Outbound
   | InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputEdgePrometheusPqEnabledFalseWithPqConstraint$Outbound
+  | InputEdgePrometheusPqEnabledFalseConstraint$Outbound
   | InputEdgePrometheusPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1772,15 +1775,11 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputEdgePrometheus
 > = z.union([
-  z.lazy(() =>
-    InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputEdgePrometheusSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() =>
-    InputEdgePrometheusPqEnabledFalseWithPqConstraint$outboundSchema
-  ),
+  z.lazy(() => InputEdgePrometheusPqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputEdgePrometheusPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 

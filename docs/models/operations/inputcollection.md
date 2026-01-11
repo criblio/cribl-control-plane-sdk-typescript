@@ -3,46 +3,47 @@
 
 ## Supported Types
 
-### `operations.InputCollectionSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputCollectionSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputCollectionSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
+const value: operations.InputCollectionSendToRoutesTrueConstraint = {
+  id: "<id>",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  preprocess: {
+    command: "<value>",
+    args: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
-    pq: {
-      pqControls: {},
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    breakerRulesets: [
-      "<value 1>",
-    ],
-    preprocess: {
-      command: "<value>",
-      args: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-    },
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    output: "<value>",
-  };
+  ],
+  output: "<value>",
+};
 ```
 
 ### `operations.InputCollectionSendToRoutesFalseWithConnectionsConstraint`
@@ -88,20 +89,15 @@ const value:
   };
 ```
 
-### `operations.InputCollectionPqEnabledFalseWithPqConstraint`
+### `operations.InputCollectionPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputCollectionPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputCollectionPqEnabledFalseConstraint = {
   id: "<id>",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -109,9 +105,13 @@ const value: operations.InputCollectionPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   preprocess: {
     command: "<value>",

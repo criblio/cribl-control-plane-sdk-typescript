@@ -3,27 +3,28 @@
 
 ## Supported Types
 
-### `operations.InputLokiSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputLokiSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputLokiSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: operations.InputLokiSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "loki",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
-  port: 4164.86,
+  port: 8392.97,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -39,13 +40,13 @@ const value: operations.InputLokiSendToRoutesTrueWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description: "below worse row hence defensive yet whereas after",
-  username: "Antwan_Hagenes",
-  password: "uDcgz0iatGb39G0",
+  description: "frankly beyond vastly through tool woot better gee as usually",
+  username: "Meaghan_Botsford47",
+  password: "xMjLHUoRcZc0gpL",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://aching-spring.name/",
+  loginUrl: "https://liquid-minor.net",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
@@ -125,20 +126,16 @@ const value: operations.InputLokiSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `operations.InputLokiPqEnabledFalseWithPqConstraint`
+### `operations.InputLokiPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputLokiPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputLokiPqEnabledFalseConstraint = {
   id: "<id>",
   type: "loki",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -146,7 +143,10 @@ const value: operations.InputLokiPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 1586.85,
+  pq: {
+    pqControls: {},
+  },
+  port: 9406.12,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -162,13 +162,13 @@ const value: operations.InputLokiPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "lovingly glisten only chatter beneath character",
-  username: "Enrique_Walter",
-  password: "BrXVpTv1zZeiKKx",
+  description: "hope gah however eek truthfully upbeat colorful frightened gah",
+  username: "Elise79",
+  password: "DHOVhjlJcubNM5Z",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://humiliating-whale.name",
+  loginUrl: "https://firm-privilege.com/",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",

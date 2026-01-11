@@ -3,53 +3,50 @@
 
 ## Supported Types
 
-### `operations.InputAzureBlobSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputAzureBlobSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputAzureBlobSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "azure_blob",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputAzureBlobSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    queueName: "<value>",
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    breakerRulesets: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    description: "kielbasa woefully aw yum",
-    connectionString: "<value>",
-    textSecret: "<value>",
-    storageAccountName: "<value>",
-    tenantId: "<id>",
-    clientId: "<id>",
-    azureCloud: "<value>",
-    endpointSuffix: "<value>",
-    clientTextSecret: "<value>",
-    certificate: {
-      certificateName: "<value>",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  queueName: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-  };
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  description: "fork gah whether successfully anti",
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
 ```
 
 ### `operations.InputAzureBlobSendToRoutesFalseWithConnectionsConstraint`
@@ -101,21 +98,16 @@ const value:
   };
 ```
 
-### `operations.InputAzureBlobPqEnabledFalseWithPqConstraint`
+### `operations.InputAzureBlobPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputAzureBlobPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputAzureBlobPqEnabledFalseConstraint = {
   id: "<id>",
   type: "azure_blob",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -123,6 +115,9 @@ const value: operations.InputAzureBlobPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   queueName: "<value>",
   metadata: [
     {
@@ -132,9 +127,8 @@ const value: operations.InputAzureBlobPqEnabledFalseWithPqConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
-  description: "parade toward insidious costume who past",
+  description: "psst ack till that",
   connectionString: "<value>",
   textSecret: "<value>",
   storageAccountName: "<value>",

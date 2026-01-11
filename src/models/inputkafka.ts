@@ -14,11 +14,11 @@ import {
 } from "./authenticationtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -80,7 +80,7 @@ export type InputKafkaPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
    */
@@ -187,12 +187,11 @@ export type InputKafkaPqEnabledTrueWithPqConstraint = {
   description?: string | undefined;
 };
 
-export type InputKafkaPqEnabledFalseWithPqConstraint = {
+export type InputKafkaPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -218,7 +217,8 @@ export type InputKafkaPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
    */
@@ -333,7 +333,7 @@ export type InputKafkaSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -463,15 +463,11 @@ export type InputKafkaSendToRoutesFalseWithConnectionsConstraint = {
   description?: string | undefined;
 };
 
-export type InputKafkaSendToRoutesTrueWithConnectionsConstraint = {
+export type InputKafkaSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -494,6 +490,10 @@ export type InputKafkaSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
@@ -602,9 +602,9 @@ export type InputKafkaSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputKafka =
-  | InputKafkaSendToRoutesTrueWithConnectionsConstraint
+  | InputKafkaSendToRoutesTrueConstraint
   | InputKafkaSendToRoutesFalseWithConnectionsConstraint
-  | InputKafkaPqEnabledFalseWithPqConstraint
+  | InputKafkaPqEnabledFalseConstraint
   | InputKafkaPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -631,7 +631,7 @@ export const InputKafkaPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
@@ -670,7 +670,7 @@ export type InputKafkaPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   brokers: Array<string>;
   topics: Array<string>;
   groupId: string;
@@ -715,7 +715,7 @@ export const InputKafkaPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
@@ -771,13 +771,12 @@ export function inputKafkaPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputKafkaPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
-  InputKafkaPqEnabledFalseWithPqConstraint,
+export const InputKafkaPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputKafkaPqEnabledFalseConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
   pqEnabled: z.boolean().default(false),
-  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputKafkaType$inboundSchema,
   disabled: z.boolean().default(false),
@@ -785,7 +784,8 @@ export const InputKafkaPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
@@ -814,9 +814,8 @@ export const InputKafkaPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 /** @internal */
-export type InputKafkaPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputKafkaPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -824,7 +823,8 @@ export type InputKafkaPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
   groupId: string;
@@ -855,13 +855,12 @@ export type InputKafkaPqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputKafkaPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
-  InputKafkaPqEnabledFalseWithPqConstraint$Outbound,
+export const InputKafkaPqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputKafkaPqEnabledFalseConstraint$Outbound,
   z.ZodTypeDef,
-  InputKafkaPqEnabledFalseWithPqConstraint
+  InputKafkaPqEnabledFalseConstraint
 > = z.object({
   pqEnabled: z.boolean().default(false),
-  pq: PqType$outboundSchema.optional(),
   id: z.string().optional(),
   type: InputKafkaType$outboundSchema,
   disabled: z.boolean().default(false),
@@ -869,7 +868,8 @@ export const InputKafkaPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
@@ -898,29 +898,23 @@ export const InputKafkaPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-export function inputKafkaPqEnabledFalseWithPqConstraintToJSON(
-  inputKafkaPqEnabledFalseWithPqConstraint:
-    InputKafkaPqEnabledFalseWithPqConstraint,
+export function inputKafkaPqEnabledFalseConstraintToJSON(
+  inputKafkaPqEnabledFalseConstraint: InputKafkaPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputKafkaPqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputKafkaPqEnabledFalseWithPqConstraint,
+    InputKafkaPqEnabledFalseConstraint$outboundSchema.parse(
+      inputKafkaPqEnabledFalseConstraint,
     ),
   );
 }
-export function inputKafkaPqEnabledFalseWithPqConstraintFromJSON(
+export function inputKafkaPqEnabledFalseConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<
-  InputKafkaPqEnabledFalseWithPqConstraint,
-  SDKValidationError
-> {
+): SafeParseResult<InputKafkaPqEnabledFalseConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      InputKafkaPqEnabledFalseWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputKafkaPqEnabledFalseWithPqConstraint' from JSON`,
+      InputKafkaPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKafkaPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -932,7 +926,7 @@ export const InputKafkaSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputKafkaType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -971,7 +965,7 @@ export const InputKafkaSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
 /** @internal */
 export type InputKafkaSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1017,7 +1011,8 @@ export const InputKafkaSendToRoutesFalseWithConnectionsConstraint$outboundSchema
     InputKafkaSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputKafkaType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1081,53 +1076,51 @@ export function inputKafkaSendToRoutesFalseWithConnectionsConstraintFromJSON(
 }
 
 /** @internal */
-export const InputKafkaSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputKafkaSendToRoutesTrueWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputKafkaType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    brokers: z.array(z.string()),
-    topics: z.array(z.string()),
-    groupId: z.string().default("Cribl"),
-    fromBeginning: z.boolean().default(true),
-    kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$inboundSchema
-      .optional(),
-    connectionTimeout: z.number().default(10000),
-    requestTimeout: z.number().default(60000),
-    maxRetries: z.number().default(5),
-    maxBackOff: z.number().default(30000),
-    initialBackoff: z.number().default(300),
-    backoffRate: z.number().default(2),
-    authenticationTimeout: z.number().default(10000),
-    reauthenticationThreshold: z.number().default(10000),
-    sasl: AuthenticationType$inboundSchema.optional(),
-    tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
-    sessionTimeout: z.number().default(30000),
-    rebalanceTimeout: z.number().default(60000),
-    heartbeatInterval: z.number().default(3000),
-    autoCommitInterval: z.number().optional(),
-    autoCommitThreshold: z.number().optional(),
-    maxBytesPerPartition: z.number().default(1048576),
-    maxBytes: z.number().default(10485760),
-    maxSocketErrors: z.number().default(0),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    description: z.string().optional(),
-  });
+export const InputKafkaSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
+  InputKafkaSendToRoutesTrueConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputKafkaType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$inboundSchema
+    .optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  sasl: AuthenticationType$inboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+});
 /** @internal */
-export type InputKafkaSendToRoutesTrueWithConnectionsConstraint$Outbound = {
+export type InputKafkaSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1135,6 +1128,7 @@ export type InputKafkaSendToRoutesTrueWithConnectionsConstraint$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
@@ -1166,73 +1160,66 @@ export type InputKafkaSendToRoutesTrueWithConnectionsConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputKafkaSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputKafkaSendToRoutesTrueWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputKafkaSendToRoutesTrueWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputKafkaType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    brokers: z.array(z.string()),
-    topics: z.array(z.string()),
-    groupId: z.string().default("Cribl"),
-    fromBeginning: z.boolean().default(true),
-    kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
-      .optional(),
-    connectionTimeout: z.number().default(10000),
-    requestTimeout: z.number().default(60000),
-    maxRetries: z.number().default(5),
-    maxBackOff: z.number().default(30000),
-    initialBackoff: z.number().default(300),
-    backoffRate: z.number().default(2),
-    authenticationTimeout: z.number().default(10000),
-    reauthenticationThreshold: z.number().default(10000),
-    sasl: AuthenticationType$outboundSchema.optional(),
-    tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
-    sessionTimeout: z.number().default(30000),
-    rebalanceTimeout: z.number().default(60000),
-    heartbeatInterval: z.number().default(3000),
-    autoCommitInterval: z.number().optional(),
-    autoCommitThreshold: z.number().optional(),
-    maxBytesPerPartition: z.number().default(1048576),
-    maxBytes: z.number().default(10485760),
-    maxSocketErrors: z.number().default(0),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-  });
+export const InputKafkaSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
+  InputKafkaSendToRoutesTrueConstraint$Outbound,
+  z.ZodTypeDef,
+  InputKafkaSendToRoutesTrueConstraint
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputKafkaType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
+    .optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  sasl: AuthenticationType$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+});
 
-export function inputKafkaSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputKafkaSendToRoutesTrueWithConnectionsConstraint:
-    InputKafkaSendToRoutesTrueWithConnectionsConstraint,
+export function inputKafkaSendToRoutesTrueConstraintToJSON(
+  inputKafkaSendToRoutesTrueConstraint: InputKafkaSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputKafkaSendToRoutesTrueWithConnectionsConstraint$outboundSchema.parse(
-      inputKafkaSendToRoutesTrueWithConnectionsConstraint,
+    InputKafkaSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputKafkaSendToRoutesTrueConstraint,
     ),
   );
 }
-export function inputKafkaSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputKafkaSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<
-  InputKafkaSendToRoutesTrueWithConnectionsConstraint,
-  SDKValidationError
-> {
+): SafeParseResult<InputKafkaSendToRoutesTrueConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      InputKafkaSendToRoutesTrueWithConnectionsConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputKafkaSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputKafkaSendToRoutesTrueConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKafkaSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -1242,20 +1229,18 @@ export const InputKafka$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() =>
-    InputKafkaSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-  ),
+  z.lazy(() => InputKafkaSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputKafkaSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputKafkaPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputKafkaPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputKafkaPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputKafka$Outbound =
-  | InputKafkaSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputKafkaSendToRoutesTrueConstraint$Outbound
   | InputKafkaSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputKafkaPqEnabledFalseWithPqConstraint$Outbound
+  | InputKafkaPqEnabledFalseConstraint$Outbound
   | InputKafkaPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1264,13 +1249,11 @@ export const InputKafka$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputKafka
 > = z.union([
-  z.lazy(() =>
-    InputKafkaSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputKafkaSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputKafkaSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() => InputKafkaPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputKafkaPqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputKafkaPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 

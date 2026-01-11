@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `models.InputAzureBlobSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputAzureBlobSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputAzureBlobSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputAzureBlobSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "azure_blob",
   pipeline: "<value>",
@@ -20,7 +14,12 @@ const value: models.InputAzureBlobSendToRoutesTrueWithConnectionsConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
@@ -34,9 +33,8 @@ const value: models.InputAzureBlobSendToRoutesTrueWithConnectionsConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
-  description: "kielbasa woefully aw yum",
+  description: "fork gah whether successfully anti",
   connectionString: "<value>",
   textSecret: "<value>",
   storageAccountName: "<value>",
@@ -99,21 +97,16 @@ const value: models.InputAzureBlobSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputAzureBlobPqEnabledFalseWithPqConstraint`
+### `models.InputAzureBlobPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputAzureBlobPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputAzureBlobPqEnabledFalseConstraint = {
   id: "<id>",
   type: "azure_blob",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -121,6 +114,9 @@ const value: models.InputAzureBlobPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   queueName: "<value>",
   metadata: [
     {
@@ -130,9 +126,8 @@ const value: models.InputAzureBlobPqEnabledFalseWithPqConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
-  description: "parade toward insidious costume who past",
+  description: "psst ack till that",
   connectionString: "<value>",
   textSecret: "<value>",
   storageAccountName: "<value>",

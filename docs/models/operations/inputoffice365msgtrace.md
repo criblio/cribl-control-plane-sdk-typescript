@@ -3,58 +3,56 @@
 
 ## Supported Types
 
-### `operations.InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputOffice365MsgTraceSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "office365_msg_trace",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputOffice365MsgTraceSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "office365_msg_trace",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    startDate: "<value>",
-    endDate: "<value>",
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  startDate: "<value>",
+  endDate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  retryRules: {
+    codes: [
+      6390.37,
+      2107.49,
+      2764.09,
     ],
-    retryRules: {
-      codes: [
-        6390.37,
-        2107.49,
-        2764.09,
-      ],
-    },
-    description:
-      "ha sans polite rebuke um since across roger proliferate judgementally",
-    username: "Darian.Hoeger71",
-    password: "VQsi5QueYeCTfuI",
-    credentialsSecret: "<value>",
-    clientSecret: "<value>",
-    tenantId: "<id>",
-    clientId: "<id>",
-    textSecret: "<value>",
-    certOptions: {
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-    },
-  };
+  },
+  description: "oh egg yuck opposite near midst since slip short why",
+  username: "Price.Denesik37",
+  password: "IVSl84oamX8odhp",
+  credentialsSecret: "<value>",
+  clientSecret: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  textSecret: "<value>",
+  certOptions: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+  },
+};
 ```
 
 ### `operations.InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint`
@@ -112,13 +110,10 @@ const value:
     };
 ```
 
-### `operations.InputOffice365MsgTracePqEnabledFalseWithPqConstraint`
+### `operations.InputOffice365MsgTracePqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputOffice365MsgTracePqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputOffice365MsgTracePqEnabledFalseConstraint = {
   id: "<id>",
   type: "office365_msg_trace",
   pipeline: "<value>",
@@ -132,6 +127,9 @@ const value: operations.InputOffice365MsgTracePqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   startDate: "<value>",
   endDate: "<value>",
   metadata: [
@@ -147,9 +145,9 @@ const value: operations.InputOffice365MsgTracePqEnabledFalseWithPqConstraint = {
       2764.09,
     ],
   },
-  description: "appliance partial parsnip",
-  username: "Twila_Kovacek",
-  password: "cZpT4Q4I94F_UH1",
+  description: "kinase endow cautiously boo weakly back reorganisation phew",
+  username: "Lowell15",
+  password: "mVGMtJHfLrBV6Di",
   credentialsSecret: "<value>",
   clientSecret: "<value>",
   tenantId: "<id>",

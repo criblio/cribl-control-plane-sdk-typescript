@@ -3,75 +3,76 @@
 
 ## Supported Types
 
-### `operations.InputHttpRawSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputHttpRawSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputHttpRawSendToRoutesTrueWithConnectionsConstraint =
-  {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "http_raw",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputHttpRawSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "http_raw",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    port: 7440.83,
-    authTokens: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    tls: {
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 3997.97,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    breakerRulesets: [
-      "<value 1>",
-    ],
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    allowedPaths: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    allowedMethods: [
-      "<value 1>",
-    ],
-    authTokensExt: [
-      {
-        token: "<value>",
-        description:
-          "demob apropos indeed ceramic scrabble however given scorn",
-        metadata: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
-        ],
-      },
-    ],
-    description: "accurate down quick delightfully emphasise misjudge heavy",
-  };
+  ],
+  allowedPaths: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  allowedMethods: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description: "demob apropos indeed ceramic scrabble however given scorn",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  description:
+    "reporter yet whereas as yak instead blushing wetly inventory dish",
+};
 ```
 
 ### `operations.InputHttpRawSendToRoutesFalseWithConnectionsConstraint`
@@ -147,21 +148,16 @@ const value: operations.InputHttpRawSendToRoutesFalseWithConnectionsConstraint =
   };
 ```
 
-### `operations.InputHttpRawPqEnabledFalseWithPqConstraint`
+### `operations.InputHttpRawPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputHttpRawPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputHttpRawPqEnabledFalseConstraint = {
   id: "<id>",
   type: "http_raw",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -169,11 +165,12 @@ const value: operations.InputHttpRawPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 2114.19,
+  pq: {
+    pqControls: {},
+  },
+  port: 9843.37,
   authTokens: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -197,8 +194,6 @@ const value: operations.InputHttpRawPqEnabledFalseWithPqConstraint = {
   ],
   allowedPaths: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   allowedMethods: [
     "<value 1>",
@@ -215,7 +210,7 @@ const value: operations.InputHttpRawPqEnabledFalseWithPqConstraint = {
       ],
     },
   ],
-  description: "potable oddly unpleasant",
+  description: "duh disk kit tenderly swiftly burly pleased psst",
 };
 ```
 

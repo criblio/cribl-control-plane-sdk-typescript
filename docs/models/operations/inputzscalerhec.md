@@ -3,78 +3,76 @@
 
 ## Supported Types
 
-### `operations.InputZscalerHecSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputZscalerHecSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputZscalerHecSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "zscaler_hec",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputZscalerHecSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "zscaler_hec",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    port: 6573.66,
-    authTokens: [
-      {
-        tokenSecret: "<value>",
-        token: "<value>",
-        description: "meanwhile mmm daughter from upliftingly when",
-        allowedIndexesAtToken: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-        metadata: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
-        ],
-      },
-    ],
-    tls: {
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 7282.2,
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      token: "<value>",
+      description: "meanwhile mmm daughter from upliftingly when",
+      allowedIndexesAtToken: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
     },
-    enableHealthCheck: "<value>",
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    allowedIndexes: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    accessControlAllowOrigin: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    accessControlAllowHeaders: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    description:
-      "solution supposing or offset malfunction before contradict portray",
-  };
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableHealthCheck: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedIndexes: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  accessControlAllowOrigin: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  accessControlAllowHeaders: [
+    "<value 1>",
+  ],
+  description: "terribly instead bin tusk tame",
+};
 ```
 
 ### `operations.InputZscalerHecSendToRoutesFalseWithConnectionsConstraint`
@@ -150,13 +148,10 @@ const value:
   };
 ```
 
-### `operations.InputZscalerHecPqEnabledFalseWithPqConstraint`
+### `operations.InputZscalerHecPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputZscalerHecPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputZscalerHecPqEnabledFalseConstraint = {
   id: "<id>",
   type: "zscaler_hec",
   pipeline: "<value>",
@@ -172,7 +167,10 @@ const value: operations.InputZscalerHecPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 1311.02,
+  pq: {
+    pqControls: {},
+  },
+  port: 2701.58,
   authTokens: [
     {
       tokenSecret: "<value>",
@@ -216,8 +214,10 @@ const value: operations.InputZscalerHecPqEnabledFalseWithPqConstraint = {
   ],
   accessControlAllowHeaders: [
     "<value 1>",
+    "<value 2>",
   ],
-  description: "as distant guard uselessly",
+  description:
+    "yet wherever imaginary super frantically upside-down vice upset drat",
 };
 ```
 

@@ -3,49 +3,46 @@
 
 ## Supported Types
 
-### `operations.InputJournalFilesSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputJournalFilesSendToRoutesTrueConstraint`
 
 ```typescript
-const value:
-  operations.InputJournalFilesSendToRoutesTrueWithConnectionsConstraint = {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "journal_files",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputJournalFilesSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "journal_files",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    path: "/home",
-    journals: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    rules: [
-      {
-        filter: "<value>",
-        description: "legging haversack treasure qua",
-      },
-    ],
-    maxAgeDur: "<value>",
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description:
-      "gleefully indeed beside aside ectoderm ouch trusty er overplay",
-  };
+  ],
+  pq: {
+    pqControls: {},
+  },
+  path: "/private/tmp",
+  journals: [
+    "<value 1>",
+  ],
+  rules: [
+    {
+      filter: "<value>",
+      description: "via growing fooey utterly instead earth limply",
+    },
+  ],
+  maxAgeDur: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "eek circa consequently pfft given wherever ew accompany insignificant",
+};
 ```
 
 ### `operations.InputJournalFilesSendToRoutesFalseWithConnectionsConstraint`
@@ -91,13 +88,10 @@ const value:
   };
 ```
 
-### `operations.InputJournalFilesPqEnabledFalseWithPqConstraint`
+### `operations.InputJournalFilesPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputJournalFilesPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputJournalFilesPqEnabledFalseConstraint = {
   id: "<id>",
   type: "journal_files",
   pipeline: "<value>",
@@ -105,6 +99,7 @@ const value: operations.InputJournalFilesPqEnabledFalseWithPqConstraint = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -112,14 +107,17 @@ const value: operations.InputJournalFilesPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  path: "/var/spool",
+  pq: {
+    pqControls: {},
+  },
+  path: "/mnt",
   journals: [
     "<value 1>",
   ],
   rules: [
     {
       filter: "<value>",
-      description: "premeditation giving apud rewarding offensively windy",
+      description: "unless into sweetly",
     },
   ],
   maxAgeDur: "<value>",
@@ -129,7 +127,7 @@ const value: operations.InputJournalFilesPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "after papa psst in since boo massage blah marathon",
+  description: "rue troubled as tremendously nervously",
 };
 ```
 

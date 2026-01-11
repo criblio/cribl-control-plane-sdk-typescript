@@ -8,11 +8,11 @@ import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -79,7 +79,7 @@ export type InputMskPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
    */
@@ -228,12 +228,11 @@ export type InputMskPqEnabledTrueWithPqConstraint = {
   awsSecret?: string | undefined;
 };
 
-export type InputMskPqEnabledFalseWithPqConstraint = {
+export type InputMskPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -259,7 +258,8 @@ export type InputMskPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
    */
@@ -416,7 +416,7 @@ export type InputMskSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -588,15 +588,11 @@ export type InputMskSendToRoutesFalseWithConnectionsConstraint = {
   awsSecret?: string | undefined;
 };
 
-export type InputMskSendToRoutesTrueWithConnectionsConstraint = {
+export type InputMskSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -619,6 +615,10 @@ export type InputMskSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
@@ -769,9 +769,9 @@ export type InputMskSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputMsk =
-  | InputMskSendToRoutesTrueWithConnectionsConstraint
+  | InputMskSendToRoutesTrueConstraint
   | InputMskSendToRoutesFalseWithConnectionsConstraint
-  | InputMskPqEnabledFalseWithPqConstraint
+  | InputMskPqEnabledFalseConstraint
   | InputMskPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -796,7 +796,7 @@ export const InputMskPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
@@ -847,7 +847,7 @@ export type InputMskPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   brokers: Array<string>;
   topics: Array<string>;
   groupId: string;
@@ -904,7 +904,7 @@ export const InputMskPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
@@ -966,13 +966,12 @@ export function inputMskPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputMskPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
-  InputMskPqEnabledFalseWithPqConstraint,
+export const InputMskPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputMskPqEnabledFalseConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
   pqEnabled: z.boolean().default(false),
-  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputMskType$inboundSchema,
   disabled: z.boolean().default(false),
@@ -980,7 +979,8 @@ export const InputMskPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
@@ -1021,9 +1021,8 @@ export const InputMskPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
   awsSecret: z.string().optional(),
 });
 /** @internal */
-export type InputMskPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputMskPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1031,7 +1030,8 @@ export type InputMskPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
   groupId: string;
@@ -1074,13 +1074,12 @@ export type InputMskPqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputMskPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
-  InputMskPqEnabledFalseWithPqConstraint$Outbound,
+export const InputMskPqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputMskPqEnabledFalseConstraint$Outbound,
   z.ZodTypeDef,
-  InputMskPqEnabledFalseWithPqConstraint
+  InputMskPqEnabledFalseConstraint
 > = z.object({
   pqEnabled: z.boolean().default(false),
-  pq: PqType$outboundSchema.optional(),
   id: z.string().optional(),
   type: InputMskType$outboundSchema,
   disabled: z.boolean().default(false),
@@ -1088,7 +1087,8 @@ export const InputMskPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
@@ -1129,24 +1129,22 @@ export const InputMskPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
   awsSecret: z.string().optional(),
 });
 
-export function inputMskPqEnabledFalseWithPqConstraintToJSON(
-  inputMskPqEnabledFalseWithPqConstraint:
-    InputMskPqEnabledFalseWithPqConstraint,
+export function inputMskPqEnabledFalseConstraintToJSON(
+  inputMskPqEnabledFalseConstraint: InputMskPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputMskPqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputMskPqEnabledFalseWithPqConstraint,
+    InputMskPqEnabledFalseConstraint$outboundSchema.parse(
+      inputMskPqEnabledFalseConstraint,
     ),
   );
 }
-export function inputMskPqEnabledFalseWithPqConstraintFromJSON(
+export function inputMskPqEnabledFalseConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputMskPqEnabledFalseWithPqConstraint, SDKValidationError> {
+): SafeParseResult<InputMskPqEnabledFalseConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      InputMskPqEnabledFalseWithPqConstraint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMskPqEnabledFalseWithPqConstraint' from JSON`,
+    (x) => InputMskPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputMskPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -1158,7 +1156,7 @@ export const InputMskSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputMskType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -1209,7 +1207,7 @@ export const InputMskSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
 /** @internal */
 export type InputMskSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1267,7 +1265,8 @@ export const InputMskSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
     InputMskSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputMskType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1343,65 +1342,63 @@ export function inputMskSendToRoutesFalseWithConnectionsConstraintFromJSON(
 }
 
 /** @internal */
-export const InputMskSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputMskSendToRoutesTrueWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputMskType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    brokers: z.array(z.string()),
-    topics: z.array(z.string()),
-    groupId: z.string().default("Cribl"),
-    fromBeginning: z.boolean().default(true),
-    sessionTimeout: z.number().default(30000),
-    rebalanceTimeout: z.number().default(60000),
-    heartbeatInterval: z.number().default(3000),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$inboundSchema
-      .optional(),
-    connectionTimeout: z.number().default(10000),
-    requestTimeout: z.number().default(60000),
-    maxRetries: z.number().default(5),
-    maxBackOff: z.number().default(30000),
-    initialBackoff: z.number().default(300),
-    backoffRate: z.number().default(2),
-    authenticationTimeout: z.number().default(10000),
-    reauthenticationThreshold: z.number().default(10000),
-    awsAuthenticationMethod: z.string().default("auto"),
-    awsSecretKey: z.string().optional(),
-    region: z.string(),
-    endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
-    reuseConnections: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
-    enableAssumeRole: z.boolean().default(false),
-    assumeRoleArn: z.string().optional(),
-    assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
-    tls: TlsSettingsClientSideType1$inboundSchema.optional(),
-    autoCommitInterval: z.number().optional(),
-    autoCommitThreshold: z.number().optional(),
-    maxBytesPerPartition: z.number().default(1048576),
-    maxBytes: z.number().default(10485760),
-    maxSocketErrors: z.number().default(0),
-    description: z.string().optional(),
-    awsApiKey: z.string().optional(),
-    awsSecret: z.string().optional(),
-  });
+export const InputMskSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
+  InputMskSendToRoutesTrueConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputMskType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$inboundSchema
+    .optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsAuthenticationMethod: z.string().default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: TlsSettingsClientSideType1$inboundSchema.optional(),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
 /** @internal */
-export type InputMskSendToRoutesTrueWithConnectionsConstraint$Outbound = {
+export type InputMskSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1409,6 +1406,7 @@ export type InputMskSendToRoutesTrueWithConnectionsConstraint$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
@@ -1452,85 +1450,78 @@ export type InputMskSendToRoutesTrueWithConnectionsConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputMskSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputMskSendToRoutesTrueWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputMskSendToRoutesTrueWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputMskType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    brokers: z.array(z.string()),
-    topics: z.array(z.string()),
-    groupId: z.string().default("Cribl"),
-    fromBeginning: z.boolean().default(true),
-    sessionTimeout: z.number().default(30000),
-    rebalanceTimeout: z.number().default(60000),
-    heartbeatInterval: z.number().default(3000),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
-      .optional(),
-    connectionTimeout: z.number().default(10000),
-    requestTimeout: z.number().default(60000),
-    maxRetries: z.number().default(5),
-    maxBackOff: z.number().default(30000),
-    initialBackoff: z.number().default(300),
-    backoffRate: z.number().default(2),
-    authenticationTimeout: z.number().default(10000),
-    reauthenticationThreshold: z.number().default(10000),
-    awsAuthenticationMethod: z.string().default("auto"),
-    awsSecretKey: z.string().optional(),
-    region: z.string(),
-    endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
-    reuseConnections: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
-    enableAssumeRole: z.boolean().default(false),
-    assumeRoleArn: z.string().optional(),
-    assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
-    tls: TlsSettingsClientSideType1$outboundSchema.optional(),
-    autoCommitInterval: z.number().optional(),
-    autoCommitThreshold: z.number().optional(),
-    maxBytesPerPartition: z.number().default(1048576),
-    maxBytes: z.number().default(10485760),
-    maxSocketErrors: z.number().default(0),
-    description: z.string().optional(),
-    awsApiKey: z.string().optional(),
-    awsSecret: z.string().optional(),
-  });
+export const InputMskSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
+  InputMskSendToRoutesTrueConstraint$Outbound,
+  z.ZodTypeDef,
+  InputMskSendToRoutesTrueConstraint
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputMskType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
+    .optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsAuthenticationMethod: z.string().default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: TlsSettingsClientSideType1$outboundSchema.optional(),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
 
-export function inputMskSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputMskSendToRoutesTrueWithConnectionsConstraint:
-    InputMskSendToRoutesTrueWithConnectionsConstraint,
+export function inputMskSendToRoutesTrueConstraintToJSON(
+  inputMskSendToRoutesTrueConstraint: InputMskSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputMskSendToRoutesTrueWithConnectionsConstraint$outboundSchema.parse(
-      inputMskSendToRoutesTrueWithConnectionsConstraint,
+    InputMskSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputMskSendToRoutesTrueConstraint,
     ),
   );
 }
-export function inputMskSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputMskSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<
-  InputMskSendToRoutesTrueWithConnectionsConstraint,
-  SDKValidationError
-> {
+): SafeParseResult<InputMskSendToRoutesTrueConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      InputMskSendToRoutesTrueWithConnectionsConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputMskSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputMskSendToRoutesTrueConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputMskSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -1540,18 +1531,18 @@ export const InputMsk$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => InputMskSendToRoutesTrueWithConnectionsConstraint$inboundSchema),
+  z.lazy(() => InputMskSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputMskSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputMskPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputMskPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputMskPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputMsk$Outbound =
-  | InputMskSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputMskSendToRoutesTrueConstraint$Outbound
   | InputMskSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputMskPqEnabledFalseWithPqConstraint$Outbound
+  | InputMskPqEnabledFalseConstraint$Outbound
   | InputMskPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1560,13 +1551,11 @@ export const InputMsk$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputMsk
 > = z.union([
-  z.lazy(() =>
-    InputMskSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputMskSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputMskSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() => InputMskPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputMskPqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputMskPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 

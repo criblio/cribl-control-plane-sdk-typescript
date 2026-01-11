@@ -3,65 +3,62 @@
 
 ## Supported Types
 
-### `operations.InputAppscopeSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputAppscopeSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputAppscopeSendToRoutesTrueWithConnectionsConstraint =
-  {
-    connections: [
+const value: operations.InputAppscopeSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "appscope",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  filter: {
+    allow: [
       {
-        pipeline: "<value>",
-        output: "<value>",
+        procname: "<value>",
+        arg: "<value>",
+        config: "<value>",
       },
     ],
-    id: "<id>",
-    type: "appscope",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    pq: {
-      pqControls: {},
-    },
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    breakerRulesets: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    filter: {
-      allow: [
-        {
-          procname: "<value>",
-          arg: "<value>",
-          config: "<value>",
-        },
-      ],
-      transportURL: "https://diligent-worth.com",
-    },
-    persistence: {},
-    description: "sway search down highly",
-    host: "probable-stock.name",
-    port: 8802.24,
-    tls: {
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
-    },
-    unixSocketPerms: "<value>",
-    textSecret: "<value>",
-  };
+    transportURL: "https://diligent-worth.com",
+  },
+  persistence: {},
+  description:
+    "presell about and quarrelsomely foot indeed badly ha testify valuable",
+  host: "quiet-shore.com",
+  port: 9523.66,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  unixSocketPerms: "<value>",
+  textSecret: "<value>",
+};
 ```
 
 ### `operations.InputAppscopeSendToRoutesFalseWithConnectionsConstraint`
@@ -123,13 +120,10 @@ const value:
   };
 ```
 
-### `operations.InputAppscopePqEnabledFalseWithPqConstraint`
+### `operations.InputAppscopePqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputAppscopePqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputAppscopePqEnabledFalseConstraint = {
   id: "<id>",
   type: "appscope",
   pipeline: "<value>",
@@ -145,6 +139,9 @@ const value: operations.InputAppscopePqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   metadata: [
     {
       name: "<value>",
@@ -153,6 +150,8 @@ const value: operations.InputAppscopePqEnabledFalseWithPqConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   filter: {
     allow: [
@@ -165,9 +164,9 @@ const value: operations.InputAppscopePqEnabledFalseWithPqConstraint = {
     transportURL: "https://diligent-worth.com",
   },
   persistence: {},
-  description: "or mythology fireplace blah hyphenation outlandish",
-  host: "distorted-willow.info",
-  port: 7845.87,
+  description: "even questionable deliberately",
+  host: "juvenile-jogging.info",
+  port: 6687.61,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",

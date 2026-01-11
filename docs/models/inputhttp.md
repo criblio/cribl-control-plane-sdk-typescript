@@ -3,31 +3,31 @@
 
 ## Supported Types
 
-### `models.InputHttpSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputHttpSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputHttpSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputHttpSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "http",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
-  port: 7133.3,
+  port: 9523.14,
   authTokens: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -56,8 +56,7 @@ const value: models.InputHttpSendToRoutesTrueWithConnectionsConstraint = {
       ],
     },
   ],
-  description:
-    "athwart daily oxidize furthermore lovely whoever acquaintance qua uh-huh unless",
+  description: "psst march perfumed the after huzzah developing though wholly",
 };
 ```
 
@@ -118,19 +117,18 @@ const value: models.InputHttpSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputHttpPqEnabledFalseWithPqConstraint`
+### `models.InputHttpPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputHttpPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputHttpPqEnabledFalseConstraint = {
   id: "<id>",
   type: "http",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -138,11 +136,13 @@ const value: models.InputHttpPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 6764.73,
+  pq: {
+    pqControls: {},
+  },
+  port: 6655.45,
   authTokens: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -171,7 +171,7 @@ const value: models.InputHttpPqEnabledFalseWithPqConstraint = {
       ],
     },
   ],
-  description: "fess of since",
+  description: "over optimistic against speedy whose flashy",
 };
 ```
 

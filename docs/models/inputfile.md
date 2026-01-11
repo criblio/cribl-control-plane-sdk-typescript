@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### `models.InputFileSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputFileSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputFileSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputFileSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "file",
   pipeline: "<value>",
@@ -22,12 +16,19 @@ const value: models.InputFileSendToRoutesTrueWithConnectionsConstraint = {
     "<value 2>",
     "<value 3>",
   ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   pq: {
     pqControls: {},
   },
   filenames: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   minAgeDur: "<value>",
   maxAgeDur: "<value>",
@@ -40,9 +41,9 @@ const value: models.InputFileSendToRoutesTrueWithConnectionsConstraint = {
   breakerRulesets: [
     "<value 1>",
   ],
-  description: "inside slight how miserable velocity",
-  path: "/dev",
-  depth: 352,
+  description: "fax pace supposing major knowledgeably yet dwell",
+  path: "/Applications",
+  depth: 1446.23,
 };
 ```
 
@@ -90,19 +91,18 @@ const value: models.InputFileSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputFilePqEnabledFalseWithPqConstraint`
+### `models.InputFilePqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputFilePqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputFilePqEnabledFalseConstraint = {
   id: "<id>",
   type: "file",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -110,10 +110,12 @@ const value: models.InputFilePqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    pqControls: {},
+  },
   filenames: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   minAgeDur: "<value>",
   maxAgeDur: "<value>",
@@ -128,9 +130,9 @@ const value: models.InputFilePqEnabledFalseWithPqConstraint = {
     "<value 2>",
     "<value 3>",
   ],
-  description: "whale retention bah secret ouch hippodrome than aha hippodrome",
-  path: "/sbin",
-  depth: 4543.17,
+  description: "since ajar since vivaciously junior greedy duh",
+  path: "/proc",
+  depth: 2677.68,
 };
 ```
 

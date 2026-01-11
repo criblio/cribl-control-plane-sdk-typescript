@@ -3,36 +3,38 @@
 
 ## Supported Types
 
-### `models.InputDatagenSendToRoutesTrueWithConnectionsConstraint`
+### `models.InputDatagenSendToRoutesTrueConstraint`
 
 ```typescript
-const value: models.InputDatagenSendToRoutesTrueWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputDatagenSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "datagen",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
   ],
   pq: {
     pqControls: {},
   },
-  samples: [],
+  samples: [
+    {
+      sample: "<value>",
+    },
+  ],
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "glisten sniff angrily plastic toward translation yahoo westernise agreement",
+  description: "plus seriously chunder communicate",
 };
 ```
 
@@ -69,13 +71,10 @@ const value: models.InputDatagenSendToRoutesFalseWithConnectionsConstraint = {
 };
 ```
 
-### `models.InputDatagenPqEnabledFalseWithPqConstraint`
+### `models.InputDatagenPqEnabledFalseConstraint`
 
 ```typescript
-const value: models.InputDatagenPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: models.InputDatagenPqEnabledFalseConstraint = {
   id: "<id>",
   type: "datagen",
   pipeline: "<value>",
@@ -89,18 +88,17 @@ const value: models.InputDatagenPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  samples: [
-    {
-      sample: "<value>",
-    },
-  ],
+  pq: {
+    pqControls: {},
+  },
+  samples: [],
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "sew rapidly numeracy unless",
+  description: "unsightly that hence yowza republican usually riser freezing",
 };
 ```
 

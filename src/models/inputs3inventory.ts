@@ -14,11 +14,11 @@ import {
 } from "./checkpointingtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -84,7 +84,7 @@ export type InputS3InventoryPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -221,12 +221,11 @@ export type InputS3InventoryPqEnabledTrueWithPqConstraint = {
   processedTagValue?: string | undefined;
 };
 
-export type InputS3InventoryPqEnabledFalseWithPqConstraint = {
+export type InputS3InventoryPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -252,7 +251,8 @@ export type InputS3InventoryPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -397,7 +397,7 @@ export type InputS3InventorySendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -557,15 +557,11 @@ export type InputS3InventorySendToRoutesFalseWithConnectionsConstraint = {
   processedTagValue?: string | undefined;
 };
 
-export type InputS3InventorySendToRoutesTrueWithConnectionsConstraint = {
+export type InputS3InventorySendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -588,6 +584,10 @@ export type InputS3InventorySendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
@@ -726,9 +726,9 @@ export type InputS3InventorySendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputS3Inventory =
-  | InputS3InventorySendToRoutesTrueWithConnectionsConstraint
+  | InputS3InventorySendToRoutesTrueConstraint
   | InputS3InventorySendToRoutesFalseWithConnectionsConstraint
-  | InputS3InventoryPqEnabledFalseWithPqConstraint
+  | InputS3InventoryPqEnabledFalseConstraint
   | InputS3InventoryPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -756,7 +756,7 @@ export const InputS3InventoryPqEnabledTrueWithPqConstraint$inboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
@@ -808,7 +808,7 @@ export type InputS3InventoryPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   queueName: string;
   fileFilter: string;
   awsAccountId?: string | undefined;
@@ -865,7 +865,8 @@ export const InputS3InventoryPqEnabledTrueWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
@@ -934,66 +935,64 @@ export function inputS3InventoryPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputS3InventoryPqEnabledFalseWithPqConstraint$inboundSchema:
-  z.ZodType<
-    InputS3InventoryPqEnabledFalseWithPqConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    pqEnabled: z.boolean().default(false),
-    pq: PqType$inboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputS3InventoryType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    queueName: z.string(),
-    fileFilter: z.string().default("/.*/"),
-    awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
-    awsSecretKey: z.string().optional(),
-    region: z.string().optional(),
-    endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
-      .default("v4"),
-    reuseConnections: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    maxMessages: z.number().default(1),
-    visibilityTimeout: z.number().default(600),
-    numReceivers: z.number().default(1),
-    socketTimeout: z.number().default(300),
-    skipOnError: z.boolean().default(false),
-    includeSqsMetadata: z.boolean().default(false),
-    enableAssumeRole: z.boolean().default(true),
-    assumeRoleArn: z.string().optional(),
-    assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
-    enableSQSAssumeRole: z.boolean().default(false),
-    preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    parquetChunkSizeMB: z.number().default(5),
-    parquetChunkDownloadTimeout: z.number().default(600),
-    checkpointing: CheckpointingType$inboundSchema.optional(),
-    pollTimeout: z.number().default(10),
-    checksumSuffix: z.string().default("checksum"),
-    maxManifestSizeKB: z.number().int().default(4096),
-    validateInventoryFiles: z.boolean().default(false),
-    description: z.string().optional(),
-    awsApiKey: z.string().optional(),
-    awsSecret: z.string().optional(),
-    tagAfterProcessing: TagAfterProcessingOptions$inboundSchema.optional(),
-    processedTagKey: z.string().optional(),
-    processedTagValue: z.string().optional(),
-  });
+export const InputS3InventoryPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputS3InventoryPqEnabledFalseConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputS3InventoryType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  queueName: z.string(),
+  fileFilter: z.string().default("/.*/"),
+  awsAccountId: z.string().optional(),
+  awsAuthenticationMethod: z.string().default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
+    .default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  maxMessages: z.number().default(1),
+  visibilityTimeout: z.number().default(600),
+  numReceivers: z.number().default(1),
+  socketTimeout: z.number().default(300),
+  skipOnError: z.boolean().default(false),
+  includeSqsMetadata: z.boolean().default(false),
+  enableAssumeRole: z.boolean().default(true),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  enableSQSAssumeRole: z.boolean().default(false),
+  preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  checkpointing: CheckpointingType$inboundSchema.optional(),
+  pollTimeout: z.number().default(10),
+  checksumSuffix: z.string().default("checksum"),
+  maxManifestSizeKB: z.number().int().default(4096),
+  validateInventoryFiles: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  tagAfterProcessing: TagAfterProcessingOptions$inboundSchema.optional(),
+  processedTagKey: z.string().optional(),
+  processedTagValue: z.string().optional(),
+});
 /** @internal */
-export type InputS3InventoryPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputS3InventoryPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1001,7 +1000,8 @@ export type InputS3InventoryPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   queueName: string;
   fileFilter: string;
   awsAccountId?: string | undefined;
@@ -1043,86 +1043,85 @@ export type InputS3InventoryPqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputS3InventoryPqEnabledFalseWithPqConstraint$outboundSchema:
-  z.ZodType<
-    InputS3InventoryPqEnabledFalseWithPqConstraint$Outbound,
-    z.ZodTypeDef,
-    InputS3InventoryPqEnabledFalseWithPqConstraint
-  > = z.object({
-    pqEnabled: z.boolean().default(false),
-    pq: PqType$outboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputS3InventoryType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    queueName: z.string(),
-    fileFilter: z.string().default("/.*/"),
-    awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
-    awsSecretKey: z.string().optional(),
-    region: z.string().optional(),
-    endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-      .default("v4"),
-    reuseConnections: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    maxMessages: z.number().default(1),
-    visibilityTimeout: z.number().default(600),
-    numReceivers: z.number().default(1),
-    socketTimeout: z.number().default(300),
-    skipOnError: z.boolean().default(false),
-    includeSqsMetadata: z.boolean().default(false),
-    enableAssumeRole: z.boolean().default(true),
-    assumeRoleArn: z.string().optional(),
-    assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
-    enableSQSAssumeRole: z.boolean().default(false),
-    preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    parquetChunkSizeMB: z.number().default(5),
-    parquetChunkDownloadTimeout: z.number().default(600),
-    checkpointing: CheckpointingType$outboundSchema.optional(),
-    pollTimeout: z.number().default(10),
-    checksumSuffix: z.string().default("checksum"),
-    maxManifestSizeKB: z.number().int().default(4096),
-    validateInventoryFiles: z.boolean().default(false),
-    description: z.string().optional(),
-    awsApiKey: z.string().optional(),
-    awsSecret: z.string().optional(),
-    tagAfterProcessing: TagAfterProcessingOptions$outboundSchema.optional(),
-    processedTagKey: z.string().optional(),
-    processedTagValue: z.string().optional(),
-  });
+export const InputS3InventoryPqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputS3InventoryPqEnabledFalseConstraint$Outbound,
+  z.ZodTypeDef,
+  InputS3InventoryPqEnabledFalseConstraint
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputS3InventoryType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  fileFilter: z.string().default("/.*/"),
+  awsAccountId: z.string().optional(),
+  awsAuthenticationMethod: z.string().default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  maxMessages: z.number().default(1),
+  visibilityTimeout: z.number().default(600),
+  numReceivers: z.number().default(1),
+  socketTimeout: z.number().default(300),
+  skipOnError: z.boolean().default(false),
+  includeSqsMetadata: z.boolean().default(false),
+  enableAssumeRole: z.boolean().default(true),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  enableSQSAssumeRole: z.boolean().default(false),
+  preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  checkpointing: CheckpointingType$outboundSchema.optional(),
+  pollTimeout: z.number().default(10),
+  checksumSuffix: z.string().default("checksum"),
+  maxManifestSizeKB: z.number().int().default(4096),
+  validateInventoryFiles: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  tagAfterProcessing: TagAfterProcessingOptions$outboundSchema.optional(),
+  processedTagKey: z.string().optional(),
+  processedTagValue: z.string().optional(),
+});
 
-export function inputS3InventoryPqEnabledFalseWithPqConstraintToJSON(
-  inputS3InventoryPqEnabledFalseWithPqConstraint:
-    InputS3InventoryPqEnabledFalseWithPqConstraint,
+export function inputS3InventoryPqEnabledFalseConstraintToJSON(
+  inputS3InventoryPqEnabledFalseConstraint:
+    InputS3InventoryPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputS3InventoryPqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputS3InventoryPqEnabledFalseWithPqConstraint,
+    InputS3InventoryPqEnabledFalseConstraint$outboundSchema.parse(
+      inputS3InventoryPqEnabledFalseConstraint,
     ),
   );
 }
-export function inputS3InventoryPqEnabledFalseWithPqConstraintFromJSON(
+export function inputS3InventoryPqEnabledFalseConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputS3InventoryPqEnabledFalseWithPqConstraint,
+  InputS3InventoryPqEnabledFalseConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputS3InventoryPqEnabledFalseWithPqConstraint$inboundSchema.parse(
+      InputS3InventoryPqEnabledFalseConstraint$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputS3InventoryPqEnabledFalseWithPqConstraint' from JSON`,
+    `Failed to parse 'InputS3InventoryPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -1134,7 +1133,7 @@ export const InputS3InventorySendToRoutesFalseWithConnectionsConstraint$inboundS
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputS3InventoryType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -1187,7 +1186,7 @@ export const InputS3InventorySendToRoutesFalseWithConnectionsConstraint$inboundS
 export type InputS3InventorySendToRoutesFalseWithConnectionsConstraint$Outbound =
   {
     sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
     id?: string | undefined;
     type: string;
     disabled: boolean;
@@ -1244,7 +1243,8 @@ export const InputS3InventorySendToRoutesFalseWithConnectionsConstraint$outbound
     InputS3InventorySendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputS3InventoryType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1319,124 +1319,121 @@ export function inputS3InventorySendToRoutesFalseWithConnectionsConstraintFromJS
 }
 
 /** @internal */
-export const InputS3InventorySendToRoutesTrueWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputS3InventorySendToRoutesTrueWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputS3InventoryType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    queueName: z.string(),
-    fileFilter: z.string().default("/.*/"),
-    awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
-    awsSecretKey: z.string().optional(),
-    region: z.string().optional(),
-    endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
-      .default("v4"),
-    reuseConnections: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    maxMessages: z.number().default(1),
-    visibilityTimeout: z.number().default(600),
-    numReceivers: z.number().default(1),
-    socketTimeout: z.number().default(300),
-    skipOnError: z.boolean().default(false),
-    includeSqsMetadata: z.boolean().default(false),
-    enableAssumeRole: z.boolean().default(true),
-    assumeRoleArn: z.string().optional(),
-    assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
-    enableSQSAssumeRole: z.boolean().default(false),
-    preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    parquetChunkSizeMB: z.number().default(5),
-    parquetChunkDownloadTimeout: z.number().default(600),
-    checkpointing: CheckpointingType$inboundSchema.optional(),
-    pollTimeout: z.number().default(10),
-    checksumSuffix: z.string().default("checksum"),
-    maxManifestSizeKB: z.number().int().default(4096),
-    validateInventoryFiles: z.boolean().default(false),
-    description: z.string().optional(),
-    awsApiKey: z.string().optional(),
-    awsSecret: z.string().optional(),
-    tagAfterProcessing: TagAfterProcessingOptions$inboundSchema.optional(),
-    processedTagKey: z.string().optional(),
-    processedTagValue: z.string().optional(),
-  });
+export const InputS3InventorySendToRoutesTrueConstraint$inboundSchema:
+  z.ZodType<InputS3InventorySendToRoutesTrueConstraint, z.ZodTypeDef, unknown> =
+    z.object({
+      sendToRoutes: z.boolean().default(true),
+      id: z.string().optional(),
+      type: InputS3InventoryType$inboundSchema,
+      disabled: z.boolean().default(false),
+      pipeline: z.string().optional(),
+      environment: z.string().optional(),
+      pqEnabled: z.boolean().default(false),
+      streamtags: z.array(z.string()).optional(),
+      connections: z.array(ItemsTypeConnectionsOptional$inboundSchema)
+        .optional(),
+      pq: PqType$inboundSchema.optional(),
+      queueName: z.string(),
+      fileFilter: z.string().default("/.*/"),
+      awsAccountId: z.string().optional(),
+      awsAuthenticationMethod: z.string().default("auto"),
+      awsSecretKey: z.string().optional(),
+      region: z.string().optional(),
+      endpoint: z.string().optional(),
+      signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
+        .default("v4"),
+      reuseConnections: z.boolean().default(true),
+      rejectUnauthorized: z.boolean().default(true),
+      breakerRulesets: z.array(z.string()).optional(),
+      staleChannelFlushMs: z.number().default(10000),
+      maxMessages: z.number().default(1),
+      visibilityTimeout: z.number().default(600),
+      numReceivers: z.number().default(1),
+      socketTimeout: z.number().default(300),
+      skipOnError: z.boolean().default(false),
+      includeSqsMetadata: z.boolean().default(false),
+      enableAssumeRole: z.boolean().default(true),
+      assumeRoleArn: z.string().optional(),
+      assumeRoleExternalId: z.string().optional(),
+      durationSeconds: z.number().default(3600),
+      enableSQSAssumeRole: z.boolean().default(false),
+      preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema
+        .optional(),
+      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+      parquetChunkSizeMB: z.number().default(5),
+      parquetChunkDownloadTimeout: z.number().default(600),
+      checkpointing: CheckpointingType$inboundSchema.optional(),
+      pollTimeout: z.number().default(10),
+      checksumSuffix: z.string().default("checksum"),
+      maxManifestSizeKB: z.number().int().default(4096),
+      validateInventoryFiles: z.boolean().default(false),
+      description: z.string().optional(),
+      awsApiKey: z.string().optional(),
+      awsSecret: z.string().optional(),
+      tagAfterProcessing: TagAfterProcessingOptions$inboundSchema.optional(),
+      processedTagKey: z.string().optional(),
+      processedTagValue: z.string().optional(),
+    });
 /** @internal */
-export type InputS3InventorySendToRoutesTrueWithConnectionsConstraint$Outbound =
-  {
-    sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-    id?: string | undefined;
-    type: string;
-    disabled: boolean;
-    pipeline?: string | undefined;
-    environment?: string | undefined;
-    pqEnabled: boolean;
-    streamtags?: Array<string> | undefined;
-    pq?: PqType$Outbound | undefined;
-    queueName: string;
-    fileFilter: string;
-    awsAccountId?: string | undefined;
-    awsAuthenticationMethod: string;
-    awsSecretKey?: string | undefined;
-    region?: string | undefined;
-    endpoint?: string | undefined;
-    signatureVersion: string;
-    reuseConnections: boolean;
-    rejectUnauthorized: boolean;
-    breakerRulesets?: Array<string> | undefined;
-    staleChannelFlushMs: number;
-    maxMessages: number;
-    visibilityTimeout: number;
-    numReceivers: number;
-    socketTimeout: number;
-    skipOnError: boolean;
-    includeSqsMetadata: boolean;
-    enableAssumeRole: boolean;
-    assumeRoleArn?: string | undefined;
-    assumeRoleExternalId?: string | undefined;
-    durationSeconds: number;
-    enableSQSAssumeRole: boolean;
-    preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
-    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-    parquetChunkSizeMB: number;
-    parquetChunkDownloadTimeout: number;
-    checkpointing?: CheckpointingType$Outbound | undefined;
-    pollTimeout: number;
-    checksumSuffix: string;
-    maxManifestSizeKB: number;
-    validateInventoryFiles: boolean;
-    description?: string | undefined;
-    awsApiKey?: string | undefined;
-    awsSecret?: string | undefined;
-    tagAfterProcessing?: string | undefined;
-    processedTagKey?: string | undefined;
-    processedTagValue?: string | undefined;
-  };
+export type InputS3InventorySendToRoutesTrueConstraint$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  queueName: string;
+  fileFilter: string;
+  awsAccountId?: string | undefined;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  maxMessages: number;
+  visibilityTimeout: number;
+  numReceivers: number;
+  socketTimeout: number;
+  skipOnError: boolean;
+  includeSqsMetadata: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  enableSQSAssumeRole: boolean;
+  preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  parquetChunkSizeMB: number;
+  parquetChunkDownloadTimeout: number;
+  checkpointing?: CheckpointingType$Outbound | undefined;
+  pollTimeout: number;
+  checksumSuffix: string;
+  maxManifestSizeKB: number;
+  validateInventoryFiles: boolean;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  tagAfterProcessing?: string | undefined;
+  processedTagKey?: string | undefined;
+  processedTagValue?: string | undefined;
+};
 
 /** @internal */
-export const InputS3InventorySendToRoutesTrueWithConnectionsConstraint$outboundSchema:
+export const InputS3InventorySendToRoutesTrueConstraint$outboundSchema:
   z.ZodType<
-    InputS3InventorySendToRoutesTrueWithConnectionsConstraint$Outbound,
+    InputS3InventorySendToRoutesTrueConstraint$Outbound,
     z.ZodTypeDef,
-    InputS3InventorySendToRoutesTrueWithConnectionsConstraint
+    InputS3InventorySendToRoutesTrueConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
     id: z.string().optional(),
     type: InputS3InventoryType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1444,6 +1441,8 @@ export const InputS3InventorySendToRoutesTrueWithConnectionsConstraint$outboundS
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     pq: PqType$outboundSchema.optional(),
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
@@ -1486,27 +1485,29 @@ export const InputS3InventorySendToRoutesTrueWithConnectionsConstraint$outboundS
     processedTagValue: z.string().optional(),
   });
 
-export function inputS3InventorySendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputS3InventorySendToRoutesTrueWithConnectionsConstraint:
-    InputS3InventorySendToRoutesTrueWithConnectionsConstraint,
+export function inputS3InventorySendToRoutesTrueConstraintToJSON(
+  inputS3InventorySendToRoutesTrueConstraint:
+    InputS3InventorySendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputS3InventorySendToRoutesTrueWithConnectionsConstraint$outboundSchema
-      .parse(inputS3InventorySendToRoutesTrueWithConnectionsConstraint),
+    InputS3InventorySendToRoutesTrueConstraint$outboundSchema.parse(
+      inputS3InventorySendToRoutesTrueConstraint,
+    ),
   );
 }
-export function inputS3InventorySendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputS3InventorySendToRoutesTrueConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputS3InventorySendToRoutesTrueWithConnectionsConstraint,
+  InputS3InventorySendToRoutesTrueConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputS3InventorySendToRoutesTrueWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputS3InventorySendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputS3InventorySendToRoutesTrueConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputS3InventorySendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -1516,20 +1517,18 @@ export const InputS3Inventory$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() =>
-    InputS3InventorySendToRoutesTrueWithConnectionsConstraint$inboundSchema
-  ),
+  z.lazy(() => InputS3InventorySendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputS3InventorySendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputS3InventoryPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputS3InventoryPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputS3InventoryPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputS3Inventory$Outbound =
-  | InputS3InventorySendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputS3InventorySendToRoutesTrueConstraint$Outbound
   | InputS3InventorySendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputS3InventoryPqEnabledFalseWithPqConstraint$Outbound
+  | InputS3InventoryPqEnabledFalseConstraint$Outbound
   | InputS3InventoryPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1538,13 +1537,11 @@ export const InputS3Inventory$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputS3Inventory
 > = z.union([
-  z.lazy(() =>
-    InputS3InventorySendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputS3InventorySendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputS3InventorySendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() => InputS3InventoryPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputS3InventoryPqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputS3InventoryPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 

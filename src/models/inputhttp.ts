@@ -14,11 +14,11 @@ import {
   ItemsTypeAuthTokensExt$outboundSchema,
 } from "./itemstypeauthtokensext.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -74,7 +74,7 @@ export type InputHttpPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -156,12 +156,11 @@ export type InputHttpPqEnabledTrueWithPqConstraint = {
   description?: string | undefined;
 };
 
-export type InputHttpPqEnabledFalseWithPqConstraint = {
+export type InputHttpPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -187,7 +186,8 @@ export type InputHttpPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -277,7 +277,7 @@ export type InputHttpSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -382,15 +382,11 @@ export type InputHttpSendToRoutesFalseWithConnectionsConstraint = {
   description?: string | undefined;
 };
 
-export type InputHttpSendToRoutesTrueWithConnectionsConstraint = {
+export type InputHttpSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -413,6 +409,10 @@ export type InputHttpSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -496,9 +496,9 @@ export type InputHttpSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputHttp =
-  | InputHttpSendToRoutesTrueWithConnectionsConstraint
+  | InputHttpSendToRoutesTrueConstraint
   | InputHttpSendToRoutesFalseWithConnectionsConstraint
-  | InputHttpPqEnabledFalseWithPqConstraint
+  | InputHttpPqEnabledFalseConstraint
   | InputHttpPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -525,7 +525,7 @@ export const InputHttpPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
@@ -560,7 +560,7 @@ export type InputHttpPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   host: string;
   port: number;
   authTokens?: Array<string> | undefined;
@@ -600,7 +600,7 @@ export const InputHttpPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
@@ -647,13 +647,12 @@ export function inputHttpPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputHttpPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
-  InputHttpPqEnabledFalseWithPqConstraint,
+export const InputHttpPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputHttpPqEnabledFalseConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
   pqEnabled: z.boolean().default(false),
-  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputHttpType$inboundSchema,
   disabled: z.boolean().default(false),
@@ -661,7 +660,8 @@ export const InputHttpPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
@@ -686,9 +686,8 @@ export const InputHttpPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 /** @internal */
-export type InputHttpPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputHttpPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -696,7 +695,8 @@ export type InputHttpPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<string> | undefined;
@@ -722,13 +722,12 @@ export type InputHttpPqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputHttpPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
-  InputHttpPqEnabledFalseWithPqConstraint$Outbound,
+export const InputHttpPqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputHttpPqEnabledFalseConstraint$Outbound,
   z.ZodTypeDef,
-  InputHttpPqEnabledFalseWithPqConstraint
+  InputHttpPqEnabledFalseConstraint
 > = z.object({
   pqEnabled: z.boolean().default(false),
-  pq: PqType$outboundSchema.optional(),
   id: z.string().optional(),
   type: InputHttpType$outboundSchema,
   disabled: z.boolean().default(false),
@@ -736,7 +735,8 @@ export const InputHttpPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
@@ -761,29 +761,22 @@ export const InputHttpPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-export function inputHttpPqEnabledFalseWithPqConstraintToJSON(
-  inputHttpPqEnabledFalseWithPqConstraint:
-    InputHttpPqEnabledFalseWithPqConstraint,
+export function inputHttpPqEnabledFalseConstraintToJSON(
+  inputHttpPqEnabledFalseConstraint: InputHttpPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputHttpPqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputHttpPqEnabledFalseWithPqConstraint,
+    InputHttpPqEnabledFalseConstraint$outboundSchema.parse(
+      inputHttpPqEnabledFalseConstraint,
     ),
   );
 }
-export function inputHttpPqEnabledFalseWithPqConstraintFromJSON(
+export function inputHttpPqEnabledFalseConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<
-  InputHttpPqEnabledFalseWithPqConstraint,
-  SDKValidationError
-> {
+): SafeParseResult<InputHttpPqEnabledFalseConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      InputHttpPqEnabledFalseWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputHttpPqEnabledFalseWithPqConstraint' from JSON`,
+    (x) => InputHttpPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -795,7 +788,7 @@ export const InputHttpSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputHttpType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -830,7 +823,7 @@ export const InputHttpSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
 /** @internal */
 export type InputHttpSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -871,7 +864,8 @@ export const InputHttpSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
     InputHttpSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputHttpType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -931,49 +925,47 @@ export function inputHttpSendToRoutesFalseWithConnectionsConstraintFromJSON(
 }
 
 /** @internal */
-export const InputHttpSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputHttpSendToRoutesTrueWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputHttpType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number(),
-    authTokens: z.array(z.string()).optional(),
-    tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    activityLogSampleRate: z.number().default(100),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(5),
-    enableHealthCheck: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    criblAPI: z.string().default("/cribl"),
-    elasticAPI: z.string().default("/elastic"),
-    splunkHecAPI: z.string().default("/services/collector"),
-    splunkHecAcks: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    authTokensExt: z.array(ItemsTypeAuthTokensExt$inboundSchema).optional(),
-    description: z.string().optional(),
-  });
+export const InputHttpSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
+  InputHttpSendToRoutesTrueConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputHttpType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  criblAPI: z.string().default("/cribl"),
+  elasticAPI: z.string().default("/elastic"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  splunkHecAcks: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  authTokensExt: z.array(ItemsTypeAuthTokensExt$inboundSchema).optional(),
+  description: z.string().optional(),
+});
 /** @internal */
-export type InputHttpSendToRoutesTrueWithConnectionsConstraint$Outbound = {
+export type InputHttpSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -981,6 +973,7 @@ export type InputHttpSendToRoutesTrueWithConnectionsConstraint$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -1007,69 +1000,62 @@ export type InputHttpSendToRoutesTrueWithConnectionsConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputHttpSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputHttpSendToRoutesTrueWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputHttpSendToRoutesTrueWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputHttpType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number(),
-    authTokens: z.array(z.string()).optional(),
-    tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    activityLogSampleRate: z.number().default(100),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(5),
-    enableHealthCheck: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    criblAPI: z.string().default("/cribl"),
-    elasticAPI: z.string().default("/elastic"),
-    splunkHecAPI: z.string().default("/services/collector"),
-    splunkHecAcks: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    authTokensExt: z.array(ItemsTypeAuthTokensExt$outboundSchema).optional(),
-    description: z.string().optional(),
-  });
+export const InputHttpSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
+  InputHttpSendToRoutesTrueConstraint$Outbound,
+  z.ZodTypeDef,
+  InputHttpSendToRoutesTrueConstraint
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputHttpType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  criblAPI: z.string().default("/cribl"),
+  elasticAPI: z.string().default("/elastic"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  splunkHecAcks: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  authTokensExt: z.array(ItemsTypeAuthTokensExt$outboundSchema).optional(),
+  description: z.string().optional(),
+});
 
-export function inputHttpSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputHttpSendToRoutesTrueWithConnectionsConstraint:
-    InputHttpSendToRoutesTrueWithConnectionsConstraint,
+export function inputHttpSendToRoutesTrueConstraintToJSON(
+  inputHttpSendToRoutesTrueConstraint: InputHttpSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputHttpSendToRoutesTrueWithConnectionsConstraint$outboundSchema.parse(
-      inputHttpSendToRoutesTrueWithConnectionsConstraint,
+    InputHttpSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputHttpSendToRoutesTrueConstraint,
     ),
   );
 }
-export function inputHttpSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputHttpSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<
-  InputHttpSendToRoutesTrueWithConnectionsConstraint,
-  SDKValidationError
-> {
+): SafeParseResult<InputHttpSendToRoutesTrueConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      InputHttpSendToRoutesTrueWithConnectionsConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputHttpSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputHttpSendToRoutesTrueConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -1079,20 +1065,18 @@ export const InputHttp$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() =>
-    InputHttpSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-  ),
+  z.lazy(() => InputHttpSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputHttpSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputHttpPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputHttpPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputHttpPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputHttp$Outbound =
-  | InputHttpSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputHttpSendToRoutesTrueConstraint$Outbound
   | InputHttpSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputHttpPqEnabledFalseWithPqConstraint$Outbound
+  | InputHttpPqEnabledFalseConstraint$Outbound
   | InputHttpPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1101,13 +1085,11 @@ export const InputHttp$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputHttp
 > = z.union([
-  z.lazy(() =>
-    InputHttpSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputHttpSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputHttpSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() => InputHttpPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputHttpPqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputHttpPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 

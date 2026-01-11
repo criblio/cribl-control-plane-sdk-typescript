@@ -3,48 +3,48 @@
 
 ## Supported Types
 
-### `operations.InputTcpjsonSendToRoutesTrueWithConnectionsConstraint`
+### `operations.InputTcpjsonSendToRoutesTrueConstraint`
 
 ```typescript
-const value: operations.InputTcpjsonSendToRoutesTrueWithConnectionsConstraint =
-  {
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "tcpjson",
-    pipeline: "<value>",
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      pqControls: {},
+const value: operations.InputTcpjsonSendToRoutesTrueConstraint = {
+  id: "<id>",
+  type: "tcpjson",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
     },
-    port: 8871.16,
-    tls: {
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 6544.98,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "if yahoo oof why onto knottily shovel unto across",
-    textSecret: "<value>",
-  };
+  ],
+  description:
+    "monthly habit concrete keenly beneficial indeed drat beautifully husky hence",
+  textSecret: "<value>",
+};
 ```
 
 ### `operations.InputTcpjsonSendToRoutesFalseWithConnectionsConstraint`
@@ -92,19 +92,17 @@ const value: operations.InputTcpjsonSendToRoutesFalseWithConnectionsConstraint =
   };
 ```
 
-### `operations.InputTcpjsonPqEnabledFalseWithPqConstraint`
+### `operations.InputTcpjsonPqEnabledFalseConstraint`
 
 ```typescript
-const value: operations.InputTcpjsonPqEnabledFalseWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
+const value: operations.InputTcpjsonPqEnabledFalseConstraint = {
   id: "<id>",
   type: "tcpjson",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -112,7 +110,10 @@ const value: operations.InputTcpjsonPqEnabledFalseWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 1572.61,
+  pq: {
+    pqControls: {},
+  },
+  port: 6746.41,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -128,7 +129,7 @@ const value: operations.InputTcpjsonPqEnabledFalseWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "staid so vice engage joyfully puny whenever edge",
+  description: "boom disarm accredit worth psst beyond through cassava dredger",
   textSecret: "<value>",
 };
 ```

@@ -1,0 +1,19 @@
+# PqEnabledFalseConstraintMode
+
+Choose how to discover files to monitor
+
+## Example Usage
+
+```typescript
+import { PqEnabledFalseConstraintMode } from "cribl-control-plane/models/operations";
+
+let value: PqEnabledFalseConstraintMode = "manual";
+```
+
+## Values
+
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
+```typescript
+"manual" | "auto" | Unrecognized<string>
+```

@@ -9,11 +9,11 @@ import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -130,7 +130,7 @@ export type InputKinesisPqEnabledTrueWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Kinesis Data Stream to read data from
    */
@@ -224,12 +224,11 @@ export type InputKinesisPqEnabledTrueWithPqConstraint = {
   awsSecret?: string | undefined;
 };
 
-export type InputKinesisPqEnabledFalseWithPqConstraint = {
+export type InputKinesisPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -255,7 +254,8 @@ export type InputKinesisPqEnabledFalseWithPqConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Kinesis Data Stream to read data from
    */
@@ -357,7 +357,7 @@ export type InputKinesisSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   /**
    * Unique ID for this input
    */
@@ -474,15 +474,11 @@ export type InputKinesisSendToRoutesFalseWithConnectionsConstraint = {
   awsSecret?: string | undefined;
 };
 
-export type InputKinesisSendToRoutesTrueWithConnectionsConstraint = {
+export type InputKinesisSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   /**
    * Unique ID for this input
    */
@@ -505,6 +501,10 @@ export type InputKinesisSendToRoutesTrueWithConnectionsConstraint = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Kinesis Data Stream to read data from
@@ -600,9 +600,9 @@ export type InputKinesisSendToRoutesTrueWithConnectionsConstraint = {
 };
 
 export type InputKinesis =
-  | InputKinesisSendToRoutesTrueWithConnectionsConstraint
+  | InputKinesisSendToRoutesTrueConstraint
   | InputKinesisSendToRoutesFalseWithConnectionsConstraint
-  | InputKinesisPqEnabledFalseWithPqConstraint
+  | InputKinesisPqEnabledFalseConstraint
   | InputKinesisPqEnabledTrueWithPqConstraint;
 
 /** @internal */
@@ -668,7 +668,7 @@ export const InputKinesisPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   streamName: z.string(),
   serviceInterval: z.number().default(1),
   shardExpr: z.string().default("true"),
@@ -708,7 +708,7 @@ export type InputKinesisPqEnabledTrueWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   streamName: string;
   serviceInterval: number;
   shardExpr: string;
@@ -752,7 +752,8 @@ export const InputKinesisPqEnabledTrueWithPqConstraint$outboundSchema:
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     streamName: z.string(),
     serviceInterval: z.number().default(1),
     shardExpr: z.string().default("true"),
@@ -811,53 +812,52 @@ export function inputKinesisPqEnabledTrueWithPqConstraintFromJSON(
 }
 
 /** @internal */
-export const InputKinesisPqEnabledFalseWithPqConstraint$inboundSchema:
-  z.ZodType<InputKinesisPqEnabledFalseWithPqConstraint, z.ZodTypeDef, unknown> =
-    z.object({
-      pqEnabled: z.boolean().default(false),
-      pq: PqType$inboundSchema.optional(),
-      id: z.string().optional(),
-      type: InputKinesisType$inboundSchema,
-      disabled: z.boolean().default(false),
-      pipeline: z.string().optional(),
-      sendToRoutes: z.boolean().default(true),
-      environment: z.string().optional(),
-      streamtags: z.array(z.string()).optional(),
-      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-      streamName: z.string(),
-      serviceInterval: z.number().default(1),
-      shardExpr: z.string().default("true"),
-      shardIteratorType: ShardIteratorStart$inboundSchema.default(
-        "TRIM_HORIZON",
-      ),
-      payloadFormat: RecordDataFormat$inboundSchema.default("cribl"),
-      getRecordsLimit: z.number().default(5000),
-      getRecordsLimitTotal: z.number().default(20000),
-      loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.default(
-        "ConsistentHashing",
-      ),
-      awsAuthenticationMethod: z.string().default("auto"),
-      awsSecretKey: z.string().optional(),
-      region: z.string(),
-      endpoint: z.string().optional(),
-      signatureVersion: SignatureVersionOptions2$inboundSchema.default("v4"),
-      reuseConnections: z.boolean().default(true),
-      rejectUnauthorized: z.boolean().default(true),
-      enableAssumeRole: z.boolean().default(false),
-      assumeRoleArn: z.string().optional(),
-      assumeRoleExternalId: z.string().optional(),
-      durationSeconds: z.number().default(3600),
-      verifyKPLCheckSums: z.boolean().default(false),
-      avoidDuplicates: z.boolean().default(false),
-      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-      description: z.string().optional(),
-      awsApiKey: z.string().optional(),
-      awsSecret: z.string().optional(),
-    });
+export const InputKinesisPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputKinesisPqEnabledFalseConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputKinesisType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().default(1),
+  shardExpr: z.string().default("true"),
+  shardIteratorType: ShardIteratorStart$inboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat$inboundSchema.default("cribl"),
+  getRecordsLimit: z.number().default(5000),
+  getRecordsLimitTotal: z.number().default(20000),
+  loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.default(
+    "ConsistentHashing",
+  ),
+  awsAuthenticationMethod: z.string().default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions2$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  verifyKPLCheckSums: z.boolean().default(false),
+  avoidDuplicates: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
 /** @internal */
-export type InputKinesisPqEnabledFalseWithPqConstraint$Outbound = {
+export type InputKinesisPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -865,7 +865,8 @@ export type InputKinesisPqEnabledFalseWithPqConstraint$Outbound = {
   sendToRoutes: boolean;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   streamName: string;
   serviceInterval: number;
   shardExpr: string;
@@ -894,76 +895,67 @@ export type InputKinesisPqEnabledFalseWithPqConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputKinesisPqEnabledFalseWithPqConstraint$outboundSchema:
-  z.ZodType<
-    InputKinesisPqEnabledFalseWithPqConstraint$Outbound,
-    z.ZodTypeDef,
-    InputKinesisPqEnabledFalseWithPqConstraint
-  > = z.object({
-    pqEnabled: z.boolean().default(false),
-    pq: PqType$outboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputKinesisType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    streamName: z.string(),
-    serviceInterval: z.number().default(1),
-    shardExpr: z.string().default("true"),
-    shardIteratorType: ShardIteratorStart$outboundSchema.default(
-      "TRIM_HORIZON",
-    ),
-    payloadFormat: RecordDataFormat$outboundSchema.default("cribl"),
-    getRecordsLimit: z.number().default(5000),
-    getRecordsLimitTotal: z.number().default(20000),
-    loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.default(
-      "ConsistentHashing",
-    ),
-    awsAuthenticationMethod: z.string().default("auto"),
-    awsSecretKey: z.string().optional(),
-    region: z.string(),
-    endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptions2$outboundSchema.default("v4"),
-    reuseConnections: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
-    enableAssumeRole: z.boolean().default(false),
-    assumeRoleArn: z.string().optional(),
-    assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
-    verifyKPLCheckSums: z.boolean().default(false),
-    avoidDuplicates: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-    awsApiKey: z.string().optional(),
-    awsSecret: z.string().optional(),
-  });
+export const InputKinesisPqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputKinesisPqEnabledFalseConstraint$Outbound,
+  z.ZodTypeDef,
+  InputKinesisPqEnabledFalseConstraint
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputKinesisType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().default(1),
+  shardExpr: z.string().default("true"),
+  shardIteratorType: ShardIteratorStart$outboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat$outboundSchema.default("cribl"),
+  getRecordsLimit: z.number().default(5000),
+  getRecordsLimitTotal: z.number().default(20000),
+  loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.default(
+    "ConsistentHashing",
+  ),
+  awsAuthenticationMethod: z.string().default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions2$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  verifyKPLCheckSums: z.boolean().default(false),
+  avoidDuplicates: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
 
-export function inputKinesisPqEnabledFalseWithPqConstraintToJSON(
-  inputKinesisPqEnabledFalseWithPqConstraint:
-    InputKinesisPqEnabledFalseWithPqConstraint,
+export function inputKinesisPqEnabledFalseConstraintToJSON(
+  inputKinesisPqEnabledFalseConstraint: InputKinesisPqEnabledFalseConstraint,
 ): string {
   return JSON.stringify(
-    InputKinesisPqEnabledFalseWithPqConstraint$outboundSchema.parse(
-      inputKinesisPqEnabledFalseWithPqConstraint,
+    InputKinesisPqEnabledFalseConstraint$outboundSchema.parse(
+      inputKinesisPqEnabledFalseConstraint,
     ),
   );
 }
-export function inputKinesisPqEnabledFalseWithPqConstraintFromJSON(
+export function inputKinesisPqEnabledFalseConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<
-  InputKinesisPqEnabledFalseWithPqConstraint,
-  SDKValidationError
-> {
+): SafeParseResult<InputKinesisPqEnabledFalseConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      InputKinesisPqEnabledFalseWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputKinesisPqEnabledFalseWithPqConstraint' from JSON`,
+      InputKinesisPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKinesisPqEnabledFalseConstraint' from JSON`,
   );
 }
 
@@ -975,7 +967,7 @@ export const InputKinesisSendToRoutesFalseWithConnectionsConstraint$inboundSchem
     unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputKinesisType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -1015,7 +1007,7 @@ export const InputKinesisSendToRoutesFalseWithConnectionsConstraint$inboundSchem
 /** @internal */
 export type InputKinesisSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1059,7 +1051,8 @@ export const InputKinesisSendToRoutesFalseWithConnectionsConstraint$outboundSche
     InputKinesisSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
     id: z.string().optional(),
     type: InputKinesisType$outboundSchema,
     disabled: z.boolean().default(false),
@@ -1125,54 +1118,52 @@ export function inputKinesisSendToRoutesFalseWithConnectionsConstraintFromJSON(
 }
 
 /** @internal */
-export const InputKinesisSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputKinesisSendToRoutesTrueWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputKinesisType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    streamName: z.string(),
-    serviceInterval: z.number().default(1),
-    shardExpr: z.string().default("true"),
-    shardIteratorType: ShardIteratorStart$inboundSchema.default("TRIM_HORIZON"),
-    payloadFormat: RecordDataFormat$inboundSchema.default("cribl"),
-    getRecordsLimit: z.number().default(5000),
-    getRecordsLimitTotal: z.number().default(20000),
-    loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.default(
-      "ConsistentHashing",
-    ),
-    awsAuthenticationMethod: z.string().default("auto"),
-    awsSecretKey: z.string().optional(),
-    region: z.string(),
-    endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptions2$inboundSchema.default("v4"),
-    reuseConnections: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
-    enableAssumeRole: z.boolean().default(false),
-    assumeRoleArn: z.string().optional(),
-    assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
-    verifyKPLCheckSums: z.boolean().default(false),
-    avoidDuplicates: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    description: z.string().optional(),
-    awsApiKey: z.string().optional(),
-    awsSecret: z.string().optional(),
-  });
+export const InputKinesisSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
+  InputKinesisSendToRoutesTrueConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputKinesisType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().default(1),
+  shardExpr: z.string().default("true"),
+  shardIteratorType: ShardIteratorStart$inboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat$inboundSchema.default("cribl"),
+  getRecordsLimit: z.number().default(5000),
+  getRecordsLimitTotal: z.number().default(20000),
+  loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.default(
+    "ConsistentHashing",
+  ),
+  awsAuthenticationMethod: z.string().default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions2$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  verifyKPLCheckSums: z.boolean().default(false),
+  avoidDuplicates: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
 /** @internal */
-export type InputKinesisSendToRoutesTrueWithConnectionsConstraint$Outbound = {
+export type InputKinesisSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1180,6 +1171,7 @@ export type InputKinesisSendToRoutesTrueWithConnectionsConstraint$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   streamName: string;
   serviceInterval: number;
@@ -1209,76 +1201,68 @@ export type InputKinesisSendToRoutesTrueWithConnectionsConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputKinesisSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputKinesisSendToRoutesTrueWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputKinesisSendToRoutesTrueWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputKinesisType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    streamName: z.string(),
-    serviceInterval: z.number().default(1),
-    shardExpr: z.string().default("true"),
-    shardIteratorType: ShardIteratorStart$outboundSchema.default(
-      "TRIM_HORIZON",
-    ),
-    payloadFormat: RecordDataFormat$outboundSchema.default("cribl"),
-    getRecordsLimit: z.number().default(5000),
-    getRecordsLimitTotal: z.number().default(20000),
-    loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.default(
-      "ConsistentHashing",
-    ),
-    awsAuthenticationMethod: z.string().default("auto"),
-    awsSecretKey: z.string().optional(),
-    region: z.string(),
-    endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptions2$outboundSchema.default("v4"),
-    reuseConnections: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
-    enableAssumeRole: z.boolean().default(false),
-    assumeRoleArn: z.string().optional(),
-    assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
-    verifyKPLCheckSums: z.boolean().default(false),
-    avoidDuplicates: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-    awsApiKey: z.string().optional(),
-    awsSecret: z.string().optional(),
-  });
+export const InputKinesisSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
+  InputKinesisSendToRoutesTrueConstraint$Outbound,
+  z.ZodTypeDef,
+  InputKinesisSendToRoutesTrueConstraint
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputKinesisType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().default(1),
+  shardExpr: z.string().default("true"),
+  shardIteratorType: ShardIteratorStart$outboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat$outboundSchema.default("cribl"),
+  getRecordsLimit: z.number().default(5000),
+  getRecordsLimitTotal: z.number().default(20000),
+  loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.default(
+    "ConsistentHashing",
+  ),
+  awsAuthenticationMethod: z.string().default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions2$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  verifyKPLCheckSums: z.boolean().default(false),
+  avoidDuplicates: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
 
-export function inputKinesisSendToRoutesTrueWithConnectionsConstraintToJSON(
-  inputKinesisSendToRoutesTrueWithConnectionsConstraint:
-    InputKinesisSendToRoutesTrueWithConnectionsConstraint,
+export function inputKinesisSendToRoutesTrueConstraintToJSON(
+  inputKinesisSendToRoutesTrueConstraint:
+    InputKinesisSendToRoutesTrueConstraint,
 ): string {
   return JSON.stringify(
-    InputKinesisSendToRoutesTrueWithConnectionsConstraint$outboundSchema.parse(
-      inputKinesisSendToRoutesTrueWithConnectionsConstraint,
+    InputKinesisSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputKinesisSendToRoutesTrueConstraint,
     ),
   );
 }
-export function inputKinesisSendToRoutesTrueWithConnectionsConstraintFromJSON(
+export function inputKinesisSendToRoutesTrueConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<
-  InputKinesisSendToRoutesTrueWithConnectionsConstraint,
-  SDKValidationError
-> {
+): SafeParseResult<InputKinesisSendToRoutesTrueConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      InputKinesisSendToRoutesTrueWithConnectionsConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputKinesisSendToRoutesTrueWithConnectionsConstraint' from JSON`,
+      InputKinesisSendToRoutesTrueConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKinesisSendToRoutesTrueConstraint' from JSON`,
   );
 }
 
@@ -1288,20 +1272,18 @@ export const InputKinesis$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() =>
-    InputKinesisSendToRoutesTrueWithConnectionsConstraint$inboundSchema
-  ),
+  z.lazy(() => InputKinesisSendToRoutesTrueConstraint$inboundSchema),
   z.lazy(() =>
     InputKinesisSendToRoutesFalseWithConnectionsConstraint$inboundSchema
   ),
-  z.lazy(() => InputKinesisPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputKinesisPqEnabledFalseConstraint$inboundSchema),
   z.lazy(() => InputKinesisPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputKinesis$Outbound =
-  | InputKinesisSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputKinesisSendToRoutesTrueConstraint$Outbound
   | InputKinesisSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputKinesisPqEnabledFalseWithPqConstraint$Outbound
+  | InputKinesisPqEnabledFalseConstraint$Outbound
   | InputKinesisPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
@@ -1310,13 +1292,11 @@ export const InputKinesis$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputKinesis
 > = z.union([
-  z.lazy(() =>
-    InputKinesisSendToRoutesTrueWithConnectionsConstraint$outboundSchema
-  ),
+  z.lazy(() => InputKinesisSendToRoutesTrueConstraint$outboundSchema),
   z.lazy(() =>
     InputKinesisSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  z.lazy(() => InputKinesisPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputKinesisPqEnabledFalseConstraint$outboundSchema),
   z.lazy(() => InputKinesisPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 
