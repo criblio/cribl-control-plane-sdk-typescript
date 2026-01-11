@@ -1,11 +1,12 @@
 # InputWindowsMetrics
 
-## Example Usage
+
+## Supported Types
+
+### `operations.InputWindowsMetricsInputCollectionPart0Type`
 
 ```typescript
-import { InputWindowsMetrics } from "cribl-control-plane/models/operations";
-
-let value: InputWindowsMetrics = {
+const value: operations.InputWindowsMetricsInputCollectionPart0Type = {
   id: "<id>",
   type: "windows_metrics",
   pipeline: "<value>",
@@ -13,6 +14,7 @@ let value: InputWindowsMetrics = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -31,13 +33,11 @@ let value: InputWindowsMetrics = {
       network: {
         devices: [
           "<value 1>",
-          "<value 2>",
         ],
       },
       disk: {
         volumes: [
           "<value 1>",
-          "<value 2>",
         ],
       },
     },
@@ -57,28 +57,179 @@ let value: InputWindowsMetrics = {
     },
   ],
   persistence: {},
-  description: "furiously apropos nephew",
+  description:
+    "strait adjudge speedy dearly vicinity extroverted aside regulate",
 };
 ```
 
-## Fields
+### `operations.InputWindowsMetricsInputCollectionPart1Type`
 
-| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
-| `type`                                                                                                                                                                                                                                       | *"windows_metrics"*                                                                                                                                                                                                                          | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                               |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
-| `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
-| `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
-| `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnections](../../models/itemstypeconnections.md)[]                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
-| `pq`                                                                                                                                                                                                                                         | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `interval`                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Time, in seconds, between consecutive metric collections. Default is 10 seconds.                                                                                                                                                             |
-| `host`                                                                                                                                                                                                                                       | [operations.HostWindowsMetrics](../../models/operations/hostwindowsmetrics.md)                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `process`                                                                                                                                                                                                                                    | [models.ProcessType](../../models/processtype.md)                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../../models/itemstypenotificationmetadata.md)[]                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
-| `persistence`                                                                                                                                                                                                                                | [operations.PersistenceWindowsMetrics](../../models/operations/persistencewindowsmetrics.md)                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `disableNativeModule`                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)                                                                  |
-| `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+```typescript
+const value: operations.InputWindowsMetricsInputCollectionPart1Type = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  id: "<id>",
+  type: "windows_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  host: {
+    custom: {
+      system: {},
+      cpu: {},
+      memory: {},
+      network: {
+        devices: [
+          "<value 1>",
+        ],
+      },
+      disk: {
+        volumes: [
+          "<value 1>",
+        ],
+      },
+    },
+  },
+  process: {
+    sets: [
+      {
+        name: "<value>",
+        filter: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description: "although viciously typeface whenever vice",
+};
+```
+
+### `operations.InputWindowsMetricsInputCollectionPart0Type1`
+
+```typescript
+const value: operations.InputWindowsMetricsInputCollectionPart0Type1 = {
+  id: "<id>",
+  type: "windows_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  host: {
+    custom: {
+      system: {},
+      cpu: {},
+      memory: {},
+      network: {
+        devices: [
+          "<value 1>",
+        ],
+      },
+      disk: {
+        volumes: [
+          "<value 1>",
+        ],
+      },
+    },
+  },
+  process: {
+    sets: [
+      {
+        name: "<value>",
+        filter: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description: "wholly swear more newsprint past save what since consequently",
+};
+```
+
+### `operations.InputWindowsMetricsInputCollectionPart1Type1`
+
+```typescript
+const value: operations.InputWindowsMetricsInputCollectionPart1Type1 = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "windows_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  host: {
+    custom: {
+      system: {},
+      cpu: {},
+      memory: {},
+      network: {
+        devices: [
+          "<value 1>",
+        ],
+      },
+      disk: {
+        volumes: [
+          "<value 1>",
+        ],
+      },
+    },
+  },
+  process: {
+    sets: [
+      {
+        name: "<value>",
+        filter: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description: "oddly fondly though mmm at unless festival whether nor about",
+};
+```
+

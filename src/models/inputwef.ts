@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -36,6 +36,11 @@ import {
   PqType$Outbound,
   PqType$outboundSchema,
 } from "./pqtype.js";
+
+export const InputWefType = {
+  Wef: "wef",
+} as const;
+export type InputWefType = ClosedEnum<typeof InputWefType>;
 
 /**
  * How to authenticate incoming client connections
@@ -187,12 +192,17 @@ export type Subscription = {
   xmlQuery?: string | undefined;
 };
 
-export type InputWef = {
+export type InputWefInputCollectionPart1Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "wef";
+  type: InputWefType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -202,6 +212,337 @@ export type InputWef = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  /**
+   * How to authenticate incoming client connections
+   */
+  authMethod?: InputWefAuthenticationMethod | undefined;
+  tls?: MTLSSettings | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
+   */
+  caFingerprint?: string | undefined;
+  /**
+   * Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
+   */
+  keytab?: string | undefined;
+  /**
+   * Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
+   */
+  principal?: string | undefined;
+  /**
+   * Allow events to be ingested even if their MachineID does not match the client certificate CN
+   */
+  allowMachineIdMismatch?: boolean | undefined;
+  /**
+   * Subscriptions to events on forwarding endpoints
+   */
+  subscriptions: Array<Subscription>;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
+   */
+  logFingerprintMismatch?: boolean | undefined;
+};
+
+export type InputWefInputCollectionPart0Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputWefType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  /**
+   * How to authenticate incoming client connections
+   */
+  authMethod?: InputWefAuthenticationMethod | undefined;
+  tls?: MTLSSettings | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
+   */
+  caFingerprint?: string | undefined;
+  /**
+   * Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
+   */
+  keytab?: string | undefined;
+  /**
+   * Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
+   */
+  principal?: string | undefined;
+  /**
+   * Allow events to be ingested even if their MachineID does not match the client certificate CN
+   */
+  allowMachineIdMismatch?: boolean | undefined;
+  /**
+   * Subscriptions to events on forwarding endpoints
+   */
+  subscriptions: Array<Subscription>;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
+   */
+  logFingerprintMismatch?: boolean | undefined;
+};
+
+export type InputWefInputCollectionPart1Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputWefType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  /**
+   * How to authenticate incoming client connections
+   */
+  authMethod?: InputWefAuthenticationMethod | undefined;
+  tls?: MTLSSettings | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
+   */
+  caFingerprint?: string | undefined;
+  /**
+   * Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
+   */
+  keytab?: string | undefined;
+  /**
+   * Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
+   */
+  principal?: string | undefined;
+  /**
+   * Allow events to be ingested even if their MachineID does not match the client certificate CN
+   */
+  allowMachineIdMismatch?: boolean | undefined;
+  /**
+   * Subscriptions to events on forwarding endpoints
+   */
+  subscriptions: Array<Subscription>;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
+   */
+  logFingerprintMismatch?: boolean | undefined;
+};
+
+export type InputWefInputCollectionPart0Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputWefType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -298,6 +639,19 @@ export type InputWef = {
    */
   logFingerprintMismatch?: boolean | undefined;
 };
+
+export type InputWef =
+  | InputWefInputCollectionPart0Type
+  | InputWefInputCollectionPart1Type
+  | InputWefInputCollectionPart0Type1
+  | InputWefInputCollectionPart1Type1;
+
+/** @internal */
+export const InputWefType$inboundSchema: z.ZodNativeEnum<typeof InputWefType> =
+  z.nativeEnum(InputWefType);
+/** @internal */
+export const InputWefType$outboundSchema: z.ZodNativeEnum<typeof InputWefType> =
+  InputWefType$inboundSchema;
 
 /** @internal */
 export const InputWefAuthenticationMethod$inboundSchema: z.ZodType<
@@ -529,16 +883,409 @@ export function subscriptionFromJSON(
 }
 
 /** @internal */
-export const InputWef$inboundSchema: z.ZodType<
-  InputWef,
+export const InputWefInputCollectionPart1Type1$inboundSchema: z.ZodType<
+  InputWefInputCollectionPart1Type1,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
-  type: z.literal("wef"),
+  type: InputWefType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  authMethod: InputWefAuthenticationMethod$inboundSchema.default("clientCert"),
+  tls: z.lazy(() => MTLSSettings$inboundSchema).optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string().optional(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription$inboundSchema)),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
+/** @internal */
+export type InputWefInputCollectionPart1Type1$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  host: string;
+  port: number;
+  authMethod: string;
+  tls?: MTLSSettings$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  socketTimeout: number;
+  caFingerprint?: string | undefined;
+  keytab?: string | undefined;
+  principal?: string | undefined;
+  allowMachineIdMismatch: boolean;
+  subscriptions: Array<Subscription$Outbound>;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  logFingerprintMismatch: boolean;
+};
+
+/** @internal */
+export const InputWefInputCollectionPart1Type1$outboundSchema: z.ZodType<
+  InputWefInputCollectionPart1Type1$Outbound,
+  z.ZodTypeDef,
+  InputWefInputCollectionPart1Type1
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$outboundSchema.optional(),
+  id: z.string().optional(),
+  type: InputWefType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  authMethod: InputWefAuthenticationMethod$outboundSchema.default("clientCert"),
+  tls: z.lazy(() => MTLSSettings$outboundSchema).optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string().optional(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription$outboundSchema)),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
+
+export function inputWefInputCollectionPart1Type1ToJSON(
+  inputWefInputCollectionPart1Type1: InputWefInputCollectionPart1Type1,
+): string {
+  return JSON.stringify(
+    InputWefInputCollectionPart1Type1$outboundSchema.parse(
+      inputWefInputCollectionPart1Type1,
+    ),
+  );
+}
+export function inputWefInputCollectionPart1Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputWefInputCollectionPart1Type1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWefInputCollectionPart1Type1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefInputCollectionPart1Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefInputCollectionPart0Type1$inboundSchema: z.ZodType<
+  InputWefInputCollectionPart0Type1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputWefType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  authMethod: InputWefAuthenticationMethod$inboundSchema.default("clientCert"),
+  tls: z.lazy(() => MTLSSettings$inboundSchema).optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string().optional(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription$inboundSchema)),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
+/** @internal */
+export type InputWefInputCollectionPart0Type1$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authMethod: string;
+  tls?: MTLSSettings$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  socketTimeout: number;
+  caFingerprint?: string | undefined;
+  keytab?: string | undefined;
+  principal?: string | undefined;
+  allowMachineIdMismatch: boolean;
+  subscriptions: Array<Subscription$Outbound>;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  logFingerprintMismatch: boolean;
+};
+
+/** @internal */
+export const InputWefInputCollectionPart0Type1$outboundSchema: z.ZodType<
+  InputWefInputCollectionPart0Type1$Outbound,
+  z.ZodTypeDef,
+  InputWefInputCollectionPart0Type1
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputWefType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  authMethod: InputWefAuthenticationMethod$outboundSchema.default("clientCert"),
+  tls: z.lazy(() => MTLSSettings$outboundSchema).optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string().optional(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription$outboundSchema)),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
+
+export function inputWefInputCollectionPart0Type1ToJSON(
+  inputWefInputCollectionPart0Type1: InputWefInputCollectionPart0Type1,
+): string {
+  return JSON.stringify(
+    InputWefInputCollectionPart0Type1$outboundSchema.parse(
+      inputWefInputCollectionPart0Type1,
+    ),
+  );
+}
+export function inputWefInputCollectionPart0Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputWefInputCollectionPart0Type1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWefInputCollectionPart0Type1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefInputCollectionPart0Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefInputCollectionPart1Type$inboundSchema: z.ZodType<
+  InputWefInputCollectionPart1Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  id: z.string().optional(),
+  type: InputWefType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  authMethod: InputWefAuthenticationMethod$inboundSchema.default("clientCert"),
+  tls: z.lazy(() => MTLSSettings$inboundSchema).optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string().optional(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription$inboundSchema)),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
+/** @internal */
+export type InputWefInputCollectionPart1Type$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authMethod: string;
+  tls?: MTLSSettings$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  socketTimeout: number;
+  caFingerprint?: string | undefined;
+  keytab?: string | undefined;
+  principal?: string | undefined;
+  allowMachineIdMismatch: boolean;
+  subscriptions: Array<Subscription$Outbound>;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  logFingerprintMismatch: boolean;
+};
+
+/** @internal */
+export const InputWefInputCollectionPart1Type$outboundSchema: z.ZodType<
+  InputWefInputCollectionPart1Type$Outbound,
+  z.ZodTypeDef,
+  InputWefInputCollectionPart1Type
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  id: z.string().optional(),
+  type: InputWefType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  authMethod: InputWefAuthenticationMethod$outboundSchema.default("clientCert"),
+  tls: z.lazy(() => MTLSSettings$outboundSchema).optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string().optional(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription$outboundSchema)),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
+
+export function inputWefInputCollectionPart1TypeToJSON(
+  inputWefInputCollectionPart1Type: InputWefInputCollectionPart1Type,
+): string {
+  return JSON.stringify(
+    InputWefInputCollectionPart1Type$outboundSchema.parse(
+      inputWefInputCollectionPart1Type,
+    ),
+  );
+}
+export function inputWefInputCollectionPart1TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWefInputCollectionPart1Type, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWefInputCollectionPart1Type$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefInputCollectionPart1Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefInputCollectionPart0Type$inboundSchema: z.ZodType<
+  InputWefInputCollectionPart0Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputWefType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
@@ -567,12 +1314,12 @@ export const InputWef$inboundSchema: z.ZodType<
   logFingerprintMismatch: z.boolean().default(false),
 });
 /** @internal */
-export type InputWef$Outbound = {
+export type InputWefInputCollectionPart0Type$Outbound = {
+  sendToRoutes: boolean;
   id?: string | undefined;
-  type: "wef";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
@@ -602,16 +1349,16 @@ export type InputWef$Outbound = {
 };
 
 /** @internal */
-export const InputWef$outboundSchema: z.ZodType<
-  InputWef$Outbound,
+export const InputWefInputCollectionPart0Type$outboundSchema: z.ZodType<
+  InputWefInputCollectionPart0Type$Outbound,
   z.ZodTypeDef,
-  InputWef
+  InputWefInputCollectionPart0Type
 > = z.object({
+  sendToRoutes: z.boolean().default(true),
   id: z.string().optional(),
-  type: z.literal("wef"),
+  type: InputWefType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
@@ -639,6 +1386,55 @@ export const InputWef$outboundSchema: z.ZodType<
   description: z.string().optional(),
   logFingerprintMismatch: z.boolean().default(false),
 });
+
+export function inputWefInputCollectionPart0TypeToJSON(
+  inputWefInputCollectionPart0Type: InputWefInputCollectionPart0Type,
+): string {
+  return JSON.stringify(
+    InputWefInputCollectionPart0Type$outboundSchema.parse(
+      inputWefInputCollectionPart0Type,
+    ),
+  );
+}
+export function inputWefInputCollectionPart0TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWefInputCollectionPart0Type, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWefInputCollectionPart0Type$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefInputCollectionPart0Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWef$inboundSchema: z.ZodType<
+  InputWef,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputWefInputCollectionPart0Type$inboundSchema),
+  z.lazy(() => InputWefInputCollectionPart1Type$inboundSchema),
+  z.lazy(() => InputWefInputCollectionPart0Type1$inboundSchema),
+  z.lazy(() => InputWefInputCollectionPart1Type1$inboundSchema),
+]);
+/** @internal */
+export type InputWef$Outbound =
+  | InputWefInputCollectionPart0Type$Outbound
+  | InputWefInputCollectionPart1Type$Outbound
+  | InputWefInputCollectionPart0Type1$Outbound
+  | InputWefInputCollectionPart1Type1$Outbound;
+
+/** @internal */
+export const InputWef$outboundSchema: z.ZodType<
+  InputWef$Outbound,
+  z.ZodTypeDef,
+  InputWef
+> = z.union([
+  z.lazy(() => InputWefInputCollectionPart0Type$outboundSchema),
+  z.lazy(() => InputWefInputCollectionPart1Type$outboundSchema),
+  z.lazy(() => InputWefInputCollectionPart0Type1$outboundSchema),
+  z.lazy(() => InputWefInputCollectionPart1Type1$outboundSchema),
+]);
 
 export function inputWefToJSON(inputWef: InputWef): string {
   return JSON.stringify(InputWef$outboundSchema.parse(inputWef));

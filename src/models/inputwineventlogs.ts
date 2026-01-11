@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -26,6 +26,11 @@ import {
   PqType$Outbound,
   PqType$outboundSchema,
 } from "./pqtype.js";
+
+export const InputWinEventLogsType = {
+  WinEventLogs: "win_event_logs",
+} as const;
+export type InputWinEventLogsType = ClosedEnum<typeof InputWinEventLogsType>;
 
 /**
  * Read all stored and future event logs, or only future events
@@ -63,12 +68,17 @@ export const EventFormat = {
  */
 export type EventFormat = OpenEnum<typeof EventFormat>;
 
-export type InputWinEventLogs = {
+export type InputWinEventLogsInputCollectionPart1Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "win_event_logs";
+  type: InputWinEventLogsType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -78,6 +88,226 @@ export type InputWinEventLogs = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
+   */
+  logNames: Array<string>;
+  /**
+   * Read all stored and future event logs, or only future events
+   */
+  readMode?: ReadMode | undefined;
+  /**
+   * Format of individual events
+   */
+  eventFormat?: EventFormat | undefined;
+  /**
+   * Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
+   */
+  disableNativeModule?: boolean | undefined;
+  /**
+   * Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
+   */
+  batchSize?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * The maximum number of bytes in an event before it is flushed to the pipelines
+   */
+  maxEventBytes?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+   */
+  disableJsonRendering?: boolean | undefined;
+  /**
+   * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+   */
+  disableXmlRendering?: boolean | undefined;
+};
+
+export type InputWinEventLogsInputCollectionPart0Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputWinEventLogsType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
+   */
+  logNames: Array<string>;
+  /**
+   * Read all stored and future event logs, or only future events
+   */
+  readMode?: ReadMode | undefined;
+  /**
+   * Format of individual events
+   */
+  eventFormat?: EventFormat | undefined;
+  /**
+   * Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
+   */
+  disableNativeModule?: boolean | undefined;
+  /**
+   * Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
+   */
+  batchSize?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * The maximum number of bytes in an event before it is flushed to the pipelines
+   */
+  maxEventBytes?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+   */
+  disableJsonRendering?: boolean | undefined;
+  /**
+   * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+   */
+  disableXmlRendering?: boolean | undefined;
+};
+
+export type InputWinEventLogsInputCollectionPart1Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputWinEventLogsType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
+   */
+  logNames: Array<string>;
+  /**
+   * Read all stored and future event logs, or only future events
+   */
+  readMode?: ReadMode | undefined;
+  /**
+   * Format of individual events
+   */
+  eventFormat?: EventFormat | undefined;
+  /**
+   * Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
+   */
+  disableNativeModule?: boolean | undefined;
+  /**
+   * Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
+   */
+  batchSize?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * The maximum number of bytes in an event before it is flushed to the pipelines
+   */
+  maxEventBytes?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+   */
+  disableJsonRendering?: boolean | undefined;
+  /**
+   * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+   */
+  disableXmlRendering?: boolean | undefined;
+};
+
+export type InputWinEventLogsInputCollectionPart0Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputWinEventLogsType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -138,6 +368,21 @@ export type InputWinEventLogs = {
   disableXmlRendering?: boolean | undefined;
 };
 
+export type InputWinEventLogs =
+  | InputWinEventLogsInputCollectionPart0Type
+  | InputWinEventLogsInputCollectionPart1Type
+  | InputWinEventLogsInputCollectionPart0Type1
+  | InputWinEventLogsInputCollectionPart1Type1;
+
+/** @internal */
+export const InputWinEventLogsType$inboundSchema: z.ZodNativeEnum<
+  typeof InputWinEventLogsType
+> = z.nativeEnum(InputWinEventLogsType);
+/** @internal */
+export const InputWinEventLogsType$outboundSchema: z.ZodNativeEnum<
+  typeof InputWinEventLogsType
+> = InputWinEventLogsType$inboundSchema;
+
 /** @internal */
 export const ReadMode$inboundSchema: z.ZodType<
   ReadMode,
@@ -165,16 +410,339 @@ export const EventFormat$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(EventFormat);
 
 /** @internal */
-export const InputWinEventLogs$inboundSchema: z.ZodType<
-  InputWinEventLogs,
+export const InputWinEventLogsInputCollectionPart1Type1$inboundSchema:
+  z.ZodType<InputWinEventLogsInputCollectionPart1Type1, z.ZodTypeDef, unknown> =
+    z.object({
+      pqEnabled: z.boolean().default(false),
+      pq: PqType$inboundSchema.optional(),
+      id: z.string().optional(),
+      type: InputWinEventLogsType$inboundSchema,
+      disabled: z.boolean().default(false),
+      pipeline: z.string().optional(),
+      sendToRoutes: z.boolean().default(true),
+      environment: z.string().optional(),
+      streamtags: z.array(z.string()).optional(),
+      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+      logNames: z.array(z.string()),
+      readMode: ReadMode$inboundSchema.default("newest"),
+      eventFormat: EventFormat$inboundSchema.default("json"),
+      disableNativeModule: z.boolean().default(false),
+      interval: z.number().default(10),
+      batchSize: z.number().default(500),
+      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+      maxEventBytes: z.number().default(51200),
+      description: z.string().optional(),
+      disableJsonRendering: z.boolean().default(false),
+      disableXmlRendering: z.boolean().default(true),
+    });
+/** @internal */
+export type InputWinEventLogsInputCollectionPart1Type1$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  logNames: Array<string>;
+  readMode: string;
+  eventFormat: string;
+  disableNativeModule: boolean;
+  interval: number;
+  batchSize: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  maxEventBytes: number;
+  description?: string | undefined;
+  disableJsonRendering: boolean;
+  disableXmlRendering: boolean;
+};
+
+/** @internal */
+export const InputWinEventLogsInputCollectionPart1Type1$outboundSchema:
+  z.ZodType<
+    InputWinEventLogsInputCollectionPart1Type1$Outbound,
+    z.ZodTypeDef,
+    InputWinEventLogsInputCollectionPart1Type1
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputWinEventLogsType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    logNames: z.array(z.string()),
+    readMode: ReadMode$outboundSchema.default("newest"),
+    eventFormat: EventFormat$outboundSchema.default("json"),
+    disableNativeModule: z.boolean().default(false),
+    interval: z.number().default(10),
+    batchSize: z.number().default(500),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    maxEventBytes: z.number().default(51200),
+    description: z.string().optional(),
+    disableJsonRendering: z.boolean().default(false),
+    disableXmlRendering: z.boolean().default(true),
+  });
+
+export function inputWinEventLogsInputCollectionPart1Type1ToJSON(
+  inputWinEventLogsInputCollectionPart1Type1:
+    InputWinEventLogsInputCollectionPart1Type1,
+): string {
+  return JSON.stringify(
+    InputWinEventLogsInputCollectionPart1Type1$outboundSchema.parse(
+      inputWinEventLogsInputCollectionPart1Type1,
+    ),
+  );
+}
+export function inputWinEventLogsInputCollectionPart1Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputWinEventLogsInputCollectionPart1Type1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputWinEventLogsInputCollectionPart1Type1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputWinEventLogsInputCollectionPart1Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWinEventLogsInputCollectionPart0Type1$inboundSchema:
+  z.ZodType<InputWinEventLogsInputCollectionPart0Type1, z.ZodTypeDef, unknown> =
+    z.object({
+      pqEnabled: z.boolean().default(false),
+      id: z.string().optional(),
+      type: InputWinEventLogsType$inboundSchema,
+      disabled: z.boolean().default(false),
+      pipeline: z.string().optional(),
+      sendToRoutes: z.boolean().default(true),
+      environment: z.string().optional(),
+      streamtags: z.array(z.string()).optional(),
+      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+      pq: PqType$inboundSchema.optional(),
+      logNames: z.array(z.string()),
+      readMode: ReadMode$inboundSchema.default("newest"),
+      eventFormat: EventFormat$inboundSchema.default("json"),
+      disableNativeModule: z.boolean().default(false),
+      interval: z.number().default(10),
+      batchSize: z.number().default(500),
+      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+      maxEventBytes: z.number().default(51200),
+      description: z.string().optional(),
+      disableJsonRendering: z.boolean().default(false),
+      disableXmlRendering: z.boolean().default(true),
+    });
+/** @internal */
+export type InputWinEventLogsInputCollectionPart0Type1$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  logNames: Array<string>;
+  readMode: string;
+  eventFormat: string;
+  disableNativeModule: boolean;
+  interval: number;
+  batchSize: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  maxEventBytes: number;
+  description?: string | undefined;
+  disableJsonRendering: boolean;
+  disableXmlRendering: boolean;
+};
+
+/** @internal */
+export const InputWinEventLogsInputCollectionPart0Type1$outboundSchema:
+  z.ZodType<
+    InputWinEventLogsInputCollectionPart0Type1$Outbound,
+    z.ZodTypeDef,
+    InputWinEventLogsInputCollectionPart0Type1
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputWinEventLogsType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    logNames: z.array(z.string()),
+    readMode: ReadMode$outboundSchema.default("newest"),
+    eventFormat: EventFormat$outboundSchema.default("json"),
+    disableNativeModule: z.boolean().default(false),
+    interval: z.number().default(10),
+    batchSize: z.number().default(500),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    maxEventBytes: z.number().default(51200),
+    description: z.string().optional(),
+    disableJsonRendering: z.boolean().default(false),
+    disableXmlRendering: z.boolean().default(true),
+  });
+
+export function inputWinEventLogsInputCollectionPart0Type1ToJSON(
+  inputWinEventLogsInputCollectionPart0Type1:
+    InputWinEventLogsInputCollectionPart0Type1,
+): string {
+  return JSON.stringify(
+    InputWinEventLogsInputCollectionPart0Type1$outboundSchema.parse(
+      inputWinEventLogsInputCollectionPart0Type1,
+    ),
+  );
+}
+export function inputWinEventLogsInputCollectionPart0Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputWinEventLogsInputCollectionPart0Type1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputWinEventLogsInputCollectionPart0Type1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputWinEventLogsInputCollectionPart0Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWinEventLogsInputCollectionPart1Type$inboundSchema: z.ZodType<
+  InputWinEventLogsInputCollectionPart1Type,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
   id: z.string().optional(),
-  type: z.literal("win_event_logs"),
+  type: InputWinEventLogsType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$inboundSchema.optional(),
+  logNames: z.array(z.string()),
+  readMode: ReadMode$inboundSchema.default("newest"),
+  eventFormat: EventFormat$inboundSchema.default("json"),
+  disableNativeModule: z.boolean().default(false),
+  interval: z.number().default(10),
+  batchSize: z.number().default(500),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  maxEventBytes: z.number().default(51200),
+  description: z.string().optional(),
+  disableJsonRendering: z.boolean().default(false),
+  disableXmlRendering: z.boolean().default(true),
+});
+/** @internal */
+export type InputWinEventLogsInputCollectionPart1Type$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  logNames: Array<string>;
+  readMode: string;
+  eventFormat: string;
+  disableNativeModule: boolean;
+  interval: number;
+  batchSize: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  maxEventBytes: number;
+  description?: string | undefined;
+  disableJsonRendering: boolean;
+  disableXmlRendering: boolean;
+};
+
+/** @internal */
+export const InputWinEventLogsInputCollectionPart1Type$outboundSchema:
+  z.ZodType<
+    InputWinEventLogsInputCollectionPart1Type$Outbound,
+    z.ZodTypeDef,
+    InputWinEventLogsInputCollectionPart1Type
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputWinEventLogsType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    logNames: z.array(z.string()),
+    readMode: ReadMode$outboundSchema.default("newest"),
+    eventFormat: EventFormat$outboundSchema.default("json"),
+    disableNativeModule: z.boolean().default(false),
+    interval: z.number().default(10),
+    batchSize: z.number().default(500),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    maxEventBytes: z.number().default(51200),
+    description: z.string().optional(),
+    disableJsonRendering: z.boolean().default(false),
+    disableXmlRendering: z.boolean().default(true),
+  });
+
+export function inputWinEventLogsInputCollectionPart1TypeToJSON(
+  inputWinEventLogsInputCollectionPart1Type:
+    InputWinEventLogsInputCollectionPart1Type,
+): string {
+  return JSON.stringify(
+    InputWinEventLogsInputCollectionPart1Type$outboundSchema.parse(
+      inputWinEventLogsInputCollectionPart1Type,
+    ),
+  );
+}
+export function inputWinEventLogsInputCollectionPart1TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputWinEventLogsInputCollectionPart1Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputWinEventLogsInputCollectionPart1Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputWinEventLogsInputCollectionPart1Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWinEventLogsInputCollectionPart0Type$inboundSchema: z.ZodType<
+  InputWinEventLogsInputCollectionPart0Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
   sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputWinEventLogsType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
@@ -193,12 +761,12 @@ export const InputWinEventLogs$inboundSchema: z.ZodType<
   disableXmlRendering: z.boolean().default(true),
 });
 /** @internal */
-export type InputWinEventLogs$Outbound = {
+export type InputWinEventLogsInputCollectionPart0Type$Outbound = {
+  sendToRoutes: boolean;
   id?: string | undefined;
-  type: "win_event_logs";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
@@ -218,33 +786,90 @@ export type InputWinEventLogs$Outbound = {
 };
 
 /** @internal */
+export const InputWinEventLogsInputCollectionPart0Type$outboundSchema:
+  z.ZodType<
+    InputWinEventLogsInputCollectionPart0Type$Outbound,
+    z.ZodTypeDef,
+    InputWinEventLogsInputCollectionPart0Type
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputWinEventLogsType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    logNames: z.array(z.string()),
+    readMode: ReadMode$outboundSchema.default("newest"),
+    eventFormat: EventFormat$outboundSchema.default("json"),
+    disableNativeModule: z.boolean().default(false),
+    interval: z.number().default(10),
+    batchSize: z.number().default(500),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    maxEventBytes: z.number().default(51200),
+    description: z.string().optional(),
+    disableJsonRendering: z.boolean().default(false),
+    disableXmlRendering: z.boolean().default(true),
+  });
+
+export function inputWinEventLogsInputCollectionPart0TypeToJSON(
+  inputWinEventLogsInputCollectionPart0Type:
+    InputWinEventLogsInputCollectionPart0Type,
+): string {
+  return JSON.stringify(
+    InputWinEventLogsInputCollectionPart0Type$outboundSchema.parse(
+      inputWinEventLogsInputCollectionPart0Type,
+    ),
+  );
+}
+export function inputWinEventLogsInputCollectionPart0TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputWinEventLogsInputCollectionPart0Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputWinEventLogsInputCollectionPart0Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputWinEventLogsInputCollectionPart0Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWinEventLogs$inboundSchema: z.ZodType<
+  InputWinEventLogs,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputWinEventLogsInputCollectionPart0Type$inboundSchema),
+  z.lazy(() => InputWinEventLogsInputCollectionPart1Type$inboundSchema),
+  z.lazy(() => InputWinEventLogsInputCollectionPart0Type1$inboundSchema),
+  z.lazy(() => InputWinEventLogsInputCollectionPart1Type1$inboundSchema),
+]);
+/** @internal */
+export type InputWinEventLogs$Outbound =
+  | InputWinEventLogsInputCollectionPart0Type$Outbound
+  | InputWinEventLogsInputCollectionPart1Type$Outbound
+  | InputWinEventLogsInputCollectionPart0Type1$Outbound
+  | InputWinEventLogsInputCollectionPart1Type1$Outbound;
+
+/** @internal */
 export const InputWinEventLogs$outboundSchema: z.ZodType<
   InputWinEventLogs$Outbound,
   z.ZodTypeDef,
   InputWinEventLogs
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("win_event_logs"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  logNames: z.array(z.string()),
-  readMode: ReadMode$outboundSchema.default("newest"),
-  eventFormat: EventFormat$outboundSchema.default("json"),
-  disableNativeModule: z.boolean().default(false),
-  interval: z.number().default(10),
-  batchSize: z.number().default(500),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  maxEventBytes: z.number().default(51200),
-  description: z.string().optional(),
-  disableJsonRendering: z.boolean().default(false),
-  disableXmlRendering: z.boolean().default(true),
-});
+> = z.union([
+  z.lazy(() => InputWinEventLogsInputCollectionPart0Type$outboundSchema),
+  z.lazy(() => InputWinEventLogsInputCollectionPart1Type$outboundSchema),
+  z.lazy(() => InputWinEventLogsInputCollectionPart0Type1$outboundSchema),
+  z.lazy(() => InputWinEventLogsInputCollectionPart1Type1$outboundSchema),
+]);
 
 export function inputWinEventLogsToJSON(
   inputWinEventLogs: InputWinEventLogs,

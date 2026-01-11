@@ -17,6 +17,7 @@ let value: AzureTypeHeartbeatMetadata = {
     "key": "<value>",
   },
   type: "<value>",
+  vmId: "<id>",
   zone: "<value>",
 };
 ```
@@ -34,4 +35,5 @@ let value: AzureTypeHeartbeatMetadata = {
 | `subscriptionId`         | *string*                 | :heavy_minus_sign:       | N/A                      |
 | `tags`                   | Record<string, *string*> | :heavy_minus_sign:       | N/A                      |
 | `type`                   | *string*                 | :heavy_minus_sign:       | N/A                      |
+| `vmId`                   | *string*                 | :heavy_minus_sign:       | N/A                      |
 | `zone`                   | *string*                 | :heavy_minus_sign:       | N/A                      |

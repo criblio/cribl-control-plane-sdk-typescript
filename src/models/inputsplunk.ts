@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -32,6 +32,11 @@ import {
   TlsSettingsServerSideType$Outbound,
   TlsSettingsServerSideType$outboundSchema,
 } from "./tlssettingsserversidetype.js";
+
+export const InputSplunkType = {
+  Splunk: "splunk",
+} as const;
+export type InputSplunkType = ClosedEnum<typeof InputSplunkType>;
 
 export type InputSplunkAuthToken = {
   /**
@@ -81,12 +86,17 @@ export const InputSplunkCompression = {
  */
 export type InputSplunkCompression = OpenEnum<typeof InputSplunkCompression>;
 
-export type InputSplunk = {
+export type InputSplunkInputCollectionPart1Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "splunk";
+  type: InputSplunkType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -96,6 +106,313 @@ export type InputSplunk = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to establish a connection
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<InputSplunkAuthToken> | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SVersion | undefined;
+  description?: string | undefined;
+  /**
+   * Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
+   */
+  useFwdTimezone?: boolean | undefined;
+  /**
+   * Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
+   */
+  dropControlFields?: boolean | undefined;
+  /**
+   * Extract and process Splunk-generated metrics as Cribl metrics
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: InputSplunkCompression | undefined;
+};
+
+export type InputSplunkInputCollectionPart0Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSplunkType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to establish a connection
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<InputSplunkAuthToken> | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SVersion | undefined;
+  description?: string | undefined;
+  /**
+   * Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
+   */
+  useFwdTimezone?: boolean | undefined;
+  /**
+   * Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
+   */
+  dropControlFields?: boolean | undefined;
+  /**
+   * Extract and process Splunk-generated metrics as Cribl metrics
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: InputSplunkCompression | undefined;
+};
+
+export type InputSplunkInputCollectionPart1Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSplunkType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to establish a connection
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<InputSplunkAuthToken> | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SVersion | undefined;
+  description?: string | undefined;
+  /**
+   * Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
+   */
+  useFwdTimezone?: boolean | undefined;
+  /**
+   * Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
+   */
+  dropControlFields?: boolean | undefined;
+  /**
+   * Extract and process Splunk-generated metrics as Cribl metrics
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: InputSplunkCompression | undefined;
+};
+
+export type InputSplunkInputCollectionPart0Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSplunkType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -185,6 +502,21 @@ export type InputSplunk = {
   compress?: InputSplunkCompression | undefined;
 };
 
+export type InputSplunk =
+  | InputSplunkInputCollectionPart0Type
+  | InputSplunkInputCollectionPart1Type
+  | InputSplunkInputCollectionPart0Type1
+  | InputSplunkInputCollectionPart1Type1;
+
+/** @internal */
+export const InputSplunkType$inboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkType
+> = z.nativeEnum(InputSplunkType);
+/** @internal */
+export const InputSplunkType$outboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkType
+> = InputSplunkType$inboundSchema;
+
 /** @internal */
 export const InputSplunkAuthToken$inboundSchema: z.ZodType<
   InputSplunkAuthToken,
@@ -254,16 +586,400 @@ export const InputSplunkCompression$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(InputSplunkCompression);
 
 /** @internal */
-export const InputSplunk$inboundSchema: z.ZodType<
-  InputSplunk,
+export const InputSplunkInputCollectionPart1Type1$inboundSchema: z.ZodType<
+  InputSplunkInputCollectionPart1Type1,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
-  type: z.literal("splunk"),
+  type: InputSplunkType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  authTokens: z.array(z.lazy(() => InputSplunkAuthToken$inboundSchema))
+    .optional(),
+  maxS2Sversion: MaxS2SVersion$inboundSchema.default("v3"),
+  description: z.string().optional(),
+  useFwdTimezone: z.boolean().default(true),
+  dropControlFields: z.boolean().default(true),
+  extractMetrics: z.boolean().default(false),
+  compress: InputSplunkCompression$inboundSchema.default("disabled"),
+});
+/** @internal */
+export type InputSplunkInputCollectionPart1Type1$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  host: string;
+  port: number;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  ipWhitelistRegex: string;
+  maxActiveCxn: number;
+  socketIdleTimeout: number;
+  socketEndingMaxWait: number;
+  socketMaxLifespan: number;
+  enableProxyHeader: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  authTokens?: Array<InputSplunkAuthToken$Outbound> | undefined;
+  maxS2Sversion: string;
+  description?: string | undefined;
+  useFwdTimezone: boolean;
+  dropControlFields: boolean;
+  extractMetrics: boolean;
+  compress: string;
+};
+
+/** @internal */
+export const InputSplunkInputCollectionPart1Type1$outboundSchema: z.ZodType<
+  InputSplunkInputCollectionPart1Type1$Outbound,
+  z.ZodTypeDef,
+  InputSplunkInputCollectionPart1Type1
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$outboundSchema.optional(),
+  id: z.string().optional(),
+  type: InputSplunkType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  authTokens: z.array(z.lazy(() => InputSplunkAuthToken$outboundSchema))
+    .optional(),
+  maxS2Sversion: MaxS2SVersion$outboundSchema.default("v3"),
+  description: z.string().optional(),
+  useFwdTimezone: z.boolean().default(true),
+  dropControlFields: z.boolean().default(true),
+  extractMetrics: z.boolean().default(false),
+  compress: InputSplunkCompression$outboundSchema.default("disabled"),
+});
+
+export function inputSplunkInputCollectionPart1Type1ToJSON(
+  inputSplunkInputCollectionPart1Type1: InputSplunkInputCollectionPart1Type1,
+): string {
+  return JSON.stringify(
+    InputSplunkInputCollectionPart1Type1$outboundSchema.parse(
+      inputSplunkInputCollectionPart1Type1,
+    ),
+  );
+}
+export function inputSplunkInputCollectionPart1Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkInputCollectionPart1Type1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputSplunkInputCollectionPart1Type1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkInputCollectionPart1Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkInputCollectionPart0Type1$inboundSchema: z.ZodType<
+  InputSplunkInputCollectionPart0Type1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSplunkType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  authTokens: z.array(z.lazy(() => InputSplunkAuthToken$inboundSchema))
+    .optional(),
+  maxS2Sversion: MaxS2SVersion$inboundSchema.default("v3"),
+  description: z.string().optional(),
+  useFwdTimezone: z.boolean().default(true),
+  dropControlFields: z.boolean().default(true),
+  extractMetrics: z.boolean().default(false),
+  compress: InputSplunkCompression$inboundSchema.default("disabled"),
+});
+/** @internal */
+export type InputSplunkInputCollectionPart0Type1$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  ipWhitelistRegex: string;
+  maxActiveCxn: number;
+  socketIdleTimeout: number;
+  socketEndingMaxWait: number;
+  socketMaxLifespan: number;
+  enableProxyHeader: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  authTokens?: Array<InputSplunkAuthToken$Outbound> | undefined;
+  maxS2Sversion: string;
+  description?: string | undefined;
+  useFwdTimezone: boolean;
+  dropControlFields: boolean;
+  extractMetrics: boolean;
+  compress: string;
+};
+
+/** @internal */
+export const InputSplunkInputCollectionPart0Type1$outboundSchema: z.ZodType<
+  InputSplunkInputCollectionPart0Type1$Outbound,
+  z.ZodTypeDef,
+  InputSplunkInputCollectionPart0Type1
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSplunkType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  authTokens: z.array(z.lazy(() => InputSplunkAuthToken$outboundSchema))
+    .optional(),
+  maxS2Sversion: MaxS2SVersion$outboundSchema.default("v3"),
+  description: z.string().optional(),
+  useFwdTimezone: z.boolean().default(true),
+  dropControlFields: z.boolean().default(true),
+  extractMetrics: z.boolean().default(false),
+  compress: InputSplunkCompression$outboundSchema.default("disabled"),
+});
+
+export function inputSplunkInputCollectionPart0Type1ToJSON(
+  inputSplunkInputCollectionPart0Type1: InputSplunkInputCollectionPart0Type1,
+): string {
+  return JSON.stringify(
+    InputSplunkInputCollectionPart0Type1$outboundSchema.parse(
+      inputSplunkInputCollectionPart0Type1,
+    ),
+  );
+}
+export function inputSplunkInputCollectionPart0Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkInputCollectionPart0Type1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputSplunkInputCollectionPart0Type1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkInputCollectionPart0Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkInputCollectionPart1Type$inboundSchema: z.ZodType<
+  InputSplunkInputCollectionPart1Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  id: z.string().optional(),
+  type: InputSplunkType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  authTokens: z.array(z.lazy(() => InputSplunkAuthToken$inboundSchema))
+    .optional(),
+  maxS2Sversion: MaxS2SVersion$inboundSchema.default("v3"),
+  description: z.string().optional(),
+  useFwdTimezone: z.boolean().default(true),
+  dropControlFields: z.boolean().default(true),
+  extractMetrics: z.boolean().default(false),
+  compress: InputSplunkCompression$inboundSchema.default("disabled"),
+});
+/** @internal */
+export type InputSplunkInputCollectionPart1Type$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  ipWhitelistRegex: string;
+  maxActiveCxn: number;
+  socketIdleTimeout: number;
+  socketEndingMaxWait: number;
+  socketMaxLifespan: number;
+  enableProxyHeader: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  authTokens?: Array<InputSplunkAuthToken$Outbound> | undefined;
+  maxS2Sversion: string;
+  description?: string | undefined;
+  useFwdTimezone: boolean;
+  dropControlFields: boolean;
+  extractMetrics: boolean;
+  compress: string;
+};
+
+/** @internal */
+export const InputSplunkInputCollectionPart1Type$outboundSchema: z.ZodType<
+  InputSplunkInputCollectionPart1Type$Outbound,
+  z.ZodTypeDef,
+  InputSplunkInputCollectionPart1Type
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  id: z.string().optional(),
+  type: InputSplunkType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  authTokens: z.array(z.lazy(() => InputSplunkAuthToken$outboundSchema))
+    .optional(),
+  maxS2Sversion: MaxS2SVersion$outboundSchema.default("v3"),
+  description: z.string().optional(),
+  useFwdTimezone: z.boolean().default(true),
+  dropControlFields: z.boolean().default(true),
+  extractMetrics: z.boolean().default(false),
+  compress: InputSplunkCompression$outboundSchema.default("disabled"),
+});
+
+export function inputSplunkInputCollectionPart1TypeToJSON(
+  inputSplunkInputCollectionPart1Type: InputSplunkInputCollectionPart1Type,
+): string {
+  return JSON.stringify(
+    InputSplunkInputCollectionPart1Type$outboundSchema.parse(
+      inputSplunkInputCollectionPart1Type,
+    ),
+  );
+}
+export function inputSplunkInputCollectionPart1TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkInputCollectionPart1Type, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputSplunkInputCollectionPart1Type$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkInputCollectionPart1Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkInputCollectionPart0Type$inboundSchema: z.ZodType<
+  InputSplunkInputCollectionPart0Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSplunkType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
@@ -291,12 +1007,12 @@ export const InputSplunk$inboundSchema: z.ZodType<
   compress: InputSplunkCompression$inboundSchema.default("disabled"),
 });
 /** @internal */
-export type InputSplunk$Outbound = {
+export type InputSplunkInputCollectionPart0Type$Outbound = {
+  sendToRoutes: boolean;
   id?: string | undefined;
-  type: "splunk";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
@@ -324,16 +1040,16 @@ export type InputSplunk$Outbound = {
 };
 
 /** @internal */
-export const InputSplunk$outboundSchema: z.ZodType<
-  InputSplunk$Outbound,
+export const InputSplunkInputCollectionPart0Type$outboundSchema: z.ZodType<
+  InputSplunkInputCollectionPart0Type$Outbound,
   z.ZodTypeDef,
-  InputSplunk
+  InputSplunkInputCollectionPart0Type
 > = z.object({
+  sendToRoutes: z.boolean().default(true),
   id: z.string().optional(),
-  type: z.literal("splunk"),
+  type: InputSplunkType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
@@ -360,6 +1076,56 @@ export const InputSplunk$outboundSchema: z.ZodType<
   extractMetrics: z.boolean().default(false),
   compress: InputSplunkCompression$outboundSchema.default("disabled"),
 });
+
+export function inputSplunkInputCollectionPart0TypeToJSON(
+  inputSplunkInputCollectionPart0Type: InputSplunkInputCollectionPart0Type,
+): string {
+  return JSON.stringify(
+    InputSplunkInputCollectionPart0Type$outboundSchema.parse(
+      inputSplunkInputCollectionPart0Type,
+    ),
+  );
+}
+export function inputSplunkInputCollectionPart0TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkInputCollectionPart0Type, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputSplunkInputCollectionPart0Type$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkInputCollectionPart0Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunk$inboundSchema: z.ZodType<
+  InputSplunk,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputSplunkInputCollectionPart0Type$inboundSchema),
+  z.lazy(() => InputSplunkInputCollectionPart1Type$inboundSchema),
+  z.lazy(() => InputSplunkInputCollectionPart0Type1$inboundSchema),
+  z.lazy(() => InputSplunkInputCollectionPart1Type1$inboundSchema),
+]);
+/** @internal */
+export type InputSplunk$Outbound =
+  | InputSplunkInputCollectionPart0Type$Outbound
+  | InputSplunkInputCollectionPart1Type$Outbound
+  | InputSplunkInputCollectionPart0Type1$Outbound
+  | InputSplunkInputCollectionPart1Type1$Outbound;
+
+/** @internal */
+export const InputSplunk$outboundSchema: z.ZodType<
+  InputSplunk$Outbound,
+  z.ZodTypeDef,
+  InputSplunk
+> = z.union([
+  z.lazy(() => InputSplunkInputCollectionPart0Type$outboundSchema),
+  z.lazy(() => InputSplunkInputCollectionPart1Type$outboundSchema),
+  z.lazy(() => InputSplunkInputCollectionPart0Type1$outboundSchema),
+  z.lazy(() => InputSplunkInputCollectionPart1Type1$outboundSchema),
+]);
 
 export function inputSplunkToJSON(inputSplunk: InputSplunk): string {
   return JSON.stringify(InputSplunk$outboundSchema.parse(inputSplunk));

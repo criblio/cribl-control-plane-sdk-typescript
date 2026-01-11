@@ -29,6 +29,7 @@ let value: NodeProvidedInfo = {
       "key": "<value>",
     },
     type: "<value>",
+    vmId: "<id>",
     zone: "<value>",
   },
   conn_ip: "<value>",
@@ -114,6 +115,7 @@ let value: NodeProvidedInfo = {
         "key": "<value>",
       },
       type: "<value>",
+      vmId: "<id>",
       zone: "<value>",
     },
     hostOs: {

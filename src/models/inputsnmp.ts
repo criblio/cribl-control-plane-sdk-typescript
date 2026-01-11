@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AuthenticationProtocolOptionsV3User,
@@ -31,6 +31,11 @@ import {
   PqType$Outbound,
   PqType$outboundSchema,
 } from "./pqtype.js";
+
+export const InputSnmpType = {
+  Snmp: "snmp",
+} as const;
+export type InputSnmpType = ClosedEnum<typeof InputSnmpType>;
 
 export const PrivacyProtocol = {
   /**
@@ -79,12 +84,17 @@ export type SNMPv3Authentication = {
   v3Users?: Array<InputSnmpV3User> | undefined;
 };
 
-export type InputSnmp = {
+export type InputSnmpInputCollectionPart1Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "snmp";
+  type: InputSnmpType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -94,6 +104,214 @@ export type InputSnmp = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host?: string | undefined;
+  /**
+   * UDP port to receive SNMP traps on. Defaults to 162.
+   */
+  port?: number | undefined;
+  /**
+   * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
+   */
+  snmpV3Auth?: SNMPv3Authentication | undefined;
+  /**
+   * Maximum number of events to buffer when downstream is blocking.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  /**
+   * If enabled, parses varbinds as an array of objects that include OID, value, and type
+   */
+  varbindsWithTypes?: boolean | undefined;
+  /**
+   * If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
+   */
+  bestEffortParsing?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type InputSnmpInputCollectionPart0Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSnmpType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host?: string | undefined;
+  /**
+   * UDP port to receive SNMP traps on. Defaults to 162.
+   */
+  port?: number | undefined;
+  /**
+   * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
+   */
+  snmpV3Auth?: SNMPv3Authentication | undefined;
+  /**
+   * Maximum number of events to buffer when downstream is blocking.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  /**
+   * If enabled, parses varbinds as an array of objects that include OID, value, and type
+   */
+  varbindsWithTypes?: boolean | undefined;
+  /**
+   * If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
+   */
+  bestEffortParsing?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type InputSnmpInputCollectionPart1Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSnmpType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host?: string | undefined;
+  /**
+   * UDP port to receive SNMP traps on. Defaults to 162.
+   */
+  port?: number | undefined;
+  /**
+   * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
+   */
+  snmpV3Auth?: SNMPv3Authentication | undefined;
+  /**
+   * Maximum number of events to buffer when downstream is blocking.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  /**
+   * If enabled, parses varbinds as an array of objects that include OID, value, and type
+   */
+  varbindsWithTypes?: boolean | undefined;
+  /**
+   * If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
+   */
+  bestEffortParsing?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type InputSnmpInputCollectionPart0Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSnmpType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -149,6 +367,21 @@ export type InputSnmp = {
   bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
 };
+
+export type InputSnmp =
+  | InputSnmpInputCollectionPart0Type
+  | InputSnmpInputCollectionPart1Type
+  | InputSnmpInputCollectionPart0Type1
+  | InputSnmpInputCollectionPart1Type1;
+
+/** @internal */
+export const InputSnmpType$inboundSchema: z.ZodNativeEnum<
+  typeof InputSnmpType
+> = z.nativeEnum(InputSnmpType);
+/** @internal */
+export const InputSnmpType$outboundSchema: z.ZodNativeEnum<
+  typeof InputSnmpType
+> = InputSnmpType$inboundSchema;
 
 /** @internal */
 export const PrivacyProtocol$inboundSchema: z.ZodType<
@@ -262,16 +495,312 @@ export function snmPv3AuthenticationFromJSON(
 }
 
 /** @internal */
-export const InputSnmp$inboundSchema: z.ZodType<
-  InputSnmp,
+export const InputSnmpInputCollectionPart1Type1$inboundSchema: z.ZodType<
+  InputSnmpInputCollectionPart1Type1,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
-  type: z.literal("snmp"),
+  type: InputSnmpType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(162),
+  snmpV3Auth: z.lazy(() => SNMPv3Authentication$inboundSchema).optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  varbindsWithTypes: z.boolean().default(false),
+  bestEffortParsing: z.boolean().default(false),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputSnmpInputCollectionPart1Type1$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  host: string;
+  port: number;
+  snmpV3Auth?: SNMPv3Authentication$Outbound | undefined;
+  maxBufferSize: number;
+  ipWhitelistRegex: string;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  varbindsWithTypes: boolean;
+  bestEffortParsing: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSnmpInputCollectionPart1Type1$outboundSchema: z.ZodType<
+  InputSnmpInputCollectionPart1Type1$Outbound,
+  z.ZodTypeDef,
+  InputSnmpInputCollectionPart1Type1
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$outboundSchema.optional(),
+  id: z.string().optional(),
+  type: InputSnmpType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(162),
+  snmpV3Auth: z.lazy(() => SNMPv3Authentication$outboundSchema).optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  varbindsWithTypes: z.boolean().default(false),
+  bestEffortParsing: z.boolean().default(false),
+  description: z.string().optional(),
+});
+
+export function inputSnmpInputCollectionPart1Type1ToJSON(
+  inputSnmpInputCollectionPart1Type1: InputSnmpInputCollectionPart1Type1,
+): string {
+  return JSON.stringify(
+    InputSnmpInputCollectionPart1Type1$outboundSchema.parse(
+      inputSnmpInputCollectionPart1Type1,
+    ),
+  );
+}
+export function inputSnmpInputCollectionPart1Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSnmpInputCollectionPart1Type1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputSnmpInputCollectionPart1Type1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSnmpInputCollectionPart1Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSnmpInputCollectionPart0Type1$inboundSchema: z.ZodType<
+  InputSnmpInputCollectionPart0Type1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSnmpType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(162),
+  snmpV3Auth: z.lazy(() => SNMPv3Authentication$inboundSchema).optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  varbindsWithTypes: z.boolean().default(false),
+  bestEffortParsing: z.boolean().default(false),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputSnmpInputCollectionPart0Type1$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  snmpV3Auth?: SNMPv3Authentication$Outbound | undefined;
+  maxBufferSize: number;
+  ipWhitelistRegex: string;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  varbindsWithTypes: boolean;
+  bestEffortParsing: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSnmpInputCollectionPart0Type1$outboundSchema: z.ZodType<
+  InputSnmpInputCollectionPart0Type1$Outbound,
+  z.ZodTypeDef,
+  InputSnmpInputCollectionPart0Type1
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSnmpType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(162),
+  snmpV3Auth: z.lazy(() => SNMPv3Authentication$outboundSchema).optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  varbindsWithTypes: z.boolean().default(false),
+  bestEffortParsing: z.boolean().default(false),
+  description: z.string().optional(),
+});
+
+export function inputSnmpInputCollectionPart0Type1ToJSON(
+  inputSnmpInputCollectionPart0Type1: InputSnmpInputCollectionPart0Type1,
+): string {
+  return JSON.stringify(
+    InputSnmpInputCollectionPart0Type1$outboundSchema.parse(
+      inputSnmpInputCollectionPart0Type1,
+    ),
+  );
+}
+export function inputSnmpInputCollectionPart0Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSnmpInputCollectionPart0Type1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputSnmpInputCollectionPart0Type1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSnmpInputCollectionPart0Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSnmpInputCollectionPart1Type$inboundSchema: z.ZodType<
+  InputSnmpInputCollectionPart1Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  id: z.string().optional(),
+  type: InputSnmpType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(162),
+  snmpV3Auth: z.lazy(() => SNMPv3Authentication$inboundSchema).optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  varbindsWithTypes: z.boolean().default(false),
+  bestEffortParsing: z.boolean().default(false),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputSnmpInputCollectionPart1Type$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  snmpV3Auth?: SNMPv3Authentication$Outbound | undefined;
+  maxBufferSize: number;
+  ipWhitelistRegex: string;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  varbindsWithTypes: boolean;
+  bestEffortParsing: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSnmpInputCollectionPart1Type$outboundSchema: z.ZodType<
+  InputSnmpInputCollectionPart1Type$Outbound,
+  z.ZodTypeDef,
+  InputSnmpInputCollectionPart1Type
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  id: z.string().optional(),
+  type: InputSnmpType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(162),
+  snmpV3Auth: z.lazy(() => SNMPv3Authentication$outboundSchema).optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  varbindsWithTypes: z.boolean().default(false),
+  bestEffortParsing: z.boolean().default(false),
+  description: z.string().optional(),
+});
+
+export function inputSnmpInputCollectionPart1TypeToJSON(
+  inputSnmpInputCollectionPart1Type: InputSnmpInputCollectionPart1Type,
+): string {
+  return JSON.stringify(
+    InputSnmpInputCollectionPart1Type$outboundSchema.parse(
+      inputSnmpInputCollectionPart1Type,
+    ),
+  );
+}
+export function inputSnmpInputCollectionPart1TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSnmpInputCollectionPart1Type, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSnmpInputCollectionPart1Type$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSnmpInputCollectionPart1Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSnmpInputCollectionPart0Type$inboundSchema: z.ZodType<
+  InputSnmpInputCollectionPart0Type,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSnmpType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
@@ -289,12 +818,12 @@ export const InputSnmp$inboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 /** @internal */
-export type InputSnmp$Outbound = {
+export type InputSnmpInputCollectionPart0Type$Outbound = {
+  sendToRoutes: boolean;
   id?: string | undefined;
-  type: "snmp";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
@@ -313,16 +842,16 @@ export type InputSnmp$Outbound = {
 };
 
 /** @internal */
-export const InputSnmp$outboundSchema: z.ZodType<
-  InputSnmp$Outbound,
+export const InputSnmpInputCollectionPart0Type$outboundSchema: z.ZodType<
+  InputSnmpInputCollectionPart0Type$Outbound,
   z.ZodTypeDef,
-  InputSnmp
+  InputSnmpInputCollectionPart0Type
 > = z.object({
+  sendToRoutes: z.boolean().default(true),
   id: z.string().optional(),
-  type: z.literal("snmp"),
+  type: InputSnmpType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
@@ -339,6 +868,55 @@ export const InputSnmp$outboundSchema: z.ZodType<
   bestEffortParsing: z.boolean().default(false),
   description: z.string().optional(),
 });
+
+export function inputSnmpInputCollectionPart0TypeToJSON(
+  inputSnmpInputCollectionPart0Type: InputSnmpInputCollectionPart0Type,
+): string {
+  return JSON.stringify(
+    InputSnmpInputCollectionPart0Type$outboundSchema.parse(
+      inputSnmpInputCollectionPart0Type,
+    ),
+  );
+}
+export function inputSnmpInputCollectionPart0TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSnmpInputCollectionPart0Type, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSnmpInputCollectionPart0Type$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSnmpInputCollectionPart0Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSnmp$inboundSchema: z.ZodType<
+  InputSnmp,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputSnmpInputCollectionPart0Type$inboundSchema),
+  z.lazy(() => InputSnmpInputCollectionPart1Type$inboundSchema),
+  z.lazy(() => InputSnmpInputCollectionPart0Type1$inboundSchema),
+  z.lazy(() => InputSnmpInputCollectionPart1Type1$inboundSchema),
+]);
+/** @internal */
+export type InputSnmp$Outbound =
+  | InputSnmpInputCollectionPart0Type$Outbound
+  | InputSnmpInputCollectionPart1Type$Outbound
+  | InputSnmpInputCollectionPart0Type1$Outbound
+  | InputSnmpInputCollectionPart1Type1$Outbound;
+
+/** @internal */
+export const InputSnmp$outboundSchema: z.ZodType<
+  InputSnmp$Outbound,
+  z.ZodTypeDef,
+  InputSnmp
+> = z.union([
+  z.lazy(() => InputSnmpInputCollectionPart0Type$outboundSchema),
+  z.lazy(() => InputSnmpInputCollectionPart1Type$outboundSchema),
+  z.lazy(() => InputSnmpInputCollectionPart0Type1$outboundSchema),
+  z.lazy(() => InputSnmpInputCollectionPart1Type1$outboundSchema),
+]);
 
 export function inputSnmpToJSON(inputSnmp: InputSnmp): string {
   return JSON.stringify(InputSnmp$outboundSchema.parse(inputSnmp));

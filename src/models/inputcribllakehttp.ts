@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -31,6 +32,11 @@ import {
   TlsSettingsServerSideType$outboundSchema,
 } from "./tlssettingsserversidetype.js";
 
+export const InputCriblLakeHttpType = {
+  CriblLakeHttp: "cribl_lake_http",
+} as const;
+export type InputCriblLakeHttpType = ClosedEnum<typeof InputCriblLakeHttpType>;
+
 export type SplunkHecMetadata = {
   enabled?: boolean | undefined;
   defaultDataset?: string | undefined;
@@ -53,12 +59,17 @@ export type AuthTokensExt = {
   elasticsearchMetadata?: ElasticsearchMetadata | undefined;
 };
 
-export type InputCriblLakeHttp = {
+export type InputCriblLakeHttpInputCollectionPart1Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "cribl_lake_http";
+  type: InputCriblLakeHttpType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -68,6 +79,331 @@ export type InputCriblLakeHttp = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+   */
+  criblAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+   */
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  authTokensExt?: Array<AuthTokensExt> | undefined;
+  description?: string | undefined;
+};
+
+export type InputCriblLakeHttpInputCollectionPart0Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCriblLakeHttpType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+   */
+  criblAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+   */
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  authTokensExt?: Array<AuthTokensExt> | undefined;
+  description?: string | undefined;
+};
+
+export type InputCriblLakeHttpInputCollectionPart1Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCriblLakeHttpType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+   */
+  criblAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+   */
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  authTokensExt?: Array<AuthTokensExt> | undefined;
+  description?: string | undefined;
+};
+
+export type InputCriblLakeHttpInputCollectionPart0Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCriblLakeHttpType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -162,6 +498,21 @@ export type InputCriblLakeHttp = {
   authTokensExt?: Array<AuthTokensExt> | undefined;
   description?: string | undefined;
 };
+
+export type InputCriblLakeHttp =
+  | InputCriblLakeHttpInputCollectionPart0Type
+  | InputCriblLakeHttpInputCollectionPart1Type
+  | InputCriblLakeHttpInputCollectionPart0Type1
+  | InputCriblLakeHttpInputCollectionPart1Type1;
+
+/** @internal */
+export const InputCriblLakeHttpType$inboundSchema: z.ZodNativeEnum<
+  typeof InputCriblLakeHttpType
+> = z.nativeEnum(InputCriblLakeHttpType);
+/** @internal */
+export const InputCriblLakeHttpType$outboundSchema: z.ZodNativeEnum<
+  typeof InputCriblLakeHttpType
+> = InputCriblLakeHttpType$inboundSchema;
 
 /** @internal */
 export const SplunkHecMetadata$inboundSchema: z.ZodType<
@@ -300,51 +651,482 @@ export function authTokensExtFromJSON(
 }
 
 /** @internal */
-export const InputCriblLakeHttp$inboundSchema: z.ZodType<
-  InputCriblLakeHttp,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("cribl_lake_http"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  authTokens: z.array(z.string()).optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  criblAPI: z.string().default("/cribl"),
-  elasticAPI: z.string().default("/elastic"),
-  splunkHecAPI: z.string().default("/services/collector"),
-  splunkHecAcks: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  authTokensExt: z.array(z.lazy(() => AuthTokensExt$inboundSchema)).optional(),
-  description: z.string().optional(),
-});
+export const InputCriblLakeHttpInputCollectionPart1Type1$inboundSchema:
+  z.ZodType<
+    InputCriblLakeHttpInputCollectionPart1Type1,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputCriblLakeHttpType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.string()).optional(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    criblAPI: z.string().default("/cribl"),
+    elasticAPI: z.string().default("/elastic"),
+    splunkHecAPI: z.string().default("/services/collector"),
+    splunkHecAcks: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    authTokensExt: z.array(z.lazy(() => AuthTokensExt$inboundSchema))
+      .optional(),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputCriblLakeHttp$Outbound = {
+export type InputCriblLakeHttpInputCollectionPart1Type1$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
-  type: "cribl_lake_http";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  criblAPI: string;
+  elasticAPI: string;
+  splunkHecAPI: string;
+  splunkHecAcks: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExt$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblLakeHttpInputCollectionPart1Type1$outboundSchema:
+  z.ZodType<
+    InputCriblLakeHttpInputCollectionPart1Type1$Outbound,
+    z.ZodTypeDef,
+    InputCriblLakeHttpInputCollectionPart1Type1
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputCriblLakeHttpType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.string()).optional(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    criblAPI: z.string().default("/cribl"),
+    elasticAPI: z.string().default("/elastic"),
+    splunkHecAPI: z.string().default("/services/collector"),
+    splunkHecAcks: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    authTokensExt: z.array(z.lazy(() => AuthTokensExt$outboundSchema))
+      .optional(),
+    description: z.string().optional(),
+  });
+
+export function inputCriblLakeHttpInputCollectionPart1Type1ToJSON(
+  inputCriblLakeHttpInputCollectionPart1Type1:
+    InputCriblLakeHttpInputCollectionPart1Type1,
+): string {
+  return JSON.stringify(
+    InputCriblLakeHttpInputCollectionPart1Type1$outboundSchema.parse(
+      inputCriblLakeHttpInputCollectionPart1Type1,
+    ),
+  );
+}
+export function inputCriblLakeHttpInputCollectionPart1Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputCriblLakeHttpInputCollectionPart1Type1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputCriblLakeHttpInputCollectionPart1Type1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputCriblLakeHttpInputCollectionPart1Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblLakeHttpInputCollectionPart0Type1$inboundSchema:
+  z.ZodType<
+    InputCriblLakeHttpInputCollectionPart0Type1,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputCriblLakeHttpType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.string()).optional(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    criblAPI: z.string().default("/cribl"),
+    elasticAPI: z.string().default("/elastic"),
+    splunkHecAPI: z.string().default("/services/collector"),
+    splunkHecAcks: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    authTokensExt: z.array(z.lazy(() => AuthTokensExt$inboundSchema))
+      .optional(),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputCriblLakeHttpInputCollectionPart0Type1$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  criblAPI: string;
+  elasticAPI: string;
+  splunkHecAPI: string;
+  splunkHecAcks: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExt$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblLakeHttpInputCollectionPart0Type1$outboundSchema:
+  z.ZodType<
+    InputCriblLakeHttpInputCollectionPart0Type1$Outbound,
+    z.ZodTypeDef,
+    InputCriblLakeHttpInputCollectionPart0Type1
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputCriblLakeHttpType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.string()).optional(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    criblAPI: z.string().default("/cribl"),
+    elasticAPI: z.string().default("/elastic"),
+    splunkHecAPI: z.string().default("/services/collector"),
+    splunkHecAcks: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    authTokensExt: z.array(z.lazy(() => AuthTokensExt$outboundSchema))
+      .optional(),
+    description: z.string().optional(),
+  });
+
+export function inputCriblLakeHttpInputCollectionPart0Type1ToJSON(
+  inputCriblLakeHttpInputCollectionPart0Type1:
+    InputCriblLakeHttpInputCollectionPart0Type1,
+): string {
+  return JSON.stringify(
+    InputCriblLakeHttpInputCollectionPart0Type1$outboundSchema.parse(
+      inputCriblLakeHttpInputCollectionPart0Type1,
+    ),
+  );
+}
+export function inputCriblLakeHttpInputCollectionPart0Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputCriblLakeHttpInputCollectionPart0Type1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputCriblLakeHttpInputCollectionPart0Type1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputCriblLakeHttpInputCollectionPart0Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblLakeHttpInputCollectionPart1Type$inboundSchema:
+  z.ZodType<InputCriblLakeHttpInputCollectionPart1Type, z.ZodTypeDef, unknown> =
+    z.object({
+      sendToRoutes: z.boolean().default(true),
+      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+      id: z.string().optional(),
+      type: InputCriblLakeHttpType$inboundSchema,
+      disabled: z.boolean().default(false),
+      pipeline: z.string().optional(),
+      environment: z.string().optional(),
+      pqEnabled: z.boolean().default(false),
+      streamtags: z.array(z.string()).optional(),
+      pq: PqType$inboundSchema.optional(),
+      host: z.string().default("0.0.0.0"),
+      port: z.number(),
+      authTokens: z.array(z.string()).optional(),
+      tls: TlsSettingsServerSideType$inboundSchema.optional(),
+      maxActiveReq: z.number().default(256),
+      maxRequestsPerSocket: z.number().int().default(0),
+      enableProxyHeader: z.boolean().default(false),
+      captureHeaders: z.boolean().default(false),
+      activityLogSampleRate: z.number().default(100),
+      requestTimeout: z.number().default(0),
+      socketTimeout: z.number().default(0),
+      keepAliveTimeout: z.number().default(5),
+      enableHealthCheck: z.boolean().default(false),
+      ipAllowlistRegex: z.string().default("/.*/"),
+      ipDenylistRegex: z.string().default("/^$/"),
+      criblAPI: z.string().default("/cribl"),
+      elasticAPI: z.string().default("/elastic"),
+      splunkHecAPI: z.string().default("/services/collector"),
+      splunkHecAcks: z.boolean().default(false),
+      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+      authTokensExt: z.array(z.lazy(() => AuthTokensExt$inboundSchema))
+        .optional(),
+      description: z.string().optional(),
+    });
+/** @internal */
+export type InputCriblLakeHttpInputCollectionPart1Type$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  criblAPI: string;
+  elasticAPI: string;
+  splunkHecAPI: string;
+  splunkHecAcks: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExt$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblLakeHttpInputCollectionPart1Type$outboundSchema:
+  z.ZodType<
+    InputCriblLakeHttpInputCollectionPart1Type$Outbound,
+    z.ZodTypeDef,
+    InputCriblLakeHttpInputCollectionPart1Type
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputCriblLakeHttpType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.string()).optional(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    criblAPI: z.string().default("/cribl"),
+    elasticAPI: z.string().default("/elastic"),
+    splunkHecAPI: z.string().default("/services/collector"),
+    splunkHecAcks: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    authTokensExt: z.array(z.lazy(() => AuthTokensExt$outboundSchema))
+      .optional(),
+    description: z.string().optional(),
+  });
+
+export function inputCriblLakeHttpInputCollectionPart1TypeToJSON(
+  inputCriblLakeHttpInputCollectionPart1Type:
+    InputCriblLakeHttpInputCollectionPart1Type,
+): string {
+  return JSON.stringify(
+    InputCriblLakeHttpInputCollectionPart1Type$outboundSchema.parse(
+      inputCriblLakeHttpInputCollectionPart1Type,
+    ),
+  );
+}
+export function inputCriblLakeHttpInputCollectionPart1TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputCriblLakeHttpInputCollectionPart1Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputCriblLakeHttpInputCollectionPart1Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputCriblLakeHttpInputCollectionPart1Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblLakeHttpInputCollectionPart0Type$inboundSchema:
+  z.ZodType<InputCriblLakeHttpInputCollectionPart0Type, z.ZodTypeDef, unknown> =
+    z.object({
+      sendToRoutes: z.boolean().default(true),
+      id: z.string().optional(),
+      type: InputCriblLakeHttpType$inboundSchema,
+      disabled: z.boolean().default(false),
+      pipeline: z.string().optional(),
+      environment: z.string().optional(),
+      pqEnabled: z.boolean().default(false),
+      streamtags: z.array(z.string()).optional(),
+      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+      pq: PqType$inboundSchema.optional(),
+      host: z.string().default("0.0.0.0"),
+      port: z.number(),
+      authTokens: z.array(z.string()).optional(),
+      tls: TlsSettingsServerSideType$inboundSchema.optional(),
+      maxActiveReq: z.number().default(256),
+      maxRequestsPerSocket: z.number().int().default(0),
+      enableProxyHeader: z.boolean().default(false),
+      captureHeaders: z.boolean().default(false),
+      activityLogSampleRate: z.number().default(100),
+      requestTimeout: z.number().default(0),
+      socketTimeout: z.number().default(0),
+      keepAliveTimeout: z.number().default(5),
+      enableHealthCheck: z.boolean().default(false),
+      ipAllowlistRegex: z.string().default("/.*/"),
+      ipDenylistRegex: z.string().default("/^$/"),
+      criblAPI: z.string().default("/cribl"),
+      elasticAPI: z.string().default("/elastic"),
+      splunkHecAPI: z.string().default("/services/collector"),
+      splunkHecAcks: z.boolean().default(false),
+      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+      authTokensExt: z.array(z.lazy(() => AuthTokensExt$inboundSchema))
+        .optional(),
+      description: z.string().optional(),
+    });
+/** @internal */
+export type InputCriblLakeHttpInputCollectionPart0Type$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
@@ -375,44 +1157,102 @@ export type InputCriblLakeHttp$Outbound = {
 };
 
 /** @internal */
+export const InputCriblLakeHttpInputCollectionPart0Type$outboundSchema:
+  z.ZodType<
+    InputCriblLakeHttpInputCollectionPart0Type$Outbound,
+    z.ZodTypeDef,
+    InputCriblLakeHttpInputCollectionPart0Type
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputCriblLakeHttpType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.string()).optional(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    criblAPI: z.string().default("/cribl"),
+    elasticAPI: z.string().default("/elastic"),
+    splunkHecAPI: z.string().default("/services/collector"),
+    splunkHecAcks: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    authTokensExt: z.array(z.lazy(() => AuthTokensExt$outboundSchema))
+      .optional(),
+    description: z.string().optional(),
+  });
+
+export function inputCriblLakeHttpInputCollectionPart0TypeToJSON(
+  inputCriblLakeHttpInputCollectionPart0Type:
+    InputCriblLakeHttpInputCollectionPart0Type,
+): string {
+  return JSON.stringify(
+    InputCriblLakeHttpInputCollectionPart0Type$outboundSchema.parse(
+      inputCriblLakeHttpInputCollectionPart0Type,
+    ),
+  );
+}
+export function inputCriblLakeHttpInputCollectionPart0TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputCriblLakeHttpInputCollectionPart0Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputCriblLakeHttpInputCollectionPart0Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputCriblLakeHttpInputCollectionPart0Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblLakeHttp$inboundSchema: z.ZodType<
+  InputCriblLakeHttp,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputCriblLakeHttpInputCollectionPart0Type$inboundSchema),
+  z.lazy(() => InputCriblLakeHttpInputCollectionPart1Type$inboundSchema),
+  z.lazy(() => InputCriblLakeHttpInputCollectionPart0Type1$inboundSchema),
+  z.lazy(() => InputCriblLakeHttpInputCollectionPart1Type1$inboundSchema),
+]);
+/** @internal */
+export type InputCriblLakeHttp$Outbound =
+  | InputCriblLakeHttpInputCollectionPart0Type$Outbound
+  | InputCriblLakeHttpInputCollectionPart1Type$Outbound
+  | InputCriblLakeHttpInputCollectionPart0Type1$Outbound
+  | InputCriblLakeHttpInputCollectionPart1Type1$Outbound;
+
+/** @internal */
 export const InputCriblLakeHttp$outboundSchema: z.ZodType<
   InputCriblLakeHttp$Outbound,
   z.ZodTypeDef,
   InputCriblLakeHttp
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("cribl_lake_http"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  authTokens: z.array(z.string()).optional(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  criblAPI: z.string().default("/cribl"),
-  elasticAPI: z.string().default("/elastic"),
-  splunkHecAPI: z.string().default("/services/collector"),
-  splunkHecAcks: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  authTokensExt: z.array(z.lazy(() => AuthTokensExt$outboundSchema)).optional(),
-  description: z.string().optional(),
-});
+> = z.union([
+  z.lazy(() => InputCriblLakeHttpInputCollectionPart0Type$outboundSchema),
+  z.lazy(() => InputCriblLakeHttpInputCollectionPart1Type$outboundSchema),
+  z.lazy(() => InputCriblLakeHttpInputCollectionPart0Type1$outboundSchema),
+  z.lazy(() => InputCriblLakeHttpInputCollectionPart1Type1$outboundSchema),
+]);
 
 export function inputCriblLakeHttpToJSON(
   inputCriblLakeHttp: InputCriblLakeHttp,

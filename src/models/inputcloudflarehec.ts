@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -32,6 +32,11 @@ import {
   TlsSettingsServerSideType$Outbound,
   TlsSettingsServerSideType$outboundSchema,
 } from "./tlssettingsserversidetype.js";
+
+export const InputCloudflareHecType = {
+  CloudflareHec: "cloudflare_hec",
+} as const;
+export type InputCloudflareHecType = ClosedEnum<typeof InputCloudflareHecType>;
 
 /**
  * Select Secret to use a text secret to authenticate
@@ -72,12 +77,17 @@ export type InputCloudflareHecAuthToken = {
   metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
 };
 
-export type InputCloudflareHec = {
+export type InputCloudflareHecInputCollectionPart1Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "cloudflare_hec";
+  type: InputCloudflareHecType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -87,6 +97,364 @@ export type InputCloudflareHec = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<InputCloudflareHecAuthToken> | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: any | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
+   */
+  hecAPI: string;
+  /**
+   * Fields to add to every event. May be overridden by fields added at the token or request level.
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+   */
+  allowedIndexes?: Array<string> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+   */
+  accessControlAllowOrigin?: Array<string> | undefined;
+  /**
+   * HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+   */
+  accessControlAllowHeaders?: Array<string> | undefined;
+  /**
+   * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+   */
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type InputCloudflareHecInputCollectionPart0Type1 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCloudflareHecType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<InputCloudflareHecAuthToken> | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: any | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
+   */
+  hecAPI: string;
+  /**
+   * Fields to add to every event. May be overridden by fields added at the token or request level.
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+   */
+  allowedIndexes?: Array<string> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+   */
+  accessControlAllowOrigin?: Array<string> | undefined;
+  /**
+   * HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+   */
+  accessControlAllowHeaders?: Array<string> | undefined;
+  /**
+   * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+   */
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type InputCloudflareHecInputCollectionPart1Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCloudflareHecType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<InputCloudflareHecAuthToken> | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: any | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
+   */
+  hecAPI: string;
+  /**
+   * Fields to add to every event. May be overridden by fields added at the token or request level.
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+   */
+  allowedIndexes?: Array<string> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+   */
+  accessControlAllowOrigin?: Array<string> | undefined;
+  /**
+   * HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+   */
+  accessControlAllowHeaders?: Array<string> | undefined;
+  /**
+   * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+   */
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type InputCloudflareHecInputCollectionPart0Type = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCloudflareHecType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -193,6 +561,21 @@ export type InputCloudflareHec = {
   description?: string | undefined;
 };
 
+export type InputCloudflareHec =
+  | InputCloudflareHecInputCollectionPart0Type
+  | InputCloudflareHecInputCollectionPart1Type
+  | InputCloudflareHecInputCollectionPart0Type1
+  | InputCloudflareHecInputCollectionPart1Type1;
+
+/** @internal */
+export const InputCloudflareHecType$inboundSchema: z.ZodNativeEnum<
+  typeof InputCloudflareHecType
+> = z.nativeEnum(InputCloudflareHecType);
+/** @internal */
+export const InputCloudflareHecType$outboundSchema: z.ZodNativeEnum<
+  typeof InputCloudflareHecType
+> = InputCloudflareHecType$inboundSchema;
+
 /** @internal */
 export const InputCloudflareHecAuthenticationMethod$inboundSchema: z.ZodType<
   InputCloudflareHecAuthenticationMethod,
@@ -270,54 +653,507 @@ export function inputCloudflareHecAuthTokenFromJSON(
 }
 
 /** @internal */
-export const InputCloudflareHec$inboundSchema: z.ZodType<
-  InputCloudflareHec,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("cloudflare_hec"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  authTokens: z.array(z.lazy(() => InputCloudflareHecAuthToken$inboundSchema))
-    .optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  hecAPI: z.string(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  allowedIndexes: z.array(z.string()).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  accessControlAllowOrigin: z.array(z.string()).optional(),
-  accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().default(false),
-  description: z.string().optional(),
-});
+export const InputCloudflareHecInputCollectionPart1Type1$inboundSchema:
+  z.ZodType<
+    InputCloudflareHecInputCollectionPart1Type1,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputCloudflareHecType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.lazy(() => InputCloudflareHecAuthToken$inboundSchema))
+      .optional(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.any().optional(),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    hecAPI: z.string(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    allowedIndexes: z.array(z.string()).optional(),
+    breakerRulesets: z.array(z.string()).optional(),
+    staleChannelFlushMs: z.number().default(10000),
+    accessControlAllowOrigin: z.array(z.string()).optional(),
+    accessControlAllowHeaders: z.array(z.string()).optional(),
+    emitTokenMetrics: z.boolean().default(false),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputCloudflareHec$Outbound = {
+export type InputCloudflareHecInputCollectionPart1Type1$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
-  type: "cloudflare_hec";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<InputCloudflareHecAuthToken$Outbound> | undefined;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck?: any | undefined;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  hecAPI: string;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  allowedIndexes?: Array<string> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  accessControlAllowOrigin?: Array<string> | undefined;
+  accessControlAllowHeaders?: Array<string> | undefined;
+  emitTokenMetrics: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCloudflareHecInputCollectionPart1Type1$outboundSchema:
+  z.ZodType<
+    InputCloudflareHecInputCollectionPart1Type1$Outbound,
+    z.ZodTypeDef,
+    InputCloudflareHecInputCollectionPart1Type1
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputCloudflareHecType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(
+      z.lazy(() => InputCloudflareHecAuthToken$outboundSchema),
+    ).optional(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.any().optional(),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    hecAPI: z.string(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    allowedIndexes: z.array(z.string()).optional(),
+    breakerRulesets: z.array(z.string()).optional(),
+    staleChannelFlushMs: z.number().default(10000),
+    accessControlAllowOrigin: z.array(z.string()).optional(),
+    accessControlAllowHeaders: z.array(z.string()).optional(),
+    emitTokenMetrics: z.boolean().default(false),
+    description: z.string().optional(),
+  });
+
+export function inputCloudflareHecInputCollectionPart1Type1ToJSON(
+  inputCloudflareHecInputCollectionPart1Type1:
+    InputCloudflareHecInputCollectionPart1Type1,
+): string {
+  return JSON.stringify(
+    InputCloudflareHecInputCollectionPart1Type1$outboundSchema.parse(
+      inputCloudflareHecInputCollectionPart1Type1,
+    ),
+  );
+}
+export function inputCloudflareHecInputCollectionPart1Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputCloudflareHecInputCollectionPart1Type1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputCloudflareHecInputCollectionPart1Type1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputCloudflareHecInputCollectionPart1Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCloudflareHecInputCollectionPart0Type1$inboundSchema:
+  z.ZodType<
+    InputCloudflareHecInputCollectionPart0Type1,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputCloudflareHecType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.lazy(() => InputCloudflareHecAuthToken$inboundSchema))
+      .optional(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.any().optional(),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    hecAPI: z.string(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    allowedIndexes: z.array(z.string()).optional(),
+    breakerRulesets: z.array(z.string()).optional(),
+    staleChannelFlushMs: z.number().default(10000),
+    accessControlAllowOrigin: z.array(z.string()).optional(),
+    accessControlAllowHeaders: z.array(z.string()).optional(),
+    emitTokenMetrics: z.boolean().default(false),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputCloudflareHecInputCollectionPart0Type1$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<InputCloudflareHecAuthToken$Outbound> | undefined;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck?: any | undefined;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  hecAPI: string;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  allowedIndexes?: Array<string> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  accessControlAllowOrigin?: Array<string> | undefined;
+  accessControlAllowHeaders?: Array<string> | undefined;
+  emitTokenMetrics: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCloudflareHecInputCollectionPart0Type1$outboundSchema:
+  z.ZodType<
+    InputCloudflareHecInputCollectionPart0Type1$Outbound,
+    z.ZodTypeDef,
+    InputCloudflareHecInputCollectionPart0Type1
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputCloudflareHecType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(
+      z.lazy(() => InputCloudflareHecAuthToken$outboundSchema),
+    ).optional(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.any().optional(),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    hecAPI: z.string(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    allowedIndexes: z.array(z.string()).optional(),
+    breakerRulesets: z.array(z.string()).optional(),
+    staleChannelFlushMs: z.number().default(10000),
+    accessControlAllowOrigin: z.array(z.string()).optional(),
+    accessControlAllowHeaders: z.array(z.string()).optional(),
+    emitTokenMetrics: z.boolean().default(false),
+    description: z.string().optional(),
+  });
+
+export function inputCloudflareHecInputCollectionPart0Type1ToJSON(
+  inputCloudflareHecInputCollectionPart0Type1:
+    InputCloudflareHecInputCollectionPart0Type1,
+): string {
+  return JSON.stringify(
+    InputCloudflareHecInputCollectionPart0Type1$outboundSchema.parse(
+      inputCloudflareHecInputCollectionPart0Type1,
+    ),
+  );
+}
+export function inputCloudflareHecInputCollectionPart0Type1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputCloudflareHecInputCollectionPart0Type1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputCloudflareHecInputCollectionPart0Type1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputCloudflareHecInputCollectionPart0Type1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCloudflareHecInputCollectionPart1Type$inboundSchema:
+  z.ZodType<InputCloudflareHecInputCollectionPart1Type, z.ZodTypeDef, unknown> =
+    z.object({
+      sendToRoutes: z.boolean().default(true),
+      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+      id: z.string().optional(),
+      type: InputCloudflareHecType$inboundSchema,
+      disabled: z.boolean().default(false),
+      pipeline: z.string().optional(),
+      environment: z.string().optional(),
+      pqEnabled: z.boolean().default(false),
+      streamtags: z.array(z.string()).optional(),
+      pq: PqType$inboundSchema.optional(),
+      host: z.string().default("0.0.0.0"),
+      port: z.number(),
+      authTokens: z.array(
+        z.lazy(() => InputCloudflareHecAuthToken$inboundSchema),
+      ).optional(),
+      tls: TlsSettingsServerSideType$inboundSchema.optional(),
+      maxActiveReq: z.number().default(256),
+      maxRequestsPerSocket: z.number().int().default(0),
+      enableProxyHeader: z.boolean().default(false),
+      captureHeaders: z.boolean().default(false),
+      activityLogSampleRate: z.number().default(100),
+      requestTimeout: z.number().default(0),
+      socketTimeout: z.number().default(0),
+      keepAliveTimeout: z.number().default(5),
+      enableHealthCheck: z.any().optional(),
+      ipAllowlistRegex: z.string().default("/.*/"),
+      ipDenylistRegex: z.string().default("/^$/"),
+      hecAPI: z.string(),
+      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+      allowedIndexes: z.array(z.string()).optional(),
+      breakerRulesets: z.array(z.string()).optional(),
+      staleChannelFlushMs: z.number().default(10000),
+      accessControlAllowOrigin: z.array(z.string()).optional(),
+      accessControlAllowHeaders: z.array(z.string()).optional(),
+      emitTokenMetrics: z.boolean().default(false),
+      description: z.string().optional(),
+    });
+/** @internal */
+export type InputCloudflareHecInputCollectionPart1Type$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<InputCloudflareHecAuthToken$Outbound> | undefined;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck?: any | undefined;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  hecAPI: string;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  allowedIndexes?: Array<string> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  accessControlAllowOrigin?: Array<string> | undefined;
+  accessControlAllowHeaders?: Array<string> | undefined;
+  emitTokenMetrics: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCloudflareHecInputCollectionPart1Type$outboundSchema:
+  z.ZodType<
+    InputCloudflareHecInputCollectionPart1Type$Outbound,
+    z.ZodTypeDef,
+    InputCloudflareHecInputCollectionPart1Type
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputCloudflareHecType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(
+      z.lazy(() => InputCloudflareHecAuthToken$outboundSchema),
+    ).optional(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.any().optional(),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    hecAPI: z.string(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    allowedIndexes: z.array(z.string()).optional(),
+    breakerRulesets: z.array(z.string()).optional(),
+    staleChannelFlushMs: z.number().default(10000),
+    accessControlAllowOrigin: z.array(z.string()).optional(),
+    accessControlAllowHeaders: z.array(z.string()).optional(),
+    emitTokenMetrics: z.boolean().default(false),
+    description: z.string().optional(),
+  });
+
+export function inputCloudflareHecInputCollectionPart1TypeToJSON(
+  inputCloudflareHecInputCollectionPart1Type:
+    InputCloudflareHecInputCollectionPart1Type,
+): string {
+  return JSON.stringify(
+    InputCloudflareHecInputCollectionPart1Type$outboundSchema.parse(
+      inputCloudflareHecInputCollectionPart1Type,
+    ),
+  );
+}
+export function inputCloudflareHecInputCollectionPart1TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputCloudflareHecInputCollectionPart1Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputCloudflareHecInputCollectionPart1Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputCloudflareHecInputCollectionPart1Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCloudflareHecInputCollectionPart0Type$inboundSchema:
+  z.ZodType<InputCloudflareHecInputCollectionPart0Type, z.ZodTypeDef, unknown> =
+    z.object({
+      sendToRoutes: z.boolean().default(true),
+      id: z.string().optional(),
+      type: InputCloudflareHecType$inboundSchema,
+      disabled: z.boolean().default(false),
+      pipeline: z.string().optional(),
+      environment: z.string().optional(),
+      pqEnabled: z.boolean().default(false),
+      streamtags: z.array(z.string()).optional(),
+      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+      pq: PqType$inboundSchema.optional(),
+      host: z.string().default("0.0.0.0"),
+      port: z.number(),
+      authTokens: z.array(
+        z.lazy(() => InputCloudflareHecAuthToken$inboundSchema),
+      ).optional(),
+      tls: TlsSettingsServerSideType$inboundSchema.optional(),
+      maxActiveReq: z.number().default(256),
+      maxRequestsPerSocket: z.number().int().default(0),
+      enableProxyHeader: z.boolean().default(false),
+      captureHeaders: z.boolean().default(false),
+      activityLogSampleRate: z.number().default(100),
+      requestTimeout: z.number().default(0),
+      socketTimeout: z.number().default(0),
+      keepAliveTimeout: z.number().default(5),
+      enableHealthCheck: z.any().optional(),
+      ipAllowlistRegex: z.string().default("/.*/"),
+      ipDenylistRegex: z.string().default("/^$/"),
+      hecAPI: z.string(),
+      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+      allowedIndexes: z.array(z.string()).optional(),
+      breakerRulesets: z.array(z.string()).optional(),
+      staleChannelFlushMs: z.number().default(10000),
+      accessControlAllowOrigin: z.array(z.string()).optional(),
+      accessControlAllowHeaders: z.array(z.string()).optional(),
+      emitTokenMetrics: z.boolean().default(false),
+      description: z.string().optional(),
+    });
+/** @internal */
+export type InputCloudflareHecInputCollectionPart0Type$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
@@ -350,47 +1186,105 @@ export type InputCloudflareHec$Outbound = {
 };
 
 /** @internal */
+export const InputCloudflareHecInputCollectionPart0Type$outboundSchema:
+  z.ZodType<
+    InputCloudflareHecInputCollectionPart0Type$Outbound,
+    z.ZodTypeDef,
+    InputCloudflareHecInputCollectionPart0Type
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputCloudflareHecType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(
+      z.lazy(() => InputCloudflareHecAuthToken$outboundSchema),
+    ).optional(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.any().optional(),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    hecAPI: z.string(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    allowedIndexes: z.array(z.string()).optional(),
+    breakerRulesets: z.array(z.string()).optional(),
+    staleChannelFlushMs: z.number().default(10000),
+    accessControlAllowOrigin: z.array(z.string()).optional(),
+    accessControlAllowHeaders: z.array(z.string()).optional(),
+    emitTokenMetrics: z.boolean().default(false),
+    description: z.string().optional(),
+  });
+
+export function inputCloudflareHecInputCollectionPart0TypeToJSON(
+  inputCloudflareHecInputCollectionPart0Type:
+    InputCloudflareHecInputCollectionPart0Type,
+): string {
+  return JSON.stringify(
+    InputCloudflareHecInputCollectionPart0Type$outboundSchema.parse(
+      inputCloudflareHecInputCollectionPart0Type,
+    ),
+  );
+}
+export function inputCloudflareHecInputCollectionPart0TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputCloudflareHecInputCollectionPart0Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputCloudflareHecInputCollectionPart0Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputCloudflareHecInputCollectionPart0Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCloudflareHec$inboundSchema: z.ZodType<
+  InputCloudflareHec,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputCloudflareHecInputCollectionPart0Type$inboundSchema),
+  z.lazy(() => InputCloudflareHecInputCollectionPart1Type$inboundSchema),
+  z.lazy(() => InputCloudflareHecInputCollectionPart0Type1$inboundSchema),
+  z.lazy(() => InputCloudflareHecInputCollectionPart1Type1$inboundSchema),
+]);
+/** @internal */
+export type InputCloudflareHec$Outbound =
+  | InputCloudflareHecInputCollectionPart0Type$Outbound
+  | InputCloudflareHecInputCollectionPart1Type$Outbound
+  | InputCloudflareHecInputCollectionPart0Type1$Outbound
+  | InputCloudflareHecInputCollectionPart1Type1$Outbound;
+
+/** @internal */
 export const InputCloudflareHec$outboundSchema: z.ZodType<
   InputCloudflareHec$Outbound,
   z.ZodTypeDef,
   InputCloudflareHec
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("cloudflare_hec"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  authTokens: z.array(z.lazy(() => InputCloudflareHecAuthToken$outboundSchema))
-    .optional(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  hecAPI: z.string(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  allowedIndexes: z.array(z.string()).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  accessControlAllowOrigin: z.array(z.string()).optional(),
-  accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().default(false),
-  description: z.string().optional(),
-});
+> = z.union([
+  z.lazy(() => InputCloudflareHecInputCollectionPart0Type$outboundSchema),
+  z.lazy(() => InputCloudflareHecInputCollectionPart1Type$outboundSchema),
+  z.lazy(() => InputCloudflareHecInputCollectionPart0Type1$outboundSchema),
+  z.lazy(() => InputCloudflareHecInputCollectionPart1Type1$outboundSchema),
+]);
 
 export function inputCloudflareHecToJSON(
   inputCloudflareHec: InputCloudflareHec,

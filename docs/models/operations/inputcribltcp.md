@@ -1,11 +1,12 @@
 # InputCriblTcp
 
-## Example Usage
+
+## Supported Types
+
+### `operations.InputCriblTcpInputCollectionPart0Type`
 
 ```typescript
-import { InputCriblTcp } from "cribl-control-plane/models/operations";
-
-let value: InputCriblTcp = {
+const value: operations.InputCriblTcpInputCollectionPart0Type = {
   id: "<id>",
   type: "cribl_tcp",
   pipeline: "<value>",
@@ -22,15 +23,15 @@ let value: InputCriblTcp = {
   pq: {
     pqControls: {},
   },
-  port: 5951.43,
+  port: 1382.88,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
   metadata: [
     {
@@ -41,36 +42,150 @@ let value: InputCriblTcp = {
   authTokens: [
     {
       tokenSecret: "<value>",
-      description: "augment case without",
+      description: "psst whoa zowie when waterspout",
     },
   ],
-  description: "tragic hunt psst as sham comb and",
+  description: "drat rigidly whereas concerned ack",
 };
 ```
 
-## Fields
+### `operations.InputCriblTcpInputCollectionPart1Type`
 
-| Field                                                                                                                                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `id`                                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                                                                                                                                     |
-| `type`                                                                                                                                                                                                                                                                                                                                                       | *"cribl_tcp"*                                                                                                                                                                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                                                                                                                                          |
-| `disabled`                                                                                                                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                                                                                                                                          |
-| `pipeline`                                                                                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                                                                                                                                               |
-| `sendToRoutes`                                                                                                                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                                                                                          |
-| `environment`                                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                                                                         |
-| `pqEnabled`                                                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                                                                                                 |
-| `streamtags`                                                                                                                                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                                                                                |
-| `connections`                                                                                                                                                                                                                                                                                                                                                | [models.ItemsTypeConnections](../../models/itemstypeconnections.md)[]                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                                                                                                  |
-| `pq`                                                                                                                                                                                                                                                                                                                                                         | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                                                                                                                                          |
-| `host`                                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                                                                                                                                     |
-| `port`                                                                                                                                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | Port to listen on                                                                                                                                                                                                                                                                                                                                            |
-| `tls`                                                                                                                                                                                                                                                                                                                                                        | [models.TlsSettingsServerSideType](../../models/tlssettingsserversidetype.md)                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                                                                                                                                          |
-| `maxActiveCxn`                                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.                                                                                                                                                                                                                                                                        |
-| `socketIdleTimeout`                                                                                                                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.                                                                                                                                                                         |
-| `socketEndingMaxWait`                                                                                                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring. |
-| `socketMaxLifespan`                                                                                                                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.                                                                                                                                                                                                   |
-| `enableProxyHeader`                                                                                                                                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Enable if the connection is proxied by a device that supports proxy protocol v1 or v2                                                                                                                                                                                                                                                                        |
-| `metadata`                                                                                                                                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                                                                                                                                      |
-| `enableLoadBalancing`                                                                                                                                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Load balance traffic across all Worker Processes                                                                                                                                                                                                                                                                                                             |
-| `authTokens`                                                                                                                                                                                                                                                                                                                                                 | [models.ItemsTypeAuthTokens](../../models/itemstypeauthtokens.md)[]                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.                                                                                                                                                                                          |
-| `description`                                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                                                                                                                                          |
+```typescript
+const value: operations.InputCriblTcpInputCollectionPart1Type = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  id: "<id>",
+  type: "cribl_tcp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 8253.24,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      description: "psst whoa zowie when waterspout",
+    },
+  ],
+  description: "department qualified alliance after",
+};
+```
+
+### `operations.InputCriblTcpInputCollectionPart0Type1`
+
+```typescript
+const value: operations.InputCriblTcpInputCollectionPart0Type1 = {
+  id: "<id>",
+  type: "cribl_tcp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 3308.71,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      description: "psst whoa zowie when waterspout",
+    },
+  ],
+  description: "zowie meh to how immediately wrongly",
+};
+```
+
+### `operations.InputCriblTcpInputCollectionPart1Type1`
+
+```typescript
+const value: operations.InputCriblTcpInputCollectionPart1Type1 = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "cribl_tcp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  port: 1912.6,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      description: "psst whoa zowie when waterspout",
+    },
+  ],
+  description: "mozzarella austere though react impanel",
+};
+```
+
