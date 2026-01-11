@@ -3,67 +3,10 @@
 
 ## Supported Types
 
-### `models.InputS3InputCollectionPart0Type`
+### `models.InputS3SendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputS3InputCollectionPart0Type = {
-  id: "<id>",
-  type: "s3",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  queueName: "<value>",
-  awsAccountId: "<id>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  preprocess: {
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  checkpointing: {},
-  encoding: "<value>",
-  description: "golden athletic whoever apropos substitution until",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  processedTagKey: "<value>",
-  processedTagValue: "<value>",
-};
-```
-
-### `models.InputS3InputCollectionPart1Type`
-
-```typescript
-const value: models.InputS3InputCollectionPart1Type = {
+const value: models.InputS3SendToRoutesTrueWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -108,7 +51,7 @@ const value: models.InputS3InputCollectionPart1Type = {
   ],
   checkpointing: {},
   encoding: "<value>",
-  description: "zowie daintily on and for when a uh-huh if",
+  description: "considering carnival longboat throughout unhappy despite",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   processedTagKey: "<value>",
@@ -116,10 +59,128 @@ const value: models.InputS3InputCollectionPart1Type = {
 };
 ```
 
-### `models.InputS3InputCollectionPart0Type1`
+### `models.InputS3SendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputS3InputCollectionPart0Type1 = {
+const value: models.InputS3SendToRoutesFalseWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  id: "<id>",
+  type: "s3",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  queueName: "<value>",
+  awsAccountId: "<id>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  preprocess: {
+    command: "<value>",
+    args: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  checkpointing: {},
+  encoding: "<value>",
+  description:
+    "seemingly fast oh if unbearably ugly tough likewise mostly preregister",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  processedTagKey: "<value>",
+  processedTagValue: "<value>",
+};
+```
+
+### `models.InputS3PqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputS3PqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "s3",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  queueName: "<value>",
+  awsAccountId: "<id>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  preprocess: {
+    command: "<value>",
+    args: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  checkpointing: {},
+  encoding: "<value>",
+  description: "heavily save yummy writhing extension",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  processedTagKey: "<value>",
+  processedTagValue: "<value>",
+};
+```
+
+### `models.InputS3PqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: models.InputS3PqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "s3",
   pipeline: "<value>",
@@ -135,9 +196,6 @@ const value: models.InputS3InputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   queueName: "<value>",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
@@ -146,6 +204,7 @@ const value: models.InputS3InputCollectionPart0Type1 = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
@@ -165,63 +224,7 @@ const value: models.InputS3InputCollectionPart0Type1 = {
   ],
   checkpointing: {},
   encoding: "<value>",
-  description: "trek yuck fortunately",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  processedTagKey: "<value>",
-  processedTagValue: "<value>",
-};
-```
-
-### `models.InputS3InputCollectionPart1Type1`
-
-```typescript
-const value: models.InputS3InputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "s3",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  queueName: "<value>",
-  awsAccountId: "<id>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  preprocess: {
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  checkpointing: {},
-  encoding: "<value>",
-  description: "yuck not boo very retract",
+  description: "final after excluding",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   processedTagKey: "<value>",

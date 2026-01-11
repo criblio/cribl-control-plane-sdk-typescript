@@ -26,14 +26,14 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 
-export const InputJournalFilesInputCollectionPart1Type1Type = {
+export const InputJournalFilesPqEnabledTrueWithPqConstraintType = {
   JournalFiles: "journal_files",
 } as const;
-export type InputJournalFilesInputCollectionPart1Type1Type = ClosedEnum<
-  typeof InputJournalFilesInputCollectionPart1Type1Type
+export type InputJournalFilesPqEnabledTrueWithPqConstraintType = ClosedEnum<
+  typeof InputJournalFilesPqEnabledTrueWithPqConstraintType
 >;
 
-export type InputCollectionPart1Type1Rule = {
+export type PqEnabledTrueWithPqConstraintRule = {
   /**
    * JavaScript expression applied to Journal objects. Return 'true' to include it.
    */
@@ -44,7 +44,7 @@ export type InputCollectionPart1Type1Rule = {
   description?: string | undefined;
 };
 
-export type InputJournalFilesInputCollectionPart1Type1 = {
+export type InputJournalFilesPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
@@ -54,7 +54,7 @@ export type InputJournalFilesInputCollectionPart1Type1 = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputJournalFilesInputCollectionPart1Type1Type;
+  type: InputJournalFilesPqEnabledTrueWithPqConstraintType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -91,7 +91,7 @@ export type InputJournalFilesInputCollectionPart1Type1 = {
   /**
    * Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
    */
-  rules?: Array<InputCollectionPart1Type1Rule> | undefined;
+  rules?: Array<PqEnabledTrueWithPqConstraintRule> | undefined;
   /**
    * Skip log messages that are not part of the current boot session.
    */
@@ -107,14 +107,14 @@ export type InputJournalFilesInputCollectionPart1Type1 = {
   description?: string | undefined;
 };
 
-export const InputJournalFilesInputCollectionPart0Type1Type = {
+export const InputJournalFilesPqEnabledFalseWithPqConstraintType = {
   JournalFiles: "journal_files",
 } as const;
-export type InputJournalFilesInputCollectionPart0Type1Type = ClosedEnum<
-  typeof InputJournalFilesInputCollectionPart0Type1Type
+export type InputJournalFilesPqEnabledFalseWithPqConstraintType = ClosedEnum<
+  typeof InputJournalFilesPqEnabledFalseWithPqConstraintType
 >;
 
-export type InputCollectionPart0Type1Rule = {
+export type PqEnabledFalseWithPqConstraintRule = {
   /**
    * JavaScript expression applied to Journal objects. Return 'true' to include it.
    */
@@ -125,16 +125,17 @@ export type InputCollectionPart0Type1Rule = {
   description?: string | undefined;
 };
 
-export type InputJournalFilesInputCollectionPart0Type1 = {
+export type InputJournalFilesPqEnabledFalseWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputJournalFilesInputCollectionPart0Type1Type;
+  type: InputJournalFilesPqEnabledFalseWithPqConstraintType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -156,7 +157,6 @@ export type InputJournalFilesInputCollectionPart0Type1 = {
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
   /**
    * Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
    */
@@ -172,7 +172,7 @@ export type InputJournalFilesInputCollectionPart0Type1 = {
   /**
    * Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
    */
-  rules?: Array<InputCollectionPart0Type1Rule> | undefined;
+  rules?: Array<PqEnabledFalseWithPqConstraintRule> | undefined;
   /**
    * Skip log messages that are not part of the current boot session.
    */
@@ -188,14 +188,15 @@ export type InputJournalFilesInputCollectionPart0Type1 = {
   description?: string | undefined;
 };
 
-export const InputJournalFilesInputCollectionPart1TypeType = {
+export const InputJournalFilesSendToRoutesFalseWithConnectionsConstraintType = {
   JournalFiles: "journal_files",
 } as const;
-export type InputJournalFilesInputCollectionPart1TypeType = ClosedEnum<
-  typeof InputJournalFilesInputCollectionPart1TypeType
->;
+export type InputJournalFilesSendToRoutesFalseWithConnectionsConstraintType =
+  ClosedEnum<
+    typeof InputJournalFilesSendToRoutesFalseWithConnectionsConstraintType
+  >;
 
-export type InputCollectionPart1TypeRule = {
+export type SendToRoutesFalseWithConnectionsConstraintRule = {
   /**
    * JavaScript expression applied to Journal objects. Return 'true' to include it.
    */
@@ -206,7 +207,7 @@ export type InputCollectionPart1TypeRule = {
   description?: string | undefined;
 };
 
-export type InputJournalFilesInputCollectionPart1Type = {
+export type InputJournalFilesSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
@@ -219,7 +220,7 @@ export type InputJournalFilesInputCollectionPart1Type = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputJournalFilesInputCollectionPart1TypeType;
+  type: InputJournalFilesSendToRoutesFalseWithConnectionsConstraintType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -253,7 +254,7 @@ export type InputJournalFilesInputCollectionPart1Type = {
   /**
    * Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
    */
-  rules?: Array<InputCollectionPart1TypeRule> | undefined;
+  rules?: Array<SendToRoutesFalseWithConnectionsConstraintRule> | undefined;
   /**
    * Skip log messages that are not part of the current boot session.
    */
@@ -269,14 +270,15 @@ export type InputJournalFilesInputCollectionPart1Type = {
   description?: string | undefined;
 };
 
-export const InputJournalFilesInputCollectionPart0TypeType = {
+export const InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType = {
   JournalFiles: "journal_files",
 } as const;
-export type InputJournalFilesInputCollectionPart0TypeType = ClosedEnum<
-  typeof InputJournalFilesInputCollectionPart0TypeType
->;
+export type InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType =
+  ClosedEnum<
+    typeof InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType
+  >;
 
-export type InputCollectionPart0TypeRule = {
+export type SendToRoutesTrueWithConnectionsConstraintRule = {
   /**
    * JavaScript expression applied to Journal objects. Return 'true' to include it.
    */
@@ -287,16 +289,20 @@ export type InputCollectionPart0TypeRule = {
   description?: string | undefined;
 };
 
-export type InputJournalFilesInputCollectionPart0Type = {
+export type InputJournalFilesSendToRoutesTrueWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
   /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputJournalFilesInputCollectionPart0TypeType;
+  type: InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -314,10 +320,6 @@ export type InputJournalFilesInputCollectionPart0Type = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   pq?: PqType | undefined;
   /**
    * Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
@@ -334,7 +336,7 @@ export type InputJournalFilesInputCollectionPart0Type = {
   /**
    * Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
    */
-  rules?: Array<InputCollectionPart0TypeRule> | undefined;
+  rules?: Array<SendToRoutesTrueWithConnectionsConstraintRule> | undefined;
   /**
    * Skip log messages that are not part of the current boot session.
    */
@@ -351,23 +353,23 @@ export type InputJournalFilesInputCollectionPart0Type = {
 };
 
 export type InputJournalFiles =
-  | InputJournalFilesInputCollectionPart0Type
-  | InputJournalFilesInputCollectionPart1Type
-  | InputJournalFilesInputCollectionPart0Type1
-  | InputJournalFilesInputCollectionPart1Type1;
+  | InputJournalFilesSendToRoutesTrueWithConnectionsConstraint
+  | InputJournalFilesSendToRoutesFalseWithConnectionsConstraint
+  | InputJournalFilesPqEnabledFalseWithPqConstraint
+  | InputJournalFilesPqEnabledTrueWithPqConstraint;
 
 /** @internal */
-export const InputJournalFilesInputCollectionPart1Type1Type$inboundSchema:
-  z.ZodNativeEnum<typeof InputJournalFilesInputCollectionPart1Type1Type> = z
-    .nativeEnum(InputJournalFilesInputCollectionPart1Type1Type);
+export const InputJournalFilesPqEnabledTrueWithPqConstraintType$inboundSchema:
+  z.ZodNativeEnum<typeof InputJournalFilesPqEnabledTrueWithPqConstraintType> = z
+    .nativeEnum(InputJournalFilesPqEnabledTrueWithPqConstraintType);
 /** @internal */
-export const InputJournalFilesInputCollectionPart1Type1Type$outboundSchema:
-  z.ZodNativeEnum<typeof InputJournalFilesInputCollectionPart1Type1Type> =
-    InputJournalFilesInputCollectionPart1Type1Type$inboundSchema;
+export const InputJournalFilesPqEnabledTrueWithPqConstraintType$outboundSchema:
+  z.ZodNativeEnum<typeof InputJournalFilesPqEnabledTrueWithPqConstraintType> =
+    InputJournalFilesPqEnabledTrueWithPqConstraintType$inboundSchema;
 
 /** @internal */
-export const InputCollectionPart1Type1Rule$inboundSchema: z.ZodType<
-  InputCollectionPart1Type1Rule,
+export const PqEnabledTrueWithPqConstraintRule$inboundSchema: z.ZodType<
+  PqEnabledTrueWithPqConstraintRule,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -375,66 +377,70 @@ export const InputCollectionPart1Type1Rule$inboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 /** @internal */
-export type InputCollectionPart1Type1Rule$Outbound = {
+export type PqEnabledTrueWithPqConstraintRule$Outbound = {
   filter: string;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputCollectionPart1Type1Rule$outboundSchema: z.ZodType<
-  InputCollectionPart1Type1Rule$Outbound,
+export const PqEnabledTrueWithPqConstraintRule$outboundSchema: z.ZodType<
+  PqEnabledTrueWithPqConstraintRule$Outbound,
   z.ZodTypeDef,
-  InputCollectionPart1Type1Rule
+  PqEnabledTrueWithPqConstraintRule
 > = z.object({
   filter: z.string(),
   description: z.string().optional(),
 });
 
-export function inputCollectionPart1Type1RuleToJSON(
-  inputCollectionPart1Type1Rule: InputCollectionPart1Type1Rule,
+export function pqEnabledTrueWithPqConstraintRuleToJSON(
+  pqEnabledTrueWithPqConstraintRule: PqEnabledTrueWithPqConstraintRule,
 ): string {
   return JSON.stringify(
-    InputCollectionPart1Type1Rule$outboundSchema.parse(
-      inputCollectionPart1Type1Rule,
+    PqEnabledTrueWithPqConstraintRule$outboundSchema.parse(
+      pqEnabledTrueWithPqConstraintRule,
     ),
   );
 }
-export function inputCollectionPart1Type1RuleFromJSON(
+export function pqEnabledTrueWithPqConstraintRuleFromJSON(
   jsonString: string,
-): SafeParseResult<InputCollectionPart1Type1Rule, SDKValidationError> {
+): SafeParseResult<PqEnabledTrueWithPqConstraintRule, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputCollectionPart1Type1Rule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCollectionPart1Type1Rule' from JSON`,
+    (x) => PqEnabledTrueWithPqConstraintRule$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PqEnabledTrueWithPqConstraintRule' from JSON`,
   );
 }
 
 /** @internal */
-export const InputJournalFilesInputCollectionPart1Type1$inboundSchema:
-  z.ZodType<InputJournalFilesInputCollectionPart1Type1, z.ZodTypeDef, unknown> =
-    z.object({
-      pqEnabled: z.boolean().default(false),
-      pq: PqType$inboundSchema.optional(),
-      id: z.string().optional(),
-      type: InputJournalFilesInputCollectionPart1Type1Type$inboundSchema,
-      disabled: z.boolean().default(false),
-      pipeline: z.string().optional(),
-      sendToRoutes: z.boolean().default(true),
-      environment: z.string().optional(),
-      streamtags: z.array(z.string()).optional(),
-      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-      path: z.string(),
-      interval: z.number().default(10),
-      journals: z.array(z.string()),
-      rules: z.array(z.lazy(() => InputCollectionPart1Type1Rule$inboundSchema))
-        .optional(),
-      currentBoot: z.boolean().default(false),
-      maxAgeDur: z.string().optional(),
-      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-      description: z.string().optional(),
-    });
+export const InputJournalFilesPqEnabledTrueWithPqConstraint$inboundSchema:
+  z.ZodType<
+    InputJournalFilesPqEnabledTrueWithPqConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputJournalFilesPqEnabledTrueWithPqConstraintType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    path: z.string(),
+    interval: z.number().default(10),
+    journals: z.array(z.string()),
+    rules: z.array(
+      z.lazy(() => PqEnabledTrueWithPqConstraintRule$inboundSchema),
+    ).optional(),
+    currentBoot: z.boolean().default(false),
+    maxAgeDur: z.string().optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputJournalFilesInputCollectionPart1Type1$Outbound = {
+export type InputJournalFilesPqEnabledTrueWithPqConstraint$Outbound = {
   pqEnabled: boolean;
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
@@ -448,7 +454,7 @@ export type InputJournalFilesInputCollectionPart1Type1$Outbound = {
   path: string;
   interval: number;
   journals: Array<string>;
-  rules?: Array<InputCollectionPart1Type1Rule$Outbound> | undefined;
+  rules?: Array<PqEnabledTrueWithPqConstraintRule$Outbound> | undefined;
   currentBoot: boolean;
   maxAgeDur?: string | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
@@ -456,16 +462,16 @@ export type InputJournalFilesInputCollectionPart1Type1$Outbound = {
 };
 
 /** @internal */
-export const InputJournalFilesInputCollectionPart1Type1$outboundSchema:
+export const InputJournalFilesPqEnabledTrueWithPqConstraint$outboundSchema:
   z.ZodType<
-    InputJournalFilesInputCollectionPart1Type1$Outbound,
+    InputJournalFilesPqEnabledTrueWithPqConstraint$Outbound,
     z.ZodTypeDef,
-    InputJournalFilesInputCollectionPart1Type1
+    InputJournalFilesPqEnabledTrueWithPqConstraint
   > = z.object({
     pqEnabled: z.boolean().default(false),
     pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
-    type: InputJournalFilesInputCollectionPart1Type1Type$outboundSchema,
+    type: InputJournalFilesPqEnabledTrueWithPqConstraintType$outboundSchema,
     disabled: z.boolean().default(false),
     pipeline: z.string().optional(),
     sendToRoutes: z.boolean().default(true),
@@ -475,52 +481,53 @@ export const InputJournalFilesInputCollectionPart1Type1$outboundSchema:
     path: z.string(),
     interval: z.number().default(10),
     journals: z.array(z.string()),
-    rules: z.array(z.lazy(() => InputCollectionPart1Type1Rule$outboundSchema))
-      .optional(),
+    rules: z.array(
+      z.lazy(() => PqEnabledTrueWithPqConstraintRule$outboundSchema),
+    ).optional(),
     currentBoot: z.boolean().default(false),
     maxAgeDur: z.string().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     description: z.string().optional(),
   });
 
-export function inputJournalFilesInputCollectionPart1Type1ToJSON(
-  inputJournalFilesInputCollectionPart1Type1:
-    InputJournalFilesInputCollectionPart1Type1,
+export function inputJournalFilesPqEnabledTrueWithPqConstraintToJSON(
+  inputJournalFilesPqEnabledTrueWithPqConstraint:
+    InputJournalFilesPqEnabledTrueWithPqConstraint,
 ): string {
   return JSON.stringify(
-    InputJournalFilesInputCollectionPart1Type1$outboundSchema.parse(
-      inputJournalFilesInputCollectionPart1Type1,
+    InputJournalFilesPqEnabledTrueWithPqConstraint$outboundSchema.parse(
+      inputJournalFilesPqEnabledTrueWithPqConstraint,
     ),
   );
 }
-export function inputJournalFilesInputCollectionPart1Type1FromJSON(
+export function inputJournalFilesPqEnabledTrueWithPqConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputJournalFilesInputCollectionPart1Type1,
+  InputJournalFilesPqEnabledTrueWithPqConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputJournalFilesInputCollectionPart1Type1$inboundSchema.parse(
+      InputJournalFilesPqEnabledTrueWithPqConstraint$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputJournalFilesInputCollectionPart1Type1' from JSON`,
+    `Failed to parse 'InputJournalFilesPqEnabledTrueWithPqConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputJournalFilesInputCollectionPart0Type1Type$inboundSchema:
-  z.ZodNativeEnum<typeof InputJournalFilesInputCollectionPart0Type1Type> = z
-    .nativeEnum(InputJournalFilesInputCollectionPart0Type1Type);
+export const InputJournalFilesPqEnabledFalseWithPqConstraintType$inboundSchema:
+  z.ZodNativeEnum<typeof InputJournalFilesPqEnabledFalseWithPqConstraintType> =
+    z.nativeEnum(InputJournalFilesPqEnabledFalseWithPqConstraintType);
 /** @internal */
-export const InputJournalFilesInputCollectionPart0Type1Type$outboundSchema:
-  z.ZodNativeEnum<typeof InputJournalFilesInputCollectionPart0Type1Type> =
-    InputJournalFilesInputCollectionPart0Type1Type$inboundSchema;
+export const InputJournalFilesPqEnabledFalseWithPqConstraintType$outboundSchema:
+  z.ZodNativeEnum<typeof InputJournalFilesPqEnabledFalseWithPqConstraintType> =
+    InputJournalFilesPqEnabledFalseWithPqConstraintType$inboundSchema;
 
 /** @internal */
-export const InputCollectionPart0Type1Rule$inboundSchema: z.ZodType<
-  InputCollectionPart0Type1Rule,
+export const PqEnabledFalseWithPqConstraintRule$inboundSchema: z.ZodType<
+  PqEnabledFalseWithPqConstraintRule,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -528,67 +535,73 @@ export const InputCollectionPart0Type1Rule$inboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 /** @internal */
-export type InputCollectionPart0Type1Rule$Outbound = {
+export type PqEnabledFalseWithPqConstraintRule$Outbound = {
   filter: string;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputCollectionPart0Type1Rule$outboundSchema: z.ZodType<
-  InputCollectionPart0Type1Rule$Outbound,
+export const PqEnabledFalseWithPqConstraintRule$outboundSchema: z.ZodType<
+  PqEnabledFalseWithPqConstraintRule$Outbound,
   z.ZodTypeDef,
-  InputCollectionPart0Type1Rule
+  PqEnabledFalseWithPqConstraintRule
 > = z.object({
   filter: z.string(),
   description: z.string().optional(),
 });
 
-export function inputCollectionPart0Type1RuleToJSON(
-  inputCollectionPart0Type1Rule: InputCollectionPart0Type1Rule,
+export function pqEnabledFalseWithPqConstraintRuleToJSON(
+  pqEnabledFalseWithPqConstraintRule: PqEnabledFalseWithPqConstraintRule,
 ): string {
   return JSON.stringify(
-    InputCollectionPart0Type1Rule$outboundSchema.parse(
-      inputCollectionPart0Type1Rule,
+    PqEnabledFalseWithPqConstraintRule$outboundSchema.parse(
+      pqEnabledFalseWithPqConstraintRule,
     ),
   );
 }
-export function inputCollectionPart0Type1RuleFromJSON(
+export function pqEnabledFalseWithPqConstraintRuleFromJSON(
   jsonString: string,
-): SafeParseResult<InputCollectionPart0Type1Rule, SDKValidationError> {
+): SafeParseResult<PqEnabledFalseWithPqConstraintRule, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputCollectionPart0Type1Rule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCollectionPart0Type1Rule' from JSON`,
+    (x) =>
+      PqEnabledFalseWithPqConstraintRule$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PqEnabledFalseWithPqConstraintRule' from JSON`,
   );
 }
 
 /** @internal */
-export const InputJournalFilesInputCollectionPart0Type1$inboundSchema:
-  z.ZodType<InputJournalFilesInputCollectionPart0Type1, z.ZodTypeDef, unknown> =
-    z.object({
-      pqEnabled: z.boolean().default(false),
-      id: z.string().optional(),
-      type: InputJournalFilesInputCollectionPart0Type1Type$inboundSchema,
-      disabled: z.boolean().default(false),
-      pipeline: z.string().optional(),
-      sendToRoutes: z.boolean().default(true),
-      environment: z.string().optional(),
-      streamtags: z.array(z.string()).optional(),
-      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-      pq: PqType$inboundSchema.optional(),
-      path: z.string(),
-      interval: z.number().default(10),
-      journals: z.array(z.string()),
-      rules: z.array(z.lazy(() => InputCollectionPart0Type1Rule$inboundSchema))
-        .optional(),
-      currentBoot: z.boolean().default(false),
-      maxAgeDur: z.string().optional(),
-      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-      description: z.string().optional(),
-    });
+export const InputJournalFilesPqEnabledFalseWithPqConstraint$inboundSchema:
+  z.ZodType<
+    InputJournalFilesPqEnabledFalseWithPqConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputJournalFilesPqEnabledFalseWithPqConstraintType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    path: z.string(),
+    interval: z.number().default(10),
+    journals: z.array(z.string()),
+    rules: z.array(
+      z.lazy(() => PqEnabledFalseWithPqConstraintRule$inboundSchema),
+    ).optional(),
+    currentBoot: z.boolean().default(false),
+    maxAgeDur: z.string().optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputJournalFilesInputCollectionPart0Type1$Outbound = {
+export type InputJournalFilesPqEnabledFalseWithPqConstraint$Outbound = {
   pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -597,11 +610,10 @@ export type InputJournalFilesInputCollectionPart0Type1$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
   path: string;
   interval: number;
   journals: Array<string>;
-  rules?: Array<InputCollectionPart0Type1Rule$Outbound> | undefined;
+  rules?: Array<PqEnabledFalseWithPqConstraintRule$Outbound> | undefined;
   currentBoot: boolean;
   maxAgeDur?: string | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
@@ -609,171 +621,195 @@ export type InputJournalFilesInputCollectionPart0Type1$Outbound = {
 };
 
 /** @internal */
-export const InputJournalFilesInputCollectionPart0Type1$outboundSchema:
+export const InputJournalFilesPqEnabledFalseWithPqConstraint$outboundSchema:
   z.ZodType<
-    InputJournalFilesInputCollectionPart0Type1$Outbound,
+    InputJournalFilesPqEnabledFalseWithPqConstraint$Outbound,
     z.ZodTypeDef,
-    InputJournalFilesInputCollectionPart0Type1
+    InputJournalFilesPqEnabledFalseWithPqConstraint
   > = z.object({
     pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
-    type: InputJournalFilesInputCollectionPart0Type1Type$outboundSchema,
+    type: InputJournalFilesPqEnabledFalseWithPqConstraintType$outboundSchema,
     disabled: z.boolean().default(false),
     pipeline: z.string().optional(),
     sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    pq: PqType$outboundSchema.optional(),
     path: z.string(),
     interval: z.number().default(10),
     journals: z.array(z.string()),
-    rules: z.array(z.lazy(() => InputCollectionPart0Type1Rule$outboundSchema))
-      .optional(),
+    rules: z.array(
+      z.lazy(() => PqEnabledFalseWithPqConstraintRule$outboundSchema),
+    ).optional(),
     currentBoot: z.boolean().default(false),
     maxAgeDur: z.string().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     description: z.string().optional(),
   });
 
-export function inputJournalFilesInputCollectionPart0Type1ToJSON(
-  inputJournalFilesInputCollectionPart0Type1:
-    InputJournalFilesInputCollectionPart0Type1,
+export function inputJournalFilesPqEnabledFalseWithPqConstraintToJSON(
+  inputJournalFilesPqEnabledFalseWithPqConstraint:
+    InputJournalFilesPqEnabledFalseWithPqConstraint,
 ): string {
   return JSON.stringify(
-    InputJournalFilesInputCollectionPart0Type1$outboundSchema.parse(
-      inputJournalFilesInputCollectionPart0Type1,
+    InputJournalFilesPqEnabledFalseWithPqConstraint$outboundSchema.parse(
+      inputJournalFilesPqEnabledFalseWithPqConstraint,
     ),
   );
 }
-export function inputJournalFilesInputCollectionPart0Type1FromJSON(
+export function inputJournalFilesPqEnabledFalseWithPqConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputJournalFilesInputCollectionPart0Type1,
+  InputJournalFilesPqEnabledFalseWithPqConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputJournalFilesInputCollectionPart0Type1$inboundSchema.parse(
+      InputJournalFilesPqEnabledFalseWithPqConstraint$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputJournalFilesInputCollectionPart0Type1' from JSON`,
+    `Failed to parse 'InputJournalFilesPqEnabledFalseWithPqConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputJournalFilesInputCollectionPart1TypeType$inboundSchema:
-  z.ZodNativeEnum<typeof InputJournalFilesInputCollectionPart1TypeType> = z
-    .nativeEnum(InputJournalFilesInputCollectionPart1TypeType);
+export const InputJournalFilesSendToRoutesFalseWithConnectionsConstraintType$inboundSchema:
+  z.ZodNativeEnum<
+    typeof InputJournalFilesSendToRoutesFalseWithConnectionsConstraintType
+  > = z.nativeEnum(
+    InputJournalFilesSendToRoutesFalseWithConnectionsConstraintType,
+  );
 /** @internal */
-export const InputJournalFilesInputCollectionPart1TypeType$outboundSchema:
-  z.ZodNativeEnum<typeof InputJournalFilesInputCollectionPart1TypeType> =
-    InputJournalFilesInputCollectionPart1TypeType$inboundSchema;
+export const InputJournalFilesSendToRoutesFalseWithConnectionsConstraintType$outboundSchema:
+  z.ZodNativeEnum<
+    typeof InputJournalFilesSendToRoutesFalseWithConnectionsConstraintType
+  > =
+    InputJournalFilesSendToRoutesFalseWithConnectionsConstraintType$inboundSchema;
 
 /** @internal */
-export const InputCollectionPart1TypeRule$inboundSchema: z.ZodType<
-  InputCollectionPart1TypeRule,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  filter: z.string(),
-  description: z.string().optional(),
-});
+export const SendToRoutesFalseWithConnectionsConstraintRule$inboundSchema:
+  z.ZodType<
+    SendToRoutesFalseWithConnectionsConstraintRule,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    filter: z.string(),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputCollectionPart1TypeRule$Outbound = {
+export type SendToRoutesFalseWithConnectionsConstraintRule$Outbound = {
   filter: string;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputCollectionPart1TypeRule$outboundSchema: z.ZodType<
-  InputCollectionPart1TypeRule$Outbound,
-  z.ZodTypeDef,
-  InputCollectionPart1TypeRule
-> = z.object({
-  filter: z.string(),
-  description: z.string().optional(),
-});
+export const SendToRoutesFalseWithConnectionsConstraintRule$outboundSchema:
+  z.ZodType<
+    SendToRoutesFalseWithConnectionsConstraintRule$Outbound,
+    z.ZodTypeDef,
+    SendToRoutesFalseWithConnectionsConstraintRule
+  > = z.object({
+    filter: z.string(),
+    description: z.string().optional(),
+  });
 
-export function inputCollectionPart1TypeRuleToJSON(
-  inputCollectionPart1TypeRule: InputCollectionPart1TypeRule,
+export function sendToRoutesFalseWithConnectionsConstraintRuleToJSON(
+  sendToRoutesFalseWithConnectionsConstraintRule:
+    SendToRoutesFalseWithConnectionsConstraintRule,
 ): string {
   return JSON.stringify(
-    InputCollectionPart1TypeRule$outboundSchema.parse(
-      inputCollectionPart1TypeRule,
+    SendToRoutesFalseWithConnectionsConstraintRule$outboundSchema.parse(
+      sendToRoutesFalseWithConnectionsConstraintRule,
     ),
   );
 }
-export function inputCollectionPart1TypeRuleFromJSON(
+export function sendToRoutesFalseWithConnectionsConstraintRuleFromJSON(
   jsonString: string,
-): SafeParseResult<InputCollectionPart1TypeRule, SDKValidationError> {
+): SafeParseResult<
+  SendToRoutesFalseWithConnectionsConstraintRule,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => InputCollectionPart1TypeRule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCollectionPart1TypeRule' from JSON`,
+    (x) =>
+      SendToRoutesFalseWithConnectionsConstraintRule$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'SendToRoutesFalseWithConnectionsConstraintRule' from JSON`,
   );
 }
 
 /** @internal */
-export const InputJournalFilesInputCollectionPart1Type$inboundSchema: z.ZodType<
-  InputJournalFilesInputCollectionPart1Type,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  id: z.string().optional(),
-  type: InputJournalFilesInputCollectionPart1TypeType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  pq: PqType$inboundSchema.optional(),
-  path: z.string(),
-  interval: z.number().default(10),
-  journals: z.array(z.string()),
-  rules: z.array(z.lazy(() => InputCollectionPart1TypeRule$inboundSchema))
-    .optional(),
-  currentBoot: z.boolean().default(false),
-  maxAgeDur: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-});
+export const InputJournalFilesSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputJournalFilesSendToRoutesFalseWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type:
+      InputJournalFilesSendToRoutesFalseWithConnectionsConstraintType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    path: z.string(),
+    interval: z.number().default(10),
+    journals: z.array(z.string()),
+    rules: z.array(
+      z.lazy(() =>
+        SendToRoutesFalseWithConnectionsConstraintRule$inboundSchema
+      ),
+    ).optional(),
+    currentBoot: z.boolean().default(false),
+    maxAgeDur: z.string().optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputJournalFilesInputCollectionPart1Type$Outbound = {
-  sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  pq?: PqType$Outbound | undefined;
-  path: string;
-  interval: number;
-  journals: Array<string>;
-  rules?: Array<InputCollectionPart1TypeRule$Outbound> | undefined;
-  currentBoot: boolean;
-  maxAgeDur?: string | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-};
+export type InputJournalFilesSendToRoutesFalseWithConnectionsConstraint$Outbound =
+  {
+    sendToRoutes: boolean;
+    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    id?: string | undefined;
+    type: string;
+    disabled: boolean;
+    pipeline?: string | undefined;
+    environment?: string | undefined;
+    pqEnabled: boolean;
+    streamtags?: Array<string> | undefined;
+    pq?: PqType$Outbound | undefined;
+    path: string;
+    interval: number;
+    journals: Array<string>;
+    rules?:
+      | Array<SendToRoutesFalseWithConnectionsConstraintRule$Outbound>
+      | undefined;
+    currentBoot: boolean;
+    maxAgeDur?: string | undefined;
+    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+    description?: string | undefined;
+  };
 
 /** @internal */
-export const InputJournalFilesInputCollectionPart1Type$outboundSchema:
+export const InputJournalFilesSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
   z.ZodType<
-    InputJournalFilesInputCollectionPart1Type$Outbound,
+    InputJournalFilesSendToRoutesFalseWithConnectionsConstraint$Outbound,
     z.ZodTypeDef,
-    InputJournalFilesInputCollectionPart1Type
+    InputJournalFilesSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
     connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
     id: z.string().optional(),
-    type: InputJournalFilesInputCollectionPart1TypeType$outboundSchema,
+    type:
+      InputJournalFilesSendToRoutesFalseWithConnectionsConstraintType$outboundSchema,
     disabled: z.boolean().default(false),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
@@ -783,192 +819,215 @@ export const InputJournalFilesInputCollectionPart1Type$outboundSchema:
     path: z.string(),
     interval: z.number().default(10),
     journals: z.array(z.string()),
-    rules: z.array(z.lazy(() => InputCollectionPart1TypeRule$outboundSchema))
-      .optional(),
+    rules: z.array(
+      z.lazy(() =>
+        SendToRoutesFalseWithConnectionsConstraintRule$outboundSchema
+      ),
+    ).optional(),
     currentBoot: z.boolean().default(false),
     maxAgeDur: z.string().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     description: z.string().optional(),
   });
 
-export function inputJournalFilesInputCollectionPart1TypeToJSON(
-  inputJournalFilesInputCollectionPart1Type:
-    InputJournalFilesInputCollectionPart1Type,
+export function inputJournalFilesSendToRoutesFalseWithConnectionsConstraintToJSON(
+  inputJournalFilesSendToRoutesFalseWithConnectionsConstraint:
+    InputJournalFilesSendToRoutesFalseWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputJournalFilesInputCollectionPart1Type$outboundSchema.parse(
-      inputJournalFilesInputCollectionPart1Type,
-    ),
+    InputJournalFilesSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+      .parse(inputJournalFilesSendToRoutesFalseWithConnectionsConstraint),
   );
 }
-export function inputJournalFilesInputCollectionPart1TypeFromJSON(
+export function inputJournalFilesSendToRoutesFalseWithConnectionsConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputJournalFilesInputCollectionPart1Type,
+  InputJournalFilesSendToRoutesFalseWithConnectionsConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputJournalFilesInputCollectionPart1Type$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputJournalFilesInputCollectionPart1Type' from JSON`,
+      InputJournalFilesSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputJournalFilesSendToRoutesFalseWithConnectionsConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputJournalFilesInputCollectionPart0TypeType$inboundSchema:
-  z.ZodNativeEnum<typeof InputJournalFilesInputCollectionPart0TypeType> = z
-    .nativeEnum(InputJournalFilesInputCollectionPart0TypeType);
+export const InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType$inboundSchema:
+  z.ZodNativeEnum<
+    typeof InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType
+  > = z.nativeEnum(
+    InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType,
+  );
 /** @internal */
-export const InputJournalFilesInputCollectionPart0TypeType$outboundSchema:
-  z.ZodNativeEnum<typeof InputJournalFilesInputCollectionPart0TypeType> =
-    InputJournalFilesInputCollectionPart0TypeType$inboundSchema;
+export const InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType$outboundSchema:
+  z.ZodNativeEnum<
+    typeof InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType
+  > =
+    InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType$inboundSchema;
 
 /** @internal */
-export const InputCollectionPart0TypeRule$inboundSchema: z.ZodType<
-  InputCollectionPart0TypeRule,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  filter: z.string(),
-  description: z.string().optional(),
-});
+export const SendToRoutesTrueWithConnectionsConstraintRule$inboundSchema:
+  z.ZodType<
+    SendToRoutesTrueWithConnectionsConstraintRule,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    filter: z.string(),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputCollectionPart0TypeRule$Outbound = {
+export type SendToRoutesTrueWithConnectionsConstraintRule$Outbound = {
   filter: string;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputCollectionPart0TypeRule$outboundSchema: z.ZodType<
-  InputCollectionPart0TypeRule$Outbound,
-  z.ZodTypeDef,
-  InputCollectionPart0TypeRule
-> = z.object({
-  filter: z.string(),
-  description: z.string().optional(),
-});
+export const SendToRoutesTrueWithConnectionsConstraintRule$outboundSchema:
+  z.ZodType<
+    SendToRoutesTrueWithConnectionsConstraintRule$Outbound,
+    z.ZodTypeDef,
+    SendToRoutesTrueWithConnectionsConstraintRule
+  > = z.object({
+    filter: z.string(),
+    description: z.string().optional(),
+  });
 
-export function inputCollectionPart0TypeRuleToJSON(
-  inputCollectionPart0TypeRule: InputCollectionPart0TypeRule,
+export function sendToRoutesTrueWithConnectionsConstraintRuleToJSON(
+  sendToRoutesTrueWithConnectionsConstraintRule:
+    SendToRoutesTrueWithConnectionsConstraintRule,
 ): string {
   return JSON.stringify(
-    InputCollectionPart0TypeRule$outboundSchema.parse(
-      inputCollectionPart0TypeRule,
+    SendToRoutesTrueWithConnectionsConstraintRule$outboundSchema.parse(
+      sendToRoutesTrueWithConnectionsConstraintRule,
     ),
   );
 }
-export function inputCollectionPart0TypeRuleFromJSON(
+export function sendToRoutesTrueWithConnectionsConstraintRuleFromJSON(
   jsonString: string,
-): SafeParseResult<InputCollectionPart0TypeRule, SDKValidationError> {
+): SafeParseResult<
+  SendToRoutesTrueWithConnectionsConstraintRule,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => InputCollectionPart0TypeRule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCollectionPart0TypeRule' from JSON`,
+    (x) =>
+      SendToRoutesTrueWithConnectionsConstraintRule$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'SendToRoutesTrueWithConnectionsConstraintRule' from JSON`,
   );
 }
 
 /** @internal */
-export const InputJournalFilesInputCollectionPart0Type$inboundSchema: z.ZodType<
-  InputJournalFilesInputCollectionPart0Type,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputJournalFilesInputCollectionPart0TypeType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  path: z.string(),
-  interval: z.number().default(10),
-  journals: z.array(z.string()),
-  rules: z.array(z.lazy(() => InputCollectionPart0TypeRule$inboundSchema))
-    .optional(),
-  currentBoot: z.boolean().default(false),
-  maxAgeDur: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-});
-/** @internal */
-export type InputJournalFilesInputCollectionPart0Type$Outbound = {
-  sendToRoutes: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  path: string;
-  interval: number;
-  journals: Array<string>;
-  rules?: Array<InputCollectionPart0TypeRule$Outbound> | undefined;
-  currentBoot: boolean;
-  maxAgeDur?: string | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputJournalFilesInputCollectionPart0Type$outboundSchema:
+export const InputJournalFilesSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
   z.ZodType<
-    InputJournalFilesInputCollectionPart0Type$Outbound,
+    InputJournalFilesSendToRoutesTrueWithConnectionsConstraint,
     z.ZodTypeDef,
-    InputJournalFilesInputCollectionPart0Type
+    unknown
   > = z.object({
     sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
     id: z.string().optional(),
-    type: InputJournalFilesInputCollectionPart0TypeType$outboundSchema,
+    type:
+      InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType$inboundSchema,
     disabled: z.boolean().default(false),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    path: z.string(),
+    interval: z.number().default(10),
+    journals: z.array(z.string()),
+    rules: z.array(
+      z.lazy(() => SendToRoutesTrueWithConnectionsConstraintRule$inboundSchema),
+    ).optional(),
+    currentBoot: z.boolean().default(false),
+    maxAgeDur: z.string().optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputJournalFilesSendToRoutesTrueWithConnectionsConstraint$Outbound =
+  {
+    sendToRoutes: boolean;
+    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    id?: string | undefined;
+    type: string;
+    disabled: boolean;
+    pipeline?: string | undefined;
+    environment?: string | undefined;
+    pqEnabled: boolean;
+    streamtags?: Array<string> | undefined;
+    pq?: PqType$Outbound | undefined;
+    path: string;
+    interval: number;
+    journals: Array<string>;
+    rules?:
+      | Array<SendToRoutesTrueWithConnectionsConstraintRule$Outbound>
+      | undefined;
+    currentBoot: boolean;
+    maxAgeDur?: string | undefined;
+    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+    description?: string | undefined;
+  };
+
+/** @internal */
+export const InputJournalFilesSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputJournalFilesSendToRoutesTrueWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputJournalFilesSendToRoutesTrueWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
     connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type:
+      InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
     path: z.string(),
     interval: z.number().default(10),
     journals: z.array(z.string()),
-    rules: z.array(z.lazy(() => InputCollectionPart0TypeRule$outboundSchema))
-      .optional(),
+    rules: z.array(
+      z.lazy(() =>
+        SendToRoutesTrueWithConnectionsConstraintRule$outboundSchema
+      ),
+    ).optional(),
     currentBoot: z.boolean().default(false),
     maxAgeDur: z.string().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     description: z.string().optional(),
   });
 
-export function inputJournalFilesInputCollectionPart0TypeToJSON(
-  inputJournalFilesInputCollectionPart0Type:
-    InputJournalFilesInputCollectionPart0Type,
+export function inputJournalFilesSendToRoutesTrueWithConnectionsConstraintToJSON(
+  inputJournalFilesSendToRoutesTrueWithConnectionsConstraint:
+    InputJournalFilesSendToRoutesTrueWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputJournalFilesInputCollectionPart0Type$outboundSchema.parse(
-      inputJournalFilesInputCollectionPart0Type,
-    ),
+    InputJournalFilesSendToRoutesTrueWithConnectionsConstraint$outboundSchema
+      .parse(inputJournalFilesSendToRoutesTrueWithConnectionsConstraint),
   );
 }
-export function inputJournalFilesInputCollectionPart0TypeFromJSON(
+export function inputJournalFilesSendToRoutesTrueWithConnectionsConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputJournalFilesInputCollectionPart0Type,
+  InputJournalFilesSendToRoutesTrueWithConnectionsConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputJournalFilesInputCollectionPart0Type$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputJournalFilesInputCollectionPart0Type' from JSON`,
+      InputJournalFilesSendToRoutesTrueWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputJournalFilesSendToRoutesTrueWithConnectionsConstraint' from JSON`,
   );
 }
 
@@ -978,17 +1037,21 @@ export const InputJournalFiles$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => InputJournalFilesInputCollectionPart0Type$inboundSchema),
-  z.lazy(() => InputJournalFilesInputCollectionPart1Type$inboundSchema),
-  z.lazy(() => InputJournalFilesInputCollectionPart0Type1$inboundSchema),
-  z.lazy(() => InputJournalFilesInputCollectionPart1Type1$inboundSchema),
+  z.lazy(() =>
+    InputJournalFilesSendToRoutesTrueWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() =>
+    InputJournalFilesSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() => InputJournalFilesPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputJournalFilesPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputJournalFiles$Outbound =
-  | InputJournalFilesInputCollectionPart0Type$Outbound
-  | InputJournalFilesInputCollectionPart1Type$Outbound
-  | InputJournalFilesInputCollectionPart0Type1$Outbound
-  | InputJournalFilesInputCollectionPart1Type1$Outbound;
+  | InputJournalFilesSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputJournalFilesSendToRoutesFalseWithConnectionsConstraint$Outbound
+  | InputJournalFilesPqEnabledFalseWithPqConstraint$Outbound
+  | InputJournalFilesPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
 export const InputJournalFiles$outboundSchema: z.ZodType<
@@ -996,10 +1059,14 @@ export const InputJournalFiles$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputJournalFiles
 > = z.union([
-  z.lazy(() => InputJournalFilesInputCollectionPart0Type$outboundSchema),
-  z.lazy(() => InputJournalFilesInputCollectionPart1Type$outboundSchema),
-  z.lazy(() => InputJournalFilesInputCollectionPart0Type1$outboundSchema),
-  z.lazy(() => InputJournalFilesInputCollectionPart1Type1$outboundSchema),
+  z.lazy(() =>
+    InputJournalFilesSendToRoutesTrueWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() =>
+    InputJournalFilesSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() => InputJournalFilesPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputJournalFilesPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 
 export function inputJournalFilesToJSON(

@@ -3,10 +3,221 @@
 
 ## Supported Types
 
-### `models.InputCriblLakeHttpInputCollectionPart0Type`
+### `models.InputCriblLakeHttpSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputCriblLakeHttpInputCollectionPart0Type = {
+const value:
+  models.InputCriblLakeHttpSendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "cribl_lake_http",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 2404.83,
+    authTokens: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    authTokensExt: [
+      {
+        token: "<value>",
+        description: "across fooey judgementally cork",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        splunkHecMetadata: {
+          enabled: false,
+          defaultDataset: "<value>",
+          allowedIndexesAtToken: [
+            "<value 1>",
+            "<value 2>",
+          ],
+        },
+        elasticsearchMetadata: {
+          enabled: false,
+          defaultDataset: "<value>",
+        },
+      },
+    ],
+    description: "ugh near um sushi lest following scamper",
+  };
+```
+
+### `models.InputCriblLakeHttpSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  models.InputCriblLakeHttpSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "cribl_lake_http",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 5907.63,
+    authTokens: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    authTokensExt: [
+      {
+        token: "<value>",
+        description: "across fooey judgementally cork",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        splunkHecMetadata: {
+          enabled: false,
+          defaultDataset: "<value>",
+          allowedIndexesAtToken: [
+            "<value 1>",
+            "<value 2>",
+          ],
+        },
+        elasticsearchMetadata: {
+          enabled: false,
+          defaultDataset: "<value>",
+        },
+      },
+    ],
+    description: "ad forenenst edge",
+  };
+```
+
+### `models.InputCriblLakeHttpPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputCriblLakeHttpPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "cribl_lake_http",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  port: 5873.47,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description: "across fooey judgementally cork",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      splunkHecMetadata: {
+        enabled: false,
+        defaultDataset: "<value>",
+        allowedIndexesAtToken: [
+          "<value 1>",
+          "<value 2>",
+        ],
+      },
+      elasticsearchMetadata: {
+        enabled: false,
+        defaultDataset: "<value>",
+      },
+    },
+  ],
+  description: "exactly inasmuch whoever ha gee pace limited",
+};
+```
+
+### `models.InputCriblLakeHttpPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: models.InputCriblLakeHttpPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "cribl_lake_http",
   pipeline: "<value>",
@@ -22,78 +233,7 @@ const value: models.InputCriblLakeHttpInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 8433.16,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "across fooey judgementally cork",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      splunkHecMetadata: {
-        enabled: false,
-        defaultDataset: "<value>",
-        allowedIndexesAtToken: [
-          "<value 1>",
-          "<value 2>",
-        ],
-      },
-      elasticsearchMetadata: {
-        enabled: false,
-        defaultDataset: "<value>",
-      },
-    },
-  ],
-  description: "given elliptical regularly drat repeatedly before inject",
-};
-```
-
-### `models.InputCriblLakeHttpInputCollectionPart1Type`
-
-```typescript
-const value: models.InputCriblLakeHttpInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "cribl_lake_http",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 3378.94,
+  port: 7519.11,
   authTokens: [
     "<value 1>",
   ],
@@ -136,146 +276,7 @@ const value: models.InputCriblLakeHttpInputCollectionPart1Type = {
       },
     },
   ],
-  description:
-    "victoriously woot phooey astride wildly hmph enlightened before limp grim",
-};
-```
-
-### `models.InputCriblLakeHttpInputCollectionPart0Type1`
-
-```typescript
-const value: models.InputCriblLakeHttpInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "cribl_lake_http",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 738.42,
-  authTokens: [
-    "<value 1>",
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "across fooey judgementally cork",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      splunkHecMetadata: {
-        enabled: false,
-        defaultDataset: "<value>",
-        allowedIndexesAtToken: [
-          "<value 1>",
-          "<value 2>",
-        ],
-      },
-      elasticsearchMetadata: {
-        enabled: false,
-        defaultDataset: "<value>",
-      },
-    },
-  ],
-  description: "afore dwell beneath cross-contamination between",
-};
-```
-
-### `models.InputCriblLakeHttpInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputCriblLakeHttpInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "cribl_lake_http",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  port: 4374.38,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "across fooey judgementally cork",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      splunkHecMetadata: {
-        enabled: false,
-        defaultDataset: "<value>",
-        allowedIndexesAtToken: [
-          "<value 1>",
-          "<value 2>",
-        ],
-      },
-      elasticsearchMetadata: {
-        enabled: false,
-        defaultDataset: "<value>",
-      },
-    },
-  ],
-  description: "speedily blah oof zowie bookend",
+  description: "really afore huzzah stigmatize shy psst revere regularly",
 };
 ```
 

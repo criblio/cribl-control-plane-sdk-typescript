@@ -3,10 +3,16 @@
 
 ## Supported Types
 
-### `operations.InputRawUdpInputCollectionPart0Type`
+### `operations.InputRawUdpSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputRawUdpInputCollectionPart0Type = {
+const value: operations.InputRawUdpSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "raw_udp",
   pipeline: "<value>",
@@ -14,38 +20,65 @@ const value: operations.InputRawUdpInputCollectionPart0Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
+    "<value 3>",
   ],
   pq: {
     pqControls: {},
   },
-  port: 3910.69,
-  udpSocketRxBufSize: 9414.05,
+  port: 5582.13,
+  udpSocketRxBufSize: 3463.45,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "um noisily yowza scrape readmit unlike dash that eek",
+  description: "immediately er mostly ambitious",
 };
 ```
 
-### `operations.InputRawUdpInputCollectionPart1Type`
+### `operations.InputRawUdpSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputRawUdpInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
+const value: operations.InputRawUdpSendToRoutesFalseWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "raw_udp",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
     },
-  ],
+    port: 7933.67,
+    udpSocketRxBufSize: 5002.54,
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "roundabout times contravene gripping",
+  };
+```
+
+### `operations.InputRawUdpPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputRawUdpPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "raw_udp",
   pipeline: "<value>",
@@ -54,44 +87,14 @@ const value: operations.InputRawUdpInputCollectionPart1Type = {
     "<value 1>",
     "<value 2>",
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 5054.31,
-  udpSocketRxBufSize: 9737.47,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "however near reiterate nor woot sand",
-};
-```
-
-### `operations.InputRawUdpInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputRawUdpInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "raw_udp",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
   connections: [
     {
       pipeline: "<value>",
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 3434.26,
-  udpSocketRxBufSize: 9691.69,
+  port: 9210.82,
+  udpSocketRxBufSize: 3325.14,
   metadata: [
     {
       name: "<value>",
@@ -99,14 +102,14 @@ const value: operations.InputRawUdpInputCollectionPart0Type1 = {
     },
   ],
   description:
-    "madly council what reasonable cauliflower overplay hmph immediately provided follower",
+    "comestible hoarse readily whoa numeric bulky boldly indeed pale",
 };
 ```
 
-### `operations.InputRawUdpInputCollectionPart1Type1`
+### `operations.InputRawUdpPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputRawUdpInputCollectionPart1Type1 = {
+const value: operations.InputRawUdpPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -116,6 +119,7 @@ const value: operations.InputRawUdpInputCollectionPart1Type1 = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -123,15 +127,15 @@ const value: operations.InputRawUdpInputCollectionPart1Type1 = {
       output: "<value>",
     },
   ],
-  port: 8030.91,
-  udpSocketRxBufSize: 7917.1,
+  port: 2026.58,
+  udpSocketRxBufSize: 8364.74,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "pish veg bog birth",
+  description: "huzzah tenement lift advancement apropos weakly",
 };
 ```
 

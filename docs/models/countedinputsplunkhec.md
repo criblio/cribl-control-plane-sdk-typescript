@@ -10,6 +10,12 @@ let value: CountedInputSplunkHec = {
   items: [
     {
       sendToRoutes: true,
+      connections: [
+        {
+          pipeline: "<value>",
+          output: "<value>",
+        },
+      ],
       id: "<id>",
       type: "splunk_hec",
       disabled: false,
@@ -20,12 +26,6 @@ let value: CountedInputSplunkHec = {
         "<value 1>",
         "<value 2>",
         "<value 3>",
-      ],
-      connections: [
-        {
-          pipeline: "<value>",
-          output: "<value>",
-        },
       ],
       pq: {
         mode: "always",

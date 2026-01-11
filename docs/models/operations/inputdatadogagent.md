@@ -3,93 +3,99 @@
 
 ## Supported Types
 
-### `operations.InputDatadogAgentInputCollectionPart0Type`
+### `operations.InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputDatadogAgentInputCollectionPart0Type = {
-  id: "<id>",
-  type: "datadog_agent",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
+const value:
+  operations.InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "datadog_agent",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
     },
-  ],
+    port: 7341.73,
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    proxyMode: {},
+    description: "where yahoo despite pfft forenenst",
+  };
+```
+
+### `operations.InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  operations.InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "datadog_agent",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 7684.72,
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    proxyMode: {},
+    description: "earnest zowie ew yellow accredit rosin mmm",
+  };
+```
+
+### `operations.InputDatadogAgentPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputDatadogAgentPqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
-  port: 9685.94,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  proxyMode: {},
-  description: "affectionate finally typeface mmm badly",
-};
-```
-
-### `operations.InputDatadogAgentInputCollectionPart1Type`
-
-```typescript
-const value: operations.InputDatadogAgentInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "datadog_agent",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 900.9,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  proxyMode: {},
-  description:
-    "as parade horse smuggle symbolise awkwardly inquisitively inwardly brief physically",
-};
-```
-
-### `operations.InputDatadogAgentInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputDatadogAgentInputCollectionPart0Type1 = {
   id: "<id>",
   type: "datadog_agent",
   pipeline: "<value>",
@@ -105,10 +111,7 @@ const value: operations.InputDatadogAgentInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 4965.28,
+  port: 9301.71,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -125,15 +128,14 @@ const value: operations.InputDatadogAgentInputCollectionPart0Type1 = {
     },
   ],
   proxyMode: {},
-  description:
-    "youthfully obscure so blissfully inside coin unnecessarily nerve straw humidity",
+  description: "rigidly archive an gosh spirit for pish bitterly but usefully",
 };
 ```
 
-### `operations.InputDatadogAgentInputCollectionPart1Type1`
+### `operations.InputDatadogAgentPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputDatadogAgentInputCollectionPart1Type1 = {
+const value: operations.InputDatadogAgentPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -143,7 +145,6 @@ const value: operations.InputDatadogAgentInputCollectionPart1Type1 = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -151,7 +152,7 @@ const value: operations.InputDatadogAgentInputCollectionPart1Type1 = {
       output: "<value>",
     },
   ],
-  port: 2665.57,
+  port: 8557.04,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -169,7 +170,7 @@ const value: operations.InputDatadogAgentInputCollectionPart1Type1 = {
   ],
   proxyMode: {},
   description:
-    "uh-huh wombat if sticker shameful messy wonderful upbeat out wildly",
+    "idealistic misread suitcase openly wriggler including negligible reasonable over",
 };
 ```
 

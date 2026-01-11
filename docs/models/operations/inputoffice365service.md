@@ -3,66 +3,118 @@
 
 ## Supported Types
 
-### `operations.InputOffice365ServiceInputCollectionPart0Type`
+### `operations.InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputOffice365ServiceInputCollectionPart0Type = {
-  id: "<id>",
-  type: "office365_service",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
+const value:
+  operations.InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "office365_service",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
     },
-  ],
+    tenantId: "<id>",
+    appId: "<id>",
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    contentConfig: [
+      {
+        contentType: "<value>",
+        description: "guilt absent indeed considerate",
+        interval: 2050.4,
+        logLevel: "warn",
+        enabled: true,
+      },
+    ],
+    retryRules: {
+      codes: [
+        6390.37,
+        2107.49,
+        2764.09,
+      ],
+    },
+    description: "when foretell brr excepting near hearten",
+    clientSecret: "<value>",
+    textSecret: "<value>",
+  };
+```
+
+### `operations.InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  operations.InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "office365_service",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    tenantId: "<id>",
+    appId: "<id>",
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    contentConfig: [
+      {
+        contentType: "<value>",
+        description: "guilt absent indeed considerate",
+        interval: 2050.4,
+        logLevel: "warn",
+        enabled: true,
+      },
+    ],
+    retryRules: {
+      codes: [
+        6390.37,
+        2107.49,
+        2764.09,
+      ],
+    },
+    description:
+      "without valuable freight since low innocently what even easily",
+    clientSecret: "<value>",
+    textSecret: "<value>",
+  };
+```
+
+### `operations.InputOffice365ServicePqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputOffice365ServicePqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
-  tenantId: "<id>",
-  appId: "<id>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  contentConfig: [
-    {
-      contentType: "<value>",
-      description: "bootleg fraudster sentimental",
-      interval: 1685,
-      logLevel: "error",
-      enabled: false,
-    },
-  ],
-  retryRules: {
-    codes: [
-      6390.37,
-      2107.49,
-      2764.09,
-    ],
-  },
-  description: "cornet yahoo our brr provided upon forenenst angrily or treble",
-  clientSecret: "<value>",
-  textSecret: "<value>",
-};
-```
-
-### `operations.InputOffice365ServiceInputCollectionPart1Type`
-
-```typescript
-const value: operations.InputOffice365ServiceInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
   id: "<id>",
   type: "office365_service",
   pipeline: "<value>",
@@ -71,9 +123,12 @@ const value: operations.InputOffice365ServiceInputCollectionPart1Type = {
     "<value 1>",
     "<value 2>",
   ],
-  pq: {
-    pqControls: {},
-  },
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   tenantId: "<id>",
   appId: "<id>",
   metadata: [
@@ -85,10 +140,10 @@ const value: operations.InputOffice365ServiceInputCollectionPart1Type = {
   contentConfig: [
     {
       contentType: "<value>",
-      description: "bootleg fraudster sentimental",
-      interval: 1685,
-      logLevel: "error",
-      enabled: false,
+      description: "guilt absent indeed considerate",
+      interval: 2050.4,
+      logLevel: "warn",
+      enabled: true,
     },
   ],
   retryRules: {
@@ -98,17 +153,19 @@ const value: operations.InputOffice365ServiceInputCollectionPart1Type = {
       2764.09,
     ],
   },
-  description:
-    "despite bemuse self-assured fumigate fooey ruddy pish phew since",
+  description: "excepting jaggedly describe",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
 ```
 
-### `operations.InputOffice365ServiceInputCollectionPart0Type1`
+### `operations.InputOffice365ServicePqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputOffice365ServiceInputCollectionPart0Type1 = {
+const value: operations.InputOffice365ServicePqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "office365_service",
   pipeline: "<value>",
@@ -124,9 +181,6 @@ const value: operations.InputOffice365ServiceInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   tenantId: "<id>",
   appId: "<id>",
   metadata: [
@@ -138,10 +192,10 @@ const value: operations.InputOffice365ServiceInputCollectionPart0Type1 = {
   contentConfig: [
     {
       contentType: "<value>",
-      description: "bootleg fraudster sentimental",
-      interval: 1685,
-      logLevel: "error",
-      enabled: false,
+      description: "guilt absent indeed considerate",
+      interval: 2050.4,
+      logLevel: "warn",
+      enabled: true,
     },
   ],
   retryRules: {
@@ -151,60 +205,7 @@ const value: operations.InputOffice365ServiceInputCollectionPart0Type1 = {
       2764.09,
     ],
   },
-  description:
-    "vice mixed concrete wrathful row firsthand powerfully writhing print",
-  clientSecret: "<value>",
-  textSecret: "<value>",
-};
-```
-
-### `operations.InputOffice365ServiceInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputOffice365ServiceInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "office365_service",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  tenantId: "<id>",
-  appId: "<id>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  contentConfig: [
-    {
-      contentType: "<value>",
-      description: "bootleg fraudster sentimental",
-      interval: 1685,
-      logLevel: "error",
-      enabled: false,
-    },
-  ],
-  retryRules: {
-    codes: [
-      6390.37,
-      2107.49,
-      2764.09,
-    ],
-  },
-  description: "fooey observe innocently",
+  description: "whoa worriedly competent",
   clientSecret: "<value>",
   textSecret: "<value>",
 };

@@ -3,10 +3,16 @@
 
 ## Supported Types
 
-### `models.InputEventhubInputCollectionPart0Type`
+### `models.InputEventhubSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputEventhubInputCollectionPart0Type = {
+const value: models.InputEventhubSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "eventhub",
   pipeline: "<value>",
@@ -14,22 +20,17 @@ const value: models.InputEventhubInputCollectionPart0Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     pqControls: {},
   },
   brokers: [
     "<value 1>",
+    "<value 2>",
   ],
   topics: [
     "<value 1>",
+    "<value 2>",
   ],
   sasl: {
     password: "crxTx4Amn7CtfAT",
@@ -45,22 +46,22 @@ const value: models.InputEventhubInputCollectionPart0Type = {
     scope: "<value>",
   },
   tls: {},
-  autoCommitInterval: 1060.37,
-  autoCommitThreshold: 1801.67,
+  autoCommitInterval: 1554.76,
+  autoCommitThreshold: 9262.76,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "kindly shell delectable",
+  description: "drat crowded via opposite lampoon annually burly",
 };
 ```
 
-### `models.InputEventhubInputCollectionPart1Type`
+### `models.InputEventhubSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputEventhubInputCollectionPart1Type = {
+const value: models.InputEventhubSendToRoutesFalseWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -80,6 +81,65 @@ const value: models.InputEventhubInputCollectionPart1Type = {
   },
   brokers: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  topics: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  sasl: {
+    password: "crxTx4Amn7CtfAT",
+    textSecret: "<value>",
+    clientSecret: "<value>",
+    clientTextSecret: "<value>",
+    certificateName: "<value>",
+    certPath: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    clientId: "<id>",
+    tenantId: "<id>",
+    scope: "<value>",
+  },
+  tls: {},
+  autoCommitInterval: 7299.24,
+  autoCommitThreshold: 4442.87,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "evince about jubilantly statue regarding ha mom",
+};
+```
+
+### `models.InputEventhubPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputEventhubPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "eventhub",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  brokers: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   topics: [],
   sasl: {
@@ -96,8 +156,8 @@ const value: models.InputEventhubInputCollectionPart1Type = {
     scope: "<value>",
   },
   tls: {},
-  autoCommitInterval: 6855.71,
-  autoCommitThreshold: 2795.02,
+  autoCommitInterval: 3439.86,
+  autoCommitThreshold: 5305.08,
   metadata: [
     {
       name: "<value>",
@@ -105,14 +165,17 @@ const value: models.InputEventhubInputCollectionPart1Type = {
     },
   ],
   description:
-    "politely yippee outrun cash mockingly er gracefully trivial ignite likewise",
+    "presell suspiciously mmm modulo dicker practical babushka seriously confiscate",
 };
 ```
 
-### `models.InputEventhubInputCollectionPart0Type1`
+### `models.InputEventhubPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputEventhubInputCollectionPart0Type1 = {
+const value: models.InputEventhubPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "eventhub",
   pipeline: "<value>",
@@ -128,9 +191,6 @@ const value: models.InputEventhubInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   brokers: [],
   topics: [
     "<value 1>",
@@ -150,68 +210,15 @@ const value: models.InputEventhubInputCollectionPart0Type1 = {
     scope: "<value>",
   },
   tls: {},
-  autoCommitInterval: 4542.92,
-  autoCommitThreshold: 1133.79,
+  autoCommitInterval: 7438.13,
+  autoCommitThreshold: 4680.38,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "yahoo pant scaly qua guilty over",
-};
-```
-
-### `models.InputEventhubInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputEventhubInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "eventhub",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  brokers: [
-    "<value 1>",
-  ],
-  topics: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  sasl: {
-    password: "crxTx4Amn7CtfAT",
-    textSecret: "<value>",
-    clientSecret: "<value>",
-    clientTextSecret: "<value>",
-    certificateName: "<value>",
-    certPath: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    clientId: "<id>",
-    tenantId: "<id>",
-    scope: "<value>",
-  },
-  tls: {},
-  autoCommitInterval: 2204.93,
-  autoCommitThreshold: 6551.6,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "till declaration round valiantly ew huzzah",
+  description: "oh overdub up drive",
 };
 ```
 

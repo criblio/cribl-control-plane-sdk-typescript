@@ -54,7 +54,7 @@ export const InputLokiType = {
 } as const;
 export type InputLokiType = ClosedEnum<typeof InputLokiType>;
 
-export type InputLokiInputCollectionPart1Type1 = {
+export type InputLokiPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
@@ -200,11 +200,12 @@ export type InputLokiInputCollectionPart1Type1 = {
   oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
 };
 
-export type InputLokiInputCollectionPart0Type1 = {
+export type InputLokiPqEnabledFalseWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -231,6 +232,151 @@ export type InputLokiInputCollectionPart0Type1 = {
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'.
+   */
+  lokiAPI?: string | undefined;
+  /**
+   * Loki logs authentication type
+   */
+  authType?: AuthenticationTypeOptionsLokiAuth | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+};
+
+export type InputLokiSendToRoutesFalseWithConnectionsConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputLokiType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -346,7 +492,7 @@ export type InputLokiInputCollectionPart0Type1 = {
   oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
 };
 
-export type InputLokiInputCollectionPart1Type = {
+export type InputLokiSendToRoutesTrueWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
@@ -377,152 +523,6 @@ export type InputLokiInputCollectionPart1Type = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
-   */
-  host?: string | undefined;
-  /**
-   * Port to listen on
-   */
-  port: number;
-  tls?: TlsSettingsServerSideType | undefined;
-  /**
-   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-   */
-  maxActiveReq?: number | undefined;
-  /**
-   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-   */
-  maxRequestsPerSocket?: number | undefined;
-  /**
-   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-   */
-  enableProxyHeader?: boolean | undefined;
-  /**
-   * Add request headers to events, in the __headers field
-   */
-  captureHeaders?: boolean | undefined;
-  /**
-   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-   */
-  activityLogSampleRate?: number | undefined;
-  /**
-   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-   */
-  requestTimeout?: number | undefined;
-  /**
-   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-   */
-  socketTimeout?: number | undefined;
-  /**
-   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-   */
-  keepAliveTimeout?: number | undefined;
-  /**
-   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-   */
-  enableHealthCheck?: boolean | undefined;
-  /**
-   * Messages from matched IP addresses will be processed, unless also matched by the denylist
-   */
-  ipAllowlistRegex?: string | undefined;
-  /**
-   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-   */
-  ipDenylistRegex?: string | undefined;
-  /**
-   * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'.
-   */
-  lokiAPI?: string | undefined;
-  /**
-   * Loki logs authentication type
-   */
-  authType?: AuthenticationTypeOptionsLokiAuth | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  /**
-   * Bearer token to include in the authorization header
-   */
-  token?: string | undefined;
-  /**
-   * Select or create a secret that references your credentials
-   */
-  credentialsSecret?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-  /**
-   * URL for OAuth
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Secret parameter name to pass in request body
-   */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
-};
-
-export type InputLokiInputCollectionPart0Type = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputLokiType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -639,10 +639,10 @@ export type InputLokiInputCollectionPart0Type = {
 };
 
 export type InputLoki =
-  | InputLokiInputCollectionPart0Type
-  | InputLokiInputCollectionPart1Type
-  | InputLokiInputCollectionPart0Type1
-  | InputLokiInputCollectionPart1Type1;
+  | InputLokiSendToRoutesTrueWithConnectionsConstraint
+  | InputLokiSendToRoutesFalseWithConnectionsConstraint
+  | InputLokiPqEnabledFalseWithPqConstraint
+  | InputLokiPqEnabledTrueWithPqConstraint;
 
 /** @internal */
 export const InputLokiType$inboundSchema: z.ZodNativeEnum<
@@ -654,8 +654,8 @@ export const InputLokiType$outboundSchema: z.ZodNativeEnum<
 > = InputLokiType$inboundSchema;
 
 /** @internal */
-export const InputLokiInputCollectionPart1Type1$inboundSchema: z.ZodType<
-  InputLokiInputCollectionPart1Type1,
+export const InputLokiPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
+  InputLokiPqEnabledTrueWithPqConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -702,7 +702,7 @@ export const InputLokiInputCollectionPart1Type1$inboundSchema: z.ZodType<
   oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
 });
 /** @internal */
-export type InputLokiInputCollectionPart1Type1$Outbound = {
+export type InputLokiPqEnabledTrueWithPqConstraint$Outbound = {
   pqEnabled: boolean;
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
@@ -747,10 +747,10 @@ export type InputLokiInputCollectionPart1Type1$Outbound = {
 };
 
 /** @internal */
-export const InputLokiInputCollectionPart1Type1$outboundSchema: z.ZodType<
-  InputLokiInputCollectionPart1Type1$Outbound,
+export const InputLokiPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
+  InputLokiPqEnabledTrueWithPqConstraint$Outbound,
   z.ZodTypeDef,
-  InputLokiInputCollectionPart1Type1
+  InputLokiPqEnabledTrueWithPqConstraint
 > = z.object({
   pqEnabled: z.boolean().default(false),
   pq: PqType$outboundSchema.optional(),
@@ -795,33 +795,35 @@ export const InputLokiInputCollectionPart1Type1$outboundSchema: z.ZodType<
   oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
 });
 
-export function inputLokiInputCollectionPart1Type1ToJSON(
-  inputLokiInputCollectionPart1Type1: InputLokiInputCollectionPart1Type1,
+export function inputLokiPqEnabledTrueWithPqConstraintToJSON(
+  inputLokiPqEnabledTrueWithPqConstraint:
+    InputLokiPqEnabledTrueWithPqConstraint,
 ): string {
   return JSON.stringify(
-    InputLokiInputCollectionPart1Type1$outboundSchema.parse(
-      inputLokiInputCollectionPart1Type1,
+    InputLokiPqEnabledTrueWithPqConstraint$outboundSchema.parse(
+      inputLokiPqEnabledTrueWithPqConstraint,
     ),
   );
 }
-export function inputLokiInputCollectionPart1Type1FromJSON(
+export function inputLokiPqEnabledTrueWithPqConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputLokiInputCollectionPart1Type1, SDKValidationError> {
+): SafeParseResult<InputLokiPqEnabledTrueWithPqConstraint, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      InputLokiInputCollectionPart1Type1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputLokiInputCollectionPart1Type1' from JSON`,
+      InputLokiPqEnabledTrueWithPqConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputLokiPqEnabledTrueWithPqConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputLokiInputCollectionPart0Type1$inboundSchema: z.ZodType<
-  InputLokiInputCollectionPart0Type1,
+export const InputLokiPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
+  InputLokiPqEnabledFalseWithPqConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
   pqEnabled: z.boolean().default(false),
+  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputLokiType$inboundSchema,
   disabled: z.boolean().default(false),
@@ -830,7 +832,6 @@ export const InputLokiInputCollectionPart0Type1$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   tls: TlsSettingsServerSideType$inboundSchema.optional(),
@@ -864,8 +865,9 @@ export const InputLokiInputCollectionPart0Type1$inboundSchema: z.ZodType<
   oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
 });
 /** @internal */
-export type InputLokiInputCollectionPart0Type1$Outbound = {
+export type InputLokiPqEnabledFalseWithPqConstraint$Outbound = {
   pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -874,7 +876,6 @@ export type InputLokiInputCollectionPart0Type1$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
@@ -909,12 +910,13 @@ export type InputLokiInputCollectionPart0Type1$Outbound = {
 };
 
 /** @internal */
-export const InputLokiInputCollectionPart0Type1$outboundSchema: z.ZodType<
-  InputLokiInputCollectionPart0Type1$Outbound,
+export const InputLokiPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
+  InputLokiPqEnabledFalseWithPqConstraint$Outbound,
   z.ZodTypeDef,
-  InputLokiInputCollectionPart0Type1
+  InputLokiPqEnabledFalseWithPqConstraint
 > = z.object({
   pqEnabled: z.boolean().default(false),
+  pq: PqType$outboundSchema.optional(),
   id: z.string().optional(),
   type: InputLokiType$outboundSchema,
   disabled: z.boolean().default(false),
@@ -923,7 +925,6 @@ export const InputLokiInputCollectionPart0Type1$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
@@ -957,76 +958,83 @@ export const InputLokiInputCollectionPart0Type1$outboundSchema: z.ZodType<
   oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
 });
 
-export function inputLokiInputCollectionPart0Type1ToJSON(
-  inputLokiInputCollectionPart0Type1: InputLokiInputCollectionPart0Type1,
+export function inputLokiPqEnabledFalseWithPqConstraintToJSON(
+  inputLokiPqEnabledFalseWithPqConstraint:
+    InputLokiPqEnabledFalseWithPqConstraint,
 ): string {
   return JSON.stringify(
-    InputLokiInputCollectionPart0Type1$outboundSchema.parse(
-      inputLokiInputCollectionPart0Type1,
+    InputLokiPqEnabledFalseWithPqConstraint$outboundSchema.parse(
+      inputLokiPqEnabledFalseWithPqConstraint,
     ),
   );
 }
-export function inputLokiInputCollectionPart0Type1FromJSON(
+export function inputLokiPqEnabledFalseWithPqConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputLokiInputCollectionPart0Type1, SDKValidationError> {
+): SafeParseResult<
+  InputLokiPqEnabledFalseWithPqConstraint,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      InputLokiInputCollectionPart0Type1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputLokiInputCollectionPart0Type1' from JSON`,
+      InputLokiPqEnabledFalseWithPqConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputLokiPqEnabledFalseWithPqConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputLokiInputCollectionPart1Type$inboundSchema: z.ZodType<
-  InputLokiInputCollectionPart1Type,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  id: z.string().optional(),
-  type: InputLokiType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  lokiAPI: z.string().default("/loki/api/v1/push"),
-  authType: AuthenticationTypeOptionsLokiAuth$inboundSchema.default("none"),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  token: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
-});
+export const InputLokiSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputLokiSendToRoutesFalseWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputLokiType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    lokiAPI: z.string().default("/loki/api/v1/push"),
+    authType: AuthenticationTypeOptionsLokiAuth$inboundSchema.default("none"),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    description: z.string().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    token: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    loginUrl: z.string().optional(),
+    secretParamName: z.string().optional(),
+    secret: z.string().optional(),
+    tokenAttributeName: z.string().optional(),
+    authHeaderExpr: z.string().default("`Bearer ${token}`"),
+    tokenTimeoutSecs: z.number().default(3600),
+    oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
+    oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  });
 /** @internal */
-export type InputLokiInputCollectionPart1Type$Outbound = {
+export type InputLokiSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
   connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
@@ -1071,124 +1079,134 @@ export type InputLokiInputCollectionPart1Type$Outbound = {
 };
 
 /** @internal */
-export const InputLokiInputCollectionPart1Type$outboundSchema: z.ZodType<
-  InputLokiInputCollectionPart1Type$Outbound,
-  z.ZodTypeDef,
-  InputLokiInputCollectionPart1Type
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  id: z.string().optional(),
-  type: InputLokiType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  lokiAPI: z.string().default("/loki/api/v1/push"),
-  authType: AuthenticationTypeOptionsLokiAuth$outboundSchema.default("none"),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  token: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
-});
+export const InputLokiSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputLokiSendToRoutesFalseWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputLokiSendToRoutesFalseWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputLokiType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    lokiAPI: z.string().default("/loki/api/v1/push"),
+    authType: AuthenticationTypeOptionsLokiAuth$outboundSchema.default("none"),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    description: z.string().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    token: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    loginUrl: z.string().optional(),
+    secretParamName: z.string().optional(),
+    secret: z.string().optional(),
+    tokenAttributeName: z.string().optional(),
+    authHeaderExpr: z.string().default("`Bearer ${token}`"),
+    tokenTimeoutSecs: z.number().default(3600),
+    oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
+    oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  });
 
-export function inputLokiInputCollectionPart1TypeToJSON(
-  inputLokiInputCollectionPart1Type: InputLokiInputCollectionPart1Type,
+export function inputLokiSendToRoutesFalseWithConnectionsConstraintToJSON(
+  inputLokiSendToRoutesFalseWithConnectionsConstraint:
+    InputLokiSendToRoutesFalseWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputLokiInputCollectionPart1Type$outboundSchema.parse(
-      inputLokiInputCollectionPart1Type,
+    InputLokiSendToRoutesFalseWithConnectionsConstraint$outboundSchema.parse(
+      inputLokiSendToRoutesFalseWithConnectionsConstraint,
     ),
   );
 }
-export function inputLokiInputCollectionPart1TypeFromJSON(
+export function inputLokiSendToRoutesFalseWithConnectionsConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputLokiInputCollectionPart1Type, SDKValidationError> {
+): SafeParseResult<
+  InputLokiSendToRoutesFalseWithConnectionsConstraint,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => InputLokiInputCollectionPart1Type$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputLokiInputCollectionPart1Type' from JSON`,
+    (x) =>
+      InputLokiSendToRoutesFalseWithConnectionsConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputLokiSendToRoutesFalseWithConnectionsConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputLokiInputCollectionPart0Type$inboundSchema: z.ZodType<
-  InputLokiInputCollectionPart0Type,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputLokiType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  lokiAPI: z.string().default("/loki/api/v1/push"),
-  authType: AuthenticationTypeOptionsLokiAuth$inboundSchema.default("none"),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  token: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
-});
+export const InputLokiSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputLokiSendToRoutesTrueWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputLokiType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    lokiAPI: z.string().default("/loki/api/v1/push"),
+    authType: AuthenticationTypeOptionsLokiAuth$inboundSchema.default("none"),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    description: z.string().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    token: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    loginUrl: z.string().optional(),
+    secretParamName: z.string().optional(),
+    secret: z.string().optional(),
+    tokenAttributeName: z.string().optional(),
+    authHeaderExpr: z.string().default("`Bearer ${token}`"),
+    tokenTimeoutSecs: z.number().default(3600),
+    oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
+    oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  });
 /** @internal */
-export type InputLokiInputCollectionPart0Type$Outbound = {
+export type InputLokiSendToRoutesTrueWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1196,7 +1214,6 @@ export type InputLokiInputCollectionPart0Type$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -1232,70 +1249,78 @@ export type InputLokiInputCollectionPart0Type$Outbound = {
 };
 
 /** @internal */
-export const InputLokiInputCollectionPart0Type$outboundSchema: z.ZodType<
-  InputLokiInputCollectionPart0Type$Outbound,
-  z.ZodTypeDef,
-  InputLokiInputCollectionPart0Type
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputLokiType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  lokiAPI: z.string().default("/loki/api/v1/push"),
-  authType: AuthenticationTypeOptionsLokiAuth$outboundSchema.default("none"),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  token: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
-});
+export const InputLokiSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputLokiSendToRoutesTrueWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputLokiSendToRoutesTrueWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputLokiType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    lokiAPI: z.string().default("/loki/api/v1/push"),
+    authType: AuthenticationTypeOptionsLokiAuth$outboundSchema.default("none"),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    description: z.string().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    token: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    loginUrl: z.string().optional(),
+    secretParamName: z.string().optional(),
+    secret: z.string().optional(),
+    tokenAttributeName: z.string().optional(),
+    authHeaderExpr: z.string().default("`Bearer ${token}`"),
+    tokenTimeoutSecs: z.number().default(3600),
+    oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
+    oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  });
 
-export function inputLokiInputCollectionPart0TypeToJSON(
-  inputLokiInputCollectionPart0Type: InputLokiInputCollectionPart0Type,
+export function inputLokiSendToRoutesTrueWithConnectionsConstraintToJSON(
+  inputLokiSendToRoutesTrueWithConnectionsConstraint:
+    InputLokiSendToRoutesTrueWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputLokiInputCollectionPart0Type$outboundSchema.parse(
-      inputLokiInputCollectionPart0Type,
+    InputLokiSendToRoutesTrueWithConnectionsConstraint$outboundSchema.parse(
+      inputLokiSendToRoutesTrueWithConnectionsConstraint,
     ),
   );
 }
-export function inputLokiInputCollectionPart0TypeFromJSON(
+export function inputLokiSendToRoutesTrueWithConnectionsConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputLokiInputCollectionPart0Type, SDKValidationError> {
+): SafeParseResult<
+  InputLokiSendToRoutesTrueWithConnectionsConstraint,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => InputLokiInputCollectionPart0Type$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputLokiInputCollectionPart0Type' from JSON`,
+    (x) =>
+      InputLokiSendToRoutesTrueWithConnectionsConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputLokiSendToRoutesTrueWithConnectionsConstraint' from JSON`,
   );
 }
 
@@ -1305,17 +1330,21 @@ export const InputLoki$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => InputLokiInputCollectionPart0Type$inboundSchema),
-  z.lazy(() => InputLokiInputCollectionPart1Type$inboundSchema),
-  z.lazy(() => InputLokiInputCollectionPart0Type1$inboundSchema),
-  z.lazy(() => InputLokiInputCollectionPart1Type1$inboundSchema),
+  z.lazy(() =>
+    InputLokiSendToRoutesTrueWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() =>
+    InputLokiSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() => InputLokiPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputLokiPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputLoki$Outbound =
-  | InputLokiInputCollectionPart0Type$Outbound
-  | InputLokiInputCollectionPart1Type$Outbound
-  | InputLokiInputCollectionPart0Type1$Outbound
-  | InputLokiInputCollectionPart1Type1$Outbound;
+  | InputLokiSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputLokiSendToRoutesFalseWithConnectionsConstraint$Outbound
+  | InputLokiPqEnabledFalseWithPqConstraint$Outbound
+  | InputLokiPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
 export const InputLoki$outboundSchema: z.ZodType<
@@ -1323,10 +1352,14 @@ export const InputLoki$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputLoki
 > = z.union([
-  z.lazy(() => InputLokiInputCollectionPart0Type$outboundSchema),
-  z.lazy(() => InputLokiInputCollectionPart1Type$outboundSchema),
-  z.lazy(() => InputLokiInputCollectionPart0Type1$outboundSchema),
-  z.lazy(() => InputLokiInputCollectionPart1Type1$outboundSchema),
+  z.lazy(() =>
+    InputLokiSendToRoutesTrueWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() =>
+    InputLokiSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() => InputLokiPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputLokiPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 
 export function inputLokiToJSON(inputLoki: InputLoki): string {

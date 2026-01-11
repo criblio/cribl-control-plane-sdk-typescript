@@ -3,22 +3,24 @@
 
 ## Supported Types
 
-### `models.InputAzureBlobInputCollectionPart0Type`
+### `models.InputAzureBlobSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputAzureBlobInputCollectionPart0Type = {
+const value: models.InputAzureBlobSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "azure_blob",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
+    "<value 2>",
+    "<value 3>",
   ],
   pq: {
     pqControls: {},
@@ -31,45 +33,94 @@ const value: models.InputAzureBlobInputCollectionPart0Type = {
     },
   ],
   breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  description: "kielbasa woefully aw yum",
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+
+### `models.InputAzureBlobSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value: models.InputAzureBlobSendToRoutesFalseWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  queueName: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  description: "near whoever recent unaccountably and barring after while",
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+
+### `models.InputAzureBlobPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputAzureBlobPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  description: "abandoned hoof where",
-  connectionString: "<value>",
-  textSecret: "<value>",
-  storageAccountName: "<value>",
-  tenantId: "<id>",
-  clientId: "<id>",
-  azureCloud: "<value>",
-  endpointSuffix: "<value>",
-  clientTextSecret: "<value>",
-  certificate: {
-    certificateName: "<value>",
-  },
-};
-```
-
-### `models.InputAzureBlobInputCollectionPart1Type`
-
-```typescript
-const value: models.InputAzureBlobInputCollectionPart1Type = {
   connections: [
     {
       pipeline: "<value>",
       output: "<value>",
     },
   ],
-  id: "<id>",
-  type: "azure_blob",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
   queueName: "<value>",
   metadata: [
     {
@@ -79,8 +130,9 @@ const value: models.InputAzureBlobInputCollectionPart1Type = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
-  description: "wallaby ew scholarship ack apropos minister gosh however",
+  description: "parade toward insidious costume who past",
   connectionString: "<value>",
   textSecret: "<value>",
   storageAccountName: "<value>",
@@ -95,10 +147,13 @@ const value: models.InputAzureBlobInputCollectionPart1Type = {
 };
 ```
 
-### `models.InputAzureBlobInputCollectionPart0Type1`
+### `models.InputAzureBlobPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputAzureBlobInputCollectionPart0Type1 = {
+const value: models.InputAzureBlobPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "azure_blob",
   pipeline: "<value>",
@@ -113,9 +168,6 @@ const value: models.InputAzureBlobInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   queueName: "<value>",
   metadata: [
     {
@@ -125,54 +177,9 @@ const value: models.InputAzureBlobInputCollectionPart0Type1 = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
-  description:
-    "blissfully reluctantly fully towards past sweetly patiently personal eminent close",
-  connectionString: "<value>",
-  textSecret: "<value>",
-  storageAccountName: "<value>",
-  tenantId: "<id>",
-  clientId: "<id>",
-  azureCloud: "<value>",
-  endpointSuffix: "<value>",
-  clientTextSecret: "<value>",
-  certificate: {
-    certificateName: "<value>",
-  },
-};
-```
-
-### `models.InputAzureBlobInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputAzureBlobInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "azure_blob",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  queueName: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  description: "as especially after trust mutate merrily er oh phooey geez",
+  description: "weighty sternly loftily",
   connectionString: "<value>",
   textSecret: "<value>",
   storageAccountName: "<value>",

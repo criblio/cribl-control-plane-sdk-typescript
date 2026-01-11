@@ -43,7 +43,7 @@ export const InputCriblTcpType = {
 } as const;
 export type InputCriblTcpType = ClosedEnum<typeof InputCriblTcpType>;
 
-export type InputCriblTcpInputCollectionPart1Type1 = {
+export type InputCriblTcpPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
@@ -119,11 +119,12 @@ export type InputCriblTcpInputCollectionPart1Type1 = {
   description?: string | undefined;
 };
 
-export type InputCriblTcpInputCollectionPart0Type1 = {
+export type InputCriblTcpPqEnabledFalseWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -150,6 +151,81 @@ export type InputCriblTcpInputCollectionPart0Type1 = {
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Load balance traffic across all Worker Processes
+   */
+  enableLoadBalancing?: boolean | undefined;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
+   */
+  authTokens?: Array<ItemsTypeAuthTokens> | undefined;
+  description?: string | undefined;
+};
+
+export type InputCriblTcpSendToRoutesFalseWithConnectionsConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCriblTcpType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -195,7 +271,7 @@ export type InputCriblTcpInputCollectionPart0Type1 = {
   description?: string | undefined;
 };
 
-export type InputCriblTcpInputCollectionPart1Type = {
+export type InputCriblTcpSendToRoutesTrueWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
@@ -226,82 +302,6 @@ export type InputCriblTcpInputCollectionPart1Type = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
-   */
-  host?: string | undefined;
-  /**
-   * Port to listen on
-   */
-  port: number;
-  tls?: TlsSettingsServerSideType | undefined;
-  /**
-   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-   */
-  maxActiveCxn?: number | undefined;
-  /**
-   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-   */
-  socketIdleTimeout?: number | undefined;
-  /**
-   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-   */
-  socketEndingMaxWait?: number | undefined;
-  /**
-   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-   */
-  socketMaxLifespan?: number | undefined;
-  /**
-   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-   */
-  enableProxyHeader?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  /**
-   * Load balance traffic across all Worker Processes
-   */
-  enableLoadBalancing?: boolean | undefined;
-  /**
-   * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
-   */
-  authTokens?: Array<ItemsTypeAuthTokens> | undefined;
-  description?: string | undefined;
-};
-
-export type InputCriblTcpInputCollectionPart0Type = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputCriblTcpType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -348,10 +348,10 @@ export type InputCriblTcpInputCollectionPart0Type = {
 };
 
 export type InputCriblTcp =
-  | InputCriblTcpInputCollectionPart0Type
-  | InputCriblTcpInputCollectionPart1Type
-  | InputCriblTcpInputCollectionPart0Type1
-  | InputCriblTcpInputCollectionPart1Type1;
+  | InputCriblTcpSendToRoutesTrueWithConnectionsConstraint
+  | InputCriblTcpSendToRoutesFalseWithConnectionsConstraint
+  | InputCriblTcpPqEnabledFalseWithPqConstraint
+  | InputCriblTcpPqEnabledTrueWithPqConstraint;
 
 /** @internal */
 export const InputCriblTcpType$inboundSchema: z.ZodNativeEnum<
@@ -363,36 +363,34 @@ export const InputCriblTcpType$outboundSchema: z.ZodNativeEnum<
 > = InputCriblTcpType$inboundSchema;
 
 /** @internal */
-export const InputCriblTcpInputCollectionPart1Type1$inboundSchema: z.ZodType<
-  InputCriblTcpInputCollectionPart1Type1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  pq: PqType$inboundSchema.optional(),
-  id: z.string().optional(),
-  type: InputCriblTcpType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  enableLoadBalancing: z.boolean().default(false),
-  authTokens: z.array(ItemsTypeAuthTokens$inboundSchema).optional(),
-  description: z.string().optional(),
-});
+export const InputCriblTcpPqEnabledTrueWithPqConstraint$inboundSchema:
+  z.ZodType<InputCriblTcpPqEnabledTrueWithPqConstraint, z.ZodTypeDef, unknown> =
+    z.object({
+      pqEnabled: z.boolean().default(false),
+      pq: PqType$inboundSchema.optional(),
+      id: z.string().optional(),
+      type: InputCriblTcpType$inboundSchema,
+      disabled: z.boolean().default(false),
+      pipeline: z.string().optional(),
+      sendToRoutes: z.boolean().default(true),
+      environment: z.string().optional(),
+      streamtags: z.array(z.string()).optional(),
+      connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+      host: z.string().default("0.0.0.0"),
+      port: z.number(),
+      tls: TlsSettingsServerSideType$inboundSchema.optional(),
+      maxActiveCxn: z.number().default(1000),
+      socketIdleTimeout: z.number().default(0),
+      socketEndingMaxWait: z.number().default(30),
+      socketMaxLifespan: z.number().default(0),
+      enableProxyHeader: z.boolean().default(false),
+      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+      enableLoadBalancing: z.boolean().default(false),
+      authTokens: z.array(ItemsTypeAuthTokens$inboundSchema).optional(),
+      description: z.string().optional(),
+    });
 /** @internal */
-export type InputCriblTcpInputCollectionPart1Type1$Outbound = {
+export type InputCriblTcpPqEnabledTrueWithPqConstraint$Outbound = {
   pqEnabled: boolean;
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
@@ -418,88 +416,96 @@ export type InputCriblTcpInputCollectionPart1Type1$Outbound = {
 };
 
 /** @internal */
-export const InputCriblTcpInputCollectionPart1Type1$outboundSchema: z.ZodType<
-  InputCriblTcpInputCollectionPart1Type1$Outbound,
-  z.ZodTypeDef,
-  InputCriblTcpInputCollectionPart1Type1
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  pq: PqType$outboundSchema.optional(),
-  id: z.string().optional(),
-  type: InputCriblTcpType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  enableLoadBalancing: z.boolean().default(false),
-  authTokens: z.array(ItemsTypeAuthTokens$outboundSchema).optional(),
-  description: z.string().optional(),
-});
+export const InputCriblTcpPqEnabledTrueWithPqConstraint$outboundSchema:
+  z.ZodType<
+    InputCriblTcpPqEnabledTrueWithPqConstraint$Outbound,
+    z.ZodTypeDef,
+    InputCriblTcpPqEnabledTrueWithPqConstraint
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputCriblTcpType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveCxn: z.number().default(1000),
+    socketIdleTimeout: z.number().default(0),
+    socketEndingMaxWait: z.number().default(30),
+    socketMaxLifespan: z.number().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    enableLoadBalancing: z.boolean().default(false),
+    authTokens: z.array(ItemsTypeAuthTokens$outboundSchema).optional(),
+    description: z.string().optional(),
+  });
 
-export function inputCriblTcpInputCollectionPart1Type1ToJSON(
-  inputCriblTcpInputCollectionPart1Type1:
-    InputCriblTcpInputCollectionPart1Type1,
+export function inputCriblTcpPqEnabledTrueWithPqConstraintToJSON(
+  inputCriblTcpPqEnabledTrueWithPqConstraint:
+    InputCriblTcpPqEnabledTrueWithPqConstraint,
 ): string {
   return JSON.stringify(
-    InputCriblTcpInputCollectionPart1Type1$outboundSchema.parse(
-      inputCriblTcpInputCollectionPart1Type1,
+    InputCriblTcpPqEnabledTrueWithPqConstraint$outboundSchema.parse(
+      inputCriblTcpPqEnabledTrueWithPqConstraint,
     ),
   );
 }
-export function inputCriblTcpInputCollectionPart1Type1FromJSON(
+export function inputCriblTcpPqEnabledTrueWithPqConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputCriblTcpInputCollectionPart1Type1, SDKValidationError> {
+): SafeParseResult<
+  InputCriblTcpPqEnabledTrueWithPqConstraint,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      InputCriblTcpInputCollectionPart1Type1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblTcpInputCollectionPart1Type1' from JSON`,
+      InputCriblTcpPqEnabledTrueWithPqConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputCriblTcpPqEnabledTrueWithPqConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputCriblTcpInputCollectionPart0Type1$inboundSchema: z.ZodType<
-  InputCriblTcpInputCollectionPart0Type1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  id: z.string().optional(),
-  type: InputCriblTcpType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  enableLoadBalancing: z.boolean().default(false),
-  authTokens: z.array(ItemsTypeAuthTokens$inboundSchema).optional(),
-  description: z.string().optional(),
-});
+export const InputCriblTcpPqEnabledFalseWithPqConstraint$inboundSchema:
+  z.ZodType<
+    InputCriblTcpPqEnabledFalseWithPqConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputCriblTcpType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveCxn: z.number().default(1000),
+    socketIdleTimeout: z.number().default(0),
+    socketEndingMaxWait: z.number().default(30),
+    socketMaxLifespan: z.number().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    enableLoadBalancing: z.boolean().default(false),
+    authTokens: z.array(ItemsTypeAuthTokens$inboundSchema).optional(),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputCriblTcpInputCollectionPart0Type1$Outbound = {
+export type InputCriblTcpPqEnabledFalseWithPqConstraint$Outbound = {
   pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -508,6 +514,118 @@ export type InputCriblTcpInputCollectionPart0Type1$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  host: string;
+  port: number;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveCxn: number;
+  socketIdleTimeout: number;
+  socketEndingMaxWait: number;
+  socketMaxLifespan: number;
+  enableProxyHeader: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  enableLoadBalancing: boolean;
+  authTokens?: Array<ItemsTypeAuthTokens$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblTcpPqEnabledFalseWithPqConstraint$outboundSchema:
+  z.ZodType<
+    InputCriblTcpPqEnabledFalseWithPqConstraint$Outbound,
+    z.ZodTypeDef,
+    InputCriblTcpPqEnabledFalseWithPqConstraint
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputCriblTcpType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveCxn: z.number().default(1000),
+    socketIdleTimeout: z.number().default(0),
+    socketEndingMaxWait: z.number().default(30),
+    socketMaxLifespan: z.number().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    enableLoadBalancing: z.boolean().default(false),
+    authTokens: z.array(ItemsTypeAuthTokens$outboundSchema).optional(),
+    description: z.string().optional(),
+  });
+
+export function inputCriblTcpPqEnabledFalseWithPqConstraintToJSON(
+  inputCriblTcpPqEnabledFalseWithPqConstraint:
+    InputCriblTcpPqEnabledFalseWithPqConstraint,
+): string {
+  return JSON.stringify(
+    InputCriblTcpPqEnabledFalseWithPqConstraint$outboundSchema.parse(
+      inputCriblTcpPqEnabledFalseWithPqConstraint,
+    ),
+  );
+}
+export function inputCriblTcpPqEnabledFalseWithPqConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputCriblTcpPqEnabledFalseWithPqConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputCriblTcpPqEnabledFalseWithPqConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputCriblTcpPqEnabledFalseWithPqConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblTcpSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputCriblTcpSendToRoutesFalseWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputCriblTcpType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveCxn: z.number().default(1000),
+    socketIdleTimeout: z.number().default(0),
+    socketEndingMaxWait: z.number().default(30),
+    socketMaxLifespan: z.number().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    enableLoadBalancing: z.boolean().default(false),
+    authTokens: z.array(ItemsTypeAuthTokens$inboundSchema).optional(),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputCriblTcpSendToRoutesFalseWithConnectionsConstraint$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -524,87 +642,92 @@ export type InputCriblTcpInputCollectionPart0Type1$Outbound = {
 };
 
 /** @internal */
-export const InputCriblTcpInputCollectionPart0Type1$outboundSchema: z.ZodType<
-  InputCriblTcpInputCollectionPart0Type1$Outbound,
-  z.ZodTypeDef,
-  InputCriblTcpInputCollectionPart0Type1
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  id: z.string().optional(),
-  type: InputCriblTcpType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  enableLoadBalancing: z.boolean().default(false),
-  authTokens: z.array(ItemsTypeAuthTokens$outboundSchema).optional(),
-  description: z.string().optional(),
-});
+export const InputCriblTcpSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputCriblTcpSendToRoutesFalseWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputCriblTcpSendToRoutesFalseWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputCriblTcpType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveCxn: z.number().default(1000),
+    socketIdleTimeout: z.number().default(0),
+    socketEndingMaxWait: z.number().default(30),
+    socketMaxLifespan: z.number().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    enableLoadBalancing: z.boolean().default(false),
+    authTokens: z.array(ItemsTypeAuthTokens$outboundSchema).optional(),
+    description: z.string().optional(),
+  });
 
-export function inputCriblTcpInputCollectionPart0Type1ToJSON(
-  inputCriblTcpInputCollectionPart0Type1:
-    InputCriblTcpInputCollectionPart0Type1,
+export function inputCriblTcpSendToRoutesFalseWithConnectionsConstraintToJSON(
+  inputCriblTcpSendToRoutesFalseWithConnectionsConstraint:
+    InputCriblTcpSendToRoutesFalseWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputCriblTcpInputCollectionPart0Type1$outboundSchema.parse(
-      inputCriblTcpInputCollectionPart0Type1,
-    ),
+    InputCriblTcpSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+      .parse(inputCriblTcpSendToRoutesFalseWithConnectionsConstraint),
   );
 }
-export function inputCriblTcpInputCollectionPart0Type1FromJSON(
+export function inputCriblTcpSendToRoutesFalseWithConnectionsConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputCriblTcpInputCollectionPart0Type1, SDKValidationError> {
+): SafeParseResult<
+  InputCriblTcpSendToRoutesFalseWithConnectionsConstraint,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      InputCriblTcpInputCollectionPart0Type1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblTcpInputCollectionPart0Type1' from JSON`,
+      InputCriblTcpSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblTcpSendToRoutesFalseWithConnectionsConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputCriblTcpInputCollectionPart1Type$inboundSchema: z.ZodType<
-  InputCriblTcpInputCollectionPart1Type,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  id: z.string().optional(),
-  type: InputCriblTcpType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  enableLoadBalancing: z.boolean().default(false),
-  authTokens: z.array(ItemsTypeAuthTokens$inboundSchema).optional(),
-  description: z.string().optional(),
-});
+export const InputCriblTcpSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputCriblTcpSendToRoutesTrueWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputCriblTcpType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveCxn: z.number().default(1000),
+    socketIdleTimeout: z.number().default(0),
+    socketEndingMaxWait: z.number().default(30),
+    socketMaxLifespan: z.number().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    enableLoadBalancing: z.boolean().default(false),
+    authTokens: z.array(ItemsTypeAuthTokens$inboundSchema).optional(),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputCriblTcpInputCollectionPart1Type$Outbound = {
+export type InputCriblTcpSendToRoutesTrueWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
   connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
@@ -630,157 +753,58 @@ export type InputCriblTcpInputCollectionPart1Type$Outbound = {
 };
 
 /** @internal */
-export const InputCriblTcpInputCollectionPart1Type$outboundSchema: z.ZodType<
-  InputCriblTcpInputCollectionPart1Type$Outbound,
-  z.ZodTypeDef,
-  InputCriblTcpInputCollectionPart1Type
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  id: z.string().optional(),
-  type: InputCriblTcpType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  enableLoadBalancing: z.boolean().default(false),
-  authTokens: z.array(ItemsTypeAuthTokens$outboundSchema).optional(),
-  description: z.string().optional(),
-});
+export const InputCriblTcpSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputCriblTcpSendToRoutesTrueWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputCriblTcpSendToRoutesTrueWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputCriblTcpType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveCxn: z.number().default(1000),
+    socketIdleTimeout: z.number().default(0),
+    socketEndingMaxWait: z.number().default(30),
+    socketMaxLifespan: z.number().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    enableLoadBalancing: z.boolean().default(false),
+    authTokens: z.array(ItemsTypeAuthTokens$outboundSchema).optional(),
+    description: z.string().optional(),
+  });
 
-export function inputCriblTcpInputCollectionPart1TypeToJSON(
-  inputCriblTcpInputCollectionPart1Type: InputCriblTcpInputCollectionPart1Type,
+export function inputCriblTcpSendToRoutesTrueWithConnectionsConstraintToJSON(
+  inputCriblTcpSendToRoutesTrueWithConnectionsConstraint:
+    InputCriblTcpSendToRoutesTrueWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputCriblTcpInputCollectionPart1Type$outboundSchema.parse(
-      inputCriblTcpInputCollectionPart1Type,
+    InputCriblTcpSendToRoutesTrueWithConnectionsConstraint$outboundSchema.parse(
+      inputCriblTcpSendToRoutesTrueWithConnectionsConstraint,
     ),
   );
 }
-export function inputCriblTcpInputCollectionPart1TypeFromJSON(
+export function inputCriblTcpSendToRoutesTrueWithConnectionsConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputCriblTcpInputCollectionPart1Type, SDKValidationError> {
+): SafeParseResult<
+  InputCriblTcpSendToRoutesTrueWithConnectionsConstraint,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      InputCriblTcpInputCollectionPart1Type$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblTcpInputCollectionPart1Type' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblTcpInputCollectionPart0Type$inboundSchema: z.ZodType<
-  InputCriblTcpInputCollectionPart0Type,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputCriblTcpType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  enableLoadBalancing: z.boolean().default(false),
-  authTokens: z.array(ItemsTypeAuthTokens$inboundSchema).optional(),
-  description: z.string().optional(),
-});
-/** @internal */
-export type InputCriblTcpInputCollectionPart0Type$Outbound = {
-  sendToRoutes: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  host: string;
-  port: number;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
-  enableProxyHeader: boolean;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  enableLoadBalancing: boolean;
-  authTokens?: Array<ItemsTypeAuthTokens$Outbound> | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputCriblTcpInputCollectionPart0Type$outboundSchema: z.ZodType<
-  InputCriblTcpInputCollectionPart0Type$Outbound,
-  z.ZodTypeDef,
-  InputCriblTcpInputCollectionPart0Type
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputCriblTcpType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  enableLoadBalancing: z.boolean().default(false),
-  authTokens: z.array(ItemsTypeAuthTokens$outboundSchema).optional(),
-  description: z.string().optional(),
-});
-
-export function inputCriblTcpInputCollectionPart0TypeToJSON(
-  inputCriblTcpInputCollectionPart0Type: InputCriblTcpInputCollectionPart0Type,
-): string {
-  return JSON.stringify(
-    InputCriblTcpInputCollectionPart0Type$outboundSchema.parse(
-      inputCriblTcpInputCollectionPart0Type,
-    ),
-  );
-}
-export function inputCriblTcpInputCollectionPart0TypeFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblTcpInputCollectionPart0Type, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCriblTcpInputCollectionPart0Type$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblTcpInputCollectionPart0Type' from JSON`,
+      InputCriblTcpSendToRoutesTrueWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblTcpSendToRoutesTrueWithConnectionsConstraint' from JSON`,
   );
 }
 
@@ -790,17 +814,21 @@ export const InputCriblTcp$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => InputCriblTcpInputCollectionPart0Type$inboundSchema),
-  z.lazy(() => InputCriblTcpInputCollectionPart1Type$inboundSchema),
-  z.lazy(() => InputCriblTcpInputCollectionPart0Type1$inboundSchema),
-  z.lazy(() => InputCriblTcpInputCollectionPart1Type1$inboundSchema),
+  z.lazy(() =>
+    InputCriblTcpSendToRoutesTrueWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() =>
+    InputCriblTcpSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() => InputCriblTcpPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputCriblTcpPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputCriblTcp$Outbound =
-  | InputCriblTcpInputCollectionPart0Type$Outbound
-  | InputCriblTcpInputCollectionPart1Type$Outbound
-  | InputCriblTcpInputCollectionPart0Type1$Outbound
-  | InputCriblTcpInputCollectionPart1Type1$Outbound;
+  | InputCriblTcpSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputCriblTcpSendToRoutesFalseWithConnectionsConstraint$Outbound
+  | InputCriblTcpPqEnabledFalseWithPqConstraint$Outbound
+  | InputCriblTcpPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
 export const InputCriblTcp$outboundSchema: z.ZodType<
@@ -808,10 +836,14 @@ export const InputCriblTcp$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputCriblTcp
 > = z.union([
-  z.lazy(() => InputCriblTcpInputCollectionPart0Type$outboundSchema),
-  z.lazy(() => InputCriblTcpInputCollectionPart1Type$outboundSchema),
-  z.lazy(() => InputCriblTcpInputCollectionPart0Type1$outboundSchema),
-  z.lazy(() => InputCriblTcpInputCollectionPart1Type1$outboundSchema),
+  z.lazy(() =>
+    InputCriblTcpSendToRoutesTrueWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() =>
+    InputCriblTcpSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() => InputCriblTcpPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputCriblTcpPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 
 export function inputCriblTcpToJSON(inputCriblTcp: InputCriblTcp): string {

@@ -3,10 +3,144 @@
 
 ## Supported Types
 
-### `operations.InputOpenTelemetryInputCollectionPart0Type`
+### `operations.InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputOpenTelemetryInputCollectionPart0Type = {
+const value:
+  operations.InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "open_telemetry",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    enableProxyHeader: "<value>",
+    captureHeaders: "<value>",
+    activityLogSampleRate: "<value>",
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "generously or until who angrily",
+    username: "Raymundo.Lynch",
+    password: "1Ao7ePdvalsZHN9",
+    token: "<value>",
+    credentialsSecret: "<value>",
+    textSecret: "<value>",
+    loginUrl: "https://zany-ocelot.biz/",
+    secretParamName: "<value>",
+    secret: "<value>",
+    tokenAttributeName: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    oauthHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  };
+```
+
+### `operations.InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  operations.InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "open_telemetry",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    enableProxyHeader: "<value>",
+    captureHeaders: "<value>",
+    activityLogSampleRate: "<value>",
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "ick instead dicker successfully gracious arbitrate past",
+    username: "Eli_Trantow",
+    password: "i35kPAvVpVuazph",
+    token: "<value>",
+    credentialsSecret: "<value>",
+    textSecret: "<value>",
+    loginUrl: "https://neglected-diver.biz/",
+    secretParamName: "<value>",
+    secret: "<value>",
+    tokenAttributeName: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    oauthHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  };
+```
+
+### `operations.InputOpenTelemetryPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputOpenTelemetryPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "open_telemetry",
   pipeline: "<value>",
@@ -21,9 +155,6 @@ const value: operations.InputOpenTelemetryInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -42,13 +173,14 @@ const value: operations.InputOpenTelemetryInputCollectionPart0Type = {
       value: "<value>",
     },
   ],
-  description: "pleasant between smoke hm for",
-  username: "Russell84",
-  password: "BbX_a0DIQRZoYov",
+  description:
+    "obedience bravely mill officially pish disarm omelet memorable not",
+  username: "Vincent_Botsford",
+  password: "niz775aej3k5Rk_",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://fond-cutlet.name/",
+  loginUrl: "https://stable-submitter.org/",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
@@ -67,136 +199,10 @@ const value: operations.InputOpenTelemetryInputCollectionPart0Type = {
 };
 ```
 
-### `operations.InputOpenTelemetryInputCollectionPart1Type`
+### `operations.InputOpenTelemetryPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputOpenTelemetryInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "open_telemetry",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  enableProxyHeader: "<value>",
-  captureHeaders: "<value>",
-  activityLogSampleRate: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "ill even down minty violently modulo oh",
-  username: "Gerda49",
-  password: "dPV_KW1ud7OLdEj",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://indolent-shore.name",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-};
-```
-
-### `operations.InputOpenTelemetryInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputOpenTelemetryInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "open_telemetry",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  enableProxyHeader: "<value>",
-  captureHeaders: "<value>",
-  activityLogSampleRate: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "if likewise row",
-  username: "Corine.Satterfield57",
-  password: "EcFvbx4eEjOteWU",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://unkempt-mixture.net",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-};
-```
-
-### `operations.InputOpenTelemetryInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputOpenTelemetryInputCollectionPart1Type1 = {
+const value: operations.InputOpenTelemetryPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -233,13 +239,13 @@ const value: operations.InputOpenTelemetryInputCollectionPart1Type1 = {
       value: "<value>",
     },
   ],
-  description: "exonerate hubris ick except given",
-  username: "Alek26",
-  password: "cafP7MCaVqi0ybY",
+  description: "pure clearly so",
+  username: "Cali_Monahan",
+  password: "1uXY8gkY516trvE",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://extra-large-gown.name",
+  loginUrl: "https://experienced-slide.biz",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",

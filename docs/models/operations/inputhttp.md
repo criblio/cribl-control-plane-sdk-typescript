@@ -3,10 +3,16 @@
 
 ## Supported Types
 
-### `operations.InputHttpInputCollectionPart0Type`
+### `operations.InputHttpSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputHttpInputCollectionPart0Type = {
+const value: operations.InputHttpSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "http",
   pipeline: "<value>",
@@ -14,18 +20,14 @@ const value: operations.InputHttpInputCollectionPart0Type = {
   streamtags: [
     "<value 1>",
   ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
   pq: {
     pqControls: {},
   },
-  port: 9966.98,
+  port: 7133.3,
   authTokens: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -55,14 +57,14 @@ const value: operations.InputHttpInputCollectionPart0Type = {
     },
   ],
   description:
-    "including observe lazily barracks pro nephew approximate ultimately psst homeschool",
+    "athwart daily oxidize furthermore lovely whoever acquaintance qua uh-huh unless",
 };
 ```
 
-### `operations.InputHttpInputCollectionPart1Type`
+### `operations.InputHttpSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputHttpInputCollectionPart1Type = {
+const value: operations.InputHttpSendToRoutesFalseWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -75,11 +77,68 @@ const value: operations.InputHttpInputCollectionPart1Type = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   pq: {
     pqControls: {},
   },
-  port: 2538.04,
+  port: 5753.12,
+  authTokens: [
+    "<value 1>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description: "demob apropos indeed ceramic scrabble however given scorn",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  description: "phew snuggle but elementary whereas lowball",
+};
+```
+
+### `operations.InputHttpPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputHttpPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "http",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  port: 6764.73,
   authTokens: [
     "<value 1>",
     "<value 2>",
@@ -112,14 +171,17 @@ const value: operations.InputHttpInputCollectionPart1Type = {
       ],
     },
   ],
-  description: "than beneath as promptly",
+  description: "fess of since",
 };
 ```
 
-### `operations.InputHttpInputCollectionPart0Type1`
+### `operations.InputHttpPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputHttpInputCollectionPart0Type1 = {
+const value: operations.InputHttpPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "http",
   pipeline: "<value>",
@@ -127,7 +189,6 @@ const value: operations.InputHttpInputCollectionPart0Type1 = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -135,10 +196,7 @@ const value: operations.InputHttpInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 3520.68,
+  port: 9127.19,
   authTokens: [
     "<value 1>",
   ],
@@ -169,65 +227,7 @@ const value: operations.InputHttpInputCollectionPart0Type1 = {
       ],
     },
   ],
-  description: "yippee frenetically righteously",
-};
-```
-
-### `operations.InputHttpInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputHttpInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "http",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  port: 5875.6,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "demob apropos indeed ceramic scrabble however given scorn",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  description: "er amidst gadzooks gadzooks prohibition mob between",
+  description: "psst bitterly inquisitively naturally rigidly beyond ew",
 };
 ```
 

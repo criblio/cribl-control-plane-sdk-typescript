@@ -3,10 +3,16 @@
 
 ## Supported Types
 
-### `models.InputNetflowInputCollectionPart0Type`
+### `models.InputNetflowSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputNetflowInputCollectionPart0Type = {
+const value: models.InputNetflowSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "netflow",
   pipeline: "<value>",
@@ -15,30 +21,24 @@ const value: models.InputNetflowInputCollectionPart0Type = {
     "<value 1>",
     "<value 2>",
   ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
   pq: {
     pqControls: {},
   },
-  udpSocketRxBufSize: 9565.17,
+  udpSocketRxBufSize: 2123.13,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "since unless bind around even hm",
+  description: "coagulate colour redesign lively modulo though",
 };
 ```
 
-### `models.InputNetflowInputCollectionPart1Type`
+### `models.InputNetflowSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputNetflowInputCollectionPart1Type = {
+const value: models.InputNetflowSendToRoutesFalseWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -57,54 +57,21 @@ const value: models.InputNetflowInputCollectionPart1Type = {
   pq: {
     pqControls: {},
   },
-  udpSocketRxBufSize: 3654.48,
+  udpSocketRxBufSize: 5603.43,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "however puzzled alligator requirement yum",
+  description: "beloved midst aggravating case mid regarding bid",
 };
 ```
 
-### `models.InputNetflowInputCollectionPart0Type1`
+### `models.InputNetflowPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: models.InputNetflowInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "netflow",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  udpSocketRxBufSize: 4507.93,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "irk even adrenalin beside owlishly drat banish",
-};
-```
-
-### `models.InputNetflowInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputNetflowInputCollectionPart1Type1 = {
+const value: models.InputNetflowPqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -123,14 +90,48 @@ const value: models.InputNetflowInputCollectionPart1Type1 = {
       output: "<value>",
     },
   ],
-  udpSocketRxBufSize: 1701,
+  udpSocketRxBufSize: 7360.29,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "barring till bah after seldom",
+  description:
+    "pine even inveigle house sandy though valuable within preclude ha",
+};
+```
+
+### `models.InputNetflowPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: models.InputNetflowPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "netflow",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 5607.22,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "able newsletter insistent artistic lyre nor gurn",
 };
 ```
 

@@ -3,22 +3,23 @@
 
 ## Supported Types
 
-### `operations.InputSnmpInputCollectionPart0Type`
+### `operations.InputSnmpSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputSnmpInputCollectionPart0Type = {
+const value: operations.InputSnmpSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "snmp",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
+    "<value 2>",
   ],
   pq: {
     pqControls: {},
@@ -38,100 +39,57 @@ const value: operations.InputSnmpInputCollectionPart0Type = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 4102.39,
+  udpSocketRxBufSize: 1474.84,
+  description: "inside knottily within vicinity that mixed skyscraper mmm numb",
+};
+```
+
+### `operations.InputSnmpSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value: operations.InputSnmpSendToRoutesFalseWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  id: "<id>",
+  type: "snmp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  snmpV3Auth: {
+    v3Users: [
+      {
+        name: "<value>",
+        authKey: "<value>",
+        privKey: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 885.62,
   description:
-    "slowly playfully roughly gratefully vaguely petticoat meh uselessly",
+    "critical hungry upliftingly when during exalted wherever embalm so yuck",
 };
 ```
 
-### `operations.InputSnmpInputCollectionPart1Type`
+### `operations.InputSnmpPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: operations.InputSnmpInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "snmp",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  snmpV3Auth: {
-    v3Users: [
-      {
-        name: "<value>",
-        authKey: "<value>",
-        privKey: "<value>",
-      },
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 9671.98,
-  description: "gadzooks pish cuddly thoroughly once eek or",
-};
-```
-
-### `operations.InputSnmpInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputSnmpInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "snmp",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  snmpV3Auth: {
-    v3Users: [
-      {
-        name: "<value>",
-        authKey: "<value>",
-        privKey: "<value>",
-      },
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 5724.87,
-  description: "apropos avaricious behind midst ameliorate um",
-};
-```
-
-### `operations.InputSnmpInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputSnmpInputCollectionPart1Type1 = {
+const value: operations.InputSnmpPqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -164,8 +122,50 @@ const value: operations.InputSnmpInputCollectionPart1Type1 = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 9118.37,
-  description: "yuck eventually than",
+  udpSocketRxBufSize: 4105.88,
+  description:
+    "thread graffiti blindly faraway angrily since buzzing valuable fill",
+};
+```
+
+### `operations.InputSnmpPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: operations.InputSnmpPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "snmp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  snmpV3Auth: {
+    v3Users: [
+      {
+        name: "<value>",
+        authKey: "<value>",
+        privKey: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 3298.29,
+  description: "questionably deeply sarcastic",
 };
 ```
 

@@ -31,7 +31,7 @@ export const InputCriblType = {
 } as const;
 export type InputCriblType = ClosedEnum<typeof InputCriblType>;
 
-export type InputCriblInputCollectionPart1Type1 = {
+export type InputCriblPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
@@ -71,11 +71,12 @@ export type InputCriblInputCollectionPart1Type1 = {
   description?: string | undefined;
 };
 
-export type InputCriblInputCollectionPart0Type1 = {
+export type InputCriblPqEnabledFalseWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -102,6 +103,45 @@ export type InputCriblInputCollectionPart0Type1 = {
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnections> | undefined;
+  filter?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputCriblSendToRoutesFalseWithConnectionsConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCriblType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
   pq?: PqType | undefined;
   filter?: string | undefined;
   /**
@@ -111,7 +151,7 @@ export type InputCriblInputCollectionPart0Type1 = {
   description?: string | undefined;
 };
 
-export type InputCriblInputCollectionPart1Type = {
+export type InputCriblSendToRoutesTrueWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
@@ -142,46 +182,6 @@ export type InputCriblInputCollectionPart1Type = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  filter?: string | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-};
-
-export type InputCriblInputCollectionPart0Type = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputCriblType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   pq?: PqType | undefined;
   filter?: string | undefined;
   /**
@@ -192,10 +192,10 @@ export type InputCriblInputCollectionPart0Type = {
 };
 
 export type InputCribl =
-  | InputCriblInputCollectionPart0Type
-  | InputCriblInputCollectionPart1Type
-  | InputCriblInputCollectionPart0Type1
-  | InputCriblInputCollectionPart1Type1;
+  | InputCriblSendToRoutesTrueWithConnectionsConstraint
+  | InputCriblSendToRoutesFalseWithConnectionsConstraint
+  | InputCriblPqEnabledFalseWithPqConstraint
+  | InputCriblPqEnabledTrueWithPqConstraint;
 
 /** @internal */
 export const InputCriblType$inboundSchema: z.ZodNativeEnum<
@@ -207,8 +207,8 @@ export const InputCriblType$outboundSchema: z.ZodNativeEnum<
 > = InputCriblType$inboundSchema;
 
 /** @internal */
-export const InputCriblInputCollectionPart1Type1$inboundSchema: z.ZodType<
-  InputCriblInputCollectionPart1Type1,
+export const InputCriblPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
+  InputCriblPqEnabledTrueWithPqConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -227,7 +227,7 @@ export const InputCriblInputCollectionPart1Type1$inboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 /** @internal */
-export type InputCriblInputCollectionPart1Type1$Outbound = {
+export type InputCriblPqEnabledTrueWithPqConstraint$Outbound = {
   pqEnabled: boolean;
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
@@ -244,10 +244,10 @@ export type InputCriblInputCollectionPart1Type1$Outbound = {
 };
 
 /** @internal */
-export const InputCriblInputCollectionPart1Type1$outboundSchema: z.ZodType<
-  InputCriblInputCollectionPart1Type1$Outbound,
+export const InputCriblPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
+  InputCriblPqEnabledTrueWithPqConstraint$Outbound,
   z.ZodTypeDef,
-  InputCriblInputCollectionPart1Type1
+  InputCriblPqEnabledTrueWithPqConstraint
 > = z.object({
   pqEnabled: z.boolean().default(false),
   pq: PqType$outboundSchema.optional(),
@@ -264,33 +264,40 @@ export const InputCriblInputCollectionPart1Type1$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-export function inputCriblInputCollectionPart1Type1ToJSON(
-  inputCriblInputCollectionPart1Type1: InputCriblInputCollectionPart1Type1,
+export function inputCriblPqEnabledTrueWithPqConstraintToJSON(
+  inputCriblPqEnabledTrueWithPqConstraint:
+    InputCriblPqEnabledTrueWithPqConstraint,
 ): string {
   return JSON.stringify(
-    InputCriblInputCollectionPart1Type1$outboundSchema.parse(
-      inputCriblInputCollectionPart1Type1,
+    InputCriblPqEnabledTrueWithPqConstraint$outboundSchema.parse(
+      inputCriblPqEnabledTrueWithPqConstraint,
     ),
   );
 }
-export function inputCriblInputCollectionPart1Type1FromJSON(
+export function inputCriblPqEnabledTrueWithPqConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputCriblInputCollectionPart1Type1, SDKValidationError> {
+): SafeParseResult<
+  InputCriblPqEnabledTrueWithPqConstraint,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      InputCriblInputCollectionPart1Type1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblInputCollectionPart1Type1' from JSON`,
+      InputCriblPqEnabledTrueWithPqConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputCriblPqEnabledTrueWithPqConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputCriblInputCollectionPart0Type1$inboundSchema: z.ZodType<
-  InputCriblInputCollectionPart0Type1,
+export const InputCriblPqEnabledFalseWithPqConstraint$inboundSchema: z.ZodType<
+  InputCriblPqEnabledFalseWithPqConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
   pqEnabled: z.boolean().default(false),
+  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputCriblType$inboundSchema,
   disabled: z.boolean().default(false),
@@ -299,14 +306,14 @@ export const InputCriblInputCollectionPart0Type1$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
   filter: z.string().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
 });
 /** @internal */
-export type InputCriblInputCollectionPart0Type1$Outbound = {
+export type InputCriblPqEnabledFalseWithPqConstraint$Outbound = {
   pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -315,19 +322,19 @@ export type InputCriblInputCollectionPart0Type1$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
   filter?: string | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputCriblInputCollectionPart0Type1$outboundSchema: z.ZodType<
-  InputCriblInputCollectionPart0Type1$Outbound,
+export const InputCriblPqEnabledFalseWithPqConstraint$outboundSchema: z.ZodType<
+  InputCriblPqEnabledFalseWithPqConstraint$Outbound,
   z.ZodTypeDef,
-  InputCriblInputCollectionPart0Type1
+  InputCriblPqEnabledFalseWithPqConstraint
 > = z.object({
   pqEnabled: z.boolean().default(false),
+  pq: PqType$outboundSchema.optional(),
   id: z.string().optional(),
   type: InputCriblType$outboundSchema,
   disabled: z.boolean().default(false),
@@ -336,54 +343,60 @@ export const InputCriblInputCollectionPart0Type1$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
   filter: z.string().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-export function inputCriblInputCollectionPart0Type1ToJSON(
-  inputCriblInputCollectionPart0Type1: InputCriblInputCollectionPart0Type1,
+export function inputCriblPqEnabledFalseWithPqConstraintToJSON(
+  inputCriblPqEnabledFalseWithPqConstraint:
+    InputCriblPqEnabledFalseWithPqConstraint,
 ): string {
   return JSON.stringify(
-    InputCriblInputCollectionPart0Type1$outboundSchema.parse(
-      inputCriblInputCollectionPart0Type1,
+    InputCriblPqEnabledFalseWithPqConstraint$outboundSchema.parse(
+      inputCriblPqEnabledFalseWithPqConstraint,
     ),
   );
 }
-export function inputCriblInputCollectionPart0Type1FromJSON(
+export function inputCriblPqEnabledFalseWithPqConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputCriblInputCollectionPart0Type1, SDKValidationError> {
+): SafeParseResult<
+  InputCriblPqEnabledFalseWithPqConstraint,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      InputCriblInputCollectionPart0Type1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblInputCollectionPart0Type1' from JSON`,
+      InputCriblPqEnabledFalseWithPqConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputCriblPqEnabledFalseWithPqConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputCriblInputCollectionPart1Type$inboundSchema: z.ZodType<
-  InputCriblInputCollectionPart1Type,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  id: z.string().optional(),
-  type: InputCriblType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  pq: PqType$inboundSchema.optional(),
-  filter: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-});
+export const InputCriblSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputCriblSendToRoutesFalseWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputCriblType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    filter: z.string().optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputCriblInputCollectionPart1Type$Outbound = {
+export type InputCriblSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
   connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
@@ -400,69 +413,78 @@ export type InputCriblInputCollectionPart1Type$Outbound = {
 };
 
 /** @internal */
-export const InputCriblInputCollectionPart1Type$outboundSchema: z.ZodType<
-  InputCriblInputCollectionPart1Type$Outbound,
-  z.ZodTypeDef,
-  InputCriblInputCollectionPart1Type
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  id: z.string().optional(),
-  type: InputCriblType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  pq: PqType$outboundSchema.optional(),
-  filter: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-});
+export const InputCriblSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputCriblSendToRoutesFalseWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputCriblSendToRoutesFalseWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputCriblType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    filter: z.string().optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    description: z.string().optional(),
+  });
 
-export function inputCriblInputCollectionPart1TypeToJSON(
-  inputCriblInputCollectionPart1Type: InputCriblInputCollectionPart1Type,
+export function inputCriblSendToRoutesFalseWithConnectionsConstraintToJSON(
+  inputCriblSendToRoutesFalseWithConnectionsConstraint:
+    InputCriblSendToRoutesFalseWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputCriblInputCollectionPart1Type$outboundSchema.parse(
-      inputCriblInputCollectionPart1Type,
+    InputCriblSendToRoutesFalseWithConnectionsConstraint$outboundSchema.parse(
+      inputCriblSendToRoutesFalseWithConnectionsConstraint,
     ),
   );
 }
-export function inputCriblInputCollectionPart1TypeFromJSON(
+export function inputCriblSendToRoutesFalseWithConnectionsConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputCriblInputCollectionPart1Type, SDKValidationError> {
+): SafeParseResult<
+  InputCriblSendToRoutesFalseWithConnectionsConstraint,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      InputCriblInputCollectionPart1Type$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblInputCollectionPart1Type' from JSON`,
+      InputCriblSendToRoutesFalseWithConnectionsConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputCriblSendToRoutesFalseWithConnectionsConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputCriblInputCollectionPart0Type$inboundSchema: z.ZodType<
-  InputCriblInputCollectionPart0Type,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputCriblType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  filter: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-});
+export const InputCriblSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputCriblSendToRoutesTrueWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputCriblType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    filter: z.string().optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputCriblInputCollectionPart0Type$Outbound = {
+export type InputCriblSendToRoutesTrueWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -470,7 +492,6 @@ export type InputCriblInputCollectionPart0Type$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   filter?: string | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
@@ -478,43 +499,50 @@ export type InputCriblInputCollectionPart0Type$Outbound = {
 };
 
 /** @internal */
-export const InputCriblInputCollectionPart0Type$outboundSchema: z.ZodType<
-  InputCriblInputCollectionPart0Type$Outbound,
-  z.ZodTypeDef,
-  InputCriblInputCollectionPart0Type
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputCriblType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  filter: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-});
+export const InputCriblSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputCriblSendToRoutesTrueWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputCriblSendToRoutesTrueWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputCriblType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    filter: z.string().optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    description: z.string().optional(),
+  });
 
-export function inputCriblInputCollectionPart0TypeToJSON(
-  inputCriblInputCollectionPart0Type: InputCriblInputCollectionPart0Type,
+export function inputCriblSendToRoutesTrueWithConnectionsConstraintToJSON(
+  inputCriblSendToRoutesTrueWithConnectionsConstraint:
+    InputCriblSendToRoutesTrueWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputCriblInputCollectionPart0Type$outboundSchema.parse(
-      inputCriblInputCollectionPart0Type,
+    InputCriblSendToRoutesTrueWithConnectionsConstraint$outboundSchema.parse(
+      inputCriblSendToRoutesTrueWithConnectionsConstraint,
     ),
   );
 }
-export function inputCriblInputCollectionPart0TypeFromJSON(
+export function inputCriblSendToRoutesTrueWithConnectionsConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputCriblInputCollectionPart0Type, SDKValidationError> {
+): SafeParseResult<
+  InputCriblSendToRoutesTrueWithConnectionsConstraint,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      InputCriblInputCollectionPart0Type$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblInputCollectionPart0Type' from JSON`,
+      InputCriblSendToRoutesTrueWithConnectionsConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputCriblSendToRoutesTrueWithConnectionsConstraint' from JSON`,
   );
 }
 
@@ -524,17 +552,21 @@ export const InputCribl$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => InputCriblInputCollectionPart0Type$inboundSchema),
-  z.lazy(() => InputCriblInputCollectionPart1Type$inboundSchema),
-  z.lazy(() => InputCriblInputCollectionPart0Type1$inboundSchema),
-  z.lazy(() => InputCriblInputCollectionPart1Type1$inboundSchema),
+  z.lazy(() =>
+    InputCriblSendToRoutesTrueWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() =>
+    InputCriblSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() => InputCriblPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputCriblPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputCribl$Outbound =
-  | InputCriblInputCollectionPart0Type$Outbound
-  | InputCriblInputCollectionPart1Type$Outbound
-  | InputCriblInputCollectionPart0Type1$Outbound
-  | InputCriblInputCollectionPart1Type1$Outbound;
+  | InputCriblSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputCriblSendToRoutesFalseWithConnectionsConstraint$Outbound
+  | InputCriblPqEnabledFalseWithPqConstraint$Outbound
+  | InputCriblPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
 export const InputCribl$outboundSchema: z.ZodType<
@@ -542,10 +574,14 @@ export const InputCribl$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputCribl
 > = z.union([
-  z.lazy(() => InputCriblInputCollectionPart0Type$outboundSchema),
-  z.lazy(() => InputCriblInputCollectionPart1Type$outboundSchema),
-  z.lazy(() => InputCriblInputCollectionPart0Type1$outboundSchema),
-  z.lazy(() => InputCriblInputCollectionPart1Type1$outboundSchema),
+  z.lazy(() =>
+    InputCriblSendToRoutesTrueWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() =>
+    InputCriblSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() => InputCriblPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputCriblPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 
 export function inputCriblToJSON(inputCribl: InputCribl): string {

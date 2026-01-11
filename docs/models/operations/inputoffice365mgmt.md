@@ -3,17 +3,125 @@
 
 ## Supported Types
 
-### `operations.InputOffice365MgmtInputCollectionPart0Type`
+### `operations.InputOffice365MgmtSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputOffice365MgmtInputCollectionPart0Type = {
+const value:
+  operations.InputOffice365MgmtSendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "office365_mgmt",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    tenantId: "<id>",
+    appId: "<id>",
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    publisherIdentifier: "<value>",
+    contentConfig: [
+      {
+        contentType: "<value>",
+        description: "indeed whoever meanwhile beret",
+        interval: 261.22,
+        logLevel: "error",
+        enabled: false,
+      },
+    ],
+    retryRules: {
+      codes: [
+        6390.37,
+        2107.49,
+        2764.09,
+      ],
+    },
+    description: "geez progress pro over",
+    clientSecret: "<value>",
+    textSecret: "<value>",
+  };
+```
+
+### `operations.InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  operations.InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "office365_mgmt",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    tenantId: "<id>",
+    appId: "<id>",
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    publisherIdentifier: "<value>",
+    contentConfig: [
+      {
+        contentType: "<value>",
+        description: "indeed whoever meanwhile beret",
+        interval: 261.22,
+        logLevel: "error",
+        enabled: false,
+      },
+    ],
+    retryRules: {
+      codes: [
+        6390.37,
+        2107.49,
+        2764.09,
+      ],
+    },
+    description: "victoriously march lanky extension",
+    clientSecret: "<value>",
+    textSecret: "<value>",
+  };
+```
+
+### `operations.InputOffice365MgmtPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputOffice365MgmtPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "office365_mgmt",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -21,9 +129,6 @@ const value: operations.InputOffice365MgmtInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   tenantId: "<id>",
   appId: "<id>",
   metadata: [
@@ -36,9 +141,9 @@ const value: operations.InputOffice365MgmtInputCollectionPart0Type = {
   contentConfig: [
     {
       contentType: "<value>",
-      description: "excluding quiet unlike twine",
-      interval: 6841.39,
-      logLevel: "info",
+      description: "indeed whoever meanwhile beret",
+      interval: 261.22,
+      logLevel: "error",
       enabled: false,
     },
   ],
@@ -49,22 +154,19 @@ const value: operations.InputOffice365MgmtInputCollectionPart0Type = {
       2764.09,
     ],
   },
-  description: "ouch finally well-documented cute ouch shallow",
+  description: "smart on phooey twine",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
 ```
 
-### `operations.InputOffice365MgmtInputCollectionPart1Type`
+### `operations.InputOffice365MgmtPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputOffice365MgmtInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: operations.InputOffice365MgmtPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "office365_mgmt",
   pipeline: "<value>",
@@ -74,108 +176,6 @@ const value: operations.InputOffice365MgmtInputCollectionPart1Type = {
     "<value 2>",
     "<value 3>",
   ],
-  pq: {
-    pqControls: {},
-  },
-  tenantId: "<id>",
-  appId: "<id>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  publisherIdentifier: "<value>",
-  contentConfig: [
-    {
-      contentType: "<value>",
-      description: "excluding quiet unlike twine",
-      interval: 6841.39,
-      logLevel: "info",
-      enabled: false,
-    },
-  ],
-  retryRules: {
-    codes: [
-      6390.37,
-      2107.49,
-      2764.09,
-    ],
-  },
-  description: "traduce pfft besides squid but",
-  clientSecret: "<value>",
-  textSecret: "<value>",
-};
-```
-
-### `operations.InputOffice365MgmtInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputOffice365MgmtInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "office365_mgmt",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  tenantId: "<id>",
-  appId: "<id>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  publisherIdentifier: "<value>",
-  contentConfig: [
-    {
-      contentType: "<value>",
-      description: "excluding quiet unlike twine",
-      interval: 6841.39,
-      logLevel: "info",
-      enabled: false,
-    },
-  ],
-  retryRules: {
-    codes: [
-      6390.37,
-      2107.49,
-      2764.09,
-    ],
-  },
-  description: "vastly along like",
-  clientSecret: "<value>",
-  textSecret: "<value>",
-};
-```
-
-### `operations.InputOffice365MgmtInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputOffice365MgmtInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "office365_mgmt",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
   connections: [
     {
       pipeline: "<value>",
@@ -194,9 +194,9 @@ const value: operations.InputOffice365MgmtInputCollectionPart1Type1 = {
   contentConfig: [
     {
       contentType: "<value>",
-      description: "excluding quiet unlike twine",
-      interval: 6841.39,
-      logLevel: "info",
+      description: "indeed whoever meanwhile beret",
+      interval: 261.22,
+      logLevel: "error",
       enabled: false,
     },
   ],
@@ -207,8 +207,7 @@ const value: operations.InputOffice365MgmtInputCollectionPart1Type1 = {
       2764.09,
     ],
   },
-  description:
-    "incidentally capsize king whether misspend profuse once guacamole lucky drab",
+  description: "physically among yum geez consequently gadzooks",
   clientSecret: "<value>",
   textSecret: "<value>",
 };

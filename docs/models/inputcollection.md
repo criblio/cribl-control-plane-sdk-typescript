@@ -3,50 +3,10 @@
 
 ## Supported Types
 
-### `models.InputCollectionInputCollectionPart0Type`
+### `models.InputCollectionSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputCollectionInputCollectionPart0Type = {
-  id: "<id>",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  preprocess: {
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  output: "<value>",
-};
-```
-
-### `models.InputCollectionInputCollectionPart1Type`
-
-```typescript
-const value: models.InputCollectionInputCollectionPart1Type = {
+const value: models.InputCollectionSendToRoutesTrueWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -84,31 +44,74 @@ const value: models.InputCollectionInputCollectionPart1Type = {
 };
 ```
 
-### `models.InputCollectionInputCollectionPart0Type1`
+### `models.InputCollectionSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputCollectionInputCollectionPart0Type1 = {
+const value: models.InputCollectionSendToRoutesFalseWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    breakerRulesets: [
+      "<value 1>",
+    ],
+    preprocess: {
+      command: "<value>",
+      args: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    output: "<value>",
+  };
+```
+
+### `models.InputCollectionPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputCollectionPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  breakerRulesets: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
   preprocess: {
     command: "<value>",
     args: [
@@ -127,10 +130,10 @@ const value: models.InputCollectionInputCollectionPart0Type1 = {
 };
 ```
 
-### `models.InputCollectionInputCollectionPart1Type1`
+### `models.InputCollectionPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputCollectionInputCollectionPart1Type1 = {
+const value: models.InputCollectionPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },

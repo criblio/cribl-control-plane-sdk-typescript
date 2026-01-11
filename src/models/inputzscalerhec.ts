@@ -67,7 +67,7 @@ export type InputZscalerHecAuthToken = {
   metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
 };
 
-export type InputZscalerHecInputCollectionPart1Type1 = {
+export type InputZscalerHecPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
@@ -184,11 +184,12 @@ export type InputZscalerHecInputCollectionPart1Type1 = {
   description?: string | undefined;
 };
 
-export type InputZscalerHecInputCollectionPart0Type1 = {
+export type InputZscalerHecPqEnabledFalseWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -215,6 +216,122 @@ export type InputZscalerHecInputCollectionPart0Type1 = {
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<InputZscalerHecAuthToken> | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: any | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Zscaler HTTP Event Collector API requests. This input supports the /event endpoint.
+   */
+  hecAPI?: string | undefined;
+  /**
+   * Fields to add to every event. May be overridden by fields added at the token or request level.
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+   */
+  allowedIndexes?: Array<string> | undefined;
+  /**
+   * Whether to enable Zscaler HEC acknowledgements
+   */
+  hecAcks?: boolean | undefined;
+  /**
+   * Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+   */
+  accessControlAllowOrigin?: Array<string> | undefined;
+  /**
+   * Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+   */
+  accessControlAllowHeaders?: Array<string> | undefined;
+  /**
+   * Enable to emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+   */
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type InputZscalerHecSendToRoutesFalseWithConnectionsConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputZscalerHecType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -301,7 +418,7 @@ export type InputZscalerHecInputCollectionPart0Type1 = {
   description?: string | undefined;
 };
 
-export type InputZscalerHecInputCollectionPart1Type = {
+export type InputZscalerHecSendToRoutesTrueWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
@@ -332,123 +449,6 @@ export type InputZscalerHecInputCollectionPart1Type = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
-   */
-  host?: string | undefined;
-  /**
-   * Port to listen on
-   */
-  port: number;
-  /**
-   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-   */
-  authTokens?: Array<InputZscalerHecAuthToken> | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
-  /**
-   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-   */
-  maxActiveReq?: number | undefined;
-  /**
-   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-   */
-  maxRequestsPerSocket?: number | undefined;
-  /**
-   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-   */
-  enableProxyHeader?: boolean | undefined;
-  /**
-   * Add request headers to events, in the __headers field
-   */
-  captureHeaders?: boolean | undefined;
-  /**
-   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-   */
-  activityLogSampleRate?: number | undefined;
-  /**
-   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-   */
-  requestTimeout?: number | undefined;
-  /**
-   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-   */
-  socketTimeout?: number | undefined;
-  /**
-   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-   */
-  keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
-  /**
-   * Messages from matched IP addresses will be processed, unless also matched by the denylist
-   */
-  ipAllowlistRegex?: string | undefined;
-  /**
-   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-   */
-  ipDenylistRegex?: string | undefined;
-  /**
-   * Absolute path on which to listen for the Zscaler HTTP Event Collector API requests. This input supports the /event endpoint.
-   */
-  hecAPI?: string | undefined;
-  /**
-   * Fields to add to every event. May be overridden by fields added at the token or request level.
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  /**
-   * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
-   */
-  allowedIndexes?: Array<string> | undefined;
-  /**
-   * Whether to enable Zscaler HEC acknowledgements
-   */
-  hecAcks?: boolean | undefined;
-  /**
-   * Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
-   */
-  accessControlAllowOrigin?: Array<string> | undefined;
-  /**
-   * Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
-   */
-  accessControlAllowHeaders?: Array<string> | undefined;
-  /**
-   * Enable to emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-   */
-  emitTokenMetrics?: boolean | undefined;
-  description?: string | undefined;
-};
-
-export type InputZscalerHecInputCollectionPart0Type = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputZscalerHecType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -536,10 +536,10 @@ export type InputZscalerHecInputCollectionPart0Type = {
 };
 
 export type InputZscalerHec =
-  | InputZscalerHecInputCollectionPart0Type
-  | InputZscalerHecInputCollectionPart1Type
-  | InputZscalerHecInputCollectionPart0Type1
-  | InputZscalerHecInputCollectionPart1Type1;
+  | InputZscalerHecSendToRoutesTrueWithConnectionsConstraint
+  | InputZscalerHecSendToRoutesFalseWithConnectionsConstraint
+  | InputZscalerHecPqEnabledFalseWithPqConstraint
+  | InputZscalerHecPqEnabledTrueWithPqConstraint;
 
 /** @internal */
 export const InputZscalerHecType$inboundSchema: z.ZodNativeEnum<
@@ -612,48 +612,49 @@ export function inputZscalerHecAuthTokenFromJSON(
 }
 
 /** @internal */
-export const InputZscalerHecInputCollectionPart1Type1$inboundSchema: z.ZodType<
-  InputZscalerHecInputCollectionPart1Type1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  pq: PqType$inboundSchema.optional(),
-  id: z.string().optional(),
-  type: InputZscalerHecType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$inboundSchema))
-    .optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  hecAPI: z.string().default("/services/collector"),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  allowedIndexes: z.array(z.string()).optional(),
-  hecAcks: z.boolean().default(false),
-  accessControlAllowOrigin: z.array(z.string()).optional(),
-  accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().default(false),
-  description: z.string().optional(),
-});
+export const InputZscalerHecPqEnabledTrueWithPqConstraint$inboundSchema:
+  z.ZodType<
+    InputZscalerHecPqEnabledTrueWithPqConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputZscalerHecType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$inboundSchema))
+      .optional(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.any().optional(),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    hecAPI: z.string().default("/services/collector"),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    allowedIndexes: z.array(z.string()).optional(),
+    hecAcks: z.boolean().default(false),
+    accessControlAllowOrigin: z.array(z.string()).optional(),
+    accessControlAllowHeaders: z.array(z.string()).optional(),
+    emitTokenMetrics: z.boolean().default(false),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputZscalerHecInputCollectionPart1Type1$Outbound = {
+export type InputZscalerHecPqEnabledTrueWithPqConstraint$Outbound = {
   pqEnabled: boolean;
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
@@ -690,117 +691,120 @@ export type InputZscalerHecInputCollectionPart1Type1$Outbound = {
 };
 
 /** @internal */
-export const InputZscalerHecInputCollectionPart1Type1$outboundSchema: z.ZodType<
-  InputZscalerHecInputCollectionPart1Type1$Outbound,
-  z.ZodTypeDef,
-  InputZscalerHecInputCollectionPart1Type1
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  pq: PqType$outboundSchema.optional(),
-  id: z.string().optional(),
-  type: InputZscalerHecType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$outboundSchema))
-    .optional(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  hecAPI: z.string().default("/services/collector"),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  allowedIndexes: z.array(z.string()).optional(),
-  hecAcks: z.boolean().default(false),
-  accessControlAllowOrigin: z.array(z.string()).optional(),
-  accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().default(false),
-  description: z.string().optional(),
-});
+export const InputZscalerHecPqEnabledTrueWithPqConstraint$outboundSchema:
+  z.ZodType<
+    InputZscalerHecPqEnabledTrueWithPqConstraint$Outbound,
+    z.ZodTypeDef,
+    InputZscalerHecPqEnabledTrueWithPqConstraint
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputZscalerHecType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$outboundSchema))
+      .optional(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.any().optional(),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    hecAPI: z.string().default("/services/collector"),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    allowedIndexes: z.array(z.string()).optional(),
+    hecAcks: z.boolean().default(false),
+    accessControlAllowOrigin: z.array(z.string()).optional(),
+    accessControlAllowHeaders: z.array(z.string()).optional(),
+    emitTokenMetrics: z.boolean().default(false),
+    description: z.string().optional(),
+  });
 
-export function inputZscalerHecInputCollectionPart1Type1ToJSON(
-  inputZscalerHecInputCollectionPart1Type1:
-    InputZscalerHecInputCollectionPart1Type1,
+export function inputZscalerHecPqEnabledTrueWithPqConstraintToJSON(
+  inputZscalerHecPqEnabledTrueWithPqConstraint:
+    InputZscalerHecPqEnabledTrueWithPqConstraint,
 ): string {
   return JSON.stringify(
-    InputZscalerHecInputCollectionPart1Type1$outboundSchema.parse(
-      inputZscalerHecInputCollectionPart1Type1,
+    InputZscalerHecPqEnabledTrueWithPqConstraint$outboundSchema.parse(
+      inputZscalerHecPqEnabledTrueWithPqConstraint,
     ),
   );
 }
-export function inputZscalerHecInputCollectionPart1Type1FromJSON(
+export function inputZscalerHecPqEnabledTrueWithPqConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputZscalerHecInputCollectionPart1Type1,
+  InputZscalerHecPqEnabledTrueWithPqConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputZscalerHecInputCollectionPart1Type1$inboundSchema.parse(
+      InputZscalerHecPqEnabledTrueWithPqConstraint$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputZscalerHecInputCollectionPart1Type1' from JSON`,
+    `Failed to parse 'InputZscalerHecPqEnabledTrueWithPqConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputZscalerHecInputCollectionPart0Type1$inboundSchema: z.ZodType<
-  InputZscalerHecInputCollectionPart0Type1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  id: z.string().optional(),
-  type: InputZscalerHecType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$inboundSchema))
-    .optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  hecAPI: z.string().default("/services/collector"),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  allowedIndexes: z.array(z.string()).optional(),
-  hecAcks: z.boolean().default(false),
-  accessControlAllowOrigin: z.array(z.string()).optional(),
-  accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().default(false),
-  description: z.string().optional(),
-});
+export const InputZscalerHecPqEnabledFalseWithPqConstraint$inboundSchema:
+  z.ZodType<
+    InputZscalerHecPqEnabledFalseWithPqConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputZscalerHecType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$inboundSchema))
+      .optional(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.any().optional(),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    hecAPI: z.string().default("/services/collector"),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    allowedIndexes: z.array(z.string()).optional(),
+    hecAcks: z.boolean().default(false),
+    accessControlAllowOrigin: z.array(z.string()).optional(),
+    accessControlAllowHeaders: z.array(z.string()).optional(),
+    emitTokenMetrics: z.boolean().default(false),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputZscalerHecInputCollectionPart0Type1$Outbound = {
+export type InputZscalerHecPqEnabledFalseWithPqConstraint$Outbound = {
   pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -809,7 +813,6 @@ export type InputZscalerHecInputCollectionPart0Type1$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<InputZscalerHecAuthToken$Outbound> | undefined;
@@ -836,362 +839,365 @@ export type InputZscalerHecInputCollectionPart0Type1$Outbound = {
 };
 
 /** @internal */
-export const InputZscalerHecInputCollectionPart0Type1$outboundSchema: z.ZodType<
-  InputZscalerHecInputCollectionPart0Type1$Outbound,
-  z.ZodTypeDef,
-  InputZscalerHecInputCollectionPart0Type1
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  id: z.string().optional(),
-  type: InputZscalerHecType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$outboundSchema))
-    .optional(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  hecAPI: z.string().default("/services/collector"),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  allowedIndexes: z.array(z.string()).optional(),
-  hecAcks: z.boolean().default(false),
-  accessControlAllowOrigin: z.array(z.string()).optional(),
-  accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().default(false),
-  description: z.string().optional(),
-});
+export const InputZscalerHecPqEnabledFalseWithPqConstraint$outboundSchema:
+  z.ZodType<
+    InputZscalerHecPqEnabledFalseWithPqConstraint$Outbound,
+    z.ZodTypeDef,
+    InputZscalerHecPqEnabledFalseWithPqConstraint
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputZscalerHecType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$outboundSchema))
+      .optional(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.any().optional(),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    hecAPI: z.string().default("/services/collector"),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    allowedIndexes: z.array(z.string()).optional(),
+    hecAcks: z.boolean().default(false),
+    accessControlAllowOrigin: z.array(z.string()).optional(),
+    accessControlAllowHeaders: z.array(z.string()).optional(),
+    emitTokenMetrics: z.boolean().default(false),
+    description: z.string().optional(),
+  });
 
-export function inputZscalerHecInputCollectionPart0Type1ToJSON(
-  inputZscalerHecInputCollectionPart0Type1:
-    InputZscalerHecInputCollectionPart0Type1,
+export function inputZscalerHecPqEnabledFalseWithPqConstraintToJSON(
+  inputZscalerHecPqEnabledFalseWithPqConstraint:
+    InputZscalerHecPqEnabledFalseWithPqConstraint,
 ): string {
   return JSON.stringify(
-    InputZscalerHecInputCollectionPart0Type1$outboundSchema.parse(
-      inputZscalerHecInputCollectionPart0Type1,
+    InputZscalerHecPqEnabledFalseWithPqConstraint$outboundSchema.parse(
+      inputZscalerHecPqEnabledFalseWithPqConstraint,
     ),
   );
 }
-export function inputZscalerHecInputCollectionPart0Type1FromJSON(
+export function inputZscalerHecPqEnabledFalseWithPqConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputZscalerHecInputCollectionPart0Type1,
+  InputZscalerHecPqEnabledFalseWithPqConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputZscalerHecInputCollectionPart0Type1$inboundSchema.parse(
+      InputZscalerHecPqEnabledFalseWithPqConstraint$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputZscalerHecInputCollectionPart0Type1' from JSON`,
+    `Failed to parse 'InputZscalerHecPqEnabledFalseWithPqConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputZscalerHecInputCollectionPart1Type$inboundSchema: z.ZodType<
-  InputZscalerHecInputCollectionPart1Type,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  id: z.string().optional(),
-  type: InputZscalerHecType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$inboundSchema))
-    .optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  hecAPI: z.string().default("/services/collector"),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  allowedIndexes: z.array(z.string()).optional(),
-  hecAcks: z.boolean().default(false),
-  accessControlAllowOrigin: z.array(z.string()).optional(),
-  accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().default(false),
-  description: z.string().optional(),
-});
+export const InputZscalerHecSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputZscalerHecSendToRoutesFalseWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputZscalerHecType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$inboundSchema))
+      .optional(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.any().optional(),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    hecAPI: z.string().default("/services/collector"),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    allowedIndexes: z.array(z.string()).optional(),
+    hecAcks: z.boolean().default(false),
+    accessControlAllowOrigin: z.array(z.string()).optional(),
+    accessControlAllowHeaders: z.array(z.string()).optional(),
+    emitTokenMetrics: z.boolean().default(false),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputZscalerHecInputCollectionPart1Type$Outbound = {
-  sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  pq?: PqType$Outbound | undefined;
-  host: string;
-  port: number;
-  authTokens?: Array<InputZscalerHecAuthToken$Outbound> | undefined;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
-  enableProxyHeader: boolean;
-  captureHeaders: boolean;
-  activityLogSampleRate: number;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
-  enableHealthCheck?: any | undefined;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
-  hecAPI: string;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  allowedIndexes?: Array<string> | undefined;
-  hecAcks: boolean;
-  accessControlAllowOrigin?: Array<string> | undefined;
-  accessControlAllowHeaders?: Array<string> | undefined;
-  emitTokenMetrics: boolean;
-  description?: string | undefined;
-};
+export type InputZscalerHecSendToRoutesFalseWithConnectionsConstraint$Outbound =
+  {
+    sendToRoutes: boolean;
+    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    id?: string | undefined;
+    type: string;
+    disabled: boolean;
+    pipeline?: string | undefined;
+    environment?: string | undefined;
+    pqEnabled: boolean;
+    streamtags?: Array<string> | undefined;
+    pq?: PqType$Outbound | undefined;
+    host: string;
+    port: number;
+    authTokens?: Array<InputZscalerHecAuthToken$Outbound> | undefined;
+    tls?: TlsSettingsServerSideType$Outbound | undefined;
+    maxActiveReq: number;
+    maxRequestsPerSocket: number;
+    enableProxyHeader: boolean;
+    captureHeaders: boolean;
+    activityLogSampleRate: number;
+    requestTimeout: number;
+    socketTimeout: number;
+    keepAliveTimeout: number;
+    enableHealthCheck?: any | undefined;
+    ipAllowlistRegex: string;
+    ipDenylistRegex: string;
+    hecAPI: string;
+    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+    allowedIndexes?: Array<string> | undefined;
+    hecAcks: boolean;
+    accessControlAllowOrigin?: Array<string> | undefined;
+    accessControlAllowHeaders?: Array<string> | undefined;
+    emitTokenMetrics: boolean;
+    description?: string | undefined;
+  };
 
 /** @internal */
-export const InputZscalerHecInputCollectionPart1Type$outboundSchema: z.ZodType<
-  InputZscalerHecInputCollectionPart1Type$Outbound,
-  z.ZodTypeDef,
-  InputZscalerHecInputCollectionPart1Type
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  id: z.string().optional(),
-  type: InputZscalerHecType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$outboundSchema))
-    .optional(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  hecAPI: z.string().default("/services/collector"),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  allowedIndexes: z.array(z.string()).optional(),
-  hecAcks: z.boolean().default(false),
-  accessControlAllowOrigin: z.array(z.string()).optional(),
-  accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().default(false),
-  description: z.string().optional(),
-});
+export const InputZscalerHecSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputZscalerHecSendToRoutesFalseWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputZscalerHecSendToRoutesFalseWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputZscalerHecType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$outboundSchema))
+      .optional(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.any().optional(),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    hecAPI: z.string().default("/services/collector"),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    allowedIndexes: z.array(z.string()).optional(),
+    hecAcks: z.boolean().default(false),
+    accessControlAllowOrigin: z.array(z.string()).optional(),
+    accessControlAllowHeaders: z.array(z.string()).optional(),
+    emitTokenMetrics: z.boolean().default(false),
+    description: z.string().optional(),
+  });
 
-export function inputZscalerHecInputCollectionPart1TypeToJSON(
-  inputZscalerHecInputCollectionPart1Type:
-    InputZscalerHecInputCollectionPart1Type,
+export function inputZscalerHecSendToRoutesFalseWithConnectionsConstraintToJSON(
+  inputZscalerHecSendToRoutesFalseWithConnectionsConstraint:
+    InputZscalerHecSendToRoutesFalseWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputZscalerHecInputCollectionPart1Type$outboundSchema.parse(
-      inputZscalerHecInputCollectionPart1Type,
-    ),
+    InputZscalerHecSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+      .parse(inputZscalerHecSendToRoutesFalseWithConnectionsConstraint),
   );
 }
-export function inputZscalerHecInputCollectionPart1TypeFromJSON(
+export function inputZscalerHecSendToRoutesFalseWithConnectionsConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputZscalerHecInputCollectionPart1Type,
+  InputZscalerHecSendToRoutesFalseWithConnectionsConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputZscalerHecInputCollectionPart1Type$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputZscalerHecInputCollectionPart1Type' from JSON`,
+      InputZscalerHecSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputZscalerHecSendToRoutesFalseWithConnectionsConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputZscalerHecInputCollectionPart0Type$inboundSchema: z.ZodType<
-  InputZscalerHecInputCollectionPart0Type,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputZscalerHecType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$inboundSchema))
-    .optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  hecAPI: z.string().default("/services/collector"),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  allowedIndexes: z.array(z.string()).optional(),
-  hecAcks: z.boolean().default(false),
-  accessControlAllowOrigin: z.array(z.string()).optional(),
-  accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().default(false),
-  description: z.string().optional(),
-});
+export const InputZscalerHecSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputZscalerHecSendToRoutesTrueWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputZscalerHecType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$inboundSchema))
+      .optional(),
+    tls: TlsSettingsServerSideType$inboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.any().optional(),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    hecAPI: z.string().default("/services/collector"),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    allowedIndexes: z.array(z.string()).optional(),
+    hecAcks: z.boolean().default(false),
+    accessControlAllowOrigin: z.array(z.string()).optional(),
+    accessControlAllowHeaders: z.array(z.string()).optional(),
+    emitTokenMetrics: z.boolean().default(false),
+    description: z.string().optional(),
+  });
 /** @internal */
-export type InputZscalerHecInputCollectionPart0Type$Outbound = {
-  sendToRoutes: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  host: string;
-  port: number;
-  authTokens?: Array<InputZscalerHecAuthToken$Outbound> | undefined;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
-  enableProxyHeader: boolean;
-  captureHeaders: boolean;
-  activityLogSampleRate: number;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
-  enableHealthCheck?: any | undefined;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
-  hecAPI: string;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  allowedIndexes?: Array<string> | undefined;
-  hecAcks: boolean;
-  accessControlAllowOrigin?: Array<string> | undefined;
-  accessControlAllowHeaders?: Array<string> | undefined;
-  emitTokenMetrics: boolean;
-  description?: string | undefined;
-};
+export type InputZscalerHecSendToRoutesTrueWithConnectionsConstraint$Outbound =
+  {
+    sendToRoutes: boolean;
+    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    id?: string | undefined;
+    type: string;
+    disabled: boolean;
+    pipeline?: string | undefined;
+    environment?: string | undefined;
+    pqEnabled: boolean;
+    streamtags?: Array<string> | undefined;
+    pq?: PqType$Outbound | undefined;
+    host: string;
+    port: number;
+    authTokens?: Array<InputZscalerHecAuthToken$Outbound> | undefined;
+    tls?: TlsSettingsServerSideType$Outbound | undefined;
+    maxActiveReq: number;
+    maxRequestsPerSocket: number;
+    enableProxyHeader: boolean;
+    captureHeaders: boolean;
+    activityLogSampleRate: number;
+    requestTimeout: number;
+    socketTimeout: number;
+    keepAliveTimeout: number;
+    enableHealthCheck?: any | undefined;
+    ipAllowlistRegex: string;
+    ipDenylistRegex: string;
+    hecAPI: string;
+    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+    allowedIndexes?: Array<string> | undefined;
+    hecAcks: boolean;
+    accessControlAllowOrigin?: Array<string> | undefined;
+    accessControlAllowHeaders?: Array<string> | undefined;
+    emitTokenMetrics: boolean;
+    description?: string | undefined;
+  };
 
 /** @internal */
-export const InputZscalerHecInputCollectionPart0Type$outboundSchema: z.ZodType<
-  InputZscalerHecInputCollectionPart0Type$Outbound,
-  z.ZodTypeDef,
-  InputZscalerHecInputCollectionPart0Type
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputZscalerHecType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$outboundSchema))
-    .optional(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  hecAPI: z.string().default("/services/collector"),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  allowedIndexes: z.array(z.string()).optional(),
-  hecAcks: z.boolean().default(false),
-  accessControlAllowOrigin: z.array(z.string()).optional(),
-  accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().default(false),
-  description: z.string().optional(),
-});
+export const InputZscalerHecSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputZscalerHecSendToRoutesTrueWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputZscalerHecSendToRoutesTrueWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputZscalerHecType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number(),
+    authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$outboundSchema))
+      .optional(),
+    tls: TlsSettingsServerSideType$outboundSchema.optional(),
+    maxActiveReq: z.number().default(256),
+    maxRequestsPerSocket: z.number().int().default(0),
+    enableProxyHeader: z.boolean().default(false),
+    captureHeaders: z.boolean().default(false),
+    activityLogSampleRate: z.number().default(100),
+    requestTimeout: z.number().default(0),
+    socketTimeout: z.number().default(0),
+    keepAliveTimeout: z.number().default(5),
+    enableHealthCheck: z.any().optional(),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    hecAPI: z.string().default("/services/collector"),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    allowedIndexes: z.array(z.string()).optional(),
+    hecAcks: z.boolean().default(false),
+    accessControlAllowOrigin: z.array(z.string()).optional(),
+    accessControlAllowHeaders: z.array(z.string()).optional(),
+    emitTokenMetrics: z.boolean().default(false),
+    description: z.string().optional(),
+  });
 
-export function inputZscalerHecInputCollectionPart0TypeToJSON(
-  inputZscalerHecInputCollectionPart0Type:
-    InputZscalerHecInputCollectionPart0Type,
+export function inputZscalerHecSendToRoutesTrueWithConnectionsConstraintToJSON(
+  inputZscalerHecSendToRoutesTrueWithConnectionsConstraint:
+    InputZscalerHecSendToRoutesTrueWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputZscalerHecInputCollectionPart0Type$outboundSchema.parse(
-      inputZscalerHecInputCollectionPart0Type,
-    ),
+    InputZscalerHecSendToRoutesTrueWithConnectionsConstraint$outboundSchema
+      .parse(inputZscalerHecSendToRoutesTrueWithConnectionsConstraint),
   );
 }
-export function inputZscalerHecInputCollectionPart0TypeFromJSON(
+export function inputZscalerHecSendToRoutesTrueWithConnectionsConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputZscalerHecInputCollectionPart0Type,
+  InputZscalerHecSendToRoutesTrueWithConnectionsConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputZscalerHecInputCollectionPart0Type$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputZscalerHecInputCollectionPart0Type' from JSON`,
+      InputZscalerHecSendToRoutesTrueWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputZscalerHecSendToRoutesTrueWithConnectionsConstraint' from JSON`,
   );
 }
 
@@ -1201,17 +1207,21 @@ export const InputZscalerHec$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => InputZscalerHecInputCollectionPart0Type$inboundSchema),
-  z.lazy(() => InputZscalerHecInputCollectionPart1Type$inboundSchema),
-  z.lazy(() => InputZscalerHecInputCollectionPart0Type1$inboundSchema),
-  z.lazy(() => InputZscalerHecInputCollectionPart1Type1$inboundSchema),
+  z.lazy(() =>
+    InputZscalerHecSendToRoutesTrueWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() =>
+    InputZscalerHecSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() => InputZscalerHecPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputZscalerHecPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputZscalerHec$Outbound =
-  | InputZscalerHecInputCollectionPart0Type$Outbound
-  | InputZscalerHecInputCollectionPart1Type$Outbound
-  | InputZscalerHecInputCollectionPart0Type1$Outbound
-  | InputZscalerHecInputCollectionPart1Type1$Outbound;
+  | InputZscalerHecSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputZscalerHecSendToRoutesFalseWithConnectionsConstraint$Outbound
+  | InputZscalerHecPqEnabledFalseWithPqConstraint$Outbound
+  | InputZscalerHecPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
 export const InputZscalerHec$outboundSchema: z.ZodType<
@@ -1219,10 +1229,14 @@ export const InputZscalerHec$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputZscalerHec
 > = z.union([
-  z.lazy(() => InputZscalerHecInputCollectionPart0Type$outboundSchema),
-  z.lazy(() => InputZscalerHecInputCollectionPart1Type$outboundSchema),
-  z.lazy(() => InputZscalerHecInputCollectionPart0Type1$outboundSchema),
-  z.lazy(() => InputZscalerHecInputCollectionPart1Type1$outboundSchema),
+  z.lazy(() =>
+    InputZscalerHecSendToRoutesTrueWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() =>
+    InputZscalerHecSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() => InputZscalerHecPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputZscalerHecPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 
 export function inputZscalerHecToJSON(

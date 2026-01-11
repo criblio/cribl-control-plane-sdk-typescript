@@ -3,10 +3,16 @@
 
 ## Supported Types
 
-### `models.InputDatagenInputCollectionPart0Type`
+### `models.InputDatagenSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputDatagenInputCollectionPart0Type = {
+const value: models.InputDatagenSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "datagen",
   pipeline: "<value>",
@@ -14,36 +20,26 @@ const value: models.InputDatagenInputCollectionPart0Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     pqControls: {},
   },
-  samples: [
-    {
-      sample: "<value>",
-    },
-  ],
+  samples: [],
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "fooey till tenant",
+  description:
+    "glisten sniff angrily plastic toward translation yahoo westernise agreement",
 };
 ```
 
-### `models.InputDatagenInputCollectionPart1Type`
+### `models.InputDatagenSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputDatagenInputCollectionPart1Type = {
+const value: models.InputDatagenSendToRoutesFalseWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -69,14 +65,17 @@ const value: models.InputDatagenInputCollectionPart1Type = {
       value: "<value>",
     },
   ],
-  description: "amnesty inasmuch whether meh freely up why",
+  description: "gradient embossing taxicab",
 };
 ```
 
-### `models.InputDatagenInputCollectionPart0Type1`
+### `models.InputDatagenPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: models.InputDatagenInputCollectionPart0Type1 = {
+const value: models.InputDatagenPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "datagen",
   pipeline: "<value>",
@@ -90,9 +89,6 @@ const value: models.InputDatagenInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   samples: [
     {
       sample: "<value>",
@@ -104,14 +100,14 @@ const value: models.InputDatagenInputCollectionPart0Type1 = {
       value: "<value>",
     },
   ],
-  description: "opposite ha minor before muddy meh lest vaguely except",
+  description: "sew rapidly numeracy unless",
 };
 ```
 
-### `models.InputDatagenInputCollectionPart1Type1`
+### `models.InputDatagenPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputDatagenInputCollectionPart1Type1 = {
+const value: models.InputDatagenPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -121,7 +117,6 @@ const value: models.InputDatagenInputCollectionPart1Type1 = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -129,14 +124,18 @@ const value: models.InputDatagenInputCollectionPart1Type1 = {
       output: "<value>",
     },
   ],
-  samples: [],
+  samples: [
+    {
+      sample: "<value>",
+    },
+  ],
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "gah institute mmm till everlasting for inasmuch dream but",
+  description: "gee derby exaggerate",
 };
 ```
 

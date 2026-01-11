@@ -3,10 +3,16 @@
 
 ## Supported Types
 
-### `models.InputCriblInputCollectionPart0Type`
+### `models.InputCriblSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputCriblInputCollectionPart0Type = {
+const value: models.InputCriblSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "cribl",
   pipeline: "<value>",
@@ -14,13 +20,6 @@ const value: models.InputCriblInputCollectionPart0Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     pqControls: {},
@@ -32,14 +31,14 @@ const value: models.InputCriblInputCollectionPart0Type = {
       value: "<value>",
     },
   ],
-  description: "unlike dash accidentally fork whose uh-huh apud boohoo phew",
+  description: "notwithstanding doing treasure silent horse",
 };
 ```
 
-### `models.InputCriblInputCollectionPart1Type`
+### `models.InputCriblSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputCriblInputCollectionPart1Type = {
+const value: models.InputCriblSendToRoutesFalseWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -52,12 +51,43 @@ const value: models.InputCriblInputCollectionPart1Type = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   pq: {
     pqControls: {},
   },
+  filter: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "draw psst monstrous wilted doubtfully till",
+};
+```
+
+### `models.InputCriblPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputCriblPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "cribl",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   filter: "<value>",
   metadata: [
     {
@@ -66,45 +96,14 @@ const value: models.InputCriblInputCollectionPart1Type = {
     },
   ],
   description:
-    "amidst instead since infamous deliquesce tomography er slowly duh",
+    "ick triumphantly beneath dime storyboard heavily supposing whereas",
 };
 ```
 
-### `models.InputCriblInputCollectionPart0Type1`
+### `models.InputCriblPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputCriblInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "cribl",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  filter: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "gladly when cruelly ferociously provided",
-};
-```
-
-### `models.InputCriblInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputCriblInputCollectionPart1Type1 = {
+const value: models.InputCriblPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -114,6 +113,7 @@ const value: models.InputCriblInputCollectionPart1Type1 = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -128,7 +128,7 @@ const value: models.InputCriblInputCollectionPart1Type1 = {
       value: "<value>",
     },
   ],
-  description: "who backbone woeful",
+  description: "pastel moralise chase paintwork upon",
 };
 ```
 

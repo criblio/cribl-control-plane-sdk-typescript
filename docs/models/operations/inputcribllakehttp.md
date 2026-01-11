@@ -3,10 +3,221 @@
 
 ## Supported Types
 
-### `operations.InputCriblLakeHttpInputCollectionPart0Type`
+### `operations.InputCriblLakeHttpSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputCriblLakeHttpInputCollectionPart0Type = {
+const value:
+  operations.InputCriblLakeHttpSendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "cribl_lake_http",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 2404.83,
+    authTokens: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    authTokensExt: [
+      {
+        token: "<value>",
+        description: "really afore huzzah stigmatize shy psst revere regularly",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        splunkHecMetadata: {
+          enabled: false,
+          defaultDataset: "<value>",
+          allowedIndexesAtToken: [
+            "<value 1>",
+            "<value 2>",
+          ],
+        },
+        elasticsearchMetadata: {
+          enabled: false,
+          defaultDataset: "<value>",
+        },
+      },
+    ],
+    description: "ugh near um sushi lest following scamper",
+  };
+```
+
+### `operations.InputCriblLakeHttpSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  operations.InputCriblLakeHttpSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "cribl_lake_http",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 5907.63,
+    authTokens: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    authTokensExt: [
+      {
+        token: "<value>",
+        description: "really afore huzzah stigmatize shy psst revere regularly",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        splunkHecMetadata: {
+          enabled: false,
+          defaultDataset: "<value>",
+          allowedIndexesAtToken: [
+            "<value 1>",
+            "<value 2>",
+          ],
+        },
+        elasticsearchMetadata: {
+          enabled: false,
+          defaultDataset: "<value>",
+        },
+      },
+    ],
+    description: "ad forenenst edge",
+  };
+```
+
+### `operations.InputCriblLakeHttpPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputCriblLakeHttpPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "cribl_lake_http",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  port: 5873.47,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description: "really afore huzzah stigmatize shy psst revere regularly",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      splunkHecMetadata: {
+        enabled: false,
+        defaultDataset: "<value>",
+        allowedIndexesAtToken: [
+          "<value 1>",
+          "<value 2>",
+        ],
+      },
+      elasticsearchMetadata: {
+        enabled: false,
+        defaultDataset: "<value>",
+      },
+    },
+  ],
+  description: "exactly inasmuch whoever ha gee pace limited",
+};
+```
+
+### `operations.InputCriblLakeHttpPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: operations.InputCriblLakeHttpPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "cribl_lake_http",
   pipeline: "<value>",
@@ -22,79 +233,7 @@ const value: operations.InputCriblLakeHttpInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 8433.16,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "speedily blah oof zowie bookend",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      splunkHecMetadata: {
-        enabled: false,
-        defaultDataset: "<value>",
-        allowedIndexesAtToken: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-      },
-      elasticsearchMetadata: {
-        enabled: true,
-        defaultDataset: "<value>",
-      },
-    },
-  ],
-  description: "given elliptical regularly drat repeatedly before inject",
-};
-```
-
-### `operations.InputCriblLakeHttpInputCollectionPart1Type`
-
-```typescript
-const value: operations.InputCriblLakeHttpInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "cribl_lake_http",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 3378.94,
+  port: 7519.11,
   authTokens: [
     "<value 1>",
   ],
@@ -116,7 +255,7 @@ const value: operations.InputCriblLakeHttpInputCollectionPart1Type = {
   authTokensExt: [
     {
       token: "<value>",
-      description: "speedily blah oof zowie bookend",
+      description: "really afore huzzah stigmatize shy psst revere regularly",
       metadata: [
         {
           name: "<value>",
@@ -129,157 +268,15 @@ const value: operations.InputCriblLakeHttpInputCollectionPart1Type = {
         allowedIndexesAtToken: [
           "<value 1>",
           "<value 2>",
-          "<value 3>",
         ],
       },
       elasticsearchMetadata: {
-        enabled: true,
-        defaultDataset: "<value>",
-      },
-    },
-  ],
-  description:
-    "victoriously woot phooey astride wildly hmph enlightened before limp grim",
-};
-```
-
-### `operations.InputCriblLakeHttpInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputCriblLakeHttpInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "cribl_lake_http",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 738.42,
-  authTokens: [
-    "<value 1>",
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "speedily blah oof zowie bookend",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      splunkHecMetadata: {
         enabled: false,
         defaultDataset: "<value>",
-        allowedIndexesAtToken: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-      },
-      elasticsearchMetadata: {
-        enabled: true,
-        defaultDataset: "<value>",
       },
     },
   ],
-  description: "afore dwell beneath cross-contamination between",
-};
-```
-
-### `operations.InputCriblLakeHttpInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputCriblLakeHttpInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "cribl_lake_http",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  port: 4374.38,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "speedily blah oof zowie bookend",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      splunkHecMetadata: {
-        enabled: false,
-        defaultDataset: "<value>",
-        allowedIndexesAtToken: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-      },
-      elasticsearchMetadata: {
-        enabled: true,
-        defaultDataset: "<value>",
-      },
-    },
-  ],
-  description: "yum meager eek sore fooey softly willfully which throughout",
+  description: "yogurt across diligently shakily notwithstanding angrily quiet",
 };
 ```
 

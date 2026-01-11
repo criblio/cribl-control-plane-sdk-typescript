@@ -3,17 +3,132 @@
 
 ## Supported Types
 
-### `operations.InputSecurityLakeInputCollectionPart0Type`
+### `operations.InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputSecurityLakeInputCollectionPart0Type = {
+const value:
+  operations.InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "security_lake",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    queueName: "<value>",
+    awsAccountId: "<id>",
+    awsSecretKey: "<value>",
+    region: "<value>",
+    endpoint: "<value>",
+    breakerRulesets: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    assumeRoleArn: "<value>",
+    assumeRoleExternalId: "<id>",
+    preprocess: {
+      command: "<value>",
+      args: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    checkpointing: {},
+    encoding: "<value>",
+    description: "lively out ew gadzooks shrilly ack",
+    awsApiKey: "<value>",
+    awsSecret: "<value>",
+    tagAfterProcessing: "false",
+    processedTagKey: "<value>",
+    processedTagValue: "<value>",
+  };
+```
+
+### `operations.InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  operations.InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "security_lake",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    queueName: "<value>",
+    awsAccountId: "<id>",
+    awsSecretKey: "<value>",
+    region: "<value>",
+    endpoint: "<value>",
+    breakerRulesets: [
+      "<value 1>",
+    ],
+    assumeRoleArn: "<value>",
+    assumeRoleExternalId: "<id>",
+    preprocess: {
+      command: "<value>",
+      args: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    checkpointing: {},
+    encoding: "<value>",
+    description: "once self-confidence barring oh neighboring inasmuch yum",
+    awsApiKey: "<value>",
+    awsSecret: "<value>",
+    tagAfterProcessing: "false",
+    processedTagKey: "<value>",
+    processedTagValue: "<value>",
+  };
+```
+
+### `operations.InputSecurityLakePqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputSecurityLakePqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "security_lake",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -21,9 +136,6 @@ const value: operations.InputSecurityLakeInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   queueName: "<value>",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
@@ -50,7 +162,7 @@ const value: operations.InputSecurityLakeInputCollectionPart0Type = {
   ],
   checkpointing: {},
   encoding: "<value>",
-  description: "since custom so for suddenly",
+  description: "however sarcastic properly pfft excepting",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   tagAfterProcessing: "false",
@@ -59,16 +171,13 @@ const value: operations.InputSecurityLakeInputCollectionPart0Type = {
 };
 ```
 
-### `operations.InputSecurityLakeInputCollectionPart1Type`
+### `operations.InputSecurityLakePqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputSecurityLakeInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: operations.InputSecurityLakePqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "security_lake",
   pipeline: "<value>",
@@ -76,10 +185,14 @@ const value: operations.InputSecurityLakeInputCollectionPart1Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  pq: {
-    pqControls: {},
-  },
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   queueName: "<value>",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
@@ -108,121 +221,7 @@ const value: operations.InputSecurityLakeInputCollectionPart1Type = {
   ],
   checkpointing: {},
   encoding: "<value>",
-  description: "napkin gee past wide supposing oh goat trim confirm",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  tagAfterProcessing: "true",
-  processedTagKey: "<value>",
-  processedTagValue: "<value>",
-};
-```
-
-### `operations.InputSecurityLakeInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputSecurityLakeInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "security_lake",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  queueName: "<value>",
-  awsAccountId: "<id>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  preprocess: {
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  checkpointing: {},
-  encoding: "<value>",
-  description: "although fess minus limply mid depart slip sometimes aha meh",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  tagAfterProcessing: "false",
-  processedTagKey: "<value>",
-  processedTagValue: "<value>",
-};
-```
-
-### `operations.InputSecurityLakeInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputSecurityLakeInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "security_lake",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  queueName: "<value>",
-  awsAccountId: "<id>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  preprocess: {
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  checkpointing: {},
-  encoding: "<value>",
-  description: "with overtrain phooey for till",
+  description: "circa crowded partial coolly decision",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   tagAfterProcessing: "true",

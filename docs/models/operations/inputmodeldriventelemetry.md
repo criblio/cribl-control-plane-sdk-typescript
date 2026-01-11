@@ -3,163 +3,169 @@
 
 ## Supported Types
 
-### `operations.InputModelDrivenTelemetryInputCollectionPart0Type`
+### `operations.InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputModelDrivenTelemetryInputCollectionPart0Type = {
-  id: "<id>",
-  type: "model_driven_telemetry",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
+const value:
+  operations.InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint =
     {
+      connections: [
+        {
+          pipeline: "<value>",
+          output: "<value>",
+        },
+      ],
+      id: "<id>",
+      type: "model_driven_telemetry",
       pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "concerning down mechanically suspiciously",
-};
+      environment: "<value>",
+      streamtags: [
+        "<value 1>",
+      ],
+      pq: {
+        pqControls: {},
+      },
+      tls: {
+        certificateName: "<value>",
+        privKeyPath: "<value>",
+        passphrase: "<value>",
+        certPath: "<value>",
+        caPath: "<value>",
+        minVersion: "TLSv1",
+        maxVersion: "TLSv1.2",
+      },
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      description: "below close afore honored profane idle reel oof",
+    };
 ```
 
-### `operations.InputModelDrivenTelemetryInputCollectionPart1Type`
+### `operations.InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputModelDrivenTelemetryInputCollectionPart1Type = {
-  connections: [
+const value:
+  operations.InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint =
     {
+      connections: [
+        {
+          pipeline: "<value>",
+          output: "<value>",
+        },
+      ],
+      id: "<id>",
+      type: "model_driven_telemetry",
       pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "model_driven_telemetry",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "amid mispronounce postbox tensely electrify farm beside tame",
-};
+      environment: "<value>",
+      streamtags: [
+        "<value 1>",
+      ],
+      pq: {
+        pqControls: {},
+      },
+      tls: {
+        certificateName: "<value>",
+        privKeyPath: "<value>",
+        passphrase: "<value>",
+        certPath: "<value>",
+        caPath: "<value>",
+        minVersion: "TLSv1",
+        maxVersion: "TLSv1.2",
+      },
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      description:
+        "courteous bathrobe ingratiate especially dreamily or portray who lobotomise",
+    };
 ```
 
-### `operations.InputModelDrivenTelemetryInputCollectionPart0Type1`
+### `operations.InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: operations.InputModelDrivenTelemetryInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "model_driven_telemetry",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
+const value:
+  operations.InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint = {
+    pq: {
+      pqControls: {},
     },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
+    id: "<id>",
+    type: "model_driven_telemetry",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
     },
-  ],
-  description: "pinion tune-up digitize off",
-};
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "round anxiously ferociously slink industrialize down",
+  };
 ```
 
-### `operations.InputModelDrivenTelemetryInputCollectionPart1Type1`
+### `operations.InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputModelDrivenTelemetryInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "model_driven_telemetry",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
+const value: operations.InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint =
+  {
+    pq: {
+      pqControls: {},
     },
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
+    id: "<id>",
+    type: "model_driven_telemetry",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
     },
-  ],
-  description:
-    "immediately oof character intrepid on splurge tributary alert jumbo",
-};
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description:
+      "phew submissive ferociously whose amongst brace for till hmph",
+  };
 ```
 

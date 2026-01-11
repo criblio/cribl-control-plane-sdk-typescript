@@ -3,10 +3,16 @@
 
 ## Supported Types
 
-### `models.InputHttpRawInputCollectionPart0Type`
+### `models.InputHttpRawSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputHttpRawInputCollectionPart0Type = {
+const value: models.InputHttpRawSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "http_raw",
   pipeline: "<value>",
@@ -15,19 +21,80 @@ const value: models.InputHttpRawInputCollectionPart0Type = {
     "<value 1>",
     "<value 2>",
   ],
+  pq: {
+    pqControls: {},
+  },
+  port: 7440.83,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedPaths: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  allowedMethods: [
+    "<value 1>",
+  ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description: "demob apropos indeed ceramic scrabble however given scorn",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  description: "accurate down quick delightfully emphasise misjudge heavy",
+};
+```
+
+### `models.InputHttpRawSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value: models.InputHttpRawSendToRoutesFalseWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
       output: "<value>",
     },
   ],
+  id: "<id>",
+  type: "http_raw",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
   pq: {
     pqControls: {},
   },
-  port: 3534.21,
+  port: 3149.88,
   authTokens: [
     "<value 1>",
-    "<value 2>",
   ],
   tls: {
     certificateName: "<value>",
@@ -41,6 +108,7 @@ const value: models.InputHttpRawInputCollectionPart0Type = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   metadata: [
     {
@@ -51,10 +119,12 @@ const value: models.InputHttpRawInputCollectionPart0Type = {
   allowedPaths: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   allowedMethods: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   authTokensExt: [
     {
@@ -69,20 +139,17 @@ const value: models.InputHttpRawInputCollectionPart0Type = {
     },
   ],
   description:
-    "gah diligently someplace alongside blissfully thoroughly notwithstanding",
+    "nimble slap worthy boohoo shrilly beneath quizzically materialise inscribe",
 };
 ```
 
-### `models.InputHttpRawInputCollectionPart1Type`
+### `models.InputHttpRawPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: models.InputHttpRawInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputHttpRawPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "http_raw",
   pipeline: "<value>",
@@ -92,10 +159,13 @@ const value: models.InputHttpRawInputCollectionPart1Type = {
     "<value 2>",
     "<value 3>",
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 767.37,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  port: 2114.19,
   authTokens: [
     "<value 1>",
     "<value 2>",
@@ -141,22 +211,23 @@ const value: models.InputHttpRawInputCollectionPart1Type = {
       ],
     },
   ],
-  description: "loose wherever even fund",
+  description: "potable oddly unpleasant",
 };
 ```
 
-### `models.InputHttpRawInputCollectionPart0Type1`
+### `models.InputHttpRawPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputHttpRawInputCollectionPart0Type1 = {
+const value: models.InputHttpRawPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "http_raw",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -164,10 +235,7 @@ const value: models.InputHttpRawInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 1694.07,
+  port: 9156.45,
   authTokens: [
     "<value 1>",
     "<value 2>",
@@ -193,12 +261,9 @@ const value: models.InputHttpRawInputCollectionPart0Type1 = {
   ],
   allowedPaths: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   allowedMethods: [
     "<value 1>",
-    "<value 2>",
   ],
   authTokensExt: [
     {
@@ -212,77 +277,7 @@ const value: models.InputHttpRawInputCollectionPart0Type1 = {
       ],
     },
   ],
-  description: "times redound independence",
-};
-```
-
-### `models.InputHttpRawInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputHttpRawInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "http_raw",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  port: 8555.45,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  allowedPaths: [
-    "<value 1>",
-  ],
-  allowedMethods: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "demob apropos indeed ceramic scrabble however given scorn",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  description: "wherever till manipulate presume",
+  description: "ah steep vice honestly which indeed",
 };
 ```
 

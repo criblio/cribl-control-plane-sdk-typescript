@@ -10,6 +10,12 @@ Input object
 ```typescript
 const value: operations.InputCollection = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "collection",
   disabled: false,
@@ -19,12 +25,6 @@ const value: operations.InputCollection = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -66,6 +66,12 @@ const value: operations.InputCollection = {
 ```typescript
 const value: operations.InputKafka = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "kafka",
   disabled: false,
@@ -76,12 +82,6 @@ const value: operations.InputKafka = {
     "<value 1>",
     "<value 2>",
     "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -197,6 +197,12 @@ const value: operations.InputKafka = {
 ```typescript
 const value: operations.InputMsk = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "msk",
   disabled: false,
@@ -206,12 +212,6 @@ const value: operations.InputMsk = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -311,6 +311,12 @@ const value: operations.InputMsk = {
 ```typescript
 const value: operations.InputHttp = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "http",
   disabled: false,
@@ -319,12 +325,6 @@ const value: operations.InputHttp = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -398,6 +398,12 @@ const value: operations.InputHttp = {
 ```typescript
 const value: operations.InputSplunk = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "splunk",
   disabled: false,
@@ -406,12 +412,6 @@ const value: operations.InputSplunk = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -458,7 +458,8 @@ const value: operations.InputSplunk = {
   authTokens: [
     {
       token: "<value>",
-      description: "beneath that scarcely finally dusk beneath",
+      description:
+        "fussy twist yuck besides blah confusion wilt curiously deform",
     },
   ],
   maxS2Sversion: "v3",
@@ -475,6 +476,12 @@ const value: operations.InputSplunk = {
 ```typescript
 const value: operations.InputSplunkSearch = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "splunk_search",
   disabled: false,
@@ -484,12 +491,6 @@ const value: operations.InputSplunkSearch = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -587,6 +588,12 @@ const value: operations.InputSplunkSearch = {
 ```typescript
 const value: operations.InputSplunkHec = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "splunk_hec",
   disabled: false,
@@ -595,12 +602,6 @@ const value: operations.InputSplunkHec = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -620,12 +621,10 @@ const value: operations.InputSplunkHec = {
       tokenSecret: "<value>",
       token: "<value>",
       enabled: true,
-      description:
-        "bouncy digestive acknowledge instead moisten finally thoughtfully likewise graceful",
+      description: "detective blind regular",
       allowedIndexesAtToken: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
       metadata: [
         {
@@ -693,6 +692,12 @@ const value: operations.InputSplunkHec = {
 ```typescript
 const value: operations.InputAzureBlob = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "azure_blob",
   disabled: false,
@@ -702,12 +707,6 @@ const value: operations.InputAzureBlob = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -762,6 +761,12 @@ const value: operations.InputAzureBlob = {
 ```typescript
 const value: operations.InputElastic = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "elastic",
   disabled: false,
@@ -770,12 +775,6 @@ const value: operations.InputElastic = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -831,10 +830,10 @@ const value: operations.InputElastic = {
   proxyMode: {
     enabled: false,
     authType: "none",
-    username: "Tony27",
-    password: "tpxXY93r9VLxak1",
+    username: "Everardo_Krajcik4",
+    password: "h4rOBZ6WncEREk2",
     credentialsSecret: "<value>",
-    url: "https://impractical-decryption.net/",
+    url: "https://hateful-foodstuffs.com",
     rejectUnauthorized: false,
     removeHeaders: [
       "<value 1>",
@@ -861,6 +860,12 @@ const value: operations.InputElastic = {
 ```typescript
 const value: operations.InputConfluentCloud = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "confluent_cloud",
   disabled: false,
@@ -870,12 +875,6 @@ const value: operations.InputConfluentCloud = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -1110,6 +1109,12 @@ const value: operations.InputGrafana = {
 ```typescript
 const value: operations.InputLoki = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "loki",
   disabled: false,
@@ -1120,12 +1125,6 @@ const value: operations.InputLoki = {
     "<value 1>",
     "<value 2>",
     "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -1204,6 +1203,12 @@ const value: operations.InputLoki = {
 ```typescript
 const value: operations.InputPrometheusRw = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "prometheus_rw",
   disabled: false,
@@ -1213,12 +1218,6 @@ const value: operations.InputPrometheusRw = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -1296,6 +1295,12 @@ const value: operations.InputPrometheusRw = {
 ```typescript
 const value: operations.InputPrometheus = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "prometheus",
   disabled: false,
@@ -1304,12 +1309,6 @@ const value: operations.InputPrometheus = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -1391,6 +1390,12 @@ const value: operations.InputPrometheus = {
 ```typescript
 const value: operations.InputEdgePrometheus = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "edge_prometheus",
   disabled: false,
@@ -1399,12 +1404,6 @@ const value: operations.InputEdgePrometheus = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -1441,7 +1440,7 @@ const value: operations.InputEdgePrometheus = {
   targets: [
     {
       protocol: "http",
-      host: "powerful-summer.org",
+      host: "salty-coast.biz",
       port: 9090,
       path: "/metrics",
     },
@@ -1482,8 +1481,7 @@ const value: operations.InputEdgePrometheus = {
   podFilter: [
     {
       filter: "<value>",
-      description:
-        "spectate round overproduce though psst commodity except across yum",
+      description: "nun cruelly owlishly ouch",
     },
   ],
   username: "Scot_Fisher55",
@@ -1497,6 +1495,12 @@ const value: operations.InputEdgePrometheus = {
 ```typescript
 const value: operations.InputOffice365Mgmt = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "office365_mgmt",
   disabled: false,
@@ -1505,12 +1509,6 @@ const value: operations.InputOffice365Mgmt = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -1541,9 +1539,9 @@ const value: operations.InputOffice365Mgmt = {
   contentConfig: [
     {
       contentType: "<value>",
-      description: "excluding quiet unlike twine",
-      interval: 6841.39,
-      logLevel: "info",
+      description: "indeed whoever meanwhile beret",
+      interval: 261.22,
+      logLevel: "error",
       enabled: false,
     },
   ],
@@ -1574,6 +1572,12 @@ const value: operations.InputOffice365Mgmt = {
 ```typescript
 const value: operations.InputOffice365Service = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "office365_service",
   disabled: false,
@@ -1584,12 +1588,6 @@ const value: operations.InputOffice365Service = {
     "<value 1>",
     "<value 2>",
     "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -1619,10 +1617,10 @@ const value: operations.InputOffice365Service = {
   contentConfig: [
     {
       contentType: "<value>",
-      description: "bootleg fraudster sentimental",
-      interval: 1685,
-      logLevel: "error",
-      enabled: false,
+      description: "guilt absent indeed considerate",
+      interval: 2050.4,
+      logLevel: "warn",
+      enabled: true,
     },
   ],
   retryRules: {
@@ -1651,6 +1649,12 @@ const value: operations.InputOffice365Service = {
 ```typescript
 const value: operations.InputOffice365MsgTrace = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "office365_msg_trace",
   disabled: false,
@@ -1661,12 +1665,6 @@ const value: operations.InputOffice365MsgTrace = {
     "<value 1>",
     "<value 2>",
     "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -1738,6 +1736,12 @@ const value: operations.InputOffice365MsgTrace = {
 ```typescript
 const value: operations.InputEventhub = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "eventhub",
   disabled: false,
@@ -1747,12 +1751,6 @@ const value: operations.InputEventhub = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -1828,6 +1826,12 @@ const value: operations.InputEventhub = {
 ```typescript
 const value: operations.InputExec = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "exec",
   disabled: false,
@@ -1837,12 +1841,6 @@ const value: operations.InputExec = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -1880,6 +1878,12 @@ const value: operations.InputExec = {
 ```typescript
 const value: operations.InputFirehose = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "firehose",
   disabled: false,
@@ -1888,12 +1892,6 @@ const value: operations.InputFirehose = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -1952,6 +1950,12 @@ const value: operations.InputFirehose = {
 ```typescript
 const value: operations.InputGooglePubsub = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "google_pubsub",
   disabled: false,
@@ -1961,12 +1965,6 @@ const value: operations.InputGooglePubsub = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -2006,6 +2004,12 @@ const value: operations.InputGooglePubsub = {
 ```typescript
 const value: operations.InputCribl = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "cribl",
   disabled: false,
@@ -2016,12 +2020,6 @@ const value: operations.InputCribl = {
     "<value 1>",
     "<value 2>",
     "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -2050,6 +2048,12 @@ const value: operations.InputCribl = {
 ```typescript
 const value: operations.InputCriblTcp = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "cribl_tcp",
   disabled: false,
@@ -2058,12 +2062,6 @@ const value: operations.InputCriblTcp = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -2118,6 +2116,12 @@ const value: operations.InputCriblTcp = {
 ```typescript
 const value: operations.InputCriblHttp = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "cribl_http",
   disabled: false,
@@ -2126,12 +2130,6 @@ const value: operations.InputCriblHttp = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -2191,6 +2189,12 @@ const value: operations.InputCriblHttp = {
 ```typescript
 const value: operations.InputCriblLakeHttp = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "cribl_lake_http",
   disabled: false,
@@ -2200,12 +2204,6 @@ const value: operations.InputCriblLakeHttp = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -2259,7 +2257,7 @@ const value: operations.InputCriblLakeHttp = {
   authTokensExt: [
     {
       token: "<value>",
-      description: "speedily blah oof zowie bookend",
+      description: "really afore huzzah stigmatize shy psst revere regularly",
       metadata: [
         {
           name: "<value>",
@@ -2272,11 +2270,10 @@ const value: operations.InputCriblLakeHttp = {
         allowedIndexesAtToken: [
           "<value 1>",
           "<value 2>",
-          "<value 3>",
         ],
       },
       elasticsearchMetadata: {
-        enabled: true,
+        enabled: false,
         defaultDataset: "<value>",
       },
     },
@@ -2290,6 +2287,12 @@ const value: operations.InputCriblLakeHttp = {
 ```typescript
 const value: operations.InputTcpjson = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "tcpjson",
   disabled: false,
@@ -2300,12 +2303,6 @@ const value: operations.InputTcpjson = {
     "<value 1>",
     "<value 2>",
     "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -2357,6 +2354,12 @@ const value: operations.InputTcpjson = {
 ```typescript
 const value: operations.InputSystemMetrics = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "system_metrics",
   disabled: false,
@@ -2367,12 +2370,6 @@ const value: operations.InputSystemMetrics = {
     "<value 1>",
     "<value 2>",
     "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -2408,7 +2405,6 @@ const value: operations.InputSystemMetrics = {
         protocols: false,
         devices: [
           "<value 1>",
-          "<value 2>",
         ],
         perInterface: false,
       },
@@ -2426,7 +2422,6 @@ const value: operations.InputSystemMetrics = {
         ],
         fstypes: [
           "<value 1>",
-          "<value 2>",
         ],
         perDevice: false,
       },
@@ -2446,6 +2441,7 @@ const value: operations.InputSystemMetrics = {
     dockerSocket: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
     dockerTimeout: 5,
     filters: [
@@ -2480,6 +2476,12 @@ const value: operations.InputSystemMetrics = {
 ```typescript
 const value: operations.InputSystemState = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "system_state",
   disabled: false,
@@ -2488,12 +2490,6 @@ const value: operations.InputSystemState = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -2565,6 +2561,12 @@ const value: operations.InputSystemState = {
 ```typescript
 const value: operations.InputKubeMetrics = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "kube_metrics",
   disabled: false,
@@ -2575,12 +2577,6 @@ const value: operations.InputKubeMetrics = {
     "<value 1>",
     "<value 2>",
     "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -2623,6 +2619,12 @@ const value: operations.InputKubeMetrics = {
 ```typescript
 const value: operations.InputKubeLogs = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "kube_logs",
   disabled: false,
@@ -2632,12 +2634,6 @@ const value: operations.InputKubeLogs = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -2653,7 +2649,7 @@ const value: operations.InputKubeLogs = {
   rules: [
     {
       filter: "<value>",
-      description: "furthermore yet phew dusk ha off before",
+      description: "hmph supposing thoughtfully however pepper",
     },
   ],
   timestamps: false,
@@ -2685,6 +2681,12 @@ const value: operations.InputKubeLogs = {
 ```typescript
 const value: operations.InputKubeEvents = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "kube_events",
   disabled: false,
@@ -2693,12 +2695,6 @@ const value: operations.InputKubeEvents = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -2732,6 +2728,12 @@ const value: operations.InputKubeEvents = {
 ```typescript
 const value: operations.InputWindowsMetrics = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "windows_metrics",
   disabled: false,
@@ -2741,12 +2743,6 @@ const value: operations.InputWindowsMetrics = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -2782,6 +2778,7 @@ const value: operations.InputWindowsMetrics = {
         protocols: false,
         devices: [
           "<value 1>",
+          "<value 2>",
         ],
         perInterface: false,
       },
@@ -2791,6 +2788,7 @@ const value: operations.InputWindowsMetrics = {
         detail: false,
         volumes: [
           "<value 1>",
+          "<value 2>",
         ],
       },
     },
@@ -2829,6 +2827,12 @@ const value: operations.InputWindowsMetrics = {
 ```typescript
 const value: operations.InputCrowdstrike = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "crowdstrike",
   disabled: false,
@@ -2837,12 +2841,6 @@ const value: operations.InputCrowdstrike = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -2916,6 +2914,12 @@ const value: operations.InputCrowdstrike = {
 ```typescript
 const value: operations.InputDatadogAgent = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "datadog_agent",
   disabled: false,
@@ -2925,12 +2929,6 @@ const value: operations.InputDatadogAgent = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -2988,6 +2986,12 @@ const value: operations.InputDatadogAgent = {
 ```typescript
 const value: operations.InputDatagen = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "datagen",
   disabled: false,
@@ -2996,12 +3000,6 @@ const value: operations.InputDatagen = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -3030,6 +3028,12 @@ const value: operations.InputDatagen = {
 ```typescript
 const value: operations.InputHttpRaw = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "http_raw",
   disabled: false,
@@ -3039,12 +3043,6 @@ const value: operations.InputHttpRaw = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -3128,6 +3126,12 @@ const value: operations.InputHttpRaw = {
 ```typescript
 const value: operations.InputKinesis = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "kinesis",
   disabled: false,
@@ -3136,12 +3140,6 @@ const value: operations.InputKinesis = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -3191,6 +3189,12 @@ const value: operations.InputKinesis = {
 ```typescript
 const value: operations.InputCriblmetrics = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "criblmetrics",
   disabled: false,
@@ -3199,12 +3203,6 @@ const value: operations.InputCriblmetrics = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -3233,6 +3231,12 @@ const value: operations.InputCriblmetrics = {
 ```typescript
 const value: operations.InputMetrics = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "metrics",
   disabled: false,
@@ -3243,12 +3247,6 @@ const value: operations.InputMetrics = {
     "<value 1>",
     "<value 2>",
     "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -3295,6 +3293,12 @@ const value: operations.InputMetrics = {
 ```typescript
 const value: operations.InputS3 = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "s3",
   disabled: false,
@@ -3303,12 +3307,6 @@ const value: operations.InputS3 = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -3383,6 +3381,12 @@ const value: operations.InputS3 = {
 ```typescript
 const value: operations.InputS3Inventory = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "s3_inventory",
   disabled: false,
@@ -3393,12 +3397,6 @@ const value: operations.InputS3Inventory = {
     "<value 1>",
     "<value 2>",
     "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -3475,6 +3473,12 @@ const value: operations.InputS3Inventory = {
 ```typescript
 const value: operations.InputSnmp = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "snmp",
   disabled: false,
@@ -3483,12 +3487,6 @@ const value: operations.InputSnmp = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -3535,6 +3533,12 @@ const value: operations.InputSnmp = {
 ```typescript
 const value: operations.InputOpenTelemetry = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "open_telemetry",
   disabled: false,
@@ -3545,12 +3549,6 @@ const value: operations.InputOpenTelemetry = {
     "<value 1>",
     "<value 2>",
     "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -3633,6 +3631,12 @@ const value: operations.InputOpenTelemetry = {
 ```typescript
 const value: operations.InputModelDrivenTelemetry = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "model_driven_telemetry",
   disabled: false,
@@ -3642,12 +3646,6 @@ const value: operations.InputModelDrivenTelemetry = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -3691,6 +3689,12 @@ const value: operations.InputModelDrivenTelemetry = {
 ```typescript
 const value: operations.InputSqs = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "sqs",
   disabled: false,
@@ -3701,12 +3705,6 @@ const value: operations.InputSqs = {
     "<value 1>",
     "<value 2>",
     "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -3831,6 +3829,12 @@ const value: operations.InputSyslog = {
 ```typescript
 const value: operations.InputFile = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "file",
   disabled: false,
@@ -3840,12 +3844,6 @@ const value: operations.InputFile = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -3896,6 +3894,12 @@ const value: operations.InputFile = {
 ```typescript
 const value: operations.InputTcp = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "tcp",
   disabled: false,
@@ -3905,12 +3909,6 @@ const value: operations.InputTcp = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -3976,6 +3974,12 @@ const value: operations.InputTcp = {
 ```typescript
 const value: operations.InputAppscope = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "appscope",
   disabled: false,
@@ -3985,12 +3989,6 @@ const value: operations.InputAppscope = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -4027,7 +4025,7 @@ const value: operations.InputAppscope = {
         config: "<value>",
       },
     ],
-    transportURL: "https://cool-cop-out.info/",
+    transportURL: "https://diligent-worth.com",
   },
   persistence: {
     enable: false,
@@ -4067,6 +4065,12 @@ const value: operations.InputAppscope = {
 ```typescript
 const value: operations.InputWef = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "wef",
   disabled: false,
@@ -4076,12 +4080,6 @@ const value: operations.InputWef = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -4106,7 +4104,7 @@ const value: operations.InputWef = {
     certPath: "<value>",
     caPath: "<value>",
     commonNameRegex: "/.*/",
-    minVersion: "TLSv1.1",
+    minVersion: "TLSv1.3",
     maxVersion: "TLSv1.1",
     ocspCheck: false,
     keytab: "<value>",
@@ -4139,7 +4137,6 @@ const value: operations.InputWef = {
       targets: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
       locale: "en-US",
       querySelector: "simple",
@@ -4151,7 +4148,7 @@ const value: operations.InputWef = {
       ],
       queries: [
         {
-          path: "/private/tmp",
+          path: "/opt",
           queryExpression: "<value>",
         },
       ],
@@ -4174,6 +4171,12 @@ const value: operations.InputWef = {
 ```typescript
 const value: operations.InputWinEventLogs = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "win_event_logs",
   disabled: false,
@@ -4182,12 +4185,6 @@ const value: operations.InputWinEventLogs = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -4223,6 +4220,12 @@ const value: operations.InputWinEventLogs = {
 ```typescript
 const value: operations.InputRawUdp = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "raw_udp",
   disabled: false,
@@ -4232,12 +4235,6 @@ const value: operations.InputRawUdp = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -4271,6 +4268,12 @@ const value: operations.InputRawUdp = {
 ```typescript
 const value: operations.InputJournalFiles = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "journal_files",
   disabled: false,
@@ -4279,12 +4282,6 @@ const value: operations.InputJournalFiles = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -4305,7 +4302,8 @@ const value: operations.InputJournalFiles = {
   rules: [
     {
       filter: "<value>",
-      description: "cross metal tensely daintily where an hot duster",
+      description:
+        "pure toward during webbed beside pertain the officially hungry",
     },
   ],
   currentBoot: false,
@@ -4325,6 +4323,12 @@ const value: operations.InputJournalFiles = {
 ```typescript
 const value: operations.InputWiz = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "wiz",
   disabled: false,
@@ -4333,12 +4337,6 @@ const value: operations.InputWiz = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -4409,6 +4407,12 @@ const value: operations.InputWiz = {
 ```typescript
 const value: operations.InputWizWebhook = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "wiz_webhook",
   disabled: false,
@@ -4417,12 +4421,6 @@ const value: operations.InputWizWebhook = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -4505,6 +4503,12 @@ const value: operations.InputWizWebhook = {
 ```typescript
 const value: operations.InputNetflow = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "netflow",
   disabled: false,
@@ -4514,12 +4518,6 @@ const value: operations.InputNetflow = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -4556,6 +4554,12 @@ const value: operations.InputNetflow = {
 ```typescript
 const value: operations.InputSecurityLake = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "security_lake",
   disabled: false,
@@ -4565,12 +4569,6 @@ const value: operations.InputSecurityLake = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -4644,6 +4642,12 @@ const value: operations.InputSecurityLake = {
 ```typescript
 const value: operations.InputZscalerHec = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "zscaler_hec",
   disabled: false,
@@ -4652,12 +4656,6 @@ const value: operations.InputZscalerHec = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -4677,7 +4675,7 @@ const value: operations.InputZscalerHec = {
       tokenSecret: "<value>",
       token: "<value>",
       enabled: true,
-      description: "upon drain and appreciate",
+      description: "meanwhile mmm daughter from upliftingly when",
       allowedIndexesAtToken: [
         "<value 1>",
         "<value 2>",
@@ -4744,6 +4742,12 @@ const value: operations.InputZscalerHec = {
 ```typescript
 const value: operations.InputCloudflareHec = {
   sendToRoutes: true,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "cloudflare_hec",
   disabled: false,
@@ -4753,12 +4757,6 @@ const value: operations.InputCloudflareHec = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     mode: "always",
@@ -4778,9 +4776,11 @@ const value: operations.InputCloudflareHec = {
       tokenSecret: "<value>",
       token: "<value>",
       enabled: true,
-      description: "shakily apropos since phooey",
+      description: "depute that armoire",
       allowedIndexesAtToken: [
         "<value 1>",
+        "<value 2>",
+        "<value 3>",
       ],
       metadata: [
         {

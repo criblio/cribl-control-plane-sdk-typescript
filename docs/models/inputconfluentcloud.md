@@ -3,295 +3,207 @@
 
 ## Supported Types
 
-### `models.InputConfluentCloudInputCollectionPart0Type`
+### `models.InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputConfluentCloudInputCollectionPart0Type = {
+const value:
+  models.InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "confluent_cloud",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    brokers: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.1",
+      maxVersion: "TLSv1.3",
+    },
+    topics: [],
+    kafkaSchemaRegistry: {
+      auth: {
+        credentialsSecret: "<value>",
+      },
+      tls: {
+        servername: "<value>",
+        certificateName: "<value>",
+        caPath: "<value>",
+        privKeyPath: "<value>",
+        certPath: "<value>",
+        passphrase: "<value>",
+        minVersion: "TLSv1.2",
+        maxVersion: "TLSv1.3",
+      },
+    },
+    sasl: {
+      username: "Jocelyn_Casper88",
+      password: "PIwQ9BxwvdkIdNi",
+      credentialsSecret: "<value>",
+      keytabLocation: "<value>",
+      principal: "<value>",
+      brokerServiceClass: "<value>",
+      tokenUrl: "https://alive-spear.com",
+      clientId: "<id>",
+      clientTextSecret: "<value>",
+      oauthParams: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      saslExtensions: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+    autoCommitInterval: 5492.17,
+    autoCommitThreshold: 8364.91,
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description:
+      "sociable dispense gifted longingly expensive vol cheap amidst calmly",
+  };
+```
+
+### `models.InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  models.InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "confluent_cloud",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    brokers: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.1",
+      maxVersion: "TLSv1.3",
+    },
+    topics: [
+      "<value 1>",
+    ],
+    kafkaSchemaRegistry: {
+      auth: {
+        credentialsSecret: "<value>",
+      },
+      tls: {
+        servername: "<value>",
+        certificateName: "<value>",
+        caPath: "<value>",
+        privKeyPath: "<value>",
+        certPath: "<value>",
+        passphrase: "<value>",
+        minVersion: "TLSv1.2",
+        maxVersion: "TLSv1.3",
+      },
+    },
+    sasl: {
+      username: "Jocelyn_Casper88",
+      password: "PIwQ9BxwvdkIdNi",
+      credentialsSecret: "<value>",
+      keytabLocation: "<value>",
+      principal: "<value>",
+      brokerServiceClass: "<value>",
+      tokenUrl: "https://alive-spear.com",
+      clientId: "<id>",
+      clientTextSecret: "<value>",
+      oauthParams: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      saslExtensions: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+    autoCommitInterval: 8868.89,
+    autoCommitThreshold: 7700.66,
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "harangue advanced really shocked never dimly miserably",
+  };
+```
+
+### `models.InputConfluentCloudPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputConfluentCloudPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "confluent_cloud",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  brokers: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  brokers: [
-    "<value 1>",
-  ],
-  tls: {
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.3",
-  },
-  topics: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  kafkaSchemaRegistry: {
-    auth: {
-      credentialsSecret: "<value>",
-    },
-    tls: {
-      servername: "<value>",
-      certificateName: "<value>",
-      caPath: "<value>",
-      privKeyPath: "<value>",
-      certPath: "<value>",
-      passphrase: "<value>",
-      minVersion: "TLSv1.2",
-      maxVersion: "TLSv1.3",
-    },
-  },
-  sasl: {
-    username: "Jocelyn_Casper88",
-    password: "PIwQ9BxwvdkIdNi",
-    credentialsSecret: "<value>",
-    keytabLocation: "<value>",
-    principal: "<value>",
-    brokerServiceClass: "<value>",
-    tokenUrl: "https://alive-spear.com",
-    clientId: "<id>",
-    clientTextSecret: "<value>",
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    saslExtensions: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  },
-  autoCommitInterval: 8024.67,
-  autoCommitThreshold: 1913.79,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description:
-    "adventurously phew determined poorly whenever hypothesise quaintly despite",
-};
-```
-
-### `models.InputConfluentCloudInputCollectionPart1Type`
-
-```typescript
-const value: models.InputConfluentCloudInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "confluent_cloud",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  brokers: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  tls: {
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.3",
-  },
-  topics: [
-    "<value 1>",
-  ],
-  kafkaSchemaRegistry: {
-    auth: {
-      credentialsSecret: "<value>",
-    },
-    tls: {
-      servername: "<value>",
-      certificateName: "<value>",
-      caPath: "<value>",
-      privKeyPath: "<value>",
-      certPath: "<value>",
-      passphrase: "<value>",
-      minVersion: "TLSv1.2",
-      maxVersion: "TLSv1.3",
-    },
-  },
-  sasl: {
-    username: "Jocelyn_Casper88",
-    password: "PIwQ9BxwvdkIdNi",
-    credentialsSecret: "<value>",
-    keytabLocation: "<value>",
-    principal: "<value>",
-    brokerServiceClass: "<value>",
-    tokenUrl: "https://alive-spear.com",
-    clientId: "<id>",
-    clientTextSecret: "<value>",
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    saslExtensions: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  },
-  autoCommitInterval: 6383.12,
-  autoCommitThreshold: 5735.73,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "instantly populist yet moor soap",
-};
-```
-
-### `models.InputConfluentCloudInputCollectionPart0Type1`
-
-```typescript
-const value: models.InputConfluentCloudInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "confluent_cloud",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  brokers: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  tls: {
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.3",
-  },
-  topics: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  kafkaSchemaRegistry: {
-    auth: {
-      credentialsSecret: "<value>",
-    },
-    tls: {
-      servername: "<value>",
-      certificateName: "<value>",
-      caPath: "<value>",
-      privKeyPath: "<value>",
-      certPath: "<value>",
-      passphrase: "<value>",
-      minVersion: "TLSv1.2",
-      maxVersion: "TLSv1.3",
-    },
-  },
-  sasl: {
-    username: "Jocelyn_Casper88",
-    password: "PIwQ9BxwvdkIdNi",
-    credentialsSecret: "<value>",
-    keytabLocation: "<value>",
-    principal: "<value>",
-    brokerServiceClass: "<value>",
-    tokenUrl: "https://alive-spear.com",
-    clientId: "<id>",
-    clientTextSecret: "<value>",
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    saslExtensions: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  },
-  autoCommitInterval: 9600.09,
-  autoCommitThreshold: 202.12,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "speedy fiercely ectoderm off eek yummy",
-};
-```
-
-### `models.InputConfluentCloudInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputConfluentCloudInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "confluent_cloud",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  brokers: [
-    "<value 1>",
   ],
   tls: {
     servername: "<value>",
@@ -342,15 +254,103 @@ const value: models.InputConfluentCloudInputCollectionPart1Type1 = {
       },
     ],
   },
-  autoCommitInterval: 4206.26,
-  autoCommitThreshold: 9810.46,
+  autoCommitInterval: 7479,
+  autoCommitThreshold: 5734.41,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "different overwork scratchy",
+  description:
+    "amidst painfully rudely considering joyful drab brightly lest upright",
+};
+```
+
+### `models.InputConfluentCloudPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: models.InputConfluentCloudPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "confluent_cloud",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  brokers: [
+    "<value 1>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.3",
+  },
+  topics: [
+    "<value 1>",
+  ],
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.2",
+      maxVersion: "TLSv1.3",
+    },
+  },
+  sasl: {
+    username: "Jocelyn_Casper88",
+    password: "PIwQ9BxwvdkIdNi",
+    credentialsSecret: "<value>",
+    keytabLocation: "<value>",
+    principal: "<value>",
+    brokerServiceClass: "<value>",
+    tokenUrl: "https://alive-spear.com",
+    clientId: "<id>",
+    clientTextSecret: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    saslExtensions: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
+  autoCommitInterval: 492.51,
+  autoCommitThreshold: 8007.15,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "bright service swim nice maintainer shrill",
 };
 ```
 

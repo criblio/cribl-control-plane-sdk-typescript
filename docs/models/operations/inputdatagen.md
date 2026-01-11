@@ -3,18 +3,87 @@
 
 ## Supported Types
 
-### `operations.InputDatagenInputCollectionPart0Type`
+### `operations.InputDatagenSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputDatagenInputCollectionPart0Type = {
+const value: operations.InputDatagenSendToRoutesTrueWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "datagen",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    samples: [],
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description:
+      "glisten sniff angrily plastic toward translation yahoo westernise agreement",
+  };
+```
+
+### `operations.InputDatagenSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value: operations.InputDatagenSendToRoutesFalseWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "datagen",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    samples: [],
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "gradient embossing taxicab",
+  };
+```
+
+### `operations.InputDatagenPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputDatagenPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "datagen",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -22,9 +91,6 @@ const value: operations.InputDatagenInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   samples: [
     {
       sample: "<value>",
@@ -36,47 +102,17 @@ const value: operations.InputDatagenInputCollectionPart0Type = {
       value: "<value>",
     },
   ],
-  description: "fooey till tenant",
+  description: "sew rapidly numeracy unless",
 };
 ```
 
-### `operations.InputDatagenInputCollectionPart1Type`
+### `operations.InputDatagenPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputDatagenInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "datagen",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
+const value: operations.InputDatagenPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
-  samples: [],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "amnesty inasmuch whether meh freely up why",
-};
-```
-
-### `operations.InputDatagenInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputDatagenInputCollectionPart0Type1 = {
   id: "<id>",
   type: "datagen",
   pipeline: "<value>",
@@ -90,9 +126,6 @@ const value: operations.InputDatagenInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   samples: [
     {
       sample: "<value>",
@@ -104,39 +137,7 @@ const value: operations.InputDatagenInputCollectionPart0Type1 = {
       value: "<value>",
     },
   ],
-  description: "opposite ha minor before muddy meh lest vaguely except",
-};
-```
-
-### `operations.InputDatagenInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputDatagenInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "datagen",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  samples: [],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "gah institute mmm till everlasting for inasmuch dream but",
+  description: "gee derby exaggerate",
 };
 ```
 

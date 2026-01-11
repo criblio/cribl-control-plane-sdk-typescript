@@ -3,51 +3,86 @@
 
 ## Supported Types
 
-### `operations.InputGooglePubsubInputCollectionPart0Type`
+### `operations.InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputGooglePubsubInputCollectionPart0Type = {
-  id: "<id>",
-  type: "google_pubsub",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
+const value:
+  operations.InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "google_pubsub",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    pq: {
+      pqControls: {},
     },
-  ],
+    subscriptionName: "<value>",
+    region: "<value>",
+    serviceAccountCredentials: "<value>",
+    secret: "<value>",
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "blank actual than blah continually",
+  };
+```
+
+### `operations.InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  operations.InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "google_pubsub",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    subscriptionName: "<value>",
+    region: "<value>",
+    serviceAccountCredentials: "<value>",
+    secret: "<value>",
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description:
+      "while along meh showboat during flat apricot pleasure heavy wear",
+  };
+```
+
+### `operations.InputGooglePubsubPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputGooglePubsubPqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
-  subscriptionName: "<value>",
-  region: "<value>",
-  serviceAccountCredentials: "<value>",
-  secret: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "rudely until crazy splurge decode nimble among",
-};
-```
-
-### `operations.InputGooglePubsubInputCollectionPart1Type`
-
-```typescript
-const value: operations.InputGooglePubsubInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
   id: "<id>",
   type: "google_pubsub",
   pipeline: "<value>",
@@ -57,44 +92,12 @@ const value: operations.InputGooglePubsubInputCollectionPart1Type = {
     "<value 2>",
     "<value 3>",
   ],
-  pq: {
-    pqControls: {},
-  },
-  subscriptionName: "<value>",
-  region: "<value>",
-  serviceAccountCredentials: "<value>",
-  secret: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "like unscramble including lest kinase unibody shakily",
-};
-```
-
-### `operations.InputGooglePubsubInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputGooglePubsubInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "google_pubsub",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
   connections: [
     {
       pipeline: "<value>",
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   subscriptionName: "<value>",
   region: "<value>",
   serviceAccountCredentials: "<value>",
@@ -105,14 +108,14 @@ const value: operations.InputGooglePubsubInputCollectionPart0Type1 = {
       value: "<value>",
     },
   ],
-  description: "throughout yet merge with ruddy whoever incidentally oof ick",
+  description: "gum testimonial who provided uh-huh anti",
 };
 ```
 
-### `operations.InputGooglePubsubInputCollectionPart1Type1`
+### `operations.InputGooglePubsubPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputGooglePubsubInputCollectionPart1Type1 = {
+const value: operations.InputGooglePubsubPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -122,7 +125,6 @@ const value: operations.InputGooglePubsubInputCollectionPart1Type1 = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -140,7 +142,7 @@ const value: operations.InputGooglePubsubInputCollectionPart1Type1 = {
       value: "<value>",
     },
   ],
-  description: "notwithstanding whoever candid ah what midst",
+  description: "fiercely comb sleepily swill bossy wash hm ouch gallery",
 };
 ```
 

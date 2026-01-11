@@ -9,6 +9,12 @@ let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
     sendToRoutes: true,
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
     id: "<id>",
     type: "kinesis",
     disabled: false,
@@ -18,12 +24,6 @@ let value: UpdateInputByIdRequest = {
     streamtags: [
       "<value 1>",
       "<value 2>",
-    ],
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
     ],
     pq: {
       mode: "always",

@@ -3,112 +3,116 @@
 
 ## Supported Types
 
-### `operations.InputCollectionInputCollectionPart0Type`
+### `operations.InputCollectionSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputCollectionInputCollectionPart0Type = {
-  id: "<id>",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
+const value:
+  operations.InputCollectionSendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
     },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  preprocess: {
-    command: "<value>",
-    args: [
+    breakerRulesets: [
+      "<value 1>",
+    ],
+    preprocess: {
+      command: "<value>",
+      args: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    output: "<value>",
+  };
+```
+
+### `operations.InputCollectionSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  operations.InputCollectionSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
       "<value 1>",
       "<value 2>",
       "<value 3>",
     ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
+    pq: {
+      pqControls: {},
     },
-  ],
-  output: "<value>",
-};
-```
-
-### `operations.InputCollectionInputCollectionPart1Type`
-
-```typescript
-const value: operations.InputCollectionInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  preprocess: {
-    command: "<value>",
-    args: [
+    breakerRulesets: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
+    preprocess: {
+      command: "<value>",
+      args: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
     },
-  ],
-  output: "<value>",
-};
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    output: "<value>",
+  };
 ```
 
-### `operations.InputCollectionInputCollectionPart0Type1`
+### `operations.InputCollectionPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: operations.InputCollectionInputCollectionPart0Type1 = {
+const value: operations.InputCollectionPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  breakerRulesets: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
   preprocess: {
     command: "<value>",
     args: [
@@ -127,10 +131,10 @@ const value: operations.InputCollectionInputCollectionPart0Type1 = {
 };
 ```
 
-### `operations.InputCollectionInputCollectionPart1Type1`
+### `operations.InputCollectionPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputCollectionInputCollectionPart1Type1 = {
+const value: operations.InputCollectionPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },

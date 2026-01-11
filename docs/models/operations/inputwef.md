@@ -3,10 +3,16 @@
 
 ## Supported Types
 
-### `operations.InputWefInputCollectionPart0Type`
+### `operations.InputWefSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputWefInputCollectionPart0Type = {
+const value: operations.InputWefSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "wef",
   pipeline: "<value>",
@@ -14,12 +20,6 @@ const value: operations.InputWefInputCollectionPart0Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
   ],
   pq: {
     pqControls: {},
@@ -30,7 +30,52 @@ const value: operations.InputWefInputCollectionPart0Type = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.1",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.1",
+    keytab: "<value>",
+    principal: "<value>",
+  },
+  caFingerprint: "<value>",
+  keytab: "<value>",
+  principal: "<value>",
+  subscriptions: [],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "perspire um upwardly",
+};
+```
+
+### `operations.InputWefSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value: operations.InputWefSendToRoutesFalseWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  id: "<id>",
+  type: "wef",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1.3",
     maxVersion: "TLSv1.1",
     keytab: "<value>",
     principal: "<value>",
@@ -45,7 +90,6 @@ const value: operations.InputWefInputCollectionPart0Type = {
       targets: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
       metadata: [
         {
@@ -55,7 +99,7 @@ const value: operations.InputWefInputCollectionPart0Type = {
       ],
       queries: [
         {
-          path: "/private/tmp",
+          path: "/opt",
           queryExpression: "<value>",
         },
       ],
@@ -68,104 +112,14 @@ const value: operations.InputWefInputCollectionPart0Type = {
       value: "<value>",
     },
   ],
-  description: "acquaintance till eventually usefully",
+  description: "gymnast hexagon greedily from boohoo well-made goat yum",
 };
 ```
 
-### `operations.InputWefInputCollectionPart1Type`
+### `operations.InputWefPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: operations.InputWefInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "wef",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.1",
-    keytab: "<value>",
-    principal: "<value>",
-  },
-  caFingerprint: "<value>",
-  keytab: "<value>",
-  principal: "<value>",
-  subscriptions: [],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "sashay polyester democratize clear ouch",
-};
-```
-
-### `operations.InputWefInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputWefInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "wef",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.1",
-    keytab: "<value>",
-    principal: "<value>",
-  },
-  caFingerprint: "<value>",
-  keytab: "<value>",
-  principal: "<value>",
-  subscriptions: [],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "kissingly failing a circa revere where consequently knife",
-};
-```
-
-### `operations.InputWefInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputWefInputCollectionPart1Type1 = {
+const value: operations.InputWefPqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -188,7 +142,7 @@ const value: operations.InputWefInputCollectionPart1Type1 = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.1",
+    minVersion: "TLSv1.3",
     maxVersion: "TLSv1.1",
     keytab: "<value>",
     principal: "<value>",
@@ -196,14 +150,103 @@ const value: operations.InputWefInputCollectionPart1Type1 = {
   caFingerprint: "<value>",
   keytab: "<value>",
   principal: "<value>",
-  subscriptions: [],
+  subscriptions: [
+    {
+      subscriptionName: "<value>",
+      version: "<value>",
+      targets: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      queries: [
+        {
+          path: "/opt",
+          queryExpression: "<value>",
+        },
+      ],
+      xmlQuery: "<value>",
+    },
+  ],
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "hoot discourse tomorrow",
+  description: "symbolise welcome floss",
+};
+```
+
+### `operations.InputWefPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: operations.InputWefPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "wef",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.1",
+    keytab: "<value>",
+    principal: "<value>",
+  },
+  caFingerprint: "<value>",
+  keytab: "<value>",
+  principal: "<value>",
+  subscriptions: [
+    {
+      subscriptionName: "<value>",
+      version: "<value>",
+      targets: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      queries: [
+        {
+          path: "/opt",
+          queryExpression: "<value>",
+        },
+      ],
+      xmlQuery: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "aw hmph gee switch which yowza um unless bug militate",
 };
 ```
 

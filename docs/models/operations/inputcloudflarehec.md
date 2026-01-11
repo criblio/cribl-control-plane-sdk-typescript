@@ -3,18 +3,175 @@
 
 ## Supported Types
 
-### `operations.InputCloudflareHecInputCollectionPart0Type`
+### `operations.InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputCloudflareHecInputCollectionPart0Type = {
+const value:
+  operations.InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "cloudflare_hec",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 5570.43,
+    authTokens: [
+      {
+        tokenSecret: "<value>",
+        token: "<value>",
+        description: "depute that armoire",
+        allowedIndexesAtToken: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+      },
+    ],
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    enableHealthCheck: "<value>",
+    hecAPI: "<value>",
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    allowedIndexes: [
+      "<value 1>",
+    ],
+    breakerRulesets: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    accessControlAllowOrigin: [
+      "<value 1>",
+    ],
+    accessControlAllowHeaders: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    description: "tensely flood poetry",
+  };
+```
+
+### `operations.InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  operations.InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "cloudflare_hec",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    port: 5509.23,
+    authTokens: [
+      {
+        tokenSecret: "<value>",
+        token: "<value>",
+        description: "depute that armoire",
+        allowedIndexesAtToken: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+      },
+    ],
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    enableHealthCheck: "<value>",
+    hecAPI: "<value>",
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    allowedIndexes: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    breakerRulesets: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    accessControlAllowOrigin: [
+      "<value 1>",
+    ],
+    accessControlAllowHeaders: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    description:
+      "charlatan vision obnoxiously finished midwife republican abseil carouse supposing pace",
+  };
+```
+
+### `operations.InputCloudflareHecPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputCloudflareHecPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "cloudflare_hec",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -22,17 +179,16 @@ const value: operations.InputCloudflareHecInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 3061.12,
+  port: 6269.95,
   authTokens: [
     {
       tokenSecret: "<value>",
       token: "<value>",
-      description: "shakily apropos since phooey",
+      description: "depute that armoire",
       allowedIndexesAtToken: [
         "<value 1>",
+        "<value 2>",
+        "<value 3>",
       ],
       metadata: [
         {
@@ -62,51 +218,53 @@ const value: operations.InputCloudflareHecInputCollectionPart0Type = {
   allowedIndexes: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
   accessControlAllowOrigin: [
     "<value 1>",
-    "<value 2>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
   ],
-  description: "mount plus excellent",
+  description: "devoted sting incomparable",
 };
 ```
 
-### `operations.InputCloudflareHecInputCollectionPart1Type`
+### `operations.InputCloudflareHecPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: operations.InputCloudflareHecInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: operations.InputCloudflareHecPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "cloudflare_hec",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 4521.37,
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  port: 641.99,
   authTokens: [
     {
       tokenSecret: "<value>",
       token: "<value>",
-      description: "shakily apropos since phooey",
+      description: "depute that armoire",
       allowedIndexesAtToken: [
         "<value 1>",
+        "<value 2>",
+        "<value 3>",
       ],
       metadata: [
         {
@@ -140,84 +298,6 @@ const value: operations.InputCloudflareHecInputCollectionPart1Type = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
-  ],
-  accessControlAllowOrigin: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  accessControlAllowHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  description: "minus preregister like worth ack",
-};
-```
-
-### `operations.InputCloudflareHecInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputCloudflareHecInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "cloudflare_hec",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 3505.02,
-  authTokens: [
-    {
-      tokenSecret: "<value>",
-      token: "<value>",
-      description: "shakily apropos since phooey",
-      allowedIndexesAtToken: [
-        "<value 1>",
-      ],
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  enableHealthCheck: "<value>",
-  hecAPI: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  allowedIndexes: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   accessControlAllowOrigin: [
     "<value 1>",
@@ -227,83 +307,7 @@ const value: operations.InputCloudflareHecInputCollectionPart0Type1 = {
   accessControlAllowHeaders: [
     "<value 1>",
   ],
-  description: "wisely odd underpants coordination apud amongst",
-};
-```
-
-### `operations.InputCloudflareHecInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputCloudflareHecInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "cloudflare_hec",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  port: 7356.84,
-  authTokens: [
-    {
-      tokenSecret: "<value>",
-      token: "<value>",
-      description: "shakily apropos since phooey",
-      allowedIndexesAtToken: [
-        "<value 1>",
-      ],
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  enableHealthCheck: "<value>",
-  hecAPI: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  allowedIndexes: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  accessControlAllowOrigin: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  accessControlAllowHeaders: [
-    "<value 1>",
-  ],
-  description: "industrialize knowingly delicious when jump sociable",
+  description: "tabletop describe moisten tarry",
 };
 ```
 

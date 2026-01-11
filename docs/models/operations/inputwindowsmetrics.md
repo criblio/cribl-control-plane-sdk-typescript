@@ -3,10 +3,192 @@
 
 ## Supported Types
 
-### `operations.InputWindowsMetricsInputCollectionPart0Type`
+### `operations.InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: operations.InputWindowsMetricsInputCollectionPart0Type = {
+const value:
+  operations.InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "windows_metrics",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    host: {
+      custom: {
+        system: {},
+        cpu: {},
+        memory: {},
+        network: {
+          devices: [
+            "<value 1>",
+            "<value 2>",
+          ],
+        },
+        disk: {
+          volumes: [
+            "<value 1>",
+            "<value 2>",
+          ],
+        },
+      },
+    },
+    process: {
+      sets: [
+        {
+          name: "<value>",
+          filter: "<value>",
+        },
+      ],
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    persistence: {},
+    description: "french and sheathe or surprisingly wherever till",
+  };
+```
+
+### `operations.InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  operations.InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "windows_metrics",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    host: {
+      custom: {
+        system: {},
+        cpu: {},
+        memory: {},
+        network: {
+          devices: [
+            "<value 1>",
+            "<value 2>",
+          ],
+        },
+        disk: {
+          volumes: [
+            "<value 1>",
+            "<value 2>",
+          ],
+        },
+      },
+    },
+    process: {
+      sets: [
+        {
+          name: "<value>",
+          filter: "<value>",
+        },
+      ],
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    persistence: {},
+    description:
+      "fall vengeful scale severe miserable minus secret at reclassify",
+  };
+```
+
+### `operations.InputWindowsMetricsPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: operations.InputWindowsMetricsPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "windows_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  host: {
+    custom: {
+      system: {},
+      cpu: {},
+      memory: {},
+      network: {
+        devices: [
+          "<value 1>",
+          "<value 2>",
+        ],
+      },
+      disk: {
+        volumes: [
+          "<value 1>",
+          "<value 2>",
+        ],
+      },
+    },
+  },
+  process: {
+    sets: [
+      {
+        name: "<value>",
+        filter: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description: "as throughout since even unaccountably",
+};
+```
+
+### `operations.InputWindowsMetricsPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: operations.InputWindowsMetricsPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "windows_metrics",
   pipeline: "<value>",
@@ -22,9 +204,6 @@ const value: operations.InputWindowsMetricsInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   host: {
     custom: {
       system: {},
@@ -33,11 +212,13 @@ const value: operations.InputWindowsMetricsInputCollectionPart0Type = {
       network: {
         devices: [
           "<value 1>",
+          "<value 2>",
         ],
       },
       disk: {
         volumes: [
           "<value 1>",
+          "<value 2>",
         ],
       },
     },
@@ -57,179 +238,7 @@ const value: operations.InputWindowsMetricsInputCollectionPart0Type = {
     },
   ],
   persistence: {},
-  description:
-    "strait adjudge speedy dearly vicinity extroverted aside regulate",
-};
-```
-
-### `operations.InputWindowsMetricsInputCollectionPart1Type`
-
-```typescript
-const value: operations.InputWindowsMetricsInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "windows_metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  host: {
-    custom: {
-      system: {},
-      cpu: {},
-      memory: {},
-      network: {
-        devices: [
-          "<value 1>",
-        ],
-      },
-      disk: {
-        volumes: [
-          "<value 1>",
-        ],
-      },
-    },
-  },
-  process: {
-    sets: [
-      {
-        name: "<value>",
-        filter: "<value>",
-      },
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  description: "although viciously typeface whenever vice",
-};
-```
-
-### `operations.InputWindowsMetricsInputCollectionPart0Type1`
-
-```typescript
-const value: operations.InputWindowsMetricsInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "windows_metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  host: {
-    custom: {
-      system: {},
-      cpu: {},
-      memory: {},
-      network: {
-        devices: [
-          "<value 1>",
-        ],
-      },
-      disk: {
-        volumes: [
-          "<value 1>",
-        ],
-      },
-    },
-  },
-  process: {
-    sets: [
-      {
-        name: "<value>",
-        filter: "<value>",
-      },
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  description: "wholly swear more newsprint past save what since consequently",
-};
-```
-
-### `operations.InputWindowsMetricsInputCollectionPart1Type1`
-
-```typescript
-const value: operations.InputWindowsMetricsInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "windows_metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  host: {
-    custom: {
-      system: {},
-      cpu: {},
-      memory: {},
-      network: {
-        devices: [
-          "<value 1>",
-        ],
-      },
-      disk: {
-        volumes: [
-          "<value 1>",
-        ],
-      },
-    },
-  },
-  process: {
-    sets: [
-      {
-        name: "<value>",
-        filter: "<value>",
-      },
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  description: "oddly fondly though mmm at unless festival whether nor about",
+  description: "wee from thoughtfully duh to advancement",
 };
 ```
 

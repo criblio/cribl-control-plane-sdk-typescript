@@ -51,7 +51,7 @@ export type InputConfluentCloudType = ClosedEnum<
   typeof InputConfluentCloudType
 >;
 
-export type InputConfluentCloudInputCollectionPart1Type1 = {
+export type InputConfluentCloudPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
@@ -189,11 +189,12 @@ export type InputConfluentCloudInputCollectionPart1Type1 = {
   description?: string | undefined;
 };
 
-export type InputConfluentCloudInputCollectionPart0Type1 = {
+export type InputConfluentCloudPqEnabledFalseWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -220,6 +221,143 @@ export type InputConfluentCloudInputCollectionPart0Type1 = {
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
+   */
+  brokers: Array<string>;
+  tls?: TlsSettingsClientSideType1 | undefined;
+  /**
+   * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+   */
+  topics: Array<string>;
+  /**
+   * The consumer group to which this instance belongs. Defaults to 'Cribl'.
+   */
+  groupId?: string | undefined;
+  /**
+   * Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+   */
+  fromBeginning?: boolean | undefined;
+  kafkaSchemaRegistry?: KafkaSchemaRegistryAuthenticationType | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+   */
+  sasl?: AuthenticationType | undefined;
+  /**
+   * @remarks
+   *       Timeout used to detect client failures when using Kafka's group-management facilities.
+   *       If the client sends no heartbeats to the broker before the timeout expires,
+   *       the broker will remove the client from the group and initiate a rebalance.
+   *       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+   */
+  sessionTimeout?: number | undefined;
+  /**
+   *       Maximum allowed time for each worker to join the group after a rebalance begins.
+   *
+   * @remarks
+   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+   */
+  rebalanceTimeout?: number | undefined;
+  /**
+   *       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+   *
+   * @remarks
+   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+   */
+  heartbeatInterval?: number | undefined;
+  /**
+   * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitInterval?: number | undefined;
+  /**
+   * How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitThreshold?: number | undefined;
+  /**
+   * Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+   */
+  maxBytesPerPartition?: number | undefined;
+  /**
+   * Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+   */
+  maxBytes?: number | undefined;
+  /**
+   * Maximum number of network errors before the consumer re-creates a socket
+   */
+  maxSocketErrors?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputConfluentCloudType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
   pq?: PqType | undefined;
   /**
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
@@ -327,7 +465,7 @@ export type InputConfluentCloudInputCollectionPart0Type1 = {
   description?: string | undefined;
 };
 
-export type InputConfluentCloudInputCollectionPart1Type = {
+export type InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
@@ -358,144 +496,6 @@ export type InputConfluentCloudInputCollectionPart1Type = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
-   */
-  brokers: Array<string>;
-  tls?: TlsSettingsClientSideType1 | undefined;
-  /**
-   * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
-   */
-  topics: Array<string>;
-  /**
-   * The consumer group to which this instance belongs. Defaults to 'Cribl'.
-   */
-  groupId?: string | undefined;
-  /**
-   * Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
-   */
-  fromBeginning?: boolean | undefined;
-  kafkaSchemaRegistry?: KafkaSchemaRegistryAuthenticationType | undefined;
-  /**
-   * Maximum time to wait for a connection to complete successfully
-   */
-  connectionTimeout?: number | undefined;
-  /**
-   * Maximum time to wait for Kafka to respond to a request
-   */
-  requestTimeout?: number | undefined;
-  /**
-   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-   */
-  maxRetries?: number | undefined;
-  /**
-   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackOff?: number | undefined;
-  /**
-   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * Maximum time to wait for Kafka to respond to an authentication request
-   */
-  authenticationTimeout?: number | undefined;
-  /**
-   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-   */
-  reauthenticationThreshold?: number | undefined;
-  /**
-   * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-   */
-  sasl?: AuthenticationType | undefined;
-  /**
-   * @remarks
-   *       Timeout used to detect client failures when using Kafka's group-management facilities.
-   *       If the client sends no heartbeats to the broker before the timeout expires,
-   *       the broker will remove the client from the group and initiate a rebalance.
-   *       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
-   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
-   */
-  sessionTimeout?: number | undefined;
-  /**
-   *       Maximum allowed time for each worker to join the group after a rebalance begins.
-   *
-   * @remarks
-   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
-   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
-   */
-  rebalanceTimeout?: number | undefined;
-  /**
-   *       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
-   *
-   * @remarks
-   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
-   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
-   */
-  heartbeatInterval?: number | undefined;
-  /**
-   * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-   */
-  autoCommitInterval?: number | undefined;
-  /**
-   * How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-   */
-  autoCommitThreshold?: number | undefined;
-  /**
-   * Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
-   */
-  maxBytesPerPartition?: number | undefined;
-  /**
-   * Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
-   */
-  maxBytes?: number | undefined;
-  /**
-   * Maximum number of network errors before the consumer re-creates a socket
-   */
-  maxSocketErrors?: number | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-};
-
-export type InputConfluentCloudInputCollectionPart0Type = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputConfluentCloudType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   pq?: PqType | undefined;
   /**
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
@@ -604,10 +604,10 @@ export type InputConfluentCloudInputCollectionPart0Type = {
 };
 
 export type InputConfluentCloud =
-  | InputConfluentCloudInputCollectionPart0Type
-  | InputConfluentCloudInputCollectionPart1Type
-  | InputConfluentCloudInputCollectionPart0Type1
-  | InputConfluentCloudInputCollectionPart1Type1;
+  | InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint
+  | InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint
+  | InputConfluentCloudPqEnabledFalseWithPqConstraint
+  | InputConfluentCloudPqEnabledTrueWithPqConstraint;
 
 /** @internal */
 export const InputConfluentCloudType$inboundSchema: z.ZodNativeEnum<
@@ -619,9 +619,9 @@ export const InputConfluentCloudType$outboundSchema: z.ZodNativeEnum<
 > = InputConfluentCloudType$inboundSchema;
 
 /** @internal */
-export const InputConfluentCloudInputCollectionPart1Type1$inboundSchema:
+export const InputConfluentCloudPqEnabledTrueWithPqConstraint$inboundSchema:
   z.ZodType<
-    InputConfluentCloudInputCollectionPart1Type1,
+    InputConfluentCloudPqEnabledTrueWithPqConstraint,
     z.ZodTypeDef,
     unknown
   > = z.object({
@@ -663,7 +663,7 @@ export const InputConfluentCloudInputCollectionPart1Type1$inboundSchema:
     description: z.string().optional(),
   });
 /** @internal */
-export type InputConfluentCloudInputCollectionPart1Type1$Outbound = {
+export type InputConfluentCloudPqEnabledTrueWithPqConstraint$Outbound = {
   pqEnabled: boolean;
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
@@ -704,11 +704,11 @@ export type InputConfluentCloudInputCollectionPart1Type1$Outbound = {
 };
 
 /** @internal */
-export const InputConfluentCloudInputCollectionPart1Type1$outboundSchema:
+export const InputConfluentCloudPqEnabledTrueWithPqConstraint$outboundSchema:
   z.ZodType<
-    InputConfluentCloudInputCollectionPart1Type1$Outbound,
+    InputConfluentCloudPqEnabledTrueWithPqConstraint$Outbound,
     z.ZodTypeDef,
-    InputConfluentCloudInputCollectionPart1Type1
+    InputConfluentCloudPqEnabledTrueWithPqConstraint
   > = z.object({
     pqEnabled: z.boolean().default(false),
     pq: PqType$outboundSchema.optional(),
@@ -748,40 +748,41 @@ export const InputConfluentCloudInputCollectionPart1Type1$outboundSchema:
     description: z.string().optional(),
   });
 
-export function inputConfluentCloudInputCollectionPart1Type1ToJSON(
-  inputConfluentCloudInputCollectionPart1Type1:
-    InputConfluentCloudInputCollectionPart1Type1,
+export function inputConfluentCloudPqEnabledTrueWithPqConstraintToJSON(
+  inputConfluentCloudPqEnabledTrueWithPqConstraint:
+    InputConfluentCloudPqEnabledTrueWithPqConstraint,
 ): string {
   return JSON.stringify(
-    InputConfluentCloudInputCollectionPart1Type1$outboundSchema.parse(
-      inputConfluentCloudInputCollectionPart1Type1,
+    InputConfluentCloudPqEnabledTrueWithPqConstraint$outboundSchema.parse(
+      inputConfluentCloudPqEnabledTrueWithPqConstraint,
     ),
   );
 }
-export function inputConfluentCloudInputCollectionPart1Type1FromJSON(
+export function inputConfluentCloudPqEnabledTrueWithPqConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputConfluentCloudInputCollectionPart1Type1,
+  InputConfluentCloudPqEnabledTrueWithPqConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputConfluentCloudInputCollectionPart1Type1$inboundSchema.parse(
+      InputConfluentCloudPqEnabledTrueWithPqConstraint$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputConfluentCloudInputCollectionPart1Type1' from JSON`,
+    `Failed to parse 'InputConfluentCloudPqEnabledTrueWithPqConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputConfluentCloudInputCollectionPart0Type1$inboundSchema:
+export const InputConfluentCloudPqEnabledFalseWithPqConstraint$inboundSchema:
   z.ZodType<
-    InputConfluentCloudInputCollectionPart0Type1,
+    InputConfluentCloudPqEnabledFalseWithPqConstraint,
     z.ZodTypeDef,
     unknown
   > = z.object({
     pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
     id: z.string().optional(),
     type: InputConfluentCloudType$inboundSchema,
     disabled: z.boolean().default(false),
@@ -790,6 +791,161 @@ export const InputConfluentCloudInputCollectionPart0Type1$inboundSchema:
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    brokers: z.array(z.string()),
+    tls: TlsSettingsClientSideType1$inboundSchema.optional(),
+    topics: z.array(z.string()),
+    groupId: z.string().default("Cribl"),
+    fromBeginning: z.boolean().default(true),
+    kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$inboundSchema
+      .optional(),
+    connectionTimeout: z.number().default(10000),
+    requestTimeout: z.number().default(60000),
+    maxRetries: z.number().default(5),
+    maxBackOff: z.number().default(30000),
+    initialBackoff: z.number().default(300),
+    backoffRate: z.number().default(2),
+    authenticationTimeout: z.number().default(10000),
+    reauthenticationThreshold: z.number().default(10000),
+    sasl: AuthenticationType$inboundSchema.optional(),
+    sessionTimeout: z.number().default(30000),
+    rebalanceTimeout: z.number().default(60000),
+    heartbeatInterval: z.number().default(3000),
+    autoCommitInterval: z.number().optional(),
+    autoCommitThreshold: z.number().optional(),
+    maxBytesPerPartition: z.number().default(1048576),
+    maxBytes: z.number().default(10485760),
+    maxSocketErrors: z.number().default(0),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputConfluentCloudPqEnabledFalseWithPqConstraint$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  brokers: Array<string>;
+  tls?: TlsSettingsClientSideType1$Outbound | undefined;
+  topics: Array<string>;
+  groupId: string;
+  fromBeginning: boolean;
+  kafkaSchemaRegistry?:
+    | KafkaSchemaRegistryAuthenticationType$Outbound
+    | undefined;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  maxBackOff: number;
+  initialBackoff: number;
+  backoffRate: number;
+  authenticationTimeout: number;
+  reauthenticationThreshold: number;
+  sasl?: AuthenticationType$Outbound | undefined;
+  sessionTimeout: number;
+  rebalanceTimeout: number;
+  heartbeatInterval: number;
+  autoCommitInterval?: number | undefined;
+  autoCommitThreshold?: number | undefined;
+  maxBytesPerPartition: number;
+  maxBytes: number;
+  maxSocketErrors: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputConfluentCloudPqEnabledFalseWithPqConstraint$outboundSchema:
+  z.ZodType<
+    InputConfluentCloudPqEnabledFalseWithPqConstraint$Outbound,
+    z.ZodTypeDef,
+    InputConfluentCloudPqEnabledFalseWithPqConstraint
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputConfluentCloudType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    brokers: z.array(z.string()),
+    tls: TlsSettingsClientSideType1$outboundSchema.optional(),
+    topics: z.array(z.string()),
+    groupId: z.string().default("Cribl"),
+    fromBeginning: z.boolean().default(true),
+    kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
+      .optional(),
+    connectionTimeout: z.number().default(10000),
+    requestTimeout: z.number().default(60000),
+    maxRetries: z.number().default(5),
+    maxBackOff: z.number().default(30000),
+    initialBackoff: z.number().default(300),
+    backoffRate: z.number().default(2),
+    authenticationTimeout: z.number().default(10000),
+    reauthenticationThreshold: z.number().default(10000),
+    sasl: AuthenticationType$outboundSchema.optional(),
+    sessionTimeout: z.number().default(30000),
+    rebalanceTimeout: z.number().default(60000),
+    heartbeatInterval: z.number().default(3000),
+    autoCommitInterval: z.number().optional(),
+    autoCommitThreshold: z.number().optional(),
+    maxBytesPerPartition: z.number().default(1048576),
+    maxBytes: z.number().default(10485760),
+    maxSocketErrors: z.number().default(0),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    description: z.string().optional(),
+  });
+
+export function inputConfluentCloudPqEnabledFalseWithPqConstraintToJSON(
+  inputConfluentCloudPqEnabledFalseWithPqConstraint:
+    InputConfluentCloudPqEnabledFalseWithPqConstraint,
+): string {
+  return JSON.stringify(
+    InputConfluentCloudPqEnabledFalseWithPqConstraint$outboundSchema.parse(
+      inputConfluentCloudPqEnabledFalseWithPqConstraint,
+    ),
+  );
+}
+export function inputConfluentCloudPqEnabledFalseWithPqConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputConfluentCloudPqEnabledFalseWithPqConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputConfluentCloudPqEnabledFalseWithPqConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputConfluentCloudPqEnabledFalseWithPqConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputConfluentCloudType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
     pq: PqType$inboundSchema.optional(),
     brokers: z.array(z.string()),
     tls: TlsSettingsClientSideType1$inboundSchema.optional(),
@@ -819,62 +975,63 @@ export const InputConfluentCloudInputCollectionPart0Type1$inboundSchema:
     description: z.string().optional(),
   });
 /** @internal */
-export type InputConfluentCloudInputCollectionPart0Type1$Outbound = {
-  pqEnabled: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  brokers: Array<string>;
-  tls?: TlsSettingsClientSideType1$Outbound | undefined;
-  topics: Array<string>;
-  groupId: string;
-  fromBeginning: boolean;
-  kafkaSchemaRegistry?:
-    | KafkaSchemaRegistryAuthenticationType$Outbound
-    | undefined;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
-  maxBackOff: number;
-  initialBackoff: number;
-  backoffRate: number;
-  authenticationTimeout: number;
-  reauthenticationThreshold: number;
-  sasl?: AuthenticationType$Outbound | undefined;
-  sessionTimeout: number;
-  rebalanceTimeout: number;
-  heartbeatInterval: number;
-  autoCommitInterval?: number | undefined;
-  autoCommitThreshold?: number | undefined;
-  maxBytesPerPartition: number;
-  maxBytes: number;
-  maxSocketErrors: number;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-};
+export type InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint$Outbound =
+  {
+    sendToRoutes: boolean;
+    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    id?: string | undefined;
+    type: string;
+    disabled: boolean;
+    pipeline?: string | undefined;
+    environment?: string | undefined;
+    pqEnabled: boolean;
+    streamtags?: Array<string> | undefined;
+    pq?: PqType$Outbound | undefined;
+    brokers: Array<string>;
+    tls?: TlsSettingsClientSideType1$Outbound | undefined;
+    topics: Array<string>;
+    groupId: string;
+    fromBeginning: boolean;
+    kafkaSchemaRegistry?:
+      | KafkaSchemaRegistryAuthenticationType$Outbound
+      | undefined;
+    connectionTimeout: number;
+    requestTimeout: number;
+    maxRetries: number;
+    maxBackOff: number;
+    initialBackoff: number;
+    backoffRate: number;
+    authenticationTimeout: number;
+    reauthenticationThreshold: number;
+    sasl?: AuthenticationType$Outbound | undefined;
+    sessionTimeout: number;
+    rebalanceTimeout: number;
+    heartbeatInterval: number;
+    autoCommitInterval?: number | undefined;
+    autoCommitThreshold?: number | undefined;
+    maxBytesPerPartition: number;
+    maxBytes: number;
+    maxSocketErrors: number;
+    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+    description?: string | undefined;
+  };
 
 /** @internal */
-export const InputConfluentCloudInputCollectionPart0Type1$outboundSchema:
+export const InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
   z.ZodType<
-    InputConfluentCloudInputCollectionPart0Type1$Outbound,
+    InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint$Outbound,
     z.ZodTypeDef,
-    InputConfluentCloudInputCollectionPart0Type1
+    InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
     id: z.string().optional(),
     type: InputConfluentCloudType$outboundSchema,
     disabled: z.boolean().default(false),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
     environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
     pq: PqType$outboundSchema.optional(),
     brokers: z.array(z.string()),
     tls: TlsSettingsClientSideType1$outboundSchema.optional(),
@@ -904,36 +1061,34 @@ export const InputConfluentCloudInputCollectionPart0Type1$outboundSchema:
     description: z.string().optional(),
   });
 
-export function inputConfluentCloudInputCollectionPart0Type1ToJSON(
-  inputConfluentCloudInputCollectionPart0Type1:
-    InputConfluentCloudInputCollectionPart0Type1,
+export function inputConfluentCloudSendToRoutesFalseWithConnectionsConstraintToJSON(
+  inputConfluentCloudSendToRoutesFalseWithConnectionsConstraint:
+    InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputConfluentCloudInputCollectionPart0Type1$outboundSchema.parse(
-      inputConfluentCloudInputCollectionPart0Type1,
-    ),
+    InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+      .parse(inputConfluentCloudSendToRoutesFalseWithConnectionsConstraint),
   );
 }
-export function inputConfluentCloudInputCollectionPart0Type1FromJSON(
+export function inputConfluentCloudSendToRoutesFalseWithConnectionsConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputConfluentCloudInputCollectionPart0Type1,
+  InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputConfluentCloudInputCollectionPart0Type1$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputConfluentCloudInputCollectionPart0Type1' from JSON`,
+      InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputConfluentCloudInputCollectionPart1Type$inboundSchema:
+export const InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
   z.ZodType<
-    InputConfluentCloudInputCollectionPart1Type,
+    InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint,
     z.ZodTypeDef,
     unknown
   > = z.object({
@@ -975,52 +1130,53 @@ export const InputConfluentCloudInputCollectionPart1Type$inboundSchema:
     description: z.string().optional(),
   });
 /** @internal */
-export type InputConfluentCloudInputCollectionPart1Type$Outbound = {
-  sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  pq?: PqType$Outbound | undefined;
-  brokers: Array<string>;
-  tls?: TlsSettingsClientSideType1$Outbound | undefined;
-  topics: Array<string>;
-  groupId: string;
-  fromBeginning: boolean;
-  kafkaSchemaRegistry?:
-    | KafkaSchemaRegistryAuthenticationType$Outbound
-    | undefined;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
-  maxBackOff: number;
-  initialBackoff: number;
-  backoffRate: number;
-  authenticationTimeout: number;
-  reauthenticationThreshold: number;
-  sasl?: AuthenticationType$Outbound | undefined;
-  sessionTimeout: number;
-  rebalanceTimeout: number;
-  heartbeatInterval: number;
-  autoCommitInterval?: number | undefined;
-  autoCommitThreshold?: number | undefined;
-  maxBytesPerPartition: number;
-  maxBytes: number;
-  maxSocketErrors: number;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-};
+export type InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$Outbound =
+  {
+    sendToRoutes: boolean;
+    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    id?: string | undefined;
+    type: string;
+    disabled: boolean;
+    pipeline?: string | undefined;
+    environment?: string | undefined;
+    pqEnabled: boolean;
+    streamtags?: Array<string> | undefined;
+    pq?: PqType$Outbound | undefined;
+    brokers: Array<string>;
+    tls?: TlsSettingsClientSideType1$Outbound | undefined;
+    topics: Array<string>;
+    groupId: string;
+    fromBeginning: boolean;
+    kafkaSchemaRegistry?:
+      | KafkaSchemaRegistryAuthenticationType$Outbound
+      | undefined;
+    connectionTimeout: number;
+    requestTimeout: number;
+    maxRetries: number;
+    maxBackOff: number;
+    initialBackoff: number;
+    backoffRate: number;
+    authenticationTimeout: number;
+    reauthenticationThreshold: number;
+    sasl?: AuthenticationType$Outbound | undefined;
+    sessionTimeout: number;
+    rebalanceTimeout: number;
+    heartbeatInterval: number;
+    autoCommitInterval?: number | undefined;
+    autoCommitThreshold?: number | undefined;
+    maxBytesPerPartition: number;
+    maxBytes: number;
+    maxSocketErrors: number;
+    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+    description?: string | undefined;
+  };
 
 /** @internal */
-export const InputConfluentCloudInputCollectionPart1Type$outboundSchema:
+export const InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
   z.ZodType<
-    InputConfluentCloudInputCollectionPart1Type$Outbound,
+    InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$Outbound,
     z.ZodTypeDef,
-    InputConfluentCloudInputCollectionPart1Type
+    InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint
   > = z.object({
     sendToRoutes: z.boolean().default(true),
     connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
@@ -1060,185 +1216,27 @@ export const InputConfluentCloudInputCollectionPart1Type$outboundSchema:
     description: z.string().optional(),
   });
 
-export function inputConfluentCloudInputCollectionPart1TypeToJSON(
-  inputConfluentCloudInputCollectionPart1Type:
-    InputConfluentCloudInputCollectionPart1Type,
+export function inputConfluentCloudSendToRoutesTrueWithConnectionsConstraintToJSON(
+  inputConfluentCloudSendToRoutesTrueWithConnectionsConstraint:
+    InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputConfluentCloudInputCollectionPart1Type$outboundSchema.parse(
-      inputConfluentCloudInputCollectionPart1Type,
-    ),
+    InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$outboundSchema
+      .parse(inputConfluentCloudSendToRoutesTrueWithConnectionsConstraint),
   );
 }
-export function inputConfluentCloudInputCollectionPart1TypeFromJSON(
+export function inputConfluentCloudSendToRoutesTrueWithConnectionsConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputConfluentCloudInputCollectionPart1Type,
+  InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputConfluentCloudInputCollectionPart1Type$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputConfluentCloudInputCollectionPart1Type' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputConfluentCloudInputCollectionPart0Type$inboundSchema:
-  z.ZodType<
-    InputConfluentCloudInputCollectionPart0Type,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    id: z.string().optional(),
-    type: InputConfluentCloudType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    pq: PqType$inboundSchema.optional(),
-    brokers: z.array(z.string()),
-    tls: TlsSettingsClientSideType1$inboundSchema.optional(),
-    topics: z.array(z.string()),
-    groupId: z.string().default("Cribl"),
-    fromBeginning: z.boolean().default(true),
-    kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$inboundSchema
-      .optional(),
-    connectionTimeout: z.number().default(10000),
-    requestTimeout: z.number().default(60000),
-    maxRetries: z.number().default(5),
-    maxBackOff: z.number().default(30000),
-    initialBackoff: z.number().default(300),
-    backoffRate: z.number().default(2),
-    authenticationTimeout: z.number().default(10000),
-    reauthenticationThreshold: z.number().default(10000),
-    sasl: AuthenticationType$inboundSchema.optional(),
-    sessionTimeout: z.number().default(30000),
-    rebalanceTimeout: z.number().default(60000),
-    heartbeatInterval: z.number().default(3000),
-    autoCommitInterval: z.number().optional(),
-    autoCommitThreshold: z.number().optional(),
-    maxBytesPerPartition: z.number().default(1048576),
-    maxBytes: z.number().default(10485760),
-    maxSocketErrors: z.number().default(0),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    description: z.string().optional(),
-  });
-/** @internal */
-export type InputConfluentCloudInputCollectionPart0Type$Outbound = {
-  sendToRoutes: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  brokers: Array<string>;
-  tls?: TlsSettingsClientSideType1$Outbound | undefined;
-  topics: Array<string>;
-  groupId: string;
-  fromBeginning: boolean;
-  kafkaSchemaRegistry?:
-    | KafkaSchemaRegistryAuthenticationType$Outbound
-    | undefined;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
-  maxBackOff: number;
-  initialBackoff: number;
-  backoffRate: number;
-  authenticationTimeout: number;
-  reauthenticationThreshold: number;
-  sasl?: AuthenticationType$Outbound | undefined;
-  sessionTimeout: number;
-  rebalanceTimeout: number;
-  heartbeatInterval: number;
-  autoCommitInterval?: number | undefined;
-  autoCommitThreshold?: number | undefined;
-  maxBytesPerPartition: number;
-  maxBytes: number;
-  maxSocketErrors: number;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputConfluentCloudInputCollectionPart0Type$outboundSchema:
-  z.ZodType<
-    InputConfluentCloudInputCollectionPart0Type$Outbound,
-    z.ZodTypeDef,
-    InputConfluentCloudInputCollectionPart0Type
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    id: z.string().optional(),
-    type: InputConfluentCloudType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-    pq: PqType$outboundSchema.optional(),
-    brokers: z.array(z.string()),
-    tls: TlsSettingsClientSideType1$outboundSchema.optional(),
-    topics: z.array(z.string()),
-    groupId: z.string().default("Cribl"),
-    fromBeginning: z.boolean().default(true),
-    kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
-      .optional(),
-    connectionTimeout: z.number().default(10000),
-    requestTimeout: z.number().default(60000),
-    maxRetries: z.number().default(5),
-    maxBackOff: z.number().default(30000),
-    initialBackoff: z.number().default(300),
-    backoffRate: z.number().default(2),
-    authenticationTimeout: z.number().default(10000),
-    reauthenticationThreshold: z.number().default(10000),
-    sasl: AuthenticationType$outboundSchema.optional(),
-    sessionTimeout: z.number().default(30000),
-    rebalanceTimeout: z.number().default(60000),
-    heartbeatInterval: z.number().default(3000),
-    autoCommitInterval: z.number().optional(),
-    autoCommitThreshold: z.number().optional(),
-    maxBytesPerPartition: z.number().default(1048576),
-    maxBytes: z.number().default(10485760),
-    maxSocketErrors: z.number().default(0),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-  });
-
-export function inputConfluentCloudInputCollectionPart0TypeToJSON(
-  inputConfluentCloudInputCollectionPart0Type:
-    InputConfluentCloudInputCollectionPart0Type,
-): string {
-  return JSON.stringify(
-    InputConfluentCloudInputCollectionPart0Type$outboundSchema.parse(
-      inputConfluentCloudInputCollectionPart0Type,
-    ),
-  );
-}
-export function inputConfluentCloudInputCollectionPart0TypeFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputConfluentCloudInputCollectionPart0Type,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputConfluentCloudInputCollectionPart0Type$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputConfluentCloudInputCollectionPart0Type' from JSON`,
+      InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint' from JSON`,
   );
 }
 
@@ -1248,17 +1246,21 @@ export const InputConfluentCloud$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => InputConfluentCloudInputCollectionPart0Type$inboundSchema),
-  z.lazy(() => InputConfluentCloudInputCollectionPart1Type$inboundSchema),
-  z.lazy(() => InputConfluentCloudInputCollectionPart0Type1$inboundSchema),
-  z.lazy(() => InputConfluentCloudInputCollectionPart1Type1$inboundSchema),
+  z.lazy(() =>
+    InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() =>
+    InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() => InputConfluentCloudPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputConfluentCloudPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputConfluentCloud$Outbound =
-  | InputConfluentCloudInputCollectionPart0Type$Outbound
-  | InputConfluentCloudInputCollectionPart1Type$Outbound
-  | InputConfluentCloudInputCollectionPart0Type1$Outbound
-  | InputConfluentCloudInputCollectionPart1Type1$Outbound;
+  | InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint$Outbound
+  | InputConfluentCloudPqEnabledFalseWithPqConstraint$Outbound
+  | InputConfluentCloudPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
 export const InputConfluentCloud$outboundSchema: z.ZodType<
@@ -1266,10 +1268,16 @@ export const InputConfluentCloud$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputConfluentCloud
 > = z.union([
-  z.lazy(() => InputConfluentCloudInputCollectionPart0Type$outboundSchema),
-  z.lazy(() => InputConfluentCloudInputCollectionPart1Type$outboundSchema),
-  z.lazy(() => InputConfluentCloudInputCollectionPart0Type1$outboundSchema),
-  z.lazy(() => InputConfluentCloudInputCollectionPart1Type1$outboundSchema),
+  z.lazy(() =>
+    InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() =>
+    InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() =>
+    InputConfluentCloudPqEnabledFalseWithPqConstraint$outboundSchema
+  ),
+  z.lazy(() => InputConfluentCloudPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 
 export function inputConfluentCloudToJSON(

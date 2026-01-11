@@ -3,10 +3,78 @@
 
 ## Supported Types
 
-### `models.InputCriblmetricsInputCollectionPart0Type`
+### `models.InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputCriblmetricsInputCollectionPart0Type = {
+const value: models.InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint =
+  {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "criblmetrics",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "round sting yahoo tiny unless as sleepily",
+  };
+```
+
+### `models.InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value:
+  models.InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint = {
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    id: "<id>",
+    type: "criblmetrics",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pq: {
+      pqControls: {},
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description:
+      "incline furthermore beneath along average regularly calculus until newsstand",
+  };
+```
+
+### `models.InputCriblmetricsPqEnabledFalseWithPqConstraint`
+
+```typescript
+const value: models.InputCriblmetricsPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "criblmetrics",
   pipeline: "<value>",
@@ -20,30 +88,23 @@ const value: models.InputCriblmetricsInputCollectionPart0Type = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "with unless unless naughty whose unpleasant or complete tense fraternise",
+  description: "reward dull ouch monstrous",
 };
 ```
 
-### `models.InputCriblmetricsInputCollectionPart1Type`
+### `models.InputCriblmetricsPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputCriblmetricsInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+const value: models.InputCriblmetricsPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "criblmetrics",
   pipeline: "<value>",
@@ -51,31 +112,6 @@ const value: models.InputCriblmetricsInputCollectionPart1Type = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "upliftingly splendid boo vice stormy fowl gee ironclad digital",
-};
-```
-
-### `models.InputCriblmetricsInputCollectionPart0Type1`
-
-```typescript
-const value: models.InputCriblmetricsInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "criblmetrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
   ],
   connections: [
     {
@@ -83,9 +119,6 @@ const value: models.InputCriblmetricsInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   metadata: [
     {
       name: "<value>",
@@ -93,38 +126,7 @@ const value: models.InputCriblmetricsInputCollectionPart0Type1 = {
     },
   ],
   description:
-    "shrill galvanize afterwards huzzah bah miskey duh stall majestically versus",
-};
-```
-
-### `models.InputCriblmetricsInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputCriblmetricsInputCollectionPart1Type1 = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "criblmetrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "against nor outside wash innocently",
+    "inasmuch properly indeed as vicinity trench defiantly and blindly yuck",
 };
 ```
 

@@ -42,7 +42,7 @@ export const InputAzureBlobType = {
 } as const;
 export type InputAzureBlobType = ClosedEnum<typeof InputAzureBlobType>;
 
-export type InputAzureBlobInputCollectionPart1Type1 = {
+export type InputAzureBlobPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
@@ -159,11 +159,12 @@ export type InputAzureBlobInputCollectionPart1Type1 = {
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
 };
 
-export type InputAzureBlobInputCollectionPart0Type1 = {
+export type InputAzureBlobPqEnabledFalseWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
@@ -190,6 +191,122 @@ export type InputAzureBlobInputCollectionPart0Type1 = {
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
+   */
+  queueName: string;
+  /**
+   * Regex matching file names to download and process. Defaults to: .*
+   */
+  fileFilter?: string | undefined;
+  /**
+   * The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request.
+   */
+  visibilityTimeout?: number | undefined;
+  /**
+   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+   */
+  numReceivers?: number | undefined;
+  /**
+   * The maximum number of messages to return in a poll request. Azure storage queues never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 32.
+   */
+  maxMessages?: number | undefined;
+  /**
+   * The duration (in seconds) which pollers should be validated and restarted if exited
+   */
+  servicePeriodSecs?: number | undefined;
+  /**
+   * Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+   */
+  skipOnError?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Maximum file size for each Parquet chunk
+   */
+  parquetChunkSizeMB?: number | undefined;
+  /**
+   * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+   */
+  parquetChunkDownloadTimeout?: number | undefined;
+  authType?: AuthenticationMethodOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+};
+
+export type InputAzureBlobSendToRoutesFalseWithConnectionsConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnections> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputAzureBlobType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
   pq?: PqType | undefined;
   /**
    * The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
@@ -276,7 +393,7 @@ export type InputAzureBlobInputCollectionPart0Type1 = {
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
 };
 
-export type InputAzureBlobInputCollectionPart1Type = {
+export type InputAzureBlobSendToRoutesTrueWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
@@ -307,123 +424,6 @@ export type InputAzureBlobInputCollectionPart1Type = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
-   */
-  queueName: string;
-  /**
-   * Regex matching file names to download and process. Defaults to: .*
-   */
-  fileFilter?: string | undefined;
-  /**
-   * The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request.
-   */
-  visibilityTimeout?: number | undefined;
-  /**
-   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-   */
-  numReceivers?: number | undefined;
-  /**
-   * The maximum number of messages to return in a poll request. Azure storage queues never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 32.
-   */
-  maxMessages?: number | undefined;
-  /**
-   * The duration (in seconds) which pollers should be validated and restarted if exited
-   */
-  servicePeriodSecs?: number | undefined;
-  /**
-   * Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
-   */
-  skipOnError?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
-   * Maximum file size for each Parquet chunk
-   */
-  parquetChunkSizeMB?: number | undefined;
-  /**
-   * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-   */
-  parquetChunkDownloadTimeout?: number | undefined;
-  authType?: AuthenticationMethodOptions | undefined;
-  description?: string | undefined;
-  /**
-   * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
-   */
-  connectionString?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-  /**
-   * The name of your Azure storage account
-   */
-  storageAccountName?: string | undefined;
-  /**
-   * The service principal's tenant ID
-   */
-  tenantId?: string | undefined;
-  /**
-   * The service principal's client ID
-   */
-  clientId?: string | undefined;
-  /**
-   * The Azure cloud to use. Defaults to Azure Public Cloud.
-   */
-  azureCloud?: string | undefined;
-  /**
-   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
-   */
-  endpointSuffix?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  clientTextSecret?: string | undefined;
-  certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
-};
-
-export type InputAzureBlobInputCollectionPart0Type = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputAzureBlobType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnections> | undefined;
   pq?: PqType | undefined;
   /**
    * The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
@@ -511,10 +511,10 @@ export type InputAzureBlobInputCollectionPart0Type = {
 };
 
 export type InputAzureBlob =
-  | InputAzureBlobInputCollectionPart0Type
-  | InputAzureBlobInputCollectionPart1Type
-  | InputAzureBlobInputCollectionPart0Type1
-  | InputAzureBlobInputCollectionPart1Type1;
+  | InputAzureBlobSendToRoutesTrueWithConnectionsConstraint
+  | InputAzureBlobSendToRoutesFalseWithConnectionsConstraint
+  | InputAzureBlobPqEnabledFalseWithPqConstraint
+  | InputAzureBlobPqEnabledTrueWithPqConstraint;
 
 /** @internal */
 export const InputAzureBlobType$inboundSchema: z.ZodNativeEnum<
@@ -526,48 +526,49 @@ export const InputAzureBlobType$outboundSchema: z.ZodNativeEnum<
 > = InputAzureBlobType$inboundSchema;
 
 /** @internal */
-export const InputAzureBlobInputCollectionPart1Type1$inboundSchema: z.ZodType<
-  InputAzureBlobInputCollectionPart1Type1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  pq: PqType$inboundSchema.optional(),
-  id: z.string().optional(),
-  type: InputAzureBlobType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  maxMessages: z.number().default(1),
-  servicePeriodSecs: z.number().default(5),
-  skipOnError: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
-  authType: AuthenticationMethodOptions$inboundSchema.default("manual"),
-  description: z.string().optional(),
-  connectionString: z.string().optional(),
-  textSecret: z.string().optional(),
-  storageAccountName: z.string().optional(),
-  tenantId: z.string().optional(),
-  clientId: z.string().optional(),
-  azureCloud: z.string().optional(),
-  endpointSuffix: z.string().optional(),
-  clientTextSecret: z.string().optional(),
-  certificate: CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema
-    .optional(),
-});
+export const InputAzureBlobPqEnabledTrueWithPqConstraint$inboundSchema:
+  z.ZodType<
+    InputAzureBlobPqEnabledTrueWithPqConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputAzureBlobType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    queueName: z.string(),
+    fileFilter: z.string().default("/.*/"),
+    visibilityTimeout: z.number().default(600),
+    numReceivers: z.number().default(1),
+    maxMessages: z.number().default(1),
+    servicePeriodSecs: z.number().default(5),
+    skipOnError: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    breakerRulesets: z.array(z.string()).optional(),
+    staleChannelFlushMs: z.number().default(10000),
+    parquetChunkSizeMB: z.number().default(5),
+    parquetChunkDownloadTimeout: z.number().default(600),
+    authType: AuthenticationMethodOptions$inboundSchema.default("manual"),
+    description: z.string().optional(),
+    connectionString: z.string().optional(),
+    textSecret: z.string().optional(),
+    storageAccountName: z.string().optional(),
+    tenantId: z.string().optional(),
+    clientId: z.string().optional(),
+    azureCloud: z.string().optional(),
+    endpointSuffix: z.string().optional(),
+    clientTextSecret: z.string().optional(),
+    certificate: CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema
+      .optional(),
+  });
 /** @internal */
-export type InputAzureBlobInputCollectionPart1Type1$Outbound = {
+export type InputAzureBlobPqEnabledTrueWithPqConstraint$Outbound = {
   pqEnabled: boolean;
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
@@ -604,117 +605,120 @@ export type InputAzureBlobInputCollectionPart1Type1$Outbound = {
 };
 
 /** @internal */
-export const InputAzureBlobInputCollectionPart1Type1$outboundSchema: z.ZodType<
-  InputAzureBlobInputCollectionPart1Type1$Outbound,
-  z.ZodTypeDef,
-  InputAzureBlobInputCollectionPart1Type1
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  pq: PqType$outboundSchema.optional(),
-  id: z.string().optional(),
-  type: InputAzureBlobType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  maxMessages: z.number().default(1),
-  servicePeriodSecs: z.number().default(5),
-  skipOnError: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
-  authType: AuthenticationMethodOptions$outboundSchema.default("manual"),
-  description: z.string().optional(),
-  connectionString: z.string().optional(),
-  textSecret: z.string().optional(),
-  storageAccountName: z.string().optional(),
-  tenantId: z.string().optional(),
-  clientId: z.string().optional(),
-  azureCloud: z.string().optional(),
-  endpointSuffix: z.string().optional(),
-  clientTextSecret: z.string().optional(),
-  certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
-    .optional(),
-});
+export const InputAzureBlobPqEnabledTrueWithPqConstraint$outboundSchema:
+  z.ZodType<
+    InputAzureBlobPqEnabledTrueWithPqConstraint$Outbound,
+    z.ZodTypeDef,
+    InputAzureBlobPqEnabledTrueWithPqConstraint
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputAzureBlobType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    queueName: z.string(),
+    fileFilter: z.string().default("/.*/"),
+    visibilityTimeout: z.number().default(600),
+    numReceivers: z.number().default(1),
+    maxMessages: z.number().default(1),
+    servicePeriodSecs: z.number().default(5),
+    skipOnError: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    breakerRulesets: z.array(z.string()).optional(),
+    staleChannelFlushMs: z.number().default(10000),
+    parquetChunkSizeMB: z.number().default(5),
+    parquetChunkDownloadTimeout: z.number().default(600),
+    authType: AuthenticationMethodOptions$outboundSchema.default("manual"),
+    description: z.string().optional(),
+    connectionString: z.string().optional(),
+    textSecret: z.string().optional(),
+    storageAccountName: z.string().optional(),
+    tenantId: z.string().optional(),
+    clientId: z.string().optional(),
+    azureCloud: z.string().optional(),
+    endpointSuffix: z.string().optional(),
+    clientTextSecret: z.string().optional(),
+    certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
+      .optional(),
+  });
 
-export function inputAzureBlobInputCollectionPart1Type1ToJSON(
-  inputAzureBlobInputCollectionPart1Type1:
-    InputAzureBlobInputCollectionPart1Type1,
+export function inputAzureBlobPqEnabledTrueWithPqConstraintToJSON(
+  inputAzureBlobPqEnabledTrueWithPqConstraint:
+    InputAzureBlobPqEnabledTrueWithPqConstraint,
 ): string {
   return JSON.stringify(
-    InputAzureBlobInputCollectionPart1Type1$outboundSchema.parse(
-      inputAzureBlobInputCollectionPart1Type1,
+    InputAzureBlobPqEnabledTrueWithPqConstraint$outboundSchema.parse(
+      inputAzureBlobPqEnabledTrueWithPqConstraint,
     ),
   );
 }
-export function inputAzureBlobInputCollectionPart1Type1FromJSON(
+export function inputAzureBlobPqEnabledTrueWithPqConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputAzureBlobInputCollectionPart1Type1,
+  InputAzureBlobPqEnabledTrueWithPqConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputAzureBlobInputCollectionPart1Type1$inboundSchema.parse(
+      InputAzureBlobPqEnabledTrueWithPqConstraint$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputAzureBlobInputCollectionPart1Type1' from JSON`,
+    `Failed to parse 'InputAzureBlobPqEnabledTrueWithPqConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputAzureBlobInputCollectionPart0Type1$inboundSchema: z.ZodType<
-  InputAzureBlobInputCollectionPart0Type1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  id: z.string().optional(),
-  type: InputAzureBlobType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  maxMessages: z.number().default(1),
-  servicePeriodSecs: z.number().default(5),
-  skipOnError: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
-  authType: AuthenticationMethodOptions$inboundSchema.default("manual"),
-  description: z.string().optional(),
-  connectionString: z.string().optional(),
-  textSecret: z.string().optional(),
-  storageAccountName: z.string().optional(),
-  tenantId: z.string().optional(),
-  clientId: z.string().optional(),
-  azureCloud: z.string().optional(),
-  endpointSuffix: z.string().optional(),
-  clientTextSecret: z.string().optional(),
-  certificate: CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema
-    .optional(),
-});
+export const InputAzureBlobPqEnabledFalseWithPqConstraint$inboundSchema:
+  z.ZodType<
+    InputAzureBlobPqEnabledFalseWithPqConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputAzureBlobType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    queueName: z.string(),
+    fileFilter: z.string().default("/.*/"),
+    visibilityTimeout: z.number().default(600),
+    numReceivers: z.number().default(1),
+    maxMessages: z.number().default(1),
+    servicePeriodSecs: z.number().default(5),
+    skipOnError: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    breakerRulesets: z.array(z.string()).optional(),
+    staleChannelFlushMs: z.number().default(10000),
+    parquetChunkSizeMB: z.number().default(5),
+    parquetChunkDownloadTimeout: z.number().default(600),
+    authType: AuthenticationMethodOptions$inboundSchema.default("manual"),
+    description: z.string().optional(),
+    connectionString: z.string().optional(),
+    textSecret: z.string().optional(),
+    storageAccountName: z.string().optional(),
+    tenantId: z.string().optional(),
+    clientId: z.string().optional(),
+    azureCloud: z.string().optional(),
+    endpointSuffix: z.string().optional(),
+    clientTextSecret: z.string().optional(),
+    certificate: CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema
+      .optional(),
+  });
 /** @internal */
-export type InputAzureBlobInputCollectionPart0Type1$Outbound = {
+export type InputAzureBlobPqEnabledFalseWithPqConstraint$Outbound = {
   pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -723,7 +727,6 @@ export type InputAzureBlobInputCollectionPart0Type1$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
   queueName: string;
   fileFilter: string;
   visibilityTimeout: number;
@@ -750,116 +753,267 @@ export type InputAzureBlobInputCollectionPart0Type1$Outbound = {
 };
 
 /** @internal */
-export const InputAzureBlobInputCollectionPart0Type1$outboundSchema: z.ZodType<
-  InputAzureBlobInputCollectionPart0Type1$Outbound,
-  z.ZodTypeDef,
-  InputAzureBlobInputCollectionPart0Type1
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  id: z.string().optional(),
-  type: InputAzureBlobType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  maxMessages: z.number().default(1),
-  servicePeriodSecs: z.number().default(5),
-  skipOnError: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
-  authType: AuthenticationMethodOptions$outboundSchema.default("manual"),
-  description: z.string().optional(),
-  connectionString: z.string().optional(),
-  textSecret: z.string().optional(),
-  storageAccountName: z.string().optional(),
-  tenantId: z.string().optional(),
-  clientId: z.string().optional(),
-  azureCloud: z.string().optional(),
-  endpointSuffix: z.string().optional(),
-  clientTextSecret: z.string().optional(),
-  certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
-    .optional(),
-});
+export const InputAzureBlobPqEnabledFalseWithPqConstraint$outboundSchema:
+  z.ZodType<
+    InputAzureBlobPqEnabledFalseWithPqConstraint$Outbound,
+    z.ZodTypeDef,
+    InputAzureBlobPqEnabledFalseWithPqConstraint
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputAzureBlobType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    queueName: z.string(),
+    fileFilter: z.string().default("/.*/"),
+    visibilityTimeout: z.number().default(600),
+    numReceivers: z.number().default(1),
+    maxMessages: z.number().default(1),
+    servicePeriodSecs: z.number().default(5),
+    skipOnError: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    breakerRulesets: z.array(z.string()).optional(),
+    staleChannelFlushMs: z.number().default(10000),
+    parquetChunkSizeMB: z.number().default(5),
+    parquetChunkDownloadTimeout: z.number().default(600),
+    authType: AuthenticationMethodOptions$outboundSchema.default("manual"),
+    description: z.string().optional(),
+    connectionString: z.string().optional(),
+    textSecret: z.string().optional(),
+    storageAccountName: z.string().optional(),
+    tenantId: z.string().optional(),
+    clientId: z.string().optional(),
+    azureCloud: z.string().optional(),
+    endpointSuffix: z.string().optional(),
+    clientTextSecret: z.string().optional(),
+    certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
+      .optional(),
+  });
 
-export function inputAzureBlobInputCollectionPart0Type1ToJSON(
-  inputAzureBlobInputCollectionPart0Type1:
-    InputAzureBlobInputCollectionPart0Type1,
+export function inputAzureBlobPqEnabledFalseWithPqConstraintToJSON(
+  inputAzureBlobPqEnabledFalseWithPqConstraint:
+    InputAzureBlobPqEnabledFalseWithPqConstraint,
 ): string {
   return JSON.stringify(
-    InputAzureBlobInputCollectionPart0Type1$outboundSchema.parse(
-      inputAzureBlobInputCollectionPart0Type1,
+    InputAzureBlobPqEnabledFalseWithPqConstraint$outboundSchema.parse(
+      inputAzureBlobPqEnabledFalseWithPqConstraint,
     ),
   );
 }
-export function inputAzureBlobInputCollectionPart0Type1FromJSON(
+export function inputAzureBlobPqEnabledFalseWithPqConstraintFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputAzureBlobInputCollectionPart0Type1,
+  InputAzureBlobPqEnabledFalseWithPqConstraint,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputAzureBlobInputCollectionPart0Type1$inboundSchema.parse(
+      InputAzureBlobPqEnabledFalseWithPqConstraint$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputAzureBlobInputCollectionPart0Type1' from JSON`,
+    `Failed to parse 'InputAzureBlobPqEnabledFalseWithPqConstraint' from JSON`,
   );
 }
 
 /** @internal */
-export const InputAzureBlobInputCollectionPart1Type$inboundSchema: z.ZodType<
-  InputAzureBlobInputCollectionPart1Type,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  id: z.string().optional(),
-  type: InputAzureBlobType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  pq: PqType$inboundSchema.optional(),
-  queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  maxMessages: z.number().default(1),
-  servicePeriodSecs: z.number().default(5),
-  skipOnError: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
-  authType: AuthenticationMethodOptions$inboundSchema.default("manual"),
-  description: z.string().optional(),
-  connectionString: z.string().optional(),
-  textSecret: z.string().optional(),
-  storageAccountName: z.string().optional(),
-  tenantId: z.string().optional(),
-  clientId: z.string().optional(),
-  azureCloud: z.string().optional(),
-  endpointSuffix: z.string().optional(),
-  clientTextSecret: z.string().optional(),
-  certificate: CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema
-    .optional(),
-});
+export const InputAzureBlobSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputAzureBlobSendToRoutesFalseWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputAzureBlobType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    queueName: z.string(),
+    fileFilter: z.string().default("/.*/"),
+    visibilityTimeout: z.number().default(600),
+    numReceivers: z.number().default(1),
+    maxMessages: z.number().default(1),
+    servicePeriodSecs: z.number().default(5),
+    skipOnError: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    breakerRulesets: z.array(z.string()).optional(),
+    staleChannelFlushMs: z.number().default(10000),
+    parquetChunkSizeMB: z.number().default(5),
+    parquetChunkDownloadTimeout: z.number().default(600),
+    authType: AuthenticationMethodOptions$inboundSchema.default("manual"),
+    description: z.string().optional(),
+    connectionString: z.string().optional(),
+    textSecret: z.string().optional(),
+    storageAccountName: z.string().optional(),
+    tenantId: z.string().optional(),
+    clientId: z.string().optional(),
+    azureCloud: z.string().optional(),
+    endpointSuffix: z.string().optional(),
+    clientTextSecret: z.string().optional(),
+    certificate: CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema
+      .optional(),
+  });
 /** @internal */
-export type InputAzureBlobInputCollectionPart1Type$Outbound = {
+export type InputAzureBlobSendToRoutesFalseWithConnectionsConstraint$Outbound =
+  {
+    sendToRoutes: boolean;
+    connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+    id?: string | undefined;
+    type: string;
+    disabled: boolean;
+    pipeline?: string | undefined;
+    environment?: string | undefined;
+    pqEnabled: boolean;
+    streamtags?: Array<string> | undefined;
+    pq?: PqType$Outbound | undefined;
+    queueName: string;
+    fileFilter: string;
+    visibilityTimeout: number;
+    numReceivers: number;
+    maxMessages: number;
+    servicePeriodSecs: number;
+    skipOnError: boolean;
+    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+    breakerRulesets?: Array<string> | undefined;
+    staleChannelFlushMs: number;
+    parquetChunkSizeMB: number;
+    parquetChunkDownloadTimeout: number;
+    authType: string;
+    description?: string | undefined;
+    connectionString?: string | undefined;
+    textSecret?: string | undefined;
+    storageAccountName?: string | undefined;
+    tenantId?: string | undefined;
+    clientId?: string | undefined;
+    azureCloud?: string | undefined;
+    endpointSuffix?: string | undefined;
+    clientTextSecret?: string | undefined;
+    certificate?:
+      | CertificateTypeAzureBlobAuthTypeClientCert$Outbound
+      | undefined;
+  };
+
+/** @internal */
+export const InputAzureBlobSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputAzureBlobSendToRoutesFalseWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputAzureBlobSendToRoutesFalseWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputAzureBlobType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    queueName: z.string(),
+    fileFilter: z.string().default("/.*/"),
+    visibilityTimeout: z.number().default(600),
+    numReceivers: z.number().default(1),
+    maxMessages: z.number().default(1),
+    servicePeriodSecs: z.number().default(5),
+    skipOnError: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    breakerRulesets: z.array(z.string()).optional(),
+    staleChannelFlushMs: z.number().default(10000),
+    parquetChunkSizeMB: z.number().default(5),
+    parquetChunkDownloadTimeout: z.number().default(600),
+    authType: AuthenticationMethodOptions$outboundSchema.default("manual"),
+    description: z.string().optional(),
+    connectionString: z.string().optional(),
+    textSecret: z.string().optional(),
+    storageAccountName: z.string().optional(),
+    tenantId: z.string().optional(),
+    clientId: z.string().optional(),
+    azureCloud: z.string().optional(),
+    endpointSuffix: z.string().optional(),
+    clientTextSecret: z.string().optional(),
+    certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
+      .optional(),
+  });
+
+export function inputAzureBlobSendToRoutesFalseWithConnectionsConstraintToJSON(
+  inputAzureBlobSendToRoutesFalseWithConnectionsConstraint:
+    InputAzureBlobSendToRoutesFalseWithConnectionsConstraint,
+): string {
+  return JSON.stringify(
+    InputAzureBlobSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+      .parse(inputAzureBlobSendToRoutesFalseWithConnectionsConstraint),
+  );
+}
+export function inputAzureBlobSendToRoutesFalseWithConnectionsConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputAzureBlobSendToRoutesFalseWithConnectionsConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputAzureBlobSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputAzureBlobSendToRoutesFalseWithConnectionsConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAzureBlobSendToRoutesTrueWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputAzureBlobSendToRoutesTrueWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputAzureBlobType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    queueName: z.string(),
+    fileFilter: z.string().default("/.*/"),
+    visibilityTimeout: z.number().default(600),
+    numReceivers: z.number().default(1),
+    maxMessages: z.number().default(1),
+    servicePeriodSecs: z.number().default(5),
+    skipOnError: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    breakerRulesets: z.array(z.string()).optional(),
+    staleChannelFlushMs: z.number().default(10000),
+    parquetChunkSizeMB: z.number().default(5),
+    parquetChunkDownloadTimeout: z.number().default(600),
+    authType: AuthenticationMethodOptions$inboundSchema.default("manual"),
+    description: z.string().optional(),
+    connectionString: z.string().optional(),
+    textSecret: z.string().optional(),
+    storageAccountName: z.string().optional(),
+    tenantId: z.string().optional(),
+    clientId: z.string().optional(),
+    azureCloud: z.string().optional(),
+    endpointSuffix: z.string().optional(),
+    clientTextSecret: z.string().optional(),
+    certificate: CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema
+      .optional(),
+  });
+/** @internal */
+export type InputAzureBlobSendToRoutesTrueWithConnectionsConstraint$Outbound = {
   sendToRoutes: boolean;
   connections?: Array<ItemsTypeConnections$Outbound> | undefined;
   id?: string | undefined;
@@ -896,206 +1050,69 @@ export type InputAzureBlobInputCollectionPart1Type$Outbound = {
 };
 
 /** @internal */
-export const InputAzureBlobInputCollectionPart1Type$outboundSchema: z.ZodType<
-  InputAzureBlobInputCollectionPart1Type$Outbound,
-  z.ZodTypeDef,
-  InputAzureBlobInputCollectionPart1Type
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  id: z.string().optional(),
-  type: InputAzureBlobType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  pq: PqType$outboundSchema.optional(),
-  queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  maxMessages: z.number().default(1),
-  servicePeriodSecs: z.number().default(5),
-  skipOnError: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
-  authType: AuthenticationMethodOptions$outboundSchema.default("manual"),
-  description: z.string().optional(),
-  connectionString: z.string().optional(),
-  textSecret: z.string().optional(),
-  storageAccountName: z.string().optional(),
-  tenantId: z.string().optional(),
-  clientId: z.string().optional(),
-  azureCloud: z.string().optional(),
-  endpointSuffix: z.string().optional(),
-  clientTextSecret: z.string().optional(),
-  certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
-    .optional(),
-});
+export const InputAzureBlobSendToRoutesTrueWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputAzureBlobSendToRoutesTrueWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputAzureBlobSendToRoutesTrueWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputAzureBlobType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    queueName: z.string(),
+    fileFilter: z.string().default("/.*/"),
+    visibilityTimeout: z.number().default(600),
+    numReceivers: z.number().default(1),
+    maxMessages: z.number().default(1),
+    servicePeriodSecs: z.number().default(5),
+    skipOnError: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    breakerRulesets: z.array(z.string()).optional(),
+    staleChannelFlushMs: z.number().default(10000),
+    parquetChunkSizeMB: z.number().default(5),
+    parquetChunkDownloadTimeout: z.number().default(600),
+    authType: AuthenticationMethodOptions$outboundSchema.default("manual"),
+    description: z.string().optional(),
+    connectionString: z.string().optional(),
+    textSecret: z.string().optional(),
+    storageAccountName: z.string().optional(),
+    tenantId: z.string().optional(),
+    clientId: z.string().optional(),
+    azureCloud: z.string().optional(),
+    endpointSuffix: z.string().optional(),
+    clientTextSecret: z.string().optional(),
+    certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
+      .optional(),
+  });
 
-export function inputAzureBlobInputCollectionPart1TypeToJSON(
-  inputAzureBlobInputCollectionPart1Type:
-    InputAzureBlobInputCollectionPart1Type,
+export function inputAzureBlobSendToRoutesTrueWithConnectionsConstraintToJSON(
+  inputAzureBlobSendToRoutesTrueWithConnectionsConstraint:
+    InputAzureBlobSendToRoutesTrueWithConnectionsConstraint,
 ): string {
   return JSON.stringify(
-    InputAzureBlobInputCollectionPart1Type$outboundSchema.parse(
-      inputAzureBlobInputCollectionPart1Type,
-    ),
+    InputAzureBlobSendToRoutesTrueWithConnectionsConstraint$outboundSchema
+      .parse(inputAzureBlobSendToRoutesTrueWithConnectionsConstraint),
   );
 }
-export function inputAzureBlobInputCollectionPart1TypeFromJSON(
+export function inputAzureBlobSendToRoutesTrueWithConnectionsConstraintFromJSON(
   jsonString: string,
-): SafeParseResult<InputAzureBlobInputCollectionPart1Type, SDKValidationError> {
+): SafeParseResult<
+  InputAzureBlobSendToRoutesTrueWithConnectionsConstraint,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      InputAzureBlobInputCollectionPart1Type$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputAzureBlobInputCollectionPart1Type' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputAzureBlobInputCollectionPart0Type$inboundSchema: z.ZodType<
-  InputAzureBlobInputCollectionPart0Type,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputAzureBlobType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  maxMessages: z.number().default(1),
-  servicePeriodSecs: z.number().default(5),
-  skipOnError: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
-  authType: AuthenticationMethodOptions$inboundSchema.default("manual"),
-  description: z.string().optional(),
-  connectionString: z.string().optional(),
-  textSecret: z.string().optional(),
-  storageAccountName: z.string().optional(),
-  tenantId: z.string().optional(),
-  clientId: z.string().optional(),
-  azureCloud: z.string().optional(),
-  endpointSuffix: z.string().optional(),
-  clientTextSecret: z.string().optional(),
-  certificate: CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema
-    .optional(),
-});
-/** @internal */
-export type InputAzureBlobInputCollectionPart0Type$Outbound = {
-  sendToRoutes: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  queueName: string;
-  fileFilter: string;
-  visibilityTimeout: number;
-  numReceivers: number;
-  maxMessages: number;
-  servicePeriodSecs: number;
-  skipOnError: boolean;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
-  authType: string;
-  description?: string | undefined;
-  connectionString?: string | undefined;
-  textSecret?: string | undefined;
-  storageAccountName?: string | undefined;
-  tenantId?: string | undefined;
-  clientId?: string | undefined;
-  azureCloud?: string | undefined;
-  endpointSuffix?: string | undefined;
-  clientTextSecret?: string | undefined;
-  certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
-};
-
-/** @internal */
-export const InputAzureBlobInputCollectionPart0Type$outboundSchema: z.ZodType<
-  InputAzureBlobInputCollectionPart0Type$Outbound,
-  z.ZodTypeDef,
-  InputAzureBlobInputCollectionPart0Type
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputAzureBlobType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  maxMessages: z.number().default(1),
-  servicePeriodSecs: z.number().default(5),
-  skipOnError: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
-  authType: AuthenticationMethodOptions$outboundSchema.default("manual"),
-  description: z.string().optional(),
-  connectionString: z.string().optional(),
-  textSecret: z.string().optional(),
-  storageAccountName: z.string().optional(),
-  tenantId: z.string().optional(),
-  clientId: z.string().optional(),
-  azureCloud: z.string().optional(),
-  endpointSuffix: z.string().optional(),
-  clientTextSecret: z.string().optional(),
-  certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
-    .optional(),
-});
-
-export function inputAzureBlobInputCollectionPart0TypeToJSON(
-  inputAzureBlobInputCollectionPart0Type:
-    InputAzureBlobInputCollectionPart0Type,
-): string {
-  return JSON.stringify(
-    InputAzureBlobInputCollectionPart0Type$outboundSchema.parse(
-      inputAzureBlobInputCollectionPart0Type,
-    ),
-  );
-}
-export function inputAzureBlobInputCollectionPart0TypeFromJSON(
-  jsonString: string,
-): SafeParseResult<InputAzureBlobInputCollectionPart0Type, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputAzureBlobInputCollectionPart0Type$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputAzureBlobInputCollectionPart0Type' from JSON`,
+      InputAzureBlobSendToRoutesTrueWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputAzureBlobSendToRoutesTrueWithConnectionsConstraint' from JSON`,
   );
 }
 
@@ -1105,17 +1122,21 @@ export const InputAzureBlob$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => InputAzureBlobInputCollectionPart0Type$inboundSchema),
-  z.lazy(() => InputAzureBlobInputCollectionPart1Type$inboundSchema),
-  z.lazy(() => InputAzureBlobInputCollectionPart0Type1$inboundSchema),
-  z.lazy(() => InputAzureBlobInputCollectionPart1Type1$inboundSchema),
+  z.lazy(() =>
+    InputAzureBlobSendToRoutesTrueWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() =>
+    InputAzureBlobSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() => InputAzureBlobPqEnabledFalseWithPqConstraint$inboundSchema),
+  z.lazy(() => InputAzureBlobPqEnabledTrueWithPqConstraint$inboundSchema),
 ]);
 /** @internal */
 export type InputAzureBlob$Outbound =
-  | InputAzureBlobInputCollectionPart0Type$Outbound
-  | InputAzureBlobInputCollectionPart1Type$Outbound
-  | InputAzureBlobInputCollectionPart0Type1$Outbound
-  | InputAzureBlobInputCollectionPart1Type1$Outbound;
+  | InputAzureBlobSendToRoutesTrueWithConnectionsConstraint$Outbound
+  | InputAzureBlobSendToRoutesFalseWithConnectionsConstraint$Outbound
+  | InputAzureBlobPqEnabledFalseWithPqConstraint$Outbound
+  | InputAzureBlobPqEnabledTrueWithPqConstraint$Outbound;
 
 /** @internal */
 export const InputAzureBlob$outboundSchema: z.ZodType<
@@ -1123,10 +1144,14 @@ export const InputAzureBlob$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputAzureBlob
 > = z.union([
-  z.lazy(() => InputAzureBlobInputCollectionPart0Type$outboundSchema),
-  z.lazy(() => InputAzureBlobInputCollectionPart1Type$outboundSchema),
-  z.lazy(() => InputAzureBlobInputCollectionPart0Type1$outboundSchema),
-  z.lazy(() => InputAzureBlobInputCollectionPart1Type1$outboundSchema),
+  z.lazy(() =>
+    InputAzureBlobSendToRoutesTrueWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() =>
+    InputAzureBlobSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() => InputAzureBlobPqEnabledFalseWithPqConstraint$outboundSchema),
+  z.lazy(() => InputAzureBlobPqEnabledTrueWithPqConstraint$outboundSchema),
 ]);
 
 export function inputAzureBlobToJSON(inputAzureBlob: InputAzureBlob): string {

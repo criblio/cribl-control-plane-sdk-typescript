@@ -3,10 +3,16 @@
 
 ## Supported Types
 
-### `models.InputWefInputCollectionPart0Type`
+### `models.InputWefSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputWefInputCollectionPart0Type = {
+const value: models.InputWefSendToRoutesTrueWithConnectionsConstraint = {
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
   id: "<id>",
   type: "wef",
   pipeline: "<value>",
@@ -15,11 +21,50 @@ const value: models.InputWefInputCollectionPart0Type = {
     "<value 1>",
     "<value 2>",
   ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
+    keytab: "<value>",
+    principal: "<value>",
+  },
+  caFingerprint: "<value>",
+  keytab: "<value>",
+  principal: "<value>",
+  subscriptions: [],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "perspire um upwardly",
+};
+```
+
+### `models.InputWefSendToRoutesFalseWithConnectionsConstraint`
+
+```typescript
+const value: models.InputWefSendToRoutesFalseWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
       output: "<value>",
     },
+  ],
+  id: "<id>",
+  type: "wef",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
   ],
   pq: {
     pqControls: {},
@@ -64,105 +109,14 @@ const value: models.InputWefInputCollectionPart0Type = {
       value: "<value>",
     },
   ],
-  description:
-    "ick except arrogantly halt nearly provision flickering with circle",
+  description: "gymnast hexagon greedily from boohoo well-made goat yum",
 };
 ```
 
-### `models.InputWefInputCollectionPart1Type`
+### `models.InputWefPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: models.InputWefInputCollectionPart1Type = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "wef",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
-    keytab: "<value>",
-    principal: "<value>",
-  },
-  caFingerprint: "<value>",
-  keytab: "<value>",
-  principal: "<value>",
-  subscriptions: [],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "sashay polyester democratize clear ouch",
-};
-```
-
-### `models.InputWefInputCollectionPart0Type1`
-
-```typescript
-const value: models.InputWefInputCollectionPart0Type1 = {
-  id: "<id>",
-  type: "wef",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
-    keytab: "<value>",
-    principal: "<value>",
-  },
-  caFingerprint: "<value>",
-  keytab: "<value>",
-  principal: "<value>",
-  subscriptions: [],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "kissingly failing a circa revere where consequently knife",
-};
-```
-
-### `models.InputWefInputCollectionPart1Type1`
-
-```typescript
-const value: models.InputWefInputCollectionPart1Type1 = {
+const value: models.InputWefPqEnabledFalseWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -193,14 +147,97 @@ const value: models.InputWefInputCollectionPart1Type1 = {
   caFingerprint: "<value>",
   keytab: "<value>",
   principal: "<value>",
-  subscriptions: [],
+  subscriptions: [
+    {
+      subscriptionName: "<value>",
+      version: "<value>",
+      targets: [],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      queries: [
+        {
+          path: "/media",
+          queryExpression: "<value>",
+        },
+      ],
+      xmlQuery: "<value>",
+    },
+  ],
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "adaptation sneak sorrowful surprisingly dulcimer deeply",
+  description: "symbolise welcome floss",
+};
+```
+
+### `models.InputWefPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: models.InputWefPqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "wef",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
+    keytab: "<value>",
+    principal: "<value>",
+  },
+  caFingerprint: "<value>",
+  keytab: "<value>",
+  principal: "<value>",
+  subscriptions: [
+    {
+      subscriptionName: "<value>",
+      version: "<value>",
+      targets: [],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      queries: [
+        {
+          path: "/media",
+          queryExpression: "<value>",
+        },
+      ],
+      xmlQuery: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "going disinherit gently besides before adumbrate",
 };
 ```
 

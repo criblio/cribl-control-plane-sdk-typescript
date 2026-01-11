@@ -3,27 +3,29 @@
 
 ## Supported Types
 
-### `models.InputSplunkHecInputCollectionPart0Type`
+### `models.InputSplunkHecSendToRoutesTrueWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputSplunkHecInputCollectionPart0Type = {
-  id: "<id>",
-  type: "splunk_hec",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
+const value: models.InputSplunkHecSendToRoutesTrueWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
       output: "<value>",
     },
   ],
+  id: "<id>",
+  type: "splunk_hec",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
   pq: {
     pqControls: {},
   },
-  port: 8073.04,
+  port: 6918.82,
   authTokens: [
     {
       tokenSecret: "<value>",
@@ -60,6 +62,8 @@ const value: models.InputSplunkHecInputCollectionPart0Type = {
   ],
   allowedIndexes: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   breakerRulesets: [
     "<value 1>",
@@ -68,20 +72,19 @@ const value: models.InputSplunkHecInputCollectionPart0Type = {
   ],
   accessControlAllowOrigin: [
     "<value 1>",
+    "<value 2>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  description: "indeed out qua",
+  description: "quietly yahoo flat",
 };
 ```
 
-### `models.InputSplunkHecInputCollectionPart1Type`
+### `models.InputSplunkHecSendToRoutesFalseWithConnectionsConstraint`
 
 ```typescript
-const value: models.InputSplunkHecInputCollectionPart1Type = {
+const value: models.InputSplunkHecSendToRoutesFalseWithConnectionsConstraint = {
   connections: [
     {
       pipeline: "<value>",
@@ -94,11 +97,13 @@ const value: models.InputSplunkHecInputCollectionPart1Type = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   pq: {
     pqControls: {},
   },
-  port: 5917.73,
+  port: 6338.11,
   authTokens: [
     {
       tokenSecret: "<value>",
@@ -135,7 +140,6 @@ const value: models.InputSplunkHecInputCollectionPart1Type = {
   ],
   allowedIndexes: [
     "<value 1>",
-    "<value 2>",
   ],
   breakerRulesets: [
     "<value 1>",
@@ -148,22 +152,29 @@ const value: models.InputSplunkHecInputCollectionPart1Type = {
   ],
   accessControlAllowHeaders: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   description:
-    "off painfully rust economise yahoo chromakey without furthermore",
+    "hassle suspiciously questionably nectarine elevation anenst adolescent monstrous",
 };
 ```
 
-### `models.InputSplunkHecInputCollectionPart0Type1`
+### `models.InputSplunkHecPqEnabledFalseWithPqConstraint`
 
 ```typescript
-const value: models.InputSplunkHecInputCollectionPart0Type1 = {
+const value: models.InputSplunkHecPqEnabledFalseWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
   id: "<id>",
   type: "splunk_hec",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -171,10 +182,7 @@ const value: models.InputSplunkHecInputCollectionPart0Type1 = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
-  port: 5746.8,
+  port: 8970.91,
   authTokens: [
     {
       tokenSecret: "<value>",
@@ -220,19 +228,20 @@ const value: models.InputSplunkHecInputCollectionPart0Type1 = {
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
   ],
-  description: "tinderbox clear-cut boohoo yuck within when igloo and",
+  description: "grave ape dream brief bouncy to",
 };
 ```
 
-### `models.InputSplunkHecInputCollectionPart1Type1`
+### `models.InputSplunkHecPqEnabledTrueWithPqConstraint`
 
 ```typescript
-const value: models.InputSplunkHecInputCollectionPart1Type1 = {
+const value: models.InputSplunkHecPqEnabledTrueWithPqConstraint = {
   pq: {
     pqControls: {},
   },
@@ -250,7 +259,7 @@ const value: models.InputSplunkHecInputCollectionPart1Type1 = {
       output: "<value>",
     },
   ],
-  port: 5391.92,
+  port: 6473.5,
   authTokens: [
     {
       tokenSecret: "<value>",
@@ -287,24 +296,21 @@ const value: models.InputSplunkHecInputCollectionPart1Type1 = {
   ],
   allowedIndexes: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  description: "mobilise separate yuck airbus cardboard management boo",
+  description: "firm splosh easily that",
 };
 ```
 
