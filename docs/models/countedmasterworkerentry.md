@@ -38,6 +38,7 @@ let value: CountedMasterWorkerEntry = {
             "key": "<value>",
           },
           type: "<value>",
+          vmId: "<id>",
           zone: "<value>",
         },
         conn_ip: "<value>",
@@ -122,6 +123,7 @@ let value: CountedMasterWorkerEntry = {
               "key": "<value>",
             },
             type: "<value>",
+            vmId: "<id>",
             zone: "<value>",
           },
           hostOs: {
@@ -195,6 +197,7 @@ let value: CountedMasterWorkerEntry = {
             "key": "<value>",
           },
           type: "<value>",
+          vmId: "<id>",
           zone: "<value>",
         },
         hostOs: {

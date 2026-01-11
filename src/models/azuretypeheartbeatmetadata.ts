@@ -17,6 +17,7 @@ export type AzureTypeHeartbeatMetadata = {
   subscriptionId?: string | undefined;
   tags?: { [k: string]: string } | undefined;
   type?: string | undefined;
+  vmId?: string | undefined;
   zone?: string | undefined;
 };
 
@@ -35,6 +36,7 @@ export const AzureTypeHeartbeatMetadata$inboundSchema: z.ZodType<
   subscriptionId: z.string().optional(),
   tags: z.record(z.string()).optional(),
   type: z.string().optional(),
+  vmId: z.string().optional(),
   zone: z.string().optional(),
 });
 

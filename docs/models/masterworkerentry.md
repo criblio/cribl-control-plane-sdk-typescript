@@ -35,6 +35,7 @@ let value: MasterWorkerEntry = {
         "key": "<value>",
       },
       type: "<value>",
+      vmId: "<id>",
       zone: "<value>",
     },
     conn_ip: "<value>",
@@ -119,6 +120,7 @@ let value: MasterWorkerEntry = {
           "key": "<value>",
         },
         type: "<value>",
+        vmId: "<id>",
         zone: "<value>",
       },
       hostOs: {
@@ -194,6 +196,7 @@ let value: MasterWorkerEntry = {
         "key": "<value>",
       },
       type: "<value>",
+      vmId: "<id>",
       zone: "<value>",
     },
     hostOs: {
