@@ -27,10 +27,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Create a Worker Group or Edge Fleet for the specified Cribl product
+ * Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
  *
  * @remarks
- * Create a new Worker Group or Edge Fleet for the specified Cribl product.
+ * Create a new Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
  */
 export function groupsCreate(
   client: CriblControlPlaneCore,

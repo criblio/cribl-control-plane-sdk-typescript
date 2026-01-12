@@ -27,10 +27,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * List all Worker Groups or Edge Fleets for the specified Cribl product
+ * List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
  *
  * @remarks
- * Get a list of all Worker Groups or Edge Fleets for the specified Cribl product.
+ * Get a list of all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product.
  */
 export function groupsList(
   client: CriblControlPlaneCore,

@@ -27,10 +27,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get the configuration version for a Worker Group or Edge Fleet
+ * Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
  *
  * @remarks
- * Get the configuration version for the specified Worker Group or Edge Fleet.
+ * Get the configuration version for the specified Worker Group, Outpost Group, or Edge Fleet.
  */
 export function groupsConfigsVersionsGet(
   client: CriblControlPlaneCore,

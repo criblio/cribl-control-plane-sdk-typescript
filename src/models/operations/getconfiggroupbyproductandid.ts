@@ -7,11 +7,11 @@ import * as models from "../index.js";
 
 export type GetConfigGroupByProductAndIdRequest = {
   /**
-   * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
+   * Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for.
    */
   product: models.ProductsCore;
   /**
-   * The <code>id</code> of the Worker Group or Edge Fleet to get.
+   * The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to get.
    */
   id: string;
   /**

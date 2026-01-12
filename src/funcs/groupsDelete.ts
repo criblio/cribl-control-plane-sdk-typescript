@@ -27,10 +27,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Delete a Worker Group or Edge Fleet
+ * Delete a Worker Group, Outpost Group, or Edge Fleet
  *
  * @remarks
- * Delete the specified Worker Group or Edge Fleet.
+ * Delete the specified Worker Group, Outpost Group, or Edge Fleet.
  */
 export function groupsDelete(
   client: CriblControlPlaneCore,
