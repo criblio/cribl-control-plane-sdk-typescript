@@ -16,10 +16,10 @@ export class Acl extends ClientSDK {
   }
 
   /**
-   * Get the Access Control List for a Worker Group or Edge Fleet
+   * Get the Access Control List for a Worker Group, Outpost Group, or Edge Fleet
    *
    * @remarks
-   * Get the Access Control List (ACL) for the specified Worker Group or Edge Fleet.
+   * Get the Access Control List (ACL) for the specified Worker Group, Outpost Group, or Edge Fleet.
    */
   async get(
     request: operations.GetConfigGroupAclByProductAndIdRequest,

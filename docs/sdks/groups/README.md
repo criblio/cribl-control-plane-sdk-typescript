@@ -6,16 +6,16 @@ Actions related to Groups
 
 ### Available Operations
 
-* [list](#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
-* [create](#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
-* [get](#get) - Get a Worker Group or Edge Fleet
-* [update](#update) - Update a Worker Group or Edge Fleet
-* [delete](#delete) - Delete a Worker Group or Edge Fleet
+* [list](#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
+* [create](#create) - Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+* [get](#get) - Get a Worker Group, Outpost Group, or Edge Fleet
+* [update](#update) - Update a Worker Group, Outpost Group, or Edge Fleet
+* [delete](#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
 * [deploy](#deploy) - Deploy commits to a Worker Group or Edge Fleet
 
 ## list
 
-Get a list of all Worker Groups or Edge Fleets for the specified Cribl product.
+Get a list of all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product.
 
 ### Example Usage
 
@@ -97,7 +97,7 @@ run();
 
 ## create
 
-Create a new Worker Group or Edge Fleet for the specified Cribl product.
+Create a new Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
 
 ### Example Usage
 
@@ -287,7 +287,7 @@ run();
 
 ## get
 
-Get the specified Worker Group or Edge Fleet.
+Get the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
@@ -371,7 +371,7 @@ run();
 
 ## update
 
-Update the specified Worker Group or Edge Fleet.
+Update the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
@@ -551,7 +551,7 @@ run();
 
 ## delete
 
-Delete the specified Worker Group or Edge Fleet.
+Delete the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 

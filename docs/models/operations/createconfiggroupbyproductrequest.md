@@ -6,7 +6,7 @@
 import { CreateConfigGroupByProductRequest } from "cribl-control-plane/models/operations";
 
 let value: CreateConfigGroupByProductRequest = {
-  product: "edge",
+  product: "outpost",
   groupCreateRequest: {
     cloud: {
       provider: "azure",
@@ -57,7 +57,7 @@ let value: CreateConfigGroupByProductRequest = {
       "<value 3>",
     ],
     tags: "<value>",
-    type: "local_search",
+    type: "lake_access",
     upgradeVersion: "<value>",
     workerCount: 5687.41,
     workerRemoteAccess: false,
@@ -67,7 +67,7 @@ let value: CreateConfigGroupByProductRequest = {
 
 ## Fields
 
-| Field                                                               | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `product`                                                           | [models.ProductsCore](../../models/productscore.md)                 | :heavy_check_mark:                                                  | Name of the Cribl product to add the Worker Group or Edge Fleet to. |
-| `groupCreateRequest`                                                | [models.GroupCreateRequest](../../models/groupcreaterequest.md)     | :heavy_check_mark:                                                  | GroupCreateRequest object                                           |
+| Field                                                                               | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `product`                                                                           | [models.ProductsCore](../../models/productscore.md)                                 | :heavy_check_mark:                                                                  | Name of the Cribl product to add the Worker Group, Outpost Group, or Edge Fleet to. |
+| `groupCreateRequest`                                                                | [models.GroupCreateRequest](../../models/groupcreaterequest.md)                     | :heavy_check_mark:                                                                  | GroupCreateRequest object                                                           |

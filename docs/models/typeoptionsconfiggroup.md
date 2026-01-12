@@ -13,5 +13,5 @@ let value: TypeOptionsConfigGroup = "lake_access";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"edge" | "stream" | "search" | "lake_access" | "local_search" | Unrecognized<string>
+"edge" | "outpost" | "stream" | "search" | "lake_access" | "local_search" | Unrecognized<string>
 ```

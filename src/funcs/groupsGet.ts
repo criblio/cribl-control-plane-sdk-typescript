@@ -27,10 +27,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get a Worker Group or Edge Fleet
+ * Get a Worker Group, Outpost Group, or Edge Fleet
  *
  * @remarks
- * Get the specified Worker Group or Edge Fleet.
+ * Get the specified Worker Group, Outpost Group, or Edge Fleet.
  */
 export function groupsGet(
   client: CriblControlPlaneCore,

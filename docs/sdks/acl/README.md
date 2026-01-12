@@ -4,11 +4,11 @@
 
 ### Available Operations
 
-* [get](#get) - Get the Access Control List for a Worker Group or Edge Fleet
+* [get](#get) - Get the Access Control List for a Worker Group, Outpost Group, or Edge Fleet
 
 ## get
 
-Get the Access Control List (ACL) for the specified Worker Group or Edge Fleet.
+Get the Access Control List (ACL) for the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
