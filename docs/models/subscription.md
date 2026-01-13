@@ -17,7 +17,7 @@ let value: Subscription = {
   ],
   queries: [
     {
-      path: "/boot/defaults",
+      path: "/media",
       queryExpression: "<value>",
     },
   ],

@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AuthenticationMethodOptions1,
@@ -12,11 +13,11 @@ import {
 } from "./authenticationmethodoptions1.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -46,6 +47,13 @@ import {
   SubscriptionPlanOptions$outboundSchema,
 } from "./subscriptionplanoptions.js";
 
+export const InputOffice365ServiceType = {
+  Office365Service: "office365_service",
+} as const;
+export type InputOffice365ServiceType = ClosedEnum<
+  typeof InputOffice365ServiceType
+>;
+
 export type InputOffice365ServiceContentConfig = {
   /**
    * Office 365 Services API Content Type
@@ -63,12 +71,17 @@ export type InputOffice365ServiceContentConfig = {
   enabled?: boolean | undefined;
 };
 
-export type InputOffice365Service = {
+export type InputOffice365ServicePqEnabledTrueWithPqConstraint = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "office365_service";
+  type: InputOffice365ServiceType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -83,9 +96,96 @@ export type InputOffice365Service = {
    */
   environment?: string | undefined;
   /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: SubscriptionPlanOptions | undefined;
+  /**
+   * Office 365 Azure Tenant ID
+   */
+  tenantId: string;
+  /**
+   * Office 365 Azure Application ID
+   */
+  appId: string;
+  /**
+   * HTTP request inactivity timeout, use 0 to disable
+   */
+  timeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
+   */
+  contentConfig?: Array<InputOffice365ServiceContentConfig> | undefined;
+  retryRules?: RetryRulesType1 | undefined;
+  /**
+   * Enter client secret directly, or select a stored secret
+   */
+  authType?: AuthenticationMethodOptions1 | undefined;
+  description?: string | undefined;
+  /**
+   * Office 365 Azure client secret
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type InputOffice365ServicePqEnabledFalseConstraint = {
+  /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputOffice365ServiceType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
   /**
    * Tags for filtering and grouping in @{product}
    */
@@ -93,7 +193,7 @@ export type InputOffice365Service = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Office 365 subscription plan for your organization, typically Office 365 Enterprise
@@ -155,6 +255,205 @@ export type InputOffice365Service = {
   textSecret?: string | undefined;
 };
 
+export type InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputOffice365ServiceType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: SubscriptionPlanOptions | undefined;
+  /**
+   * Office 365 Azure Tenant ID
+   */
+  tenantId: string;
+  /**
+   * Office 365 Azure Application ID
+   */
+  appId: string;
+  /**
+   * HTTP request inactivity timeout, use 0 to disable
+   */
+  timeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
+   */
+  contentConfig?: Array<InputOffice365ServiceContentConfig> | undefined;
+  retryRules?: RetryRulesType1 | undefined;
+  /**
+   * Enter client secret directly, or select a stored secret
+   */
+  authType?: AuthenticationMethodOptions1 | undefined;
+  description?: string | undefined;
+  /**
+   * Office 365 Azure client secret
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type InputOffice365ServiceSendToRoutesTrueConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputOffice365ServiceType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: SubscriptionPlanOptions | undefined;
+  /**
+   * Office 365 Azure Tenant ID
+   */
+  tenantId: string;
+  /**
+   * Office 365 Azure Application ID
+   */
+  appId: string;
+  /**
+   * HTTP request inactivity timeout, use 0 to disable
+   */
+  timeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
+   */
+  contentConfig?: Array<InputOffice365ServiceContentConfig> | undefined;
+  retryRules?: RetryRulesType1 | undefined;
+  /**
+   * Enter client secret directly, or select a stored secret
+   */
+  authType?: AuthenticationMethodOptions1 | undefined;
+  description?: string | undefined;
+  /**
+   * Office 365 Azure client secret
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type InputOffice365Service =
+  | InputOffice365ServiceSendToRoutesTrueConstraint
+  | InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint
+  | InputOffice365ServicePqEnabledFalseConstraint
+  | InputOffice365ServicePqEnabledTrueWithPqConstraint;
+
+/** @internal */
+export const InputOffice365ServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365ServiceType
+> = z.nativeEnum(InputOffice365ServiceType);
+/** @internal */
+export const InputOffice365ServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365ServiceType
+> = InputOffice365ServiceType$inboundSchema;
+
 /** @internal */
 export const InputOffice365ServiceContentConfig$inboundSchema: z.ZodType<
   InputOffice365ServiceContentConfig,
@@ -210,51 +509,184 @@ export function inputOffice365ServiceContentConfigFromJSON(
 }
 
 /** @internal */
-export const InputOffice365Service$inboundSchema: z.ZodType<
-  InputOffice365Service,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("office365_service"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  planType: SubscriptionPlanOptions$inboundSchema.default("enterprise_gcc"),
-  tenantId: z.string(),
-  appId: z.string(),
-  timeout: z.number().default(300),
-  keepAliveTime: z.number().default(30),
-  jobTimeout: z.string().default("0"),
-  maxMissedKeepAlives: z.number().default(3),
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  contentConfig: z.array(
-    z.lazy(() => InputOffice365ServiceContentConfig$inboundSchema),
-  ).optional(),
-  retryRules: RetryRulesType1$inboundSchema.optional(),
-  authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
-  description: z.string().optional(),
-  clientSecret: z.string().optional(),
-  textSecret: z.string().optional(),
-});
+export const InputOffice365ServicePqEnabledTrueWithPqConstraint$inboundSchema:
+  z.ZodType<
+    InputOffice365ServicePqEnabledTrueWithPqConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputOffice365ServiceType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    planType: SubscriptionPlanOptions$inboundSchema.default("enterprise_gcc"),
+    tenantId: z.string(),
+    appId: z.string(),
+    timeout: z.number().default(300),
+    keepAliveTime: z.number().default(30),
+    jobTimeout: z.string().default("0"),
+    maxMissedKeepAlives: z.number().default(3),
+    ttl: z.string().default("4h"),
+    ignoreGroupJobsLimit: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    contentConfig: z.array(
+      z.lazy(() => InputOffice365ServiceContentConfig$inboundSchema),
+    ).optional(),
+    retryRules: RetryRulesType1$inboundSchema.optional(),
+    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+  });
 /** @internal */
-export type InputOffice365Service$Outbound = {
+export type InputOffice365ServicePqEnabledTrueWithPqConstraint$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
-  type: "office365_service";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
   environment?: string | undefined;
-  pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  planType: string;
+  tenantId: string;
+  appId: string;
+  timeout: number;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  contentConfig?:
+    | Array<InputOffice365ServiceContentConfig$Outbound>
+    | undefined;
+  retryRules?: RetryRulesType1$Outbound | undefined;
+  authType: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputOffice365ServicePqEnabledTrueWithPqConstraint$outboundSchema:
+  z.ZodType<
+    InputOffice365ServicePqEnabledTrueWithPqConstraint$Outbound,
+    z.ZodTypeDef,
+    InputOffice365ServicePqEnabledTrueWithPqConstraint
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputOffice365ServiceType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    planType: SubscriptionPlanOptions$outboundSchema.default("enterprise_gcc"),
+    tenantId: z.string(),
+    appId: z.string(),
+    timeout: z.number().default(300),
+    keepAliveTime: z.number().default(30),
+    jobTimeout: z.string().default("0"),
+    maxMissedKeepAlives: z.number().default(3),
+    ttl: z.string().default("4h"),
+    ignoreGroupJobsLimit: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    contentConfig: z.array(
+      z.lazy(() => InputOffice365ServiceContentConfig$outboundSchema),
+    ).optional(),
+    retryRules: RetryRulesType1$outboundSchema.optional(),
+    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+  });
+
+export function inputOffice365ServicePqEnabledTrueWithPqConstraintToJSON(
+  inputOffice365ServicePqEnabledTrueWithPqConstraint:
+    InputOffice365ServicePqEnabledTrueWithPqConstraint,
+): string {
+  return JSON.stringify(
+    InputOffice365ServicePqEnabledTrueWithPqConstraint$outboundSchema.parse(
+      inputOffice365ServicePqEnabledTrueWithPqConstraint,
+    ),
+  );
+}
+export function inputOffice365ServicePqEnabledTrueWithPqConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputOffice365ServicePqEnabledTrueWithPqConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputOffice365ServicePqEnabledTrueWithPqConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputOffice365ServicePqEnabledTrueWithPqConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365ServicePqEnabledFalseConstraint$inboundSchema:
+  z.ZodType<
+    InputOffice365ServicePqEnabledFalseConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputOffice365ServiceType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    pq: PqType$inboundSchema.optional(),
+    planType: SubscriptionPlanOptions$inboundSchema.default("enterprise_gcc"),
+    tenantId: z.string(),
+    appId: z.string(),
+    timeout: z.number().default(300),
+    keepAliveTime: z.number().default(30),
+    jobTimeout: z.string().default("0"),
+    maxMissedKeepAlives: z.number().default(3),
+    ttl: z.string().default("4h"),
+    ignoreGroupJobsLimit: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    contentConfig: z.array(
+      z.lazy(() => InputOffice365ServiceContentConfig$inboundSchema),
+    ).optional(),
+    retryRules: RetryRulesType1$inboundSchema.optional(),
+    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+  });
+/** @internal */
+export type InputOffice365ServicePqEnabledFalseConstraint$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   planType: string;
   tenantId: string;
@@ -277,40 +709,369 @@ export type InputOffice365Service$Outbound = {
 };
 
 /** @internal */
+export const InputOffice365ServicePqEnabledFalseConstraint$outboundSchema:
+  z.ZodType<
+    InputOffice365ServicePqEnabledFalseConstraint$Outbound,
+    z.ZodTypeDef,
+    InputOffice365ServicePqEnabledFalseConstraint
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputOffice365ServiceType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: PqType$outboundSchema.optional(),
+    planType: SubscriptionPlanOptions$outboundSchema.default("enterprise_gcc"),
+    tenantId: z.string(),
+    appId: z.string(),
+    timeout: z.number().default(300),
+    keepAliveTime: z.number().default(30),
+    jobTimeout: z.string().default("0"),
+    maxMissedKeepAlives: z.number().default(3),
+    ttl: z.string().default("4h"),
+    ignoreGroupJobsLimit: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    contentConfig: z.array(
+      z.lazy(() => InputOffice365ServiceContentConfig$outboundSchema),
+    ).optional(),
+    retryRules: RetryRulesType1$outboundSchema.optional(),
+    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+  });
+
+export function inputOffice365ServicePqEnabledFalseConstraintToJSON(
+  inputOffice365ServicePqEnabledFalseConstraint:
+    InputOffice365ServicePqEnabledFalseConstraint,
+): string {
+  return JSON.stringify(
+    InputOffice365ServicePqEnabledFalseConstraint$outboundSchema.parse(
+      inputOffice365ServicePqEnabledFalseConstraint,
+    ),
+  );
+}
+export function inputOffice365ServicePqEnabledFalseConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputOffice365ServicePqEnabledFalseConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputOffice365ServicePqEnabledFalseConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputOffice365ServicePqEnabledFalseConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputOffice365ServiceType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    planType: SubscriptionPlanOptions$inboundSchema.default("enterprise_gcc"),
+    tenantId: z.string(),
+    appId: z.string(),
+    timeout: z.number().default(300),
+    keepAliveTime: z.number().default(30),
+    jobTimeout: z.string().default("0"),
+    maxMissedKeepAlives: z.number().default(3),
+    ttl: z.string().default("4h"),
+    ignoreGroupJobsLimit: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    contentConfig: z.array(
+      z.lazy(() => InputOffice365ServiceContentConfig$inboundSchema),
+    ).optional(),
+    retryRules: RetryRulesType1$inboundSchema.optional(),
+    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+  });
+/** @internal */
+export type InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$Outbound =
+  {
+    sendToRoutes: boolean;
+    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+    id?: string | undefined;
+    type: string;
+    disabled: boolean;
+    pipeline?: string | undefined;
+    environment?: string | undefined;
+    pqEnabled: boolean;
+    streamtags?: Array<string> | undefined;
+    pq?: PqType$Outbound | undefined;
+    planType: string;
+    tenantId: string;
+    appId: string;
+    timeout: number;
+    keepAliveTime: number;
+    jobTimeout: string;
+    maxMissedKeepAlives: number;
+    ttl: string;
+    ignoreGroupJobsLimit: boolean;
+    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+    contentConfig?:
+      | Array<InputOffice365ServiceContentConfig$Outbound>
+      | undefined;
+    retryRules?: RetryRulesType1$Outbound | undefined;
+    authType: string;
+    description?: string | undefined;
+    clientSecret?: string | undefined;
+    textSecret?: string | undefined;
+  };
+
+/** @internal */
+export const InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    id: z.string().optional(),
+    type: InputOffice365ServiceType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    planType: SubscriptionPlanOptions$outboundSchema.default("enterprise_gcc"),
+    tenantId: z.string(),
+    appId: z.string(),
+    timeout: z.number().default(300),
+    keepAliveTime: z.number().default(30),
+    jobTimeout: z.string().default("0"),
+    maxMissedKeepAlives: z.number().default(3),
+    ttl: z.string().default("4h"),
+    ignoreGroupJobsLimit: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    contentConfig: z.array(
+      z.lazy(() => InputOffice365ServiceContentConfig$outboundSchema),
+    ).optional(),
+    retryRules: RetryRulesType1$outboundSchema.optional(),
+    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+  });
+
+export function inputOffice365ServiceSendToRoutesFalseWithConnectionsConstraintToJSON(
+  inputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint:
+    InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint,
+): string {
+  return JSON.stringify(
+    InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+      .parse(inputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint),
+  );
+}
+export function inputOffice365ServiceSendToRoutesFalseWithConnectionsConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365ServiceSendToRoutesTrueConstraint$inboundSchema:
+  z.ZodType<
+    InputOffice365ServiceSendToRoutesTrueConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputOffice365ServiceType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    pq: PqType$inboundSchema.optional(),
+    planType: SubscriptionPlanOptions$inboundSchema.default("enterprise_gcc"),
+    tenantId: z.string(),
+    appId: z.string(),
+    timeout: z.number().default(300),
+    keepAliveTime: z.number().default(30),
+    jobTimeout: z.string().default("0"),
+    maxMissedKeepAlives: z.number().default(3),
+    ttl: z.string().default("4h"),
+    ignoreGroupJobsLimit: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    contentConfig: z.array(
+      z.lazy(() => InputOffice365ServiceContentConfig$inboundSchema),
+    ).optional(),
+    retryRules: RetryRulesType1$inboundSchema.optional(),
+    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+  });
+/** @internal */
+export type InputOffice365ServiceSendToRoutesTrueConstraint$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  planType: string;
+  tenantId: string;
+  appId: string;
+  timeout: number;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  contentConfig?:
+    | Array<InputOffice365ServiceContentConfig$Outbound>
+    | undefined;
+  retryRules?: RetryRulesType1$Outbound | undefined;
+  authType: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputOffice365ServiceSendToRoutesTrueConstraint$outboundSchema:
+  z.ZodType<
+    InputOffice365ServiceSendToRoutesTrueConstraint$Outbound,
+    z.ZodTypeDef,
+    InputOffice365ServiceSendToRoutesTrueConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputOffice365ServiceType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: PqType$outboundSchema.optional(),
+    planType: SubscriptionPlanOptions$outboundSchema.default("enterprise_gcc"),
+    tenantId: z.string(),
+    appId: z.string(),
+    timeout: z.number().default(300),
+    keepAliveTime: z.number().default(30),
+    jobTimeout: z.string().default("0"),
+    maxMissedKeepAlives: z.number().default(3),
+    ttl: z.string().default("4h"),
+    ignoreGroupJobsLimit: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    contentConfig: z.array(
+      z.lazy(() => InputOffice365ServiceContentConfig$outboundSchema),
+    ).optional(),
+    retryRules: RetryRulesType1$outboundSchema.optional(),
+    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+  });
+
+export function inputOffice365ServiceSendToRoutesTrueConstraintToJSON(
+  inputOffice365ServiceSendToRoutesTrueConstraint:
+    InputOffice365ServiceSendToRoutesTrueConstraint,
+): string {
+  return JSON.stringify(
+    InputOffice365ServiceSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputOffice365ServiceSendToRoutesTrueConstraint,
+    ),
+  );
+}
+export function inputOffice365ServiceSendToRoutesTrueConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputOffice365ServiceSendToRoutesTrueConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputOffice365ServiceSendToRoutesTrueConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputOffice365ServiceSendToRoutesTrueConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365Service$inboundSchema: z.ZodType<
+  InputOffice365Service,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputOffice365ServiceSendToRoutesTrueConstraint$inboundSchema),
+  z.lazy(() =>
+    InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() => InputOffice365ServicePqEnabledFalseConstraint$inboundSchema),
+  z.lazy(() =>
+    InputOffice365ServicePqEnabledTrueWithPqConstraint$inboundSchema
+  ),
+]);
+/** @internal */
+export type InputOffice365Service$Outbound =
+  | InputOffice365ServiceSendToRoutesTrueConstraint$Outbound
+  | InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$Outbound
+  | InputOffice365ServicePqEnabledFalseConstraint$Outbound
+  | InputOffice365ServicePqEnabledTrueWithPqConstraint$Outbound;
+
+/** @internal */
 export const InputOffice365Service$outboundSchema: z.ZodType<
   InputOffice365Service$Outbound,
   z.ZodTypeDef,
   InputOffice365Service
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("office365_service"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  planType: SubscriptionPlanOptions$outboundSchema.default("enterprise_gcc"),
-  tenantId: z.string(),
-  appId: z.string(),
-  timeout: z.number().default(300),
-  keepAliveTime: z.number().default(30),
-  jobTimeout: z.string().default("0"),
-  maxMissedKeepAlives: z.number().default(3),
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  contentConfig: z.array(
-    z.lazy(() => InputOffice365ServiceContentConfig$outboundSchema),
-  ).optional(),
-  retryRules: RetryRulesType1$outboundSchema.optional(),
-  authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
-  description: z.string().optional(),
-  clientSecret: z.string().optional(),
-  textSecret: z.string().optional(),
-});
+> = z.union([
+  z.lazy(() => InputOffice365ServiceSendToRoutesTrueConstraint$outboundSchema),
+  z.lazy(() =>
+    InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() => InputOffice365ServicePqEnabledFalseConstraint$outboundSchema),
+  z.lazy(() =>
+    InputOffice365ServicePqEnabledTrueWithPqConstraint$outboundSchema
+  ),
+]);
 
 export function inputOffice365ServiceToJSON(
   inputOffice365Service: InputOffice365Service,

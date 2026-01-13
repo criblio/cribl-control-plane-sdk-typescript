@@ -13,13 +13,13 @@ let value: InputWindowsMetricsCustom = {
     devices: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
   },
   disk: {
     volumes: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
   },
 };

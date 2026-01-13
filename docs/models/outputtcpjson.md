@@ -24,8 +24,8 @@ let value: OutputTcpjson = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
   },
   description:
     "that coincide from incidentally versus whose pace phew loudly out",

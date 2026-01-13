@@ -1,11 +1,12 @@
 # InputOffice365MsgTrace
 
-## Example Usage
+
+## Supported Types
+
+### `operations.InputOffice365MsgTraceSendToRoutesTrueConstraint`
 
 ```typescript
-import { InputOffice365MsgTrace } from "cribl-control-plane/models/operations";
-
-let value: InputOffice365MsgTrace = {
+const value: operations.InputOffice365MsgTraceSendToRoutesTrueConstraint = {
   id: "<id>",
   type: "office365_msg_trace",
   pipeline: "<value>",
@@ -32,14 +33,14 @@ let value: InputOffice365MsgTrace = {
   ],
   retryRules: {
     codes: [
-      3814.72,
-      1029.82,
+      6390.37,
+      2107.49,
+      2764.09,
     ],
   },
-  description:
-    "carefully times or yum charming unfortunate unimpressively legend",
-  username: "Lola.Welch60",
-  password: "FZfNY3kgTm5fhRl",
+  description: "oh egg yuck opposite near midst since slip short why",
+  username: "Price.Denesik37",
+  password: "IVSl84oamX8odhp",
   credentialsSecret: "<value>",
   clientSecret: "<value>",
   tenantId: "<id>",
@@ -54,45 +55,163 @@ let value: InputOffice365MsgTrace = {
 };
 ```
 
-## Fields
+### `operations.InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint`
 
-| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
-| `type`                                                                                                                                                                                                                                       | *"office365_msg_trace"*                                                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                               |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
-| `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
-| `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
-| `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnections](../../models/itemstypeconnections.md)[]                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
-| `pq`                                                                                                                                                                                                                                         | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `url`                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | URL to use when retrieving report data.                                                                                                                                                                                                      |
-| `interval`                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.                                                                                                            |
-| `startDate`                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.                                                                               |
-| `endDate`                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.                                                                             |
-| `timeout`                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.                                                                                                                                                 |
-| `disableTimeFilter`                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Disables time filtering of events when a date range is specified.                                                                                                                                                                            |
-| `authType`                                                                                                                                                                                                                                   | [operations.AuthenticationMethodOffice365MsgTrace](../../models/operations/authenticationmethodoffice365msgtrace.md)                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Select authentication method.                                                                                                                                                                                                                |
-| `rescheduleDroppedTasks`                                                                                                                                                                                                                     | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Reschedule tasks that failed with non-fatal errors                                                                                                                                                                                           |
-| `maxTaskReschedule`                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of times a task can be rescheduled                                                                                                                                                                                            |
-| `logLevel`                                                                                                                                                                                                                                   | [operations.LogLevelOffice365MsgTrace](../../models/operations/logleveloffice365msgtrace.md)                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | Log Level (verbosity) for collection runtime behavior.                                                                                                                                                                                       |
-| `jobTimeout`                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.                                                                                                              |
-| `keepAliveTime`                                                                                                                                                                                                                              | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How often workers should check in with the scheduler to keep job subscription alive                                                                                                                                                          |
-| `maxMissedKeepAlives`                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.                                                                                                                                      |
-| `ttl`                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.                                                                                                              |
-| `ignoreGroupJobsLimit`                                                                                                                                                                                                                       | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.                                                     |
-| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../../models/itemstypenotificationmetadata.md)[]                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
-| `retryRules`                                                                                                                                                                                                                                 | [models.RetryRulesType1](../../models/retryrulestype1.md)                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `username`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Username to run Message Trace API call.                                                                                                                                                                                                      |
-| `password`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Password to run Message Trace API call.                                                                                                                                                                                                      |
-| `credentialsSecret`                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Select or create a secret that references your credentials.                                                                                                                                                                                  |
-| `clientSecret`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | client_secret to pass in the OAuth request parameter.                                                                                                                                                                                        |
-| `tenantId`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Directory ID (tenant identifier) in Azure Active Directory.                                                                                                                                                                                  |
-| `clientId`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | client_id to pass in the OAuth request parameter.                                                                                                                                                                                            |
-| `resource`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Resource to pass in the OAuth request parameter.                                                                                                                                                                                             |
-| `planType`                                                                                                                                                                                                                                   | [models.SubscriptionPlanOptions](../../models/subscriptionplanoptions.md)                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Office 365 subscription plan for your organization, typically Office 365 Enterprise                                                                                                                                                          |
-| `textSecret`                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Select or create a secret that references your client_secret to pass in the OAuth request parameter.                                                                                                                                         |
-| `certOptions`                                                                                                                                                                                                                                | [operations.CertOptions](../../models/operations/certoptions.md)                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+```typescript
+const value:
+  operations.InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint =
+    {
+      connections: [
+        {
+          pipeline: "<value>",
+          output: "<value>",
+        },
+      ],
+      id: "<id>",
+      type: "office365_msg_trace",
+      pipeline: "<value>",
+      environment: "<value>",
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      pq: {
+        pqControls: {},
+      },
+      startDate: "<value>",
+      endDate: "<value>",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      retryRules: {
+        codes: [
+          6390.37,
+          2107.49,
+          2764.09,
+        ],
+      },
+      description: "shush splurge yearly",
+      username: "Leann61",
+      password: "MOPPhIWXDUZ2ZYX",
+      credentialsSecret: "<value>",
+      clientSecret: "<value>",
+      tenantId: "<id>",
+      clientId: "<id>",
+      textSecret: "<value>",
+      certOptions: {
+        certificateName: "<value>",
+        privKeyPath: "<value>",
+        passphrase: "<value>",
+        certPath: "<value>",
+      },
+    };
+```
+
+### `operations.InputOffice365MsgTracePqEnabledFalseConstraint`
+
+```typescript
+const value: operations.InputOffice365MsgTracePqEnabledFalseConstraint = {
+  id: "<id>",
+  type: "office365_msg_trace",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  startDate: "<value>",
+  endDate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  retryRules: {
+    codes: [
+      6390.37,
+      2107.49,
+      2764.09,
+    ],
+  },
+  description: "kinase endow cautiously boo weakly back reorganisation phew",
+  username: "Lowell15",
+  password: "mVGMtJHfLrBV6Di",
+  credentialsSecret: "<value>",
+  clientSecret: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  textSecret: "<value>",
+  certOptions: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+  },
+};
+```
+
+### `operations.InputOffice365MsgTracePqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: operations.InputOffice365MsgTracePqEnabledTrueWithPqConstraint = {
+  pq: {
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "office365_msg_trace",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  startDate: "<value>",
+  endDate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  retryRules: {
+    codes: [
+      6390.37,
+      2107.49,
+      2764.09,
+    ],
+  },
+  description:
+    "hidden enthusiastically home shrill circulate favorite phooey uncork",
+  username: "Marlee.Mante",
+  password: "fK9PcMPPghyqTM0",
+  credentialsSecret: "<value>",
+  clientSecret: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  textSecret: "<value>",
+  certOptions: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+  },
+};
+```
+

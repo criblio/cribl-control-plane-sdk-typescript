@@ -17,7 +17,7 @@ let value: Subscription = {
   ],
   queries: [
     {
-      path: "/private/tmp",
+      path: "/opt",
       queryExpression: "<value>",
     },
   ],

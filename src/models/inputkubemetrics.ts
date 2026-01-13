@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   DataCompressionFormatOptionsPersistence,
@@ -12,11 +13,11 @@ import {
 } from "./datacompressionformatoptionspersistence.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -35,6 +36,11 @@ import {
   PqType$Outbound,
   PqType$outboundSchema,
 } from "./pqtype.js";
+
+export const InputKubeMetricsType = {
+  KubeMetrics: "kube_metrics",
+} as const;
+export type InputKubeMetricsType = ClosedEnum<typeof InputKubeMetricsType>;
 
 export type InputKubeMetricsPersistence = {
   /**
@@ -60,12 +66,17 @@ export type InputKubeMetricsPersistence = {
   destPath?: string | undefined;
 };
 
-export type InputKubeMetrics = {
+export type InputKubeMetricsPqEnabledTrueWithPqConstraint = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "kube_metrics";
+  type: InputKubeMetricsType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -80,9 +91,52 @@ export type InputKubeMetrics = {
    */
   environment?: string | undefined;
   /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  /**
+   * Time, in seconds, between consecutive metrics collections. Default is 15 secs.
+   */
+  interval?: number | undefined;
+  /**
+   * Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
+   */
+  rules?: Array<ItemsTypeRules> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  persistence?: InputKubeMetricsPersistence | undefined;
+  description?: string | undefined;
+};
+
+export type InputKubeMetricsPqEnabledFalseConstraint = {
+  /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputKubeMetricsType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
   /**
    * Tags for filtering and grouping in @{product}
    */
@@ -90,7 +144,7 @@ export type InputKubeMetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Time, in seconds, between consecutive metrics collections. Default is 15 secs.
@@ -107,6 +161,117 @@ export type InputKubeMetrics = {
   persistence?: InputKubeMetricsPersistence | undefined;
   description?: string | undefined;
 };
+
+export type InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputKubeMetricsType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive metrics collections. Default is 15 secs.
+   */
+  interval?: number | undefined;
+  /**
+   * Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
+   */
+  rules?: Array<ItemsTypeRules> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  persistence?: InputKubeMetricsPersistence | undefined;
+  description?: string | undefined;
+};
+
+export type InputKubeMetricsSendToRoutesTrueConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputKubeMetricsType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive metrics collections. Default is 15 secs.
+   */
+  interval?: number | undefined;
+  /**
+   * Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
+   */
+  rules?: Array<ItemsTypeRules> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  persistence?: InputKubeMetricsPersistence | undefined;
+  description?: string | undefined;
+};
+
+export type InputKubeMetrics =
+  | InputKubeMetricsSendToRoutesTrueConstraint
+  | InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint
+  | InputKubeMetricsPqEnabledFalseConstraint
+  | InputKubeMetricsPqEnabledTrueWithPqConstraint;
+
+/** @internal */
+export const InputKubeMetricsType$inboundSchema: z.ZodNativeEnum<
+  typeof InputKubeMetricsType
+> = z.nativeEnum(InputKubeMetricsType);
+/** @internal */
+export const InputKubeMetricsType$outboundSchema: z.ZodNativeEnum<
+  typeof InputKubeMetricsType
+> = InputKubeMetricsType$inboundSchema;
 
 /** @internal */
 export const InputKubeMetricsPersistence$inboundSchema: z.ZodType<
@@ -169,20 +334,115 @@ export function inputKubeMetricsPersistenceFromJSON(
 }
 
 /** @internal */
-export const InputKubeMetrics$inboundSchema: z.ZodType<
-  InputKubeMetrics,
+export const InputKubeMetricsPqEnabledTrueWithPqConstraint$inboundSchema:
+  z.ZodType<
+    InputKubeMetricsPqEnabledTrueWithPqConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputKubeMetricsType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    interval: z.number().default(15),
+    rules: z.array(ItemsTypeRules$inboundSchema).optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    persistence: z.lazy(() => InputKubeMetricsPersistence$inboundSchema)
+      .optional(),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputKubeMetricsPqEnabledTrueWithPqConstraint$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  interval: number;
+  rules?: Array<ItemsTypeRules$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  persistence?: InputKubeMetricsPersistence$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputKubeMetricsPqEnabledTrueWithPqConstraint$outboundSchema:
+  z.ZodType<
+    InputKubeMetricsPqEnabledTrueWithPqConstraint$Outbound,
+    z.ZodTypeDef,
+    InputKubeMetricsPqEnabledTrueWithPqConstraint
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputKubeMetricsType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    interval: z.number().default(15),
+    rules: z.array(ItemsTypeRules$outboundSchema).optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    persistence: z.lazy(() => InputKubeMetricsPersistence$outboundSchema)
+      .optional(),
+    description: z.string().optional(),
+  });
+
+export function inputKubeMetricsPqEnabledTrueWithPqConstraintToJSON(
+  inputKubeMetricsPqEnabledTrueWithPqConstraint:
+    InputKubeMetricsPqEnabledTrueWithPqConstraint,
+): string {
+  return JSON.stringify(
+    InputKubeMetricsPqEnabledTrueWithPqConstraint$outboundSchema.parse(
+      inputKubeMetricsPqEnabledTrueWithPqConstraint,
+    ),
+  );
+}
+export function inputKubeMetricsPqEnabledTrueWithPqConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputKubeMetricsPqEnabledTrueWithPqConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputKubeMetricsPqEnabledTrueWithPqConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputKubeMetricsPqEnabledTrueWithPqConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKubeMetricsPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputKubeMetricsPqEnabledFalseConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: z.literal("kube_metrics"),
+  type: InputKubeMetricsType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
   interval: z.number().default(15),
   rules: z.array(ItemsTypeRules$inboundSchema).optional(),
@@ -192,16 +452,16 @@ export const InputKubeMetrics$inboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 /** @internal */
-export type InputKubeMetrics$Outbound = {
+export type InputKubeMetricsPqEnabledFalseConstraint$Outbound = {
+  pqEnabled: boolean;
   id?: string | undefined;
-  type: "kube_metrics";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
   environment?: string | undefined;
-  pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   interval: number;
   rules?: Array<ItemsTypeRules$Outbound> | undefined;
@@ -211,20 +471,20 @@ export type InputKubeMetrics$Outbound = {
 };
 
 /** @internal */
-export const InputKubeMetrics$outboundSchema: z.ZodType<
-  InputKubeMetrics$Outbound,
+export const InputKubeMetricsPqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputKubeMetricsPqEnabledFalseConstraint$Outbound,
   z.ZodTypeDef,
-  InputKubeMetrics
+  InputKubeMetricsPqEnabledFalseConstraint
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: z.literal("kube_metrics"),
+  type: InputKubeMetricsType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   interval: z.number().default(15),
   rules: z.array(ItemsTypeRules$outboundSchema).optional(),
@@ -233,6 +493,253 @@ export const InputKubeMetrics$outboundSchema: z.ZodType<
     .optional(),
   description: z.string().optional(),
 });
+
+export function inputKubeMetricsPqEnabledFalseConstraintToJSON(
+  inputKubeMetricsPqEnabledFalseConstraint:
+    InputKubeMetricsPqEnabledFalseConstraint,
+): string {
+  return JSON.stringify(
+    InputKubeMetricsPqEnabledFalseConstraint$outboundSchema.parse(
+      inputKubeMetricsPqEnabledFalseConstraint,
+    ),
+  );
+}
+export function inputKubeMetricsPqEnabledFalseConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputKubeMetricsPqEnabledFalseConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputKubeMetricsPqEnabledFalseConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputKubeMetricsPqEnabledFalseConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputKubeMetricsType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    interval: z.number().default(15),
+    rules: z.array(ItemsTypeRules$inboundSchema).optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    persistence: z.lazy(() => InputKubeMetricsPersistence$inboundSchema)
+      .optional(),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint$Outbound =
+  {
+    sendToRoutes: boolean;
+    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+    id?: string | undefined;
+    type: string;
+    disabled: boolean;
+    pipeline?: string | undefined;
+    environment?: string | undefined;
+    pqEnabled: boolean;
+    streamtags?: Array<string> | undefined;
+    pq?: PqType$Outbound | undefined;
+    interval: number;
+    rules?: Array<ItemsTypeRules$Outbound> | undefined;
+    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+    persistence?: InputKubeMetricsPersistence$Outbound | undefined;
+    description?: string | undefined;
+  };
+
+/** @internal */
+export const InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    id: z.string().optional(),
+    type: InputKubeMetricsType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    interval: z.number().default(15),
+    rules: z.array(ItemsTypeRules$outboundSchema).optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    persistence: z.lazy(() => InputKubeMetricsPersistence$outboundSchema)
+      .optional(),
+    description: z.string().optional(),
+  });
+
+export function inputKubeMetricsSendToRoutesFalseWithConnectionsConstraintToJSON(
+  inputKubeMetricsSendToRoutesFalseWithConnectionsConstraint:
+    InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint,
+): string {
+  return JSON.stringify(
+    InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+      .parse(inputKubeMetricsSendToRoutesFalseWithConnectionsConstraint),
+  );
+}
+export function inputKubeMetricsSendToRoutesFalseWithConnectionsConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKubeMetricsSendToRoutesTrueConstraint$inboundSchema:
+  z.ZodType<InputKubeMetricsSendToRoutesTrueConstraint, z.ZodTypeDef, unknown> =
+    z.object({
+      sendToRoutes: z.boolean().default(true),
+      id: z.string().optional(),
+      type: InputKubeMetricsType$inboundSchema,
+      disabled: z.boolean().default(false),
+      pipeline: z.string().optional(),
+      environment: z.string().optional(),
+      pqEnabled: z.boolean().default(false),
+      streamtags: z.array(z.string()).optional(),
+      connections: z.array(ItemsTypeConnectionsOptional$inboundSchema)
+        .optional(),
+      pq: PqType$inboundSchema.optional(),
+      interval: z.number().default(15),
+      rules: z.array(ItemsTypeRules$inboundSchema).optional(),
+      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+      persistence: z.lazy(() => InputKubeMetricsPersistence$inboundSchema)
+        .optional(),
+      description: z.string().optional(),
+    });
+/** @internal */
+export type InputKubeMetricsSendToRoutesTrueConstraint$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  interval: number;
+  rules?: Array<ItemsTypeRules$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  persistence?: InputKubeMetricsPersistence$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputKubeMetricsSendToRoutesTrueConstraint$outboundSchema:
+  z.ZodType<
+    InputKubeMetricsSendToRoutesTrueConstraint$Outbound,
+    z.ZodTypeDef,
+    InputKubeMetricsSendToRoutesTrueConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputKubeMetricsType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: PqType$outboundSchema.optional(),
+    interval: z.number().default(15),
+    rules: z.array(ItemsTypeRules$outboundSchema).optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    persistence: z.lazy(() => InputKubeMetricsPersistence$outboundSchema)
+      .optional(),
+    description: z.string().optional(),
+  });
+
+export function inputKubeMetricsSendToRoutesTrueConstraintToJSON(
+  inputKubeMetricsSendToRoutesTrueConstraint:
+    InputKubeMetricsSendToRoutesTrueConstraint,
+): string {
+  return JSON.stringify(
+    InputKubeMetricsSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputKubeMetricsSendToRoutesTrueConstraint,
+    ),
+  );
+}
+export function inputKubeMetricsSendToRoutesTrueConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputKubeMetricsSendToRoutesTrueConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputKubeMetricsSendToRoutesTrueConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputKubeMetricsSendToRoutesTrueConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKubeMetrics$inboundSchema: z.ZodType<
+  InputKubeMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputKubeMetricsSendToRoutesTrueConstraint$inboundSchema),
+  z.lazy(() =>
+    InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() => InputKubeMetricsPqEnabledFalseConstraint$inboundSchema),
+  z.lazy(() => InputKubeMetricsPqEnabledTrueWithPqConstraint$inboundSchema),
+]);
+/** @internal */
+export type InputKubeMetrics$Outbound =
+  | InputKubeMetricsSendToRoutesTrueConstraint$Outbound
+  | InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint$Outbound
+  | InputKubeMetricsPqEnabledFalseConstraint$Outbound
+  | InputKubeMetricsPqEnabledTrueWithPqConstraint$Outbound;
+
+/** @internal */
+export const InputKubeMetrics$outboundSchema: z.ZodType<
+  InputKubeMetrics$Outbound,
+  z.ZodTypeDef,
+  InputKubeMetrics
+> = z.union([
+  z.lazy(() => InputKubeMetricsSendToRoutesTrueConstraint$outboundSchema),
+  z.lazy(() =>
+    InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() => InputKubeMetricsPqEnabledFalseConstraint$outboundSchema),
+  z.lazy(() => InputKubeMetricsPqEnabledTrueWithPqConstraint$outboundSchema),
+]);
 
 export function inputKubeMetricsToJSON(
   inputKubeMetrics: InputKubeMetrics,

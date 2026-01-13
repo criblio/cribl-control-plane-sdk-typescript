@@ -202,8 +202,8 @@ const value: models.OutputSyslog = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
   },
   pqControls: {},
 };
@@ -233,8 +233,8 @@ const value: models.OutputSplunk = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
   },
   description: "nor brr aggravating",
   pqControls: {},
@@ -265,8 +265,8 @@ const value: models.OutputSplunkLb = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
   },
   description: "amongst hammock across vice",
   indexerDiscoveryConfigs: {
@@ -343,6 +343,55 @@ const value: models.OutputSplunkHec = {
 };
 ```
 
+### `models.OutputWizHec`
+
+```typescript
+const value: models.OutputWizHec = {
+  id: "<id>",
+  type: "wiz_hec",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 8829.54,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "towards pleasant against save doubter underneath",
+  urls: [
+    {},
+  ],
+  token: "<value>",
+  textSecret: "<value>",
+};
+```
+
 ### `models.OutputTcpjson`
 
 ```typescript
@@ -365,8 +414,8 @@ const value: models.OutputTcpjson = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
   },
   description:
     "that coincide from incidentally versus whose pace phew loudly out",
@@ -773,7 +822,7 @@ const value: models.OutputAzureEventhub = {
   brokers: [],
   topic: "<value>",
   sasl: {
-    password: "ZcrxTx4Amn7CtfA",
+    password: "crxTx4Amn7CtfAT",
     textSecret: "<value>",
     clientSecret: "<value>",
     clientTextSecret: "<value>",
@@ -1044,20 +1093,20 @@ const value: models.OutputKafka = {
       privKeyPath: "<value>",
       certPath: "<value>",
       passphrase: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+      minVersion: "TLSv1.2",
+      maxVersion: "TLSv1.3",
     },
     defaultKeySchemaId: 5573.36,
     defaultValueSchemaId: 4635.91,
   },
   sasl: {
-    username: "Seamus67",
-    password: "6PIwQ9BxwvdkIdN",
+    username: "Jocelyn_Casper88",
+    password: "PIwQ9BxwvdkIdNi",
     credentialsSecret: "<value>",
     keytabLocation: "<value>",
     principal: "<value>",
     brokerServiceClass: "<value>",
-    tokenUrl: "https://quiet-airmail.org",
+    tokenUrl: "https://alive-spear.com",
     clientId: "<id>",
     clientTextSecret: "<value>",
     oauthParams: [
@@ -1080,8 +1129,8 @@ const value: models.OutputKafka = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
   },
   description:
     "barring whoa jaggedly wrathful among sense lanky sprinkles pitiful unto",
@@ -1117,8 +1166,8 @@ const value: models.OutputConfluentCloud = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.3",
   },
   topic: "<value>",
   kafkaSchemaRegistry: {
@@ -1132,20 +1181,20 @@ const value: models.OutputConfluentCloud = {
       privKeyPath: "<value>",
       certPath: "<value>",
       passphrase: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+      minVersion: "TLSv1.2",
+      maxVersion: "TLSv1.3",
     },
     defaultKeySchemaId: 5573.36,
     defaultValueSchemaId: 4635.91,
   },
   sasl: {
-    username: "Seamus67",
-    password: "6PIwQ9BxwvdkIdN",
+    username: "Jocelyn_Casper88",
+    password: "PIwQ9BxwvdkIdNi",
     credentialsSecret: "<value>",
     keytabLocation: "<value>",
     principal: "<value>",
     brokerServiceClass: "<value>",
-    tokenUrl: "https://quiet-airmail.org",
+    tokenUrl: "https://alive-spear.com",
     clientId: "<id>",
     clientTextSecret: "<value>",
     oauthParams: [
@@ -1200,8 +1249,8 @@ const value: models.OutputMsk = {
       privKeyPath: "<value>",
       certPath: "<value>",
       passphrase: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+      minVersion: "TLSv1.2",
+      maxVersion: "TLSv1.3",
     },
     defaultKeySchemaId: 5573.36,
     defaultValueSchemaId: 4635.91,
@@ -1218,8 +1267,8 @@ const value: models.OutputMsk = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.3",
   },
   description: "lightly down meanwhile geez below porter extroverted lovingly",
   awsApiKey: "<value>",
@@ -2239,13 +2288,13 @@ const value: models.OutputCriblTcp = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
   },
   authTokens: [
     {
       tokenSecret: "<value>",
-      description: "augment case without",
+      description: "psst whoa zowie when waterspout",
     },
   ],
   excludeFields: [
@@ -2287,8 +2336,8 @@ const value: models.OutputCriblHttp = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
   },
   excludeFields: [
     "<value 1>",
@@ -2348,8 +2397,8 @@ const value: models.OutputCriblSearchEngine = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
   },
   excludeFields: [
     "<value 1>",

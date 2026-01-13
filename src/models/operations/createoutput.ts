@@ -11269,6 +11269,151 @@ export type OutputTcpjson = {
   textSecret?: string | undefined;
 };
 
+export type UrlWizHec = {
+  /**
+   * URL to an endpoint to send events to, such as http://localhost:8088/services/collector/event
+   */
+  url?: string | undefined;
+  /**
+   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+   */
+  weight?: number | undefined;
+};
+
+export type OutputWizHec = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "wiz_hec";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+   */
+  nextQueue?: string | undefined;
+  /**
+   * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+   */
+  tcpRouting?: string | undefined;
+  tls?: models.TlsSettingsClientSideType2 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Output metrics in multiple-metric format
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * URL to an endpoint to send events to, such as http://localhost:8088/services/collector/event
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlWizHec> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Wiz Defender Auth token
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
 export type UrlSplunkHec = {
   /**
    * URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
@@ -12740,6 +12885,7 @@ export type CreateOutputRequest =
   | OutputSplunk
   | OutputSplunkLb
   | OutputSplunkHec
+  | OutputWizHec
   | OutputTcpjson
   | OutputWavefront
   | OutputSignalfx
@@ -21566,6 +21712,124 @@ export function outputTcpjsonToJSON(outputTcpjson: OutputTcpjson): string {
 }
 
 /** @internal */
+export type UrlWizHec$Outbound = {
+  url: string;
+  weight: number;
+};
+
+/** @internal */
+export const UrlWizHec$outboundSchema: z.ZodType<
+  UrlWizHec$Outbound,
+  z.ZodTypeDef,
+  UrlWizHec
+> = z.object({
+  url: z.string().default("http://localhost:8088/services/collector/event"),
+  weight: z.number().default(1),
+});
+
+export function urlWizHecToJSON(urlWizHec: UrlWizHec): string {
+  return JSON.stringify(UrlWizHec$outboundSchema.parse(urlWizHec));
+}
+
+/** @internal */
+export type OutputWizHec$Outbound = {
+  id: string;
+  type: "wiz_hec";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  loadBalanced: boolean;
+  nextQueue: string;
+  tcpRouting: string;
+  tls?: models.TlsSettingsClientSideType2$Outbound | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  enableMultiMetrics: boolean;
+  authType: string;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  url: string;
+  useRoundRobinDns: boolean;
+  excludeSelf: boolean;
+  urls?: Array<UrlWizHec$Outbound> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputWizHec$outboundSchema: z.ZodType<
+  OutputWizHec$Outbound,
+  z.ZodTypeDef,
+  OutputWizHec
+> = z.object({
+  id: z.string(),
+  type: z.literal("wiz_hec"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().default(true),
+  nextQueue: z.string().default("indexQueue"),
+  tcpRouting: z.string().default("nowhere"),
+  tls: models.TlsSettingsClientSideType2$outboundSchema.optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .default("manual"),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
+    "block",
+  ),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/services/collector/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(z.lazy(() => UrlWizHec$outboundSchema)).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputWizHecToJSON(outputWizHec: OutputWizHec): string {
+  return JSON.stringify(OutputWizHec$outboundSchema.parse(outputWizHec));
+}
+
+/** @internal */
 export type UrlSplunkHec$Outbound = {
   url: string;
   weight: number;
@@ -22676,6 +22940,7 @@ export type CreateOutputRequest$Outbound =
   | OutputSplunk$Outbound
   | OutputSplunkLb$Outbound
   | OutputSplunkHec$Outbound
+  | OutputWizHec$Outbound
   | OutputTcpjson$Outbound
   | OutputWavefront$Outbound
   | OutputSignalfx$Outbound
@@ -22755,6 +23020,7 @@ export const CreateOutputRequest$outboundSchema: z.ZodType<
   z.lazy(() => OutputSplunk$outboundSchema),
   z.lazy(() => OutputSplunkLb$outboundSchema),
   z.lazy(() => OutputSplunkHec$outboundSchema),
+  z.lazy(() => OutputWizHec$outboundSchema),
   z.lazy(() => OutputTcpjson$outboundSchema),
   z.lazy(() => OutputWavefront$outboundSchema),
   z.lazy(() => OutputSignalfx$outboundSchema),

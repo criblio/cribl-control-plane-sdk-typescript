@@ -9,17 +9,16 @@ let value: CountedInput = {
   count: 935780,
   items: [
     {
+      sendToRoutes: true,
       id: "<id>",
       type: "wiz",
       disabled: false,
       pipeline: "<value>",
-      sendToRoutes: true,
       environment: "<value>",
       pqEnabled: false,
       streamtags: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
       connections: [
         {
@@ -38,7 +37,7 @@ let value: CountedInput = {
         pqControls: {},
       },
       endpoint: "https://api.<region>.app.wiz.io/graphql",
-      authUrl: "https://unusual-traffic.org",
+      authUrl: "https://vain-vanadyl.com",
       authAudienceOverride: "<value>",
       clientId: "<id>",
       contentConfig: [],
@@ -59,14 +58,14 @@ let value: CountedInput = {
         limit: 5,
         multiplier: 2,
         codes: [
-          1412.18,
+          3836.07,
         ],
         enableHeader: true,
         retryConnectTimeout: false,
         retryConnectReset: false,
       },
       authType: "manual",
-      description: "suddenly above perspire eek clonk er",
+      description: "after premeditation discrete steeple recede",
       clientSecret: "<value>",
       textSecret: "<value>",
     },

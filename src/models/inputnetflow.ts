@@ -4,14 +4,15 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -25,12 +26,22 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 
-export type InputNetflow = {
+export const InputNetflowType = {
+  Netflow: "netflow",
+} as const;
+export type InputNetflowType = ClosedEnum<typeof InputNetflowType>;
+
+export type InputNetflowPqEnabledTrueWithPqConstraint = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "netflow";
+  type: InputNetflowType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -45,9 +56,83 @@ export type InputNetflow = {
    */
   environment?: string | undefined;
   /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  /**
+   * Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.
+   */
+  enablePassThrough?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  /**
+   * Specifies how many minutes NetFlow v9 templates are cached before being discarded if not refreshed. Adjust based on your network's template update frequency to optimize performance and memory usage.
+   */
+  templateCacheMinutes?: number | undefined;
+  /**
+   * Accept messages in Netflow V5 format.
+   */
+  v5Enabled?: boolean | undefined;
+  /**
+   * Accept messages in Netflow V9 format.
+   */
+  v9Enabled?: boolean | undefined;
+  /**
+   * Accept messages in IPFIX format.
+   */
+  ipfixEnabled?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputNetflowPqEnabledFalseConstraint = {
+  /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputNetflowType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
   /**
    * Tags for filtering and grouping in @{product}
    */
@@ -55,7 +140,7 @@ export type InputNetflow = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
@@ -104,21 +189,307 @@ export type InputNetflow = {
   description?: string | undefined;
 };
 
+export type InputNetflowSendToRoutesFalseWithConnectionsConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputNetflowType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  /**
+   * Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.
+   */
+  enablePassThrough?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  /**
+   * Specifies how many minutes NetFlow v9 templates are cached before being discarded if not refreshed. Adjust based on your network's template update frequency to optimize performance and memory usage.
+   */
+  templateCacheMinutes?: number | undefined;
+  /**
+   * Accept messages in Netflow V5 format.
+   */
+  v5Enabled?: boolean | undefined;
+  /**
+   * Accept messages in Netflow V9 format.
+   */
+  v9Enabled?: boolean | undefined;
+  /**
+   * Accept messages in IPFIX format.
+   */
+  ipfixEnabled?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputNetflowSendToRoutesTrueConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputNetflowType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  /**
+   * Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.
+   */
+  enablePassThrough?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  /**
+   * Specifies how many minutes NetFlow v9 templates are cached before being discarded if not refreshed. Adjust based on your network's template update frequency to optimize performance and memory usage.
+   */
+  templateCacheMinutes?: number | undefined;
+  /**
+   * Accept messages in Netflow V5 format.
+   */
+  v5Enabled?: boolean | undefined;
+  /**
+   * Accept messages in Netflow V9 format.
+   */
+  v9Enabled?: boolean | undefined;
+  /**
+   * Accept messages in IPFIX format.
+   */
+  ipfixEnabled?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputNetflow =
+  | InputNetflowSendToRoutesTrueConstraint
+  | InputNetflowSendToRoutesFalseWithConnectionsConstraint
+  | InputNetflowPqEnabledFalseConstraint
+  | InputNetflowPqEnabledTrueWithPqConstraint;
+
 /** @internal */
-export const InputNetflow$inboundSchema: z.ZodType<
-  InputNetflow,
+export const InputNetflowType$inboundSchema: z.ZodNativeEnum<
+  typeof InputNetflowType
+> = z.nativeEnum(InputNetflowType);
+/** @internal */
+export const InputNetflowType$outboundSchema: z.ZodNativeEnum<
+  typeof InputNetflowType
+> = InputNetflowType$inboundSchema;
+
+/** @internal */
+export const InputNetflowPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
+  InputNetflowPqEnabledTrueWithPqConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
-  type: z.literal("netflow"),
+  type: InputNetflowType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(2055),
+  enablePassThrough: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  udpSocketRxBufSize: z.number().optional(),
+  templateCacheMinutes: z.number().default(30),
+  v5Enabled: z.boolean().default(true),
+  v9Enabled: z.boolean().default(true),
+  ipfixEnabled: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputNetflowPqEnabledTrueWithPqConstraint$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  host: string;
+  port: number;
+  enablePassThrough: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  udpSocketRxBufSize?: number | undefined;
+  templateCacheMinutes: number;
+  v5Enabled: boolean;
+  v9Enabled: boolean;
+  ipfixEnabled: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputNetflowPqEnabledTrueWithPqConstraint$outboundSchema:
+  z.ZodType<
+    InputNetflowPqEnabledTrueWithPqConstraint$Outbound,
+    z.ZodTypeDef,
+    InputNetflowPqEnabledTrueWithPqConstraint
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputNetflowType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(2055),
+    enablePassThrough: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    udpSocketRxBufSize: z.number().optional(),
+    templateCacheMinutes: z.number().default(30),
+    v5Enabled: z.boolean().default(true),
+    v9Enabled: z.boolean().default(true),
+    ipfixEnabled: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    description: z.string().optional(),
+  });
+
+export function inputNetflowPqEnabledTrueWithPqConstraintToJSON(
+  inputNetflowPqEnabledTrueWithPqConstraint:
+    InputNetflowPqEnabledTrueWithPqConstraint,
+): string {
+  return JSON.stringify(
+    InputNetflowPqEnabledTrueWithPqConstraint$outboundSchema.parse(
+      inputNetflowPqEnabledTrueWithPqConstraint,
+    ),
+  );
+}
+export function inputNetflowPqEnabledTrueWithPqConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputNetflowPqEnabledTrueWithPqConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputNetflowPqEnabledTrueWithPqConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputNetflowPqEnabledTrueWithPqConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputNetflowPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputNetflowPqEnabledFalseConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputNetflowType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(2055),
@@ -134,16 +505,16 @@ export const InputNetflow$inboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 /** @internal */
-export type InputNetflow$Outbound = {
+export type InputNetflowPqEnabledFalseConstraint$Outbound = {
+  pqEnabled: boolean;
   id?: string | undefined;
-  type: "netflow";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
   environment?: string | undefined;
-  pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -160,20 +531,20 @@ export type InputNetflow$Outbound = {
 };
 
 /** @internal */
-export const InputNetflow$outboundSchema: z.ZodType<
-  InputNetflow$Outbound,
+export const InputNetflowPqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputNetflowPqEnabledFalseConstraint$Outbound,
   z.ZodTypeDef,
-  InputNetflow
+  InputNetflowPqEnabledFalseConstraint
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: z.literal("netflow"),
+  type: InputNetflowType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(2055),
@@ -188,6 +559,279 @@ export const InputNetflow$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
+
+export function inputNetflowPqEnabledFalseConstraintToJSON(
+  inputNetflowPqEnabledFalseConstraint: InputNetflowPqEnabledFalseConstraint,
+): string {
+  return JSON.stringify(
+    InputNetflowPqEnabledFalseConstraint$outboundSchema.parse(
+      inputNetflowPqEnabledFalseConstraint,
+    ),
+  );
+}
+export function inputNetflowPqEnabledFalseConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<InputNetflowPqEnabledFalseConstraint, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputNetflowPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputNetflowPqEnabledFalseConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputNetflowSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputNetflowSendToRoutesFalseWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputNetflowType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(2055),
+    enablePassThrough: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    udpSocketRxBufSize: z.number().optional(),
+    templateCacheMinutes: z.number().default(30),
+    v5Enabled: z.boolean().default(true),
+    v9Enabled: z.boolean().default(true),
+    ipfixEnabled: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputNetflowSendToRoutesFalseWithConnectionsConstraint$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  enablePassThrough: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  udpSocketRxBufSize?: number | undefined;
+  templateCacheMinutes: number;
+  v5Enabled: boolean;
+  v9Enabled: boolean;
+  ipfixEnabled: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputNetflowSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputNetflowSendToRoutesFalseWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputNetflowSendToRoutesFalseWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    id: z.string().optional(),
+    type: InputNetflowType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(2055),
+    enablePassThrough: z.boolean().default(false),
+    ipAllowlistRegex: z.string().default("/.*/"),
+    ipDenylistRegex: z.string().default("/^$/"),
+    udpSocketRxBufSize: z.number().optional(),
+    templateCacheMinutes: z.number().default(30),
+    v5Enabled: z.boolean().default(true),
+    v9Enabled: z.boolean().default(true),
+    ipfixEnabled: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    description: z.string().optional(),
+  });
+
+export function inputNetflowSendToRoutesFalseWithConnectionsConstraintToJSON(
+  inputNetflowSendToRoutesFalseWithConnectionsConstraint:
+    InputNetflowSendToRoutesFalseWithConnectionsConstraint,
+): string {
+  return JSON.stringify(
+    InputNetflowSendToRoutesFalseWithConnectionsConstraint$outboundSchema.parse(
+      inputNetflowSendToRoutesFalseWithConnectionsConstraint,
+    ),
+  );
+}
+export function inputNetflowSendToRoutesFalseWithConnectionsConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputNetflowSendToRoutesFalseWithConnectionsConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputNetflowSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputNetflowSendToRoutesFalseWithConnectionsConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputNetflowSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
+  InputNetflowSendToRoutesTrueConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputNetflowType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(2055),
+  enablePassThrough: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  udpSocketRxBufSize: z.number().optional(),
+  templateCacheMinutes: z.number().default(30),
+  v5Enabled: z.boolean().default(true),
+  v9Enabled: z.boolean().default(true),
+  ipfixEnabled: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputNetflowSendToRoutesTrueConstraint$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  enablePassThrough: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  udpSocketRxBufSize?: number | undefined;
+  templateCacheMinutes: number;
+  v5Enabled: boolean;
+  v9Enabled: boolean;
+  ipfixEnabled: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputNetflowSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
+  InputNetflowSendToRoutesTrueConstraint$Outbound,
+  z.ZodTypeDef,
+  InputNetflowSendToRoutesTrueConstraint
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputNetflowType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(2055),
+  enablePassThrough: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  udpSocketRxBufSize: z.number().optional(),
+  templateCacheMinutes: z.number().default(30),
+  v5Enabled: z.boolean().default(true),
+  v9Enabled: z.boolean().default(true),
+  ipfixEnabled: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputNetflowSendToRoutesTrueConstraintToJSON(
+  inputNetflowSendToRoutesTrueConstraint:
+    InputNetflowSendToRoutesTrueConstraint,
+): string {
+  return JSON.stringify(
+    InputNetflowSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputNetflowSendToRoutesTrueConstraint,
+    ),
+  );
+}
+export function inputNetflowSendToRoutesTrueConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<InputNetflowSendToRoutesTrueConstraint, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputNetflowSendToRoutesTrueConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputNetflowSendToRoutesTrueConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputNetflow$inboundSchema: z.ZodType<
+  InputNetflow,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputNetflowSendToRoutesTrueConstraint$inboundSchema),
+  z.lazy(() =>
+    InputNetflowSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() => InputNetflowPqEnabledFalseConstraint$inboundSchema),
+  z.lazy(() => InputNetflowPqEnabledTrueWithPqConstraint$inboundSchema),
+]);
+/** @internal */
+export type InputNetflow$Outbound =
+  | InputNetflowSendToRoutesTrueConstraint$Outbound
+  | InputNetflowSendToRoutesFalseWithConnectionsConstraint$Outbound
+  | InputNetflowPqEnabledFalseConstraint$Outbound
+  | InputNetflowPqEnabledTrueWithPqConstraint$Outbound;
+
+/** @internal */
+export const InputNetflow$outboundSchema: z.ZodType<
+  InputNetflow$Outbound,
+  z.ZodTypeDef,
+  InputNetflow
+> = z.union([
+  z.lazy(() => InputNetflowSendToRoutesTrueConstraint$outboundSchema),
+  z.lazy(() =>
+    InputNetflowSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() => InputNetflowPqEnabledFalseConstraint$outboundSchema),
+  z.lazy(() => InputNetflowPqEnabledTrueWithPqConstraint$outboundSchema),
+]);
 
 export function inputNetflowToJSON(inputNetflow: InputNetflow): string {
   return JSON.stringify(InputNetflow$outboundSchema.parse(inputNetflow));

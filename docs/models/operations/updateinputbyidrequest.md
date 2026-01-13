@@ -8,17 +8,16 @@ import { UpdateInputByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
+    sendToRoutes: true,
     id: "<id>",
     type: "kinesis",
     disabled: false,
     pipeline: "<value>",
-    sendToRoutes: true,
     environment: "<value>",
     pqEnabled: false,
     streamtags: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
     connections: [
       {
@@ -63,7 +62,7 @@ let value: UpdateInputByIdRequest = {
         value: "<value>",
       },
     ],
-    description: "irritably incidentally inasmuch fuss rue",
+    description: "to furthermore meh charm ack why fortunate complete",
     awsApiKey: "<value>",
     awsSecret: "<value>",
   },
