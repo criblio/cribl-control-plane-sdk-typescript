@@ -342,6 +342,58 @@ const value: operations.OutputSplunkHec = {
 };
 ```
 
+### `operations.OutputWizHec`
+
+```typescript
+const value: operations.OutputWizHec = {
+  id: "<id>",
+  type: "wiz_hec",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 8829.54,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description:
+    "prestigious till tinderbox record sturdy worst absent glittering",
+  urls: [
+    {},
+  ],
+  token: "<value>",
+  textSecret: "<value>",
+};
+```
+
 ### `operations.OutputTcpjson`
 
 ```typescript

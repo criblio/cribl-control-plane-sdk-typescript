@@ -473,6 +473,7 @@ export * from "./outputtestrequest.js";
 export * from "./outputtestresponse.js";
 export * from "./outputwavefront.js";
 export * from "./outputwebhook.js";
+export * from "./outputwizhec.js";
 export * from "./outputxsiam.js";
 export * from "./ownertypeheartbeatmetadatakube.js";
 export * from "./packinfo.js";

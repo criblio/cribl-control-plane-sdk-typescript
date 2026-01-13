@@ -910,517 +910,9 @@ export type RestAuthenticationOauth = {
 };
 
 /**
- * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
- */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication =
-  {
-    None: "none",
-    Basic: "basic",
-    BasicSecret: "basicSecret",
-    Login: "login",
-    LoginSecret: "loginSecret",
-    Oauth: "oauth",
-    OauthSecret: "oauthSecret",
-    GoogleOauth: "google_oauth",
-    GoogleOauthSecret: "google_oauthSecret",
-    Hmac: "hmac",
-  } as const;
-/**
- * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
- */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication =
-  OpenEnum<
-    typeof RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication
-  >;
-
-/**
  * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
  */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType =
-  {
-    Http: "http",
-    Json: "json",
-    List: "list",
-    None: "none",
-  } as const;
-/**
- * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
- */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType =
-  OpenEnum<
-    typeof RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType
-  >;
-
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery = {
-  /**
-   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-   */
-  discoverType?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType
-    | undefined;
-};
-
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod =
-  {
-    /**
-     * GET
-     */
-    Get: "get",
-    /**
-     * POST
-     */
-    Post: "post",
-    /**
-     * POST with Body
-     */
-    PostWithBody: "post_with_body",
-    /**
-     * Other
-     */
-    Other: "other",
-  } as const;
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod =
-  OpenEnum<
-    typeof RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod
-  >;
-
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum =
-  {
-    /**
-     * None
-     */
-    None: "none",
-    /**
-     * Response Body Attribute
-     */
-    ResponseBody: "response_body",
-    /**
-     * Response Header Attribute
-     */
-    ResponseHeader: "response_header",
-    /**
-     * RFC 5988 - Web Linking
-     */
-    ResponseHeaderLink: "response_header_link",
-    /**
-     * Offset/Limit
-     */
-    RequestOffset: "request_offset",
-    /**
-     * Page/Size
-     */
-    RequestPage: "request_page",
-  } as const;
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum =
-  OpenEnum<
-    typeof RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum
-  >;
-
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination =
-  {
-    type?:
-      | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum
-      | undefined;
-  };
-
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules =
-  {
-    /**
-     * The algorithm to use when performing HTTP retries
-     */
-    type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    maxIntervalMs?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    retryConnectTimeout?: any | undefined;
-    retryConnectReset?: any | undefined;
-  };
-
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking =
-  {
-    /**
-     * Track collection progress between consecutive scheduled executions
-     */
-    enabled?: boolean | undefined;
-  };
-
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling =
-  {
-    stateTracking?:
-      | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking
-      | undefined;
-  };
-
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue = {
-  /**
-   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
-   */
-  getAuthTokenFromHeader?: boolean | undefined;
-  /**
-   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
-   */
-  authentication?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication
-    | undefined;
-  /**
-   * URL to use for login API call. This call is expected to be a POST.
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Select or create a stored secret that references your login credentials
-   */
-  credentialsSecret: string;
-  /**
-   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-   */
-  loginBody?: string | undefined;
-  /**
-   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
-   */
-  authHeaderKey?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-   */
-  authHeaderExpr?: string | undefined;
-  authRequestHeaders?:
-    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
-    | undefined;
-  discovery?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery
-    | undefined;
-  /**
-   * URL (constant or JavaScript expression) to use for the Collect operation
-   */
-  collectUrl: string;
-  collectMethod?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod
-    | undefined;
-  collectVerb?: any | undefined;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
-  collectRequestHeaders?:
-    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
-    | undefined;
-  pagination?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination
-    | undefined;
-  /**
-   * HTTP request inactivity timeout. Use 0 to disable.
-   */
-  timeout?: number | undefined;
-  /**
-   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-   */
-  useRoundRobinDns?: boolean | undefined;
-  /**
-   * Disable Collector event time filtering when a date range is specified
-   */
-  disableTimeFilter?: boolean | undefined;
-  /**
-   * Decode the URL before sending requests (including pagination requests)
-   */
-  decodeUrl?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Enable to add response headers to the resHeaders field under the __collectible object
-   */
-  captureHeaders?: boolean | undefined;
-  /**
-   * Stop pagination when the Event Breaker produces no events
-   */
-  stopOnEmptyResults?: boolean | undefined;
-  /**
-   * List of headers that are safe to log in plain text
-   */
-  safeHeaders?: Array<string> | undefined;
-  retryRules?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules
-    | undefined;
-  __scheduling?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling
-    | undefined;
-};
-
-/**
- * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
- */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication =
-  {
-    None: "none",
-    Basic: "basic",
-    BasicSecret: "basicSecret",
-    Login: "login",
-    LoginSecret: "loginSecret",
-    Oauth: "oauth",
-    OauthSecret: "oauthSecret",
-    GoogleOauth: "google_oauth",
-    GoogleOauthSecret: "google_oauthSecret",
-    Hmac: "hmac",
-  } as const;
-/**
- * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
- */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication =
-  OpenEnum<
-    typeof RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication
-  >;
-
-/**
- * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
- */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType =
-  {
-    Http: "http",
-    Json: "json",
-    List: "list",
-    None: "none",
-  } as const;
-/**
- * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
- */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType =
-  OpenEnum<
-    typeof RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType
-  >;
-
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery =
-  {
-    /**
-     * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-     */
-    discoverType?:
-      | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType
-      | undefined;
-  };
-
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod =
-  {
-    /**
-     * GET
-     */
-    Get: "get",
-    /**
-     * POST
-     */
-    Post: "post",
-    /**
-     * POST with Body
-     */
-    PostWithBody: "post_with_body",
-    /**
-     * Other
-     */
-    Other: "other",
-  } as const;
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod =
-  OpenEnum<
-    typeof RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod
-  >;
-
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum =
-  {
-    /**
-     * None
-     */
-    None: "none",
-    /**
-     * Response Body Attribute
-     */
-    ResponseBody: "response_body",
-    /**
-     * Response Header Attribute
-     */
-    ResponseHeader: "response_header",
-    /**
-     * RFC 5988 - Web Linking
-     */
-    ResponseHeaderLink: "response_header_link",
-    /**
-     * Offset/Limit
-     */
-    RequestOffset: "request_offset",
-    /**
-     * Page/Size
-     */
-    RequestPage: "request_page",
-  } as const;
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum =
-  OpenEnum<
-    typeof RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum
-  >;
-
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination =
-  {
-    type?:
-      | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum
-      | undefined;
-  };
-
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules =
-  {
-    /**
-     * The algorithm to use when performing HTTP retries
-     */
-    type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    maxIntervalMs?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    retryConnectTimeout?: any | undefined;
-    retryConnectReset?: any | undefined;
-  };
-
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking =
-  {
-    /**
-     * Track collection progress between consecutive scheduled executions
-     */
-    enabled?: boolean | undefined;
-  };
-
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling =
-  {
-    stateTracking?:
-      | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking
-      | undefined;
-  };
-
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse = {
-  /**
-   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
-   */
-  getAuthTokenFromHeader?: boolean | undefined;
-  /**
-   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-   */
-  tokenRespAttribute?: string | undefined;
-  /**
-   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
-   */
-  authentication?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication
-    | undefined;
-  /**
-   * URL to use for login API call. This call is expected to be a POST.
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Select or create a stored secret that references your login credentials
-   */
-  credentialsSecret: string;
-  /**
-   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-   */
-  loginBody?: string | undefined;
-  /**
-   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
-   */
-  authHeaderKey?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-   */
-  authHeaderExpr?: string | undefined;
-  authRequestHeaders?:
-    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
-    | undefined;
-  discovery?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery
-    | undefined;
-  /**
-   * URL (constant or JavaScript expression) to use for the Collect operation
-   */
-  collectUrl: string;
-  collectMethod?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod
-    | undefined;
-  collectVerb?: any | undefined;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
-  collectRequestHeaders?:
-    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
-    | undefined;
-  pagination?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination
-    | undefined;
-  /**
-   * HTTP request inactivity timeout. Use 0 to disable.
-   */
-  timeout?: number | undefined;
-  /**
-   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-   */
-  useRoundRobinDns?: boolean | undefined;
-  /**
-   * Disable Collector event time filtering when a date range is specified
-   */
-  disableTimeFilter?: boolean | undefined;
-  /**
-   * Decode the URL before sending requests (including pagination requests)
-   */
-  decodeUrl?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Enable to add response headers to the resHeaders field under the __collectible object
-   */
-  captureHeaders?: boolean | undefined;
-  /**
-   * Stop pagination when the Event Breaker produces no events
-   */
-  stopOnEmptyResults?: boolean | undefined;
-  /**
-   * List of headers that are safe to log in plain text
-   */
-  safeHeaders?: Array<string> | undefined;
-  retryRules?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules
-    | undefined;
-  __scheduling?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling
-    | undefined;
-};
-
-export type RestAuthenticationLoginSecret =
-  | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse
-  | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue;
-
-/**
- * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
- */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication = {
-  None: "none",
-  Basic: "basic",
-  BasicSecret: "basicSecret",
-  Login: "login",
-  LoginSecret: "loginSecret",
-  Oauth: "oauth",
-  OauthSecret: "oauthSecret",
-  GoogleOauth: "google_oauth",
-  GoogleOauthSecret: "google_oauthSecret",
-  Hmac: "hmac",
-} as const;
-/**
- * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
- */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication =
-  OpenEnum<
-    typeof RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication
-  >;
-
-/**
- * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
- */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType = {
+export const RestAuthenticationLoginSecretDiscoverType = {
   Http: "http",
   Json: "json",
   List: "list",
@@ -1429,21 +921,18 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType = {
 /**
  * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
  */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType =
-  OpenEnum<
-    typeof RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType
-  >;
+export type RestAuthenticationLoginSecretDiscoverType = OpenEnum<
+  typeof RestAuthenticationLoginSecretDiscoverType
+>;
 
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery = {
+export type RestAuthenticationLoginSecretDiscovery = {
   /**
    * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
    */
-  discoverType?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType
-    | undefined;
+  discoverType?: RestAuthenticationLoginSecretDiscoverType | undefined;
 };
 
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod = {
+export const RestAuthenticationLoginSecretCollectMethod = {
   /**
    * GET
    */
@@ -1461,12 +950,11 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod = {
    */
   Other: "other",
 } as const;
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod =
-  OpenEnum<
-    typeof RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod
-  >;
+export type RestAuthenticationLoginSecretCollectMethod = OpenEnum<
+  typeof RestAuthenticationLoginSecretCollectMethod
+>;
 
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum = {
+export const RestAuthenticationLoginSecretPaginationEnum = {
   /**
    * None
    */
@@ -1492,18 +980,15 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum = {
    */
   RequestPage: "request_page",
 } as const;
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum =
-  OpenEnum<
-    typeof RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum
-  >;
+export type RestAuthenticationLoginSecretPaginationEnum = OpenEnum<
+  typeof RestAuthenticationLoginSecretPaginationEnum
+>;
 
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination = {
-  type?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum
-    | undefined;
+export type RestAuthenticationLoginSecretPagination = {
+  type?: RestAuthenticationLoginSecretPaginationEnum | undefined;
 };
 
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules = {
+export type RestAuthenticationLoginSecretRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
@@ -1518,70 +1003,62 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules = {
   retryConnectReset?: any | undefined;
 };
 
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking = {
+export type RestAuthenticationLoginSecretStateTracking = {
   /**
    * Track collection progress between consecutive scheduled executions
    */
   enabled?: boolean | undefined;
 };
 
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling = {
-  stateTracking?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking
-    | undefined;
+export type RestAuthenticationLoginSecretScheduling = {
+  stateTracking?: RestAuthenticationLoginSecretStateTracking | undefined;
 };
 
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrue = {
-  /**
-   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
-   */
-  getAuthTokenFromHeader?: boolean | undefined;
+export type RestAuthenticationLoginSecret = {
   /**
    * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
    */
-  authentication?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication
-    | undefined;
+  authentication: "loginSecret";
   /**
    * URL to use for login API call. This call is expected to be a POST.
    */
   loginUrl?: string | undefined;
-  username: string;
-  password: string;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret: string;
   /**
    * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
    */
   loginBody?: string | undefined;
   /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
    * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
    */
   authHeaderKey?: string | undefined;
   /**
-   * JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
    */
   authHeaderExpr?: string | undefined;
   authRequestHeaders?:
     | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
-  discovery?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery
-    | undefined;
+  discovery?: RestAuthenticationLoginSecretDiscovery | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
    */
   collectUrl: string;
-  collectMethod?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod
-    | undefined;
+  collectMethod?: RestAuthenticationLoginSecretCollectMethod | undefined;
   collectVerb?: any | undefined;
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
-  pagination?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination
-    | undefined;
+  pagination?: RestAuthenticationLoginSecretPagination | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
    */
@@ -1614,42 +1091,14 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrue = {
    * List of headers that are safe to log in plain text
    */
   safeHeaders?: Array<string> | undefined;
-  retryRules?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules
-    | undefined;
-  __scheduling?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling
-    | undefined;
+  retryRules?: RestAuthenticationLoginSecretRetryRules | undefined;
+  __scheduling?: RestAuthenticationLoginSecretScheduling | undefined;
 };
-
-/**
- * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
- */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication =
-  {
-    None: "none",
-    Basic: "basic",
-    BasicSecret: "basicSecret",
-    Login: "login",
-    LoginSecret: "loginSecret",
-    Oauth: "oauth",
-    OauthSecret: "oauthSecret",
-    GoogleOauth: "google_oauth",
-    GoogleOauthSecret: "google_oauthSecret",
-    Hmac: "hmac",
-  } as const;
-/**
- * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
- */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication =
-  OpenEnum<
-    typeof RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication
-  >;
 
 /**
  * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
  */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType = {
+export const RestAuthenticationLoginDiscoverType = {
   Http: "http",
   Json: "json",
   List: "list",
@@ -1658,21 +1107,18 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType = {
 /**
  * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
  */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType =
-  OpenEnum<
-    typeof RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType
-  >;
+export type RestAuthenticationLoginDiscoverType = OpenEnum<
+  typeof RestAuthenticationLoginDiscoverType
+>;
 
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery = {
+export type RestAuthenticationLoginDiscovery = {
   /**
    * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
    */
-  discoverType?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType
-    | undefined;
+  discoverType?: RestAuthenticationLoginDiscoverType | undefined;
 };
 
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod = {
+export const RestAuthenticationLoginCollectMethod = {
   /**
    * GET
    */
@@ -1690,50 +1136,45 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod = {
    */
   Other: "other",
 } as const;
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod =
-  OpenEnum<
-    typeof RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod
-  >;
+export type RestAuthenticationLoginCollectMethod = OpenEnum<
+  typeof RestAuthenticationLoginCollectMethod
+>;
 
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum =
-  {
-    /**
-     * None
-     */
-    None: "none",
-    /**
-     * Response Body Attribute
-     */
-    ResponseBody: "response_body",
-    /**
-     * Response Header Attribute
-     */
-    ResponseHeader: "response_header",
-    /**
-     * RFC 5988 - Web Linking
-     */
-    ResponseHeaderLink: "response_header_link",
-    /**
-     * Offset/Limit
-     */
-    RequestOffset: "request_offset",
-    /**
-     * Page/Size
-     */
-    RequestPage: "request_page",
-  } as const;
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum =
-  OpenEnum<
-    typeof RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum
-  >;
+export const RestAuthenticationLoginPaginationEnum = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 - Web Linking
+   */
+  ResponseHeaderLink: "response_header_link",
+  /**
+   * Offset/Limit
+   */
+  RequestOffset: "request_offset",
+  /**
+   * Page/Size
+   */
+  RequestPage: "request_page",
+} as const;
+export type RestAuthenticationLoginPaginationEnum = OpenEnum<
+  typeof RestAuthenticationLoginPaginationEnum
+>;
 
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination = {
-  type?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum
-    | undefined;
+export type RestAuthenticationLoginPagination = {
+  type?: RestAuthenticationLoginPaginationEnum | undefined;
 };
 
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules = {
+export type RestAuthenticationLoginRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
@@ -1748,34 +1189,22 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules = {
   retryConnectReset?: any | undefined;
 };
 
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking = {
+export type RestAuthenticationLoginStateTracking = {
   /**
    * Track collection progress between consecutive scheduled executions
    */
   enabled?: boolean | undefined;
 };
 
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling = {
-  stateTracking?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking
-    | undefined;
+export type RestAuthenticationLoginScheduling = {
+  stateTracking?: RestAuthenticationLoginStateTracking | undefined;
 };
 
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalse = {
-  /**
-   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
-   */
-  getAuthTokenFromHeader?: boolean | undefined;
-  /**
-   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-   */
-  tokenRespAttribute?: string | undefined;
+export type RestAuthenticationLogin = {
   /**
    * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
    */
-  authentication?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication
-    | undefined;
+  authentication: "login";
   /**
    * URL to use for login API call. This call is expected to be a POST.
    */
@@ -1787,6 +1216,10 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalse = {
    */
   loginBody?: string | undefined;
   /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
    * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
    */
   authHeaderKey?: string | undefined;
@@ -1797,25 +1230,19 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalse = {
   authRequestHeaders?:
     | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
-  discovery?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery
-    | undefined;
+  discovery?: RestAuthenticationLoginDiscovery | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
    */
   collectUrl: string;
-  collectMethod?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod
-    | undefined;
+  collectMethod?: RestAuthenticationLoginCollectMethod | undefined;
   collectVerb?: any | undefined;
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
-  pagination?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination
-    | undefined;
+  pagination?: RestAuthenticationLoginPagination | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
    */
@@ -1848,17 +1275,9 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalse = {
    * List of headers that are safe to log in plain text
    */
   safeHeaders?: Array<string> | undefined;
-  retryRules?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules
-    | undefined;
-  __scheduling?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling
-    | undefined;
+  retryRules?: RestAuthenticationLoginRetryRules | undefined;
+  __scheduling?: RestAuthenticationLoginScheduling | undefined;
 };
-
-export type RestAuthenticationLogin =
-  | RestAuthenticationLoginGetAuthTokenFromHeaderFalse
-  | RestAuthenticationLoginGetAuthTokenFromHeaderTrue;
 
 /**
  * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -3071,18 +2490,8 @@ export type RestCollectorConf =
   | RestAuthenticationNone
   | RestAuthenticationBasic
   | RestAuthenticationBasicSecret
-  | (
-    | RestAuthenticationLoginGetAuthTokenFromHeaderFalse
-    | RestAuthenticationLoginGetAuthTokenFromHeaderTrue & {
-      authentication: "login";
-    }
-  )
-  | (
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue & {
-      authentication: "loginSecret";
-    }
-  )
+  | RestAuthenticationLogin
+  | RestAuthenticationLoginSecret
   | RestAuthenticationOauth
   | RestAuthenticationOauthSecret
   | RestAuthenticationGoogleOauth
@@ -5269,1080 +4678,307 @@ export function restAuthenticationOauthFromJSON(
 }
 
 /** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication,
-  );
+export const RestAuthenticationLoginSecretDiscoverType$inboundSchema: z.ZodType<
+  RestAuthenticationLoginSecretDiscoverType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(RestAuthenticationLoginSecretDiscoverType);
 /** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication,
-  );
+export const RestAuthenticationLoginSecretDiscoverType$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, RestAuthenticationLoginSecretDiscoverType> =
+    openEnums.outboundSchema(RestAuthenticationLoginSecretDiscoverType);
 
 /** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType,
-  );
+export const RestAuthenticationLoginSecretDiscovery$inboundSchema: z.ZodType<
+  RestAuthenticationLoginSecretDiscovery,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: RestAuthenticationLoginSecretDiscoverType$inboundSchema.default(
+    "none",
+  ),
+});
 /** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType,
-  );
+export type RestAuthenticationLoginSecretDiscovery$Outbound = {
+  discoverType: string;
+};
 
 /** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    discoverType:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType$inboundSchema
-        .default("none"),
-  });
-/** @internal */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery$Outbound =
-  {
-    discoverType: string;
-  };
+export const RestAuthenticationLoginSecretDiscovery$outboundSchema: z.ZodType<
+  RestAuthenticationLoginSecretDiscovery$Outbound,
+  z.ZodTypeDef,
+  RestAuthenticationLoginSecretDiscovery
+> = z.object({
+  discoverType: RestAuthenticationLoginSecretDiscoverType$outboundSchema
+    .default("none"),
+});
 
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery
-  > = z.object({
-    discoverType:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType$outboundSchema
-        .default("none"),
-  });
-
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoveryToJSON(
-  restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery:
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery,
+export function restAuthenticationLoginSecretDiscoveryToJSON(
+  restAuthenticationLoginSecretDiscovery:
+    RestAuthenticationLoginSecretDiscovery,
 ): string {
   return JSON.stringify(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery$outboundSchema
-      .parse(restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery),
-  );
-}
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoveryFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod,
-  );
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod,
-  );
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum,
-  );
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum,
-  );
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum$inboundSchema
-        .default("none"),
-  });
-/** @internal */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination$Outbound =
-  {
-    type: string;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination
-  > = z.object({
-    type:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum$outboundSchema
-        .default("none"),
-  });
-
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationToJSON(
-  restAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination:
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination$outboundSchema
-      .parse(restAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination),
-  );
-}
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-      .default("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-  });
-/** @internal */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules$Outbound =
-  {
-    type: string;
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    maxIntervalMs?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    retryConnectTimeout?: any | undefined;
-    retryConnectReset?: any | undefined;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules
-  > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-      .default("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-  });
-
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRulesToJSON(
-  restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules:
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules$outboundSchema
-      .parse(restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules),
-  );
-}
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRulesFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    enabled: z.boolean().optional(),
-  });
-/** @internal */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking$Outbound =
-  {
-    enabled?: boolean | undefined;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking
-  > = z.object({
-    enabled: z.boolean().optional(),
-  });
-
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTrackingToJSON(
-  restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking:
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking$outboundSchema
-      .parse(
-        restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking,
-      ),
-  );
-}
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTrackingFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    stateTracking: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking$inboundSchema
-    ).optional(),
-  });
-/** @internal */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling$Outbound =
-  {
-    stateTracking?:
-      | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking$Outbound
-      | undefined;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling
-  > = z.object({
-    stateTracking: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking$outboundSchema
-    ).optional(),
-  });
-
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueSchedulingToJSON(
-  restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling:
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling$outboundSchema
-      .parse(restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling),
-  );
-}
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueSchedulingFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    getAuthTokenFromHeader: z.boolean().default(false),
-    authentication:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication$inboundSchema
-        .default("none"),
-    loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
-    credentialsSecret: z.string(),
-    loginBody: z.string().default(
-      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+    RestAuthenticationLoginSecretDiscovery$outboundSchema.parse(
+      restAuthenticationLoginSecretDiscovery,
     ),
-    authHeaderKey: z.string().default("Authorization"),
-    authHeaderExpr: z.string().default("`Bearer ${token}`"),
-    authRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    discovery: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery$inboundSchema
-    ).optional(),
-    collectUrl: z.string(),
-    collectMethod:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod$inboundSchema
-        .default("get"),
-    collectVerb: z.any().optional(),
-    collectRequestParams: z.any().optional(),
-    collectBody: z.any().optional(),
-    collectRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination$inboundSchema
-    ).optional(),
-    timeout: z.number().default(0),
-    useRoundRobinDns: z.boolean().default(false),
-    disableTimeFilter: z.boolean().default(false),
-    decodeUrl: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    stopOnEmptyResults: z.boolean().default(false),
-    safeHeaders: z.array(z.string()).optional(),
-    retryRules: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules$inboundSchema
-    ).optional(),
-    __scheduling: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling$inboundSchema
-    ).optional(),
-  });
+  );
+}
+export function restAuthenticationLoginSecretDiscoveryFromJSON(
+  jsonString: string,
+): SafeParseResult<RestAuthenticationLoginSecretDiscovery, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationLoginSecretDiscovery$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationLoginSecretDiscovery' from JSON`,
+  );
+}
+
 /** @internal */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$Outbound = {
-  getAuthTokenFromHeader: boolean;
-  authentication: string;
-  loginUrl: string;
-  credentialsSecret: string;
-  loginBody: string;
-  authHeaderKey: string;
-  authHeaderExpr: string;
-  authRequestHeaders?:
-    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
-    | undefined;
-  discovery?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery$Outbound
-    | undefined;
-  collectUrl: string;
-  collectMethod: string;
-  collectVerb?: any | undefined;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
-  collectRequestHeaders?:
-    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
-    | undefined;
-  pagination?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination$Outbound
-    | undefined;
-  timeout: number;
-  useRoundRobinDns: boolean;
-  disableTimeFilter: boolean;
-  decodeUrl: boolean;
-  rejectUnauthorized: boolean;
-  captureHeaders: boolean;
-  stopOnEmptyResults: boolean;
-  safeHeaders?: Array<string> | undefined;
-  retryRules?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules$Outbound
-    | undefined;
-  __scheduling?:
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling$Outbound
+export const RestAuthenticationLoginSecretCollectMethod$inboundSchema:
+  z.ZodType<RestAuthenticationLoginSecretCollectMethod, z.ZodTypeDef, unknown> =
+    openEnums.inboundSchema(RestAuthenticationLoginSecretCollectMethod);
+/** @internal */
+export const RestAuthenticationLoginSecretCollectMethod$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, RestAuthenticationLoginSecretCollectMethod> =
+    openEnums.outboundSchema(RestAuthenticationLoginSecretCollectMethod);
+
+/** @internal */
+export const RestAuthenticationLoginSecretPaginationEnum$inboundSchema:
+  z.ZodType<
+    RestAuthenticationLoginSecretPaginationEnum,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(RestAuthenticationLoginSecretPaginationEnum);
+/** @internal */
+export const RestAuthenticationLoginSecretPaginationEnum$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, RestAuthenticationLoginSecretPaginationEnum> =
+    openEnums.outboundSchema(RestAuthenticationLoginSecretPaginationEnum);
+
+/** @internal */
+export const RestAuthenticationLoginSecretPagination$inboundSchema: z.ZodType<
+  RestAuthenticationLoginSecretPagination,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: RestAuthenticationLoginSecretPaginationEnum$inboundSchema.default(
+    "none",
+  ),
+});
+/** @internal */
+export type RestAuthenticationLoginSecretPagination$Outbound = {
+  type: string;
+};
+
+/** @internal */
+export const RestAuthenticationLoginSecretPagination$outboundSchema: z.ZodType<
+  RestAuthenticationLoginSecretPagination$Outbound,
+  z.ZodTypeDef,
+  RestAuthenticationLoginSecretPagination
+> = z.object({
+  type: RestAuthenticationLoginSecretPaginationEnum$outboundSchema.default(
+    "none",
+  ),
+});
+
+export function restAuthenticationLoginSecretPaginationToJSON(
+  restAuthenticationLoginSecretPagination:
+    RestAuthenticationLoginSecretPagination,
+): string {
+  return JSON.stringify(
+    RestAuthenticationLoginSecretPagination$outboundSchema.parse(
+      restAuthenticationLoginSecretPagination,
+    ),
+  );
+}
+export function restAuthenticationLoginSecretPaginationFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestAuthenticationLoginSecretPagination,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationLoginSecretPagination$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RestAuthenticationLoginSecretPagination' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestAuthenticationLoginSecretRetryRules$inboundSchema: z.ZodType<
+  RestAuthenticationLoginSecretRetryRules,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type RestAuthenticationLoginSecretRetryRules$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const RestAuthenticationLoginSecretRetryRules$outboundSchema: z.ZodType<
+  RestAuthenticationLoginSecretRetryRules$Outbound,
+  z.ZodTypeDef,
+  RestAuthenticationLoginSecretRetryRules
+> = z.object({
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function restAuthenticationLoginSecretRetryRulesToJSON(
+  restAuthenticationLoginSecretRetryRules:
+    RestAuthenticationLoginSecretRetryRules,
+): string {
+  return JSON.stringify(
+    RestAuthenticationLoginSecretRetryRules$outboundSchema.parse(
+      restAuthenticationLoginSecretRetryRules,
+    ),
+  );
+}
+export function restAuthenticationLoginSecretRetryRulesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestAuthenticationLoginSecretRetryRules,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationLoginSecretRetryRules$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RestAuthenticationLoginSecretRetryRules' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestAuthenticationLoginSecretStateTracking$inboundSchema:
+  z.ZodType<RestAuthenticationLoginSecretStateTracking, z.ZodTypeDef, unknown> =
+    z.object({
+      enabled: z.boolean().optional(),
+    });
+/** @internal */
+export type RestAuthenticationLoginSecretStateTracking$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const RestAuthenticationLoginSecretStateTracking$outboundSchema:
+  z.ZodType<
+    RestAuthenticationLoginSecretStateTracking$Outbound,
+    z.ZodTypeDef,
+    RestAuthenticationLoginSecretStateTracking
+  > = z.object({
+    enabled: z.boolean().optional(),
+  });
+
+export function restAuthenticationLoginSecretStateTrackingToJSON(
+  restAuthenticationLoginSecretStateTracking:
+    RestAuthenticationLoginSecretStateTracking,
+): string {
+  return JSON.stringify(
+    RestAuthenticationLoginSecretStateTracking$outboundSchema.parse(
+      restAuthenticationLoginSecretStateTracking,
+    ),
+  );
+}
+export function restAuthenticationLoginSecretStateTrackingFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestAuthenticationLoginSecretStateTracking,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationLoginSecretStateTracking$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RestAuthenticationLoginSecretStateTracking' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestAuthenticationLoginSecretScheduling$inboundSchema: z.ZodType<
+  RestAuthenticationLoginSecretScheduling,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: z.lazy(() =>
+    RestAuthenticationLoginSecretStateTracking$inboundSchema
+  ).optional(),
+});
+/** @internal */
+export type RestAuthenticationLoginSecretScheduling$Outbound = {
+  stateTracking?:
+    | RestAuthenticationLoginSecretStateTracking$Outbound
     | undefined;
 };
 
 /** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue
-  > = z.object({
-    getAuthTokenFromHeader: z.boolean().default(false),
-    authentication:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication$outboundSchema
-        .default("none"),
-    loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
-    credentialsSecret: z.string(),
-    loginBody: z.string().default(
-      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+export const RestAuthenticationLoginSecretScheduling$outboundSchema: z.ZodType<
+  RestAuthenticationLoginSecretScheduling$Outbound,
+  z.ZodTypeDef,
+  RestAuthenticationLoginSecretScheduling
+> = z.object({
+  stateTracking: z.lazy(() =>
+    RestAuthenticationLoginSecretStateTracking$outboundSchema
+  ).optional(),
+});
+
+export function restAuthenticationLoginSecretSchedulingToJSON(
+  restAuthenticationLoginSecretScheduling:
+    RestAuthenticationLoginSecretScheduling,
+): string {
+  return JSON.stringify(
+    RestAuthenticationLoginSecretScheduling$outboundSchema.parse(
+      restAuthenticationLoginSecretScheduling,
     ),
-    authHeaderKey: z.string().default("Authorization"),
-    authHeaderExpr: z.string().default("`Bearer ${token}`"),
-    authRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
-    ).optional(),
-    discovery: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery$outboundSchema
-    ).optional(),
-    collectUrl: z.string(),
-    collectMethod:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod$outboundSchema
-        .default("get"),
-    collectVerb: z.any().optional(),
-    collectRequestParams: z.any().optional(),
-    collectBody: z.any().optional(),
-    collectRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination$outboundSchema
-    ).optional(),
-    timeout: z.number().default(0),
-    useRoundRobinDns: z.boolean().default(false),
-    disableTimeFilter: z.boolean().default(false),
-    decodeUrl: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    stopOnEmptyResults: z.boolean().default(false),
-    safeHeaders: z.array(z.string()).optional(),
-    retryRules: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules$outboundSchema
-    ).optional(),
-    __scheduling: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling$outboundSchema
-    ).optional(),
-  });
-
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueToJSON(
-  restAuthenticationLoginSecretGetAuthTokenFromHeaderTrue:
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$outboundSchema
-      .parse(restAuthenticationLoginSecretGetAuthTokenFromHeaderTrue),
   );
 }
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueFromJSON(
+export function restAuthenticationLoginSecretSchedulingFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue,
+  RestAuthenticationLoginSecretScheduling,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication,
-  );
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication,
-  );
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType,
-  );
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType,
-  );
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    discoverType:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType$inboundSchema
-        .default("none"),
-  });
-/** @internal */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery$Outbound =
-  {
-    discoverType: string;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery
-  > = z.object({
-    discoverType:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType$outboundSchema
-        .default("none"),
-  });
-
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoveryToJSON(
-  restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery:
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery$outboundSchema
-      .parse(restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery),
-  );
-}
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoveryFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod,
-  );
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod,
-  );
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum,
-  );
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum,
-  );
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum$inboundSchema
-        .default("none"),
-  });
-/** @internal */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination$Outbound =
-  {
-    type: string;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination
-  > = z.object({
-    type:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum$outboundSchema
-        .default("none"),
-  });
-
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationToJSON(
-  restAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination:
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination$outboundSchema
-      .parse(
-        restAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination,
+      RestAuthenticationLoginSecretScheduling$inboundSchema.parse(
+        JSON.parse(x),
       ),
-  );
-}
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-      .default("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-  });
-/** @internal */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules$Outbound =
-  {
-    type: string;
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    maxIntervalMs?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    retryConnectTimeout?: any | undefined;
-    retryConnectReset?: any | undefined;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules
-  > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-      .default("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-  });
-
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRulesToJSON(
-  restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules:
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules$outboundSchema
-      .parse(
-        restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules,
-      ),
-  );
-}
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRulesFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    enabled: z.boolean().optional(),
-  });
-/** @internal */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking$Outbound =
-  {
-    enabled?: boolean | undefined;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking
-  > = z.object({
-    enabled: z.boolean().optional(),
-  });
-
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTrackingToJSON(
-  restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking:
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking$outboundSchema
-      .parse(
-        restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking,
-      ),
-  );
-}
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTrackingFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    stateTracking: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking$inboundSchema
-    ).optional(),
-  });
-/** @internal */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling$Outbound =
-  {
-    stateTracking?:
-      | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking$Outbound
-      | undefined;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling
-  > = z.object({
-    stateTracking: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking$outboundSchema
-    ).optional(),
-  });
-
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseSchedulingToJSON(
-  restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling:
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling$outboundSchema
-      .parse(
-        restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling,
-      ),
-  );
-}
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseSchedulingFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    getAuthTokenFromHeader: z.boolean().default(false),
-    tokenRespAttribute: z.string().optional(),
-    authentication:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication$inboundSchema
-        .default("none"),
-    loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
-    credentialsSecret: z.string(),
-    loginBody: z.string().default(
-      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-    ),
-    authHeaderKey: z.string().default("Authorization"),
-    authHeaderExpr: z.string().default("`Bearer ${token}`"),
-    authRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    discovery: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery$inboundSchema
-    ).optional(),
-    collectUrl: z.string(),
-    collectMethod:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod$inboundSchema
-        .default("get"),
-    collectVerb: z.any().optional(),
-    collectRequestParams: z.any().optional(),
-    collectBody: z.any().optional(),
-    collectRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination$inboundSchema
-    ).optional(),
-    timeout: z.number().default(0),
-    useRoundRobinDns: z.boolean().default(false),
-    disableTimeFilter: z.boolean().default(false),
-    decodeUrl: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    stopOnEmptyResults: z.boolean().default(false),
-    safeHeaders: z.array(z.string()).optional(),
-    retryRules: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules$inboundSchema
-    ).optional(),
-    __scheduling: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling$inboundSchema
-    ).optional(),
-  });
-/** @internal */
-export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$Outbound =
-  {
-    getAuthTokenFromHeader: boolean;
-    tokenRespAttribute?: string | undefined;
-    authentication: string;
-    loginUrl: string;
-    credentialsSecret: string;
-    loginBody: string;
-    authHeaderKey: string;
-    authHeaderExpr: string;
-    authRequestHeaders?:
-      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
-      | undefined;
-    discovery?:
-      | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery$Outbound
-      | undefined;
-    collectUrl: string;
-    collectMethod: string;
-    collectVerb?: any | undefined;
-    collectRequestParams?: any | undefined;
-    collectBody?: any | undefined;
-    collectRequestHeaders?:
-      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
-      | undefined;
-    pagination?:
-      | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination$Outbound
-      | undefined;
-    timeout: number;
-    useRoundRobinDns: boolean;
-    disableTimeFilter: boolean;
-    decodeUrl: boolean;
-    rejectUnauthorized: boolean;
-    captureHeaders: boolean;
-    stopOnEmptyResults: boolean;
-    safeHeaders?: Array<string> | undefined;
-    retryRules?:
-      | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules$Outbound
-      | undefined;
-    __scheduling?:
-      | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling$Outbound
-      | undefined;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse
-  > = z.object({
-    getAuthTokenFromHeader: z.boolean().default(false),
-    tokenRespAttribute: z.string().optional(),
-    authentication:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication$outboundSchema
-        .default("none"),
-    loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
-    credentialsSecret: z.string(),
-    loginBody: z.string().default(
-      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-    ),
-    authHeaderKey: z.string().default("Authorization"),
-    authHeaderExpr: z.string().default("`Bearer ${token}`"),
-    authRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
-    ).optional(),
-    discovery: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery$outboundSchema
-    ).optional(),
-    collectUrl: z.string(),
-    collectMethod:
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod$outboundSchema
-        .default("get"),
-    collectVerb: z.any().optional(),
-    collectRequestParams: z.any().optional(),
-    collectBody: z.any().optional(),
-    collectRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination$outboundSchema
-    ).optional(),
-    timeout: z.number().default(0),
-    useRoundRobinDns: z.boolean().default(false),
-    disableTimeFilter: z.boolean().default(false),
-    decodeUrl: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    stopOnEmptyResults: z.boolean().default(false),
-    safeHeaders: z.array(z.string()).optional(),
-    retryRules: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules$outboundSchema
-    ).optional(),
-    __scheduling: z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling$outboundSchema
-    ).optional(),
-  });
-
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseToJSON(
-  restAuthenticationLoginSecretGetAuthTokenFromHeaderFalse:
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$outboundSchema
-      .parse(restAuthenticationLoginSecretGetAuthTokenFromHeaderFalse),
-  );
-}
-export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse' from JSON`,
+    `Failed to parse 'RestAuthenticationLoginSecretScheduling' from JSON`,
   );
 }
 
@@ -6351,32 +4987,129 @@ export const RestAuthenticationLoginSecret$inboundSchema: z.ZodType<
   RestAuthenticationLoginSecret,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() =>
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$inboundSchema
+> = z.object({
+  authentication: z.literal("loginSecret"),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  credentialsSecret: z.string(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
   ),
-  z.lazy(() =>
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$inboundSchema
-  ),
-]);
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
+  ).optional(),
+  discovery: z.lazy(() => RestAuthenticationLoginSecretDiscovery$inboundSchema)
+    .optional(),
+  collectUrl: z.string(),
+  collectMethod: RestAuthenticationLoginSecretCollectMethod$inboundSchema
+    .default("get"),
+  collectVerb: z.any().optional(),
+  collectRequestParams: z.any().optional(),
+  collectBody: z.any().optional(),
+  collectRequestHeaders: z.array(
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
+  ).optional(),
+  pagination: z.lazy(() =>
+    RestAuthenticationLoginSecretPagination$inboundSchema
+  ).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() =>
+    RestAuthenticationLoginSecretRetryRules$inboundSchema
+  ).optional(),
+  __scheduling: z.lazy(() =>
+    RestAuthenticationLoginSecretScheduling$inboundSchema
+  ).optional(),
+});
 /** @internal */
-export type RestAuthenticationLoginSecret$Outbound =
-  | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$Outbound
-  | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$Outbound;
+export type RestAuthenticationLoginSecret$Outbound = {
+  authentication: "loginSecret";
+  loginUrl: string;
+  credentialsSecret: string;
+  loginBody: string;
+  getAuthTokenFromHeader: boolean;
+  authHeaderKey: string;
+  authHeaderExpr: string;
+  authRequestHeaders?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+    | undefined;
+  discovery?: RestAuthenticationLoginSecretDiscovery$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectVerb?: any | undefined;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
+  collectRequestHeaders?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+    | undefined;
+  pagination?: RestAuthenticationLoginSecretPagination$Outbound | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: RestAuthenticationLoginSecretRetryRules$Outbound | undefined;
+  __scheduling?: RestAuthenticationLoginSecretScheduling$Outbound | undefined;
+};
 
 /** @internal */
 export const RestAuthenticationLoginSecret$outboundSchema: z.ZodType<
   RestAuthenticationLoginSecret$Outbound,
   z.ZodTypeDef,
   RestAuthenticationLoginSecret
-> = z.union([
-  z.lazy(() =>
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$outboundSchema
+> = z.object({
+  authentication: z.literal("loginSecret"),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  credentialsSecret: z.string(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
   ),
-  z.lazy(() =>
-    RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$outboundSchema
-  ),
-]);
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+  ).optional(),
+  discovery: z.lazy(() => RestAuthenticationLoginSecretDiscovery$outboundSchema)
+    .optional(),
+  collectUrl: z.string(),
+  collectMethod: RestAuthenticationLoginSecretCollectMethod$outboundSchema
+    .default("get"),
+  collectVerb: z.any().optional(),
+  collectRequestParams: z.any().optional(),
+  collectBody: z.any().optional(),
+  collectRequestHeaders: z.array(
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+  ).optional(),
+  pagination: z.lazy(() =>
+    RestAuthenticationLoginSecretPagination$outboundSchema
+  ).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() =>
+    RestAuthenticationLoginSecretRetryRules$outboundSchema
+  ).optional(),
+  __scheduling: z.lazy(() =>
+    RestAuthenticationLoginSecretScheduling$outboundSchema
+  ).optional(),
+});
 
 export function restAuthenticationLoginSecretToJSON(
   restAuthenticationLoginSecret: RestAuthenticationLoginSecret,
@@ -6398,1079 +5131,281 @@ export function restAuthenticationLoginSecretFromJSON(
 }
 
 /** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication,
-  );
+export const RestAuthenticationLoginDiscoverType$inboundSchema: z.ZodType<
+  RestAuthenticationLoginDiscoverType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(RestAuthenticationLoginDiscoverType);
 /** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication,
-  );
+export const RestAuthenticationLoginDiscoverType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RestAuthenticationLoginDiscoverType
+> = openEnums.outboundSchema(RestAuthenticationLoginDiscoverType);
 
 /** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType,
-  );
+export const RestAuthenticationLoginDiscovery$inboundSchema: z.ZodType<
+  RestAuthenticationLoginDiscovery,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: RestAuthenticationLoginDiscoverType$inboundSchema.default(
+    "none",
+  ),
+});
 /** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType,
-  );
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    discoverType:
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType$inboundSchema
-        .default("none"),
-  });
-/** @internal */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery$Outbound =
-  {
-    discoverType: string;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery
-  > = z.object({
-    discoverType:
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType$outboundSchema
-        .default("none"),
-  });
-
-export function restAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoveryToJSON(
-  restAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery:
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery$outboundSchema
-      .parse(restAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery),
-  );
-}
-export function restAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoveryFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod,
-  );
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod,
-  );
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum,
-  );
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum,
-  );
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type:
-      RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum$inboundSchema
-        .default("none"),
-  });
-/** @internal */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination$Outbound =
-  {
-    type: string;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination
-  > = z.object({
-    type:
-      RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum$outboundSchema
-        .default("none"),
-  });
-
-export function restAuthenticationLoginGetAuthTokenFromHeaderTruePaginationToJSON(
-  restAuthenticationLoginGetAuthTokenFromHeaderTruePagination:
-    RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination$outboundSchema
-      .parse(restAuthenticationLoginGetAuthTokenFromHeaderTruePagination),
-  );
-}
-export function restAuthenticationLoginGetAuthTokenFromHeaderTruePaginationFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-      .default("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-  });
-/** @internal */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules$Outbound =
-  {
-    type: string;
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    maxIntervalMs?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    retryConnectTimeout?: any | undefined;
-    retryConnectReset?: any | undefined;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules
-  > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-      .default("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-  });
-
-export function restAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRulesToJSON(
-  restAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules:
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules$outboundSchema
-      .parse(restAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules),
-  );
-}
-export function restAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRulesFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    enabled: z.boolean().optional(),
-  });
-/** @internal */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking$Outbound =
-  {
-    enabled?: boolean | undefined;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking
-  > = z.object({
-    enabled: z.boolean().optional(),
-  });
-
-export function restAuthenticationLoginGetAuthTokenFromHeaderTrueStateTrackingToJSON(
-  restAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking:
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking$outboundSchema
-      .parse(restAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking),
-  );
-}
-export function restAuthenticationLoginGetAuthTokenFromHeaderTrueStateTrackingFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    stateTracking: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking$inboundSchema
-    ).optional(),
-  });
-/** @internal */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling$Outbound =
-  {
-    stateTracking?:
-      | RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking$Outbound
-      | undefined;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling
-  > = z.object({
-    stateTracking: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking$outboundSchema
-    ).optional(),
-  });
-
-export function restAuthenticationLoginGetAuthTokenFromHeaderTrueSchedulingToJSON(
-  restAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling:
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling$outboundSchema
-      .parse(restAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling),
-  );
-}
-export function restAuthenticationLoginGetAuthTokenFromHeaderTrueSchedulingFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrue$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrue,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    getAuthTokenFromHeader: z.boolean().default(false),
-    authentication:
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication$inboundSchema
-        .default("none"),
-    loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
-    username: z.string(),
-    password: z.string(),
-    loginBody: z.string().default(
-      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-    ),
-    authHeaderKey: z.string().default("Authorization"),
-    authHeaderExpr: z.string().default("`Bearer ${token}`"),
-    authRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    discovery: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery$inboundSchema
-    ).optional(),
-    collectUrl: z.string(),
-    collectMethod:
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod$inboundSchema
-        .default("get"),
-    collectVerb: z.any().optional(),
-    collectRequestParams: z.any().optional(),
-    collectBody: z.any().optional(),
-    collectRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination$inboundSchema
-    ).optional(),
-    timeout: z.number().default(0),
-    useRoundRobinDns: z.boolean().default(false),
-    disableTimeFilter: z.boolean().default(false),
-    decodeUrl: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    stopOnEmptyResults: z.boolean().default(false),
-    safeHeaders: z.array(z.string()).optional(),
-    retryRules: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules$inboundSchema
-    ).optional(),
-    __scheduling: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling$inboundSchema
-    ).optional(),
-  });
-/** @internal */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderTrue$Outbound = {
-  getAuthTokenFromHeader: boolean;
-  authentication: string;
-  loginUrl: string;
-  username: string;
-  password: string;
-  loginBody: string;
-  authHeaderKey: string;
-  authHeaderExpr: string;
-  authRequestHeaders?:
-    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
-    | undefined;
-  discovery?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery$Outbound
-    | undefined;
-  collectUrl: string;
-  collectMethod: string;
-  collectVerb?: any | undefined;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
-  collectRequestHeaders?:
-    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
-    | undefined;
-  pagination?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination$Outbound
-    | undefined;
-  timeout: number;
-  useRoundRobinDns: boolean;
-  disableTimeFilter: boolean;
-  decodeUrl: boolean;
-  rejectUnauthorized: boolean;
-  captureHeaders: boolean;
-  stopOnEmptyResults: boolean;
-  safeHeaders?: Array<string> | undefined;
-  retryRules?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules$Outbound
-    | undefined;
-  __scheduling?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling$Outbound
-    | undefined;
+export type RestAuthenticationLoginDiscovery$Outbound = {
+  discoverType: string;
 };
 
 /** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderTrue$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrue$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrue
-  > = z.object({
-    getAuthTokenFromHeader: z.boolean().default(false),
-    authentication:
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication$outboundSchema
-        .default("none"),
-    loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
-    username: z.string(),
-    password: z.string(),
-    loginBody: z.string().default(
-      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-    ),
-    authHeaderKey: z.string().default("Authorization"),
-    authHeaderExpr: z.string().default("`Bearer ${token}`"),
-    authRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
-    ).optional(),
-    discovery: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery$outboundSchema
-    ).optional(),
-    collectUrl: z.string(),
-    collectMethod:
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod$outboundSchema
-        .default("get"),
-    collectVerb: z.any().optional(),
-    collectRequestParams: z.any().optional(),
-    collectBody: z.any().optional(),
-    collectRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination$outboundSchema
-    ).optional(),
-    timeout: z.number().default(0),
-    useRoundRobinDns: z.boolean().default(false),
-    disableTimeFilter: z.boolean().default(false),
-    decodeUrl: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    stopOnEmptyResults: z.boolean().default(false),
-    safeHeaders: z.array(z.string()).optional(),
-    retryRules: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules$outboundSchema
-    ).optional(),
-    __scheduling: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling$outboundSchema
-    ).optional(),
-  });
+export const RestAuthenticationLoginDiscovery$outboundSchema: z.ZodType<
+  RestAuthenticationLoginDiscovery$Outbound,
+  z.ZodTypeDef,
+  RestAuthenticationLoginDiscovery
+> = z.object({
+  discoverType: RestAuthenticationLoginDiscoverType$outboundSchema.default(
+    "none",
+  ),
+});
 
-export function restAuthenticationLoginGetAuthTokenFromHeaderTrueToJSON(
-  restAuthenticationLoginGetAuthTokenFromHeaderTrue:
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrue,
+export function restAuthenticationLoginDiscoveryToJSON(
+  restAuthenticationLoginDiscovery: RestAuthenticationLoginDiscovery,
 ): string {
   return JSON.stringify(
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrue$outboundSchema.parse(
-      restAuthenticationLoginGetAuthTokenFromHeaderTrue,
+    RestAuthenticationLoginDiscovery$outboundSchema.parse(
+      restAuthenticationLoginDiscovery,
     ),
   );
 }
-export function restAuthenticationLoginGetAuthTokenFromHeaderTrueFromJSON(
+export function restAuthenticationLoginDiscoveryFromJSON(
   jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginGetAuthTokenFromHeaderTrue,
-  SDKValidationError
-> {
+): SafeParseResult<RestAuthenticationLoginDiscovery, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrue$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationLoginGetAuthTokenFromHeaderTrue' from JSON`,
+    (x) => RestAuthenticationLoginDiscovery$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationLoginDiscovery' from JSON`,
   );
 }
 
 /** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication,
-  );
+export const RestAuthenticationLoginCollectMethod$inboundSchema: z.ZodType<
+  RestAuthenticationLoginCollectMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(RestAuthenticationLoginCollectMethod);
 /** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication,
-  );
+export const RestAuthenticationLoginCollectMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RestAuthenticationLoginCollectMethod
+> = openEnums.outboundSchema(RestAuthenticationLoginCollectMethod);
 
 /** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType,
-  );
+export const RestAuthenticationLoginPaginationEnum$inboundSchema: z.ZodType<
+  RestAuthenticationLoginPaginationEnum,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(RestAuthenticationLoginPaginationEnum);
 /** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType,
-  );
+export const RestAuthenticationLoginPaginationEnum$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RestAuthenticationLoginPaginationEnum
+> = openEnums.outboundSchema(RestAuthenticationLoginPaginationEnum);
 
 /** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    discoverType:
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType$inboundSchema
-        .default("none"),
-  });
+export const RestAuthenticationLoginPagination$inboundSchema: z.ZodType<
+  RestAuthenticationLoginPagination,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: RestAuthenticationLoginPaginationEnum$inboundSchema.default("none"),
+});
 /** @internal */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery$Outbound =
-  {
-    discoverType: string;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery
-  > = z.object({
-    discoverType:
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType$outboundSchema
-        .default("none"),
-  });
-
-export function restAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoveryToJSON(
-  restAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery:
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery$outboundSchema
-      .parse(restAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery),
-  );
-}
-export function restAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoveryFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod,
-  );
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod,
-  );
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum,
-  );
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum
-  > = openEnums.outboundSchema(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum,
-  );
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type:
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum$inboundSchema
-        .default("none"),
-  });
-/** @internal */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination$Outbound =
-  {
-    type: string;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination
-  > = z.object({
-    type:
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum$outboundSchema
-        .default("none"),
-  });
-
-export function restAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationToJSON(
-  restAuthenticationLoginGetAuthTokenFromHeaderFalsePagination:
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination$outboundSchema
-      .parse(restAuthenticationLoginGetAuthTokenFromHeaderFalsePagination),
-  );
-}
-export function restAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-      .default("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-  });
-/** @internal */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules$Outbound =
-  {
-    type: string;
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    maxIntervalMs?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    retryConnectTimeout?: any | undefined;
-    retryConnectReset?: any | undefined;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules
-  > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-      .default("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-  });
-
-export function restAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRulesToJSON(
-  restAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules:
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules$outboundSchema
-      .parse(restAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules),
-  );
-}
-export function restAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRulesFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    enabled: z.boolean().optional(),
-  });
-/** @internal */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking$Outbound =
-  {
-    enabled?: boolean | undefined;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking
-  > = z.object({
-    enabled: z.boolean().optional(),
-  });
-
-export function restAuthenticationLoginGetAuthTokenFromHeaderFalseStateTrackingToJSON(
-  restAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking:
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking$outboundSchema
-      .parse(restAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking),
-  );
-}
-export function restAuthenticationLoginGetAuthTokenFromHeaderFalseStateTrackingFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    stateTracking: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking$inboundSchema
-    ).optional(),
-  });
-/** @internal */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling$Outbound =
-  {
-    stateTracking?:
-      | RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking$Outbound
-      | undefined;
-  };
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling
-  > = z.object({
-    stateTracking: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking$outboundSchema
-    ).optional(),
-  });
-
-export function restAuthenticationLoginGetAuthTokenFromHeaderFalseSchedulingToJSON(
-  restAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling:
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling,
-): string {
-  return JSON.stringify(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling$outboundSchema
-      .parse(restAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling),
-  );
-}
-export function restAuthenticationLoginGetAuthTokenFromHeaderFalseSchedulingFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalse$inboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalse,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    getAuthTokenFromHeader: z.boolean().default(false),
-    tokenRespAttribute: z.string().optional(),
-    authentication:
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication$inboundSchema
-        .default("none"),
-    loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
-    username: z.string(),
-    password: z.string(),
-    loginBody: z.string().default(
-      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-    ),
-    authHeaderKey: z.string().default("Authorization"),
-    authHeaderExpr: z.string().default("`Bearer ${token}`"),
-    authRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    discovery: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery$inboundSchema
-    ).optional(),
-    collectUrl: z.string(),
-    collectMethod:
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod$inboundSchema
-        .default("get"),
-    collectVerb: z.any().optional(),
-    collectRequestParams: z.any().optional(),
-    collectBody: z.any().optional(),
-    collectRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination$inboundSchema
-    ).optional(),
-    timeout: z.number().default(0),
-    useRoundRobinDns: z.boolean().default(false),
-    disableTimeFilter: z.boolean().default(false),
-    decodeUrl: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    stopOnEmptyResults: z.boolean().default(false),
-    safeHeaders: z.array(z.string()).optional(),
-    retryRules: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules$inboundSchema
-    ).optional(),
-    __scheduling: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling$inboundSchema
-    ).optional(),
-  });
-/** @internal */
-export type RestAuthenticationLoginGetAuthTokenFromHeaderFalse$Outbound = {
-  getAuthTokenFromHeader: boolean;
-  tokenRespAttribute?: string | undefined;
-  authentication: string;
-  loginUrl: string;
-  username: string;
-  password: string;
-  loginBody: string;
-  authHeaderKey: string;
-  authHeaderExpr: string;
-  authRequestHeaders?:
-    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
-    | undefined;
-  discovery?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery$Outbound
-    | undefined;
-  collectUrl: string;
-  collectMethod: string;
-  collectVerb?: any | undefined;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
-  collectRequestHeaders?:
-    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
-    | undefined;
-  pagination?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination$Outbound
-    | undefined;
-  timeout: number;
-  useRoundRobinDns: boolean;
-  disableTimeFilter: boolean;
-  decodeUrl: boolean;
-  rejectUnauthorized: boolean;
-  captureHeaders: boolean;
-  stopOnEmptyResults: boolean;
-  safeHeaders?: Array<string> | undefined;
-  retryRules?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules$Outbound
-    | undefined;
-  __scheduling?:
-    | RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling$Outbound
-    | undefined;
+export type RestAuthenticationLoginPagination$Outbound = {
+  type: string;
 };
 
 /** @internal */
-export const RestAuthenticationLoginGetAuthTokenFromHeaderFalse$outboundSchema:
-  z.ZodType<
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalse$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalse
-  > = z.object({
-    getAuthTokenFromHeader: z.boolean().default(false),
-    tokenRespAttribute: z.string().optional(),
-    authentication:
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication$outboundSchema
-        .default("none"),
-    loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
-    username: z.string(),
-    password: z.string(),
-    loginBody: z.string().default(
-      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-    ),
-    authHeaderKey: z.string().default("Authorization"),
-    authHeaderExpr: z.string().default("`Bearer ${token}`"),
-    authRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
-    ).optional(),
-    discovery: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery$outboundSchema
-    ).optional(),
-    collectUrl: z.string(),
-    collectMethod:
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod$outboundSchema
-        .default("get"),
-    collectVerb: z.any().optional(),
-    collectRequestParams: z.any().optional(),
-    collectBody: z.any().optional(),
-    collectRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination$outboundSchema
-    ).optional(),
-    timeout: z.number().default(0),
-    useRoundRobinDns: z.boolean().default(false),
-    disableTimeFilter: z.boolean().default(false),
-    decodeUrl: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    stopOnEmptyResults: z.boolean().default(false),
-    safeHeaders: z.array(z.string()).optional(),
-    retryRules: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules$outboundSchema
-    ).optional(),
-    __scheduling: z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling$outboundSchema
-    ).optional(),
-  });
+export const RestAuthenticationLoginPagination$outboundSchema: z.ZodType<
+  RestAuthenticationLoginPagination$Outbound,
+  z.ZodTypeDef,
+  RestAuthenticationLoginPagination
+> = z.object({
+  type: RestAuthenticationLoginPaginationEnum$outboundSchema.default("none"),
+});
 
-export function restAuthenticationLoginGetAuthTokenFromHeaderFalseToJSON(
-  restAuthenticationLoginGetAuthTokenFromHeaderFalse:
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalse,
+export function restAuthenticationLoginPaginationToJSON(
+  restAuthenticationLoginPagination: RestAuthenticationLoginPagination,
 ): string {
   return JSON.stringify(
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalse$outboundSchema.parse(
-      restAuthenticationLoginGetAuthTokenFromHeaderFalse,
+    RestAuthenticationLoginPagination$outboundSchema.parse(
+      restAuthenticationLoginPagination,
     ),
   );
 }
-export function restAuthenticationLoginGetAuthTokenFromHeaderFalseFromJSON(
+export function restAuthenticationLoginPaginationFromJSON(
   jsonString: string,
-): SafeParseResult<
-  RestAuthenticationLoginGetAuthTokenFromHeaderFalse,
-  SDKValidationError
-> {
+): SafeParseResult<RestAuthenticationLoginPagination, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RestAuthenticationLoginPagination$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationLoginPagination' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestAuthenticationLoginRetryRules$inboundSchema: z.ZodType<
+  RestAuthenticationLoginRetryRules,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
+    .default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type RestAuthenticationLoginRetryRules$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const RestAuthenticationLoginRetryRules$outboundSchema: z.ZodType<
+  RestAuthenticationLoginRetryRules$Outbound,
+  z.ZodTypeDef,
+  RestAuthenticationLoginRetryRules
+> = z.object({
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
+    .default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function restAuthenticationLoginRetryRulesToJSON(
+  restAuthenticationLoginRetryRules: RestAuthenticationLoginRetryRules,
+): string {
+  return JSON.stringify(
+    RestAuthenticationLoginRetryRules$outboundSchema.parse(
+      restAuthenticationLoginRetryRules,
+    ),
+  );
+}
+export function restAuthenticationLoginRetryRulesFromJSON(
+  jsonString: string,
+): SafeParseResult<RestAuthenticationLoginRetryRules, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RestAuthenticationLoginRetryRules$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationLoginRetryRules' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestAuthenticationLoginStateTracking$inboundSchema: z.ZodType<
+  RestAuthenticationLoginStateTracking,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type RestAuthenticationLoginStateTracking$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const RestAuthenticationLoginStateTracking$outboundSchema: z.ZodType<
+  RestAuthenticationLoginStateTracking$Outbound,
+  z.ZodTypeDef,
+  RestAuthenticationLoginStateTracking
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function restAuthenticationLoginStateTrackingToJSON(
+  restAuthenticationLoginStateTracking: RestAuthenticationLoginStateTracking,
+): string {
+  return JSON.stringify(
+    RestAuthenticationLoginStateTracking$outboundSchema.parse(
+      restAuthenticationLoginStateTracking,
+    ),
+  );
+}
+export function restAuthenticationLoginStateTrackingFromJSON(
+  jsonString: string,
+): SafeParseResult<RestAuthenticationLoginStateTracking, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalse$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationLoginGetAuthTokenFromHeaderFalse' from JSON`,
+      RestAuthenticationLoginStateTracking$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationLoginStateTracking' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestAuthenticationLoginScheduling$inboundSchema: z.ZodType<
+  RestAuthenticationLoginScheduling,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: z.lazy(() =>
+    RestAuthenticationLoginStateTracking$inboundSchema
+  ).optional(),
+});
+/** @internal */
+export type RestAuthenticationLoginScheduling$Outbound = {
+  stateTracking?: RestAuthenticationLoginStateTracking$Outbound | undefined;
+};
+
+/** @internal */
+export const RestAuthenticationLoginScheduling$outboundSchema: z.ZodType<
+  RestAuthenticationLoginScheduling$Outbound,
+  z.ZodTypeDef,
+  RestAuthenticationLoginScheduling
+> = z.object({
+  stateTracking: z.lazy(() =>
+    RestAuthenticationLoginStateTracking$outboundSchema
+  ).optional(),
+});
+
+export function restAuthenticationLoginSchedulingToJSON(
+  restAuthenticationLoginScheduling: RestAuthenticationLoginScheduling,
+): string {
+  return JSON.stringify(
+    RestAuthenticationLoginScheduling$outboundSchema.parse(
+      restAuthenticationLoginScheduling,
+    ),
+  );
+}
+export function restAuthenticationLoginSchedulingFromJSON(
+  jsonString: string,
+): SafeParseResult<RestAuthenticationLoginScheduling, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RestAuthenticationLoginScheduling$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationLoginScheduling' from JSON`,
   );
 }
 
@@ -7479,30 +5414,128 @@ export const RestAuthenticationLogin$inboundSchema: z.ZodType<
   RestAuthenticationLogin,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() =>
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalse$inboundSchema
+> = z.object({
+  authentication: z.literal("login"),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  username: z.string(),
+  password: z.string(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
   ),
-  z.lazy(() => RestAuthenticationLoginGetAuthTokenFromHeaderTrue$inboundSchema),
-]);
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
+  ).optional(),
+  discovery: z.lazy(() => RestAuthenticationLoginDiscovery$inboundSchema)
+    .optional(),
+  collectUrl: z.string(),
+  collectMethod: RestAuthenticationLoginCollectMethod$inboundSchema.default(
+    "get",
+  ),
+  collectVerb: z.any().optional(),
+  collectRequestParams: z.any().optional(),
+  collectBody: z.any().optional(),
+  collectRequestHeaders: z.array(
+    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
+  ).optional(),
+  pagination: z.lazy(() => RestAuthenticationLoginPagination$inboundSchema)
+    .optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => RestAuthenticationLoginRetryRules$inboundSchema)
+    .optional(),
+  __scheduling: z.lazy(() => RestAuthenticationLoginScheduling$inboundSchema)
+    .optional(),
+});
 /** @internal */
-export type RestAuthenticationLogin$Outbound =
-  | RestAuthenticationLoginGetAuthTokenFromHeaderFalse$Outbound
-  | RestAuthenticationLoginGetAuthTokenFromHeaderTrue$Outbound;
+export type RestAuthenticationLogin$Outbound = {
+  authentication: "login";
+  loginUrl: string;
+  username: string;
+  password: string;
+  loginBody: string;
+  getAuthTokenFromHeader: boolean;
+  authHeaderKey: string;
+  authHeaderExpr: string;
+  authRequestHeaders?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+    | undefined;
+  discovery?: RestAuthenticationLoginDiscovery$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectVerb?: any | undefined;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
+  collectRequestHeaders?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+    | undefined;
+  pagination?: RestAuthenticationLoginPagination$Outbound | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: RestAuthenticationLoginRetryRules$Outbound | undefined;
+  __scheduling?: RestAuthenticationLoginScheduling$Outbound | undefined;
+};
 
 /** @internal */
 export const RestAuthenticationLogin$outboundSchema: z.ZodType<
   RestAuthenticationLogin$Outbound,
   z.ZodTypeDef,
   RestAuthenticationLogin
-> = z.union([
-  z.lazy(() =>
-    RestAuthenticationLoginGetAuthTokenFromHeaderFalse$outboundSchema
+> = z.object({
+  authentication: z.literal("login"),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  username: z.string(),
+  password: z.string(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
   ),
-  z.lazy(() =>
-    RestAuthenticationLoginGetAuthTokenFromHeaderTrue$outboundSchema
+  getAuthTokenFromHeader: z.boolean().default(false),
+  authHeaderKey: z.string().default("Authorization"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+  ).optional(),
+  discovery: z.lazy(() => RestAuthenticationLoginDiscovery$outboundSchema)
+    .optional(),
+  collectUrl: z.string(),
+  collectMethod: RestAuthenticationLoginCollectMethod$outboundSchema.default(
+    "get",
   ),
-]);
+  collectVerb: z.any().optional(),
+  collectRequestParams: z.any().optional(),
+  collectBody: z.any().optional(),
+  collectRequestHeaders: z.array(
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+  ).optional(),
+  pagination: z.lazy(() => RestAuthenticationLoginPagination$outboundSchema)
+    .optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => RestAuthenticationLoginRetryRules$outboundSchema)
+    .optional(),
+  __scheduling: z.lazy(() => RestAuthenticationLoginScheduling$outboundSchema)
+    .optional(),
+});
 
 export function restAuthenticationLoginToJSON(
   restAuthenticationLogin: RestAuthenticationLogin,
@@ -10383,22 +8416,8 @@ export const RestCollectorConf$inboundSchema: z.ZodType<
   z.lazy(() => RestAuthenticationNone$inboundSchema),
   z.lazy(() => RestAuthenticationBasic$inboundSchema),
   z.lazy(() => RestAuthenticationBasicSecret$inboundSchema),
-  z.union([
-    z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalse$inboundSchema
-    ),
-    z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrue$inboundSchema
-    ),
-  ]).and(z.object({ authentication: z.literal("login") })),
-  z.union([
-    z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$inboundSchema
-    ),
-    z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$inboundSchema
-    ),
-  ]).and(z.object({ authentication: z.literal("loginSecret") })),
+  z.lazy(() => RestAuthenticationLogin$inboundSchema),
+  z.lazy(() => RestAuthenticationLoginSecret$inboundSchema),
   z.lazy(() => RestAuthenticationOauth$inboundSchema),
   z.lazy(() => RestAuthenticationOauthSecret$inboundSchema),
   z.lazy(() => RestAuthenticationGoogleOauth$inboundSchema),
@@ -10410,18 +8429,8 @@ export type RestCollectorConf$Outbound =
   | RestAuthenticationNone$Outbound
   | RestAuthenticationBasic$Outbound
   | RestAuthenticationBasicSecret$Outbound
-  | (
-    | RestAuthenticationLoginGetAuthTokenFromHeaderFalse$Outbound
-    | RestAuthenticationLoginGetAuthTokenFromHeaderTrue$Outbound & {
-      authentication: "login";
-    }
-  )
-  | (
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$Outbound
-    | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$Outbound & {
-      authentication: "loginSecret";
-    }
-  )
+  | RestAuthenticationLogin$Outbound
+  | RestAuthenticationLoginSecret$Outbound
   | RestAuthenticationOauth$Outbound
   | RestAuthenticationOauthSecret$Outbound
   | RestAuthenticationGoogleOauth$Outbound
@@ -10437,22 +8446,8 @@ export const RestCollectorConf$outboundSchema: z.ZodType<
   z.lazy(() => RestAuthenticationNone$outboundSchema),
   z.lazy(() => RestAuthenticationBasic$outboundSchema),
   z.lazy(() => RestAuthenticationBasicSecret$outboundSchema),
-  z.union([
-    z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderFalse$outboundSchema
-    ),
-    z.lazy(() =>
-      RestAuthenticationLoginGetAuthTokenFromHeaderTrue$outboundSchema
-    ),
-  ]).and(z.object({ authentication: z.literal("login") })),
-  z.union([
-    z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$outboundSchema
-    ),
-    z.lazy(() =>
-      RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$outboundSchema
-    ),
-  ]).and(z.object({ authentication: z.literal("loginSecret") })),
+  z.lazy(() => RestAuthenticationLogin$outboundSchema),
+  z.lazy(() => RestAuthenticationLoginSecret$outboundSchema),
   z.lazy(() => RestAuthenticationOauth$outboundSchema),
   z.lazy(() => RestAuthenticationOauthSecret$outboundSchema),
   z.lazy(() => RestAuthenticationGoogleOauth$outboundSchema),

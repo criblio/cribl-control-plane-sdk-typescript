@@ -10,10 +10,10 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class ConfigsVersions extends ClientSDK {
   /**
-   * Get the configuration version for a Worker Group or Edge Fleet
+   * Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
    *
    * @remarks
-   * Get the configuration version for the specified Worker Group or Edge Fleet.
+   * Get the configuration version for the specified Worker Group, Outpost Group, or Edge Fleet.
    */
   async get(
     request: operations.GetConfigGroupConfigVersionByProductAndIdRequest,

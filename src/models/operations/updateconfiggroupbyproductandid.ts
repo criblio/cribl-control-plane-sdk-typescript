@@ -8,11 +8,11 @@ import * as models from "../index.js";
 
 export type UpdateConfigGroupByProductAndIdRequest = {
   /**
-   * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
+   * Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for.
    */
   product: models.ProductsCore;
   /**
-   * The <code>id</code> of the Worker Group or Edge Fleet to update.
+   * The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to update.
    */
   id: string;
   /**

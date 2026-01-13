@@ -1,11 +1,11 @@
-# RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules
+# RestAuthenticationLoginSecretRetryRules
 
 ## Example Usage
 
 ```typescript
-import { RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules } from "cribl-control-plane/models";
+import { RestAuthenticationLoginSecretRetryRules } from "cribl-control-plane/models";
 
-let value: RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules = {
+let value: RestAuthenticationLoginSecretRetryRules = {
   interval: "<value>",
   limit: "<value>",
   multiplier: "<value>",

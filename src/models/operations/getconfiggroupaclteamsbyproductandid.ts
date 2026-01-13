@@ -7,11 +7,11 @@ import * as models from "../index.js";
 
 export type GetConfigGroupAclTeamsByProductAndIdRequest = {
   /**
-   * Name of the Cribl product that contains the Worker Group or Edge Fleet.
+   * Name of the Cribl product that contains the Worker Group, Outpost Group, or Edge Fleet.
    */
   product: models.ProductsCore;
   /**
-   * The <code>id</code> of the Worker Group or Edge Fleet to get the team ACL for.
+   * The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to get the team ACL for.
    */
   id: string;
   /**

@@ -959,3 +959,13 @@ Based on:
 - [typescript v0.5.0-rc.16] .
 ### Releases
 - [NPM v0.5.0-rc.16] https://www.npmjs.com/package/cribl-control-plane/v/0.5.0-rc.16 - .
+
+## 2026-01-13 19:24:25
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.683.2 (2.792.3) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v0.5.0-rc.17] .
+### Releases
+- [NPM v0.5.0-rc.17] https://www.npmjs.com/package/cribl-control-plane/v/0.5.0-rc.17 - .

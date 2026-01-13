@@ -7,7 +7,7 @@ import * as models from "../index.js";
 
 export type ListConfigGroupByProductRequest = {
   /**
-   * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
+   * Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for.
    */
   product: models.ProductsCore;
   /**

@@ -8,7 +8,7 @@ import * as models from "../index.js";
 
 export type CreateConfigGroupByProductRequest = {
   /**
-   * Name of the Cribl product to add the Worker Group or Edge Fleet to.
+   * Name of the Cribl product to add the Worker Group, Outpost Group, or Edge Fleet to.
    */
   product: models.ProductsCore;
   /**

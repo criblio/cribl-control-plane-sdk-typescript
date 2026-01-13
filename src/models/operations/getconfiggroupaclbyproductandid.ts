@@ -11,7 +11,7 @@ export type GetConfigGroupAclByProductAndIdRequest = {
    */
   product: models.ProductsCore;
   /**
-   * The <code>id</code> of the Worker Group or Edge Fleet to get the ACL for.
+   * The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to get the ACL for.
    */
   id: string;
   /**

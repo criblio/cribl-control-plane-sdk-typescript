@@ -8,6 +8,7 @@ import { OpenEnum } from "../types/enums.js";
 
 export const TypeOptionsConfigGroup = {
   Edge: "edge",
+  Outpost: "outpost",
   Stream: "stream",
   Search: "search",
   LakeAccess: "lake_access",
