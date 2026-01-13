@@ -1,11 +1,12 @@
 # InputModelDrivenTelemetry
 
-## Example Usage
+
+## Supported Types
+
+### `operations.InputModelDrivenTelemetrySendToRoutesTrueConstraint`
 
 ```typescript
-import { InputModelDrivenTelemetry } from "cribl-control-plane/models/operations";
-
-let value: InputModelDrivenTelemetry = {
+const value: operations.InputModelDrivenTelemetrySendToRoutesTrueConstraint = {
   id: "<id>",
   type: "model_driven_telemetry",
   pipeline: "<value>",
@@ -13,6 +14,7 @@ let value: InputModelDrivenTelemetry = {
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -29,8 +31,8 @@ let value: InputModelDrivenTelemetry = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
   metadata: [
     {
@@ -38,28 +40,131 @@ let value: InputModelDrivenTelemetry = {
       value: "<value>",
     },
   ],
-  description: "sternly oof ick",
+  description: "safely gigantic deliberately outbid free finally before",
 };
 ```
 
-## Fields
+### `operations.InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint`
 
-| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
-| `type`                                                                                                                                                                                                                                       | *"model_driven_telemetry"*                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                               |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
-| `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
-| `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
-| `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnections](../../models/itemstypeconnections.md)[]                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
-| `pq`                                                                                                                                                                                                                                         | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
-| `port`                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Port to listen on                                                                                                                                                                                                                            |
-| `tls`                                                                                                                                                                                                                                        | [models.TlsSettingsServerSideType](../../models/tlssettingsserversidetype.md)                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../../models/itemstypenotificationmetadata.md)[]                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
-| `maxActiveCxn`                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.                                                                                                                                                        |
-| `shutdownTimeoutMs`                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.                                                                                                                                   |
-| `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+```typescript
+const value:
+  operations.InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint =
+    {
+      connections: [
+        {
+          pipeline: "<value>",
+          output: "<value>",
+        },
+      ],
+      id: "<id>",
+      type: "model_driven_telemetry",
+      pipeline: "<value>",
+      environment: "<value>",
+      streamtags: [
+        "<value 1>",
+      ],
+      pq: {
+        pqControls: {},
+      },
+      tls: {
+        certificateName: "<value>",
+        privKeyPath: "<value>",
+        passphrase: "<value>",
+        certPath: "<value>",
+        caPath: "<value>",
+        minVersion: "TLSv1",
+        maxVersion: "TLSv1.2",
+      },
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      description:
+        "courteous bathrobe ingratiate especially dreamily or portray who lobotomise",
+    };
+```
+
+### `operations.InputModelDrivenTelemetryPqEnabledFalseConstraint`
+
+```typescript
+const value: operations.InputModelDrivenTelemetryPqEnabledFalseConstraint = {
+  id: "<id>",
+  type: "model_driven_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "sham when phooey wildly less norm but vision quietly deprave",
+};
+```
+
+### `operations.InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: operations.InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint =
+  {
+    pq: {
+      pqControls: {},
+    },
+    id: "<id>",
+    type: "model_driven_telemetry",
+    pipeline: "<value>",
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    tls: {
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description:
+      "phew submissive ferociously whose amongst brace for till hmph",
+  };
+```
+

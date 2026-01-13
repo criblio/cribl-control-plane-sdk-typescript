@@ -4,14 +4,15 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -42,12 +43,22 @@ import {
   TlsSettingsClientSideType1$outboundSchema,
 } from "./tlssettingsclientsidetype1.js";
 
-export type InputMsk = {
+export const InputMskType = {
+  Msk: "msk",
+} as const;
+export type InputMskType = ClosedEnum<typeof InputMskType>;
+
+export type InputMskPqEnabledTrueWithPqConstraint = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "msk";
+  type: InputMskType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -62,9 +73,184 @@ export type InputMsk = {
    */
   environment?: string | undefined;
   /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  /**
+   * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
+   */
+  brokers: Array<string>;
+  /**
+   * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+   */
+  topics: Array<string>;
+  /**
+   * The consumer group to which this instance belongs. Defaults to 'Cribl'.
+   */
+  groupId?: string | undefined;
+  /**
+   * Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+   */
+  fromBeginning?: boolean | undefined;
+  /**
+   * @remarks
+   *       Timeout used to detect client failures when using Kafka's group-management facilities.
+   *       If the client sends no heartbeats to the broker before the timeout expires,
+   *       the broker will remove the client from the group and initiate a rebalance.
+   *       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+   */
+  sessionTimeout?: number | undefined;
+  /**
+   *       Maximum allowed time for each worker to join the group after a rebalance begins.
+   *
+   * @remarks
+   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+   */
+  rebalanceTimeout?: number | undefined;
+  /**
+   *       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+   *
+   * @remarks
+   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+   */
+  heartbeatInterval?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  kafkaSchemaRegistry?: KafkaSchemaRegistryAuthenticationType | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MSK cluster is located
+   */
+  region: string;
+  /**
+   * MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access MSK
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  tls?: TlsSettingsClientSideType1 | undefined;
+  /**
+   * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitInterval?: number | undefined;
+  /**
+   * How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitThreshold?: number | undefined;
+  /**
+   * Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+   */
+  maxBytesPerPartition?: number | undefined;
+  /**
+   * Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+   */
+  maxBytes?: number | undefined;
+  /**
+   * Maximum number of network errors before the consumer re-creates a socket
+   */
+  maxSocketErrors?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+};
+
+export type InputMskPqEnabledFalseConstraint = {
+  /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputMskType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
   /**
    * Tags for filtering and grouping in @{product}
    */
@@ -72,7 +258,7 @@ export type InputMsk = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
@@ -222,21 +408,578 @@ export type InputMsk = {
   awsSecret?: string | undefined;
 };
 
+export type InputMskSendToRoutesFalseWithConnectionsConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputMskType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
+   */
+  brokers: Array<string>;
+  /**
+   * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+   */
+  topics: Array<string>;
+  /**
+   * The consumer group to which this instance belongs. Defaults to 'Cribl'.
+   */
+  groupId?: string | undefined;
+  /**
+   * Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+   */
+  fromBeginning?: boolean | undefined;
+  /**
+   * @remarks
+   *       Timeout used to detect client failures when using Kafka's group-management facilities.
+   *       If the client sends no heartbeats to the broker before the timeout expires,
+   *       the broker will remove the client from the group and initiate a rebalance.
+   *       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+   */
+  sessionTimeout?: number | undefined;
+  /**
+   *       Maximum allowed time for each worker to join the group after a rebalance begins.
+   *
+   * @remarks
+   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+   */
+  rebalanceTimeout?: number | undefined;
+  /**
+   *       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+   *
+   * @remarks
+   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+   */
+  heartbeatInterval?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  kafkaSchemaRegistry?: KafkaSchemaRegistryAuthenticationType | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MSK cluster is located
+   */
+  region: string;
+  /**
+   * MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access MSK
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  tls?: TlsSettingsClientSideType1 | undefined;
+  /**
+   * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitInterval?: number | undefined;
+  /**
+   * How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitThreshold?: number | undefined;
+  /**
+   * Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+   */
+  maxBytesPerPartition?: number | undefined;
+  /**
+   * Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+   */
+  maxBytes?: number | undefined;
+  /**
+   * Maximum number of network errors before the consumer re-creates a socket
+   */
+  maxSocketErrors?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+};
+
+export type InputMskSendToRoutesTrueConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputMskType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
+   */
+  brokers: Array<string>;
+  /**
+   * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+   */
+  topics: Array<string>;
+  /**
+   * The consumer group to which this instance belongs. Defaults to 'Cribl'.
+   */
+  groupId?: string | undefined;
+  /**
+   * Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+   */
+  fromBeginning?: boolean | undefined;
+  /**
+   * @remarks
+   *       Timeout used to detect client failures when using Kafka's group-management facilities.
+   *       If the client sends no heartbeats to the broker before the timeout expires,
+   *       the broker will remove the client from the group and initiate a rebalance.
+   *       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+   */
+  sessionTimeout?: number | undefined;
+  /**
+   *       Maximum allowed time for each worker to join the group after a rebalance begins.
+   *
+   * @remarks
+   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+   */
+  rebalanceTimeout?: number | undefined;
+  /**
+   *       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+   *
+   * @remarks
+   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+   */
+  heartbeatInterval?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  kafkaSchemaRegistry?: KafkaSchemaRegistryAuthenticationType | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MSK cluster is located
+   */
+  region: string;
+  /**
+   * MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access MSK
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  tls?: TlsSettingsClientSideType1 | undefined;
+  /**
+   * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitInterval?: number | undefined;
+  /**
+   * How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitThreshold?: number | undefined;
+  /**
+   * Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+   */
+  maxBytesPerPartition?: number | undefined;
+  /**
+   * Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+   */
+  maxBytes?: number | undefined;
+  /**
+   * Maximum number of network errors before the consumer re-creates a socket
+   */
+  maxSocketErrors?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+};
+
+export type InputMsk =
+  | InputMskSendToRoutesTrueConstraint
+  | InputMskSendToRoutesFalseWithConnectionsConstraint
+  | InputMskPqEnabledFalseConstraint
+  | InputMskPqEnabledTrueWithPqConstraint;
+
 /** @internal */
-export const InputMsk$inboundSchema: z.ZodType<
-  InputMsk,
+export const InputMskType$inboundSchema: z.ZodNativeEnum<typeof InputMskType> =
+  z.nativeEnum(InputMskType);
+/** @internal */
+export const InputMskType$outboundSchema: z.ZodNativeEnum<typeof InputMskType> =
+  InputMskType$inboundSchema;
+
+/** @internal */
+export const InputMskPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
+  InputMskPqEnabledTrueWithPqConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
-  type: z.literal("msk"),
+  type: InputMskType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$inboundSchema
+    .optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsAuthenticationMethod: z.string().default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: TlsSettingsClientSideType1$inboundSchema.optional(),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+/** @internal */
+export type InputMskPqEnabledTrueWithPqConstraint$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  brokers: Array<string>;
+  topics: Array<string>;
+  groupId: string;
+  fromBeginning: boolean;
+  sessionTimeout: number;
+  rebalanceTimeout: number;
+  heartbeatInterval: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  kafkaSchemaRegistry?:
+    | KafkaSchemaRegistryAuthenticationType$Outbound
+    | undefined;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  maxBackOff: number;
+  initialBackoff: number;
+  backoffRate: number;
+  authenticationTimeout: number;
+  reauthenticationThreshold: number;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  tls?: TlsSettingsClientSideType1$Outbound | undefined;
+  autoCommitInterval?: number | undefined;
+  autoCommitThreshold?: number | undefined;
+  maxBytesPerPartition: number;
+  maxBytes: number;
+  maxSocketErrors: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputMskPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
+  InputMskPqEnabledTrueWithPqConstraint$Outbound,
+  z.ZodTypeDef,
+  InputMskPqEnabledTrueWithPqConstraint
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$outboundSchema.optional(),
+  id: z.string().optional(),
+  type: InputMskType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
+    .optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsAuthenticationMethod: z.string().default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: TlsSettingsClientSideType1$outboundSchema.optional(),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+
+export function inputMskPqEnabledTrueWithPqConstraintToJSON(
+  inputMskPqEnabledTrueWithPqConstraint: InputMskPqEnabledTrueWithPqConstraint,
+): string {
+  return JSON.stringify(
+    InputMskPqEnabledTrueWithPqConstraint$outboundSchema.parse(
+      inputMskPqEnabledTrueWithPqConstraint,
+    ),
+  );
+}
+export function inputMskPqEnabledTrueWithPqConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<InputMskPqEnabledTrueWithPqConstraint, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputMskPqEnabledTrueWithPqConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputMskPqEnabledTrueWithPqConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputMskPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputMskPqEnabledFalseConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputMskType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
@@ -278,16 +1021,16 @@ export const InputMsk$inboundSchema: z.ZodType<
   awsSecret: z.string().optional(),
 });
 /** @internal */
-export type InputMsk$Outbound = {
+export type InputMskPqEnabledFalseConstraint$Outbound = {
+  pqEnabled: boolean;
   id?: string | undefined;
-  type: "msk";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
   environment?: string | undefined;
-  pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
@@ -331,20 +1074,20 @@ export type InputMsk$Outbound = {
 };
 
 /** @internal */
-export const InputMsk$outboundSchema: z.ZodType<
-  InputMsk$Outbound,
+export const InputMskPqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputMskPqEnabledFalseConstraint$Outbound,
   z.ZodTypeDef,
-  InputMsk
+  InputMskPqEnabledFalseConstraint
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: z.literal("msk"),
+  type: InputMskType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
@@ -385,6 +1128,436 @@ export const InputMsk$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
 });
+
+export function inputMskPqEnabledFalseConstraintToJSON(
+  inputMskPqEnabledFalseConstraint: InputMskPqEnabledFalseConstraint,
+): string {
+  return JSON.stringify(
+    InputMskPqEnabledFalseConstraint$outboundSchema.parse(
+      inputMskPqEnabledFalseConstraint,
+    ),
+  );
+}
+export function inputMskPqEnabledFalseConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<InputMskPqEnabledFalseConstraint, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputMskPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputMskPqEnabledFalseConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputMskSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputMskSendToRoutesFalseWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputMskType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    brokers: z.array(z.string()),
+    topics: z.array(z.string()),
+    groupId: z.string().default("Cribl"),
+    fromBeginning: z.boolean().default(true),
+    sessionTimeout: z.number().default(30000),
+    rebalanceTimeout: z.number().default(60000),
+    heartbeatInterval: z.number().default(3000),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$inboundSchema
+      .optional(),
+    connectionTimeout: z.number().default(10000),
+    requestTimeout: z.number().default(60000),
+    maxRetries: z.number().default(5),
+    maxBackOff: z.number().default(30000),
+    initialBackoff: z.number().default(300),
+    backoffRate: z.number().default(2),
+    authenticationTimeout: z.number().default(10000),
+    reauthenticationThreshold: z.number().default(10000),
+    awsAuthenticationMethod: z.string().default("auto"),
+    awsSecretKey: z.string().optional(),
+    region: z.string(),
+    endpoint: z.string().optional(),
+    signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    enableAssumeRole: z.boolean().default(false),
+    assumeRoleArn: z.string().optional(),
+    assumeRoleExternalId: z.string().optional(),
+    durationSeconds: z.number().default(3600),
+    tls: TlsSettingsClientSideType1$inboundSchema.optional(),
+    autoCommitInterval: z.number().optional(),
+    autoCommitThreshold: z.number().optional(),
+    maxBytesPerPartition: z.number().default(1048576),
+    maxBytes: z.number().default(10485760),
+    maxSocketErrors: z.number().default(0),
+    description: z.string().optional(),
+    awsApiKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+  });
+/** @internal */
+export type InputMskSendToRoutesFalseWithConnectionsConstraint$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  brokers: Array<string>;
+  topics: Array<string>;
+  groupId: string;
+  fromBeginning: boolean;
+  sessionTimeout: number;
+  rebalanceTimeout: number;
+  heartbeatInterval: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  kafkaSchemaRegistry?:
+    | KafkaSchemaRegistryAuthenticationType$Outbound
+    | undefined;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  maxBackOff: number;
+  initialBackoff: number;
+  backoffRate: number;
+  authenticationTimeout: number;
+  reauthenticationThreshold: number;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  tls?: TlsSettingsClientSideType1$Outbound | undefined;
+  autoCommitInterval?: number | undefined;
+  autoCommitThreshold?: number | undefined;
+  maxBytesPerPartition: number;
+  maxBytes: number;
+  maxSocketErrors: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputMskSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputMskSendToRoutesFalseWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputMskSendToRoutesFalseWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    id: z.string().optional(),
+    type: InputMskType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    brokers: z.array(z.string()),
+    topics: z.array(z.string()),
+    groupId: z.string().default("Cribl"),
+    fromBeginning: z.boolean().default(true),
+    sessionTimeout: z.number().default(30000),
+    rebalanceTimeout: z.number().default(60000),
+    heartbeatInterval: z.number().default(3000),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
+      .optional(),
+    connectionTimeout: z.number().default(10000),
+    requestTimeout: z.number().default(60000),
+    maxRetries: z.number().default(5),
+    maxBackOff: z.number().default(30000),
+    initialBackoff: z.number().default(300),
+    backoffRate: z.number().default(2),
+    authenticationTimeout: z.number().default(10000),
+    reauthenticationThreshold: z.number().default(10000),
+    awsAuthenticationMethod: z.string().default("auto"),
+    awsSecretKey: z.string().optional(),
+    region: z.string(),
+    endpoint: z.string().optional(),
+    signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    enableAssumeRole: z.boolean().default(false),
+    assumeRoleArn: z.string().optional(),
+    assumeRoleExternalId: z.string().optional(),
+    durationSeconds: z.number().default(3600),
+    tls: TlsSettingsClientSideType1$outboundSchema.optional(),
+    autoCommitInterval: z.number().optional(),
+    autoCommitThreshold: z.number().optional(),
+    maxBytesPerPartition: z.number().default(1048576),
+    maxBytes: z.number().default(10485760),
+    maxSocketErrors: z.number().default(0),
+    description: z.string().optional(),
+    awsApiKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+  });
+
+export function inputMskSendToRoutesFalseWithConnectionsConstraintToJSON(
+  inputMskSendToRoutesFalseWithConnectionsConstraint:
+    InputMskSendToRoutesFalseWithConnectionsConstraint,
+): string {
+  return JSON.stringify(
+    InputMskSendToRoutesFalseWithConnectionsConstraint$outboundSchema.parse(
+      inputMskSendToRoutesFalseWithConnectionsConstraint,
+    ),
+  );
+}
+export function inputMskSendToRoutesFalseWithConnectionsConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputMskSendToRoutesFalseWithConnectionsConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputMskSendToRoutesFalseWithConnectionsConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputMskSendToRoutesFalseWithConnectionsConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputMskSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
+  InputMskSendToRoutesTrueConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputMskType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$inboundSchema
+    .optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsAuthenticationMethod: z.string().default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: TlsSettingsClientSideType1$inboundSchema.optional(),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+/** @internal */
+export type InputMskSendToRoutesTrueConstraint$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  brokers: Array<string>;
+  topics: Array<string>;
+  groupId: string;
+  fromBeginning: boolean;
+  sessionTimeout: number;
+  rebalanceTimeout: number;
+  heartbeatInterval: number;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  kafkaSchemaRegistry?:
+    | KafkaSchemaRegistryAuthenticationType$Outbound
+    | undefined;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  maxBackOff: number;
+  initialBackoff: number;
+  backoffRate: number;
+  authenticationTimeout: number;
+  reauthenticationThreshold: number;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  tls?: TlsSettingsClientSideType1$Outbound | undefined;
+  autoCommitInterval?: number | undefined;
+  autoCommitThreshold?: number | undefined;
+  maxBytesPerPartition: number;
+  maxBytes: number;
+  maxSocketErrors: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputMskSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
+  InputMskSendToRoutesTrueConstraint$Outbound,
+  z.ZodTypeDef,
+  InputMskSendToRoutesTrueConstraint
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputMskType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
+    .optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsAuthenticationMethod: z.string().default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: TlsSettingsClientSideType1$outboundSchema.optional(),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+
+export function inputMskSendToRoutesTrueConstraintToJSON(
+  inputMskSendToRoutesTrueConstraint: InputMskSendToRoutesTrueConstraint,
+): string {
+  return JSON.stringify(
+    InputMskSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputMskSendToRoutesTrueConstraint,
+    ),
+  );
+}
+export function inputMskSendToRoutesTrueConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<InputMskSendToRoutesTrueConstraint, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputMskSendToRoutesTrueConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputMskSendToRoutesTrueConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputMsk$inboundSchema: z.ZodType<
+  InputMsk,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputMskSendToRoutesTrueConstraint$inboundSchema),
+  z.lazy(() =>
+    InputMskSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() => InputMskPqEnabledFalseConstraint$inboundSchema),
+  z.lazy(() => InputMskPqEnabledTrueWithPqConstraint$inboundSchema),
+]);
+/** @internal */
+export type InputMsk$Outbound =
+  | InputMskSendToRoutesTrueConstraint$Outbound
+  | InputMskSendToRoutesFalseWithConnectionsConstraint$Outbound
+  | InputMskPqEnabledFalseConstraint$Outbound
+  | InputMskPqEnabledTrueWithPqConstraint$Outbound;
+
+/** @internal */
+export const InputMsk$outboundSchema: z.ZodType<
+  InputMsk$Outbound,
+  z.ZodTypeDef,
+  InputMsk
+> = z.union([
+  z.lazy(() => InputMskSendToRoutesTrueConstraint$outboundSchema),
+  z.lazy(() =>
+    InputMskSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() => InputMskPqEnabledFalseConstraint$outboundSchema),
+  z.lazy(() => InputMskPqEnabledTrueWithPqConstraint$outboundSchema),
+]);
 
 export function inputMskToJSON(inputMsk: InputMsk): string {
   return JSON.stringify(InputMsk$outboundSchema.parse(inputMsk));

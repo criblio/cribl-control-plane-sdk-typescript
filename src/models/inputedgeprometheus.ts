@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   DiskSpoolingType,
@@ -15,11 +15,11 @@ import {
 } from "./diskspoolingtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -53,6 +53,13 @@ import {
   SignatureVersionOptions1$inboundSchema,
   SignatureVersionOptions1$outboundSchema,
 } from "./signatureversionoptions1.js";
+
+export const InputEdgePrometheusType = {
+  EdgePrometheus: "edge_prometheus",
+} as const;
+export type InputEdgePrometheusType = ClosedEnum<
+  typeof InputEdgePrometheusType
+>;
 
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -131,12 +138,17 @@ export type PodFilter = {
   description?: string | undefined;
 };
 
-export type InputEdgePrometheus = {
+export type InputEdgePrometheusPqEnabledTrueWithPqConstraint = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "edge_prometheus";
+  type: InputEdgePrometheusType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -151,9 +163,171 @@ export type InputEdgePrometheus = {
    */
   environment?: string | undefined;
   /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  /**
+   * Other dimensions to include in events
+   */
+  dimensionList?: Array<string> | undefined;
+  /**
+   * Target discovery mechanism. Use static to manually enter a list of targets.
+   */
+  discoveryType?: InputEdgePrometheusDiscoveryType | undefined;
+  /**
+   * How often in seconds to scrape targets for metrics.
+   */
+  interval?: number | undefined;
+  /**
+   * Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
+   */
+  timeout?: number | undefined;
+  persistence?: DiskSpoolingType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputEdgePrometheusAuthenticationMethod | undefined;
+  description?: string | undefined;
+  targets?: Array<Target> | undefined;
+  /**
+   * DNS record type to resolve
+   */
+  recordType?: RecordTypeOptions | undefined;
+  /**
+   * The port number in the metrics URL for discovered targets.
+   */
+  scrapePort?: number | undefined;
+  /**
+   * List of DNS names to resolve
+   */
+  nameList?: Array<string> | undefined;
+  /**
+   * Protocol to use when collecting metrics
+   */
+  scrapeProtocol?: ProtocolOptionsTargetsItems | undefined;
+  /**
+   * Path to use when collecting metrics from discovered targets
+   */
+  scrapePath?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use public IP address for discovered targets. Disable to use the private IP address.
+   */
+  usePublicIp?: boolean | undefined;
+  /**
+   * Filter to apply when searching for EC2 instances
+   */
+  searchFilter?: Array<ItemsTypeSearchFilter> | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the EC2 is located
+   */
+  region?: string | undefined;
+  /**
+   * EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing EC2 requests
+   */
+  signatureVersion?: SignatureVersionOptions1 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access EC2
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Protocol to use when collecting metrics
+   */
+  scrapeProtocolExpr?: string | undefined;
+  /**
+   * The port number in the metrics URL for discovered targets.
+   */
+  scrapePortExpr?: string | undefined;
+  /**
+   * Path to use when collecting metrics from discovered targets
+   */
+  scrapePathExpr?: string | undefined;
+  /**
+   *   Add rules to decide which pods to discover for metrics.
+   *
+   * @remarks
+   *   Pods are searched if no rules are given or of all the rules'
+   *   expressions evaluate to true.
+   */
+  podFilter?: Array<PodFilter> | undefined;
+  /**
+   * Username for Prometheus Basic authentication
+   */
+  username?: string | undefined;
+  /**
+   * Password for Prometheus Basic authentication
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+};
+
+export type InputEdgePrometheusPqEnabledFalseConstraint = {
+  /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputEdgePrometheusType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
   /**
    * Tags for filtering and grouping in @{product}
    */
@@ -161,7 +335,7 @@ export type InputEdgePrometheus = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Other dimensions to include in events
@@ -298,6 +472,355 @@ export type InputEdgePrometheus = {
   credentialsSecret?: string | undefined;
 };
 
+export type InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputEdgePrometheusType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Other dimensions to include in events
+   */
+  dimensionList?: Array<string> | undefined;
+  /**
+   * Target discovery mechanism. Use static to manually enter a list of targets.
+   */
+  discoveryType?: InputEdgePrometheusDiscoveryType | undefined;
+  /**
+   * How often in seconds to scrape targets for metrics.
+   */
+  interval?: number | undefined;
+  /**
+   * Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
+   */
+  timeout?: number | undefined;
+  persistence?: DiskSpoolingType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputEdgePrometheusAuthenticationMethod | undefined;
+  description?: string | undefined;
+  targets?: Array<Target> | undefined;
+  /**
+   * DNS record type to resolve
+   */
+  recordType?: RecordTypeOptions | undefined;
+  /**
+   * The port number in the metrics URL for discovered targets.
+   */
+  scrapePort?: number | undefined;
+  /**
+   * List of DNS names to resolve
+   */
+  nameList?: Array<string> | undefined;
+  /**
+   * Protocol to use when collecting metrics
+   */
+  scrapeProtocol?: ProtocolOptionsTargetsItems | undefined;
+  /**
+   * Path to use when collecting metrics from discovered targets
+   */
+  scrapePath?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use public IP address for discovered targets. Disable to use the private IP address.
+   */
+  usePublicIp?: boolean | undefined;
+  /**
+   * Filter to apply when searching for EC2 instances
+   */
+  searchFilter?: Array<ItemsTypeSearchFilter> | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the EC2 is located
+   */
+  region?: string | undefined;
+  /**
+   * EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing EC2 requests
+   */
+  signatureVersion?: SignatureVersionOptions1 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access EC2
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Protocol to use when collecting metrics
+   */
+  scrapeProtocolExpr?: string | undefined;
+  /**
+   * The port number in the metrics URL for discovered targets.
+   */
+  scrapePortExpr?: string | undefined;
+  /**
+   * Path to use when collecting metrics from discovered targets
+   */
+  scrapePathExpr?: string | undefined;
+  /**
+   *   Add rules to decide which pods to discover for metrics.
+   *
+   * @remarks
+   *   Pods are searched if no rules are given or of all the rules'
+   *   expressions evaluate to true.
+   */
+  podFilter?: Array<PodFilter> | undefined;
+  /**
+   * Username for Prometheus Basic authentication
+   */
+  username?: string | undefined;
+  /**
+   * Password for Prometheus Basic authentication
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+};
+
+export type InputEdgePrometheusSendToRoutesTrueConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputEdgePrometheusType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Other dimensions to include in events
+   */
+  dimensionList?: Array<string> | undefined;
+  /**
+   * Target discovery mechanism. Use static to manually enter a list of targets.
+   */
+  discoveryType?: InputEdgePrometheusDiscoveryType | undefined;
+  /**
+   * How often in seconds to scrape targets for metrics.
+   */
+  interval?: number | undefined;
+  /**
+   * Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
+   */
+  timeout?: number | undefined;
+  persistence?: DiskSpoolingType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputEdgePrometheusAuthenticationMethod | undefined;
+  description?: string | undefined;
+  targets?: Array<Target> | undefined;
+  /**
+   * DNS record type to resolve
+   */
+  recordType?: RecordTypeOptions | undefined;
+  /**
+   * The port number in the metrics URL for discovered targets.
+   */
+  scrapePort?: number | undefined;
+  /**
+   * List of DNS names to resolve
+   */
+  nameList?: Array<string> | undefined;
+  /**
+   * Protocol to use when collecting metrics
+   */
+  scrapeProtocol?: ProtocolOptionsTargetsItems | undefined;
+  /**
+   * Path to use when collecting metrics from discovered targets
+   */
+  scrapePath?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use public IP address for discovered targets. Disable to use the private IP address.
+   */
+  usePublicIp?: boolean | undefined;
+  /**
+   * Filter to apply when searching for EC2 instances
+   */
+  searchFilter?: Array<ItemsTypeSearchFilter> | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the EC2 is located
+   */
+  region?: string | undefined;
+  /**
+   * EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing EC2 requests
+   */
+  signatureVersion?: SignatureVersionOptions1 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access EC2
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Protocol to use when collecting metrics
+   */
+  scrapeProtocolExpr?: string | undefined;
+  /**
+   * The port number in the metrics URL for discovered targets.
+   */
+  scrapePortExpr?: string | undefined;
+  /**
+   * Path to use when collecting metrics from discovered targets
+   */
+  scrapePathExpr?: string | undefined;
+  /**
+   *   Add rules to decide which pods to discover for metrics.
+   *
+   * @remarks
+   *   Pods are searched if no rules are given or of all the rules'
+   *   expressions evaluate to true.
+   */
+  podFilter?: Array<PodFilter> | undefined;
+  /**
+   * Username for Prometheus Basic authentication
+   */
+  username?: string | undefined;
+  /**
+   * Password for Prometheus Basic authentication
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+};
+
+export type InputEdgePrometheus =
+  | InputEdgePrometheusSendToRoutesTrueConstraint
+  | InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint
+  | InputEdgePrometheusPqEnabledFalseConstraint
+  | InputEdgePrometheusPqEnabledTrueWithPqConstraint;
+
+/** @internal */
+export const InputEdgePrometheusType$inboundSchema: z.ZodNativeEnum<
+  typeof InputEdgePrometheusType
+> = z.nativeEnum(InputEdgePrometheusType);
+/** @internal */
+export const InputEdgePrometheusType$outboundSchema: z.ZodNativeEnum<
+  typeof InputEdgePrometheusType
+> = InputEdgePrometheusType$inboundSchema;
+
 /** @internal */
 export const InputEdgePrometheusDiscoveryType$inboundSchema: z.ZodType<
   InputEdgePrometheusDiscoveryType,
@@ -404,79 +927,286 @@ export function podFilterFromJSON(
 }
 
 /** @internal */
-export const InputEdgePrometheus$inboundSchema: z.ZodType<
-  InputEdgePrometheus,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("edge_prometheus"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  dimensionList: z.array(z.string()).optional(),
-  discoveryType: InputEdgePrometheusDiscoveryType$inboundSchema.default(
-    "static",
-  ),
-  interval: z.number().default(15),
-  timeout: z.number().default(5000),
-  persistence: DiskSpoolingType$inboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  authType: InputEdgePrometheusAuthenticationMethod$inboundSchema.default(
-    "manual",
-  ),
-  description: z.string().optional(),
-  targets: z.array(z.lazy(() => Target$inboundSchema)).optional(),
-  recordType: RecordTypeOptions$inboundSchema.default("SRV"),
-  scrapePort: z.number().default(9090),
-  nameList: z.array(z.string()).optional(),
-  scrapeProtocol: ProtocolOptionsTargetsItems$inboundSchema.default("http"),
-  scrapePath: z.string().default("/metrics"),
-  awsAuthenticationMethod: z.string().default("auto"),
-  awsApiKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-  usePublicIp: z.boolean().default(true),
-  searchFilter: z.array(ItemsTypeSearchFilter$inboundSchema).optional(),
-  awsSecretKey: z.string().optional(),
-  region: z.string().optional(),
-  endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions1$inboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
-  assumeRoleArn: z.string().optional(),
-  assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  scrapeProtocolExpr: z.string().default(
-    "metadata.annotations['prometheus.io/scheme'] || 'http'",
-  ),
-  scrapePortExpr: z.string().default(
-    "metadata.annotations['prometheus.io/port'] || 9090",
-  ),
-  scrapePathExpr: z.string().default(
-    "metadata.annotations['prometheus.io/path'] || '/metrics'",
-  ),
-  podFilter: z.array(z.lazy(() => PodFilter$inboundSchema)).optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-});
+export const InputEdgePrometheusPqEnabledTrueWithPqConstraint$inboundSchema:
+  z.ZodType<
+    InputEdgePrometheusPqEnabledTrueWithPqConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputEdgePrometheusType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    dimensionList: z.array(z.string()).optional(),
+    discoveryType: InputEdgePrometheusDiscoveryType$inboundSchema.default(
+      "static",
+    ),
+    interval: z.number().default(15),
+    timeout: z.number().default(5000),
+    persistence: DiskSpoolingType$inboundSchema.optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    authType: InputEdgePrometheusAuthenticationMethod$inboundSchema.default(
+      "manual",
+    ),
+    description: z.string().optional(),
+    targets: z.array(z.lazy(() => Target$inboundSchema)).optional(),
+    recordType: RecordTypeOptions$inboundSchema.default("SRV"),
+    scrapePort: z.number().default(9090),
+    nameList: z.array(z.string()).optional(),
+    scrapeProtocol: ProtocolOptionsTargetsItems$inboundSchema.default("http"),
+    scrapePath: z.string().default("/metrics"),
+    awsAuthenticationMethod: z.string().default("auto"),
+    awsApiKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+    usePublicIp: z.boolean().default(true),
+    searchFilter: z.array(ItemsTypeSearchFilter$inboundSchema).optional(),
+    awsSecretKey: z.string().optional(),
+    region: z.string().optional(),
+    endpoint: z.string().optional(),
+    signatureVersion: SignatureVersionOptions1$inboundSchema.default("v4"),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    enableAssumeRole: z.boolean().default(false),
+    assumeRoleArn: z.string().optional(),
+    assumeRoleExternalId: z.string().optional(),
+    durationSeconds: z.number().default(3600),
+    scrapeProtocolExpr: z.string().default(
+      "metadata.annotations['prometheus.io/scheme'] || 'http'",
+    ),
+    scrapePortExpr: z.string().default(
+      "metadata.annotations['prometheus.io/port'] || 9090",
+    ),
+    scrapePathExpr: z.string().default(
+      "metadata.annotations['prometheus.io/path'] || '/metrics'",
+    ),
+    podFilter: z.array(z.lazy(() => PodFilter$inboundSchema)).optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+  });
 /** @internal */
-export type InputEdgePrometheus$Outbound = {
+export type InputEdgePrometheusPqEnabledTrueWithPqConstraint$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
   id?: string | undefined;
-  type: "edge_prometheus";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
   environment?: string | undefined;
-  pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  dimensionList?: Array<string> | undefined;
+  discoveryType: string;
+  interval: number;
+  timeout: number;
+  persistence?: DiskSpoolingType$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  authType: string;
+  description?: string | undefined;
+  targets?: Array<Target$Outbound> | undefined;
+  recordType: string;
+  scrapePort: number;
+  nameList?: Array<string> | undefined;
+  scrapeProtocol: string;
+  scrapePath: string;
+  awsAuthenticationMethod: string;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  usePublicIp: boolean;
+  searchFilter?: Array<ItemsTypeSearchFilter$Outbound> | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  scrapeProtocolExpr: string;
+  scrapePortExpr: string;
+  scrapePathExpr: string;
+  podFilter?: Array<PodFilter$Outbound> | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputEdgePrometheusPqEnabledTrueWithPqConstraint$outboundSchema:
+  z.ZodType<
+    InputEdgePrometheusPqEnabledTrueWithPqConstraint$Outbound,
+    z.ZodTypeDef,
+    InputEdgePrometheusPqEnabledTrueWithPqConstraint
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputEdgePrometheusType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    dimensionList: z.array(z.string()).optional(),
+    discoveryType: InputEdgePrometheusDiscoveryType$outboundSchema.default(
+      "static",
+    ),
+    interval: z.number().default(15),
+    timeout: z.number().default(5000),
+    persistence: DiskSpoolingType$outboundSchema.optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    authType: InputEdgePrometheusAuthenticationMethod$outboundSchema.default(
+      "manual",
+    ),
+    description: z.string().optional(),
+    targets: z.array(z.lazy(() => Target$outboundSchema)).optional(),
+    recordType: RecordTypeOptions$outboundSchema.default("SRV"),
+    scrapePort: z.number().default(9090),
+    nameList: z.array(z.string()).optional(),
+    scrapeProtocol: ProtocolOptionsTargetsItems$outboundSchema.default("http"),
+    scrapePath: z.string().default("/metrics"),
+    awsAuthenticationMethod: z.string().default("auto"),
+    awsApiKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+    usePublicIp: z.boolean().default(true),
+    searchFilter: z.array(ItemsTypeSearchFilter$outboundSchema).optional(),
+    awsSecretKey: z.string().optional(),
+    region: z.string().optional(),
+    endpoint: z.string().optional(),
+    signatureVersion: SignatureVersionOptions1$outboundSchema.default("v4"),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    enableAssumeRole: z.boolean().default(false),
+    assumeRoleArn: z.string().optional(),
+    assumeRoleExternalId: z.string().optional(),
+    durationSeconds: z.number().default(3600),
+    scrapeProtocolExpr: z.string().default(
+      "metadata.annotations['prometheus.io/scheme'] || 'http'",
+    ),
+    scrapePortExpr: z.string().default(
+      "metadata.annotations['prometheus.io/port'] || 9090",
+    ),
+    scrapePathExpr: z.string().default(
+      "metadata.annotations['prometheus.io/path'] || '/metrics'",
+    ),
+    podFilter: z.array(z.lazy(() => PodFilter$outboundSchema)).optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+  });
+
+export function inputEdgePrometheusPqEnabledTrueWithPqConstraintToJSON(
+  inputEdgePrometheusPqEnabledTrueWithPqConstraint:
+    InputEdgePrometheusPqEnabledTrueWithPqConstraint,
+): string {
+  return JSON.stringify(
+    InputEdgePrometheusPqEnabledTrueWithPqConstraint$outboundSchema.parse(
+      inputEdgePrometheusPqEnabledTrueWithPqConstraint,
+    ),
+  );
+}
+export function inputEdgePrometheusPqEnabledTrueWithPqConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputEdgePrometheusPqEnabledTrueWithPqConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputEdgePrometheusPqEnabledTrueWithPqConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputEdgePrometheusPqEnabledTrueWithPqConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputEdgePrometheusPqEnabledFalseConstraint$inboundSchema:
+  z.ZodType<
+    InputEdgePrometheusPqEnabledFalseConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputEdgePrometheusType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    pq: PqType$inboundSchema.optional(),
+    dimensionList: z.array(z.string()).optional(),
+    discoveryType: InputEdgePrometheusDiscoveryType$inboundSchema.default(
+      "static",
+    ),
+    interval: z.number().default(15),
+    timeout: z.number().default(5000),
+    persistence: DiskSpoolingType$inboundSchema.optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    authType: InputEdgePrometheusAuthenticationMethod$inboundSchema.default(
+      "manual",
+    ),
+    description: z.string().optional(),
+    targets: z.array(z.lazy(() => Target$inboundSchema)).optional(),
+    recordType: RecordTypeOptions$inboundSchema.default("SRV"),
+    scrapePort: z.number().default(9090),
+    nameList: z.array(z.string()).optional(),
+    scrapeProtocol: ProtocolOptionsTargetsItems$inboundSchema.default("http"),
+    scrapePath: z.string().default("/metrics"),
+    awsAuthenticationMethod: z.string().default("auto"),
+    awsApiKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+    usePublicIp: z.boolean().default(true),
+    searchFilter: z.array(ItemsTypeSearchFilter$inboundSchema).optional(),
+    awsSecretKey: z.string().optional(),
+    region: z.string().optional(),
+    endpoint: z.string().optional(),
+    signatureVersion: SignatureVersionOptions1$inboundSchema.default("v4"),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    enableAssumeRole: z.boolean().default(false),
+    assumeRoleArn: z.string().optional(),
+    assumeRoleExternalId: z.string().optional(),
+    durationSeconds: z.number().default(3600),
+    scrapeProtocolExpr: z.string().default(
+      "metadata.annotations['prometheus.io/scheme'] || 'http'",
+    ),
+    scrapePortExpr: z.string().default(
+      "metadata.annotations['prometheus.io/port'] || 9090",
+    ),
+    scrapePathExpr: z.string().default(
+      "metadata.annotations['prometheus.io/path'] || '/metrics'",
+    ),
+    podFilter: z.array(z.lazy(() => PodFilter$inboundSchema)).optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+  });
+/** @internal */
+export type InputEdgePrometheusPqEnabledFalseConstraint$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   dimensionList?: Array<string> | undefined;
   discoveryType: string;
@@ -517,68 +1247,541 @@ export type InputEdgePrometheus$Outbound = {
 };
 
 /** @internal */
+export const InputEdgePrometheusPqEnabledFalseConstraint$outboundSchema:
+  z.ZodType<
+    InputEdgePrometheusPqEnabledFalseConstraint$Outbound,
+    z.ZodTypeDef,
+    InputEdgePrometheusPqEnabledFalseConstraint
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputEdgePrometheusType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: PqType$outboundSchema.optional(),
+    dimensionList: z.array(z.string()).optional(),
+    discoveryType: InputEdgePrometheusDiscoveryType$outboundSchema.default(
+      "static",
+    ),
+    interval: z.number().default(15),
+    timeout: z.number().default(5000),
+    persistence: DiskSpoolingType$outboundSchema.optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    authType: InputEdgePrometheusAuthenticationMethod$outboundSchema.default(
+      "manual",
+    ),
+    description: z.string().optional(),
+    targets: z.array(z.lazy(() => Target$outboundSchema)).optional(),
+    recordType: RecordTypeOptions$outboundSchema.default("SRV"),
+    scrapePort: z.number().default(9090),
+    nameList: z.array(z.string()).optional(),
+    scrapeProtocol: ProtocolOptionsTargetsItems$outboundSchema.default("http"),
+    scrapePath: z.string().default("/metrics"),
+    awsAuthenticationMethod: z.string().default("auto"),
+    awsApiKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+    usePublicIp: z.boolean().default(true),
+    searchFilter: z.array(ItemsTypeSearchFilter$outboundSchema).optional(),
+    awsSecretKey: z.string().optional(),
+    region: z.string().optional(),
+    endpoint: z.string().optional(),
+    signatureVersion: SignatureVersionOptions1$outboundSchema.default("v4"),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    enableAssumeRole: z.boolean().default(false),
+    assumeRoleArn: z.string().optional(),
+    assumeRoleExternalId: z.string().optional(),
+    durationSeconds: z.number().default(3600),
+    scrapeProtocolExpr: z.string().default(
+      "metadata.annotations['prometheus.io/scheme'] || 'http'",
+    ),
+    scrapePortExpr: z.string().default(
+      "metadata.annotations['prometheus.io/port'] || 9090",
+    ),
+    scrapePathExpr: z.string().default(
+      "metadata.annotations['prometheus.io/path'] || '/metrics'",
+    ),
+    podFilter: z.array(z.lazy(() => PodFilter$outboundSchema)).optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+  });
+
+export function inputEdgePrometheusPqEnabledFalseConstraintToJSON(
+  inputEdgePrometheusPqEnabledFalseConstraint:
+    InputEdgePrometheusPqEnabledFalseConstraint,
+): string {
+  return JSON.stringify(
+    InputEdgePrometheusPqEnabledFalseConstraint$outboundSchema.parse(
+      inputEdgePrometheusPqEnabledFalseConstraint,
+    ),
+  );
+}
+export function inputEdgePrometheusPqEnabledFalseConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputEdgePrometheusPqEnabledFalseConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputEdgePrometheusPqEnabledFalseConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputEdgePrometheusPqEnabledFalseConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputEdgePrometheusType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    dimensionList: z.array(z.string()).optional(),
+    discoveryType: InputEdgePrometheusDiscoveryType$inboundSchema.default(
+      "static",
+    ),
+    interval: z.number().default(15),
+    timeout: z.number().default(5000),
+    persistence: DiskSpoolingType$inboundSchema.optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    authType: InputEdgePrometheusAuthenticationMethod$inboundSchema.default(
+      "manual",
+    ),
+    description: z.string().optional(),
+    targets: z.array(z.lazy(() => Target$inboundSchema)).optional(),
+    recordType: RecordTypeOptions$inboundSchema.default("SRV"),
+    scrapePort: z.number().default(9090),
+    nameList: z.array(z.string()).optional(),
+    scrapeProtocol: ProtocolOptionsTargetsItems$inboundSchema.default("http"),
+    scrapePath: z.string().default("/metrics"),
+    awsAuthenticationMethod: z.string().default("auto"),
+    awsApiKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+    usePublicIp: z.boolean().default(true),
+    searchFilter: z.array(ItemsTypeSearchFilter$inboundSchema).optional(),
+    awsSecretKey: z.string().optional(),
+    region: z.string().optional(),
+    endpoint: z.string().optional(),
+    signatureVersion: SignatureVersionOptions1$inboundSchema.default("v4"),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    enableAssumeRole: z.boolean().default(false),
+    assumeRoleArn: z.string().optional(),
+    assumeRoleExternalId: z.string().optional(),
+    durationSeconds: z.number().default(3600),
+    scrapeProtocolExpr: z.string().default(
+      "metadata.annotations['prometheus.io/scheme'] || 'http'",
+    ),
+    scrapePortExpr: z.string().default(
+      "metadata.annotations['prometheus.io/port'] || 9090",
+    ),
+    scrapePathExpr: z.string().default(
+      "metadata.annotations['prometheus.io/path'] || '/metrics'",
+    ),
+    podFilter: z.array(z.lazy(() => PodFilter$inboundSchema)).optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+  });
+/** @internal */
+export type InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$Outbound =
+  {
+    sendToRoutes: boolean;
+    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+    id?: string | undefined;
+    type: string;
+    disabled: boolean;
+    pipeline?: string | undefined;
+    environment?: string | undefined;
+    pqEnabled: boolean;
+    streamtags?: Array<string> | undefined;
+    pq?: PqType$Outbound | undefined;
+    dimensionList?: Array<string> | undefined;
+    discoveryType: string;
+    interval: number;
+    timeout: number;
+    persistence?: DiskSpoolingType$Outbound | undefined;
+    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+    authType: string;
+    description?: string | undefined;
+    targets?: Array<Target$Outbound> | undefined;
+    recordType: string;
+    scrapePort: number;
+    nameList?: Array<string> | undefined;
+    scrapeProtocol: string;
+    scrapePath: string;
+    awsAuthenticationMethod: string;
+    awsApiKey?: string | undefined;
+    awsSecret?: string | undefined;
+    usePublicIp: boolean;
+    searchFilter?: Array<ItemsTypeSearchFilter$Outbound> | undefined;
+    awsSecretKey?: string | undefined;
+    region?: string | undefined;
+    endpoint?: string | undefined;
+    signatureVersion: string;
+    reuseConnections: boolean;
+    rejectUnauthorized: boolean;
+    enableAssumeRole: boolean;
+    assumeRoleArn?: string | undefined;
+    assumeRoleExternalId?: string | undefined;
+    durationSeconds: number;
+    scrapeProtocolExpr: string;
+    scrapePortExpr: string;
+    scrapePathExpr: string;
+    podFilter?: Array<PodFilter$Outbound> | undefined;
+    username?: string | undefined;
+    password?: string | undefined;
+    credentialsSecret?: string | undefined;
+  };
+
+/** @internal */
+export const InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    id: z.string().optional(),
+    type: InputEdgePrometheusType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    dimensionList: z.array(z.string()).optional(),
+    discoveryType: InputEdgePrometheusDiscoveryType$outboundSchema.default(
+      "static",
+    ),
+    interval: z.number().default(15),
+    timeout: z.number().default(5000),
+    persistence: DiskSpoolingType$outboundSchema.optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    authType: InputEdgePrometheusAuthenticationMethod$outboundSchema.default(
+      "manual",
+    ),
+    description: z.string().optional(),
+    targets: z.array(z.lazy(() => Target$outboundSchema)).optional(),
+    recordType: RecordTypeOptions$outboundSchema.default("SRV"),
+    scrapePort: z.number().default(9090),
+    nameList: z.array(z.string()).optional(),
+    scrapeProtocol: ProtocolOptionsTargetsItems$outboundSchema.default("http"),
+    scrapePath: z.string().default("/metrics"),
+    awsAuthenticationMethod: z.string().default("auto"),
+    awsApiKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+    usePublicIp: z.boolean().default(true),
+    searchFilter: z.array(ItemsTypeSearchFilter$outboundSchema).optional(),
+    awsSecretKey: z.string().optional(),
+    region: z.string().optional(),
+    endpoint: z.string().optional(),
+    signatureVersion: SignatureVersionOptions1$outboundSchema.default("v4"),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    enableAssumeRole: z.boolean().default(false),
+    assumeRoleArn: z.string().optional(),
+    assumeRoleExternalId: z.string().optional(),
+    durationSeconds: z.number().default(3600),
+    scrapeProtocolExpr: z.string().default(
+      "metadata.annotations['prometheus.io/scheme'] || 'http'",
+    ),
+    scrapePortExpr: z.string().default(
+      "metadata.annotations['prometheus.io/port'] || 9090",
+    ),
+    scrapePathExpr: z.string().default(
+      "metadata.annotations['prometheus.io/path'] || '/metrics'",
+    ),
+    podFilter: z.array(z.lazy(() => PodFilter$outboundSchema)).optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+  });
+
+export function inputEdgePrometheusSendToRoutesFalseWithConnectionsConstraintToJSON(
+  inputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint:
+    InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint,
+): string {
+  return JSON.stringify(
+    InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+      .parse(inputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint),
+  );
+}
+export function inputEdgePrometheusSendToRoutesFalseWithConnectionsConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputEdgePrometheusSendToRoutesTrueConstraint$inboundSchema:
+  z.ZodType<
+    InputEdgePrometheusSendToRoutesTrueConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputEdgePrometheusType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    pq: PqType$inboundSchema.optional(),
+    dimensionList: z.array(z.string()).optional(),
+    discoveryType: InputEdgePrometheusDiscoveryType$inboundSchema.default(
+      "static",
+    ),
+    interval: z.number().default(15),
+    timeout: z.number().default(5000),
+    persistence: DiskSpoolingType$inboundSchema.optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    authType: InputEdgePrometheusAuthenticationMethod$inboundSchema.default(
+      "manual",
+    ),
+    description: z.string().optional(),
+    targets: z.array(z.lazy(() => Target$inboundSchema)).optional(),
+    recordType: RecordTypeOptions$inboundSchema.default("SRV"),
+    scrapePort: z.number().default(9090),
+    nameList: z.array(z.string()).optional(),
+    scrapeProtocol: ProtocolOptionsTargetsItems$inboundSchema.default("http"),
+    scrapePath: z.string().default("/metrics"),
+    awsAuthenticationMethod: z.string().default("auto"),
+    awsApiKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+    usePublicIp: z.boolean().default(true),
+    searchFilter: z.array(ItemsTypeSearchFilter$inboundSchema).optional(),
+    awsSecretKey: z.string().optional(),
+    region: z.string().optional(),
+    endpoint: z.string().optional(),
+    signatureVersion: SignatureVersionOptions1$inboundSchema.default("v4"),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    enableAssumeRole: z.boolean().default(false),
+    assumeRoleArn: z.string().optional(),
+    assumeRoleExternalId: z.string().optional(),
+    durationSeconds: z.number().default(3600),
+    scrapeProtocolExpr: z.string().default(
+      "metadata.annotations['prometheus.io/scheme'] || 'http'",
+    ),
+    scrapePortExpr: z.string().default(
+      "metadata.annotations['prometheus.io/port'] || 9090",
+    ),
+    scrapePathExpr: z.string().default(
+      "metadata.annotations['prometheus.io/path'] || '/metrics'",
+    ),
+    podFilter: z.array(z.lazy(() => PodFilter$inboundSchema)).optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+  });
+/** @internal */
+export type InputEdgePrometheusSendToRoutesTrueConstraint$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  dimensionList?: Array<string> | undefined;
+  discoveryType: string;
+  interval: number;
+  timeout: number;
+  persistence?: DiskSpoolingType$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  authType: string;
+  description?: string | undefined;
+  targets?: Array<Target$Outbound> | undefined;
+  recordType: string;
+  scrapePort: number;
+  nameList?: Array<string> | undefined;
+  scrapeProtocol: string;
+  scrapePath: string;
+  awsAuthenticationMethod: string;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  usePublicIp: boolean;
+  searchFilter?: Array<ItemsTypeSearchFilter$Outbound> | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  scrapeProtocolExpr: string;
+  scrapePortExpr: string;
+  scrapePathExpr: string;
+  podFilter?: Array<PodFilter$Outbound> | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputEdgePrometheusSendToRoutesTrueConstraint$outboundSchema:
+  z.ZodType<
+    InputEdgePrometheusSendToRoutesTrueConstraint$Outbound,
+    z.ZodTypeDef,
+    InputEdgePrometheusSendToRoutesTrueConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputEdgePrometheusType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: PqType$outboundSchema.optional(),
+    dimensionList: z.array(z.string()).optional(),
+    discoveryType: InputEdgePrometheusDiscoveryType$outboundSchema.default(
+      "static",
+    ),
+    interval: z.number().default(15),
+    timeout: z.number().default(5000),
+    persistence: DiskSpoolingType$outboundSchema.optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    authType: InputEdgePrometheusAuthenticationMethod$outboundSchema.default(
+      "manual",
+    ),
+    description: z.string().optional(),
+    targets: z.array(z.lazy(() => Target$outboundSchema)).optional(),
+    recordType: RecordTypeOptions$outboundSchema.default("SRV"),
+    scrapePort: z.number().default(9090),
+    nameList: z.array(z.string()).optional(),
+    scrapeProtocol: ProtocolOptionsTargetsItems$outboundSchema.default("http"),
+    scrapePath: z.string().default("/metrics"),
+    awsAuthenticationMethod: z.string().default("auto"),
+    awsApiKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+    usePublicIp: z.boolean().default(true),
+    searchFilter: z.array(ItemsTypeSearchFilter$outboundSchema).optional(),
+    awsSecretKey: z.string().optional(),
+    region: z.string().optional(),
+    endpoint: z.string().optional(),
+    signatureVersion: SignatureVersionOptions1$outboundSchema.default("v4"),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    enableAssumeRole: z.boolean().default(false),
+    assumeRoleArn: z.string().optional(),
+    assumeRoleExternalId: z.string().optional(),
+    durationSeconds: z.number().default(3600),
+    scrapeProtocolExpr: z.string().default(
+      "metadata.annotations['prometheus.io/scheme'] || 'http'",
+    ),
+    scrapePortExpr: z.string().default(
+      "metadata.annotations['prometheus.io/port'] || 9090",
+    ),
+    scrapePathExpr: z.string().default(
+      "metadata.annotations['prometheus.io/path'] || '/metrics'",
+    ),
+    podFilter: z.array(z.lazy(() => PodFilter$outboundSchema)).optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+  });
+
+export function inputEdgePrometheusSendToRoutesTrueConstraintToJSON(
+  inputEdgePrometheusSendToRoutesTrueConstraint:
+    InputEdgePrometheusSendToRoutesTrueConstraint,
+): string {
+  return JSON.stringify(
+    InputEdgePrometheusSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputEdgePrometheusSendToRoutesTrueConstraint,
+    ),
+  );
+}
+export function inputEdgePrometheusSendToRoutesTrueConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputEdgePrometheusSendToRoutesTrueConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputEdgePrometheusSendToRoutesTrueConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputEdgePrometheusSendToRoutesTrueConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputEdgePrometheus$inboundSchema: z.ZodType<
+  InputEdgePrometheus,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputEdgePrometheusSendToRoutesTrueConstraint$inboundSchema),
+  z.lazy(() =>
+    InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() => InputEdgePrometheusPqEnabledFalseConstraint$inboundSchema),
+  z.lazy(() => InputEdgePrometheusPqEnabledTrueWithPqConstraint$inboundSchema),
+]);
+/** @internal */
+export type InputEdgePrometheus$Outbound =
+  | InputEdgePrometheusSendToRoutesTrueConstraint$Outbound
+  | InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$Outbound
+  | InputEdgePrometheusPqEnabledFalseConstraint$Outbound
+  | InputEdgePrometheusPqEnabledTrueWithPqConstraint$Outbound;
+
+/** @internal */
 export const InputEdgePrometheus$outboundSchema: z.ZodType<
   InputEdgePrometheus$Outbound,
   z.ZodTypeDef,
   InputEdgePrometheus
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("edge_prometheus"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  dimensionList: z.array(z.string()).optional(),
-  discoveryType: InputEdgePrometheusDiscoveryType$outboundSchema.default(
-    "static",
+> = z.union([
+  z.lazy(() => InputEdgePrometheusSendToRoutesTrueConstraint$outboundSchema),
+  z.lazy(() =>
+    InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$outboundSchema
   ),
-  interval: z.number().default(15),
-  timeout: z.number().default(5000),
-  persistence: DiskSpoolingType$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  authType: InputEdgePrometheusAuthenticationMethod$outboundSchema.default(
-    "manual",
-  ),
-  description: z.string().optional(),
-  targets: z.array(z.lazy(() => Target$outboundSchema)).optional(),
-  recordType: RecordTypeOptions$outboundSchema.default("SRV"),
-  scrapePort: z.number().default(9090),
-  nameList: z.array(z.string()).optional(),
-  scrapeProtocol: ProtocolOptionsTargetsItems$outboundSchema.default("http"),
-  scrapePath: z.string().default("/metrics"),
-  awsAuthenticationMethod: z.string().default("auto"),
-  awsApiKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-  usePublicIp: z.boolean().default(true),
-  searchFilter: z.array(ItemsTypeSearchFilter$outboundSchema).optional(),
-  awsSecretKey: z.string().optional(),
-  region: z.string().optional(),
-  endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions1$outboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
-  assumeRoleArn: z.string().optional(),
-  assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  scrapeProtocolExpr: z.string().default(
-    "metadata.annotations['prometheus.io/scheme'] || 'http'",
-  ),
-  scrapePortExpr: z.string().default(
-    "metadata.annotations['prometheus.io/port'] || 9090",
-  ),
-  scrapePathExpr: z.string().default(
-    "metadata.annotations['prometheus.io/path'] || '/metrics'",
-  ),
-  podFilter: z.array(z.lazy(() => PodFilter$outboundSchema)).optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-});
+  z.lazy(() => InputEdgePrometheusPqEnabledFalseConstraint$outboundSchema),
+  z.lazy(() => InputEdgePrometheusPqEnabledTrueWithPqConstraint$outboundSchema),
+]);
 
 export function inputEdgePrometheusToJSON(
   inputEdgePrometheus: InputEdgePrometheus,

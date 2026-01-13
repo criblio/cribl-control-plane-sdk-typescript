@@ -4,14 +4,15 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -31,12 +32,22 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 
-export type InputKubeEvents = {
+export const InputKubeEventsType = {
+  KubeEvents: "kube_events",
+} as const;
+export type InputKubeEventsType = ClosedEnum<typeof InputKubeEventsType>;
+
+export type InputKubeEventsPqEnabledTrueWithPqConstraint = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "kube_events";
+  type: InputKubeEventsType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -46,6 +57,130 @@ export type InputKubeEvents = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  /**
+   * Filtering on event fields
+   */
+  rules?: Array<ItemsTypeRules> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputKubeEventsPqEnabledFalseConstraint = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputKubeEventsType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Filtering on event fields
+   */
+  rules?: Array<ItemsTypeRules> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputKubeEventsSendToRoutesFalseWithConnectionsConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputKubeEventsType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Filtering on event fields
+   */
+  rules?: Array<ItemsTypeRules> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputKubeEventsSendToRoutesTrueConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputKubeEventsType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -61,7 +196,7 @@ export type InputKubeEvents = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * Filtering on event fields
@@ -74,37 +209,139 @@ export type InputKubeEvents = {
   description?: string | undefined;
 };
 
+export type InputKubeEvents =
+  | InputKubeEventsSendToRoutesTrueConstraint
+  | InputKubeEventsSendToRoutesFalseWithConnectionsConstraint
+  | InputKubeEventsPqEnabledFalseConstraint
+  | InputKubeEventsPqEnabledTrueWithPqConstraint;
+
 /** @internal */
-export const InputKubeEvents$inboundSchema: z.ZodType<
-  InputKubeEvents,
+export const InputKubeEventsType$inboundSchema: z.ZodNativeEnum<
+  typeof InputKubeEventsType
+> = z.nativeEnum(InputKubeEventsType);
+/** @internal */
+export const InputKubeEventsType$outboundSchema: z.ZodNativeEnum<
+  typeof InputKubeEventsType
+> = InputKubeEventsType$inboundSchema;
+
+/** @internal */
+export const InputKubeEventsPqEnabledTrueWithPqConstraint$inboundSchema:
+  z.ZodType<
+    InputKubeEventsPqEnabledTrueWithPqConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$inboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputKubeEventsType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    rules: z.array(ItemsTypeRules$inboundSchema).optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputKubeEventsPqEnabledTrueWithPqConstraint$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  rules?: Array<ItemsTypeRules$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputKubeEventsPqEnabledTrueWithPqConstraint$outboundSchema:
+  z.ZodType<
+    InputKubeEventsPqEnabledTrueWithPqConstraint$Outbound,
+    z.ZodTypeDef,
+    InputKubeEventsPqEnabledTrueWithPqConstraint
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    pq: PqType$outboundSchema.optional(),
+    id: z.string().optional(),
+    type: InputKubeEventsType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    rules: z.array(ItemsTypeRules$outboundSchema).optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    description: z.string().optional(),
+  });
+
+export function inputKubeEventsPqEnabledTrueWithPqConstraintToJSON(
+  inputKubeEventsPqEnabledTrueWithPqConstraint:
+    InputKubeEventsPqEnabledTrueWithPqConstraint,
+): string {
+  return JSON.stringify(
+    InputKubeEventsPqEnabledTrueWithPqConstraint$outboundSchema.parse(
+      inputKubeEventsPqEnabledTrueWithPqConstraint,
+    ),
+  );
+}
+export function inputKubeEventsPqEnabledTrueWithPqConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputKubeEventsPqEnabledTrueWithPqConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputKubeEventsPqEnabledTrueWithPqConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputKubeEventsPqEnabledTrueWithPqConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKubeEventsPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputKubeEventsPqEnabledFalseConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: z.literal("kube_events"),
+  type: InputKubeEventsType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
   rules: z.array(ItemsTypeRules$inboundSchema).optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
 });
 /** @internal */
-export type InputKubeEvents$Outbound = {
+export type InputKubeEventsPqEnabledFalseConstraint$Outbound = {
+  pqEnabled: boolean;
   id?: string | undefined;
-  type: "kube_events";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
   environment?: string | undefined;
-  pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   rules?: Array<ItemsTypeRules$Outbound> | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
@@ -112,25 +349,257 @@ export type InputKubeEvents$Outbound = {
 };
 
 /** @internal */
-export const InputKubeEvents$outboundSchema: z.ZodType<
-  InputKubeEvents$Outbound,
+export const InputKubeEventsPqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputKubeEventsPqEnabledFalseConstraint$Outbound,
   z.ZodTypeDef,
-  InputKubeEvents
+  InputKubeEventsPqEnabledFalseConstraint
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: z.literal("kube_events"),
+  type: InputKubeEventsType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   rules: z.array(ItemsTypeRules$outboundSchema).optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
+
+export function inputKubeEventsPqEnabledFalseConstraintToJSON(
+  inputKubeEventsPqEnabledFalseConstraint:
+    InputKubeEventsPqEnabledFalseConstraint,
+): string {
+  return JSON.stringify(
+    InputKubeEventsPqEnabledFalseConstraint$outboundSchema.parse(
+      inputKubeEventsPqEnabledFalseConstraint,
+    ),
+  );
+}
+export function inputKubeEventsPqEnabledFalseConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputKubeEventsPqEnabledFalseConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputKubeEventsPqEnabledFalseConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputKubeEventsPqEnabledFalseConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKubeEventsSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputKubeEventsSendToRoutesFalseWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputKubeEventsType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    rules: z.array(ItemsTypeRules$inboundSchema).optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputKubeEventsSendToRoutesFalseWithConnectionsConstraint$Outbound =
+  {
+    sendToRoutes: boolean;
+    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+    id?: string | undefined;
+    type: string;
+    disabled: boolean;
+    pipeline?: string | undefined;
+    environment?: string | undefined;
+    pqEnabled: boolean;
+    streamtags?: Array<string> | undefined;
+    pq?: PqType$Outbound | undefined;
+    rules?: Array<ItemsTypeRules$Outbound> | undefined;
+    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+    description?: string | undefined;
+  };
+
+/** @internal */
+export const InputKubeEventsSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputKubeEventsSendToRoutesFalseWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputKubeEventsSendToRoutesFalseWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    id: z.string().optional(),
+    type: InputKubeEventsType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    rules: z.array(ItemsTypeRules$outboundSchema).optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    description: z.string().optional(),
+  });
+
+export function inputKubeEventsSendToRoutesFalseWithConnectionsConstraintToJSON(
+  inputKubeEventsSendToRoutesFalseWithConnectionsConstraint:
+    InputKubeEventsSendToRoutesFalseWithConnectionsConstraint,
+): string {
+  return JSON.stringify(
+    InputKubeEventsSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+      .parse(inputKubeEventsSendToRoutesFalseWithConnectionsConstraint),
+  );
+}
+export function inputKubeEventsSendToRoutesFalseWithConnectionsConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputKubeEventsSendToRoutesFalseWithConnectionsConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputKubeEventsSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeEventsSendToRoutesFalseWithConnectionsConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKubeEventsSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
+  InputKubeEventsSendToRoutesTrueConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputKubeEventsType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  rules: z.array(ItemsTypeRules$inboundSchema).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputKubeEventsSendToRoutesTrueConstraint$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  rules?: Array<ItemsTypeRules$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputKubeEventsSendToRoutesTrueConstraint$outboundSchema:
+  z.ZodType<
+    InputKubeEventsSendToRoutesTrueConstraint$Outbound,
+    z.ZodTypeDef,
+    InputKubeEventsSendToRoutesTrueConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputKubeEventsType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: PqType$outboundSchema.optional(),
+    rules: z.array(ItemsTypeRules$outboundSchema).optional(),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    description: z.string().optional(),
+  });
+
+export function inputKubeEventsSendToRoutesTrueConstraintToJSON(
+  inputKubeEventsSendToRoutesTrueConstraint:
+    InputKubeEventsSendToRoutesTrueConstraint,
+): string {
+  return JSON.stringify(
+    InputKubeEventsSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputKubeEventsSendToRoutesTrueConstraint,
+    ),
+  );
+}
+export function inputKubeEventsSendToRoutesTrueConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputKubeEventsSendToRoutesTrueConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputKubeEventsSendToRoutesTrueConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputKubeEventsSendToRoutesTrueConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKubeEvents$inboundSchema: z.ZodType<
+  InputKubeEvents,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputKubeEventsSendToRoutesTrueConstraint$inboundSchema),
+  z.lazy(() =>
+    InputKubeEventsSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() => InputKubeEventsPqEnabledFalseConstraint$inboundSchema),
+  z.lazy(() => InputKubeEventsPqEnabledTrueWithPqConstraint$inboundSchema),
+]);
+/** @internal */
+export type InputKubeEvents$Outbound =
+  | InputKubeEventsSendToRoutesTrueConstraint$Outbound
+  | InputKubeEventsSendToRoutesFalseWithConnectionsConstraint$Outbound
+  | InputKubeEventsPqEnabledFalseConstraint$Outbound
+  | InputKubeEventsPqEnabledTrueWithPqConstraint$Outbound;
+
+/** @internal */
+export const InputKubeEvents$outboundSchema: z.ZodType<
+  InputKubeEvents$Outbound,
+  z.ZodTypeDef,
+  InputKubeEvents
+> = z.union([
+  z.lazy(() => InputKubeEventsSendToRoutesTrueConstraint$outboundSchema),
+  z.lazy(() =>
+    InputKubeEventsSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() => InputKubeEventsPqEnabledFalseConstraint$outboundSchema),
+  z.lazy(() => InputKubeEventsPqEnabledTrueWithPqConstraint$outboundSchema),
+]);
 
 export function inputKubeEventsToJSON(
   inputKubeEvents: InputKubeEvents,

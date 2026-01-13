@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AuthenticationMethodOptions1,
@@ -14,11 +14,11 @@ import {
 } from "./authenticationmethodoptions1.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeNotificationMetadata,
   ItemsTypeNotificationMetadata$inboundSchema,
@@ -37,6 +37,11 @@ import {
   RetryRulesType$Outbound,
   RetryRulesType$outboundSchema,
 } from "./retryrulestype.js";
+
+export const InputWizType = {
+  Wiz: "wiz",
+} as const;
+export type InputWizType = ClosedEnum<typeof InputWizType>;
 
 export type ManageState = {};
 
@@ -105,12 +110,17 @@ export type InputWizContentConfig = {
   maxPages?: number | undefined;
 };
 
-export type InputWiz = {
+export type InputWizPqEnabledTrueWithPqConstraint = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  pq?: PqType | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "wiz";
+  type: InputWizType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -125,9 +135,93 @@ export type InputWiz = {
    */
   environment?: string | undefined;
   /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  /**
+   * The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
+   */
+  endpoint?: string | undefined;
+  /**
+   * The authentication URL to generate an OAuth token
+   */
+  authUrl: string;
+  /**
+   * The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
+   */
+  authAudienceOverride?: string | undefined;
+  /**
+   * The client ID of the Wiz application
+   */
+  clientId: string;
+  contentConfig: Array<InputWizContentConfig>;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * Enter client secret directly, or select a stored secret
+   */
+  authType?: AuthenticationMethodOptions1 | undefined;
+  description?: string | undefined;
+  /**
+   * The client secret of the Wiz application
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type InputWizPqEnabledFalseConstraint = {
+  /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
   pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputWizType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
   /**
    * Tags for filtering and grouping in @{product}
    */
@@ -135,7 +229,7 @@ export type InputWiz = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
    * The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
@@ -193,6 +287,197 @@ export type InputWiz = {
    */
   textSecret?: string | undefined;
 };
+
+export type InputWizSendToRoutesFalseWithConnectionsConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputWizType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
+   */
+  endpoint?: string | undefined;
+  /**
+   * The authentication URL to generate an OAuth token
+   */
+  authUrl: string;
+  /**
+   * The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
+   */
+  authAudienceOverride?: string | undefined;
+  /**
+   * The client ID of the Wiz application
+   */
+  clientId: string;
+  contentConfig: Array<InputWizContentConfig>;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * Enter client secret directly, or select a stored secret
+   */
+  authType?: AuthenticationMethodOptions1 | undefined;
+  description?: string | undefined;
+  /**
+   * The client secret of the Wiz application
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type InputWizSendToRoutesTrueConstraint = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputWizType;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
+   */
+  endpoint?: string | undefined;
+  /**
+   * The authentication URL to generate an OAuth token
+   */
+  authUrl: string;
+  /**
+   * The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
+   */
+  authAudienceOverride?: string | undefined;
+  /**
+   * The client ID of the Wiz application
+   */
+  clientId: string;
+  contentConfig: Array<InputWizContentConfig>;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * Enter client secret directly, or select a stored secret
+   */
+  authType?: AuthenticationMethodOptions1 | undefined;
+  description?: string | undefined;
+  /**
+   * The client secret of the Wiz application
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type InputWiz =
+  | InputWizSendToRoutesTrueConstraint
+  | InputWizSendToRoutesFalseWithConnectionsConstraint
+  | InputWizPqEnabledFalseConstraint
+  | InputWizPqEnabledTrueWithPqConstraint;
+
+/** @internal */
+export const InputWizType$inboundSchema: z.ZodNativeEnum<typeof InputWizType> =
+  z.nativeEnum(InputWizType);
+/** @internal */
+export const InputWizType$outboundSchema: z.ZodNativeEnum<typeof InputWizType> =
+  InputWizType$inboundSchema;
 
 /** @internal */
 export const ManageState$inboundSchema: z.ZodType<
@@ -323,20 +608,137 @@ export function inputWizContentConfigFromJSON(
 }
 
 /** @internal */
-export const InputWiz$inboundSchema: z.ZodType<
-  InputWiz,
+export const InputWizPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
+  InputWizPqEnabledTrueWithPqConstraint,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
-  type: z.literal("wiz"),
+  type: InputWizType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  endpoint: z.string().default("https://api.<region>.app.wiz.io/graphql"),
+  authUrl: z.string(),
+  authAudienceOverride: z.string().optional(),
+  clientId: z.string(),
+  contentConfig: z.array(z.lazy(() => InputWizContentConfig$inboundSchema)),
+  requestTimeout: z.number().default(300),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type InputWizPqEnabledTrueWithPqConstraint$Outbound = {
+  pqEnabled: boolean;
+  pq?: PqType$Outbound | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  endpoint: string;
+  authUrl: string;
+  authAudienceOverride?: string | undefined;
+  clientId: string;
+  contentConfig: Array<InputWizContentConfig$Outbound>;
+  requestTimeout: number;
+  keepAliveTime: number;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  authType: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputWizPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
+  InputWizPqEnabledTrueWithPqConstraint$Outbound,
+  z.ZodTypeDef,
+  InputWizPqEnabledTrueWithPqConstraint
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  pq: PqType$outboundSchema.optional(),
+  id: z.string().optional(),
+  type: InputWizType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  endpoint: z.string().default("https://api.<region>.app.wiz.io/graphql"),
+  authUrl: z.string(),
+  authAudienceOverride: z.string().optional(),
+  clientId: z.string(),
+  contentConfig: z.array(z.lazy(() => InputWizContentConfig$outboundSchema)),
+  requestTimeout: z.number().default(300),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function inputWizPqEnabledTrueWithPqConstraintToJSON(
+  inputWizPqEnabledTrueWithPqConstraint: InputWizPqEnabledTrueWithPqConstraint,
+): string {
+  return JSON.stringify(
+    InputWizPqEnabledTrueWithPqConstraint$outboundSchema.parse(
+      inputWizPqEnabledTrueWithPqConstraint,
+    ),
+  );
+}
+export function inputWizPqEnabledTrueWithPqConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWizPqEnabledTrueWithPqConstraint, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputWizPqEnabledTrueWithPqConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWizPqEnabledTrueWithPqConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWizPqEnabledFalseConstraint$inboundSchema: z.ZodType<
+  InputWizPqEnabledFalseConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputWizType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
   endpoint: z.string().default("https://api.<region>.app.wiz.io/graphql"),
   authUrl: z.string(),
@@ -356,16 +758,16 @@ export const InputWiz$inboundSchema: z.ZodType<
   textSecret: z.string().optional(),
 });
 /** @internal */
-export type InputWiz$Outbound = {
+export type InputWizPqEnabledFalseConstraint$Outbound = {
+  pqEnabled: boolean;
   id?: string | undefined;
-  type: "wiz";
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
   environment?: string | undefined;
-  pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   endpoint: string;
   authUrl: string;
@@ -386,20 +788,20 @@ export type InputWiz$Outbound = {
 };
 
 /** @internal */
-export const InputWiz$outboundSchema: z.ZodType<
-  InputWiz$Outbound,
+export const InputWizPqEnabledFalseConstraint$outboundSchema: z.ZodType<
+  InputWizPqEnabledFalseConstraint$Outbound,
   z.ZodTypeDef,
-  InputWiz
+  InputWizPqEnabledFalseConstraint
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: z.literal("wiz"),
+  type: InputWizType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   endpoint: z.string().default("https://api.<region>.app.wiz.io/graphql"),
   authUrl: z.string(),
@@ -418,6 +820,302 @@ export const InputWiz$outboundSchema: z.ZodType<
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
 });
+
+export function inputWizPqEnabledFalseConstraintToJSON(
+  inputWizPqEnabledFalseConstraint: InputWizPqEnabledFalseConstraint,
+): string {
+  return JSON.stringify(
+    InputWizPqEnabledFalseConstraint$outboundSchema.parse(
+      inputWizPqEnabledFalseConstraint,
+    ),
+  );
+}
+export function inputWizPqEnabledFalseConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWizPqEnabledFalseConstraint, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWizPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWizPqEnabledFalseConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWizSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
+  z.ZodType<
+    InputWizSendToRoutesFalseWithConnectionsConstraint,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+    id: z.string().optional(),
+    type: InputWizType$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$inboundSchema.optional(),
+    endpoint: z.string().default("https://api.<region>.app.wiz.io/graphql"),
+    authUrl: z.string(),
+    authAudienceOverride: z.string().optional(),
+    clientId: z.string(),
+    contentConfig: z.array(z.lazy(() => InputWizContentConfig$inboundSchema)),
+    requestTimeout: z.number().default(300),
+    keepAliveTime: z.number().default(30),
+    maxMissedKeepAlives: z.number().default(3),
+    ttl: z.string().default("4h"),
+    ignoreGroupJobsLimit: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    retryRules: RetryRulesType$inboundSchema.optional(),
+    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+  });
+/** @internal */
+export type InputWizSendToRoutesFalseWithConnectionsConstraint$Outbound = {
+  sendToRoutes: boolean;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  pq?: PqType$Outbound | undefined;
+  endpoint: string;
+  authUrl: string;
+  authAudienceOverride?: string | undefined;
+  clientId: string;
+  contentConfig: Array<InputWizContentConfig$Outbound>;
+  requestTimeout: number;
+  keepAliveTime: number;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  authType: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputWizSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
+  z.ZodType<
+    InputWizSendToRoutesFalseWithConnectionsConstraint$Outbound,
+    z.ZodTypeDef,
+    InputWizSendToRoutesFalseWithConnectionsConstraint
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    id: z.string().optional(),
+    type: InputWizType$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    pq: PqType$outboundSchema.optional(),
+    endpoint: z.string().default("https://api.<region>.app.wiz.io/graphql"),
+    authUrl: z.string(),
+    authAudienceOverride: z.string().optional(),
+    clientId: z.string(),
+    contentConfig: z.array(z.lazy(() => InputWizContentConfig$outboundSchema)),
+    requestTimeout: z.number().default(300),
+    keepAliveTime: z.number().default(30),
+    maxMissedKeepAlives: z.number().default(3),
+    ttl: z.string().default("4h"),
+    ignoreGroupJobsLimit: z.boolean().default(false),
+    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    retryRules: RetryRulesType$outboundSchema.optional(),
+    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+  });
+
+export function inputWizSendToRoutesFalseWithConnectionsConstraintToJSON(
+  inputWizSendToRoutesFalseWithConnectionsConstraint:
+    InputWizSendToRoutesFalseWithConnectionsConstraint,
+): string {
+  return JSON.stringify(
+    InputWizSendToRoutesFalseWithConnectionsConstraint$outboundSchema.parse(
+      inputWizSendToRoutesFalseWithConnectionsConstraint,
+    ),
+  );
+}
+export function inputWizSendToRoutesFalseWithConnectionsConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputWizSendToRoutesFalseWithConnectionsConstraint,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputWizSendToRoutesFalseWithConnectionsConstraint$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputWizSendToRoutesFalseWithConnectionsConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWizSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
+  InputWizSendToRoutesTrueConstraint,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputWizType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  endpoint: z.string().default("https://api.<region>.app.wiz.io/graphql"),
+  authUrl: z.string(),
+  authAudienceOverride: z.string().optional(),
+  clientId: z.string(),
+  contentConfig: z.array(z.lazy(() => InputWizContentConfig$inboundSchema)),
+  requestTimeout: z.number().default(300),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type InputWizSendToRoutesTrueConstraint$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  endpoint: string;
+  authUrl: string;
+  authAudienceOverride?: string | undefined;
+  clientId: string;
+  contentConfig: Array<InputWizContentConfig$Outbound>;
+  requestTimeout: number;
+  keepAliveTime: number;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  authType: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputWizSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
+  InputWizSendToRoutesTrueConstraint$Outbound,
+  z.ZodTypeDef,
+  InputWizSendToRoutesTrueConstraint
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputWizType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  endpoint: z.string().default("https://api.<region>.app.wiz.io/graphql"),
+  authUrl: z.string(),
+  authAudienceOverride: z.string().optional(),
+  clientId: z.string(),
+  contentConfig: z.array(z.lazy(() => InputWizContentConfig$outboundSchema)),
+  requestTimeout: z.number().default(300),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function inputWizSendToRoutesTrueConstraintToJSON(
+  inputWizSendToRoutesTrueConstraint: InputWizSendToRoutesTrueConstraint,
+): string {
+  return JSON.stringify(
+    InputWizSendToRoutesTrueConstraint$outboundSchema.parse(
+      inputWizSendToRoutesTrueConstraint,
+    ),
+  );
+}
+export function inputWizSendToRoutesTrueConstraintFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWizSendToRoutesTrueConstraint, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputWizSendToRoutesTrueConstraint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWizSendToRoutesTrueConstraint' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWiz$inboundSchema: z.ZodType<
+  InputWiz,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputWizSendToRoutesTrueConstraint$inboundSchema),
+  z.lazy(() =>
+    InputWizSendToRoutesFalseWithConnectionsConstraint$inboundSchema
+  ),
+  z.lazy(() => InputWizPqEnabledFalseConstraint$inboundSchema),
+  z.lazy(() => InputWizPqEnabledTrueWithPqConstraint$inboundSchema),
+]);
+/** @internal */
+export type InputWiz$Outbound =
+  | InputWizSendToRoutesTrueConstraint$Outbound
+  | InputWizSendToRoutesFalseWithConnectionsConstraint$Outbound
+  | InputWizPqEnabledFalseConstraint$Outbound
+  | InputWizPqEnabledTrueWithPqConstraint$Outbound;
+
+/** @internal */
+export const InputWiz$outboundSchema: z.ZodType<
+  InputWiz$Outbound,
+  z.ZodTypeDef,
+  InputWiz
+> = z.union([
+  z.lazy(() => InputWizSendToRoutesTrueConstraint$outboundSchema),
+  z.lazy(() =>
+    InputWizSendToRoutesFalseWithConnectionsConstraint$outboundSchema
+  ),
+  z.lazy(() => InputWizPqEnabledFalseConstraint$outboundSchema),
+  z.lazy(() => InputWizPqEnabledTrueWithPqConstraint$outboundSchema),
+]);
 
 export function inputWizToJSON(inputWiz: InputWiz): string {
   return JSON.stringify(InputWiz$outboundSchema.parse(inputWiz));

@@ -9,7 +9,7 @@ let value: UpdateOutputByIdRequest = {
   id: "<id>",
   output: {
     id: "<id>",
-    type: "signalfx",
+    type: "wavefront",
     pipeline: "<value>",
     systemFields: [
       "<value 1>",
@@ -20,7 +20,7 @@ let value: UpdateOutputByIdRequest = {
       "<value 2>",
     ],
     authType: "manual",
-    realm: "us0",
+    domain: "longboard",
     concurrency: 5,
     maxPayloadSizeKB: 4096,
     maxPayloadEvents: 0,
