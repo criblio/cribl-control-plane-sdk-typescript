@@ -10,10 +10,10 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Teams extends ClientSDK {
   /**
-   * Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+   * Get the Access Control List for teams with permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
    *
    * @remarks
-   * Get the Access Control List (ACL) for teams that have permissions on a Worker Group or Edge Fleet for the specified Cribl product.
+   * Get the Access Control List (ACL) for teams that have permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
    */
   async get(
     request: operations.GetConfigGroupAclTeamsByProductAndIdRequest,

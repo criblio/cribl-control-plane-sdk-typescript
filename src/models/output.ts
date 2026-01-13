@@ -415,6 +415,12 @@ import {
   OutputWebhook$outboundSchema,
 } from "./outputwebhook.js";
 import {
+  OutputWizHec,
+  OutputWizHec$inboundSchema,
+  OutputWizHec$Outbound,
+  OutputWizHec$outboundSchema,
+} from "./outputwizhec.js";
+import {
   OutputXsiam,
   OutputXsiam$inboundSchema,
   OutputXsiam$Outbound,
@@ -430,6 +436,7 @@ export type Output =
   | OutputSplunk
   | OutputSplunkLb
   | OutputSplunkHec
+  | OutputWizHec
   | OutputTcpjson
   | OutputWavefront
   | OutputSignalfx
@@ -503,6 +510,7 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
     OutputSplunk$inboundSchema,
     OutputSplunkLb$inboundSchema,
     OutputSplunkHec$inboundSchema,
+    OutputWizHec$inboundSchema,
     OutputTcpjson$inboundSchema,
     OutputWavefront$inboundSchema,
     OutputSignalfx$inboundSchema,
@@ -577,6 +585,7 @@ export type Output$Outbound =
   | OutputSplunk$Outbound
   | OutputSplunkLb$Outbound
   | OutputSplunkHec$Outbound
+  | OutputWizHec$Outbound
   | OutputTcpjson$Outbound
   | OutputWavefront$Outbound
   | OutputSignalfx$Outbound
@@ -653,6 +662,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputSplunk$outboundSchema,
   OutputSplunkLb$outboundSchema,
   OutputSplunkHec$outboundSchema,
+  OutputWizHec$outboundSchema,
   OutputTcpjson$outboundSchema,
   OutputWavefront$outboundSchema,
   OutputSignalfx$outboundSchema,

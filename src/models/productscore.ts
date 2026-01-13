@@ -9,6 +9,7 @@ import { OpenEnum } from "../types/enums.js";
 export const ProductsCore = {
   Stream: "stream",
   Edge: "edge",
+  Outpost: "outpost",
 } as const;
 export type ProductsCore = OpenEnum<typeof ProductsCore>;
 

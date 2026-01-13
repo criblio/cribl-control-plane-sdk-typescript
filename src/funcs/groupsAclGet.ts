@@ -27,10 +27,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get the Access Control List for a Worker Group or Edge Fleet
+ * Get the Access Control List for a Worker Group, Outpost Group, or Edge Fleet
  *
  * @remarks
- * Get the Access Control List (ACL) for the specified Worker Group or Edge Fleet.
+ * Get the Access Control List (ACL) for the specified Worker Group, Outpost Group, or Edge Fleet.
  */
 export function groupsAclGet(
   client: CriblControlPlaneCore,

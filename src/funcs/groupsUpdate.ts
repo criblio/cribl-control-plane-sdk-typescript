@@ -27,10 +27,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update a Worker Group or Edge Fleet
+ * Update a Worker Group, Outpost Group, or Edge Fleet
  *
  * @remarks
- * Update the specified Worker Group or Edge Fleet.
+ * Update the specified Worker Group, Outpost Group, or Edge Fleet.
  */
 export function groupsUpdate(
   client: CriblControlPlaneCore,

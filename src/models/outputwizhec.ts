@@ -4,19 +4,17 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptionsAuthTokensItems,
+  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
+} from "./authenticationmethodoptionsauthtokensitems.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
-import {
-  CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
-  CompressionOptionsPq$outboundSchema,
-} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FailedRequestLoggingModeOptions,
@@ -36,52 +34,35 @@ import {
   ItemsTypeResponseRetrySettings$outboundSchema,
 } from "./itemstyperesponseretrysettings.js";
 import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
-import {
-  QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
-  QueueFullBehaviorOptions$outboundSchema,
-} from "./queuefullbehavioroptions.js";
-import {
   TimeoutRetrySettingsType,
   TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
+import {
+  TlsSettingsClientSideType2,
+  TlsSettingsClientSideType2$inboundSchema,
+  TlsSettingsClientSideType2$Outbound,
+  TlsSettingsClientSideType2$outboundSchema,
+} from "./tlssettingsclientsidetype2.js";
 
-/**
- * Enter a token directly, or provide a secret referencing a token
- */
-export const OutputXsiamAuthenticationMethod = {
-  Token: "token",
-  Secret: "secret",
-} as const;
-/**
- * Enter a token directly, or provide a secret referencing a token
- */
-export type OutputXsiamAuthenticationMethod = OpenEnum<
-  typeof OutputXsiamAuthenticationMethod
->;
-
-export type OutputXsiamUrl = {
-  url?: any | undefined;
+export type OutputWizHecUrl = {
+  /**
+   * URL to an endpoint to send events to, such as http://localhost:8088/services/collector/event
+   */
+  url?: string | undefined;
   /**
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
   weight?: number | undefined;
 };
 
-export type OutputXsiamPqControls = {};
-
-export type OutputXsiam = {
+export type OutputWizHec = {
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: "xsiam";
+  type: "wiz_hec";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -103,6 +84,15 @@ export type OutputXsiam = {
    */
   loadBalanced?: boolean | undefined;
   /**
+   * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+   */
+  nextQueue?: string | undefined;
+  /**
+   * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+   */
+  tcpRouting?: string | undefined;
+  tls?: TlsSettingsClientSideType2 | undefined;
+  /**
    * Maximum number of ongoing requests before blocking
    */
   concurrency?: number | undefined;
@@ -114,6 +104,10 @@ export type OutputXsiam = {
    * Maximum number of events to include in the request body. Default is 0 (unlimited).
    */
   maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
   /**
    * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
    *
@@ -143,9 +137,13 @@ export type OutputXsiam = {
    */
   safeHeaders?: Array<string> | undefined;
   /**
-   * Enter a token directly, or provide a secret referencing a token
+   * Output metrics in multiple-metric format
    */
-  authType?: OutputXsiamAuthenticationMethod | undefined;
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
@@ -156,20 +154,12 @@ export type OutputXsiam = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
-   * Maximum number of requests to limit to per second
-   */
-  throttleRateReqPerSec?: number | undefined;
-  /**
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
-  /**
-   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
-   */
-  totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   /**
-   * XSIAM endpoint URL to send events to, such as https://api-{tenant external URL}/logs/v1/event
+   * URL to an endpoint to send events to, such as http://localhost:8088/services/collector/event
    */
   url?: string | undefined;
   /**
@@ -180,7 +170,7 @@ export type OutputXsiam = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<OutputXsiamUrl> | undefined;
+  urls?: Array<OutputWizHecUrl> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -190,156 +180,75 @@ export type OutputXsiam = {
    */
   loadBalanceStatsPeriodSec?: number | undefined;
   /**
-   * XSIAM authentication token
+   * Wiz Defender Auth token
    */
   token?: string | undefined;
   /**
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-   */
-  pqStrictOrdering?: boolean | undefined;
-  /**
-   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-   */
-  pqRatePerSec?: number | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: ModeOptions | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  pqMaxBufferSize?: number | undefined;
-  /**
-   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
-   */
-  pqMaxBackpressureSec?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-   */
-  pqMaxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  pqMaxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-   */
-  pqPath?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  pqCompress?: CompressionOptionsPq | undefined;
-  /**
-   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-   */
-  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
-  pqControls?: OutputXsiamPqControls | undefined;
 };
 
 /** @internal */
-export const OutputXsiamAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputXsiamAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputXsiamAuthenticationMethod);
-/** @internal */
-export const OutputXsiamAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputXsiamAuthenticationMethod
-> = openEnums.outboundSchema(OutputXsiamAuthenticationMethod);
-
-/** @internal */
-export const OutputXsiamUrl$inboundSchema: z.ZodType<
-  OutputXsiamUrl,
+export const OutputWizHecUrl$inboundSchema: z.ZodType<
+  OutputWizHecUrl,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  url: z.any().optional(),
+  url: z.string().default("http://localhost:8088/services/collector/event"),
   weight: z.number().default(1),
 });
 /** @internal */
-export type OutputXsiamUrl$Outbound = {
-  url?: any | undefined;
+export type OutputWizHecUrl$Outbound = {
+  url: string;
   weight: number;
 };
 
 /** @internal */
-export const OutputXsiamUrl$outboundSchema: z.ZodType<
-  OutputXsiamUrl$Outbound,
+export const OutputWizHecUrl$outboundSchema: z.ZodType<
+  OutputWizHecUrl$Outbound,
   z.ZodTypeDef,
-  OutputXsiamUrl
+  OutputWizHecUrl
 > = z.object({
-  url: z.any().optional(),
+  url: z.string().default("http://localhost:8088/services/collector/event"),
   weight: z.number().default(1),
 });
 
-export function outputXsiamUrlToJSON(outputXsiamUrl: OutputXsiamUrl): string {
-  return JSON.stringify(OutputXsiamUrl$outboundSchema.parse(outputXsiamUrl));
-}
-export function outputXsiamUrlFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputXsiamUrl, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputXsiamUrl$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputXsiamUrl' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputXsiamPqControls$inboundSchema: z.ZodType<
-  OutputXsiamPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type OutputXsiamPqControls$Outbound = {};
-
-/** @internal */
-export const OutputXsiamPqControls$outboundSchema: z.ZodType<
-  OutputXsiamPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputXsiamPqControls
-> = z.object({});
-
-export function outputXsiamPqControlsToJSON(
-  outputXsiamPqControls: OutputXsiamPqControls,
+export function outputWizHecUrlToJSON(
+  outputWizHecUrl: OutputWizHecUrl,
 ): string {
-  return JSON.stringify(
-    OutputXsiamPqControls$outboundSchema.parse(outputXsiamPqControls),
-  );
+  return JSON.stringify(OutputWizHecUrl$outboundSchema.parse(outputWizHecUrl));
 }
-export function outputXsiamPqControlsFromJSON(
+export function outputWizHecUrlFromJSON(
   jsonString: string,
-): SafeParseResult<OutputXsiamPqControls, SDKValidationError> {
+): SafeParseResult<OutputWizHecUrl, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputXsiamPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputXsiamPqControls' from JSON`,
+    (x) => OutputWizHecUrl$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputWizHecUrl' from JSON`,
   );
 }
 
 /** @internal */
-export const OutputXsiam$inboundSchema: z.ZodType<
-  OutputXsiam,
+export const OutputWizHec$inboundSchema: z.ZodType<
+  OutputWizHec,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: z.literal("xsiam"),
+  type: z.literal("wiz_hec"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(false),
+  loadBalanced: z.boolean().default(true),
+  nextQueue: z.string().default("indexQueue"),
+  tcpRouting: z.string().default("nowhere"),
+  tls: TlsSettingsClientSideType2$inboundSchema.optional(),
   concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(9500),
+  maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
@@ -347,100 +256,86 @@ export const OutputXsiam$inboundSchema: z.ZodType<
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  authType: OutputXsiamAuthenticationMethod$inboundSchema.default("token"),
+  enableMultiMetrics: z.boolean().default(false),
+  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
+    "manual",
+  ),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  throttleRateReqPerSec: z.number().int().default(400),
   onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
-  totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  url: z.string().default("http://localhost:8088/logs/v1/event"),
+  url: z.string().default("http://localhost:8088/services/collector/event"),
   useRoundRobinDns: z.boolean().default(false),
   excludeSelf: z.boolean().default(false),
-  urls: z.array(z.lazy(() => OutputXsiamUrl$inboundSchema)).optional(),
+  urls: z.array(z.lazy(() => OutputWizHecUrl$inboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
-  pqControls: z.lazy(() => OutputXsiamPqControls$inboundSchema).optional(),
 });
 /** @internal */
-export type OutputXsiam$Outbound = {
+export type OutputWizHec$Outbound = {
   id?: string | undefined;
-  type: "xsiam";
+  type: "wiz_hec";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   loadBalanced: boolean;
+  nextQueue: string;
+  tcpRouting: string;
+  tls?: TlsSettingsClientSideType2$Outbound | undefined;
   concurrency: number;
   maxPayloadSizeKB: number;
   maxPayloadEvents: number;
+  compress: boolean;
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
+  enableMultiMetrics: boolean;
   authType: string;
   responseRetrySettings?:
     | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
-  throttleRateReqPerSec: number;
   onBackpressure: string;
-  totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   url: string;
   useRoundRobinDns: boolean;
   excludeSelf: boolean;
-  urls?: Array<OutputXsiamUrl$Outbound> | undefined;
+  urls?: Array<OutputWizHecUrl$Outbound> | undefined;
   dnsResolvePeriodSec: number;
   loadBalanceStatsPeriodSec: number;
   token?: string | undefined;
   textSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
-  pqControls?: OutputXsiamPqControls$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputXsiam$outboundSchema: z.ZodType<
-  OutputXsiam$Outbound,
+export const OutputWizHec$outboundSchema: z.ZodType<
+  OutputWizHec$Outbound,
   z.ZodTypeDef,
-  OutputXsiam
+  OutputWizHec
 > = z.object({
   id: z.string().optional(),
-  type: z.literal("xsiam"),
+  type: z.literal("wiz_hec"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(false),
+  loadBalanced: z.boolean().default(true),
+  nextQueue: z.string().default("indexQueue"),
+  tcpRouting: z.string().default("nowhere"),
+  tls: TlsSettingsClientSideType2$outboundSchema.optional(),
   concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(9500),
+  maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
@@ -449,45 +344,35 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  authType: OutputXsiamAuthenticationMethod$outboundSchema.default("token"),
+  enableMultiMetrics: z.boolean().default(false),
+  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
+    "manual",
+  ),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  throttleRateReqPerSec: z.number().int().default(400),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
-  totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  url: z.string().default("http://localhost:8088/logs/v1/event"),
+  url: z.string().default("http://localhost:8088/services/collector/event"),
   useRoundRobinDns: z.boolean().default(false),
   excludeSelf: z.boolean().default(false),
-  urls: z.array(z.lazy(() => OutputXsiamUrl$outboundSchema)).optional(),
+  urls: z.array(z.lazy(() => OutputWizHecUrl$outboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
-  pqControls: z.lazy(() => OutputXsiamPqControls$outboundSchema).optional(),
 });
 
-export function outputXsiamToJSON(outputXsiam: OutputXsiam): string {
-  return JSON.stringify(OutputXsiam$outboundSchema.parse(outputXsiam));
+export function outputWizHecToJSON(outputWizHec: OutputWizHec): string {
+  return JSON.stringify(OutputWizHec$outboundSchema.parse(outputWizHec));
 }
-export function outputXsiamFromJSON(
+export function outputWizHecFromJSON(
   jsonString: string,
-): SafeParseResult<OutputXsiam, SDKValidationError> {
+): SafeParseResult<OutputWizHec, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputXsiam$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputXsiam' from JSON`,
+    (x) => OutputWizHec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputWizHec' from JSON`,
   );
 }

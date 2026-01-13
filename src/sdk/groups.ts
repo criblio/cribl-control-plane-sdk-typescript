@@ -27,10 +27,10 @@ export class Groups extends ClientSDK {
   }
 
   /**
-   * List all Worker Groups or Edge Fleets for the specified Cribl product
+   * List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
    *
    * @remarks
-   * Get a list of all Worker Groups or Edge Fleets for the specified Cribl product.
+   * Get a list of all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product.
    */
   async list(
     request: operations.ListConfigGroupByProductRequest,
@@ -44,10 +44,10 @@ export class Groups extends ClientSDK {
   }
 
   /**
-   * Create a Worker Group or Edge Fleet for the specified Cribl product
+   * Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
    *
    * @remarks
-   * Create a new Worker Group or Edge Fleet for the specified Cribl product.
+   * Create a new Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
    */
   async create(
     request: operations.CreateConfigGroupByProductRequest,
@@ -61,10 +61,10 @@ export class Groups extends ClientSDK {
   }
 
   /**
-   * Get a Worker Group or Edge Fleet
+   * Get a Worker Group, Outpost Group, or Edge Fleet
    *
    * @remarks
-   * Get the specified Worker Group or Edge Fleet.
+   * Get the specified Worker Group, Outpost Group, or Edge Fleet.
    */
   async get(
     request: operations.GetConfigGroupByProductAndIdRequest,
@@ -78,10 +78,10 @@ export class Groups extends ClientSDK {
   }
 
   /**
-   * Update a Worker Group or Edge Fleet
+   * Update a Worker Group, Outpost Group, or Edge Fleet
    *
    * @remarks
-   * Update the specified Worker Group or Edge Fleet.
+   * Update the specified Worker Group, Outpost Group, or Edge Fleet.
    */
   async update(
     request: operations.UpdateConfigGroupByProductAndIdRequest,
@@ -95,10 +95,10 @@ export class Groups extends ClientSDK {
   }
 
   /**
-   * Delete a Worker Group or Edge Fleet
+   * Delete a Worker Group, Outpost Group, or Edge Fleet
    *
    * @remarks
-   * Delete the specified Worker Group or Edge Fleet.
+   * Delete the specified Worker Group, Outpost Group, or Edge Fleet.
    */
   async delete(
     request: operations.DeleteConfigGroupByProductAndIdRequest,

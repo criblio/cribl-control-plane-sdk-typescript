@@ -343,6 +343,55 @@ const value: models.OutputSplunkHec = {
 };
 ```
 
+### `models.OutputWizHec`
+
+```typescript
+const value: models.OutputWizHec = {
+  id: "<id>",
+  type: "wiz_hec",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 8829.54,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "towards pleasant against save doubter underneath",
+  urls: [
+    {},
+  ],
+  token: "<value>",
+  textSecret: "<value>",
+};
+```
+
 ### `models.OutputTcpjson`
 
 ```typescript
