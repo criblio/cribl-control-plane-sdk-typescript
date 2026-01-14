@@ -6,15 +6,27 @@
 import { InputWefPqEnabledTrueWithPqConstraint } from "cribl-control-plane/models";
 
 let value: InputWefPqEnabledTrueWithPqConstraint = {
+  pqEnabled: true,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "wef",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -22,25 +34,55 @@ let value: InputWefPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
+  host: "needy-forgery.org",
+  port: 7762.31,
+  authMethod: "clientCert",
   tls: {
+    disabled: true,
+    rejectUnauthorized: false,
+    requestCert: false,
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+    ocspCheck: true,
     keytab: "<value>",
     principal: "<value>",
+    ocspCheckFailClose: true,
   },
+  maxActiveReq: 3847.77,
+  maxRequestsPerSocket: 629110,
+  enableProxyHeader: false,
+  captureHeaders: true,
+  keepAliveTimeout: 5427.78,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  socketTimeout: 8954.28,
   caFingerprint: "<value>",
   keytab: "<value>",
   principal: "<value>",
+  allowMachineIdMismatch: true,
   subscriptions: [
     {
       subscriptionName: "<value>",
       version: "<value>",
-      targets: [],
+      contentFormat: "Raw",
+      heartbeatInterval: 5580.43,
+      batchTimeout: 3722.13,
+      readExistingEvents: false,
+      sendBookmarks: false,
+      compress: true,
+      targets: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      locale: "el",
+      querySelector: "xml",
       metadata: [
         {
           name: "<value>",
@@ -49,7 +91,7 @@ let value: InputWefPqEnabledTrueWithPqConstraint = {
       ],
       queries: [
         {
-          path: "/media",
+          path: "/var",
           queryExpression: "<value>",
         },
       ],
@@ -62,7 +104,8 @@ let value: InputWefPqEnabledTrueWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "going disinherit gently besides before adumbrate",
+  description: "appreciate extremely coolly commonly thoroughly hunger",
+  logFingerprintMismatch: true,
 };
 ```
 
@@ -70,7 +113,7 @@ let value: InputWefPqEnabledTrueWithPqConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `pq`                                                                                                                                                                                                                                         | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [models.InputWefType](../models/inputweftype.md)                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
@@ -80,8 +123,8 @@ let value: InputWefPqEnabledTrueWithPqConstraint = {
 | `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
 | `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
 | `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
-| `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
-| `port`                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Port to listen on                                                                                                                                                                                                                            |
+| `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
+| `port`                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Port to listen on                                                                                                                                                                                                                            |
 | `authMethod`                                                                                                                                                                                                                                 | [models.InputWefAuthenticationMethod](../models/inputwefauthenticationmethod.md)                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                           | How to authenticate incoming client connections                                                                                                                                                                                              |
 | `tls`                                                                                                                                                                                                                                        | [models.MTLSSettings](../models/mtlssettings.md)                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `maxActiveReq`                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.                      |

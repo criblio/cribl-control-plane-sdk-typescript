@@ -7,10 +7,14 @@ import { FunctionConfSchemaSend } from "cribl-control-plane/models";
 
 let value: FunctionConfSchemaSend = {
   url: "https://hefty-halt.biz/",
+  group: "<value>",
+  workspace: "<value>",
   sendUrlTemplate: "<value>",
   searchId: "<id>",
-  suppressPreviews: false,
-  mode: "sender",
+  tee: "<value>",
+  flushMs: 8634.74,
+  suppressPreviews: true,
+  mode: "metrics",
 };
 ```
 

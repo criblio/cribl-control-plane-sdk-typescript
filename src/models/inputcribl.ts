@@ -35,7 +35,7 @@ export type InputCriblPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   pq?: PqType | undefined;
   /**
    * Unique ID for this input
@@ -75,7 +75,7 @@ export type InputCriblPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   /**
    * Unique ID for this input
    */
@@ -115,7 +115,7 @@ export type InputCriblSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -155,7 +155,7 @@ export type InputCriblSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Unique ID for this input
    */
@@ -212,13 +212,13 @@ export const InputCriblPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputCriblType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
@@ -232,9 +232,9 @@ export type InputCriblPqEnabledTrueWithPqConstraint$Outbound = {
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
@@ -249,13 +249,13 @@ export const InputCriblPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputCriblPqEnabledTrueWithPqConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   pq: PqType$outboundSchema.optional(),
   id: z.string().optional(),
   type: InputCriblType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
@@ -296,12 +296,12 @@ export const InputCriblPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputCriblType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
@@ -315,9 +315,9 @@ export type InputCriblPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
@@ -333,12 +333,12 @@ export const InputCriblPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputCriblPqEnabledFalseConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputCriblType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
@@ -375,14 +375,14 @@ export const InputCriblSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputCriblType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$inboundSchema.optional(),
     filter: z.string().optional(),
@@ -395,10 +395,10 @@ export type InputCriblSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   pq?: PqType$Outbound | undefined;
   filter?: string | undefined;
@@ -413,15 +413,15 @@ export const InputCriblSendToRoutesFalseWithConnectionsConstraint$outboundSchema
     z.ZodTypeDef,
     InputCriblSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     id: z.string().optional(),
     type: InputCriblType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
     filter: z.string().optional(),
@@ -461,13 +461,13 @@ export const InputCriblSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputCriblType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
@@ -480,10 +480,10 @@ export type InputCriblSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
@@ -498,13 +498,13 @@ export const InputCriblSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputCriblSendToRoutesTrueConstraint
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputCriblType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),

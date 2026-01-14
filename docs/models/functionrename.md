@@ -30,6 +30,7 @@ let value: FunctionRename = {
       },
     ],
     renameExpr: "<value>",
+    wildcardDepth: 22329,
   },
 };
 ```

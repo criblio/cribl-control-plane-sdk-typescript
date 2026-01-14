@@ -6,10 +6,13 @@
 import { PipelineFunctionSerdeConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionSerdeConf = {
+  mode: "extract",
+  type: "grok",
   delimChar: "<value>",
   quoteChar: "<value>",
   escapeChar: "<value>",
   nullValue: "<value>",
+  srcField: "<value>",
   dstField: "<value>",
   cleanFields: "<value>",
 };
@@ -19,8 +22,8 @@ let value: PipelineFunctionSerdeConf = {
 
 | Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  |
 | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `mode`                                                                                       | [models.PipelineFunctionSerdeOperationMode](../models/pipelinefunctionserdeoperationmode.md) | :heavy_minus_sign:                                                                           | Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.  |
-| `type`                                                                                       | [models.TypeOptions](../models/typeoptions.md)                                               | :heavy_minus_sign:                                                                           | Parser or formatter type to use                                                              |
+| `mode`                                                                                       | [models.PipelineFunctionSerdeOperationMode](../models/pipelinefunctionserdeoperationmode.md) | :heavy_check_mark:                                                                           | Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.  |
+| `type`                                                                                       | [models.TypeOptions](../models/typeoptions.md)                                               | :heavy_check_mark:                                                                           | Parser or formatter type to use                                                              |
 | `delimChar`                                                                                  | *any*                                                                                        | :heavy_minus_sign:                                                                           | N/A                                                                                          |
 | `quoteChar`                                                                                  | *any*                                                                                        | :heavy_minus_sign:                                                                           | N/A                                                                                          |
 | `escapeChar`                                                                                 | *any*                                                                                        | :heavy_minus_sign:                                                                           | N/A                                                                                          |

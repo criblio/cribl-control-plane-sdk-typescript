@@ -15,7 +15,9 @@ let value: FunctionConfSchemaMvExpand = {
     "<value 2>",
     "<value 3>",
   ],
+  rowLimit: 2642.13,
   itemIndexName: "<value>",
+  bagExpansionMode: "bag",
 };
 ```
 

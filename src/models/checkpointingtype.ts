@@ -11,7 +11,7 @@ export type CheckpointingType = {
   /**
    * Resume processing files after an interruption
    */
-  enabled?: boolean | undefined;
+  enabled: boolean;
   /**
    * The number of times to retry processing when a processing error occurs. If Skip file on error is enabled, this setting is ignored.
    */
@@ -24,13 +24,13 @@ export const CheckpointingType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean().default(false),
-  retries: z.number().default(5),
+  enabled: z.boolean(),
+  retries: z.number().optional(),
 });
 /** @internal */
 export type CheckpointingType$Outbound = {
   enabled: boolean;
-  retries: number;
+  retries?: number | undefined;
 };
 
 /** @internal */
@@ -39,8 +39,8 @@ export const CheckpointingType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CheckpointingType
 > = z.object({
-  enabled: z.boolean().default(false),
-  retries: z.number().default(5),
+  enabled: z.boolean(),
+  retries: z.number().optional(),
 });
 
 export function checkpointingTypeToJSON(

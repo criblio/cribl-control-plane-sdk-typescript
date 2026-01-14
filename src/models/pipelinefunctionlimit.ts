@@ -47,7 +47,7 @@ export const PipelineFunctionLimit$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("limit"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionLimit$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionLimit$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "limit";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionLimit$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionLimit
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("limit"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

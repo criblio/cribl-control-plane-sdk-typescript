@@ -6,15 +6,23 @@
 import { PipelineFunctionStore } from "cribl-control-plane/models";
 
 let value: PipelineFunctionStore = {
+  filter: "<value>",
   id: "store",
   description:
     "beautifully without valiantly amid shark truthfully consequently beautifully",
   disabled: false,
   final: true,
   conf: {
+    type: "<value>",
     destination: "<value>",
     description: "bah casement retrospectivity awesome animated beneath vainly",
     fieldMapping: {},
+    separator: "<value>",
+    overwrite: false,
+    compress: "<value>",
+    tee: true,
+    maxEvents: 559.19,
+    suppressPreviews: true,
   },
   groupId: "<id>",
 };

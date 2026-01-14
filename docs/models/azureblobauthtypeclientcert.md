@@ -24,6 +24,12 @@ let value: AzureBlobAuthTypeClientCert = {
       expression: "<value>",
     },
   ],
+  recurse: false,
+  includeMetadata: true,
+  includeTags: true,
+  maxBatchSize: 6646.64,
+  parquetChunkSizeMB: 2653.83,
+  parquetChunkDownloadTimeout: 2784.48,
 };
 ```
 

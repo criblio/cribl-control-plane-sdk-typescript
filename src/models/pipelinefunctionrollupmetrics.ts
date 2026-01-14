@@ -47,7 +47,7 @@ export const PipelineFunctionRollupMetrics$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("rollup_metrics"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionRollupMetrics$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionRollupMetrics$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "rollup_metrics";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionRollupMetrics$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionRollupMetrics
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("rollup_metrics"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

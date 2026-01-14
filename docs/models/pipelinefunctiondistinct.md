@@ -6,6 +6,7 @@
 import { PipelineFunctionDistinct } from "cribl-control-plane/models";
 
 let value: PipelineFunctionDistinct = {
+  filter: "<value>",
   id: "distinct",
   description: "fooey ha beside saw sustenance",
   disabled: true,
@@ -14,7 +15,10 @@ let value: PipelineFunctionDistinct = {
     groupBy: [
       "<value 1>",
     ],
-    suppressPreviews: true,
+    maxCombinations: 4306.99,
+    maxDepth: 7679.52,
+    isFederated: false,
+    suppressPreviews: false,
   },
   groupId: "<id>",
 };

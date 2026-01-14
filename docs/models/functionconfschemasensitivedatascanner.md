@@ -9,6 +9,8 @@ let value: FunctionConfSchemaSensitiveDataScanner = {
   rules: [
     {
       rulesetId: "<id>",
+      replaceExpr: "<value>",
+      disabled: true,
     },
   ],
   fields: [
@@ -26,6 +28,8 @@ let value: FunctionConfSchemaSensitiveDataScanner = {
       value: "<value>",
     },
   ],
+  includeDetectedRules: true,
+  backgroundDetection: true,
 };
 ```
 

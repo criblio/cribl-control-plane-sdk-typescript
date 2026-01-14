@@ -18,22 +18,52 @@ let value: OutputHoneycomb = {
     "<value 2>",
   ],
   dataset: "<value>",
+  concurrency: 3204.69,
+  maxPayloadSizeKB: 3746.61,
+  maxPayloadEvents: 9486.26,
+  compress: false,
+  rejectUnauthorized: false,
+  timeoutSec: 1902.8,
+  flushPeriodSec: 9868.48,
   extraHttpHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  useRoundRobinDns: true,
+  failedRequestLoggingMode: "payloadAndHeaders",
   safeHeaders: [
     "<value 1>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 2591.04,
+      initialBackoff: 4815.7,
+      backoffRate: 5576.87,
+      maxBackoff: 1844.93,
     },
   ],
-  timeoutRetrySettings: {},
-  description: "overconfidently provided yahoo cluttered necklace",
+  timeoutRetrySettings: {
+    timeoutRetry: false,
+    initialBackoff: 4289.71,
+    backoffRate: 7830.71,
+    maxBackoff: 6330,
+  },
+  responseHonorRetryAfterHeader: false,
+  onBackpressure: "block",
+  authType: "secret",
+  description: "compassionate swift following truthfully",
+  pqStrictOrdering: false,
+  pqRatePerSec: 2190.59,
+  pqMode: "error",
+  pqMaxBufferSize: 1865.7,
+  pqMaxBackpressureSec: 8896.4,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "gzip",
+  pqOnBackpressure: "drop",
   pqControls: {},
   team: "<value>",
   textSecret: "<value>",
@@ -66,7 +96,7 @@ let value: OutputHoneycomb = {
 | `timeoutRetrySettings`                                                                                                                                                                                                                                                                                                                           | [models.TimeoutRetrySettingsType](../../models/timeoutretrysettingstype.md)                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `responseHonorRetryAfterHeader`                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored. |
 | `onBackpressure`                                                                                                                                                                                                                                                                                                                                 | [models.BackpressureBehaviorOptions](../../models/backpressurebehavioroptions.md)                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                                                                                                                |
-| `authType`                                                                                                                                                                                                                                                                                                                                       | [models.AuthenticationMethodOptions3](../../models/authenticationmethodoptions3.md)                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enter API key directly, or select a stored secret                                                                                                                                                                                                                                                                                                |
+| `authType`                                                                                                                                                                                                                                                                                                                                       | [models.AuthenticationMethodOptions2](../../models/authenticationmethodoptions2.md)                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enter API key directly, or select a stored secret                                                                                                                                                                                                                                                                                                |
 | `description`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `pqStrictOrdering`                                                                                                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.                                                                                                                                                                                                                                   |
 | `pqRatePerSec`                                                                                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.                                                                                                                                                                                                                |

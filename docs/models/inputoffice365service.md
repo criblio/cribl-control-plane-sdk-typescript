@@ -7,10 +7,13 @@
 
 ```typescript
 const value: models.InputOffice365ServiceSendToRoutesTrueConstraint = {
+  sendToRoutes: true,
   id: "<id>",
   type: "office365_service",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -22,10 +25,24 @@ const value: models.InputOffice365ServiceSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  planType: "enterprise_gcc",
   tenantId: "<id>",
   appId: "<id>",
+  timeout: 6062.78,
+  keepAliveTime: 238.23,
+  jobTimeout: "<value>",
+  maxMissedKeepAlives: 7336.23,
+  ttl: "<value>",
+  ignoreGroupJobsLimit: false,
   metadata: [
     {
       name: "<value>",
@@ -35,22 +52,28 @@ const value: models.InputOffice365ServiceSendToRoutesTrueConstraint = {
   contentConfig: [
     {
       contentType: "<value>",
-      description:
-        "yuck with these overconfidently mostly verify yuck blissfully",
-      interval: 7686.02,
-      logLevel: "error",
+      description: "whose acclaimed testify ha despite follower sans",
+      interval: 1354.52,
+      logLevel: "debug",
       enabled: false,
     },
   ],
   retryRules: {
+    type: "none",
+    interval: 2764.09,
+    limit: 9039.82,
+    multiplier: 1648,
     codes: [
-      6390.37,
-      2107.49,
-      2764.09,
+      1223.37,
+      608.99,
+      2918.61,
     ],
+    enableHeader: true,
+    retryConnectTimeout: false,
+    retryConnectReset: false,
   },
-  description:
-    "phew fundraising viciously minor meadow huzzah warped arrogantly",
+  authType: "manual",
+  description: "knotty rapidly vice whoa",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
@@ -61,6 +84,7 @@ const value: models.InputOffice365ServiceSendToRoutesTrueConstraint = {
 ```typescript
 const value:
   models.InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint = {
+    sendToRoutes: false,
     connections: [
       {
         pipeline: "<value>",
@@ -69,18 +93,32 @@ const value:
     ],
     id: "<id>",
     type: "office365_service",
+    disabled: false,
     pipeline: "<value>",
     environment: "<value>",
+    pqEnabled: true,
     streamtags: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     pq: {
+      mode: "smart",
+      maxBufferSize: 1717.96,
+      commitFrequency: 1412.18,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/include",
+      compress: "none",
       pqControls: {},
     },
+    planType: "gcc_high",
     tenantId: "<id>",
     appId: "<id>",
+    timeout: 5266.28,
+    keepAliveTime: 522.59,
+    jobTimeout: "<value>",
+    maxMissedKeepAlives: 4274.73,
+    ttl: "<value>",
+    ignoreGroupJobsLimit: false,
     metadata: [
       {
         name: "<value>",
@@ -90,22 +128,29 @@ const value:
     contentConfig: [
       {
         contentType: "<value>",
-        description:
-          "yuck with these overconfidently mostly verify yuck blissfully",
-        interval: 7686.02,
-        logLevel: "error",
+        description: "whose acclaimed testify ha despite follower sans",
+        interval: 1354.52,
+        logLevel: "debug",
         enabled: false,
       },
     ],
     retryRules: {
+      type: "none",
+      interval: 2764.09,
+      limit: 9039.82,
+      multiplier: 1648,
       codes: [
-        6390.37,
-        2107.49,
-        2764.09,
+        1223.37,
+        608.99,
+        2918.61,
       ],
+      enableHeader: true,
+      retryConnectTimeout: false,
+      retryConnectReset: false,
     },
+    authType: "secret",
     description:
-      "without valuable freight since low innocently what even easily",
+      "questioningly accountability by provided provided shear upside-down government stylish woot",
     clientSecret: "<value>",
     textSecret: "<value>",
   };
@@ -115,9 +160,12 @@ const value:
 
 ```typescript
 const value: models.InputOffice365ServicePqEnabledFalseConstraint = {
+  pqEnabled: true,
   id: "<id>",
   type: "office365_service",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -130,10 +178,24 @@ const value: models.InputOffice365ServicePqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  planType: "gcc_high",
   tenantId: "<id>",
   appId: "<id>",
+  timeout: 1039.8,
+  keepAliveTime: 2380.48,
+  jobTimeout: "<value>",
+  maxMissedKeepAlives: 9805.51,
+  ttl: "<value>",
+  ignoreGroupJobsLimit: false,
   metadata: [
     {
       name: "<value>",
@@ -143,21 +205,28 @@ const value: models.InputOffice365ServicePqEnabledFalseConstraint = {
   contentConfig: [
     {
       contentType: "<value>",
-      description:
-        "yuck with these overconfidently mostly verify yuck blissfully",
-      interval: 7686.02,
-      logLevel: "error",
+      description: "whose acclaimed testify ha despite follower sans",
+      interval: 1354.52,
+      logLevel: "debug",
       enabled: false,
     },
   ],
   retryRules: {
+    type: "none",
+    interval: 2764.09,
+    limit: 9039.82,
+    multiplier: 1648,
     codes: [
-      6390.37,
-      2107.49,
-      2764.09,
+      1223.37,
+      608.99,
+      2918.61,
     ],
+    enableHeader: true,
+    retryConnectTimeout: false,
+    retryConnectReset: false,
   },
-  description: "scenario married oof dependency outnumber gracefully",
+  authType: "manual",
+  description: "consequently forenenst scrape stigmatize what yet",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
@@ -167,17 +236,26 @@ const value: models.InputOffice365ServicePqEnabledFalseConstraint = {
 
 ```typescript
 const value: models.InputOffice365ServicePqEnabledTrueWithPqConstraint = {
+  pqEnabled: false,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "office365_service",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -185,8 +263,15 @@ const value: models.InputOffice365ServicePqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
+  planType: "gcc",
   tenantId: "<id>",
   appId: "<id>",
+  timeout: 9150.69,
+  keepAliveTime: 8525.79,
+  jobTimeout: "<value>",
+  maxMissedKeepAlives: 6787.93,
+  ttl: "<value>",
+  ignoreGroupJobsLimit: true,
   metadata: [
     {
       name: "<value>",
@@ -196,21 +281,28 @@ const value: models.InputOffice365ServicePqEnabledTrueWithPqConstraint = {
   contentConfig: [
     {
       contentType: "<value>",
-      description:
-        "yuck with these overconfidently mostly verify yuck blissfully",
-      interval: 7686.02,
-      logLevel: "error",
+      description: "whose acclaimed testify ha despite follower sans",
+      interval: 1354.52,
+      logLevel: "debug",
       enabled: false,
     },
   ],
   retryRules: {
+    type: "none",
+    interval: 2764.09,
+    limit: 9039.82,
+    multiplier: 1648,
     codes: [
-      6390.37,
-      2107.49,
-      2764.09,
+      1223.37,
+      608.99,
+      2918.61,
     ],
+    enableHeader: true,
+    retryConnectTimeout: false,
+    retryConnectReset: false,
   },
-  description: "guilt absent indeed considerate",
+  authType: "manual",
+  description: "wolf pfft lively concerning",
   clientSecret: "<value>",
   textSecret: "<value>",
 };

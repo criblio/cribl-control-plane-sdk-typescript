@@ -5,11 +5,13 @@
 ```typescript
 import { RestAuthenticationOauthPagination } from "cribl-control-plane/models";
 
-let value: RestAuthenticationOauthPagination = {};
+let value: RestAuthenticationOauthPagination = {
+  type: "request_offset",
+};
 ```
 
 ## Fields
 
 | Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
 | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `type`                                                                                             | [models.RestAuthenticationOauthPaginationEnum](../models/restauthenticationoauthpaginationenum.md) | :heavy_minus_sign:                                                                                 | N/A                                                                                                |
+| `type`                                                                                             | [models.RestAuthenticationOauthPaginationEnum](../models/restauthenticationoauthpaginationenum.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |

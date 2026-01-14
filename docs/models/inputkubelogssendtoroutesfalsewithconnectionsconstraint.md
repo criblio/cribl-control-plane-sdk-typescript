@@ -6,6 +6,7 @@
 import { InputKubeLogsSendToRoutesFalseWithConnectionsConstraint } from "cribl-control-plane/models";
 
 let value: InputKubeLogsSendToRoutesFalseWithConnectionsConstraint = {
+  sendToRoutes: true,
   connections: [
     {
       pipeline: "<value>",
@@ -14,35 +15,53 @@ let value: InputKubeLogsSendToRoutesFalseWithConnectionsConstraint = {
   ],
   id: "<id>",
   type: "kube_logs",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  interval: 9439.41,
   rules: [
     {
       filter: "<value>",
-      description:
-        "lava unlike unlike kiss till focalise kosher cool amidst per",
+      description: "blah that regarding brochure sideboard pleased prudent",
     },
   ],
+  timestamps: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  persistence: {},
+  persistence: {
+    enable: false,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+  },
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  description: "victoriously hippodrome primary unlike",
+  staleChannelFlushMs: 1729.52,
+  enableLoadBalancing: true,
+  description:
+    "hippodrome primary unlike riser terrible solemnly pointless brisk key save",
 };
 ```
 
@@ -50,7 +69,7 @@ let value: InputKubeLogsSendToRoutesFalseWithConnectionsConstraint = {
 
 | Field                                                                                                                                                                                                                                                                                      | Type                                                                                                                                                                                                                                                                                       | Required                                                                                                                                                                                                                                                                                   | Description                                                                                                                                                                                                                                                                                |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `sendToRoutes`                                                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                        |
+| `sendToRoutes`                                                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                                                                         | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                        |
 | `connections`                                                                                                                                                                                                                                                                              | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                                |
 | `id`                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Unique ID for this input                                                                                                                                                                                                                                                                   |
 | `type`                                                                                                                                                                                                                                                                                     | [models.InputKubeLogsType](../models/inputkubelogstype.md)                                                                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                                                                        |

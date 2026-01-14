@@ -7,6 +7,7 @@ import { FunctionConfSchemaLookup } from "cribl-control-plane/models";
 
 let value: FunctionConfSchemaLookup = {
   file: "<value>",
+  dbLookup: true,
   matchMode: "<value>",
   matchType: "<value>",
   reloadPeriodSec: "<value>",
@@ -23,6 +24,7 @@ let value: FunctionConfSchemaLookup = {
       defaultValue: "<value>",
     },
   ],
+  addToEvent: false,
   ignoreCase: "<value>",
 };
 ```

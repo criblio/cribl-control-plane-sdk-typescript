@@ -107,7 +107,7 @@ export type InputElasticProxyMode = {
   /**
    * Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
    */
-  enabled?: boolean | undefined;
+  enabled: boolean;
   /**
    * Enter credentials directly, or select a stored secret
    */
@@ -140,7 +140,7 @@ export type InputElasticPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   pq?: PqType | undefined;
   /**
    * Unique ID for this input
@@ -171,7 +171,7 @@ export type InputElasticPqEnabledTrueWithPqConstraint = {
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
@@ -224,7 +224,7 @@ export type InputElasticPqEnabledTrueWithPqConstraint = {
   /**
    * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
    */
-  elasticAPI?: string | undefined;
+  elasticAPI: string;
   authType?: InputElasticAuthenticationType | undefined;
   /**
    * The API version to use for communicating with the server
@@ -260,7 +260,7 @@ export type InputElasticPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   /**
    * Unique ID for this input
    */
@@ -291,7 +291,7 @@ export type InputElasticPqEnabledFalseConstraint = {
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
@@ -344,7 +344,7 @@ export type InputElasticPqEnabledFalseConstraint = {
   /**
    * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
    */
-  elasticAPI?: string | undefined;
+  elasticAPI: string;
   authType?: InputElasticAuthenticationType | undefined;
   /**
    * The API version to use for communicating with the server
@@ -380,7 +380,7 @@ export type InputElasticSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -411,7 +411,7 @@ export type InputElasticSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
@@ -464,7 +464,7 @@ export type InputElasticSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
    */
-  elasticAPI?: string | undefined;
+  elasticAPI: string;
   authType?: InputElasticAuthenticationType | undefined;
   /**
    * The API version to use for communicating with the server
@@ -500,7 +500,7 @@ export type InputElasticSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Unique ID for this input
    */
@@ -531,7 +531,7 @@ export type InputElasticSendToRoutesTrueConstraint = {
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
@@ -584,7 +584,7 @@ export type InputElasticSendToRoutesTrueConstraint = {
   /**
    * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
    */
-  elasticAPI?: string | undefined;
+  elasticAPI: string;
   authType?: InputElasticAuthenticationType | undefined;
   /**
    * The API version to use for communicating with the server
@@ -676,27 +676,27 @@ export const InputElasticProxyMode$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean().default(false),
-  authType: InputElasticAuthenticationMethod$inboundSchema.default("none"),
+  enabled: z.boolean(),
+  authType: InputElasticAuthenticationMethod$inboundSchema.optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   url: z.string().optional(),
-  rejectUnauthorized: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().optional(),
   removeHeaders: z.array(z.string()).optional(),
-  timeoutSec: z.number().default(60),
+  timeoutSec: z.number().optional(),
 });
 /** @internal */
 export type InputElasticProxyMode$Outbound = {
   enabled: boolean;
-  authType: string;
+  authType?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
   url?: string | undefined;
-  rejectUnauthorized: boolean;
+  rejectUnauthorized?: boolean | undefined;
   removeHeaders?: Array<string> | undefined;
-  timeoutSec: number;
+  timeoutSec?: number | undefined;
 };
 
 /** @internal */
@@ -705,15 +705,15 @@ export const InputElasticProxyMode$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputElasticProxyMode
 > = z.object({
-  enabled: z.boolean().default(false),
-  authType: InputElasticAuthenticationMethod$outboundSchema.default("none"),
+  enabled: z.boolean(),
+  authType: InputElasticAuthenticationMethod$outboundSchema.optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   url: z.string().optional(),
-  rejectUnauthorized: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().optional(),
   removeHeaders: z.array(z.string()).optional(),
-  timeoutSec: z.number().default(60),
+  timeoutSec: z.number().optional(),
 });
 
 export function inputElasticProxyModeToJSON(
@@ -739,33 +739,33 @@ export const InputElasticPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputElasticType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   port: z.number(),
   tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  elasticAPI: z.string().default("/"),
-  authType: InputElasticAuthenticationType$inboundSchema.default("none"),
-  apiVersion: InputElasticAPIVersion$inboundSchema.default("8.3.2"),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  elasticAPI: z.string(),
+  authType: InputElasticAuthenticationType$inboundSchema.optional(),
+  apiVersion: InputElasticAPIVersion$inboundSchema.optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   proxyMode: z.lazy(() => InputElasticProxyMode$inboundSchema).optional(),
@@ -774,9 +774,7 @@ export const InputElasticPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   authTokens: z.array(z.string()).optional(),
-  customAPIVersion: z.string().default(
-    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
-  ),
+  customAPIVersion: z.string().optional(),
 });
 /** @internal */
 export type InputElasticPqEnabledTrueWithPqConstraint$Outbound = {
@@ -784,29 +782,29 @@ export type InputElasticPqEnabledTrueWithPqConstraint$Outbound = {
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
-  enableProxyHeader: boolean;
-  captureHeaders: boolean;
-  activityLogSampleRate: number;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
-  enableHealthCheck: boolean;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
   elasticAPI: string;
-  authType: string;
-  apiVersion: string;
+  authType?: string | undefined;
+  apiVersion?: string | undefined;
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   proxyMode?: InputElasticProxyMode$Outbound | undefined;
@@ -815,7 +813,7 @@ export type InputElasticPqEnabledTrueWithPqConstraint$Outbound = {
   password?: string | undefined;
   credentialsSecret?: string | undefined;
   authTokens?: Array<string> | undefined;
-  customAPIVersion: string;
+  customAPIVersion?: string | undefined;
 };
 
 /** @internal */
@@ -825,34 +823,34 @@ export const InputElasticPqEnabledTrueWithPqConstraint$outboundSchema:
     z.ZodTypeDef,
     InputElasticPqEnabledTrueWithPqConstraint
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputElasticType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
-    host: z.string().default("0.0.0.0"),
+    host: z.string(),
     port: z.number(),
     tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    activityLogSampleRate: z.number().default(100),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(5),
-    enableHealthCheck: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    elasticAPI: z.string().default("/"),
-    authType: InputElasticAuthenticationType$outboundSchema.default("none"),
-    apiVersion: InputElasticAPIVersion$outboundSchema.default("8.3.2"),
+    maxActiveReq: z.number().optional(),
+    maxRequestsPerSocket: z.number().int().optional(),
+    enableProxyHeader: z.boolean().optional(),
+    captureHeaders: z.boolean().optional(),
+    activityLogSampleRate: z.number().optional(),
+    requestTimeout: z.number().optional(),
+    socketTimeout: z.number().optional(),
+    keepAliveTimeout: z.number().optional(),
+    enableHealthCheck: z.boolean().optional(),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
+    elasticAPI: z.string(),
+    authType: InputElasticAuthenticationType$outboundSchema.optional(),
+    apiVersion: InputElasticAPIVersion$outboundSchema.optional(),
     extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
       .optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
@@ -862,9 +860,7 @@ export const InputElasticPqEnabledTrueWithPqConstraint$outboundSchema:
     password: z.string().optional(),
     credentialsSecret: z.string().optional(),
     authTokens: z.array(z.string()).optional(),
-    customAPIVersion: z.string().default(
-      "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
-    ),
+    customAPIVersion: z.string().optional(),
   });
 
 export function inputElasticPqEnabledTrueWithPqConstraintToJSON(
@@ -899,33 +895,33 @@ export const InputElasticPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputElasticType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   port: z.number(),
   tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  elasticAPI: z.string().default("/"),
-  authType: InputElasticAuthenticationType$inboundSchema.default("none"),
-  apiVersion: InputElasticAPIVersion$inboundSchema.default("8.3.2"),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  elasticAPI: z.string(),
+  authType: InputElasticAuthenticationType$inboundSchema.optional(),
+  apiVersion: InputElasticAPIVersion$inboundSchema.optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   proxyMode: z.lazy(() => InputElasticProxyMode$inboundSchema).optional(),
@@ -934,18 +930,16 @@ export const InputElasticPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   authTokens: z.array(z.string()).optional(),
-  customAPIVersion: z.string().default(
-    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
-  ),
+  customAPIVersion: z.string().optional(),
 });
 /** @internal */
 export type InputElasticPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
@@ -953,20 +947,20 @@ export type InputElasticPqEnabledFalseConstraint$Outbound = {
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
-  enableProxyHeader: boolean;
-  captureHeaders: boolean;
-  activityLogSampleRate: number;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
-  enableHealthCheck: boolean;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
   elasticAPI: string;
-  authType: string;
-  apiVersion: string;
+  authType?: string | undefined;
+  apiVersion?: string | undefined;
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   proxyMode?: InputElasticProxyMode$Outbound | undefined;
@@ -975,7 +969,7 @@ export type InputElasticPqEnabledFalseConstraint$Outbound = {
   password?: string | undefined;
   credentialsSecret?: string | undefined;
   authTokens?: Array<string> | undefined;
-  customAPIVersion: string;
+  customAPIVersion?: string | undefined;
 };
 
 /** @internal */
@@ -984,33 +978,33 @@ export const InputElasticPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputElasticPqEnabledFalseConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputElasticType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   port: z.number(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  elasticAPI: z.string().default("/"),
-  authType: InputElasticAuthenticationType$outboundSchema.default("none"),
-  apiVersion: InputElasticAPIVersion$outboundSchema.default("8.3.2"),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  elasticAPI: z.string(),
+  authType: InputElasticAuthenticationType$outboundSchema.optional(),
+  apiVersion: InputElasticAPIVersion$outboundSchema.optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
@@ -1020,9 +1014,7 @@ export const InputElasticPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   authTokens: z.array(z.string()).optional(),
-  customAPIVersion: z.string().default(
-    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
-  ),
+  customAPIVersion: z.string().optional(),
 });
 
 export function inputElasticPqEnabledFalseConstraintToJSON(
@@ -1052,33 +1044,33 @@ export const InputElasticSendToRoutesFalseWithConnectionsConstraint$inboundSchem
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputElasticType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$inboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
+    host: z.string(),
     port: z.number(),
     tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    activityLogSampleRate: z.number().default(100),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(5),
-    enableHealthCheck: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    elasticAPI: z.string().default("/"),
-    authType: InputElasticAuthenticationType$inboundSchema.default("none"),
-    apiVersion: InputElasticAPIVersion$inboundSchema.default("8.3.2"),
+    maxActiveReq: z.number().optional(),
+    maxRequestsPerSocket: z.number().int().optional(),
+    enableProxyHeader: z.boolean().optional(),
+    captureHeaders: z.boolean().optional(),
+    activityLogSampleRate: z.number().optional(),
+    requestTimeout: z.number().optional(),
+    socketTimeout: z.number().optional(),
+    keepAliveTimeout: z.number().optional(),
+    enableHealthCheck: z.boolean().optional(),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
+    elasticAPI: z.string(),
+    authType: InputElasticAuthenticationType$inboundSchema.optional(),
+    apiVersion: InputElasticAPIVersion$inboundSchema.optional(),
     extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema)
       .optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
@@ -1088,9 +1080,7 @@ export const InputElasticSendToRoutesFalseWithConnectionsConstraint$inboundSchem
     password: z.string().optional(),
     credentialsSecret: z.string().optional(),
     authTokens: z.array(z.string()).optional(),
-    customAPIVersion: z.string().default(
-      "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
-    ),
+    customAPIVersion: z.string().optional(),
   });
 /** @internal */
 export type InputElasticSendToRoutesFalseWithConnectionsConstraint$Outbound = {
@@ -1098,29 +1088,29 @@ export type InputElasticSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
-  enableProxyHeader: boolean;
-  captureHeaders: boolean;
-  activityLogSampleRate: number;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
-  enableHealthCheck: boolean;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
   elasticAPI: string;
-  authType: string;
-  apiVersion: string;
+  authType?: string | undefined;
+  apiVersion?: string | undefined;
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   proxyMode?: InputElasticProxyMode$Outbound | undefined;
@@ -1129,7 +1119,7 @@ export type InputElasticSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   password?: string | undefined;
   credentialsSecret?: string | undefined;
   authTokens?: Array<string> | undefined;
-  customAPIVersion: string;
+  customAPIVersion?: string | undefined;
 };
 
 /** @internal */
@@ -1139,34 +1129,34 @@ export const InputElasticSendToRoutesFalseWithConnectionsConstraint$outboundSche
     z.ZodTypeDef,
     InputElasticSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     id: z.string().optional(),
     type: InputElasticType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
+    host: z.string(),
     port: z.number(),
     tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    activityLogSampleRate: z.number().default(100),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(5),
-    enableHealthCheck: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    elasticAPI: z.string().default("/"),
-    authType: InputElasticAuthenticationType$outboundSchema.default("none"),
-    apiVersion: InputElasticAPIVersion$outboundSchema.default("8.3.2"),
+    maxActiveReq: z.number().optional(),
+    maxRequestsPerSocket: z.number().int().optional(),
+    enableProxyHeader: z.boolean().optional(),
+    captureHeaders: z.boolean().optional(),
+    activityLogSampleRate: z.number().optional(),
+    requestTimeout: z.number().optional(),
+    socketTimeout: z.number().optional(),
+    keepAliveTimeout: z.number().optional(),
+    enableHealthCheck: z.boolean().optional(),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
+    elasticAPI: z.string(),
+    authType: InputElasticAuthenticationType$outboundSchema.optional(),
+    apiVersion: InputElasticAPIVersion$outboundSchema.optional(),
     extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
       .optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
@@ -1176,9 +1166,7 @@ export const InputElasticSendToRoutesFalseWithConnectionsConstraint$outboundSche
     password: z.string().optional(),
     credentialsSecret: z.string().optional(),
     authTokens: z.array(z.string()).optional(),
-    customAPIVersion: z.string().default(
-      "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
-    ),
+    customAPIVersion: z.string().optional(),
   });
 
 export function inputElasticSendToRoutesFalseWithConnectionsConstraintToJSON(
@@ -1212,33 +1200,33 @@ export const InputElasticSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputElasticType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   port: z.number(),
   tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  elasticAPI: z.string().default("/"),
-  authType: InputElasticAuthenticationType$inboundSchema.default("none"),
-  apiVersion: InputElasticAPIVersion$inboundSchema.default("8.3.2"),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  elasticAPI: z.string(),
+  authType: InputElasticAuthenticationType$inboundSchema.optional(),
+  apiVersion: InputElasticAPIVersion$inboundSchema.optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   proxyMode: z.lazy(() => InputElasticProxyMode$inboundSchema).optional(),
@@ -1247,39 +1235,37 @@ export const InputElasticSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   authTokens: z.array(z.string()).optional(),
-  customAPIVersion: z.string().default(
-    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
-  ),
+  customAPIVersion: z.string().optional(),
 });
 /** @internal */
 export type InputElasticSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
-  enableProxyHeader: boolean;
-  captureHeaders: boolean;
-  activityLogSampleRate: number;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
-  enableHealthCheck: boolean;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
   elasticAPI: string;
-  authType: string;
-  apiVersion: string;
+  authType?: string | undefined;
+  apiVersion?: string | undefined;
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   proxyMode?: InputElasticProxyMode$Outbound | undefined;
@@ -1288,7 +1274,7 @@ export type InputElasticSendToRoutesTrueConstraint$Outbound = {
   password?: string | undefined;
   credentialsSecret?: string | undefined;
   authTokens?: Array<string> | undefined;
-  customAPIVersion: string;
+  customAPIVersion?: string | undefined;
 };
 
 /** @internal */
@@ -1297,33 +1283,33 @@ export const InputElasticSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputElasticSendToRoutesTrueConstraint
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputElasticType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   port: z.number(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  elasticAPI: z.string().default("/"),
-  authType: InputElasticAuthenticationType$outboundSchema.default("none"),
-  apiVersion: InputElasticAPIVersion$outboundSchema.default("8.3.2"),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  elasticAPI: z.string(),
+  authType: InputElasticAuthenticationType$outboundSchema.optional(),
+  apiVersion: InputElasticAPIVersion$outboundSchema.optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
@@ -1333,9 +1319,7 @@ export const InputElasticSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   authTokens: z.array(z.string()).optional(),
-  customAPIVersion: z.string().default(
-    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
-  ),
+  customAPIVersion: z.string().optional(),
 });
 
 export function inputElasticSendToRoutesTrueConstraintToJSON(

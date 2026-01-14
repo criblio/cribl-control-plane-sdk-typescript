@@ -22,6 +22,9 @@ let value: FunctionLakeExport = {
   schema: {
     searchJobId: "<id>",
     dataset: "<value>",
+    lake: "<value>",
+    tee: "<value>",
+    flushMs: 4244.78,
     suppressPreviews: true,
   },
 };

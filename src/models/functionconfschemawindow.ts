@@ -19,11 +19,11 @@ export type FunctionConfSchemaWindow = {
   /**
    * Number of events to keep before the current event in the window
    */
-  tailEventCount: number;
+  tailEventCount?: number | undefined;
   /**
    * Number of events to keep after the current event in the window
    */
-  headEventCount: number;
+  headEventCount?: number | undefined;
 };
 
 /** @internal */
@@ -34,8 +34,8 @@ export const FunctionConfSchemaWindow$inboundSchema: z.ZodType<
 > = z.object({
   eventWindowId: z.number().optional(),
   registeredFunctions: z.array(z.string()).optional(),
-  tailEventCount: z.number().default(0),
-  headEventCount: z.number().default(0),
+  tailEventCount: z.number().optional(),
+  headEventCount: z.number().optional(),
 });
 
 export function functionConfSchemaWindowFromJSON(

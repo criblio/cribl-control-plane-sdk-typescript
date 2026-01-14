@@ -6,10 +6,13 @@
 import { InputAppscopeSendToRoutesTrueConstraint } from "cribl-control-plane/models";
 
 let value: InputAppscopeSendToRoutesTrueConstraint = {
+  sendToRoutes: true,
   id: "<id>",
   type: "appscope",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
   ],
@@ -20,8 +23,21 @@ let value: InputAppscopeSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  ipWhitelistRegex: "<value>",
+  maxActiveCxn: 9554.58,
+  socketIdleTimeout: 9516.34,
+  socketEndingMaxWait: 2145.12,
+  socketMaxLifespan: 1733.74,
+  enableProxyHeader: true,
   metadata: [
     {
       name: "<value>",
@@ -30,7 +46,10 @@ let value: InputAppscopeSendToRoutesTrueConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
+  staleChannelFlushMs: 5403.44,
+  enableUnixPath: false,
   filter: {
     allow: [
       {
@@ -39,23 +58,36 @@ let value: InputAppscopeSendToRoutesTrueConstraint = {
         config: "<value>",
       },
     ],
-    transportURL: "https://last-prohibition.name/",
+    transportURL: "https://late-sanity.org/",
   },
-  persistence: {},
-  description:
-    "presell about and quarrelsomely foot indeed badly ha testify valuable",
-  host: "quiet-shore.com",
-  port: 9523.66,
+  persistence: {
+    enable: true,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "none",
+    destPath: "<value>",
+  },
+  authType: "manual",
+  description: "ack which manage",
+  host: "ordinary-pear.info",
+  port: 9342.68,
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  unixSocketPath: "<value>",
   unixSocketPerms: "<value>",
+  authToken: "<value>",
   textSecret: "<value>",
 };
 ```
@@ -64,7 +96,7 @@ let value: InputAppscopeSendToRoutesTrueConstraint = {
 
 | Field                                                                                                                                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                                                                                  |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `sendToRoutes`                                                                                                                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                                                                                          |
+| `sendToRoutes`                                                                                                                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                                                                                          |
 | `id`                                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                                                                                                                                       | [models.InputAppscopeType](../models/inputappscopetype.md)                                                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                                                                                                                                          |
 | `disabled`                                                                                                                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                                                                                                                                          |

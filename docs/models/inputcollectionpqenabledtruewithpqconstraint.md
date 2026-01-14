@@ -6,14 +6,26 @@
 import { InputCollectionPqEnabledTrueWithPqConstraint } from "cribl-control-plane/models";
 
 let value: InputCollectionPqEnabledTrueWithPqConstraint = {
+  pqEnabled: true,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
+  type: "collection",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -24,16 +36,16 @@ let value: InputCollectionPqEnabledTrueWithPqConstraint = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
+  staleChannelFlushMs: 8076.36,
   preprocess: {
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
   },
+  throttleRatePerSec: "<value>",
   metadata: [
     {
       name: "<value>",
@@ -48,10 +60,10 @@ let value: InputCollectionPqEnabledTrueWithPqConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `pq`                                                                                                                                                                                                                                         | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
-| `type`                                                                                                                                                                                                                                       | [models.InputCollectionType](../models/inputcollectiontype.md)                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `type`                                                                                                                                                                                                                                       | [models.InputCollectionType](../models/inputcollectiontype.md)                                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process results                                                                                                                                                                                                                  |
 | `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.                                                                                                                           |

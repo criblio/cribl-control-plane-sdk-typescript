@@ -6,12 +6,17 @@
 import { InputSystemMetricsPqEnabledFalseConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputSystemMetricsPqEnabledFalseConstraint = {
+  pqEnabled: true,
   id: "<id>",
   type: "system_metrics",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -20,19 +25,48 @@ let value: InputSystemMetricsPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  interval: 2981.49,
   host: {
+    mode: "disabled",
     custom: {
-      system: {},
-      cpu: {},
-      memory: {},
+      system: {
+        mode: "all",
+        processes: true,
+      },
+      cpu: {
+        mode: "custom",
+        perCpu: true,
+        detail: false,
+        time: false,
+      },
+      memory: {
+        mode: "all",
+        detail: false,
+      },
       network: {
+        mode: "disabled",
+        detail: false,
+        protocols: false,
         devices: [
           "<value 1>",
+          "<value 2>",
+          "<value 3>",
         ],
+        perInterface: false,
       },
       disk: {
+        mode: "basic",
+        detail: false,
+        inodes: true,
         devices: [
           "<value 1>",
           "<value 2>",
@@ -43,7 +77,9 @@ let value: InputSystemMetricsPqEnabledFalseConstraint = {
         ],
         fstypes: [
           "<value 1>",
+          "<value 2>",
         ],
+        perDevice: true,
       },
     },
   },
@@ -52,20 +88,25 @@ let value: InputSystemMetricsPqEnabledFalseConstraint = {
       {
         name: "<value>",
         filter: "<value>",
+        includeChildren: false,
       },
     ],
   },
   container: {
+    mode: "custom",
     dockerSocket: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
+    dockerTimeout: 4624.48,
     filters: [
       {
         expr: "<value>",
       },
     ],
+    allContainers: true,
+    perDevice: false,
+    detail: false,
   },
   metadata: [
     {
@@ -73,9 +114,15 @@ let value: InputSystemMetricsPqEnabledFalseConstraint = {
       value: "<value>",
     },
   ],
-  persistence: {},
-  description:
-    "festival what hippodrome before now whether scenario fatally of",
+  persistence: {
+    enable: false,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+    destPath: "<value>",
+  },
+  description: "begonia down drug knowledgeably",
 };
 ```
 
@@ -83,7 +130,7 @@ let value: InputSystemMetricsPqEnabledFalseConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [operations.InputSystemMetricsType](../../models/operations/inputsystemmetricstype.md)                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

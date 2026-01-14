@@ -18,8 +18,12 @@ let value: OutputDiskSpool = {
     "<value 1>",
     "<value 2>",
   ],
+  timeWindow: "<value>",
+  maxDataSize: "<value>",
+  maxDataTime: "<value>",
+  compress: "none",
   partitionExpr: "<value>",
-  description: "modulo legal until frilly mothball",
+  description: "reckon quinoa hmph rightfully",
 };
 ```
 

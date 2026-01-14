@@ -24,6 +24,8 @@ let value: OutputConfluentCloud = {
     "<value 2>",
   ],
   tls: {
+    disabled: true,
+    rejectUnauthorized: true,
     servername: "<value>",
     certificateName: "<value>",
     caPath: "<value>",
@@ -34,32 +36,59 @@ let value: OutputConfluentCloud = {
     maxVersion: "TLSv1.3",
   },
   topic: "<value>",
+  ack: 0,
+  format: "raw",
+  compression: "gzip",
+  maxRecordSizeKB: 6142.6,
+  flushEventCount: 4842.46,
+  flushPeriodSec: 4501.55,
   kafkaSchemaRegistry: {
+    disabled: true,
+    schemaRegistryURL: "https://victorious-doing.com",
+    connectionTimeout: 7639.56,
+    requestTimeout: 2499.69,
+    maxRetries: 2532.45,
     auth: {
+      disabled: false,
       credentialsSecret: "<value>",
     },
     tls: {
+      disabled: true,
+      rejectUnauthorized: true,
       servername: "<value>",
       certificateName: "<value>",
       caPath: "<value>",
       privKeyPath: "<value>",
       certPath: "<value>",
       passphrase: "<value>",
-      minVersion: "TLSv1.2",
+      minVersion: "TLSv1.1",
       maxVersion: "TLSv1.3",
     },
-    defaultKeySchemaId: 5573.36,
-    defaultValueSchemaId: 4635.91,
+    defaultKeySchemaId: 8554.22,
+    defaultValueSchemaId: 4553.76,
   },
+  connectionTimeout: 5949.54,
+  requestTimeout: 7003.62,
+  maxRetries: 5052.03,
+  maxBackOff: 2736.28,
+  initialBackoff: 555.55,
+  backoffRate: 1815.76,
+  authenticationTimeout: 7863.38,
+  reauthenticationThreshold: 1317.9,
   sasl: {
-    username: "Jocelyn_Casper88",
-    password: "PIwQ9BxwvdkIdNi",
+    disabled: false,
+    username: "Lilyan_Kub66",
+    password: "pD36Q7Bu1OSy91K",
+    authType: "manual",
     credentialsSecret: "<value>",
+    mechanism: "kerberos",
     keytabLocation: "<value>",
     principal: "<value>",
     brokerServiceClass: "<value>",
-    tokenUrl: "https://alive-spear.com",
+    oauthEnabled: false,
+    tokenUrl: "https://victorious-tectonics.net",
     clientId: "<id>",
+    oauthSecretType: "<value>",
     clientTextSecret: "<value>",
     oauthParams: [
       {
@@ -74,9 +103,20 @@ let value: OutputConfluentCloud = {
       },
     ],
   },
-  description: "rural about pfft blight though",
+  onBackpressure: "block",
+  description: "alligator sand topsail",
   protobufLibraryId: "<id>",
   protobufEncodingId: "<id>",
+  pqStrictOrdering: false,
+  pqRatePerSec: 2864.71,
+  pqMode: "error",
+  pqMaxBufferSize: 9806.85,
+  pqMaxBackpressureSec: 4653.19,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "none",
+  pqOnBackpressure: "block",
   pqControls: {},
 };
 ```
@@ -92,7 +132,7 @@ let value: OutputConfluentCloud = {
 | `environment`                                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                                                                           |
 | `streamtags`                                                                                                                                                                                                                                                                                                                                                   | *string*[]                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                                                                                  |
 | `brokers`                                                                                                                                                                                                                                                                                                                                                      | *string*[]                                                                                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                             | List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092.                                                                                                                                                                                                                                                                    |
-| `tls`                                                                                                                                                                                                                                                                                                                                                          | [models.TlsSettingsClientSideType1](../../models/tlssettingsclientsidetype1.md)                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                                                                                            |
+| `tls`                                                                                                                                                                                                                                                                                                                                                          | [models.TlsSettingsClientSideTypeKafkaSchemaRegistry](../../models/tlssettingsclientsidetypekafkaschemaregistry.md)                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                                                                                            |
 | `topic`                                                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                             | The topic to publish events to. Can be overridden using the __topicOut field.                                                                                                                                                                                                                                                                                  |
 | `ack`                                                                                                                                                                                                                                                                                                                                                          | [models.AcknowledgmentsOptions1](../../models/acknowledgmentsoptions1.md)                                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Control the number of required acknowledgments.                                                                                                                                                                                                                                                                                                                |
 | `format`                                                                                                                                                                                                                                                                                                                                                       | [models.RecordDataFormatOptions1](../../models/recorddataformatoptions1.md)                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Format to use to serialize events before writing to Kafka.                                                                                                                                                                                                                                                                                                     |

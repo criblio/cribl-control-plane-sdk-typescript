@@ -7,8 +7,11 @@ import { HealthCheckAuthenticationNone } from "cribl-control-plane/models";
 
 let value: HealthCheckAuthenticationNone = {
   authentication: "none",
-  discovery: {},
-  collectUrl: "https://dreary-thigh.name/",
+  discovery: {
+    discoverType: "json",
+  },
+  collectUrl: "https://untried-marketplace.info/",
+  collectMethod: "post",
   collectRequestParams: "<value>",
   collectBody: "<value>",
   collectRequestHeaders: [
@@ -17,12 +20,16 @@ let value: HealthCheckAuthenticationNone = {
       value: "<value>",
     },
   ],
+  authenticateCollect: false,
+  timeout: 4834.21,
+  rejectUnauthorized: false,
   defaultBreakers: "Cribl",
   safeHeaders: [
     "<value 1>",
     "<value 2>",
   ],
   retryRules: {
+    type: "none",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -39,7 +46,7 @@ let value: HealthCheckAuthenticationNone = {
 | `authentication`                                                                                                                                   | *"none"*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers. |
 | `discovery`                                                                                                                                        | [models.HealthCheckAuthenticationNoneDiscovery](../models/healthcheckauthenticationnonediscovery.md)                                               | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | Expression to derive URL to use for the health check operation (can be a constant).                                                                |
-| `collectMethod`                                                                                                                                    | [models.HealthCheckAuthenticationNoneHealthCheckMethod](../models/healthcheckauthenticationnonehealthcheckmethod.md)                               | :heavy_minus_sign:                                                                                                                                 | Health check HTTP method.                                                                                                                          |
+| `collectMethod`                                                                                                                                    | [models.HealthCheckAuthenticationNoneHealthCheckMethod](../models/healthcheckauthenticationnonehealthcheckmethod.md)                               | :heavy_check_mark:                                                                                                                                 | Health check HTTP method.                                                                                                                          |
 | `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestHeaders`                                                                                                                            | [models.HealthCheckAuthenticationNoneCollectRequestHeader](../models/healthcheckauthenticationnonecollectrequestheader.md)[]                       | :heavy_minus_sign:                                                                                                                                 | Optional health check request headers.                                                                                                             |

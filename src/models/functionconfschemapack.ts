@@ -15,7 +15,7 @@ export type FunctionConfSchemaPack = {
   /**
    * Name of the (packed) target field
    */
-  target: string;
+  target?: string | undefined;
 };
 
 /** @internal */
@@ -25,7 +25,7 @@ export const FunctionConfSchemaPack$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   unpackedFields: z.array(z.string()).optional(),
-  target: z.string().default("_pack"),
+  target: z.string().optional(),
 });
 
 export function functionConfSchemaPackFromJSON(

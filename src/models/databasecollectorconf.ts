@@ -135,7 +135,7 @@ export const DatabaseCollectorConf$inboundSchema: z.ZodType<
 > = z.object({
   connectionId: z.string(),
   query: z.string(),
-  queryValidationEnabled: z.boolean().default(true),
+  queryValidationEnabled: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   __scheduling: z.lazy(() => DatabaseCollectorConfScheduling$inboundSchema)
@@ -145,7 +145,7 @@ export const DatabaseCollectorConf$inboundSchema: z.ZodType<
 export type DatabaseCollectorConf$Outbound = {
   connectionId: string;
   query: string;
-  queryValidationEnabled: boolean;
+  queryValidationEnabled?: boolean | undefined;
   defaultBreakers?: string | undefined;
   __scheduling?: DatabaseCollectorConfScheduling$Outbound | undefined;
 };
@@ -158,7 +158,7 @@ export const DatabaseCollectorConf$outboundSchema: z.ZodType<
 > = z.object({
   connectionId: z.string(),
   query: z.string(),
-  queryValidationEnabled: z.boolean().default(true),
+  queryValidationEnabled: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   __scheduling: z.lazy(() => DatabaseCollectorConfScheduling$outboundSchema)

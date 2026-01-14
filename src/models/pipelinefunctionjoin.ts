@@ -175,7 +175,7 @@ export const PipelineFunctionJoin$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("join"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -185,7 +185,7 @@ export const PipelineFunctionJoin$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionJoin$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "join";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -200,7 +200,7 @@ export const PipelineFunctionJoin$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionJoin
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("join"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

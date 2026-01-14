@@ -8,7 +8,7 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type TimeoutRetrySettingsType = {
-  timeoutRetry?: boolean | undefined;
+  timeoutRetry: boolean;
   /**
    * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
    */
@@ -29,17 +29,17 @@ export const TimeoutRetrySettingsType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
+  timeoutRetry: z.boolean(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  maxBackoff: z.number().optional(),
 });
 /** @internal */
 export type TimeoutRetrySettingsType$Outbound = {
   timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  maxBackoff?: number | undefined;
 };
 
 /** @internal */
@@ -48,10 +48,10 @@ export const TimeoutRetrySettingsType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   TimeoutRetrySettingsType
 > = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
+  timeoutRetry: z.boolean(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  maxBackoff: z.number().optional(),
 });
 
 export function timeoutRetrySettingsTypeToJSON(

@@ -70,7 +70,7 @@ export type InputKubeMetricsPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   pq?: PqType | undefined;
   /**
    * Unique ID for this input
@@ -118,7 +118,7 @@ export type InputKubeMetricsPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   /**
    * Unique ID for this input
    */
@@ -166,7 +166,7 @@ export type InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -214,7 +214,7 @@ export type InputKubeMetricsSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Unique ID for this input
    */
@@ -279,23 +279,21 @@ export const InputKubeMetricsPersistence$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: DataCompressionFormatOptionsPersistence$inboundSchema.default(
-    "gzip",
-  ),
-  destPath: z.string().default("$CRIBL_HOME/state/kube_metrics"),
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: DataCompressionFormatOptionsPersistence$inboundSchema.optional(),
+  destPath: z.string().optional(),
 });
 /** @internal */
 export type InputKubeMetricsPersistence$Outbound = {
-  enable: boolean;
-  timeWindow: string;
-  maxDataSize: string;
-  maxDataTime: string;
-  compress: string;
-  destPath: string;
+  enable?: boolean | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  destPath?: string | undefined;
 };
 
 /** @internal */
@@ -304,14 +302,12 @@ export const InputKubeMetricsPersistence$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputKubeMetricsPersistence
 > = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: DataCompressionFormatOptionsPersistence$outboundSchema.default(
-    "gzip",
-  ),
-  destPath: z.string().default("$CRIBL_HOME/state/kube_metrics"),
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: DataCompressionFormatOptionsPersistence$outboundSchema.optional(),
+  destPath: z.string().optional(),
 });
 
 export function inputKubeMetricsPersistenceToJSON(
@@ -340,17 +336,17 @@ export const InputKubeMetricsPqEnabledTrueWithPqConstraint$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     pq: PqType$inboundSchema.optional(),
     id: z.string().optional(),
     type: InputKubeMetricsType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    interval: z.number().default(15),
+    interval: z.number().optional(),
     rules: z.array(ItemsTypeRules$inboundSchema).optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
     persistence: z.lazy(() => InputKubeMetricsPersistence$inboundSchema)
@@ -363,13 +359,13 @@ export type InputKubeMetricsPqEnabledTrueWithPqConstraint$Outbound = {
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  interval: number;
+  interval?: number | undefined;
   rules?: Array<ItemsTypeRules$Outbound> | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   persistence?: InputKubeMetricsPersistence$Outbound | undefined;
@@ -383,18 +379,18 @@ export const InputKubeMetricsPqEnabledTrueWithPqConstraint$outboundSchema:
     z.ZodTypeDef,
     InputKubeMetricsPqEnabledTrueWithPqConstraint
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputKubeMetricsType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
-    interval: z.number().default(15),
+    interval: z.number().optional(),
     rules: z.array(ItemsTypeRules$outboundSchema).optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     persistence: z.lazy(() => InputKubeMetricsPersistence$outboundSchema)
@@ -434,17 +430,17 @@ export const InputKubeMetricsPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputKubeMetricsType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  interval: z.number().default(15),
+  interval: z.number().optional(),
   rules: z.array(ItemsTypeRules$inboundSchema).optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   persistence: z.lazy(() => InputKubeMetricsPersistence$inboundSchema)
@@ -456,14 +452,14 @@ export type InputKubeMetricsPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
-  interval: number;
+  interval?: number | undefined;
   rules?: Array<ItemsTypeRules$Outbound> | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   persistence?: InputKubeMetricsPersistence$Outbound | undefined;
@@ -476,17 +472,17 @@ export const InputKubeMetricsPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputKubeMetricsPqEnabledFalseConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputKubeMetricsType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  interval: z.number().default(15),
+  interval: z.number().optional(),
   rules: z.array(ItemsTypeRules$outboundSchema).optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   persistence: z.lazy(() => InputKubeMetricsPersistence$outboundSchema)
@@ -527,17 +523,17 @@ export const InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputKubeMetricsType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$inboundSchema.optional(),
-    interval: z.number().default(15),
+    interval: z.number().optional(),
     rules: z.array(ItemsTypeRules$inboundSchema).optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
     persistence: z.lazy(() => InputKubeMetricsPersistence$inboundSchema)
@@ -551,13 +547,13 @@ export type InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint$Outbound 
     connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
     id?: string | undefined;
     type: string;
-    disabled: boolean;
+    disabled?: boolean | undefined;
     pipeline?: string | undefined;
     environment?: string | undefined;
-    pqEnabled: boolean;
+    pqEnabled?: boolean | undefined;
     streamtags?: Array<string> | undefined;
     pq?: PqType$Outbound | undefined;
-    interval: number;
+    interval?: number | undefined;
     rules?: Array<ItemsTypeRules$Outbound> | undefined;
     metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
     persistence?: InputKubeMetricsPersistence$Outbound | undefined;
@@ -571,18 +567,18 @@ export const InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint$outbound
     z.ZodTypeDef,
     InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     id: z.string().optional(),
     type: InputKubeMetricsType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
-    interval: z.number().default(15),
+    interval: z.number().optional(),
     rules: z.array(ItemsTypeRules$outboundSchema).optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     persistence: z.lazy(() => InputKubeMetricsPersistence$outboundSchema)
@@ -618,18 +614,18 @@ export function inputKubeMetricsSendToRoutesFalseWithConnectionsConstraintFromJS
 export const InputKubeMetricsSendToRoutesTrueConstraint$inboundSchema:
   z.ZodType<InputKubeMetricsSendToRoutesTrueConstraint, z.ZodTypeDef, unknown> =
     z.object({
-      sendToRoutes: z.boolean().default(true),
+      sendToRoutes: z.boolean(),
       id: z.string().optional(),
       type: InputKubeMetricsType$inboundSchema,
-      disabled: z.boolean().default(false),
+      disabled: z.boolean().optional(),
       pipeline: z.string().optional(),
       environment: z.string().optional(),
-      pqEnabled: z.boolean().default(false),
+      pqEnabled: z.boolean().optional(),
       streamtags: z.array(z.string()).optional(),
       connections: z.array(ItemsTypeConnectionsOptional$inboundSchema)
         .optional(),
       pq: PqType$inboundSchema.optional(),
-      interval: z.number().default(15),
+      interval: z.number().optional(),
       rules: z.array(ItemsTypeRules$inboundSchema).optional(),
       metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
       persistence: z.lazy(() => InputKubeMetricsPersistence$inboundSchema)
@@ -641,14 +637,14 @@ export type InputKubeMetricsSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
-  interval: number;
+  interval?: number | undefined;
   rules?: Array<ItemsTypeRules$Outbound> | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   persistence?: InputKubeMetricsPersistence$Outbound | undefined;
@@ -662,18 +658,18 @@ export const InputKubeMetricsSendToRoutesTrueConstraint$outboundSchema:
     z.ZodTypeDef,
     InputKubeMetricsSendToRoutesTrueConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     id: z.string().optional(),
     type: InputKubeMetricsType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     pq: PqType$outboundSchema.optional(),
-    interval: z.number().default(15),
+    interval: z.number().optional(),
     rules: z.array(ItemsTypeRules$outboundSchema).optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     persistence: z.lazy(() => InputKubeMetricsPersistence$outboundSchema)

@@ -74,7 +74,7 @@ export type InputSplunkHecPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   pq?: PqType | undefined;
   /**
    * Unique ID for this input
@@ -105,7 +105,7 @@ export type InputSplunkHecPqEnabledTrueWithPqConstraint = {
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
@@ -159,7 +159,7 @@ export type InputSplunkHecPqEnabledTrueWithPqConstraint = {
   /**
    * Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
    */
-  splunkHecAPI?: string | undefined;
+  splunkHecAPI: string;
   /**
    * Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
    */
@@ -211,7 +211,7 @@ export type InputSplunkHecPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   /**
    * Unique ID for this input
    */
@@ -242,7 +242,7 @@ export type InputSplunkHecPqEnabledFalseConstraint = {
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
@@ -296,7 +296,7 @@ export type InputSplunkHecPqEnabledFalseConstraint = {
   /**
    * Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
    */
-  splunkHecAPI?: string | undefined;
+  splunkHecAPI: string;
   /**
    * Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
    */
@@ -348,7 +348,7 @@ export type InputSplunkHecSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -379,7 +379,7 @@ export type InputSplunkHecSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
@@ -433,7 +433,7 @@ export type InputSplunkHecSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
    */
-  splunkHecAPI?: string | undefined;
+  splunkHecAPI: string;
   /**
    * Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
    */
@@ -485,7 +485,7 @@ export type InputSplunkHecSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Unique ID for this input
    */
@@ -516,7 +516,7 @@ export type InputSplunkHecSendToRoutesTrueConstraint = {
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
@@ -570,7 +570,7 @@ export type InputSplunkHecSendToRoutesTrueConstraint = {
   /**
    * Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
    */
-  splunkHecAPI?: string | undefined;
+  splunkHecAPI: string;
   /**
    * Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
    */
@@ -639,22 +639,20 @@ export const InputSplunkHecAuthToken$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-    "manual",
-  ),
+  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
   tokenSecret: z.string().optional(),
   token: z.string(),
-  enabled: z.boolean().default(true),
+  enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
 });
 /** @internal */
 export type InputSplunkHecAuthToken$Outbound = {
-  authType: string;
+  authType?: string | undefined;
   tokenSecret?: string | undefined;
   token: string;
-  enabled: boolean;
+  enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
@@ -666,12 +664,11 @@ export const InputSplunkHecAuthToken$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSplunkHecAuthToken
 > = z.object({
-  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-    "manual",
-  ),
+  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
   tokenSecret: z.string().optional(),
   token: z.string(),
-  enabled: z.boolean().default(true),
+  enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
@@ -701,44 +698,44 @@ export const InputSplunkHecPqEnabledTrueWithPqConstraint$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     pq: PqType$inboundSchema.optional(),
     id: z.string().optional(),
     type: InputSplunkHecType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    host: z.string().default("0.0.0.0"),
+    host: z.string(),
     port: z.number(),
     authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$inboundSchema))
       .optional(),
     tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    activityLogSampleRate: z.number().default(100),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(5),
+    maxActiveReq: z.number().optional(),
+    maxRequestsPerSocket: z.number().int().optional(),
+    enableProxyHeader: z.boolean().optional(),
+    captureHeaders: z.boolean().optional(),
+    activityLogSampleRate: z.number().optional(),
+    requestTimeout: z.number().optional(),
+    socketTimeout: z.number().optional(),
+    keepAliveTimeout: z.number().optional(),
     enableHealthCheck: z.any().optional(),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    splunkHecAPI: z.string().default("/services/collector"),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
+    splunkHecAPI: z.string(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
     allowedIndexes: z.array(z.string()).optional(),
-    splunkHecAcks: z.boolean().default(false),
+    splunkHecAcks: z.boolean().optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    useFwdTimezone: z.boolean().default(true),
-    dropControlFields: z.boolean().default(true),
-    extractMetrics: z.boolean().default(false),
+    staleChannelFlushMs: z.number().optional(),
+    useFwdTimezone: z.boolean().optional(),
+    dropControlFields: z.boolean().optional(),
+    extractMetrics: z.boolean().optional(),
     accessControlAllowOrigin: z.array(z.string()).optional(),
     accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().default(false),
+    emitTokenMetrics: z.boolean().optional(),
     description: z.string().optional(),
   });
 /** @internal */
@@ -747,9 +744,9 @@ export type InputSplunkHecPqEnabledTrueWithPqConstraint$Outbound = {
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
@@ -757,29 +754,29 @@ export type InputSplunkHecPqEnabledTrueWithPqConstraint$Outbound = {
   port: number;
   authTokens?: Array<InputSplunkHecAuthToken$Outbound> | undefined;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
-  enableProxyHeader: boolean;
-  captureHeaders: boolean;
-  activityLogSampleRate: number;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
   enableHealthCheck?: any | undefined;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
   splunkHecAPI: string;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
-  splunkHecAcks: boolean;
+  splunkHecAcks?: boolean | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  useFwdTimezone: boolean;
-  dropControlFields: boolean;
-  extractMetrics: boolean;
+  staleChannelFlushMs?: number | undefined;
+  useFwdTimezone?: boolean | undefined;
+  dropControlFields?: boolean | undefined;
+  extractMetrics?: boolean | undefined;
   accessControlAllowOrigin?: Array<string> | undefined;
   accessControlAllowHeaders?: Array<string> | undefined;
-  emitTokenMetrics: boolean;
+  emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -790,45 +787,45 @@ export const InputSplunkHecPqEnabledTrueWithPqConstraint$outboundSchema:
     z.ZodTypeDef,
     InputSplunkHecPqEnabledTrueWithPqConstraint
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputSplunkHecType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
-    host: z.string().default("0.0.0.0"),
+    host: z.string(),
     port: z.number(),
     authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$outboundSchema))
       .optional(),
     tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    activityLogSampleRate: z.number().default(100),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(5),
+    maxActiveReq: z.number().optional(),
+    maxRequestsPerSocket: z.number().int().optional(),
+    enableProxyHeader: z.boolean().optional(),
+    captureHeaders: z.boolean().optional(),
+    activityLogSampleRate: z.number().optional(),
+    requestTimeout: z.number().optional(),
+    socketTimeout: z.number().optional(),
+    keepAliveTimeout: z.number().optional(),
     enableHealthCheck: z.any().optional(),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    splunkHecAPI: z.string().default("/services/collector"),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
+    splunkHecAPI: z.string(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     allowedIndexes: z.array(z.string()).optional(),
-    splunkHecAcks: z.boolean().default(false),
+    splunkHecAcks: z.boolean().optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    useFwdTimezone: z.boolean().default(true),
-    dropControlFields: z.boolean().default(true),
-    extractMetrics: z.boolean().default(false),
+    staleChannelFlushMs: z.number().optional(),
+    useFwdTimezone: z.boolean().optional(),
+    dropControlFields: z.boolean().optional(),
+    extractMetrics: z.boolean().optional(),
     accessControlAllowOrigin: z.array(z.string()).optional(),
     accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().default(false),
+    emitTokenMetrics: z.boolean().optional(),
     description: z.string().optional(),
   });
 
@@ -864,44 +861,44 @@ export const InputSplunkHecPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputSplunkHecType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   port: z.number(),
   authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$inboundSchema))
     .optional(),
   tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
   enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  splunkHecAPI: z.string().default("/services/collector"),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  splunkHecAPI: z.string(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
-  splunkHecAcks: z.boolean().default(false),
+  splunkHecAcks: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  useFwdTimezone: z.boolean().default(true),
-  dropControlFields: z.boolean().default(true),
-  extractMetrics: z.boolean().default(false),
+  staleChannelFlushMs: z.number().optional(),
+  useFwdTimezone: z.boolean().optional(),
+  dropControlFields: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
   accessControlAllowOrigin: z.array(z.string()).optional(),
   accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().default(false),
+  emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -909,9 +906,9 @@ export type InputSplunkHecPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
@@ -920,29 +917,29 @@ export type InputSplunkHecPqEnabledFalseConstraint$Outbound = {
   port: number;
   authTokens?: Array<InputSplunkHecAuthToken$Outbound> | undefined;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
-  enableProxyHeader: boolean;
-  captureHeaders: boolean;
-  activityLogSampleRate: number;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
   enableHealthCheck?: any | undefined;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
   splunkHecAPI: string;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
-  splunkHecAcks: boolean;
+  splunkHecAcks?: boolean | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  useFwdTimezone: boolean;
-  dropControlFields: boolean;
-  extractMetrics: boolean;
+  staleChannelFlushMs?: number | undefined;
+  useFwdTimezone?: boolean | undefined;
+  dropControlFields?: boolean | undefined;
+  extractMetrics?: boolean | undefined;
   accessControlAllowOrigin?: Array<string> | undefined;
   accessControlAllowHeaders?: Array<string> | undefined;
-  emitTokenMetrics: boolean;
+  emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -952,44 +949,44 @@ export const InputSplunkHecPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSplunkHecPqEnabledFalseConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputSplunkHecType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   port: z.number(),
   authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$outboundSchema))
     .optional(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
   enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  splunkHecAPI: z.string().default("/services/collector"),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  splunkHecAPI: z.string(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
-  splunkHecAcks: z.boolean().default(false),
+  splunkHecAcks: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  useFwdTimezone: z.boolean().default(true),
-  dropControlFields: z.boolean().default(true),
-  extractMetrics: z.boolean().default(false),
+  staleChannelFlushMs: z.number().optional(),
+  useFwdTimezone: z.boolean().optional(),
+  dropControlFields: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
   accessControlAllowOrigin: z.array(z.string()).optional(),
   accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().default(false),
+  emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
 });
 
@@ -1021,44 +1018,44 @@ export const InputSplunkHecSendToRoutesFalseWithConnectionsConstraint$inboundSch
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputSplunkHecType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$inboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
+    host: z.string(),
     port: z.number(),
     authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$inboundSchema))
       .optional(),
     tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    activityLogSampleRate: z.number().default(100),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(5),
+    maxActiveReq: z.number().optional(),
+    maxRequestsPerSocket: z.number().int().optional(),
+    enableProxyHeader: z.boolean().optional(),
+    captureHeaders: z.boolean().optional(),
+    activityLogSampleRate: z.number().optional(),
+    requestTimeout: z.number().optional(),
+    socketTimeout: z.number().optional(),
+    keepAliveTimeout: z.number().optional(),
     enableHealthCheck: z.any().optional(),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    splunkHecAPI: z.string().default("/services/collector"),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
+    splunkHecAPI: z.string(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
     allowedIndexes: z.array(z.string()).optional(),
-    splunkHecAcks: z.boolean().default(false),
+    splunkHecAcks: z.boolean().optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    useFwdTimezone: z.boolean().default(true),
-    dropControlFields: z.boolean().default(true),
-    extractMetrics: z.boolean().default(false),
+    staleChannelFlushMs: z.number().optional(),
+    useFwdTimezone: z.boolean().optional(),
+    dropControlFields: z.boolean().optional(),
+    extractMetrics: z.boolean().optional(),
     accessControlAllowOrigin: z.array(z.string()).optional(),
     accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().default(false),
+    emitTokenMetrics: z.boolean().optional(),
     description: z.string().optional(),
   });
 /** @internal */
@@ -1068,39 +1065,39 @@ export type InputSplunkHecSendToRoutesFalseWithConnectionsConstraint$Outbound =
     connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
     id?: string | undefined;
     type: string;
-    disabled: boolean;
+    disabled?: boolean | undefined;
     pipeline?: string | undefined;
     environment?: string | undefined;
-    pqEnabled: boolean;
+    pqEnabled?: boolean | undefined;
     streamtags?: Array<string> | undefined;
     pq?: PqType$Outbound | undefined;
     host: string;
     port: number;
     authTokens?: Array<InputSplunkHecAuthToken$Outbound> | undefined;
     tls?: TlsSettingsServerSideType$Outbound | undefined;
-    maxActiveReq: number;
-    maxRequestsPerSocket: number;
-    enableProxyHeader: boolean;
-    captureHeaders: boolean;
-    activityLogSampleRate: number;
-    requestTimeout: number;
-    socketTimeout: number;
-    keepAliveTimeout: number;
+    maxActiveReq?: number | undefined;
+    maxRequestsPerSocket?: number | undefined;
+    enableProxyHeader?: boolean | undefined;
+    captureHeaders?: boolean | undefined;
+    activityLogSampleRate?: number | undefined;
+    requestTimeout?: number | undefined;
+    socketTimeout?: number | undefined;
+    keepAliveTimeout?: number | undefined;
     enableHealthCheck?: any | undefined;
-    ipAllowlistRegex: string;
-    ipDenylistRegex: string;
+    ipAllowlistRegex?: string | undefined;
+    ipDenylistRegex?: string | undefined;
     splunkHecAPI: string;
     metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
     allowedIndexes?: Array<string> | undefined;
-    splunkHecAcks: boolean;
+    splunkHecAcks?: boolean | undefined;
     breakerRulesets?: Array<string> | undefined;
-    staleChannelFlushMs: number;
-    useFwdTimezone: boolean;
-    dropControlFields: boolean;
-    extractMetrics: boolean;
+    staleChannelFlushMs?: number | undefined;
+    useFwdTimezone?: boolean | undefined;
+    dropControlFields?: boolean | undefined;
+    extractMetrics?: boolean | undefined;
     accessControlAllowOrigin?: Array<string> | undefined;
     accessControlAllowHeaders?: Array<string> | undefined;
-    emitTokenMetrics: boolean;
+    emitTokenMetrics?: boolean | undefined;
     description?: string | undefined;
   };
 
@@ -1111,45 +1108,45 @@ export const InputSplunkHecSendToRoutesFalseWithConnectionsConstraint$outboundSc
     z.ZodTypeDef,
     InputSplunkHecSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     id: z.string().optional(),
     type: InputSplunkHecType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
+    host: z.string(),
     port: z.number(),
     authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$outboundSchema))
       .optional(),
     tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    captureHeaders: z.boolean().default(false),
-    activityLogSampleRate: z.number().default(100),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(5),
+    maxActiveReq: z.number().optional(),
+    maxRequestsPerSocket: z.number().int().optional(),
+    enableProxyHeader: z.boolean().optional(),
+    captureHeaders: z.boolean().optional(),
+    activityLogSampleRate: z.number().optional(),
+    requestTimeout: z.number().optional(),
+    socketTimeout: z.number().optional(),
+    keepAliveTimeout: z.number().optional(),
     enableHealthCheck: z.any().optional(),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    splunkHecAPI: z.string().default("/services/collector"),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
+    splunkHecAPI: z.string(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     allowedIndexes: z.array(z.string()).optional(),
-    splunkHecAcks: z.boolean().default(false),
+    splunkHecAcks: z.boolean().optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    useFwdTimezone: z.boolean().default(true),
-    dropControlFields: z.boolean().default(true),
-    extractMetrics: z.boolean().default(false),
+    staleChannelFlushMs: z.number().optional(),
+    useFwdTimezone: z.boolean().optional(),
+    dropControlFields: z.boolean().optional(),
+    extractMetrics: z.boolean().optional(),
     accessControlAllowOrigin: z.array(z.string()).optional(),
     accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().default(false),
+    emitTokenMetrics: z.boolean().optional(),
     description: z.string().optional(),
   });
 
@@ -1183,44 +1180,44 @@ export const InputSplunkHecSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputSplunkHecType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   port: z.number(),
   authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$inboundSchema))
     .optional(),
   tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
   enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  splunkHecAPI: z.string().default("/services/collector"),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  splunkHecAPI: z.string(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
-  splunkHecAcks: z.boolean().default(false),
+  splunkHecAcks: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  useFwdTimezone: z.boolean().default(true),
-  dropControlFields: z.boolean().default(true),
-  extractMetrics: z.boolean().default(false),
+  staleChannelFlushMs: z.number().optional(),
+  useFwdTimezone: z.boolean().optional(),
+  dropControlFields: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
   accessControlAllowOrigin: z.array(z.string()).optional(),
   accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().default(false),
+  emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -1228,10 +1225,10 @@ export type InputSplunkHecSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
@@ -1239,29 +1236,29 @@ export type InputSplunkHecSendToRoutesTrueConstraint$Outbound = {
   port: number;
   authTokens?: Array<InputSplunkHecAuthToken$Outbound> | undefined;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
-  enableProxyHeader: boolean;
-  captureHeaders: boolean;
-  activityLogSampleRate: number;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
   enableHealthCheck?: any | undefined;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
   splunkHecAPI: string;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
-  splunkHecAcks: boolean;
+  splunkHecAcks?: boolean | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  useFwdTimezone: boolean;
-  dropControlFields: boolean;
-  extractMetrics: boolean;
+  staleChannelFlushMs?: number | undefined;
+  useFwdTimezone?: boolean | undefined;
+  dropControlFields?: boolean | undefined;
+  extractMetrics?: boolean | undefined;
   accessControlAllowOrigin?: Array<string> | undefined;
   accessControlAllowHeaders?: Array<string> | undefined;
-  emitTokenMetrics: boolean;
+  emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -1271,44 +1268,44 @@ export const InputSplunkHecSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSplunkHecSendToRoutesTrueConstraint
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputSplunkHecType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   port: z.number(),
   authTokens: z.array(z.lazy(() => InputSplunkHecAuthToken$outboundSchema))
     .optional(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
   enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  splunkHecAPI: z.string().default("/services/collector"),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  splunkHecAPI: z.string(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
-  splunkHecAcks: z.boolean().default(false),
+  splunkHecAcks: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  useFwdTimezone: z.boolean().default(true),
-  dropControlFields: z.boolean().default(true),
-  extractMetrics: z.boolean().default(false),
+  staleChannelFlushMs: z.number().optional(),
+  useFwdTimezone: z.boolean().optional(),
+  dropControlFields: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
   accessControlAllowOrigin: z.array(z.string()).optional(),
   accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().default(false),
+  emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
 });
 

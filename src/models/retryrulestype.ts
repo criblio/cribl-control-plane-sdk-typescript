@@ -16,7 +16,7 @@ export type RetryRulesType = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   /**
    * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
    */
@@ -53,26 +53,25 @@ export const RetryRulesType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-    .default("backoff"),
-  interval: z.number().default(1000),
-  limit: z.number().default(5),
-  multiplier: z.number().default(2),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
+  interval: z.number().optional(),
+  limit: z.number().optional(),
+  multiplier: z.number().optional(),
   codes: z.array(z.number()).optional(),
-  enableHeader: z.boolean().default(true),
-  retryConnectTimeout: z.boolean().default(false),
-  retryConnectReset: z.boolean().default(false),
+  enableHeader: z.boolean().optional(),
+  retryConnectTimeout: z.boolean().optional(),
+  retryConnectReset: z.boolean().optional(),
 });
 /** @internal */
 export type RetryRulesType$Outbound = {
   type: string;
-  interval: number;
-  limit: number;
-  multiplier: number;
+  interval?: number | undefined;
+  limit?: number | undefined;
+  multiplier?: number | undefined;
   codes?: Array<number> | undefined;
-  enableHeader: boolean;
-  retryConnectTimeout: boolean;
-  retryConnectReset: boolean;
+  enableHeader?: boolean | undefined;
+  retryConnectTimeout?: boolean | undefined;
+  retryConnectReset?: boolean | undefined;
 };
 
 /** @internal */
@@ -81,15 +80,14 @@ export const RetryRulesType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RetryRulesType
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-    .default("backoff"),
-  interval: z.number().default(1000),
-  limit: z.number().default(5),
-  multiplier: z.number().default(2),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
+  interval: z.number().optional(),
+  limit: z.number().optional(),
+  multiplier: z.number().optional(),
   codes: z.array(z.number()).optional(),
-  enableHeader: z.boolean().default(true),
-  retryConnectTimeout: z.boolean().default(false),
-  retryConnectReset: z.boolean().default(false),
+  enableHeader: z.boolean().optional(),
+  retryConnectTimeout: z.boolean().optional(),
+  retryConnectReset: z.boolean().optional(),
 });
 
 export function retryRulesTypeToJSON(retryRulesType: RetryRulesType): string {

@@ -28,7 +28,10 @@ let value: FunctionRegexExtract = {
         regex: "<value>",
       },
     ],
+    source: "<value>",
+    iterations: 534.94,
     fieldNameExpression: "<value>",
+    overwrite: false,
   },
 };
 ```

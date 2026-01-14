@@ -6,12 +6,22 @@
 import { PipelineFunctionAutoTimestamp } from "cribl-control-plane/models";
 
 let value: PipelineFunctionAutoTimestamp = {
+  filter: "<value>",
   id: "auto_timestamp",
   description: "once peninsula nicely er consequently scare",
   disabled: false,
   final: false,
   conf: {
+    srcField: "<value>",
+    dstField: "<value>",
+    defaultTimezone: "<value>",
+    timeExpression: "<value>",
+    offset: 3845.47,
+    maxLen: 5793.04,
+    defaultTime: "none",
+    latestDateAllowed: "<value>",
     spacer: "<value>",
+    earliestDateAllowed: "<value>",
     timestamps: [
       {
         regex: "<value>",

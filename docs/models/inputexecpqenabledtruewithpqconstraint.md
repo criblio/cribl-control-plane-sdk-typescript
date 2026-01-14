@@ -6,15 +6,26 @@
 import { InputExecPqEnabledTrueWithPqConstraint } from "cribl-control-plane/models";
 
 let value: InputExecPqEnabledTrueWithPqConstraint = {
+  pqEnabled: true,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "exec",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -23,17 +34,22 @@ let value: InputExecPqEnabledTrueWithPqConstraint = {
     },
   ],
   command: "<value>",
+  retries: 7375.95,
+  scheduleType: "cronSchedule",
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
   ],
+  staleChannelFlushMs: 1965.15,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "microchip meanwhile captain phooey hole yet while",
+  description: "hence designation fax till hm now faithfully for versus",
+  interval: 5856.85,
+  cronSchedule: "<value>",
 };
 ```
 
@@ -41,7 +57,7 @@ let value: InputExecPqEnabledTrueWithPqConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `pq`                                                                                                                                                                                                                                         | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [models.InputExecPqEnabledTrueWithPqConstraintType](../models/inputexecpqenabledtruewithpqconstrainttype.md)                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

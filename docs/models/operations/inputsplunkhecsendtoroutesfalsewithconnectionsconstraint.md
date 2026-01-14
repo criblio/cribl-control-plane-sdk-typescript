@@ -6,6 +6,7 @@
 import { InputSplunkHecSendToRoutesFalseWithConnectionsConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputSplunkHecSendToRoutesFalseWithConnectionsConstraint = {
+  sendToRoutes: false,
   connections: [
     {
       pipeline: "<value>",
@@ -14,25 +15,39 @@ let value: InputSplunkHecSendToRoutesFalseWithConnectionsConstraint = {
   ],
   id: "<id>",
   type: "splunk_hec",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  port: 6338.11,
+  host: "impressive-swath.name",
+  port: 6823.6,
   authTokens: [
     {
+      authType: "manual",
       tokenSecret: "<value>",
       token: "<value>",
-      description: "detective blind regular",
+      enabled: true,
+      description:
+        "between quarterly um maroon drat silk whose hence incidentally after",
       allowedIndexesAtToken: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
       metadata: [
         {
@@ -43,15 +58,30 @@ let value: InputSplunkHecSendToRoutesFalseWithConnectionsConstraint = {
     },
   ],
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveReq: 2919.8,
+  maxRequestsPerSocket: 222249,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 184.51,
+  requestTimeout: 3948.16,
+  socketTimeout: 5418.35,
+  keepAliveTimeout: 6044.64,
   enableHealthCheck: "<value>",
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  splunkHecAPI: "<value>",
   metadata: [
     {
       name: "<value>",
@@ -60,23 +90,29 @@ let value: InputSplunkHecSendToRoutesFalseWithConnectionsConstraint = {
   ],
   allowedIndexes: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
+  splunkHecAcks: false,
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
+  staleChannelFlushMs: 2193.18,
+  useFwdTimezone: false,
+  dropControlFields: true,
+  extractMetrics: false,
   accessControlAllowOrigin: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  description:
-    "hassle suspiciously questionably nectarine elevation anenst adolescent monstrous",
+  accessControlAllowHeaders: [
+    "<value 1>",
+  ],
+  emitTokenMetrics: false,
+  description: "hmph gah object tomography pike beyond",
 };
 ```
 
@@ -84,7 +120,7 @@ let value: InputSplunkHecSendToRoutesFalseWithConnectionsConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
 | `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [operations.InputSplunkHecType](../../models/operations/inputsplunkhectype.md)                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
@@ -94,7 +130,7 @@ let value: InputSplunkHecSendToRoutesFalseWithConnectionsConstraint = {
 | `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
 | `pq`                                                                                                                                                                                                                                         | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
+| `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
 | `port`                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Port to listen on                                                                                                                                                                                                                            |
 | `authTokens`                                                                                                                                                                                                                                 | [operations.InputSplunkHecAuthToken](../../models/operations/inputsplunkhecauthtoken.md)[]                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.                                                                                                                            |
 | `tls`                                                                                                                                                                                                                                        | [models.TlsSettingsServerSideType](../../models/tlssettingsserversidetype.md)                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
@@ -109,7 +145,7 @@ let value: InputSplunkHecSendToRoutesFalseWithConnectionsConstraint = {
 | `enableHealthCheck`                                                                                                                                                                                                                          | *any*                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `ipAllowlistRegex`                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Messages from matched IP addresses will be processed, unless also matched by the denylist                                                                                                                                                    |
 | `ipDenylistRegex`                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.                                                                                                                                                |
-| `splunkHecAPI`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.                                                                                                  |
+| `splunkHecAPI`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.                                                                                                  |
 | `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../../models/itemstypenotificationmetadata.md)[]                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.                                                   |
 | `allowedIndexes`                                                                                                                                                                                                                             | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.                                                                            |
 | `splunkHecAcks`                                                                                                                                                                                                                              | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Enable Splunk HEC acknowledgements                                                                                                                                                                                                           |

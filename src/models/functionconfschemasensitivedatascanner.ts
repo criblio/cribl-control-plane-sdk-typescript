@@ -16,7 +16,7 @@ export type FunctionConfSchemaSensitiveDataScannerRule = {
    * A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
    */
   replaceExpr: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
 };
 
 export type FunctionConfSchemaSensitiveDataScannerFlag = {
@@ -41,8 +41,8 @@ export type FunctionConfSchemaSensitiveDataScanner = {
   /**
    * Add matching ruleset IDs to a field called "__detected"
    */
-  includeDetectedRules: boolean;
-  backgroundDetection: boolean;
+  includeDetectedRules?: boolean | undefined;
+  backgroundDetection?: boolean | undefined;
 };
 
 /** @internal */
@@ -50,8 +50,8 @@ export const FunctionConfSchemaSensitiveDataScannerRule$inboundSchema:
   z.ZodType<FunctionConfSchemaSensitiveDataScannerRule, z.ZodTypeDef, unknown> =
     z.object({
       rulesetId: z.string(),
-      replaceExpr: z.string().default("'REDACTED'"),
-      disabled: z.boolean().default(false),
+      replaceExpr: z.string(),
+      disabled: z.boolean().optional(),
     });
 
 export function functionConfSchemaSensitiveDataScannerRuleFromJSON(
@@ -108,8 +108,8 @@ export const FunctionConfSchemaSensitiveDataScanner$inboundSchema: z.ZodType<
   flags: z.array(
     z.lazy(() => FunctionConfSchemaSensitiveDataScannerFlag$inboundSchema),
   ).optional(),
-  includeDetectedRules: z.boolean().default(true),
-  backgroundDetection: z.boolean().default(false),
+  includeDetectedRules: z.boolean().optional(),
+  backgroundDetection: z.boolean().optional(),
 });
 
 export function functionConfSchemaSensitiveDataScannerFromJSON(

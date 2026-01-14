@@ -5,7 +5,10 @@
 ```typescript
 import { FunctionConfSchemaUnroll } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaUnroll = {};
+let value: FunctionConfSchemaUnroll = {
+  srcExpr: "<value>",
+  dstField: "<value>",
+};
 ```
 
 ## Fields

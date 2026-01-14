@@ -6,13 +6,15 @@
 import { InputWefSendToRoutesTrueConstraint } from "cribl-control-plane/models";
 
 let value: InputWefSendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "wef",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -21,31 +23,87 @@ let value: InputWefSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  host: "thick-massage.info",
+  port: 1239.8,
+  authMethod: "clientCert",
   tls: {
+    disabled: true,
+    rejectUnauthorized: false,
+    requestCert: false,
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+    ocspCheck: true,
     keytab: "<value>",
     principal: "<value>",
+    ocspCheckFailClose: true,
   },
+  maxActiveReq: 9333.82,
+  maxRequestsPerSocket: 565320,
+  enableProxyHeader: false,
+  captureHeaders: true,
+  keepAliveTimeout: 546.11,
+  enableHealthCheck: true,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  socketTimeout: 4627.18,
   caFingerprint: "<value>",
   keytab: "<value>",
   principal: "<value>",
-  subscriptions: [],
+  allowMachineIdMismatch: true,
+  subscriptions: [
+    {
+      subscriptionName: "<value>",
+      version: "<value>",
+      contentFormat: "Raw",
+      heartbeatInterval: 5580.43,
+      batchTimeout: 3722.13,
+      readExistingEvents: false,
+      sendBookmarks: false,
+      compress: true,
+      targets: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      locale: "el",
+      querySelector: "xml",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      queries: [
+        {
+          path: "/var",
+          queryExpression: "<value>",
+        },
+      ],
+      xmlQuery: "<value>",
+    },
+  ],
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "er and gadzooks sans greedy exasperation times diagram whoever while",
+  description: "pace till negligible unless",
+  logFingerprintMismatch: true,
 };
 ```
 
@@ -53,7 +111,7 @@ let value: InputWefSendToRoutesTrueConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [models.InputWefType](../models/inputweftype.md)                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
@@ -63,8 +121,8 @@ let value: InputWefSendToRoutesTrueConstraint = {
 | `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
 | `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
 | `pq`                                                                                                                                                                                                                                         | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
-| `port`                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Port to listen on                                                                                                                                                                                                                            |
+| `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
+| `port`                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Port to listen on                                                                                                                                                                                                                            |
 | `authMethod`                                                                                                                                                                                                                                 | [models.InputWefAuthenticationMethod](../models/inputwefauthenticationmethod.md)                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                           | How to authenticate incoming client connections                                                                                                                                                                                              |
 | `tls`                                                                                                                                                                                                                                        | [models.MTLSSettings](../models/mtlssettings.md)                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `maxActiveReq`                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.                      |

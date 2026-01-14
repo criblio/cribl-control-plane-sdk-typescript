@@ -7,12 +7,16 @@
 
 ```typescript
 const value: models.InputNetflowSendToRoutesTrueConstraint = {
+  sendToRoutes: true,
   id: "<id>",
   type: "netflow",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -21,16 +25,32 @@ const value: models.InputNetflowSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  udpSocketRxBufSize: 217.48,
+  host: "overdue-tabletop.org",
+  port: 7648.24,
+  enablePassThrough: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  udpSocketRxBufSize: 9169.5,
+  templateCacheMinutes: 486.53,
+  v5Enabled: false,
+  v9Enabled: true,
+  ipfixEnabled: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "upright eyeglasses nor but busy",
+  description: "astride woot intervention effector disconnection shanghai",
 };
 ```
 
@@ -38,6 +58,7 @@ const value: models.InputNetflowSendToRoutesTrueConstraint = {
 
 ```typescript
 const value: models.InputNetflowSendToRoutesFalseWithConnectionsConstraint = {
+  sendToRoutes: false,
   connections: [
     {
       pipeline: "<value>",
@@ -46,24 +67,42 @@ const value: models.InputNetflowSendToRoutesFalseWithConnectionsConstraint = {
   ],
   id: "<id>",
   type: "netflow",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  udpSocketRxBufSize: 5603.43,
+  host: "infatuated-planula.biz",
+  port: 3892.99,
+  enablePassThrough: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  udpSocketRxBufSize: 612.52,
+  templateCacheMinutes: 6028.29,
+  v5Enabled: true,
+  v9Enabled: true,
+  ipfixEnabled: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "beloved midst aggravating case mid regarding bid",
+  description: "mealy neaten down despite ugh savour monthly rim phew",
 };
 ```
 
@@ -71,14 +110,15 @@ const value: models.InputNetflowSendToRoutesFalseWithConnectionsConstraint = {
 
 ```typescript
 const value: models.InputNetflowPqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "netflow",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -87,16 +127,32 @@ const value: models.InputNetflowPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  udpSocketRxBufSize: 3674.55,
+  host: "doting-swim.info",
+  port: 4877.89,
+  enablePassThrough: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  udpSocketRxBufSize: 6637.1,
+  templateCacheMinutes: 575.64,
+  v5Enabled: true,
+  v9Enabled: true,
+  ipfixEnabled: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "radiant unlike exaggerate hmph unless",
+  description: "personalise ha fumigate over plagiarise fuel qua pace tangible",
 };
 ```
 
@@ -104,12 +160,22 @@ const value: models.InputNetflowPqEnabledFalseConstraint = {
 
 ```typescript
 const value: models.InputNetflowPqEnabledTrueWithPqConstraint = {
+  pqEnabled: false,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "netflow",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -122,14 +188,23 @@ const value: models.InputNetflowPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
-  udpSocketRxBufSize: 5607.22,
+  host: "sparse-distinction.org",
+  port: 7156.56,
+  enablePassThrough: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  udpSocketRxBufSize: 15.34,
+  templateCacheMinutes: 3817.65,
+  v5Enabled: true,
+  v9Enabled: true,
+  ipfixEnabled: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "able newsletter insistent artistic lyre nor gurn",
+  description: "sunbathe great meh before flu conservative including baa glow",
 };
 ```
 

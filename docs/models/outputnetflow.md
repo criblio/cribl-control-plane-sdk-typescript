@@ -21,7 +21,10 @@ let value: OutputNetflow = {
     "<value 3>",
   ],
   hosts: [],
-  description: "middle fraudster slight breakable furthermore rigid break",
+  dnsResolvePeriodSec: 6215.97,
+  enableIpSpoofing: true,
+  description: "meander solvency flickering ack until shocked",
+  maxRecordSize: 5706.07,
 };
 ```
 

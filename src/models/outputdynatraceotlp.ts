@@ -134,15 +134,15 @@ export type OutputDynatraceOtlp = {
   /**
    * Select a transport option for Dynatrace
    */
-  protocol?: OutputDynatraceOtlpProtocol | undefined;
+  protocol: OutputDynatraceOtlpProtocol;
   /**
    * The endpoint where Dynatrace events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
    */
-  endpoint?: string | undefined;
+  endpoint: string;
   /**
    * The version of OTLP Protobuf definitions to use when structuring data to send
    */
-  otlpVersion?: OtlpVersionOptions1 | undefined;
+  otlpVersion: OtlpVersionOptions1;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
@@ -202,7 +202,7 @@ export type OutputDynatraceOtlp = {
   /**
    * Select the type of Dynatrace endpoint configured
    */
-  endpointType?: EndpointType | undefined;
+  endpointType: EndpointType;
   /**
    * Select or create a stored text secret
    */
@@ -358,49 +358,47 @@ export const OutputDynatraceOtlp$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: OutputDynatraceOtlpProtocol$inboundSchema.default("http"),
-  endpoint: z.string().default(
-    "https://{your-environment-id}.live.dynatrace.com/api/v2/otlp",
-  ),
-  otlpVersion: OtlpVersionOptions1$inboundSchema.default("1.3.1"),
-  compress: CompressionOptions4$inboundSchema.default("gzip"),
-  httpCompress: CompressionOptions5$inboundSchema.default("gzip"),
+  protocol: OutputDynatraceOtlpProtocol$inboundSchema,
+  endpoint: z.string(),
+  otlpVersion: OtlpVersionOptions1$inboundSchema,
+  compress: CompressionOptions4$inboundSchema.optional(),
+  httpCompress: CompressionOptions5$inboundSchema.optional(),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
   metadata: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(2048),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
-    .default("none"),
-  connectionTimeout: z.number().default(10000),
-  keepAliveTime: z.number().default(30),
-  keepAlive: z.boolean().default(true),
-  endpointType: EndpointType$inboundSchema.default("saas"),
+    .optional(),
+  connectionTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  keepAlive: z.boolean().optional(),
+  endpointType: EndpointType$inboundSchema,
   tokenSecret: z.string(),
-  authTokenName: z.string().default("Authorization"),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  authTokenName: z.string().optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   description: z.string().optional(),
-  rejectUnauthorized: z.boolean().default(true),
-  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().optional(),
+  useRoundRobinDns: z.boolean().optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputDynatraceOtlpPqControls$inboundSchema)
     .optional(),
 });
@@ -415,44 +413,44 @@ export type OutputDynatraceOtlp$Outbound = {
   protocol: string;
   endpoint: string;
   otlpVersion: string;
-  compress: string;
-  httpCompress: string;
+  compress?: string | undefined;
+  httpCompress?: string | undefined;
   httpTracesEndpointOverride?: string | undefined;
   httpMetricsEndpointOverride?: string | undefined;
   httpLogsEndpointOverride?: string | undefined;
   metadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  timeoutSec: number;
-  flushPeriodSec: number;
-  failedRequestLoggingMode: string;
-  connectionTimeout: number;
-  keepAliveTime: number;
-  keepAlive: boolean;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  connectionTimeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  keepAlive?: boolean | undefined;
   endpointType: string;
   tokenSecret: string;
-  authTokenName: string;
-  onBackpressure: string;
+  authTokenName?: string | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
-  rejectUnauthorized: boolean;
-  useRoundRobinDns: boolean;
+  rejectUnauthorized?: boolean | undefined;
+  useRoundRobinDns?: boolean | undefined;
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputDynatraceOtlpPqControls$Outbound | undefined;
 };
 
@@ -468,50 +466,48 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: OutputDynatraceOtlpProtocol$outboundSchema.default("http"),
-  endpoint: z.string().default(
-    "https://{your-environment-id}.live.dynatrace.com/api/v2/otlp",
-  ),
-  otlpVersion: OtlpVersionOptions1$outboundSchema.default("1.3.1"),
-  compress: CompressionOptions4$outboundSchema.default("gzip"),
-  httpCompress: CompressionOptions5$outboundSchema.default("gzip"),
+  protocol: OutputDynatraceOtlpProtocol$outboundSchema,
+  endpoint: z.string(),
+  otlpVersion: OtlpVersionOptions1$outboundSchema,
+  compress: CompressionOptions4$outboundSchema.optional(),
+  httpCompress: CompressionOptions5$outboundSchema.optional(),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
   metadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema).optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(2048),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
-    .default("none"),
-  connectionTimeout: z.number().default(10000),
-  keepAliveTime: z.number().default(30),
-  keepAlive: z.boolean().default(true),
-  endpointType: EndpointType$outboundSchema.default("saas"),
+    .optional(),
+  connectionTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  keepAlive: z.boolean().optional(),
+  endpointType: EndpointType$outboundSchema,
   tokenSecret: z.string(),
-  authTokenName: z.string().default("Authorization"),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  authTokenName: z.string().optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
-  rejectUnauthorized: z.boolean().default(true),
-  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().optional(),
+  useRoundRobinDns: z.boolean().optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputDynatraceOtlpPqControls$outboundSchema)
     .optional(),
 });

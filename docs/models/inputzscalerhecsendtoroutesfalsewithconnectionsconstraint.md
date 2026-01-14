@@ -6,6 +6,7 @@
 import { InputZscalerHecSendToRoutesFalseWithConnectionsConstraint } from "cribl-control-plane/models";
 
 let value: InputZscalerHecSendToRoutesFalseWithConnectionsConstraint = {
+  sendToRoutes: true,
   connections: [
     {
       pipeline: "<value>",
@@ -14,20 +15,34 @@ let value: InputZscalerHecSendToRoutesFalseWithConnectionsConstraint = {
   ],
   id: "<id>",
   type: "zscaler_hec",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  port: 3501.16,
+  host: "worst-diversity.com",
+  port: 1665.35,
   authTokens: [
     {
+      authType: "secret",
       tokenSecret: "<value>",
       token: "<value>",
-      description: "enchanted vacantly attraction",
+      enabled: true,
+      description: "switch within furthermore quarrelsomely",
       allowedIndexesAtToken: [
         "<value 1>",
         "<value 2>",
@@ -42,15 +57,30 @@ let value: InputZscalerHecSendToRoutesFalseWithConnectionsConstraint = {
     },
   ],
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveReq: 9703.02,
+  maxRequestsPerSocket: 336750,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 7336.31,
+  requestTimeout: 824.41,
+  socketTimeout: 2281.83,
+  keepAliveTimeout: 9998.47,
   enableHealthCheck: "<value>",
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  hecAPI: "<value>",
   metadata: [
     {
       name: "<value>",
@@ -59,7 +89,9 @@ let value: InputZscalerHecSendToRoutesFalseWithConnectionsConstraint = {
   ],
   allowedIndexes: [
     "<value 1>",
+    "<value 2>",
   ],
+  hecAcks: true,
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
@@ -68,9 +100,9 @@ let value: InputZscalerHecSendToRoutesFalseWithConnectionsConstraint = {
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  description: "pro bah legislature throughout viciously",
+  emitTokenMetrics: false,
+  description: "cleave biodegrade gee",
 };
 ```
 
@@ -78,7 +110,7 @@ let value: InputZscalerHecSendToRoutesFalseWithConnectionsConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
 | `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [models.InputZscalerHecType](../models/inputzscalerhectype.md)                                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
@@ -88,7 +120,7 @@ let value: InputZscalerHecSendToRoutesFalseWithConnectionsConstraint = {
 | `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
 | `pq`                                                                                                                                                                                                                                         | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
+| `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
 | `port`                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Port to listen on                                                                                                                                                                                                                            |
 | `authTokens`                                                                                                                                                                                                                                 | [models.InputZscalerHecAuthToken](../models/inputzscalerhecauthtoken.md)[]                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.                                                                                                                            |
 | `tls`                                                                                                                                                                                                                                        | [models.TlsSettingsServerSideType](../models/tlssettingsserversidetype.md)                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
@@ -103,7 +135,7 @@ let value: InputZscalerHecSendToRoutesFalseWithConnectionsConstraint = {
 | `enableHealthCheck`                                                                                                                                                                                                                          | *any*                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `ipAllowlistRegex`                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Messages from matched IP addresses will be processed, unless also matched by the denylist                                                                                                                                                    |
 | `ipDenylistRegex`                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.                                                                                                                                                |
-| `hecAPI`                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Absolute path on which to listen for the Zscaler HTTP Event Collector API requests. This input supports the /event endpoint.                                                                                                                 |
+| `hecAPI`                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Absolute path on which to listen for the Zscaler HTTP Event Collector API requests. This input supports the /event endpoint.                                                                                                                 |
 | `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to every event. May be overridden by fields added at the token or request level.                                                                                                                                               |
 | `allowedIndexes`                                                                                                                                                                                                                             | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.                                                                            |
 | `hecAcks`                                                                                                                                                                                                                                    | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Whether to enable Zscaler HEC acknowledgements                                                                                                                                                                                               |

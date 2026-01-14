@@ -6,13 +6,17 @@
 import { InputCriblLakeHttpPqEnabledFalseConstraint } from "cribl-control-plane/models";
 
 let value: InputCriblLakeHttpPqEnabledFalseConstraint = {
+  pqEnabled: true,
   id: "<id>",
   type: "cribl_lake_http",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -21,23 +25,49 @@ let value: InputCriblLakeHttpPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  port: 3056.24,
+  host: "steel-habit.org",
+  port: 7644.06,
   authTokens: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveReq: 6622.93,
+  maxRequestsPerSocket: 170555,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 9567.93,
+  requestTimeout: 6711.72,
+  socketTimeout: 4616.58,
+  keepAliveTimeout: 4057.73,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  criblAPI: "<value>",
+  elasticAPI: "<value>",
+  splunkHecAPI: "<value>",
+  splunkHecAcks: true,
   metadata: [
     {
       name: "<value>",
@@ -47,7 +77,7 @@ let value: InputCriblLakeHttpPqEnabledFalseConstraint = {
   authTokensExt: [
     {
       token: "<value>",
-      description: "across fooey judgementally cork",
+      description: "so provided intensely",
       metadata: [
         {
           name: "<value>",
@@ -55,11 +85,12 @@ let value: InputCriblLakeHttpPqEnabledFalseConstraint = {
         },
       ],
       splunkHecMetadata: {
-        enabled: false,
+        enabled: true,
         defaultDataset: "<value>",
         allowedIndexesAtToken: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
       },
       elasticsearchMetadata: {
@@ -68,7 +99,7 @@ let value: InputCriblLakeHttpPqEnabledFalseConstraint = {
       },
     },
   ],
-  description: "dearest uh-huh near ruddy even amidst round if reproach",
+  description: "nectarine showy roadway",
 };
 ```
 
@@ -76,7 +107,7 @@ let value: InputCriblLakeHttpPqEnabledFalseConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [models.InputCriblLakeHttpType](../models/inputcribllakehttptype.md)                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
@@ -86,7 +117,7 @@ let value: InputCriblLakeHttpPqEnabledFalseConstraint = {
 | `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
 | `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
 | `pq`                                                                                                                                                                                                                                         | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
+| `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
 | `port`                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Port to listen on                                                                                                                                                                                                                            |
 | `authTokens`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.                                                                                                                            |
 | `tls`                                                                                                                                                                                                                                        | [models.TlsSettingsServerSideType](../models/tlssettingsserversidetype.md)                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

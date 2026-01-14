@@ -79,7 +79,7 @@ export const FunctionConfSchemaRegexFilter$inboundSchema: z.ZodType<
   regexList: z.array(
     z.lazy(() => FunctionConfSchemaRegexFilterRegexList$inboundSchema),
   ).optional(),
-  field: z.string().default("_raw"),
+  field: z.string().optional(),
 });
 /** @internal */
 export type FunctionConfSchemaRegexFilter$Outbound = {
@@ -87,7 +87,7 @@ export type FunctionConfSchemaRegexFilter$Outbound = {
   regexList?:
     | Array<FunctionConfSchemaRegexFilterRegexList$Outbound>
     | undefined;
-  field: string;
+  field?: string | undefined;
 };
 
 /** @internal */
@@ -100,7 +100,7 @@ export const FunctionConfSchemaRegexFilter$outboundSchema: z.ZodType<
   regexList: z.array(
     z.lazy(() => FunctionConfSchemaRegexFilterRegexList$outboundSchema),
   ).optional(),
-  field: z.string().default("_raw"),
+  field: z.string().optional(),
 });
 
 export function functionConfSchemaRegexFilterToJSON(

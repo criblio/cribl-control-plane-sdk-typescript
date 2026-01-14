@@ -7,13 +7,15 @@
 
 ```typescript
 const value: models.InputCriblSendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "cribl",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -22,6 +24,13 @@ const value: models.InputCriblSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   filter: "<value>",
@@ -31,8 +40,7 @@ const value: models.InputCriblSendToRoutesTrueConstraint = {
       value: "<value>",
     },
   ],
-  description:
-    "duh silk gently intently infamous fit pale as jubilantly modulo",
+  description: "easily often while freckle",
 };
 ```
 
@@ -40,6 +48,7 @@ const value: models.InputCriblSendToRoutesTrueConstraint = {
 
 ```typescript
 const value: models.InputCriblSendToRoutesFalseWithConnectionsConstraint = {
+  sendToRoutes: true,
   connections: [
     {
       pipeline: "<value>",
@@ -48,12 +57,21 @@ const value: models.InputCriblSendToRoutesFalseWithConnectionsConstraint = {
   ],
   id: "<id>",
   type: "cribl",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   filter: "<value>",
@@ -63,7 +81,7 @@ const value: models.InputCriblSendToRoutesFalseWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description: "draw psst monstrous wilted doubtfully till",
+  description: "ick swathe furiously medium consequently",
 };
 ```
 
@@ -71,9 +89,63 @@ const value: models.InputCriblSendToRoutesFalseWithConnectionsConstraint = {
 
 ```typescript
 const value: models.InputCriblPqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "cribl",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
+    pqControls: {},
+  },
+  filter: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "courageously fussy solidly reiterate oddball where sneaky",
+};
+```
+
+### `models.InputCriblPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: models.InputCriblPqEnabledTrueWithPqConstraint = {
+  pqEnabled: false,
+  pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "cribl",
+  disabled: true,
+  pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -86,9 +158,6 @@ const value: models.InputCriblPqEnabledFalseConstraint = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
   filter: "<value>",
   metadata: [
     {
@@ -96,39 +165,7 @@ const value: models.InputCriblPqEnabledFalseConstraint = {
       value: "<value>",
     },
   ],
-  description: "because spew downright satisfy dulcimer",
-};
-```
-
-### `models.InputCriblPqEnabledTrueWithPqConstraint`
-
-```typescript
-const value: models.InputCriblPqEnabledTrueWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "cribl",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  filter: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "pastel moralise chase paintwork upon",
+  description: "up boohoo quip separately step-mother nab mmm duh chap broken",
 };
 ```
 

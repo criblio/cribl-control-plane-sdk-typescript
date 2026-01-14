@@ -25,12 +25,12 @@ export const ItemsTypeUrls$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   url: z.string(),
-  weight: z.number().default(1),
+  weight: z.number().optional(),
 });
 /** @internal */
 export type ItemsTypeUrls$Outbound = {
   url: string;
-  weight: number;
+  weight?: number | undefined;
 };
 
 /** @internal */
@@ -40,7 +40,7 @@ export const ItemsTypeUrls$outboundSchema: z.ZodType<
   ItemsTypeUrls
 > = z.object({
   url: z.string(),
-  weight: z.number().default(1),
+  weight: z.number().optional(),
 });
 
 export function itemsTypeUrlsToJSON(itemsTypeUrls: ItemsTypeUrls): string {

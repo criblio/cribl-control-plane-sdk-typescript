@@ -7,6 +7,12 @@ import { FunctionConfSchemaSuppress } from "cribl-control-plane/models";
 
 let value: FunctionConfSchemaSuppress = {
   keyExpr: "<value>",
+  allow: 3979,
+  suppressPeriodSec: 4401.67,
+  dropEventsMode: true,
+  maxCacheSize: 5254.75,
+  cacheIdleTimeoutPeriods: 9190.54,
+  numEventsIdleTimeoutTrigger: 4799.82,
 };
 ```
 

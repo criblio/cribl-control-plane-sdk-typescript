@@ -101,18 +101,18 @@ export const PipelineFunctionMvExpandConf$inboundSchema: z.ZodType<
 > = z.object({
   sourceFields: z.array(z.string()),
   targetNames: z.array(z.string()).optional(),
-  rowLimit: z.number().default(9007199254740991),
+  rowLimit: z.number().optional(),
   itemIndexName: z.string().optional(),
   bagExpansionMode: PipelineFunctionMvExpandBagExpansionMode$inboundSchema
-    .default("bag"),
+    .optional(),
 });
 /** @internal */
 export type PipelineFunctionMvExpandConf$Outbound = {
   sourceFields: Array<string>;
   targetNames?: Array<string> | undefined;
-  rowLimit: number;
+  rowLimit?: number | undefined;
   itemIndexName?: string | undefined;
-  bagExpansionMode: string;
+  bagExpansionMode?: string | undefined;
 };
 
 /** @internal */
@@ -123,10 +123,10 @@ export const PipelineFunctionMvExpandConf$outboundSchema: z.ZodType<
 > = z.object({
   sourceFields: z.array(z.string()),
   targetNames: z.array(z.string()).optional(),
-  rowLimit: z.number().default(9007199254740991),
+  rowLimit: z.number().optional(),
   itemIndexName: z.string().optional(),
   bagExpansionMode: PipelineFunctionMvExpandBagExpansionMode$outboundSchema
-    .default("bag"),
+    .optional(),
 });
 
 export function pipelineFunctionMvExpandConfToJSON(
@@ -154,7 +154,7 @@ export const PipelineFunctionMvExpand$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("mv_expand"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -164,7 +164,7 @@ export const PipelineFunctionMvExpand$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionMvExpand$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "mv_expand";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -179,7 +179,7 @@ export const PipelineFunctionMvExpand$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionMvExpand
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("mv_expand"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

@@ -7,12 +7,17 @@
 
 ```typescript
 const value: models.InputCriblmetricsSendToRoutesTrueConstraint = {
+  sendToRoutes: true,
   id: "<id>",
   type: "criblmetrics",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -21,15 +26,24 @@ const value: models.InputCriblmetricsSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  prefix: "<value>",
+  fullFidelity: true,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "verbally intently which during upbeat courtroom which ha",
+  description: "oh restaurant but",
 };
 ```
 
@@ -38,6 +52,7 @@ const value: models.InputCriblmetricsSendToRoutesTrueConstraint = {
 ```typescript
 const value:
   models.InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint = {
+    sendToRoutes: false,
     connections: [
       {
         pipeline: "<value>",
@@ -46,23 +61,32 @@ const value:
     ],
     id: "<id>",
     type: "criblmetrics",
+    disabled: false,
     pipeline: "<value>",
     environment: "<value>",
+    pqEnabled: false,
     streamtags: [
       "<value 1>",
-      "<value 2>",
     ],
     pq: {
+      mode: "smart",
+      maxBufferSize: 1717.96,
+      commitFrequency: 1412.18,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/include",
+      compress: "none",
       pqControls: {},
     },
+    prefix: "<value>",
+    fullFidelity: false,
     metadata: [
       {
         name: "<value>",
         value: "<value>",
       },
     ],
-    description:
-      "incline furthermore beneath along average regularly calculus until newsstand",
+    description: "intently pilot gee scarcely midst",
   };
 ```
 
@@ -70,9 +94,12 @@ const value:
 
 ```typescript
 const value: models.InputCriblmetricsPqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "criblmetrics",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -85,16 +112,24 @@ const value: models.InputCriblmetricsPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  prefix: "<value>",
+  fullFidelity: true,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "jogging efface questioningly accelerator pessimistic whenever nor lanky zowie",
+  description: "fireplace archive soulful hunger since whale swine",
 };
 ```
 
@@ -102,16 +137,25 @@ const value: models.InputCriblmetricsPqEnabledFalseConstraint = {
 
 ```typescript
 const value: models.InputCriblmetricsPqEnabledTrueWithPqConstraint = {
+  pqEnabled: true,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "criblmetrics",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -119,14 +163,15 @@ const value: models.InputCriblmetricsPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
+  prefix: "<value>",
+  fullFidelity: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "inasmuch properly indeed as vicinity trench defiantly and blindly yuck",
+  description: "at likewise geez",
 };
 ```
 

@@ -10,6 +10,7 @@ let value: FunctionConfSchemaEval = {
     {
       name: "<value>",
       value: "<value>",
+      disabled: true,
     },
   ],
   keep: [

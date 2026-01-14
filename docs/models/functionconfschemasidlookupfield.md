@@ -8,6 +8,7 @@ import { FunctionConfSchemaSidlookupField } from "cribl-control-plane/models";
 let value: FunctionConfSchemaSidlookupField = {
   name: "<value>",
   expr: "<value>",
+  disabled: true,
 };
 ```
 

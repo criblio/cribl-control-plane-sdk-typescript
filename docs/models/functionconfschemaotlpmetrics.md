@@ -10,6 +10,9 @@ let value: FunctionConfSchemaOtlpMetrics = {
     "<value 1>",
     "<value 2>",
   ],
+  dropNonMetricEvents: false,
+  otlpVersion: "0.10.0",
+  batchOTLPMetrics: true,
 };
 ```
 

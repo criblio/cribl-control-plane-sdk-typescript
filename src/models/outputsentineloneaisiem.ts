@@ -113,11 +113,11 @@ export type OutputSentinelOneAiSiem = {
   /**
    * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
    */
-  region?: Region | undefined;
+  region: Region;
   /**
    * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
    */
-  endpoint?: AISIEMEndpointPath | undefined;
+  endpoint: AISIEMEndpointPath;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -358,63 +358,53 @@ export const OutputSentinelOneAiSiem$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  region: Region$inboundSchema.default("US"),
-  endpoint: AISIEMEndpointPath$inboundSchema.default(
-    "/services/collector/event",
-  ),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(5120),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(5),
+  region: Region$inboundSchema,
+  endpoint: AISIEMEndpointPath$inboundSchema,
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
-    .default("none"),
+    .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-    "manual",
-  ),
+  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
-  hostExpression: z.string().default("__e.host || C.os.hostname()"),
-  sourceExpression: z.string().default(
-    "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
-  ),
-  sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
-  dataSourceCategoryExpression: z.string().default("'security'"),
-  dataSourceNameExpression: z.string().default(
-    "__e.__dataSourceName || 'cribl'",
-  ),
-  dataSourceVendorExpression: z.string().default(
-    "__e.__dataSourceVendor || 'cribl'",
-  ),
-  eventTypeExpression: z.string().default(""),
-  host: z.string().default("C.os.hostname()"),
-  source: z.string().default("cribl"),
-  sourceType: z.string().default("hecRawParser"),
-  dataSourceCategory: z.string().default("security"),
-  dataSourceName: z.string().default("cribl"),
-  dataSourceVendor: z.string().default("cribl"),
-  eventType: z.string().default(""),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  baseUrl: z.string().optional(),
+  hostExpression: z.string().optional(),
+  sourceExpression: z.string().optional(),
+  sourceTypeExpression: z.string().optional(),
+  dataSourceCategoryExpression: z.string().optional(),
+  dataSourceNameExpression: z.string().optional(),
+  dataSourceVendorExpression: z.string().optional(),
+  eventTypeExpression: z.string().optional(),
+  host: z.string().optional(),
+  source: z.string().optional(),
+  sourceType: z.string().optional(),
+  dataSourceCategory: z.string().optional(),
+  dataSourceName: z.string().optional(),
+  dataSourceVendor: z.string().optional(),
+  eventType: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputSentinelOneAiSiemPqControls$inboundSchema)
     .optional(),
 });
@@ -428,51 +418,51 @@ export type OutputSentinelOneAiSiem$Outbound = {
   streamtags?: Array<string> | undefined;
   region: string;
   endpoint: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
-  failedRequestLoggingMode: string;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  authType: string;
+  authType?: string | undefined;
   responseRetrySettings?:
     | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
-  baseUrl: string;
-  hostExpression: string;
-  sourceExpression: string;
-  sourceTypeExpression: string;
-  dataSourceCategoryExpression: string;
-  dataSourceNameExpression: string;
-  dataSourceVendorExpression: string;
-  eventTypeExpression: string;
-  host: string;
-  source: string;
-  sourceType: string;
-  dataSourceCategory: string;
-  dataSourceName: string;
-  dataSourceVendor: string;
-  eventType: string;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  baseUrl?: string | undefined;
+  hostExpression?: string | undefined;
+  sourceExpression?: string | undefined;
+  sourceTypeExpression?: string | undefined;
+  dataSourceCategoryExpression?: string | undefined;
+  dataSourceNameExpression?: string | undefined;
+  dataSourceVendorExpression?: string | undefined;
+  eventTypeExpression?: string | undefined;
+  host?: string | undefined;
+  source?: string | undefined;
+  sourceType?: string | undefined;
+  dataSourceCategory?: string | undefined;
+  dataSourceName?: string | undefined;
+  dataSourceVendor?: string | undefined;
+  eventType?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputSentinelOneAiSiemPqControls$Outbound | undefined;
 };
 
@@ -488,64 +478,55 @@ export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  region: Region$outboundSchema.default("US"),
-  endpoint: AISIEMEndpointPath$outboundSchema.default(
-    "/services/collector/event",
-  ),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(5120),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(5),
+  region: Region$outboundSchema,
+  endpoint: AISIEMEndpointPath$outboundSchema,
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
-    .default("none"),
+    .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-    "manual",
-  ),
+  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
-  hostExpression: z.string().default("__e.host || C.os.hostname()"),
-  sourceExpression: z.string().default(
-    "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
-  ),
-  sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
-  dataSourceCategoryExpression: z.string().default("'security'"),
-  dataSourceNameExpression: z.string().default(
-    "__e.__dataSourceName || 'cribl'",
-  ),
-  dataSourceVendorExpression: z.string().default(
-    "__e.__dataSourceVendor || 'cribl'",
-  ),
-  eventTypeExpression: z.string().default(""),
-  host: z.string().default("C.os.hostname()"),
-  source: z.string().default("cribl"),
-  sourceType: z.string().default("hecRawParser"),
-  dataSourceCategory: z.string().default("security"),
-  dataSourceName: z.string().default("cribl"),
-  dataSourceVendor: z.string().default("cribl"),
-  eventType: z.string().default(""),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  baseUrl: z.string().optional(),
+  hostExpression: z.string().optional(),
+  sourceExpression: z.string().optional(),
+  sourceTypeExpression: z.string().optional(),
+  dataSourceCategoryExpression: z.string().optional(),
+  dataSourceNameExpression: z.string().optional(),
+  dataSourceVendorExpression: z.string().optional(),
+  eventTypeExpression: z.string().optional(),
+  host: z.string().optional(),
+  source: z.string().optional(),
+  sourceType: z.string().optional(),
+  dataSourceCategory: z.string().optional(),
+  dataSourceName: z.string().optional(),
+  dataSourceVendor: z.string().optional(),
+  eventType: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputSentinelOneAiSiemPqControls$outboundSchema)
     .optional(),
 });

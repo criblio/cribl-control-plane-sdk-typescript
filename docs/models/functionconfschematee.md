@@ -11,9 +11,11 @@ let value: FunctionConfSchemaTee = {
     "<value 1>",
     "<value 2>",
   ],
+  restartOnExit: true,
   env: {
     "key": "<value>",
     "key1": "<value>",
+    "key2": "<value>",
   },
 };
 ```

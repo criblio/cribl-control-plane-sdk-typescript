@@ -19,18 +19,44 @@ let value: OutputSplunk = {
     "<value 3>",
   ],
   host: "elastic-custody.com",
+  port: 591.86,
+  nestedFields: "json",
+  throttleRatePerSec: "<value>",
+  connectionTimeout: 7911.16,
+  writeTimeout: 7603.34,
   tls: {
+    disabled: true,
+    rejectUnauthorized: true,
     servername: "<value>",
     certificateName: "<value>",
     caPath: "<value>",
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1.3",
   },
-  description: "nor brr aggravating",
+  enableMultiMetrics: false,
+  enableACK: true,
+  logFailedRequests: false,
+  maxS2Sversion: "v3",
+  onBackpressure: "queue",
+  authType: "manual",
+  description: "excepting why near absentmindedly bracelet beret chap",
+  maxFailedHealthChecks: 1903.03,
+  compress: "disabled",
+  pqStrictOrdering: true,
+  pqRatePerSec: 3661.02,
+  pqMode: "error",
+  pqMaxBufferSize: 6767.61,
+  pqMaxBackpressureSec: 7998.82,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "gzip",
+  pqOnBackpressure: "block",
   pqControls: {},
+  authToken: "<value>",
   textSecret: "<value>",
 };
 ```
@@ -46,7 +72,7 @@ let value: OutputSplunk = {
 | `environment`                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                           |
 | `streamtags`                                                                                                                                                                                                                                                   | *string*[]                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                             | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                  |
 | `host`                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                             | The hostname of the receiver                                                                                                                                                                                                                                   |
-| `port`                                                                                                                                                                                                                                                         | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | The port to connect to on the provided host                                                                                                                                                                                                                    |
+| `port`                                                                                                                                                                                                                                                         | *number*                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                             | The port to connect to on the provided host                                                                                                                                                                                                                    |
 | `nestedFields`                                                                                                                                                                                                                                                 | [models.NestedFieldSerializationOptions](../models/nestedfieldserializationoptions.md)                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                             | How to serialize nested fields into index-time fields                                                                                                                                                                                                          |
 | `throttleRatePerSec`                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.                                                               |
 | `connectionTimeout`                                                                                                                                                                                                                                            | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Amount of time (milliseconds) to wait for the connection to establish before retrying                                                                                                                                                                          |

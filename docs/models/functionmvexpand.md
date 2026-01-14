@@ -29,7 +29,9 @@ let value: FunctionMvExpand = {
     targetNames: [
       "<value 1>",
     ],
+    rowLimit: 5121.23,
     itemIndexName: "<value>",
+    bagExpansionMode: "bag",
   },
 };
 ```

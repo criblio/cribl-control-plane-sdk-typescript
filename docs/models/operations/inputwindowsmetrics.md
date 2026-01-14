@@ -7,13 +7,15 @@
 
 ```typescript
 const value: operations.InputWindowsMetricsSendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "windows_metrics",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -22,23 +24,49 @@ const value: operations.InputWindowsMetricsSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  interval: 2679.55,
   host: {
+    mode: "custom",
     custom: {
-      system: {},
-      cpu: {},
-      memory: {},
+      system: {
+        mode: "disabled",
+        detail: false,
+      },
+      cpu: {
+        mode: "disabled",
+        perCpu: false,
+        detail: false,
+        time: false,
+      },
+      memory: {
+        mode: "disabled",
+        detail: false,
+      },
       network: {
+        mode: "disabled",
+        detail: true,
+        protocols: true,
         devices: [
           "<value 1>",
           "<value 2>",
         ],
+        perInterface: true,
       },
       disk: {
+        mode: "disabled",
+        perVolume: false,
+        detail: false,
         volumes: [
           "<value 1>",
-          "<value 2>",
         ],
       },
     },
@@ -48,6 +76,7 @@ const value: operations.InputWindowsMetricsSendToRoutesTrueConstraint = {
       {
         name: "<value>",
         filter: "<value>",
+        includeChildren: false,
       },
     ],
   },
@@ -57,8 +86,16 @@ const value: operations.InputWindowsMetricsSendToRoutesTrueConstraint = {
       value: "<value>",
     },
   ],
-  persistence: {},
-  description: "ugh pish likewise guzzle stupendous although vice dismal",
+  persistence: {
+    enable: true,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+    destPath: "<value>",
+  },
+  disableNativeModule: true,
+  description: "lamp quizzically menacing",
 };
 ```
 
@@ -67,6 +104,7 @@ const value: operations.InputWindowsMetricsSendToRoutesTrueConstraint = {
 ```typescript
 const value:
   operations.InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint = {
+    sendToRoutes: true,
     connections: [
       {
         pipeline: "<value>",
@@ -75,30 +113,57 @@ const value:
     ],
     id: "<id>",
     type: "windows_metrics",
+    disabled: false,
     pipeline: "<value>",
     environment: "<value>",
+    pqEnabled: false,
     streamtags: [
       "<value 1>",
-      "<value 2>",
     ],
     pq: {
+      mode: "smart",
+      maxBufferSize: 1717.96,
+      commitFrequency: 1412.18,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/include",
+      compress: "none",
       pqControls: {},
     },
+    interval: 1657.3,
     host: {
+      mode: "custom",
       custom: {
-        system: {},
-        cpu: {},
-        memory: {},
+        system: {
+          mode: "disabled",
+          detail: false,
+        },
+        cpu: {
+          mode: "disabled",
+          perCpu: false,
+          detail: false,
+          time: false,
+        },
+        memory: {
+          mode: "disabled",
+          detail: false,
+        },
         network: {
+          mode: "disabled",
+          detail: true,
+          protocols: true,
           devices: [
             "<value 1>",
             "<value 2>",
           ],
+          perInterface: true,
         },
         disk: {
+          mode: "disabled",
+          perVolume: false,
+          detail: false,
           volumes: [
             "<value 1>",
-            "<value 2>",
           ],
         },
       },
@@ -108,6 +173,7 @@ const value:
         {
           name: "<value>",
           filter: "<value>",
+          includeChildren: false,
         },
       ],
     },
@@ -117,9 +183,17 @@ const value:
         value: "<value>",
       },
     ],
-    persistence: {},
+    persistence: {
+      enable: true,
+      timeWindow: "<value>",
+      maxDataSize: "<value>",
+      maxDataTime: "<value>",
+      compress: "gzip",
+      destPath: "<value>",
+    },
+    disableNativeModule: false,
     description:
-      "fall vengeful scale severe miserable minus secret at reclassify",
+      "laughter yippee minor lighthearted pricey notwithstanding given gosh tromp",
   };
 ```
 
@@ -127,71 +201,12 @@ const value:
 
 ```typescript
 const value: operations.InputWindowsMetricsPqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "windows_metrics",
+  disabled: true,
   pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  host: {
-    custom: {
-      system: {},
-      cpu: {},
-      memory: {},
-      network: {
-        devices: [
-          "<value 1>",
-          "<value 2>",
-        ],
-      },
-      disk: {
-        volumes: [
-          "<value 1>",
-          "<value 2>",
-        ],
-      },
-    },
-  },
-  process: {
-    sets: [
-      {
-        name: "<value>",
-        filter: "<value>",
-      },
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  description: "institute colour prance",
-};
-```
-
-### `operations.InputWindowsMetricsPqEnabledTrueWithPqConstraint`
-
-```typescript
-const value: operations.InputWindowsMetricsPqEnabledTrueWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "windows_metrics",
-  pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -204,21 +219,50 @@ const value: operations.InputWindowsMetricsPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
+    pqControls: {},
+  },
+  interval: 845.39,
   host: {
+    mode: "custom",
     custom: {
-      system: {},
-      cpu: {},
-      memory: {},
+      system: {
+        mode: "disabled",
+        detail: false,
+      },
+      cpu: {
+        mode: "disabled",
+        perCpu: false,
+        detail: false,
+        time: false,
+      },
+      memory: {
+        mode: "disabled",
+        detail: false,
+      },
       network: {
+        mode: "disabled",
+        detail: true,
+        protocols: true,
         devices: [
           "<value 1>",
           "<value 2>",
         ],
+        perInterface: true,
       },
       disk: {
+        mode: "disabled",
+        perVolume: false,
+        detail: false,
         volumes: [
           "<value 1>",
-          "<value 2>",
         ],
       },
     },
@@ -228,6 +272,7 @@ const value: operations.InputWindowsMetricsPqEnabledTrueWithPqConstraint = {
       {
         name: "<value>",
         filter: "<value>",
+        includeChildren: false,
       },
     ],
   },
@@ -237,8 +282,113 @@ const value: operations.InputWindowsMetricsPqEnabledTrueWithPqConstraint = {
       value: "<value>",
     },
   ],
-  persistence: {},
-  description: "wee from thoughtfully duh to advancement",
+  persistence: {
+    enable: true,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+    destPath: "<value>",
+  },
+  disableNativeModule: false,
+  description: "doorpost ugh cow opposite shyly brr unlawful unless",
+};
+```
+
+### `operations.InputWindowsMetricsPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: operations.InputWindowsMetricsPqEnabledTrueWithPqConstraint = {
+  pqEnabled: false,
+  pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "windows_metrics",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: false,
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  interval: 4223.62,
+  host: {
+    mode: "custom",
+    custom: {
+      system: {
+        mode: "disabled",
+        detail: false,
+      },
+      cpu: {
+        mode: "disabled",
+        perCpu: false,
+        detail: false,
+        time: false,
+      },
+      memory: {
+        mode: "disabled",
+        detail: false,
+      },
+      network: {
+        mode: "disabled",
+        detail: true,
+        protocols: true,
+        devices: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        perInterface: true,
+      },
+      disk: {
+        mode: "disabled",
+        perVolume: false,
+        detail: false,
+        volumes: [
+          "<value 1>",
+        ],
+      },
+    },
+  },
+  process: {
+    sets: [
+      {
+        name: "<value>",
+        filter: "<value>",
+        includeChildren: false,
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {
+    enable: true,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+    destPath: "<value>",
+  },
+  disableNativeModule: true,
+  description: "selfishly trial culture amid by self-assured qua er towards",
 };
 ```
 

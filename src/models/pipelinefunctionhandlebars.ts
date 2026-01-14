@@ -23,7 +23,7 @@ export type PipelineFunctionHandlebarsTemplateDefinition = {
   /**
    * Type categorization for the template (e.g., Universal, Email, Slack)
    */
-  type?: string | undefined;
+  type: string;
 };
 
 export type PipelineFunctionHandlebarsConf = {
@@ -83,7 +83,7 @@ export const PipelineFunctionHandlebarsTemplateDefinition$inboundSchema:
     id: z.string(),
     content: z.string(),
     description: z.string().optional(),
-    type: z.string().default("Universal"),
+    type: z.string(),
   });
 /** @internal */
 export type PipelineFunctionHandlebarsTemplateDefinition$Outbound = {
@@ -103,7 +103,7 @@ export const PipelineFunctionHandlebarsTemplateDefinition$outboundSchema:
     id: z.string(),
     content: z.string(),
     description: z.string().optional(),
-    type: z.string().default("Universal"),
+    type: z.string(),
   });
 
 export function pipelineFunctionHandlebarsTemplateDefinitionToJSON(
@@ -141,16 +141,16 @@ export const PipelineFunctionHandlebarsConf$inboundSchema: z.ZodType<
   templates: z.array(
     z.lazy(() => PipelineFunctionHandlebarsTemplateDefinition$inboundSchema),
   ),
-  targetField: z.string().default("_raw"),
-  parseJson: z.boolean().default(false),
-  removeOnNull: z.boolean().default(true),
+  targetField: z.string().optional(),
+  parseJson: z.boolean().optional(),
+  removeOnNull: z.boolean().optional(),
 });
 /** @internal */
 export type PipelineFunctionHandlebarsConf$Outbound = {
   templates: Array<PipelineFunctionHandlebarsTemplateDefinition$Outbound>;
-  targetField: string;
-  parseJson: boolean;
-  removeOnNull: boolean;
+  targetField?: string | undefined;
+  parseJson?: boolean | undefined;
+  removeOnNull?: boolean | undefined;
 };
 
 /** @internal */
@@ -162,9 +162,9 @@ export const PipelineFunctionHandlebarsConf$outboundSchema: z.ZodType<
   templates: z.array(
     z.lazy(() => PipelineFunctionHandlebarsTemplateDefinition$outboundSchema),
   ),
-  targetField: z.string().default("_raw"),
-  parseJson: z.boolean().default(false),
-  removeOnNull: z.boolean().default(true),
+  targetField: z.string().optional(),
+  parseJson: z.boolean().optional(),
+  removeOnNull: z.boolean().optional(),
 });
 
 export function pipelineFunctionHandlebarsConfToJSON(
@@ -192,7 +192,7 @@ export const PipelineFunctionHandlebars$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("handlebars"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -202,7 +202,7 @@ export const PipelineFunctionHandlebars$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionHandlebars$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "handlebars";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -217,7 +217,7 @@ export const PipelineFunctionHandlebars$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionHandlebars
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("handlebars"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

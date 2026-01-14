@@ -22,9 +22,16 @@ let value: FunctionStore = {
   },
   version: "<value>",
   schema: {
+    type: "<value>",
     destination: "<value>",
     description: "once platypus huddle dreamily deployment potentially",
     fieldMapping: {},
+    separator: "<value>",
+    overwrite: false,
+    compress: "<value>",
+    tee: true,
+    maxEvents: 1796.69,
+    suppressPreviews: false,
   },
 };
 ```

@@ -12,6 +12,7 @@ let value: FunctionConfSchemaRegexFilter = {
       regex: "<value>",
     },
   ],
+  field: "<value>",
 };
 ```
 

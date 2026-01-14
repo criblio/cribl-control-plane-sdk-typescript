@@ -23,8 +23,12 @@ let value: FunctionSend = {
   version: "<value>",
   schema: {
     url: "https://somber-feather.name",
+    group: "<value>",
+    workspace: "<value>",
     sendUrlTemplate: "<value>",
     searchId: "<id>",
+    tee: "<value>",
+    flushMs: 9785.46,
     suppressPreviews: false,
     mode: "metrics",
   },

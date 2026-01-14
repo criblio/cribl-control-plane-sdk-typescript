@@ -34,11 +34,11 @@ export type FunctionConfSchemaSerde = {
   /**
    * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
    */
-  mode: FunctionConfSchemaSerdeOperationMode;
+  mode?: FunctionConfSchemaSerdeOperationMode | undefined;
   /**
    * Parser or formatter type to use
    */
-  type: TypeOptions;
+  type?: TypeOptions | undefined;
   delimChar?: any | undefined;
   quoteChar?: any | undefined;
   escapeChar?: any | undefined;
@@ -46,7 +46,7 @@ export type FunctionConfSchemaSerde = {
   /**
    * Field containing text to be parsed
    */
-  srcField: string;
+  srcField?: string | undefined;
   /**
    * Name of the field to add fields to. Extract mode only.
    */
@@ -67,13 +67,13 @@ export const FunctionConfSchemaSerde$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: FunctionConfSchemaSerdeOperationMode$inboundSchema.default("extract"),
-  type: TypeOptions$inboundSchema.default("csv"),
+  mode: FunctionConfSchemaSerdeOperationMode$inboundSchema.optional(),
+  type: TypeOptions$inboundSchema.optional(),
   delimChar: z.any().optional(),
   quoteChar: z.any().optional(),
   escapeChar: z.any().optional(),
   nullValue: z.any().optional(),
-  srcField: z.string().default("_raw"),
+  srcField: z.string().optional(),
   dstField: z.string().optional(),
   cleanFields: z.any().optional(),
 });

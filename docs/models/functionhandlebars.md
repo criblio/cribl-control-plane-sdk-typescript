@@ -30,8 +30,12 @@ let value: FunctionHandlebars = {
         content: "<value>",
         description:
           "zesty red contrail fiercely international sympathetically yum",
+        type: "<value>",
       },
     ],
+    targetField: "<value>",
+    parseJson: true,
+    removeOnNull: true,
   },
 };
 ```

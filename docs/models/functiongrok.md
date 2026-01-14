@@ -28,6 +28,7 @@ let value: FunctionGrok = {
         pattern: "<value>",
       },
     ],
+    source: "<value>",
   },
 };
 ```

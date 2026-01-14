@@ -6,15 +6,26 @@
 import { InputDatadogAgentPqEnabledTrueWithPqConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputDatadogAgentPqEnabledTrueWithPqConstraint = {
+  pqEnabled: true,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "datadog_agent",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -22,25 +33,45 @@ let value: InputDatadogAgentPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 8557.04,
+  host: "formal-puppet.name",
+  port: 3500.57,
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveReq: 5992.32,
+  maxRequestsPerSocket: 384131,
+  enableProxyHeader: true,
+  captureHeaders: false,
+  activityLogSampleRate: 464.03,
+  requestTimeout: 6021.61,
+  socketTimeout: 8179.22,
+  keepAliveTimeout: 1859.7,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  extractMetrics: true,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  proxyMode: {},
+  proxyMode: {
+    enabled: false,
+    rejectUnauthorized: true,
+  },
   description:
-    "idealistic misread suitcase openly wriggler including negligible reasonable over",
+    "well-documented papa untried genuine utterly hearten too diversity",
 };
 ```
 
@@ -48,7 +79,7 @@ let value: InputDatadogAgentPqEnabledTrueWithPqConstraint = {
 
 | Field                                                                                                                                                                                                                                                                  | Type                                                                                                                                                                                                                                                                   | Required                                                                                                                                                                                                                                                               | Description                                                                                                                                                                                                                                                            |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pqEnabled`                                                                                                                                                                                                                                                            | *boolean*                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                     | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                           |
+| `pqEnabled`                                                                                                                                                                                                                                                            | *boolean*                                                                                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                                                                     | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                           |
 | `pq`                                                                                                                                                                                                                                                                   | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                     | N/A                                                                                                                                                                                                                                                                    |
 | `id`                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                                                                                                                     | Unique ID for this input                                                                                                                                                                                                                                               |
 | `type`                                                                                                                                                                                                                                                                 | [operations.InputDatadogAgentType](../../models/operations/inputdatadogagenttype.md)                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                     | N/A                                                                                                                                                                                                                                                                    |
@@ -58,7 +89,7 @@ let value: InputDatadogAgentPqEnabledTrueWithPqConstraint = {
 | `environment`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                     | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                   |
 | `streamtags`                                                                                                                                                                                                                                                           | *string*[]                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                     | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                          |
 | `connections`                                                                                                                                                                                                                                                          | [models.ItemsTypeConnectionsOptional](../../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                     | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                            |
-| `host`                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                     | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                                               |
+| `host`                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                                                                                                                     | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                                               |
 | `port`                                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                                                                                                                     | Port to listen on                                                                                                                                                                                                                                                      |
 | `tls`                                                                                                                                                                                                                                                                  | [models.TlsSettingsServerSideType](../../models/tlssettingsserversidetype.md)                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                     | N/A                                                                                                                                                                                                                                                                    |
 | `maxActiveReq`                                                                                                                                                                                                                                                         | *number*                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                     | Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.                                                |

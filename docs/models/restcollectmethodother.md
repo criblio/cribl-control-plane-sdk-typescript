@@ -6,23 +6,37 @@
 import { RestCollectMethodOther } from "cribl-control-plane/models";
 
 let value: RestCollectMethodOther = {
+  collectMethod: "other",
   collectVerb: "<value>",
   collectBody: "<value>",
   collectRequestParams: "<value>",
-  discovery: {},
-  collectUrl: "https://enchanting-chasuble.info",
+  discovery: {
+    discoverType: "http",
+  },
+  collectUrl: "https://limited-offset.info/",
   collectRequestHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  pagination: {},
+  pagination: {
+    type: "request_page",
+  },
+  authentication: "google_oauth",
+  timeout: 3551.2,
+  useRoundRobinDns: true,
+  disableTimeFilter: true,
+  decodeUrl: false,
+  rejectUnauthorized: true,
+  captureHeaders: false,
+  stopOnEmptyResults: false,
   safeHeaders: [
     "<value 1>",
     "<value 2>",
   ],
   retryRules: {
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -44,7 +58,7 @@ let value: RestCollectMethodOther = {
 
 | Field                                                                                                                                              | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `collectMethod`                                                                                                                                    | [models.RestCollectMethodOtherCollectMethod](../models/restcollectmethodothercollectmethod.md)                                                     | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `collectMethod`                                                                                                                                    | [models.RestCollectMethodOtherCollectMethod](../models/restcollectmethodothercollectmethod.md)                                                     | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectVerb`                                                                                                                                      | *any*                                                                                                                                              | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
@@ -52,7 +66,7 @@ let value: RestCollectMethodOther = {
 | `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | URL (constant or JavaScript expression) to use for the Collect operation                                                                           |
 | `collectRequestHeaders`                                                                                                                            | [models.ItemsTypeRestCollectMethodGetCollectRequestParams](../models/itemstyperestcollectmethodgetcollectrequestparams.md)[]                       | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `pagination`                                                                                                                                       | [models.RestCollectMethodOtherPagination](../models/restcollectmethodotherpagination.md)                                                           | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `authentication`                                                                                                                                   | [models.RestCollectMethodOtherAuthentication](../models/restcollectmethodotherauthentication.md)                                                   | :heavy_minus_sign:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers. |
+| `authentication`                                                                                                                                   | [models.RestCollectMethodOtherAuthentication](../models/restcollectmethodotherauthentication.md)                                                   | :heavy_check_mark:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers. |
 | `timeout`                                                                                                                                          | *number*                                                                                                                                           | :heavy_minus_sign:                                                                                                                                 | HTTP request inactivity timeout. Use 0 to disable.                                                                                                 |
 | `useRoundRobinDns`                                                                                                                                 | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.                                                     |
 | `disableTimeFilter`                                                                                                                                | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Disable Collector event time filtering when a date range is specified                                                                              |

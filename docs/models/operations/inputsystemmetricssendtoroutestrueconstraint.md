@@ -6,14 +6,15 @@
 import { InputSystemMetricsSendToRoutesTrueConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputSystemMetricsSendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "system_metrics",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -22,19 +23,48 @@ let value: InputSystemMetricsSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  interval: 691.85,
   host: {
+    mode: "disabled",
     custom: {
-      system: {},
-      cpu: {},
-      memory: {},
+      system: {
+        mode: "all",
+        processes: true,
+      },
+      cpu: {
+        mode: "custom",
+        perCpu: true,
+        detail: false,
+        time: false,
+      },
+      memory: {
+        mode: "all",
+        detail: false,
+      },
       network: {
+        mode: "disabled",
+        detail: false,
+        protocols: false,
         devices: [
           "<value 1>",
+          "<value 2>",
+          "<value 3>",
         ],
+        perInterface: false,
       },
       disk: {
+        mode: "basic",
+        detail: false,
+        inodes: true,
         devices: [
           "<value 1>",
           "<value 2>",
@@ -45,7 +75,9 @@ let value: InputSystemMetricsSendToRoutesTrueConstraint = {
         ],
         fstypes: [
           "<value 1>",
+          "<value 2>",
         ],
+        perDevice: true,
       },
     },
   },
@@ -54,20 +86,25 @@ let value: InputSystemMetricsSendToRoutesTrueConstraint = {
       {
         name: "<value>",
         filter: "<value>",
+        includeChildren: false,
       },
     ],
   },
   container: {
+    mode: "custom",
     dockerSocket: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
+    dockerTimeout: 4624.48,
     filters: [
       {
         expr: "<value>",
       },
     ],
+    allContainers: true,
+    perDevice: false,
+    detail: false,
   },
   metadata: [
     {
@@ -75,8 +112,15 @@ let value: InputSystemMetricsSendToRoutesTrueConstraint = {
       value: "<value>",
     },
   ],
-  persistence: {},
-  description: "gee editor while ha wholly whether although testify after",
+  persistence: {
+    enable: false,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+    destPath: "<value>",
+  },
+  description: "progress analogy regulate bliss",
 };
 ```
 
@@ -84,7 +128,7 @@ let value: InputSystemMetricsSendToRoutesTrueConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [operations.InputSystemMetricsType](../../models/operations/inputsystemmetricstype.md)                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

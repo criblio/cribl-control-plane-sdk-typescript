@@ -101,7 +101,7 @@ export const PipelineFunctionPivot$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("pivot"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -111,7 +111,7 @@ export const PipelineFunctionPivot$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionPivot$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "pivot";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -126,7 +126,7 @@ export const PipelineFunctionPivot$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionPivot
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("pivot"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

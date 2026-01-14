@@ -11,11 +11,11 @@ export type PipelineFunctionUnrollConf = {
   /**
    * Field in which to find/calculate the array to unroll. Example: _raw, _raw.split(/\n/)
    */
-  srcExpr?: string | undefined;
+  srcExpr: string;
   /**
    * Field in destination event in which to place the unrolled value
    */
-  dstField?: string | undefined;
+  dstField: string;
 };
 
 export type PipelineFunctionUnroll = {
@@ -52,8 +52,8 @@ export const PipelineFunctionUnrollConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  srcExpr: z.string().default("_raw"),
-  dstField: z.string().default("_raw"),
+  srcExpr: z.string(),
+  dstField: z.string(),
 });
 /** @internal */
 export type PipelineFunctionUnrollConf$Outbound = {
@@ -67,8 +67,8 @@ export const PipelineFunctionUnrollConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionUnrollConf
 > = z.object({
-  srcExpr: z.string().default("_raw"),
-  dstField: z.string().default("_raw"),
+  srcExpr: z.string(),
+  dstField: z.string(),
 });
 
 export function pipelineFunctionUnrollConfToJSON(
@@ -94,7 +94,7 @@ export const PipelineFunctionUnroll$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("unroll"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -104,7 +104,7 @@ export const PipelineFunctionUnroll$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionUnroll$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "unroll";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -119,7 +119,7 @@ export const PipelineFunctionUnroll$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionUnroll
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("unroll"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

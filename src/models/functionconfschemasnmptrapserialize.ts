@@ -38,18 +38,16 @@ export const FunctionConfSchemaSnmpTrapSerializeV3User$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   name: z.string().optional(),
-  authProtocol: AuthenticationProtocolOptionsV3User$inboundSchema.default(
-    "none",
-  ),
+  authProtocol: AuthenticationProtocolOptionsV3User$inboundSchema.optional(),
   authKey: z.any().optional(),
-  privProtocol: z.string().default("none"),
+  privProtocol: z.string().optional(),
 });
 /** @internal */
 export type FunctionConfSchemaSnmpTrapSerializeV3User$Outbound = {
   name?: string | undefined;
-  authProtocol: string;
+  authProtocol?: string | undefined;
   authKey?: any | undefined;
-  privProtocol: string;
+  privProtocol?: string | undefined;
 };
 
 /** @internal */
@@ -60,11 +58,9 @@ export const FunctionConfSchemaSnmpTrapSerializeV3User$outboundSchema:
     FunctionConfSchemaSnmpTrapSerializeV3User
   > = z.object({
     name: z.string().optional(),
-    authProtocol: AuthenticationProtocolOptionsV3User$outboundSchema.default(
-      "none",
-    ),
+    authProtocol: AuthenticationProtocolOptionsV3User$outboundSchema.optional(),
     authKey: z.any().optional(),
-    privProtocol: z.string().default("none"),
+    privProtocol: z.string().optional(),
   });
 
 export function functionConfSchemaSnmpTrapSerializeV3UserToJSON(
@@ -99,15 +95,15 @@ export const FunctionConfSchemaSnmpTrapSerialize$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  strict: z.boolean().default(true),
-  dropFailedEvents: z.boolean().default(true),
+  strict: z.boolean().optional(),
+  dropFailedEvents: z.boolean().optional(),
   v3User: z.lazy(() => FunctionConfSchemaSnmpTrapSerializeV3User$inboundSchema)
     .optional(),
 });
 /** @internal */
 export type FunctionConfSchemaSnmpTrapSerialize$Outbound = {
-  strict: boolean;
-  dropFailedEvents: boolean;
+  strict?: boolean | undefined;
+  dropFailedEvents?: boolean | undefined;
   v3User?: FunctionConfSchemaSnmpTrapSerializeV3User$Outbound | undefined;
 };
 
@@ -117,8 +113,8 @@ export const FunctionConfSchemaSnmpTrapSerialize$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   FunctionConfSchemaSnmpTrapSerialize
 > = z.object({
-  strict: z.boolean().default(true),
-  dropFailedEvents: z.boolean().default(true),
+  strict: z.boolean().optional(),
+  dropFailedEvents: z.boolean().optional(),
   v3User: z.lazy(() => FunctionConfSchemaSnmpTrapSerializeV3User$outboundSchema)
     .optional(),
 });

@@ -25,6 +25,9 @@ let value: FunctionOtlpMetrics = {
       "<value 2>",
       "<value 3>",
     ],
+    dropNonMetricEvents: false,
+    otlpVersion: "0.10.0",
+    batchOTLPMetrics: true,
   },
 };
 ```

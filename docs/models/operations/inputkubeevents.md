@@ -7,10 +7,13 @@
 
 ```typescript
 const value: operations.InputKubeEventsSendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "kube_events",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -23,13 +26,19 @@ const value: operations.InputKubeEventsSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   rules: [
     {
       filter: "<value>",
-      description:
-        "afore progress ethyl um gratefully pish whose till hydrocarbon",
+      description: "gerbil who despite each ha deliquesce",
     },
   ],
   metadata: [
@@ -38,8 +47,7 @@ const value: operations.InputKubeEventsSendToRoutesTrueConstraint = {
       value: "<value>",
     },
   ],
-  description:
-    "towards unnaturally electric although whether politely punctual",
+  description: "neglected vice blah",
 };
 ```
 
@@ -48,6 +56,7 @@ const value: operations.InputKubeEventsSendToRoutesTrueConstraint = {
 ```typescript
 const value:
   operations.InputKubeEventsSendToRoutesFalseWithConnectionsConstraint = {
+    sendToRoutes: true,
     connections: [
       {
         pipeline: "<value>",
@@ -56,20 +65,28 @@ const value:
     ],
     id: "<id>",
     type: "kube_events",
+    disabled: true,
     pipeline: "<value>",
     environment: "<value>",
+    pqEnabled: true,
     streamtags: [
       "<value 1>",
       "<value 2>",
     ],
     pq: {
+      mode: "smart",
+      maxBufferSize: 1717.96,
+      commitFrequency: 1412.18,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/include",
+      compress: "none",
       pqControls: {},
     },
     rules: [
       {
         filter: "<value>",
-        description:
-          "afore progress ethyl um gratefully pish whose till hydrocarbon",
+        description: "gerbil who despite each ha deliquesce",
       },
     ],
     metadata: [
@@ -78,7 +95,8 @@ const value:
         value: "<value>",
       },
     ],
-    description: "once dimly violin unlike showboat",
+    description:
+      "merrily that lieu precedent fen because midst unto proper nearly",
   };
 ```
 
@@ -86,13 +104,17 @@ const value:
 
 ```typescript
 const value: operations.InputKubeEventsPqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "kube_events",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -101,13 +123,19 @@ const value: operations.InputKubeEventsPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   rules: [
     {
       filter: "<value>",
-      description:
-        "afore progress ethyl um gratefully pish whose till hydrocarbon",
+      description: "gerbil who despite each ha deliquesce",
     },
   ],
   metadata: [
@@ -116,8 +144,7 @@ const value: operations.InputKubeEventsPqEnabledFalseConstraint = {
       value: "<value>",
     },
   ],
-  description:
-    "usher doing exhausted soft whenever lotion wherever round technologist dead",
+  description: "rapidly phew gosh speedily curiously",
 };
 ```
 
@@ -125,12 +152,22 @@ const value: operations.InputKubeEventsPqEnabledFalseConstraint = {
 
 ```typescript
 const value: operations.InputKubeEventsPqEnabledTrueWithPqConstraint = {
+  pqEnabled: false,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "kube_events",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -146,8 +183,7 @@ const value: operations.InputKubeEventsPqEnabledTrueWithPqConstraint = {
   rules: [
     {
       filter: "<value>",
-      description:
-        "afore progress ethyl um gratefully pish whose till hydrocarbon",
+      description: "gerbil who despite each ha deliquesce",
     },
   ],
   metadata: [
@@ -156,7 +192,7 @@ const value: operations.InputKubeEventsPqEnabledTrueWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "a obedient provided explode crossly though ha swiftly",
+  description: "what ambitious gallery cease yuck",
 };
 ```
 

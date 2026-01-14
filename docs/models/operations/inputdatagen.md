@@ -7,12 +7,17 @@
 
 ```typescript
 const value: operations.InputDatagenSendToRoutesTrueConstraint = {
+  sendToRoutes: true,
   id: "<id>",
   type: "datagen",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -21,11 +26,19 @@ const value: operations.InputDatagenSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   samples: [
     {
       sample: "<value>",
+      eventsPerSec: 9413.04,
     },
   ],
   metadata: [
@@ -34,7 +47,7 @@ const value: operations.InputDatagenSendToRoutesTrueConstraint = {
       value: "<value>",
     },
   ],
-  description: "plus seriously chunder communicate",
+  description: "incline gah oddly emphasize hmph serene youthful",
 };
 ```
 
@@ -43,6 +56,7 @@ const value: operations.InputDatagenSendToRoutesTrueConstraint = {
 ```typescript
 const value: operations.InputDatagenSendToRoutesFalseWithConnectionsConstraint =
   {
+    sendToRoutes: false,
     connections: [
       {
         pipeline: "<value>",
@@ -51,24 +65,38 @@ const value: operations.InputDatagenSendToRoutesFalseWithConnectionsConstraint =
     ],
     id: "<id>",
     type: "datagen",
+    disabled: true,
     pipeline: "<value>",
     environment: "<value>",
+    pqEnabled: true,
     streamtags: [
       "<value 1>",
       "<value 2>",
       "<value 3>",
     ],
     pq: {
+      mode: "smart",
+      maxBufferSize: 1717.96,
+      commitFrequency: 1412.18,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/include",
+      compress: "none",
       pqControls: {},
     },
-    samples: [],
+    samples: [
+      {
+        sample: "<value>",
+        eventsPerSec: 9413.04,
+      },
+    ],
     metadata: [
       {
         name: "<value>",
         value: "<value>",
       },
     ],
-    description: "gradient embossing taxicab",
+    description: "since apud once during while premium other celebrated",
   };
 ```
 
@@ -76,12 +104,17 @@ const value: operations.InputDatagenSendToRoutesFalseWithConnectionsConstraint =
 
 ```typescript
 const value: operations.InputDatagenPqEnabledFalseConstraint = {
+  pqEnabled: true,
   id: "<id>",
   type: "datagen",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -90,16 +123,28 @@ const value: operations.InputDatagenPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  samples: [],
+  samples: [
+    {
+      sample: "<value>",
+      eventsPerSec: 9413.04,
+    },
+  ],
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "unsightly that hence yowza republican usually riser freezing",
+  description: "far colorfully yowza boohoo license puppet onto aha",
 };
 ```
 
@@ -107,15 +152,27 @@ const value: operations.InputDatagenPqEnabledFalseConstraint = {
 
 ```typescript
 const value: operations.InputDatagenPqEnabledTrueWithPqConstraint = {
+  pqEnabled: true,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "datagen",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -126,6 +183,7 @@ const value: operations.InputDatagenPqEnabledTrueWithPqConstraint = {
   samples: [
     {
       sample: "<value>",
+      eventsPerSec: 9413.04,
     },
   ],
   metadata: [
@@ -134,7 +192,7 @@ const value: operations.InputDatagenPqEnabledTrueWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description: "gee derby exaggerate",
+  description: "since yet how around",
 };
 ```
 

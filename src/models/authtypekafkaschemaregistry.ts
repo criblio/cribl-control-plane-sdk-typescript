@@ -11,7 +11,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
  * Credentials to use when authenticating with the schema registry using basic HTTP authentication
  */
 export type AuthTypeKafkaSchemaRegistry = {
-  disabled?: boolean | undefined;
+  disabled: boolean;
   /**
    * Select or create a secret that references your credentials
    */
@@ -24,7 +24,7 @@ export const AuthTypeKafkaSchemaRegistry$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean().default(true),
+  disabled: z.boolean(),
   credentialsSecret: z.string().optional(),
 });
 /** @internal */
@@ -39,7 +39,7 @@ export const AuthTypeKafkaSchemaRegistry$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AuthTypeKafkaSchemaRegistry
 > = z.object({
-  disabled: z.boolean().default(true),
+  disabled: z.boolean(),
   credentialsSecret: z.string().optional(),
 });
 

@@ -25,6 +25,7 @@ let value: FunctionDnsLookup = {
     dnsLookupFields: [
       {
         inFieldName: "<value>",
+        resourceRecordType: "A",
         outFieldName: "<value>",
       },
     ],
@@ -37,9 +38,15 @@ let value: FunctionDnsLookup = {
     dnsServers: [
       "<value 1>",
     ],
+    cacheTTL: 470.15,
+    maxCacheSize: 3827.98,
+    useResolvConf: true,
+    lookupFallback: true,
     domainOverrides: [
       "<value 1>",
+      "<value 2>",
     ],
+    lookupFailLogLevel: "warn",
   },
 };
 ```

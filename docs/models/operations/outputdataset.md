@@ -27,25 +27,56 @@ let value: OutputDataset = {
   ],
   serverHostField: "<value>",
   timestampField: "<value>",
+  defaultSeverity: "fine",
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 2591.04,
+      initialBackoff: 4815.7,
+      backoffRate: 5576.87,
+      maxBackoff: 1844.93,
     },
   ],
-  timeoutRetrySettings: {},
+  timeoutRetrySettings: {
+    timeoutRetry: false,
+    initialBackoff: 4289.71,
+    backoffRate: 7830.71,
+    maxBackoff: 6330,
+  },
+  responseHonorRetryAfterHeader: true,
+  site: "us",
+  concurrency: 5582.19,
+  maxPayloadSizeKB: 5379.7,
+  maxPayloadEvents: 1427.55,
+  compress: true,
+  rejectUnauthorized: true,
+  timeoutSec: 9502.59,
+  flushPeriodSec: 4013.09,
   extraHttpHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  useRoundRobinDns: true,
+  failedRequestLoggingMode: "payload",
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
   ],
-  totalMemoryLimitKB: 4749.03,
-  description: "guide so however mixture",
-  customUrl: "https://nocturnal-cuckoo.net/",
+  onBackpressure: "queue",
+  authType: "manual",
+  totalMemoryLimitKB: 4864.74,
+  description: "however mixture perfection typeface tuber thin insecure",
+  customUrl: "https://alive-plastic.net",
+  pqStrictOrdering: false,
+  pqRatePerSec: 6552.98,
+  pqMode: "backpressure",
+  pqMaxBufferSize: 4858.14,
+  pqMaxBackpressureSec: 8133.79,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "none",
+  pqOnBackpressure: "block",
   pqControls: {},
   apiKey: "<value>",
   textSecret: "<value>",
@@ -83,7 +114,7 @@ let value: OutputDataset = {
 | `failedRequestLoggingMode`                                                                                                                                                                                                                                                                                                                       | [models.FailedRequestLoggingModeOptions](../../models/failedrequestloggingmodeoptions.md)                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.                                                                                                                                                                                                                                      |
 | `safeHeaders`                                                                                                                                                                                                                                                                                                                                    | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | List of headers that are safe to log in plain text                                                                                                                                                                                                                                                                                               |
 | `onBackpressure`                                                                                                                                                                                                                                                                                                                                 | [models.BackpressureBehaviorOptions](../../models/backpressurebehavioroptions.md)                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                                                                                                                |
-| `authType`                                                                                                                                                                                                                                                                                                                                       | [models.AuthenticationMethodOptions3](../../models/authenticationmethodoptions3.md)                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enter API key directly, or select a stored secret                                                                                                                                                                                                                                                                                                |
+| `authType`                                                                                                                                                                                                                                                                                                                                       | [models.AuthenticationMethodOptions2](../../models/authenticationmethodoptions2.md)                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enter API key directly, or select a stored secret                                                                                                                                                                                                                                                                                                |
 | `totalMemoryLimitKB`                                                                                                                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.                                                                                                                                                                                                 |
 | `description`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `customUrl`                                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |

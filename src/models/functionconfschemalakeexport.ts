@@ -19,15 +19,15 @@ export type FunctionConfSchemaLakeExport = {
   /**
    * Name of the lake
    */
-  lake: string;
+  lake?: string | undefined;
   /**
    * Tee results to search. When set to true results will be shipped instead of stats
    */
-  tee: string;
+  tee?: string | undefined;
   /**
    * How often are stats flushed in ms
    */
-  flushMs: number;
+  flushMs?: number | undefined;
   /**
    * Disables generation of intermediate stats. When true stats will be emitted only on end
    */
@@ -42,9 +42,9 @@ export const FunctionConfSchemaLakeExport$inboundSchema: z.ZodType<
 > = z.object({
   searchJobId: z.string().optional(),
   dataset: z.string().optional(),
-  lake: z.string().default("default"),
-  tee: z.string().default("false"),
-  flushMs: z.number().default(1000),
+  lake: z.string().optional(),
+  tee: z.string().optional(),
+  flushMs: z.number().optional(),
   suppressPreviews: z.boolean().optional(),
 });
 

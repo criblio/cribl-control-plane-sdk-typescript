@@ -21,6 +21,8 @@ let value: FunctionGeoip = {
   version: "<value>",
   schema: {
     file: "<value>",
+    inField: "<value>",
+    outField: "<value>",
     additionalFields: [
       {
         extraInField: "<value>",

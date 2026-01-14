@@ -24,8 +24,10 @@ let value: FunctionPublishMetrics = {
       {
         inFieldName: "<value>",
         outFieldExpr: "<value>",
+        metricType: "counter",
       },
     ],
+    overwrite: false,
     dimensions: [
       "<value 1>",
       "<value 2>",
@@ -33,8 +35,6 @@ let value: FunctionPublishMetrics = {
     ],
     removeMetrics: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     removeDimensions: [
       "<value 1>",

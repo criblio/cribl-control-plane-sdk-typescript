@@ -9,8 +9,11 @@ let value: S3AwsAuthenticationMethodAuto = {
   awsAuthenticationMethod: "auto",
   outputName: "<value>",
   bucket: "<value>",
+  parquetChunkSizeMB: 1076.96,
+  parquetChunkDownloadTimeout: 219.62,
   region: "<value>",
-  path: "/etc/defaults",
+  path: "/opt",
+  partitioningScheme: "none",
   extractors: [
     {
       key: "<key>",
@@ -18,9 +21,17 @@ let value: S3AwsAuthenticationMethodAuto = {
     },
   ],
   endpoint: "<value>",
+  signatureVersion: "v2",
+  enableAssumeRole: true,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  durationSeconds: 2211.36,
+  maxBatchSize: 2607.49,
   recurse: "<value>",
+  reuseConnections: false,
+  rejectUnauthorized: true,
+  verifyPermissions: false,
+  disableTimeFilter: true,
 };
 ```
 

@@ -9,6 +9,8 @@ let value: PipelineFunctionSensitiveDataScannerConf = {
   rules: [
     {
       rulesetId: "<id>",
+      replaceExpr: "<value>",
+      disabled: false,
     },
   ],
   fields: [
@@ -25,6 +27,8 @@ let value: PipelineFunctionSensitiveDataScannerConf = {
       value: "<value>",
     },
   ],
+  includeDetectedRules: false,
+  backgroundDetection: false,
 };
 ```
 

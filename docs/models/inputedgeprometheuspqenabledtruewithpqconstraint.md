@@ -6,17 +6,25 @@
 import { InputEdgePrometheusPqEnabledTrueWithPqConstraint } from "cribl-control-plane/models";
 
 let value: InputEdgePrometheusPqEnabledTrueWithPqConstraint = {
+  pqEnabled: false,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "edge_prometheus",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -29,48 +37,71 @@ let value: InputEdgePrometheusPqEnabledTrueWithPqConstraint = {
     "<value 2>",
     "<value 3>",
   ],
-  persistence: {},
+  discoveryType: "static",
+  interval: 7461.05,
+  timeout: 6465.43,
+  persistence: {
+    enable: false,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+  },
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "hunt moor tool fixed despite besides mammoth mixture",
+  authType: "kubernetes",
+  description: "moor tool fixed despite besides mammoth",
   targets: [
     {
-      host: "wealthy-ceramics.com",
+      protocol: "https",
+      host: "mad-carnival.com",
+      port: 8409.15,
+      path: "/home/user",
     },
   ],
+  recordType: "AAAA",
+  scrapePort: 83.74,
   nameList: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
+  scrapeProtocol: "https",
+  scrapePath: "<value>",
+  awsAuthenticationMethod: "<value>",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  usePublicIp: false,
   searchFilter: [
     {
       Name: "<value>",
-      Values: [
-        "<value 1>",
-        "<value 2>",
-      ],
+      Values: [],
     },
   ],
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v4",
+  reuseConnections: false,
+  rejectUnauthorized: false,
+  enableAssumeRole: true,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  durationSeconds: 2272.27,
+  scrapeProtocolExpr: "<value>",
+  scrapePortExpr: "<value>",
+  scrapePathExpr: "<value>",
   podFilter: [
     {
       filter: "<value>",
-      description: "boo oof wherever circa between",
+      description:
+        "woefully newsletter fathom ack who than productive edge bah",
     },
   ],
-  username: "Carolina3",
-  password: "DGTXApbAV_Y4_lh",
+  username: "Kamren_Bashirian37",
+  password: "GTXApbAV_Y4_lhC",
   credentialsSecret: "<value>",
 };
 ```
@@ -79,7 +110,7 @@ let value: InputEdgePrometheusPqEnabledTrueWithPqConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `pq`                                                                                                                                                                                                                                         | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [models.InputEdgePrometheusType](../models/inputedgeprometheustype.md)                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
@@ -90,8 +121,8 @@ let value: InputEdgePrometheusPqEnabledTrueWithPqConstraint = {
 | `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
 | `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
 | `dimensionList`                                                                                                                                                                                                                              | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Other dimensions to include in events                                                                                                                                                                                                        |
-| `discoveryType`                                                                                                                                                                                                                              | [models.InputEdgePrometheusDiscoveryType](../models/inputedgeprometheusdiscoverytype.md)                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Target discovery mechanism. Use static to manually enter a list of targets.                                                                                                                                                                  |
-| `interval`                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How often in seconds to scrape targets for metrics.                                                                                                                                                                                          |
+| `discoveryType`                                                                                                                                                                                                                              | [models.InputEdgePrometheusDiscoveryType](../models/inputedgeprometheusdiscoverytype.md)                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Target discovery mechanism. Use static to manually enter a list of targets.                                                                                                                                                                  |
+| `interval`                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | How often in seconds to scrape targets for metrics.                                                                                                                                                                                          |
 | `timeout`                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable                                                                                                                                                  |
 | `persistence`                                                                                                                                                                                                                                | [models.DiskSpoolingType](../models/diskspoolingtype.md)                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
@@ -103,7 +134,7 @@ let value: InputEdgePrometheusPqEnabledTrueWithPqConstraint = {
 | `nameList`                                                                                                                                                                                                                                   | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | List of DNS names to resolve                                                                                                                                                                                                                 |
 | `scrapeProtocol`                                                                                                                                                                                                                             | [models.ProtocolOptionsTargetsItems](../models/protocoloptionstargetsitems.md)                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | Protocol to use when collecting metrics                                                                                                                                                                                                      |
 | `scrapePath`                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Path to use when collecting metrics from discovered targets                                                                                                                                                                                  |
-| `awsAuthenticationMethod`                                                                                                                                                                                                                    | [models.AuthenticationMethodOptions](../models/authenticationmethodoptions.md)                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | AWS authentication method. Choose Auto to use IAM roles.                                                                                                                                                                                     |
+| `awsAuthenticationMethod`                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | AWS authentication method. Choose Auto to use IAM roles.                                                                                                                                                                                     |
 | `awsApiKey`                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `awsSecret`                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Select or create a stored secret that references your access key and secret key                                                                                                                                                              |
 | `usePublicIp`                                                                                                                                                                                                                                | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use public IP address for discovered targets. Disable to use the private IP address.                                                                                                                                                         |

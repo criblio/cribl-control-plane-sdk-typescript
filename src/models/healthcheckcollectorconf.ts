@@ -69,15 +69,24 @@ export type HealthCheckAuthenticationOauthSecretDiscovery = {
   /**
    * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
    */
-  discoverType?: HealthCheckAuthenticationOauthSecretDiscoverType | undefined;
+  discoverType: HealthCheckAuthenticationOauthSecretDiscoverType;
 };
 
 /**
  * Health check HTTP method.
  */
 export const HealthCheckAuthenticationOauthSecretHealthCheckMethod = {
+  /**
+   * GET
+   */
   Get: "get",
+  /**
+   * POST
+   */
   Post: "post",
+  /**
+   * POST with Body
+   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -102,7 +111,7 @@ export type HealthCheckAuthenticationOauthSecretRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -118,7 +127,7 @@ export type HealthCheckAuthenticationOauthSecret = {
   /**
    * URL to use for the OAuth API call. This call is expected to be a POST.
    */
-  loginUrl?: string | undefined;
+  loginUrl: string;
   /**
    * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
    */
@@ -126,11 +135,11 @@ export type HealthCheckAuthenticationOauthSecret = {
   /**
    * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
    */
-  authHeaderExpr?: string | undefined;
+  authHeaderExpr: string;
   /**
    * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
    */
-  clientSecretParamName?: string | undefined;
+  clientSecretParamName: string;
   /**
    * Select or create a text secret that contains the client secret's value.
    */
@@ -155,9 +164,7 @@ export type HealthCheckAuthenticationOauthSecret = {
   /**
    * Health check HTTP method.
    */
-  collectMethod?:
-    | HealthCheckAuthenticationOauthSecretHealthCheckMethod
-    | undefined;
+  collectMethod: HealthCheckAuthenticationOauthSecretHealthCheckMethod;
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   /**
@@ -220,15 +227,24 @@ export type HealthCheckAuthenticationOauthDiscovery = {
   /**
    * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
    */
-  discoverType?: HealthCheckAuthenticationOauthDiscoverType | undefined;
+  discoverType: HealthCheckAuthenticationOauthDiscoverType;
 };
 
 /**
  * Health check HTTP method.
  */
 export const HealthCheckAuthenticationOauthHealthCheckMethod = {
+  /**
+   * GET
+   */
   Get: "get",
+  /**
+   * POST
+   */
   Post: "post",
+  /**
+   * POST with Body
+   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -253,7 +269,7 @@ export type HealthCheckAuthenticationOauthRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -269,7 +285,7 @@ export type HealthCheckAuthenticationOauth = {
   /**
    * URL to use for the OAuth API call. This call is expected to be a POST.
    */
-  loginUrl?: string | undefined;
+  loginUrl: string;
   /**
    * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
    */
@@ -277,11 +293,11 @@ export type HealthCheckAuthenticationOauth = {
   /**
    * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
    */
-  authHeaderExpr?: string | undefined;
+  authHeaderExpr: string;
   /**
    * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
    */
-  clientSecretParamName?: string | undefined;
+  clientSecretParamName: string;
   /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
    */
@@ -306,7 +322,7 @@ export type HealthCheckAuthenticationOauth = {
   /**
    * Health check HTTP method.
    */
-  collectMethod?: HealthCheckAuthenticationOauthHealthCheckMethod | undefined;
+  collectMethod: HealthCheckAuthenticationOauthHealthCheckMethod;
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   /**
@@ -369,15 +385,24 @@ export type HealthCheckAuthenticationLoginSecretDiscovery = {
   /**
    * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
    */
-  discoverType?: HealthCheckAuthenticationLoginSecretDiscoverType | undefined;
+  discoverType: HealthCheckAuthenticationLoginSecretDiscoverType;
 };
 
 /**
  * Health check HTTP method.
  */
 export const HealthCheckAuthenticationLoginSecretHealthCheckMethod = {
+  /**
+   * GET
+   */
   Get: "get",
+  /**
+   * POST
+   */
   Post: "post",
+  /**
+   * POST with Body
+   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -402,7 +427,7 @@ export type HealthCheckAuthenticationLoginSecretRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -418,7 +443,7 @@ export type HealthCheckAuthenticationLoginSecret = {
   /**
    * URL to use for login API call, this call is expected to be a POST.
    */
-  loginUrl?: string | undefined;
+  loginUrl: string;
   /**
    * Select or create a stored secret that references your login credentials
    */
@@ -426,7 +451,7 @@ export type HealthCheckAuthenticationLoginSecret = {
   /**
    * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
    */
-  loginBody?: string | undefined;
+  loginBody: string;
   /**
    * Path to token attribute in login response body. Nested attributes are OK. If left blank, the entire response body will be used to derive the authorization header.
    */
@@ -434,7 +459,7 @@ export type HealthCheckAuthenticationLoginSecret = {
   /**
    * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
    */
-  authHeaderExpr?: string | undefined;
+  authHeaderExpr: string;
   /**
    * Optional authentication request headers.
    */
@@ -449,9 +474,7 @@ export type HealthCheckAuthenticationLoginSecret = {
   /**
    * Health check HTTP method.
    */
-  collectMethod?:
-    | HealthCheckAuthenticationLoginSecretHealthCheckMethod
-    | undefined;
+  collectMethod: HealthCheckAuthenticationLoginSecretHealthCheckMethod;
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   /**
@@ -514,15 +537,24 @@ export type HealthCheckAuthenticationLoginDiscovery = {
   /**
    * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
    */
-  discoverType?: HealthCheckAuthenticationLoginDiscoverType | undefined;
+  discoverType: HealthCheckAuthenticationLoginDiscoverType;
 };
 
 /**
  * Health check HTTP method.
  */
 export const HealthCheckAuthenticationLoginHealthCheckMethod = {
+  /**
+   * GET
+   */
   Get: "get",
+  /**
+   * POST
+   */
   Post: "post",
+  /**
+   * POST with Body
+   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -547,7 +579,7 @@ export type HealthCheckAuthenticationLoginRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -563,7 +595,7 @@ export type HealthCheckAuthenticationLogin = {
   /**
    * URL to use for login API call. This call is expected to be a POST.
    */
-  loginUrl?: string | undefined;
+  loginUrl: string;
   /**
    * Login username
    */
@@ -575,7 +607,7 @@ export type HealthCheckAuthenticationLogin = {
   /**
    * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
    */
-  loginBody?: string | undefined;
+  loginBody: string;
   /**
    * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
    */
@@ -583,7 +615,7 @@ export type HealthCheckAuthenticationLogin = {
   /**
    * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
    */
-  authHeaderExpr?: string | undefined;
+  authHeaderExpr: string;
   /**
    * Optional authentication request headers.
    */
@@ -598,7 +630,7 @@ export type HealthCheckAuthenticationLogin = {
   /**
    * Health check HTTP method.
    */
-  collectMethod?: HealthCheckAuthenticationLoginHealthCheckMethod | undefined;
+  collectMethod: HealthCheckAuthenticationLoginHealthCheckMethod;
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   /**
@@ -661,15 +693,24 @@ export type HealthCheckAuthenticationBasicSecretDiscovery = {
   /**
    * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
    */
-  discoverType?: HealthCheckAuthenticationBasicSecretDiscoverType | undefined;
+  discoverType: HealthCheckAuthenticationBasicSecretDiscoverType;
 };
 
 /**
  * Health check HTTP method.
  */
 export const HealthCheckAuthenticationBasicSecretHealthCheckMethod = {
+  /**
+   * GET
+   */
   Get: "get",
+  /**
+   * POST
+   */
   Post: "post",
+  /**
+   * POST with Body
+   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -694,7 +735,7 @@ export type HealthCheckAuthenticationBasicSecretRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -719,9 +760,7 @@ export type HealthCheckAuthenticationBasicSecret = {
   /**
    * Health check HTTP method.
    */
-  collectMethod?:
-    | HealthCheckAuthenticationBasicSecretHealthCheckMethod
-    | undefined;
+  collectMethod: HealthCheckAuthenticationBasicSecretHealthCheckMethod;
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   /**
@@ -784,15 +823,24 @@ export type HealthCheckAuthenticationBasicDiscovery = {
   /**
    * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
    */
-  discoverType?: HealthCheckAuthenticationBasicDiscoverType | undefined;
+  discoverType: HealthCheckAuthenticationBasicDiscoverType;
 };
 
 /**
  * Health check HTTP method.
  */
 export const HealthCheckAuthenticationBasicHealthCheckMethod = {
+  /**
+   * GET
+   */
   Get: "get",
+  /**
+   * POST
+   */
   Post: "post",
+  /**
+   * POST with Body
+   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -817,7 +865,7 @@ export type HealthCheckAuthenticationBasicRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -846,7 +894,7 @@ export type HealthCheckAuthenticationBasic = {
   /**
    * Health check HTTP method.
    */
-  collectMethod?: HealthCheckAuthenticationBasicHealthCheckMethod | undefined;
+  collectMethod: HealthCheckAuthenticationBasicHealthCheckMethod;
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   /**
@@ -909,15 +957,24 @@ export type HealthCheckAuthenticationNoneDiscovery = {
   /**
    * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
    */
-  discoverType?: HealthCheckAuthenticationNoneDiscoverType | undefined;
+  discoverType: HealthCheckAuthenticationNoneDiscoverType;
 };
 
 /**
  * Health check HTTP method.
  */
 export const HealthCheckAuthenticationNoneHealthCheckMethod = {
+  /**
+   * GET
+   */
   Get: "get",
+  /**
+   * POST
+   */
   Post: "post",
+  /**
+   * POST with Body
+   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -942,7 +999,7 @@ export type HealthCheckAuthenticationNoneRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -963,7 +1020,7 @@ export type HealthCheckAuthenticationNone = {
   /**
    * Health check HTTP method.
    */
-  collectMethod?: HealthCheckAuthenticationNoneHealthCheckMethod | undefined;
+  collectMethod: HealthCheckAuthenticationNoneHealthCheckMethod;
   collectRequestParams?: any | undefined;
   collectBody?: any | undefined;
   /**
@@ -998,8 +1055,17 @@ export type HealthCheckAuthenticationNone = {
  * Health check HTTP method.
  */
 export const HealthCheckCollectMethodPostWithBodyHealthCheckMethod = {
+  /**
+   * GET
+   */
   Get: "get",
+  /**
+   * POST
+   */
   Post: "post",
+  /**
+   * POST with Body
+   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -1041,7 +1107,7 @@ export type HealthCheckCollectMethodPostWithBodyDiscovery = {
   /**
    * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
    */
-  discoverType?: HealthCheckCollectMethodPostWithBodyDiscoverType | undefined;
+  discoverType: HealthCheckCollectMethodPostWithBodyDiscoverType;
 };
 
 export type HealthCheckCollectMethodPostWithBodyCollectRequestHeader = {
@@ -1078,7 +1144,7 @@ export type HealthCheckCollectMethodPostWithBodyRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -1090,9 +1156,7 @@ export type HealthCheckCollectMethodPostWithBody = {
   /**
    * Health check HTTP method.
    */
-  collectMethod?:
-    | HealthCheckCollectMethodPostWithBodyHealthCheckMethod
-    | undefined;
+  collectMethod: HealthCheckCollectMethodPostWithBodyHealthCheckMethod;
   collectBody?: any | undefined;
   discovery?: HealthCheckCollectMethodPostWithBodyDiscovery | undefined;
   /**
@@ -1113,9 +1177,7 @@ export type HealthCheckCollectMethodPostWithBody = {
   /**
    * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
    */
-  authentication?:
-    | HealthCheckCollectMethodPostWithBodyAuthentication
-    | undefined;
+  authentication: HealthCheckCollectMethodPostWithBodyAuthentication;
   /**
    * HTTP request inactivity timeout, use 0 to disable
    */
@@ -1138,8 +1200,17 @@ export type HealthCheckCollectMethodPostWithBody = {
  * Health check HTTP method.
  */
 export const HealthCheckCollectMethodPostHealthCheckMethod = {
+  /**
+   * GET
+   */
   Get: "get",
+  /**
+   * POST
+   */
   Post: "post",
+  /**
+   * POST with Body
+   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -1181,7 +1252,7 @@ export type HealthCheckCollectMethodPostDiscovery = {
   /**
    * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
    */
-  discoverType?: HealthCheckCollectMethodPostDiscoverType | undefined;
+  discoverType: HealthCheckCollectMethodPostDiscoverType;
 };
 
 export type HealthCheckCollectMethodPostCollectRequestHeader = {
@@ -1218,7 +1289,7 @@ export type HealthCheckCollectMethodPostRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -1230,7 +1301,7 @@ export type HealthCheckCollectMethodPost = {
   /**
    * Health check HTTP method.
    */
-  collectMethod?: HealthCheckCollectMethodPostHealthCheckMethod | undefined;
+  collectMethod: HealthCheckCollectMethodPostHealthCheckMethod;
   collectRequestParams?: any | undefined;
   discovery?: HealthCheckCollectMethodPostDiscovery | undefined;
   /**
@@ -1251,7 +1322,7 @@ export type HealthCheckCollectMethodPost = {
   /**
    * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
    */
-  authentication?: HealthCheckCollectMethodPostAuthentication | undefined;
+  authentication: HealthCheckCollectMethodPostAuthentication;
   /**
    * HTTP request inactivity timeout, use 0 to disable
    */
@@ -1274,8 +1345,17 @@ export type HealthCheckCollectMethodPost = {
  * Health check HTTP method.
  */
 export const HealthCheckCollectMethodGetHealthCheckMethod = {
+  /**
+   * GET
+   */
   Get: "get",
+  /**
+   * POST
+   */
   Post: "post",
+  /**
+   * POST with Body
+   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -1317,7 +1397,7 @@ export type HealthCheckCollectMethodGetDiscovery = {
   /**
    * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
    */
-  discoverType?: HealthCheckCollectMethodGetDiscoverType | undefined;
+  discoverType: HealthCheckCollectMethodGetDiscoverType;
 };
 
 export type HealthCheckCollectMethodGetCollectRequestHeader = {
@@ -1354,7 +1434,7 @@ export type HealthCheckCollectMethodGetRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -1366,7 +1446,7 @@ export type HealthCheckCollectMethodGet = {
   /**
    * Health check HTTP method.
    */
-  collectMethod?: HealthCheckCollectMethodGetHealthCheckMethod | undefined;
+  collectMethod: HealthCheckCollectMethodGetHealthCheckMethod;
   collectRequestParams?: any | undefined;
   discovery?: HealthCheckCollectMethodGetDiscovery | undefined;
   /**
@@ -1387,7 +1467,7 @@ export type HealthCheckCollectMethodGet = {
   /**
    * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
    */
-  authentication?: HealthCheckCollectMethodGetAuthentication | undefined;
+  authentication: HealthCheckCollectMethodGetAuthentication;
   /**
    * HTTP request inactivity timeout, use 0 to disable
    */
@@ -1439,8 +1519,8 @@ export const HealthCheckAuthenticationOauthSecretDiscovery$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: HealthCheckAuthenticationOauthSecretDiscoverType$inboundSchema
-      .default("none"),
+    discoverType:
+      HealthCheckAuthenticationOauthSecretDiscoverType$inboundSchema,
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretDiscovery$Outbound = {
@@ -1455,9 +1535,7 @@ export const HealthCheckAuthenticationOauthSecretDiscovery$outboundSchema:
     HealthCheckAuthenticationOauthSecretDiscovery
   > = z.object({
     discoverType:
-      HealthCheckAuthenticationOauthSecretDiscoverType$outboundSchema.default(
-        "none",
-      ),
+      HealthCheckAuthenticationOauthSecretDiscoverType$outboundSchema,
   });
 
 export function healthCheckAuthenticationOauthSecretDiscoveryToJSON(
@@ -1564,8 +1642,7 @@ export const HealthCheckAuthenticationOauthSecretRetryRules$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-      .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -1589,8 +1666,7 @@ export const HealthCheckAuthenticationOauthSecretRetryRules$outboundSchema:
     z.ZodTypeDef,
     HealthCheckAuthenticationOauthSecretRetryRules
   > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-      .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -1631,10 +1707,10 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   authentication: z.literal("oauthSecret"),
-  loginUrl: z.string().default(""),
+  loginUrl: z.string(),
   tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  clientSecretParamName: z.string().default("client_secret"),
+  authHeaderExpr: z.string(),
+  clientSecretParamName: z.string(),
   textSecret: z.string(),
   authRequestParams: z.array(
     ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$inboundSchema,
@@ -1647,9 +1723,7 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
   ).optional(),
   collectUrl: z.string(),
   collectMethod:
-    HealthCheckAuthenticationOauthSecretHealthCheckMethod$inboundSchema.default(
-      "get",
-    ),
+    HealthCheckAuthenticationOauthSecretHealthCheckMethod$inboundSchema,
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
@@ -1657,9 +1731,9 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthSecretCollectRequestHeader$inboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -1691,9 +1765,9 @@ export type HealthCheckAuthenticationOauthSecret$Outbound = {
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationOauthSecretCollectRequestHeader$Outbound>
     | undefined;
-  authenticateCollect: boolean;
-  timeout: number;
-  rejectUnauthorized: boolean;
+  authenticateCollect?: boolean | undefined;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
   defaultBreakers?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?:
@@ -1708,10 +1782,10 @@ export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
   HealthCheckAuthenticationOauthSecret
 > = z.object({
   authentication: z.literal("oauthSecret"),
-  loginUrl: z.string().default(""),
+  loginUrl: z.string(),
   tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  clientSecretParamName: z.string().default("client_secret"),
+  authHeaderExpr: z.string(),
+  clientSecretParamName: z.string(),
   textSecret: z.string(),
   authRequestParams: z.array(
     ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$outboundSchema,
@@ -1724,8 +1798,7 @@ export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
   ).optional(),
   collectUrl: z.string(),
   collectMethod:
-    HealthCheckAuthenticationOauthSecretHealthCheckMethod$outboundSchema
-      .default("get"),
+    HealthCheckAuthenticationOauthSecretHealthCheckMethod$outboundSchema,
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
@@ -1733,9 +1806,9 @@ export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthSecretCollectRequestHeader$outboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -1779,8 +1852,7 @@ export const HealthCheckAuthenticationOauthDiscovery$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  discoverType: HealthCheckAuthenticationOauthDiscoverType$inboundSchema
-    .default("none"),
+  discoverType: HealthCheckAuthenticationOauthDiscoverType$inboundSchema,
 });
 /** @internal */
 export type HealthCheckAuthenticationOauthDiscovery$Outbound = {
@@ -1793,8 +1865,7 @@ export const HealthCheckAuthenticationOauthDiscovery$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckAuthenticationOauthDiscovery
 > = z.object({
-  discoverType: HealthCheckAuthenticationOauthDiscoverType$outboundSchema
-    .default("none"),
+  discoverType: HealthCheckAuthenticationOauthDiscoverType$outboundSchema,
 });
 
 export function healthCheckAuthenticationOauthDiscoveryToJSON(
@@ -1897,8 +1968,7 @@ export const HealthCheckAuthenticationOauthRetryRules$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -1921,8 +1991,7 @@ export const HealthCheckAuthenticationOauthRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckAuthenticationOauthRetryRules
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -1963,10 +2032,10 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   authentication: z.literal("oauth"),
-  loginUrl: z.string().default(""),
+  loginUrl: z.string(),
   tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  clientSecretParamName: z.string().default("client_secret"),
+  authHeaderExpr: z.string(),
+  clientSecretParamName: z.string(),
   clientSecretParamValue: z.string(),
   authRequestParams: z.array(
     ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$inboundSchema,
@@ -1977,8 +2046,7 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
   discovery: z.lazy(() => HealthCheckAuthenticationOauthDiscovery$inboundSchema)
     .optional(),
   collectUrl: z.string(),
-  collectMethod: HealthCheckAuthenticationOauthHealthCheckMethod$inboundSchema
-    .default("get"),
+  collectMethod: HealthCheckAuthenticationOauthHealthCheckMethod$inboundSchema,
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
@@ -1986,9 +2054,9 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthCollectRequestHeader$inboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -2018,9 +2086,9 @@ export type HealthCheckAuthenticationOauth$Outbound = {
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationOauthCollectRequestHeader$Outbound>
     | undefined;
-  authenticateCollect: boolean;
-  timeout: number;
-  rejectUnauthorized: boolean;
+  authenticateCollect?: boolean | undefined;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
   defaultBreakers?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?: HealthCheckAuthenticationOauthRetryRules$Outbound | undefined;
@@ -2033,10 +2101,10 @@ export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
   HealthCheckAuthenticationOauth
 > = z.object({
   authentication: z.literal("oauth"),
-  loginUrl: z.string().default(""),
+  loginUrl: z.string(),
   tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  clientSecretParamName: z.string().default("client_secret"),
+  authHeaderExpr: z.string(),
+  clientSecretParamName: z.string(),
   clientSecretParamValue: z.string(),
   authRequestParams: z.array(
     ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$outboundSchema,
@@ -2048,8 +2116,7 @@ export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
     HealthCheckAuthenticationOauthDiscovery$outboundSchema
   ).optional(),
   collectUrl: z.string(),
-  collectMethod: HealthCheckAuthenticationOauthHealthCheckMethod$outboundSchema
-    .default("get"),
+  collectMethod: HealthCheckAuthenticationOauthHealthCheckMethod$outboundSchema,
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
@@ -2057,9 +2124,9 @@ export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthCollectRequestHeader$outboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -2111,8 +2178,8 @@ export const HealthCheckAuthenticationLoginSecretDiscovery$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: HealthCheckAuthenticationLoginSecretDiscoverType$inboundSchema
-      .default("none"),
+    discoverType:
+      HealthCheckAuthenticationLoginSecretDiscoverType$inboundSchema,
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretDiscovery$Outbound = {
@@ -2127,9 +2194,7 @@ export const HealthCheckAuthenticationLoginSecretDiscovery$outboundSchema:
     HealthCheckAuthenticationLoginSecretDiscovery
   > = z.object({
     discoverType:
-      HealthCheckAuthenticationLoginSecretDiscoverType$outboundSchema.default(
-        "none",
-      ),
+      HealthCheckAuthenticationLoginSecretDiscoverType$outboundSchema,
   });
 
 export function healthCheckAuthenticationLoginSecretDiscoveryToJSON(
@@ -2236,8 +2301,7 @@ export const HealthCheckAuthenticationLoginSecretRetryRules$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-      .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -2261,8 +2325,7 @@ export const HealthCheckAuthenticationLoginSecretRetryRules$outboundSchema:
     z.ZodTypeDef,
     HealthCheckAuthenticationLoginSecretRetryRules
   > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-      .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -2303,13 +2366,11 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   authentication: z.literal("loginSecret"),
-  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  loginUrl: z.string(),
   credentialsSecret: z.string(),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
+  loginBody: z.string(),
   tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authHeaderExpr: z.string(),
   authRequestHeaders: z.array(
     ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
   ).optional(),
@@ -2318,9 +2379,7 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
   ).optional(),
   collectUrl: z.string(),
   collectMethod:
-    HealthCheckAuthenticationLoginSecretHealthCheckMethod$inboundSchema.default(
-      "get",
-    ),
+    HealthCheckAuthenticationLoginSecretHealthCheckMethod$inboundSchema,
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
@@ -2328,9 +2387,9 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginSecretCollectRequestHeader$inboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -2359,9 +2418,9 @@ export type HealthCheckAuthenticationLoginSecret$Outbound = {
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationLoginSecretCollectRequestHeader$Outbound>
     | undefined;
-  authenticateCollect: boolean;
-  timeout: number;
-  rejectUnauthorized: boolean;
+  authenticateCollect?: boolean | undefined;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
   defaultBreakers?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?:
@@ -2376,13 +2435,11 @@ export const HealthCheckAuthenticationLoginSecret$outboundSchema: z.ZodType<
   HealthCheckAuthenticationLoginSecret
 > = z.object({
   authentication: z.literal("loginSecret"),
-  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  loginUrl: z.string(),
   credentialsSecret: z.string(),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
+  loginBody: z.string(),
   tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authHeaderExpr: z.string(),
   authRequestHeaders: z.array(
     ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
   ).optional(),
@@ -2391,8 +2448,7 @@ export const HealthCheckAuthenticationLoginSecret$outboundSchema: z.ZodType<
   ).optional(),
   collectUrl: z.string(),
   collectMethod:
-    HealthCheckAuthenticationLoginSecretHealthCheckMethod$outboundSchema
-      .default("get"),
+    HealthCheckAuthenticationLoginSecretHealthCheckMethod$outboundSchema,
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
@@ -2400,9 +2456,9 @@ export const HealthCheckAuthenticationLoginSecret$outboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginSecretCollectRequestHeader$outboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -2446,8 +2502,7 @@ export const HealthCheckAuthenticationLoginDiscovery$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  discoverType: HealthCheckAuthenticationLoginDiscoverType$inboundSchema
-    .default("none"),
+  discoverType: HealthCheckAuthenticationLoginDiscoverType$inboundSchema,
 });
 /** @internal */
 export type HealthCheckAuthenticationLoginDiscovery$Outbound = {
@@ -2460,8 +2515,7 @@ export const HealthCheckAuthenticationLoginDiscovery$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckAuthenticationLoginDiscovery
 > = z.object({
-  discoverType: HealthCheckAuthenticationLoginDiscoverType$outboundSchema
-    .default("none"),
+  discoverType: HealthCheckAuthenticationLoginDiscoverType$outboundSchema,
 });
 
 export function healthCheckAuthenticationLoginDiscoveryToJSON(
@@ -2564,8 +2618,7 @@ export const HealthCheckAuthenticationLoginRetryRules$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -2588,8 +2641,7 @@ export const HealthCheckAuthenticationLoginRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckAuthenticationLoginRetryRules
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -2630,22 +2682,19 @@ export const HealthCheckAuthenticationLogin$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   authentication: z.literal("login"),
-  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  loginUrl: z.string(),
   username: z.string(),
   password: z.string(),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
+  loginBody: z.string(),
   tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authHeaderExpr: z.string(),
   authRequestHeaders: z.array(
     ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
   ).optional(),
   discovery: z.lazy(() => HealthCheckAuthenticationLoginDiscovery$inboundSchema)
     .optional(),
   collectUrl: z.string(),
-  collectMethod: HealthCheckAuthenticationLoginHealthCheckMethod$inboundSchema
-    .default("get"),
+  collectMethod: HealthCheckAuthenticationLoginHealthCheckMethod$inboundSchema,
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
@@ -2653,9 +2702,9 @@ export const HealthCheckAuthenticationLogin$inboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginCollectRequestHeader$inboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -2683,9 +2732,9 @@ export type HealthCheckAuthenticationLogin$Outbound = {
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationLoginCollectRequestHeader$Outbound>
     | undefined;
-  authenticateCollect: boolean;
-  timeout: number;
-  rejectUnauthorized: boolean;
+  authenticateCollect?: boolean | undefined;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
   defaultBreakers?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?: HealthCheckAuthenticationLoginRetryRules$Outbound | undefined;
@@ -2698,14 +2747,12 @@ export const HealthCheckAuthenticationLogin$outboundSchema: z.ZodType<
   HealthCheckAuthenticationLogin
 > = z.object({
   authentication: z.literal("login"),
-  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  loginUrl: z.string(),
   username: z.string(),
   password: z.string(),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
+  loginBody: z.string(),
   tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authHeaderExpr: z.string(),
   authRequestHeaders: z.array(
     ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
   ).optional(),
@@ -2713,8 +2760,7 @@ export const HealthCheckAuthenticationLogin$outboundSchema: z.ZodType<
     HealthCheckAuthenticationLoginDiscovery$outboundSchema
   ).optional(),
   collectUrl: z.string(),
-  collectMethod: HealthCheckAuthenticationLoginHealthCheckMethod$outboundSchema
-    .default("get"),
+  collectMethod: HealthCheckAuthenticationLoginHealthCheckMethod$outboundSchema,
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
@@ -2722,9 +2768,9 @@ export const HealthCheckAuthenticationLogin$outboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginCollectRequestHeader$outboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -2776,8 +2822,8 @@ export const HealthCheckAuthenticationBasicSecretDiscovery$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: HealthCheckAuthenticationBasicSecretDiscoverType$inboundSchema
-      .default("none"),
+    discoverType:
+      HealthCheckAuthenticationBasicSecretDiscoverType$inboundSchema,
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretDiscovery$Outbound = {
@@ -2792,9 +2838,7 @@ export const HealthCheckAuthenticationBasicSecretDiscovery$outboundSchema:
     HealthCheckAuthenticationBasicSecretDiscovery
   > = z.object({
     discoverType:
-      HealthCheckAuthenticationBasicSecretDiscoverType$outboundSchema.default(
-        "none",
-      ),
+      HealthCheckAuthenticationBasicSecretDiscoverType$outboundSchema,
   });
 
 export function healthCheckAuthenticationBasicSecretDiscoveryToJSON(
@@ -2901,8 +2945,7 @@ export const HealthCheckAuthenticationBasicSecretRetryRules$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-      .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -2926,8 +2969,7 @@ export const HealthCheckAuthenticationBasicSecretRetryRules$outboundSchema:
     z.ZodTypeDef,
     HealthCheckAuthenticationBasicSecretRetryRules
   > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-      .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -2974,9 +3016,7 @@ export const HealthCheckAuthenticationBasicSecret$inboundSchema: z.ZodType<
   ).optional(),
   collectUrl: z.string(),
   collectMethod:
-    HealthCheckAuthenticationBasicSecretHealthCheckMethod$inboundSchema.default(
-      "get",
-    ),
+    HealthCheckAuthenticationBasicSecretHealthCheckMethod$inboundSchema,
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
@@ -2984,9 +3024,9 @@ export const HealthCheckAuthenticationBasicSecret$inboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicSecretCollectRequestHeader$inboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -3008,9 +3048,9 @@ export type HealthCheckAuthenticationBasicSecret$Outbound = {
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationBasicSecretCollectRequestHeader$Outbound>
     | undefined;
-  authenticateCollect: boolean;
-  timeout: number;
-  rejectUnauthorized: boolean;
+  authenticateCollect?: boolean | undefined;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
   defaultBreakers?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?:
@@ -3031,8 +3071,7 @@ export const HealthCheckAuthenticationBasicSecret$outboundSchema: z.ZodType<
   ).optional(),
   collectUrl: z.string(),
   collectMethod:
-    HealthCheckAuthenticationBasicSecretHealthCheckMethod$outboundSchema
-      .default("get"),
+    HealthCheckAuthenticationBasicSecretHealthCheckMethod$outboundSchema,
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
@@ -3040,9 +3079,9 @@ export const HealthCheckAuthenticationBasicSecret$outboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicSecretCollectRequestHeader$outboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -3086,8 +3125,7 @@ export const HealthCheckAuthenticationBasicDiscovery$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  discoverType: HealthCheckAuthenticationBasicDiscoverType$inboundSchema
-    .default("none"),
+  discoverType: HealthCheckAuthenticationBasicDiscoverType$inboundSchema,
 });
 /** @internal */
 export type HealthCheckAuthenticationBasicDiscovery$Outbound = {
@@ -3100,8 +3138,7 @@ export const HealthCheckAuthenticationBasicDiscovery$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckAuthenticationBasicDiscovery
 > = z.object({
-  discoverType: HealthCheckAuthenticationBasicDiscoverType$outboundSchema
-    .default("none"),
+  discoverType: HealthCheckAuthenticationBasicDiscoverType$outboundSchema,
 });
 
 export function healthCheckAuthenticationBasicDiscoveryToJSON(
@@ -3204,8 +3241,7 @@ export const HealthCheckAuthenticationBasicRetryRules$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -3228,8 +3264,7 @@ export const HealthCheckAuthenticationBasicRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckAuthenticationBasicRetryRules
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -3275,8 +3310,7 @@ export const HealthCheckAuthenticationBasic$inboundSchema: z.ZodType<
   discovery: z.lazy(() => HealthCheckAuthenticationBasicDiscovery$inboundSchema)
     .optional(),
   collectUrl: z.string(),
-  collectMethod: HealthCheckAuthenticationBasicHealthCheckMethod$inboundSchema
-    .default("get"),
+  collectMethod: HealthCheckAuthenticationBasicHealthCheckMethod$inboundSchema,
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
@@ -3284,9 +3318,9 @@ export const HealthCheckAuthenticationBasic$inboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicCollectRequestHeader$inboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -3307,9 +3341,9 @@ export type HealthCheckAuthenticationBasic$Outbound = {
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationBasicCollectRequestHeader$Outbound>
     | undefined;
-  authenticateCollect: boolean;
-  timeout: number;
-  rejectUnauthorized: boolean;
+  authenticateCollect?: boolean | undefined;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
   defaultBreakers?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?: HealthCheckAuthenticationBasicRetryRules$Outbound | undefined;
@@ -3328,8 +3362,7 @@ export const HealthCheckAuthenticationBasic$outboundSchema: z.ZodType<
     HealthCheckAuthenticationBasicDiscovery$outboundSchema
   ).optional(),
   collectUrl: z.string(),
-  collectMethod: HealthCheckAuthenticationBasicHealthCheckMethod$outboundSchema
-    .default("get"),
+  collectMethod: HealthCheckAuthenticationBasicHealthCheckMethod$outboundSchema,
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
@@ -3337,9 +3370,9 @@ export const HealthCheckAuthenticationBasic$outboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicCollectRequestHeader$outboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -3384,9 +3417,7 @@ export const HealthCheckAuthenticationNoneDiscovery$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  discoverType: HealthCheckAuthenticationNoneDiscoverType$inboundSchema.default(
-    "none",
-  ),
+  discoverType: HealthCheckAuthenticationNoneDiscoverType$inboundSchema,
 });
 /** @internal */
 export type HealthCheckAuthenticationNoneDiscovery$Outbound = {
@@ -3399,8 +3430,7 @@ export const HealthCheckAuthenticationNoneDiscovery$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckAuthenticationNoneDiscovery
 > = z.object({
-  discoverType: HealthCheckAuthenticationNoneDiscoverType$outboundSchema
-    .default("none"),
+  discoverType: HealthCheckAuthenticationNoneDiscoverType$outboundSchema,
 });
 
 export function healthCheckAuthenticationNoneDiscoveryToJSON(
@@ -3498,8 +3528,7 @@ export const HealthCheckAuthenticationNoneRetryRules$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -3522,8 +3551,7 @@ export const HealthCheckAuthenticationNoneRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckAuthenticationNoneRetryRules
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -3567,8 +3595,7 @@ export const HealthCheckAuthenticationNone$inboundSchema: z.ZodType<
   discovery: z.lazy(() => HealthCheckAuthenticationNoneDiscovery$inboundSchema)
     .optional(),
   collectUrl: z.string(),
-  collectMethod: HealthCheckAuthenticationNoneHealthCheckMethod$inboundSchema
-    .default("get"),
+  collectMethod: HealthCheckAuthenticationNoneHealthCheckMethod$inboundSchema,
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
@@ -3576,9 +3603,9 @@ export const HealthCheckAuthenticationNone$inboundSchema: z.ZodType<
       HealthCheckAuthenticationNoneCollectRequestHeader$inboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -3597,9 +3624,9 @@ export type HealthCheckAuthenticationNone$Outbound = {
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationNoneCollectRequestHeader$Outbound>
     | undefined;
-  authenticateCollect: boolean;
-  timeout: number;
-  rejectUnauthorized: boolean;
+  authenticateCollect?: boolean | undefined;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
   defaultBreakers?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?: HealthCheckAuthenticationNoneRetryRules$Outbound | undefined;
@@ -3615,8 +3642,7 @@ export const HealthCheckAuthenticationNone$outboundSchema: z.ZodType<
   discovery: z.lazy(() => HealthCheckAuthenticationNoneDiscovery$outboundSchema)
     .optional(),
   collectUrl: z.string(),
-  collectMethod: HealthCheckAuthenticationNoneHealthCheckMethod$outboundSchema
-    .default("get"),
+  collectMethod: HealthCheckAuthenticationNoneHealthCheckMethod$outboundSchema,
   collectRequestParams: z.any().optional(),
   collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
@@ -3624,9 +3650,9 @@ export const HealthCheckAuthenticationNone$outboundSchema: z.ZodType<
       HealthCheckAuthenticationNoneCollectRequestHeader$outboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -3697,8 +3723,8 @@ export const HealthCheckCollectMethodPostWithBodyDiscovery$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: HealthCheckCollectMethodPostWithBodyDiscoverType$inboundSchema
-      .default("none"),
+    discoverType:
+      HealthCheckCollectMethodPostWithBodyDiscoverType$inboundSchema,
   });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyDiscovery$Outbound = {
@@ -3713,9 +3739,7 @@ export const HealthCheckCollectMethodPostWithBodyDiscovery$outboundSchema:
     HealthCheckCollectMethodPostWithBodyDiscovery
   > = z.object({
     discoverType:
-      HealthCheckCollectMethodPostWithBodyDiscoverType$outboundSchema.default(
-        "none",
-      ),
+      HealthCheckCollectMethodPostWithBodyDiscoverType$outboundSchema,
   });
 
 export function healthCheckCollectMethodPostWithBodyDiscoveryToJSON(
@@ -3822,8 +3846,7 @@ export const HealthCheckCollectMethodPostWithBodyRetryRules$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-      .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -3847,8 +3870,7 @@ export const HealthCheckCollectMethodPostWithBodyRetryRules$outboundSchema:
     z.ZodTypeDef,
     HealthCheckCollectMethodPostWithBodyRetryRules
   > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-      .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -3889,9 +3911,7 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   collectMethod:
-    HealthCheckCollectMethodPostWithBodyHealthCheckMethod$inboundSchema.default(
-      "get",
-    ),
+    HealthCheckCollectMethodPostWithBodyHealthCheckMethod$inboundSchema,
   collectBody: z.any().optional(),
   discovery: z.lazy(() =>
     HealthCheckCollectMethodPostWithBodyDiscovery$inboundSchema
@@ -3903,13 +3923,11 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
       HealthCheckCollectMethodPostWithBodyCollectRequestHeader$inboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
   authentication:
-    HealthCheckCollectMethodPostWithBodyAuthentication$inboundSchema.default(
-      "none",
-    ),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+    HealthCheckCollectMethodPostWithBodyAuthentication$inboundSchema,
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -3929,10 +3947,10 @@ export type HealthCheckCollectMethodPostWithBody$Outbound = {
   collectRequestHeaders?:
     | Array<HealthCheckCollectMethodPostWithBodyCollectRequestHeader$Outbound>
     | undefined;
-  authenticateCollect: boolean;
+  authenticateCollect?: boolean | undefined;
   authentication: string;
-  timeout: number;
-  rejectUnauthorized: boolean;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
   defaultBreakers?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?:
@@ -3947,8 +3965,7 @@ export const HealthCheckCollectMethodPostWithBody$outboundSchema: z.ZodType<
   HealthCheckCollectMethodPostWithBody
 > = z.object({
   collectMethod:
-    HealthCheckCollectMethodPostWithBodyHealthCheckMethod$outboundSchema
-      .default("get"),
+    HealthCheckCollectMethodPostWithBodyHealthCheckMethod$outboundSchema,
   collectBody: z.any().optional(),
   discovery: z.lazy(() =>
     HealthCheckCollectMethodPostWithBodyDiscovery$outboundSchema
@@ -3960,13 +3977,11 @@ export const HealthCheckCollectMethodPostWithBody$outboundSchema: z.ZodType<
       HealthCheckCollectMethodPostWithBodyCollectRequestHeader$outboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
   authentication:
-    HealthCheckCollectMethodPostWithBodyAuthentication$outboundSchema.default(
-      "none",
-    ),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+    HealthCheckCollectMethodPostWithBodyAuthentication$outboundSchema,
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -4029,9 +4044,7 @@ export const HealthCheckCollectMethodPostDiscovery$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  discoverType: HealthCheckCollectMethodPostDiscoverType$inboundSchema.default(
-    "none",
-  ),
+  discoverType: HealthCheckCollectMethodPostDiscoverType$inboundSchema,
 });
 /** @internal */
 export type HealthCheckCollectMethodPostDiscovery$Outbound = {
@@ -4044,9 +4057,7 @@ export const HealthCheckCollectMethodPostDiscovery$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckCollectMethodPostDiscovery
 > = z.object({
-  discoverType: HealthCheckCollectMethodPostDiscoverType$outboundSchema.default(
-    "none",
-  ),
+  discoverType: HealthCheckCollectMethodPostDiscoverType$outboundSchema,
 });
 
 export function healthCheckCollectMethodPostDiscoveryToJSON(
@@ -4137,8 +4148,7 @@ export const HealthCheckCollectMethodPostRetryRules$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -4161,8 +4171,7 @@ export const HealthCheckCollectMethodPostRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckCollectMethodPostRetryRules
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -4197,8 +4206,7 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  collectMethod: HealthCheckCollectMethodPostHealthCheckMethod$inboundSchema
-    .default("get"),
+  collectMethod: HealthCheckCollectMethodPostHealthCheckMethod$inboundSchema,
   collectRequestParams: z.any().optional(),
   discovery: z.lazy(() => HealthCheckCollectMethodPostDiscovery$inboundSchema)
     .optional(),
@@ -4209,11 +4217,10 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
       HealthCheckCollectMethodPostCollectRequestHeader$inboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  authentication: HealthCheckCollectMethodPostAuthentication$inboundSchema
-    .default("none"),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  authentication: HealthCheckCollectMethodPostAuthentication$inboundSchema,
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -4230,10 +4237,10 @@ export type HealthCheckCollectMethodPost$Outbound = {
   collectRequestHeaders?:
     | Array<HealthCheckCollectMethodPostCollectRequestHeader$Outbound>
     | undefined;
-  authenticateCollect: boolean;
+  authenticateCollect?: boolean | undefined;
   authentication: string;
-  timeout: number;
-  rejectUnauthorized: boolean;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
   defaultBreakers?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?: HealthCheckCollectMethodPostRetryRules$Outbound | undefined;
@@ -4245,8 +4252,7 @@ export const HealthCheckCollectMethodPost$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckCollectMethodPost
 > = z.object({
-  collectMethod: HealthCheckCollectMethodPostHealthCheckMethod$outboundSchema
-    .default("get"),
+  collectMethod: HealthCheckCollectMethodPostHealthCheckMethod$outboundSchema,
   collectRequestParams: z.any().optional(),
   discovery: z.lazy(() => HealthCheckCollectMethodPostDiscovery$outboundSchema)
     .optional(),
@@ -4257,11 +4263,10 @@ export const HealthCheckCollectMethodPost$outboundSchema: z.ZodType<
       HealthCheckCollectMethodPostCollectRequestHeader$outboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  authentication: HealthCheckCollectMethodPostAuthentication$outboundSchema
-    .default("none"),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  authentication: HealthCheckCollectMethodPostAuthentication$outboundSchema,
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -4323,9 +4328,7 @@ export const HealthCheckCollectMethodGetDiscovery$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  discoverType: HealthCheckCollectMethodGetDiscoverType$inboundSchema.default(
-    "none",
-  ),
+  discoverType: HealthCheckCollectMethodGetDiscoverType$inboundSchema,
 });
 /** @internal */
 export type HealthCheckCollectMethodGetDiscovery$Outbound = {
@@ -4338,9 +4341,7 @@ export const HealthCheckCollectMethodGetDiscovery$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckCollectMethodGetDiscovery
 > = z.object({
-  discoverType: HealthCheckCollectMethodGetDiscoverType$outboundSchema.default(
-    "none",
-  ),
+  discoverType: HealthCheckCollectMethodGetDiscoverType$outboundSchema,
 });
 
 export function healthCheckCollectMethodGetDiscoveryToJSON(
@@ -4433,8 +4434,7 @@ export const HealthCheckCollectMethodGetRetryRules$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -4457,8 +4457,7 @@ export const HealthCheckCollectMethodGetRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckCollectMethodGetRetryRules
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -4492,8 +4491,7 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  collectMethod: HealthCheckCollectMethodGetHealthCheckMethod$inboundSchema
-    .default("get"),
+  collectMethod: HealthCheckCollectMethodGetHealthCheckMethod$inboundSchema,
   collectRequestParams: z.any().optional(),
   discovery: z.lazy(() => HealthCheckCollectMethodGetDiscovery$inboundSchema)
     .optional(),
@@ -4502,11 +4500,10 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
   collectRequestHeaders: z.array(
     z.lazy(() => HealthCheckCollectMethodGetCollectRequestHeader$inboundSchema),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  authentication: HealthCheckCollectMethodGetAuthentication$inboundSchema
-    .default("none"),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  authentication: HealthCheckCollectMethodGetAuthentication$inboundSchema,
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -4523,10 +4520,10 @@ export type HealthCheckCollectMethodGet$Outbound = {
   collectRequestHeaders?:
     | Array<HealthCheckCollectMethodGetCollectRequestHeader$Outbound>
     | undefined;
-  authenticateCollect: boolean;
+  authenticateCollect?: boolean | undefined;
   authentication: string;
-  timeout: number;
-  rejectUnauthorized: boolean;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
   defaultBreakers?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?: HealthCheckCollectMethodGetRetryRules$Outbound | undefined;
@@ -4538,8 +4535,7 @@ export const HealthCheckCollectMethodGet$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckCollectMethodGet
 > = z.object({
-  collectMethod: HealthCheckCollectMethodGetHealthCheckMethod$outboundSchema
-    .default("get"),
+  collectMethod: HealthCheckCollectMethodGetHealthCheckMethod$outboundSchema,
   collectRequestParams: z.any().optional(),
   discovery: z.lazy(() => HealthCheckCollectMethodGetDiscovery$outboundSchema)
     .optional(),
@@ -4550,11 +4546,10 @@ export const HealthCheckCollectMethodGet$outboundSchema: z.ZodType<
       HealthCheckCollectMethodGetCollectRequestHeader$outboundSchema
     ),
   ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  authentication: HealthCheckCollectMethodGetAuthentication$outboundSchema
-    .default("none"),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
+  authenticateCollect: z.boolean().optional(),
+  authentication: HealthCheckCollectMethodGetAuthentication$outboundSchema,
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   defaultBreakers:
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),

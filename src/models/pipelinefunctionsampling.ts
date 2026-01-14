@@ -47,7 +47,7 @@ export const PipelineFunctionSampling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("sampling"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionSampling$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionSampling$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "sampling";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionSampling$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionSampling
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("sampling"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

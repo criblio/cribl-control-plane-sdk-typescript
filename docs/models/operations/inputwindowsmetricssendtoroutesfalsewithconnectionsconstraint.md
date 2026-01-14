@@ -6,6 +6,7 @@
 import { InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint = {
+  sendToRoutes: true,
   connections: [
     {
       pipeline: "<value>",
@@ -14,30 +15,57 @@ let value: InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint = {
   ],
   id: "<id>",
   type: "windows_metrics",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  interval: 1657.3,
   host: {
+    mode: "custom",
     custom: {
-      system: {},
-      cpu: {},
-      memory: {},
+      system: {
+        mode: "disabled",
+        detail: false,
+      },
+      cpu: {
+        mode: "disabled",
+        perCpu: false,
+        detail: false,
+        time: false,
+      },
+      memory: {
+        mode: "disabled",
+        detail: false,
+      },
       network: {
+        mode: "disabled",
+        detail: true,
+        protocols: true,
         devices: [
           "<value 1>",
           "<value 2>",
         ],
+        perInterface: true,
       },
       disk: {
+        mode: "disabled",
+        perVolume: false,
+        detail: false,
         volumes: [
           "<value 1>",
-          "<value 2>",
         ],
       },
     },
@@ -47,6 +75,7 @@ let value: InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint = {
       {
         name: "<value>",
         filter: "<value>",
+        includeChildren: false,
       },
     ],
   },
@@ -56,9 +85,17 @@ let value: InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  persistence: {},
+  persistence: {
+    enable: true,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+    destPath: "<value>",
+  },
+  disableNativeModule: false,
   description:
-    "fall vengeful scale severe miserable minus secret at reclassify",
+    "laughter yippee minor lighthearted pricey notwithstanding given gosh tromp",
 };
 ```
 
@@ -66,7 +103,7 @@ let value: InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
 | `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [operations.InputWindowsMetricsType](../../models/operations/inputwindowsmetricstype.md)                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

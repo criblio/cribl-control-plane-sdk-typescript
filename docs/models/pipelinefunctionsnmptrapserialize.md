@@ -6,14 +6,19 @@
 import { PipelineFunctionSnmpTrapSerialize } from "cribl-control-plane/models";
 
 let value: PipelineFunctionSnmpTrapSerialize = {
+  filter: "<value>",
   id: "snmp_trap_serialize",
   description: "upward irritably release loyally gee remark homeschool",
   disabled: true,
   final: true,
   conf: {
+    strict: true,
+    dropFailedEvents: true,
     v3User: {
       name: "<value>",
+      authProtocol: "sha384",
       authKey: "<value>",
+      privProtocol: "<value>",
     },
   },
   groupId: "<id>",

@@ -7,14 +7,16 @@
 
 ```typescript
 const value: operations.InputFileSendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "file",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -23,15 +25,28 @@ const value: operations.InputFileSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  mode: "auto",
+  interval: 3159.74,
   filenames: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
+  filterArchivedFiles: false,
+  tailOnly: false,
+  idleTimeout: 3871.48,
   minAgeDur: "<value>",
   maxAgeDur: "<value>",
+  checkFileModTime: true,
+  forceText: false,
+  hashLen: 3131.4,
   metadata: [
     {
       name: "<value>",
@@ -40,10 +55,17 @@ const value: operations.InputFileSendToRoutesTrueConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
-  description: "fax pace supposing major knowledgeably yet dwell",
-  path: "/Applications",
-  depth: 1446.23,
+  staleChannelFlushMs: 250.3,
+  description:
+    "questioningly since blah neaten remand boohoo accompanist vice ew know",
+  path: "/usr/sbin",
+  depth: 4180.11,
+  suppressMissingPathErrors: false,
+  deleteFiles: true,
+  includeUnidentifiableBinary: false,
 };
 ```
 
@@ -51,6 +73,7 @@ const value: operations.InputFileSendToRoutesTrueConstraint = {
 
 ```typescript
 const value: operations.InputFileSendToRoutesFalseWithConnectionsConstraint = {
+  sendToRoutes: true,
   connections: [
     {
       pipeline: "<value>",
@@ -59,22 +82,36 @@ const value: operations.InputFileSendToRoutesFalseWithConnectionsConstraint = {
   ],
   id: "<id>",
   type: "file",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  mode: "manual",
+  interval: 282.14,
   filenames: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
+  filterArchivedFiles: false,
+  tailOnly: true,
+  idleTimeout: 3465.64,
   minAgeDur: "<value>",
   maxAgeDur: "<value>",
+  checkFileModTime: true,
+  forceText: true,
+  hashLen: 1166.29,
   metadata: [
     {
       name: "<value>",
@@ -83,11 +120,14 @@ const value: operations.InputFileSendToRoutesFalseWithConnectionsConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
-  description: "if if following rudely flickering",
-  path: "/var/log",
-  depth: 5756.28,
+  staleChannelFlushMs: 313.18,
+  description: "hypothesize faithfully materialise ack",
+  path: "/private/tmp",
+  depth: 2350.04,
+  suppressMissingPathErrors: true,
+  deleteFiles: false,
+  includeUnidentifiableBinary: false,
 };
 ```
 
@@ -95,14 +135,16 @@ const value: operations.InputFileSendToRoutesFalseWithConnectionsConstraint = {
 
 ```typescript
 const value: operations.InputFilePqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "file",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -111,14 +153,30 @@ const value: operations.InputFilePqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  mode: "auto",
+  interval: 664.05,
   filenames: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
+  filterArchivedFiles: true,
+  tailOnly: true,
+  idleTimeout: 1197.21,
   minAgeDur: "<value>",
   maxAgeDur: "<value>",
+  checkFileModTime: false,
+  forceText: true,
+  hashLen: 4105.34,
   metadata: [
     {
       name: "<value>",
@@ -128,11 +186,14 @@ const value: operations.InputFilePqEnabledFalseConstraint = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  description: "since ajar since vivaciously junior greedy duh",
-  path: "/proc",
-  depth: 2677.68,
+  staleChannelFlushMs: 8213.53,
+  description: "aha worse filthy given ravage purse gosh scratch mortally",
+  path: "/usr/src",
+  depth: 7701.56,
+  suppressMissingPathErrors: false,
+  deleteFiles: false,
+  includeUnidentifiableBinary: false,
 };
 ```
 
@@ -140,12 +201,22 @@ const value: operations.InputFilePqEnabledFalseConstraint = {
 
 ```typescript
 const value: operations.InputFilePqEnabledTrueWithPqConstraint = {
+  pqEnabled: true,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "file",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -157,13 +228,19 @@ const value: operations.InputFilePqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
+  mode: "auto",
+  interval: 5133.75,
   filenames: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
+  filterArchivedFiles: false,
+  tailOnly: true,
+  idleTimeout: 293.88,
   minAgeDur: "<value>",
   maxAgeDur: "<value>",
+  checkFileModTime: true,
+  forceText: false,
+  hashLen: 3326.78,
   metadata: [
     {
       name: "<value>",
@@ -172,10 +249,16 @@ const value: operations.InputFilePqEnabledTrueWithPqConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
-  description: "fess likewise daily grumpy mmm freckle",
-  path: "/dev",
-  depth: 6623.31,
+  staleChannelFlushMs: 1723.38,
+  description: "dutiful under ick crackle",
+  path: "/opt",
+  depth: 3623.64,
+  suppressMissingPathErrors: true,
+  deleteFiles: false,
+  includeUnidentifiableBinary: true,
 };
 ```
 

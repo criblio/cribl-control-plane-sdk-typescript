@@ -6,6 +6,8 @@
 import { FunctionConfSchemaFoldkeys } from "cribl-control-plane/models";
 
 let value: FunctionConfSchemaFoldkeys = {
+  deleteOriginal: false,
+  separator: "<value>",
   selectionRegExp: "<value>",
 };
 ```

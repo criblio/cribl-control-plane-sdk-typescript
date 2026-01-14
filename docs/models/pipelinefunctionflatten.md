@@ -6,6 +6,7 @@
 import { PipelineFunctionFlatten } from "cribl-control-plane/models";
 
 let value: PipelineFunctionFlatten = {
+  filter: "<value>",
   id: "flatten",
   description: "scent next well-worn sans satirise catalyze",
   disabled: false,
@@ -14,6 +15,9 @@ let value: PipelineFunctionFlatten = {
     fields: [
       "<value 1>",
     ],
+    prefix: "<value>",
+    depth: 1196.53,
+    delimiter: "<value>",
   },
   groupId: "<id>",
 };

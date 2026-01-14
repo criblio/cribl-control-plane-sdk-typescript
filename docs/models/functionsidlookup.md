@@ -28,6 +28,7 @@ let value: FunctionSidlookup = {
       {
         name: "<value>",
         expr: "<value>",
+        disabled: false,
       },
     ],
   },

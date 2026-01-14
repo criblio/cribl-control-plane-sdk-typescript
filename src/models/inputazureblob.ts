@@ -7,10 +7,10 @@ import { safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
-  AuthenticationMethodOptions1,
-  AuthenticationMethodOptions1$inboundSchema,
-  AuthenticationMethodOptions1$outboundSchema,
-} from "./authenticationmethodoptions1.js";
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+  AuthenticationMethodOptions$outboundSchema,
+} from "./authenticationmethodoptions.js";
 import {
   CertificateTypeAzureBlobAuthTypeClientCert,
   CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
@@ -46,7 +46,7 @@ export type InputAzureBlobPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   pq?: PqType | undefined;
   /**
    * Unique ID for this input
@@ -122,7 +122,7 @@ export type InputAzureBlobPqEnabledTrueWithPqConstraint = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptions | undefined;
   description?: string | undefined;
   /**
    * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -163,7 +163,7 @@ export type InputAzureBlobPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   /**
    * Unique ID for this input
    */
@@ -239,7 +239,7 @@ export type InputAzureBlobPqEnabledFalseConstraint = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptions | undefined;
   description?: string | undefined;
   /**
    * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -280,7 +280,7 @@ export type InputAzureBlobSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -356,7 +356,7 @@ export type InputAzureBlobSendToRoutesFalseWithConnectionsConstraint = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptions | undefined;
   description?: string | undefined;
   /**
    * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -397,7 +397,7 @@ export type InputAzureBlobSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Unique ID for this input
    */
@@ -473,7 +473,7 @@ export type InputAzureBlobSendToRoutesTrueConstraint = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptions | undefined;
   description?: string | undefined;
   /**
    * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -532,29 +532,29 @@ export const InputAzureBlobPqEnabledTrueWithPqConstraint$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     pq: PqType$inboundSchema.optional(),
     id: z.string().optional(),
     type: InputAzureBlobType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     queueName: z.string(),
-    fileFilter: z.string().default("/.*/"),
-    visibilityTimeout: z.number().default(600),
-    numReceivers: z.number().default(1),
-    maxMessages: z.number().default(1),
-    servicePeriodSecs: z.number().default(5),
-    skipOnError: z.boolean().default(false),
+    fileFilter: z.string().optional(),
+    visibilityTimeout: z.number().optional(),
+    numReceivers: z.number().optional(),
+    maxMessages: z.number().optional(),
+    servicePeriodSecs: z.number().optional(),
+    skipOnError: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    parquetChunkSizeMB: z.number().default(5),
-    parquetChunkDownloadTimeout: z.number().default(600),
-    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+    staleChannelFlushMs: z.number().optional(),
+    parquetChunkSizeMB: z.number().optional(),
+    parquetChunkDownloadTimeout: z.number().optional(),
+    authType: AuthenticationMethodOptions$inboundSchema.optional(),
     description: z.string().optional(),
     connectionString: z.string().optional(),
     textSecret: z.string().optional(),
@@ -573,25 +573,25 @@ export type InputAzureBlobPqEnabledTrueWithPqConstraint$Outbound = {
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   queueName: string;
-  fileFilter: string;
-  visibilityTimeout: number;
-  numReceivers: number;
-  maxMessages: number;
-  servicePeriodSecs: number;
-  skipOnError: boolean;
+  fileFilter?: string | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  maxMessages?: number | undefined;
+  servicePeriodSecs?: number | undefined;
+  skipOnError?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
-  authType: string;
+  staleChannelFlushMs?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  authType?: string | undefined;
   description?: string | undefined;
   connectionString?: string | undefined;
   textSecret?: string | undefined;
@@ -611,30 +611,30 @@ export const InputAzureBlobPqEnabledTrueWithPqConstraint$outboundSchema:
     z.ZodTypeDef,
     InputAzureBlobPqEnabledTrueWithPqConstraint
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputAzureBlobType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     queueName: z.string(),
-    fileFilter: z.string().default("/.*/"),
-    visibilityTimeout: z.number().default(600),
-    numReceivers: z.number().default(1),
-    maxMessages: z.number().default(1),
-    servicePeriodSecs: z.number().default(5),
-    skipOnError: z.boolean().default(false),
+    fileFilter: z.string().optional(),
+    visibilityTimeout: z.number().optional(),
+    numReceivers: z.number().optional(),
+    maxMessages: z.number().optional(),
+    servicePeriodSecs: z.number().optional(),
+    skipOnError: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    parquetChunkSizeMB: z.number().default(5),
-    parquetChunkDownloadTimeout: z.number().default(600),
-    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+    staleChannelFlushMs: z.number().optional(),
+    parquetChunkSizeMB: z.number().optional(),
+    parquetChunkDownloadTimeout: z.number().optional(),
+    authType: AuthenticationMethodOptions$outboundSchema.optional(),
     description: z.string().optional(),
     connectionString: z.string().optional(),
     textSecret: z.string().optional(),
@@ -680,29 +680,29 @@ export const InputAzureBlobPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputAzureBlobType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
   queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  maxMessages: z.number().default(1),
-  servicePeriodSecs: z.number().default(5),
-  skipOnError: z.boolean().default(false),
+  fileFilter: z.string().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  maxMessages: z.number().optional(),
+  servicePeriodSecs: z.number().optional(),
+  skipOnError: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
-  authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+  staleChannelFlushMs: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  authType: AuthenticationMethodOptions$inboundSchema.optional(),
   description: z.string().optional(),
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),
@@ -720,26 +720,26 @@ export type InputAzureBlobPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   queueName: string;
-  fileFilter: string;
-  visibilityTimeout: number;
-  numReceivers: number;
-  maxMessages: number;
-  servicePeriodSecs: number;
-  skipOnError: boolean;
+  fileFilter?: string | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  maxMessages?: number | undefined;
+  servicePeriodSecs?: number | undefined;
+  skipOnError?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
-  authType: string;
+  staleChannelFlushMs?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  authType?: string | undefined;
   description?: string | undefined;
   connectionString?: string | undefined;
   textSecret?: string | undefined;
@@ -758,29 +758,29 @@ export const InputAzureBlobPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputAzureBlobPqEnabledFalseConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputAzureBlobType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  maxMessages: z.number().default(1),
-  servicePeriodSecs: z.number().default(5),
-  skipOnError: z.boolean().default(false),
+  fileFilter: z.string().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  maxMessages: z.number().optional(),
+  servicePeriodSecs: z.number().optional(),
+  skipOnError: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
-  authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+  staleChannelFlushMs: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  authType: AuthenticationMethodOptions$outboundSchema.optional(),
   description: z.string().optional(),
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),
@@ -822,29 +822,29 @@ export const InputAzureBlobSendToRoutesFalseWithConnectionsConstraint$inboundSch
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputAzureBlobType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$inboundSchema.optional(),
     queueName: z.string(),
-    fileFilter: z.string().default("/.*/"),
-    visibilityTimeout: z.number().default(600),
-    numReceivers: z.number().default(1),
-    maxMessages: z.number().default(1),
-    servicePeriodSecs: z.number().default(5),
-    skipOnError: z.boolean().default(false),
+    fileFilter: z.string().optional(),
+    visibilityTimeout: z.number().optional(),
+    numReceivers: z.number().optional(),
+    maxMessages: z.number().optional(),
+    servicePeriodSecs: z.number().optional(),
+    skipOnError: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    parquetChunkSizeMB: z.number().default(5),
-    parquetChunkDownloadTimeout: z.number().default(600),
-    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+    staleChannelFlushMs: z.number().optional(),
+    parquetChunkSizeMB: z.number().optional(),
+    parquetChunkDownloadTimeout: z.number().optional(),
+    authType: AuthenticationMethodOptions$inboundSchema.optional(),
     description: z.string().optional(),
     connectionString: z.string().optional(),
     textSecret: z.string().optional(),
@@ -864,25 +864,25 @@ export type InputAzureBlobSendToRoutesFalseWithConnectionsConstraint$Outbound =
     connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
     id?: string | undefined;
     type: string;
-    disabled: boolean;
+    disabled?: boolean | undefined;
     pipeline?: string | undefined;
     environment?: string | undefined;
-    pqEnabled: boolean;
+    pqEnabled?: boolean | undefined;
     streamtags?: Array<string> | undefined;
     pq?: PqType$Outbound | undefined;
     queueName: string;
-    fileFilter: string;
-    visibilityTimeout: number;
-    numReceivers: number;
-    maxMessages: number;
-    servicePeriodSecs: number;
-    skipOnError: boolean;
+    fileFilter?: string | undefined;
+    visibilityTimeout?: number | undefined;
+    numReceivers?: number | undefined;
+    maxMessages?: number | undefined;
+    servicePeriodSecs?: number | undefined;
+    skipOnError?: boolean | undefined;
     metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
     breakerRulesets?: Array<string> | undefined;
-    staleChannelFlushMs: number;
-    parquetChunkSizeMB: number;
-    parquetChunkDownloadTimeout: number;
-    authType: string;
+    staleChannelFlushMs?: number | undefined;
+    parquetChunkSizeMB?: number | undefined;
+    parquetChunkDownloadTimeout?: number | undefined;
+    authType?: string | undefined;
     description?: string | undefined;
     connectionString?: string | undefined;
     textSecret?: string | undefined;
@@ -904,30 +904,30 @@ export const InputAzureBlobSendToRoutesFalseWithConnectionsConstraint$outboundSc
     z.ZodTypeDef,
     InputAzureBlobSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     id: z.string().optional(),
     type: InputAzureBlobType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
     queueName: z.string(),
-    fileFilter: z.string().default("/.*/"),
-    visibilityTimeout: z.number().default(600),
-    numReceivers: z.number().default(1),
-    maxMessages: z.number().default(1),
-    servicePeriodSecs: z.number().default(5),
-    skipOnError: z.boolean().default(false),
+    fileFilter: z.string().optional(),
+    visibilityTimeout: z.number().optional(),
+    numReceivers: z.number().optional(),
+    maxMessages: z.number().optional(),
+    servicePeriodSecs: z.number().optional(),
+    skipOnError: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    parquetChunkSizeMB: z.number().default(5),
-    parquetChunkDownloadTimeout: z.number().default(600),
-    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+    staleChannelFlushMs: z.number().optional(),
+    parquetChunkSizeMB: z.number().optional(),
+    parquetChunkDownloadTimeout: z.number().optional(),
+    authType: AuthenticationMethodOptions$outboundSchema.optional(),
     description: z.string().optional(),
     connectionString: z.string().optional(),
     textSecret: z.string().optional(),
@@ -971,29 +971,29 @@ export const InputAzureBlobSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputAzureBlobType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
   queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  maxMessages: z.number().default(1),
-  servicePeriodSecs: z.number().default(5),
-  skipOnError: z.boolean().default(false),
+  fileFilter: z.string().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  maxMessages: z.number().optional(),
+  servicePeriodSecs: z.number().optional(),
+  skipOnError: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
-  authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+  staleChannelFlushMs: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  authType: AuthenticationMethodOptions$inboundSchema.optional(),
   description: z.string().optional(),
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),
@@ -1011,26 +1011,26 @@ export type InputAzureBlobSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   queueName: string;
-  fileFilter: string;
-  visibilityTimeout: number;
-  numReceivers: number;
-  maxMessages: number;
-  servicePeriodSecs: number;
-  skipOnError: boolean;
+  fileFilter?: string | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  maxMessages?: number | undefined;
+  servicePeriodSecs?: number | undefined;
+  skipOnError?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
-  authType: string;
+  staleChannelFlushMs?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  authType?: string | undefined;
   description?: string | undefined;
   connectionString?: string | undefined;
   textSecret?: string | undefined;
@@ -1049,29 +1049,29 @@ export const InputAzureBlobSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputAzureBlobSendToRoutesTrueConstraint
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputAzureBlobType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  maxMessages: z.number().default(1),
-  servicePeriodSecs: z.number().default(5),
-  skipOnError: z.boolean().default(false),
+  fileFilter: z.string().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  maxMessages: z.number().optional(),
+  servicePeriodSecs: z.number().optional(),
+  skipOnError: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
-  authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+  staleChannelFlushMs: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  authType: AuthenticationMethodOptions$outboundSchema.optional(),
   description: z.string().optional(),
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),

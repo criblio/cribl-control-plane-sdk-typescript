@@ -6,6 +6,7 @@
 import { InputKubeEventsSendToRoutesFalseWithConnectionsConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputKubeEventsSendToRoutesFalseWithConnectionsConstraint = {
+  sendToRoutes: true,
   connections: [
     {
       pipeline: "<value>",
@@ -14,20 +15,28 @@ let value: InputKubeEventsSendToRoutesFalseWithConnectionsConstraint = {
   ],
   id: "<id>",
   type: "kube_events",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   rules: [
     {
       filter: "<value>",
-      description:
-        "afore progress ethyl um gratefully pish whose till hydrocarbon",
+      description: "gerbil who despite each ha deliquesce",
     },
   ],
   metadata: [
@@ -36,7 +45,8 @@ let value: InputKubeEventsSendToRoutesFalseWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description: "once dimly violin unlike showboat",
+  description:
+    "merrily that lieu precedent fen because midst unto proper nearly",
 };
 ```
 
@@ -44,7 +54,7 @@ let value: InputKubeEventsSendToRoutesFalseWithConnectionsConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
 | `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [operations.InputKubeEventsType](../../models/operations/inputkubeeventstype.md)                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

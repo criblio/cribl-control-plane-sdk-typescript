@@ -8,11 +8,6 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
-  AuthenticationMethodOptions,
-  AuthenticationMethodOptions$inboundSchema,
-  AuthenticationMethodOptions$outboundSchema,
-} from "./authenticationmethodoptions.js";
-import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
@@ -90,7 +85,7 @@ export type OutputKinesis = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the Kinesis stream is located
@@ -268,40 +263,38 @@ export const OutputKinesis$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   streamName: z.string(),
-  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions2$inboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionOptions2$inboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  concurrency: z.number().default(5),
-  maxRecordSizeKB: z.number().default(1024),
-  flushPeriodSec: z.number().default(1),
-  compression: OutputKinesisCompression$inboundSchema.default("gzip"),
-  useListShards: z.boolean().default(false),
-  asNdjson: z.boolean().default(true),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  durationSeconds: z.number().optional(),
+  concurrency: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  compression: OutputKinesisCompression$inboundSchema.optional(),
+  useListShards: z.boolean().optional(),
+  asNdjson: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  maxEventsPerFlush: z.number().default(500),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  maxEventsPerFlush: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputKinesisPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -313,38 +306,38 @@ export type OutputKinesis$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   streamName: string;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   region: string;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  concurrency: number;
-  maxRecordSizeKB: number;
-  flushPeriodSec: number;
-  compression: string;
-  useListShards: boolean;
-  asNdjson: boolean;
-  onBackpressure: string;
+  durationSeconds?: number | undefined;
+  concurrency?: number | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  compression?: string | undefined;
+  useListShards?: boolean | undefined;
+  asNdjson?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  maxEventsPerFlush: number;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  maxEventsPerFlush?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputKinesisPqControls$Outbound | undefined;
 };
 
@@ -361,40 +354,38 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   streamName: z.string(),
-  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions2$outboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionOptions2$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  concurrency: z.number().default(5),
-  maxRecordSizeKB: z.number().default(1024),
-  flushPeriodSec: z.number().default(1),
-  compression: OutputKinesisCompression$outboundSchema.default("gzip"),
-  useListShards: z.boolean().default(false),
-  asNdjson: z.boolean().default(true),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  durationSeconds: z.number().optional(),
+  concurrency: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  compression: OutputKinesisCompression$outboundSchema.optional(),
+  useListShards: z.boolean().optional(),
+  asNdjson: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  maxEventsPerFlush: z.number().default(500),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  maxEventsPerFlush: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputKinesisPqControls$outboundSchema).optional(),
 });
 

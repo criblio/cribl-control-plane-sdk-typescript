@@ -23,10 +23,14 @@ let value: FunctionNumerify = {
   },
   version: "<value>",
   schema: {
+    depth: 18182,
     ignoreFields: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
     filterExpr: "<value>",
+    format: "ceil",
   },
 };
 ```

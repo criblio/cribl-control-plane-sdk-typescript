@@ -12,19 +12,19 @@ export type FunctionConfSchemaAggregation = {
   /**
    * Pass through the original events along with the aggregation events
    */
-  passthrough: boolean;
+  passthrough?: boolean | undefined;
   /**
    * Preserve the structure of the original aggregation event's groupby fields
    */
-  preserveGroupBys: boolean;
+  preserveGroupBys?: boolean | undefined;
   /**
    * Output only statistics that are sufficient for the supplied aggregations
    */
-  sufficientStatsOnly: boolean;
+  sufficientStatsOnly?: boolean | undefined;
   /**
    * Enable to output the aggregates as metrics. When disabled, aggregates are output as events.
    */
-  metricsMode: boolean;
+  metricsMode?: boolean | undefined;
   /**
    * A prefix that is prepended to all of the fields output by this Aggregations Function
    */
@@ -32,7 +32,7 @@ export type FunctionConfSchemaAggregation = {
   /**
    * The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
    */
-  timeWindow: string;
+  timeWindow?: string | undefined;
   /**
    * Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
    */
@@ -52,7 +52,7 @@ export type FunctionConfSchemaAggregation = {
   /**
    * Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
    */
-  cumulative: boolean;
+  cumulative?: boolean | undefined;
   /**
    * Allows Cribl Search-specific aggregation configuration
    */
@@ -64,11 +64,11 @@ export type FunctionConfSchemaAggregation = {
   /**
    * Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
    */
-  shouldTreatDotsAsLiterals: boolean;
+  shouldTreatDotsAsLiterals?: boolean | undefined;
   /**
    * Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
    */
-  flushOnInputClose: boolean;
+  flushOnInputClose?: boolean | undefined;
 };
 
 /** @internal */
@@ -77,21 +77,21 @@ export const FunctionConfSchemaAggregation$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  passthrough: z.boolean().default(false),
-  preserveGroupBys: z.boolean().default(false),
-  sufficientStatsOnly: z.boolean().default(false),
-  metricsMode: z.boolean().default(false),
+  passthrough: z.boolean().optional(),
+  preserveGroupBys: z.boolean().optional(),
+  sufficientStatsOnly: z.boolean().optional(),
+  metricsMode: z.boolean().optional(),
   prefix: z.string().optional(),
-  timeWindow: z.string().default("10s"),
+  timeWindow: z.string().optional(),
   aggregations: z.array(z.string()).optional(),
   groupbys: z.array(z.string()).optional(),
   flushEventLimit: z.number().optional(),
   flushMemLimit: z.string().optional(),
-  cumulative: z.boolean().default(false),
+  cumulative: z.boolean().optional(),
   searchAggMode: z.string().optional(),
   add: z.array(ItemsTypeAdd$inboundSchema).optional(),
-  shouldTreatDotsAsLiterals: z.boolean().default(false),
-  flushOnInputClose: z.boolean().default(true),
+  shouldTreatDotsAsLiterals: z.boolean().optional(),
+  flushOnInputClose: z.boolean().optional(),
 });
 
 export function functionConfSchemaAggregationFromJSON(

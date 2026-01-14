@@ -99,7 +99,7 @@ export type InputOpenTelemetryPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   pq?: PqType | undefined;
   /**
    * Unique ID for this input
@@ -130,11 +130,11 @@ export type InputOpenTelemetryPqEnabledTrueWithPqConstraint = {
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
-  port?: number | undefined;
+  port: number;
   tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -256,7 +256,7 @@ export type InputOpenTelemetryPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   /**
    * Unique ID for this input
    */
@@ -287,11 +287,11 @@ export type InputOpenTelemetryPqEnabledFalseConstraint = {
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
-  port?: number | undefined;
+  port: number;
   tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -413,7 +413,7 @@ export type InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -444,11 +444,11 @@ export type InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
-  port?: number | undefined;
+  port: number;
   tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -570,7 +570,7 @@ export type InputOpenTelemetrySendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Unique ID for this input
    */
@@ -601,11 +601,11 @@ export type InputOpenTelemetrySendToRoutesTrueConstraint = {
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
-  port?: number | undefined;
+  port: number;
   tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -771,37 +771,37 @@ export const InputOpenTelemetryPqEnabledTrueWithPqConstraint$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     pq: PqType$inboundSchema.optional(),
     id: z.string().optional(),
     type: InputOpenTelemetryType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number().default(4317),
+    host: z.string(),
+    port: z.number(),
     tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
+    maxActiveReq: z.number().optional(),
+    maxRequestsPerSocket: z.number().int().optional(),
     enableProxyHeader: z.any().optional(),
     captureHeaders: z.any().optional(),
     activityLogSampleRate: z.any().optional(),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(15),
-    enableHealthCheck: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    protocol: InputOpenTelemetryProtocol$inboundSchema.default("grpc"),
-    extractSpans: z.boolean().default(false),
-    extractMetrics: z.boolean().default(false),
-    otlpVersion: InputOpenTelemetryOTLPVersion$inboundSchema.default("0.10.0"),
-    authType: AuthenticationTypeOptions$inboundSchema.default("none"),
+    requestTimeout: z.number().optional(),
+    socketTimeout: z.number().optional(),
+    keepAliveTimeout: z.number().optional(),
+    enableHealthCheck: z.boolean().optional(),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
+    protocol: InputOpenTelemetryProtocol$inboundSchema.optional(),
+    extractSpans: z.boolean().optional(),
+    extractMetrics: z.boolean().optional(),
+    otlpVersion: InputOpenTelemetryOTLPVersion$inboundSchema.optional(),
+    authType: AuthenticationTypeOptions$inboundSchema.optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    maxActiveCxn: z.number().default(1000),
+    maxActiveCxn: z.number().optional(),
     description: z.string().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
@@ -812,11 +812,11 @@ export const InputOpenTelemetryPqEnabledTrueWithPqConstraint$inboundSchema:
     secretParamName: z.string().optional(),
     secret: z.string().optional(),
     tokenAttributeName: z.string().optional(),
-    authHeaderExpr: z.string().default("`Bearer ${token}`"),
-    tokenTimeoutSecs: z.number().default(3600),
+    authHeaderExpr: z.string().optional(),
+    tokenTimeoutSecs: z.number().optional(),
     oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
     oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
-    extractLogs: z.boolean().default(false),
+    extractLogs: z.boolean().optional(),
   });
 /** @internal */
 export type InputOpenTelemetryPqEnabledTrueWithPqConstraint$Outbound = {
@@ -824,33 +824,33 @@ export type InputOpenTelemetryPqEnabledTrueWithPqConstraint$Outbound = {
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
   enableProxyHeader?: any | undefined;
   captureHeaders?: any | undefined;
   activityLogSampleRate?: any | undefined;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
-  enableHealthCheck: boolean;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
-  protocol: string;
-  extractSpans: boolean;
-  extractMetrics: boolean;
-  otlpVersion: string;
-  authType: string;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  protocol?: string | undefined;
+  extractSpans?: boolean | undefined;
+  extractMetrics?: boolean | undefined;
+  otlpVersion?: string | undefined;
+  authType?: string | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  maxActiveCxn: number;
+  maxActiveCxn?: number | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -861,11 +861,11 @@ export type InputOpenTelemetryPqEnabledTrueWithPqConstraint$Outbound = {
   secretParamName?: string | undefined;
   secret?: string | undefined;
   tokenAttributeName?: string | undefined;
-  authHeaderExpr: string;
-  tokenTimeoutSecs: number;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
-  extractLogs: boolean;
+  extractLogs?: boolean | undefined;
 };
 
 /** @internal */
@@ -875,38 +875,38 @@ export const InputOpenTelemetryPqEnabledTrueWithPqConstraint$outboundSchema:
     z.ZodTypeDef,
     InputOpenTelemetryPqEnabledTrueWithPqConstraint
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputOpenTelemetryType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number().default(4317),
+    host: z.string(),
+    port: z.number(),
     tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
+    maxActiveReq: z.number().optional(),
+    maxRequestsPerSocket: z.number().int().optional(),
     enableProxyHeader: z.any().optional(),
     captureHeaders: z.any().optional(),
     activityLogSampleRate: z.any().optional(),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(15),
-    enableHealthCheck: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    protocol: InputOpenTelemetryProtocol$outboundSchema.default("grpc"),
-    extractSpans: z.boolean().default(false),
-    extractMetrics: z.boolean().default(false),
-    otlpVersion: InputOpenTelemetryOTLPVersion$outboundSchema.default("0.10.0"),
-    authType: AuthenticationTypeOptions$outboundSchema.default("none"),
+    requestTimeout: z.number().optional(),
+    socketTimeout: z.number().optional(),
+    keepAliveTimeout: z.number().optional(),
+    enableHealthCheck: z.boolean().optional(),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
+    protocol: InputOpenTelemetryProtocol$outboundSchema.optional(),
+    extractSpans: z.boolean().optional(),
+    extractMetrics: z.boolean().optional(),
+    otlpVersion: InputOpenTelemetryOTLPVersion$outboundSchema.optional(),
+    authType: AuthenticationTypeOptions$outboundSchema.optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    maxActiveCxn: z.number().default(1000),
+    maxActiveCxn: z.number().optional(),
     description: z.string().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
@@ -917,11 +917,11 @@ export const InputOpenTelemetryPqEnabledTrueWithPqConstraint$outboundSchema:
     secretParamName: z.string().optional(),
     secret: z.string().optional(),
     tokenAttributeName: z.string().optional(),
-    authHeaderExpr: z.string().default("`Bearer ${token}`"),
-    tokenTimeoutSecs: z.number().default(3600),
+    authHeaderExpr: z.string().optional(),
+    tokenTimeoutSecs: z.number().optional(),
     oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
     oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
-    extractLogs: z.boolean().default(false),
+    extractLogs: z.boolean().optional(),
   });
 
 export function inputOpenTelemetryPqEnabledTrueWithPqConstraintToJSON(
@@ -954,40 +954,38 @@ export function inputOpenTelemetryPqEnabledTrueWithPqConstraintFromJSON(
 export const InputOpenTelemetryPqEnabledFalseConstraint$inboundSchema:
   z.ZodType<InputOpenTelemetryPqEnabledFalseConstraint, z.ZodTypeDef, unknown> =
     z.object({
-      pqEnabled: z.boolean().default(false),
+      pqEnabled: z.boolean(),
       id: z.string().optional(),
       type: InputOpenTelemetryType$inboundSchema,
-      disabled: z.boolean().default(false),
+      disabled: z.boolean().optional(),
       pipeline: z.string().optional(),
-      sendToRoutes: z.boolean().default(true),
+      sendToRoutes: z.boolean().optional(),
       environment: z.string().optional(),
       streamtags: z.array(z.string()).optional(),
       connections: z.array(ItemsTypeConnectionsOptional$inboundSchema)
         .optional(),
       pq: PqType$inboundSchema.optional(),
-      host: z.string().default("0.0.0.0"),
-      port: z.number().default(4317),
+      host: z.string(),
+      port: z.number(),
       tls: TlsSettingsServerSideType$inboundSchema.optional(),
-      maxActiveReq: z.number().default(256),
-      maxRequestsPerSocket: z.number().int().default(0),
+      maxActiveReq: z.number().optional(),
+      maxRequestsPerSocket: z.number().int().optional(),
       enableProxyHeader: z.any().optional(),
       captureHeaders: z.any().optional(),
       activityLogSampleRate: z.any().optional(),
-      requestTimeout: z.number().default(0),
-      socketTimeout: z.number().default(0),
-      keepAliveTimeout: z.number().default(15),
-      enableHealthCheck: z.boolean().default(false),
-      ipAllowlistRegex: z.string().default("/.*/"),
-      ipDenylistRegex: z.string().default("/^$/"),
-      protocol: InputOpenTelemetryProtocol$inboundSchema.default("grpc"),
-      extractSpans: z.boolean().default(false),
-      extractMetrics: z.boolean().default(false),
-      otlpVersion: InputOpenTelemetryOTLPVersion$inboundSchema.default(
-        "0.10.0",
-      ),
-      authType: AuthenticationTypeOptions$inboundSchema.default("none"),
+      requestTimeout: z.number().optional(),
+      socketTimeout: z.number().optional(),
+      keepAliveTimeout: z.number().optional(),
+      enableHealthCheck: z.boolean().optional(),
+      ipAllowlistRegex: z.string().optional(),
+      ipDenylistRegex: z.string().optional(),
+      protocol: InputOpenTelemetryProtocol$inboundSchema.optional(),
+      extractSpans: z.boolean().optional(),
+      extractMetrics: z.boolean().optional(),
+      otlpVersion: InputOpenTelemetryOTLPVersion$inboundSchema.optional(),
+      authType: AuthenticationTypeOptions$inboundSchema.optional(),
       metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-      maxActiveCxn: z.number().default(1000),
+      maxActiveCxn: z.number().optional(),
       description: z.string().optional(),
       username: z.string().optional(),
       password: z.string().optional(),
@@ -998,20 +996,20 @@ export const InputOpenTelemetryPqEnabledFalseConstraint$inboundSchema:
       secretParamName: z.string().optional(),
       secret: z.string().optional(),
       tokenAttributeName: z.string().optional(),
-      authHeaderExpr: z.string().default("`Bearer ${token}`"),
-      tokenTimeoutSecs: z.number().default(3600),
+      authHeaderExpr: z.string().optional(),
+      tokenTimeoutSecs: z.number().optional(),
       oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
       oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
-      extractLogs: z.boolean().default(false),
+      extractLogs: z.boolean().optional(),
     });
 /** @internal */
 export type InputOpenTelemetryPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
@@ -1019,24 +1017,24 @@ export type InputOpenTelemetryPqEnabledFalseConstraint$Outbound = {
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
   enableProxyHeader?: any | undefined;
   captureHeaders?: any | undefined;
   activityLogSampleRate?: any | undefined;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
-  enableHealthCheck: boolean;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
-  protocol: string;
-  extractSpans: boolean;
-  extractMetrics: boolean;
-  otlpVersion: string;
-  authType: string;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  protocol?: string | undefined;
+  extractSpans?: boolean | undefined;
+  extractMetrics?: boolean | undefined;
+  otlpVersion?: string | undefined;
+  authType?: string | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  maxActiveCxn: number;
+  maxActiveCxn?: number | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -1047,11 +1045,11 @@ export type InputOpenTelemetryPqEnabledFalseConstraint$Outbound = {
   secretParamName?: string | undefined;
   secret?: string | undefined;
   tokenAttributeName?: string | undefined;
-  authHeaderExpr: string;
-  tokenTimeoutSecs: number;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
-  extractLogs: boolean;
+  extractLogs?: boolean | undefined;
 };
 
 /** @internal */
@@ -1061,38 +1059,38 @@ export const InputOpenTelemetryPqEnabledFalseConstraint$outboundSchema:
     z.ZodTypeDef,
     InputOpenTelemetryPqEnabledFalseConstraint
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     id: z.string().optional(),
     type: InputOpenTelemetryType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     pq: PqType$outboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number().default(4317),
+    host: z.string(),
+    port: z.number(),
     tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
+    maxActiveReq: z.number().optional(),
+    maxRequestsPerSocket: z.number().int().optional(),
     enableProxyHeader: z.any().optional(),
     captureHeaders: z.any().optional(),
     activityLogSampleRate: z.any().optional(),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(15),
-    enableHealthCheck: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    protocol: InputOpenTelemetryProtocol$outboundSchema.default("grpc"),
-    extractSpans: z.boolean().default(false),
-    extractMetrics: z.boolean().default(false),
-    otlpVersion: InputOpenTelemetryOTLPVersion$outboundSchema.default("0.10.0"),
-    authType: AuthenticationTypeOptions$outboundSchema.default("none"),
+    requestTimeout: z.number().optional(),
+    socketTimeout: z.number().optional(),
+    keepAliveTimeout: z.number().optional(),
+    enableHealthCheck: z.boolean().optional(),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
+    protocol: InputOpenTelemetryProtocol$outboundSchema.optional(),
+    extractSpans: z.boolean().optional(),
+    extractMetrics: z.boolean().optional(),
+    otlpVersion: InputOpenTelemetryOTLPVersion$outboundSchema.optional(),
+    authType: AuthenticationTypeOptions$outboundSchema.optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    maxActiveCxn: z.number().default(1000),
+    maxActiveCxn: z.number().optional(),
     description: z.string().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
@@ -1103,11 +1101,11 @@ export const InputOpenTelemetryPqEnabledFalseConstraint$outboundSchema:
     secretParamName: z.string().optional(),
     secret: z.string().optional(),
     tokenAttributeName: z.string().optional(),
-    authHeaderExpr: z.string().default("`Bearer ${token}`"),
-    tokenTimeoutSecs: z.number().default(3600),
+    authHeaderExpr: z.string().optional(),
+    tokenTimeoutSecs: z.number().optional(),
     oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
     oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
-    extractLogs: z.boolean().default(false),
+    extractLogs: z.boolean().optional(),
   });
 
 export function inputOpenTelemetryPqEnabledFalseConstraintToJSON(
@@ -1143,37 +1141,37 @@ export const InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint$inboun
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputOpenTelemetryType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$inboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number().default(4317),
+    host: z.string(),
+    port: z.number(),
     tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
+    maxActiveReq: z.number().optional(),
+    maxRequestsPerSocket: z.number().int().optional(),
     enableProxyHeader: z.any().optional(),
     captureHeaders: z.any().optional(),
     activityLogSampleRate: z.any().optional(),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(15),
-    enableHealthCheck: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    protocol: InputOpenTelemetryProtocol$inboundSchema.default("grpc"),
-    extractSpans: z.boolean().default(false),
-    extractMetrics: z.boolean().default(false),
-    otlpVersion: InputOpenTelemetryOTLPVersion$inboundSchema.default("0.10.0"),
-    authType: AuthenticationTypeOptions$inboundSchema.default("none"),
+    requestTimeout: z.number().optional(),
+    socketTimeout: z.number().optional(),
+    keepAliveTimeout: z.number().optional(),
+    enableHealthCheck: z.boolean().optional(),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
+    protocol: InputOpenTelemetryProtocol$inboundSchema.optional(),
+    extractSpans: z.boolean().optional(),
+    extractMetrics: z.boolean().optional(),
+    otlpVersion: InputOpenTelemetryOTLPVersion$inboundSchema.optional(),
+    authType: AuthenticationTypeOptions$inboundSchema.optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    maxActiveCxn: z.number().default(1000),
+    maxActiveCxn: z.number().optional(),
     description: z.string().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
@@ -1184,11 +1182,11 @@ export const InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint$inboun
     secretParamName: z.string().optional(),
     secret: z.string().optional(),
     tokenAttributeName: z.string().optional(),
-    authHeaderExpr: z.string().default("`Bearer ${token}`"),
-    tokenTimeoutSecs: z.number().default(3600),
+    authHeaderExpr: z.string().optional(),
+    tokenTimeoutSecs: z.number().optional(),
     oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
     oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
-    extractLogs: z.boolean().default(false),
+    extractLogs: z.boolean().optional(),
   });
 /** @internal */
 export type InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint$Outbound =
@@ -1197,33 +1195,33 @@ export type InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint$Outboun
     connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
     id?: string | undefined;
     type: string;
-    disabled: boolean;
+    disabled?: boolean | undefined;
     pipeline?: string | undefined;
     environment?: string | undefined;
-    pqEnabled: boolean;
+    pqEnabled?: boolean | undefined;
     streamtags?: Array<string> | undefined;
     pq?: PqType$Outbound | undefined;
     host: string;
     port: number;
     tls?: TlsSettingsServerSideType$Outbound | undefined;
-    maxActiveReq: number;
-    maxRequestsPerSocket: number;
+    maxActiveReq?: number | undefined;
+    maxRequestsPerSocket?: number | undefined;
     enableProxyHeader?: any | undefined;
     captureHeaders?: any | undefined;
     activityLogSampleRate?: any | undefined;
-    requestTimeout: number;
-    socketTimeout: number;
-    keepAliveTimeout: number;
-    enableHealthCheck: boolean;
-    ipAllowlistRegex: string;
-    ipDenylistRegex: string;
-    protocol: string;
-    extractSpans: boolean;
-    extractMetrics: boolean;
-    otlpVersion: string;
-    authType: string;
+    requestTimeout?: number | undefined;
+    socketTimeout?: number | undefined;
+    keepAliveTimeout?: number | undefined;
+    enableHealthCheck?: boolean | undefined;
+    ipAllowlistRegex?: string | undefined;
+    ipDenylistRegex?: string | undefined;
+    protocol?: string | undefined;
+    extractSpans?: boolean | undefined;
+    extractMetrics?: boolean | undefined;
+    otlpVersion?: string | undefined;
+    authType?: string | undefined;
     metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-    maxActiveCxn: number;
+    maxActiveCxn?: number | undefined;
     description?: string | undefined;
     username?: string | undefined;
     password?: string | undefined;
@@ -1234,11 +1232,11 @@ export type InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint$Outboun
     secretParamName?: string | undefined;
     secret?: string | undefined;
     tokenAttributeName?: string | undefined;
-    authHeaderExpr: string;
-    tokenTimeoutSecs: number;
+    authHeaderExpr?: string | undefined;
+    tokenTimeoutSecs?: number | undefined;
     oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
     oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
-    extractLogs: boolean;
+    extractLogs?: boolean | undefined;
   };
 
 /** @internal */
@@ -1248,38 +1246,38 @@ export const InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint$outbou
     z.ZodTypeDef,
     InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     id: z.string().optional(),
     type: InputOpenTelemetryType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number().default(4317),
+    host: z.string(),
+    port: z.number(),
     tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
+    maxActiveReq: z.number().optional(),
+    maxRequestsPerSocket: z.number().int().optional(),
     enableProxyHeader: z.any().optional(),
     captureHeaders: z.any().optional(),
     activityLogSampleRate: z.any().optional(),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(15),
-    enableHealthCheck: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    protocol: InputOpenTelemetryProtocol$outboundSchema.default("grpc"),
-    extractSpans: z.boolean().default(false),
-    extractMetrics: z.boolean().default(false),
-    otlpVersion: InputOpenTelemetryOTLPVersion$outboundSchema.default("0.10.0"),
-    authType: AuthenticationTypeOptions$outboundSchema.default("none"),
+    requestTimeout: z.number().optional(),
+    socketTimeout: z.number().optional(),
+    keepAliveTimeout: z.number().optional(),
+    enableHealthCheck: z.boolean().optional(),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
+    protocol: InputOpenTelemetryProtocol$outboundSchema.optional(),
+    extractSpans: z.boolean().optional(),
+    extractMetrics: z.boolean().optional(),
+    otlpVersion: InputOpenTelemetryOTLPVersion$outboundSchema.optional(),
+    authType: AuthenticationTypeOptions$outboundSchema.optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    maxActiveCxn: z.number().default(1000),
+    maxActiveCxn: z.number().optional(),
     description: z.string().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
@@ -1290,11 +1288,11 @@ export const InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint$outbou
     secretParamName: z.string().optional(),
     secret: z.string().optional(),
     tokenAttributeName: z.string().optional(),
-    authHeaderExpr: z.string().default("`Bearer ${token}`"),
-    tokenTimeoutSecs: z.number().default(3600),
+    authHeaderExpr: z.string().optional(),
+    tokenTimeoutSecs: z.number().optional(),
     oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
     oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
-    extractLogs: z.boolean().default(false),
+    extractLogs: z.boolean().optional(),
   });
 
 export function inputOpenTelemetrySendToRoutesFalseWithConnectionsConstraintToJSON(
@@ -1328,37 +1326,37 @@ export const InputOpenTelemetrySendToRoutesTrueConstraint$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     id: z.string().optional(),
     type: InputOpenTelemetryType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     pq: PqType$inboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number().default(4317),
+    host: z.string(),
+    port: z.number(),
     tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
+    maxActiveReq: z.number().optional(),
+    maxRequestsPerSocket: z.number().int().optional(),
     enableProxyHeader: z.any().optional(),
     captureHeaders: z.any().optional(),
     activityLogSampleRate: z.any().optional(),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(15),
-    enableHealthCheck: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    protocol: InputOpenTelemetryProtocol$inboundSchema.default("grpc"),
-    extractSpans: z.boolean().default(false),
-    extractMetrics: z.boolean().default(false),
-    otlpVersion: InputOpenTelemetryOTLPVersion$inboundSchema.default("0.10.0"),
-    authType: AuthenticationTypeOptions$inboundSchema.default("none"),
+    requestTimeout: z.number().optional(),
+    socketTimeout: z.number().optional(),
+    keepAliveTimeout: z.number().optional(),
+    enableHealthCheck: z.boolean().optional(),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
+    protocol: InputOpenTelemetryProtocol$inboundSchema.optional(),
+    extractSpans: z.boolean().optional(),
+    extractMetrics: z.boolean().optional(),
+    otlpVersion: InputOpenTelemetryOTLPVersion$inboundSchema.optional(),
+    authType: AuthenticationTypeOptions$inboundSchema.optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    maxActiveCxn: z.number().default(1000),
+    maxActiveCxn: z.number().optional(),
     description: z.string().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
@@ -1369,45 +1367,45 @@ export const InputOpenTelemetrySendToRoutesTrueConstraint$inboundSchema:
     secretParamName: z.string().optional(),
     secret: z.string().optional(),
     tokenAttributeName: z.string().optional(),
-    authHeaderExpr: z.string().default("`Bearer ${token}`"),
-    tokenTimeoutSecs: z.number().default(3600),
+    authHeaderExpr: z.string().optional(),
+    tokenTimeoutSecs: z.number().optional(),
     oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
     oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
-    extractLogs: z.boolean().default(false),
+    extractLogs: z.boolean().optional(),
   });
 /** @internal */
 export type InputOpenTelemetrySendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
   enableProxyHeader?: any | undefined;
   captureHeaders?: any | undefined;
   activityLogSampleRate?: any | undefined;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
-  enableHealthCheck: boolean;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
-  protocol: string;
-  extractSpans: boolean;
-  extractMetrics: boolean;
-  otlpVersion: string;
-  authType: string;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  protocol?: string | undefined;
+  extractSpans?: boolean | undefined;
+  extractMetrics?: boolean | undefined;
+  otlpVersion?: string | undefined;
+  authType?: string | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  maxActiveCxn: number;
+  maxActiveCxn?: number | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -1418,11 +1416,11 @@ export type InputOpenTelemetrySendToRoutesTrueConstraint$Outbound = {
   secretParamName?: string | undefined;
   secret?: string | undefined;
   tokenAttributeName?: string | undefined;
-  authHeaderExpr: string;
-  tokenTimeoutSecs: number;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
-  extractLogs: boolean;
+  extractLogs?: boolean | undefined;
 };
 
 /** @internal */
@@ -1432,38 +1430,38 @@ export const InputOpenTelemetrySendToRoutesTrueConstraint$outboundSchema:
     z.ZodTypeDef,
     InputOpenTelemetrySendToRoutesTrueConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     id: z.string().optional(),
     type: InputOpenTelemetryType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     pq: PqType$outboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number().default(4317),
+    host: z.string(),
+    port: z.number(),
     tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().default(256),
-    maxRequestsPerSocket: z.number().int().default(0),
+    maxActiveReq: z.number().optional(),
+    maxRequestsPerSocket: z.number().int().optional(),
     enableProxyHeader: z.any().optional(),
     captureHeaders: z.any().optional(),
     activityLogSampleRate: z.any().optional(),
-    requestTimeout: z.number().default(0),
-    socketTimeout: z.number().default(0),
-    keepAliveTimeout: z.number().default(15),
-    enableHealthCheck: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
-    protocol: InputOpenTelemetryProtocol$outboundSchema.default("grpc"),
-    extractSpans: z.boolean().default(false),
-    extractMetrics: z.boolean().default(false),
-    otlpVersion: InputOpenTelemetryOTLPVersion$outboundSchema.default("0.10.0"),
-    authType: AuthenticationTypeOptions$outboundSchema.default("none"),
+    requestTimeout: z.number().optional(),
+    socketTimeout: z.number().optional(),
+    keepAliveTimeout: z.number().optional(),
+    enableHealthCheck: z.boolean().optional(),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
+    protocol: InputOpenTelemetryProtocol$outboundSchema.optional(),
+    extractSpans: z.boolean().optional(),
+    extractMetrics: z.boolean().optional(),
+    otlpVersion: InputOpenTelemetryOTLPVersion$outboundSchema.optional(),
+    authType: AuthenticationTypeOptions$outboundSchema.optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    maxActiveCxn: z.number().default(1000),
+    maxActiveCxn: z.number().optional(),
     description: z.string().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
@@ -1474,11 +1472,11 @@ export const InputOpenTelemetrySendToRoutesTrueConstraint$outboundSchema:
     secretParamName: z.string().optional(),
     secret: z.string().optional(),
     tokenAttributeName: z.string().optional(),
-    authHeaderExpr: z.string().default("`Bearer ${token}`"),
-    tokenTimeoutSecs: z.number().default(3600),
+    authHeaderExpr: z.string().optional(),
+    tokenTimeoutSecs: z.number().optional(),
     oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
     oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
-    extractLogs: z.boolean().default(false),
+    extractLogs: z.boolean().optional(),
   });
 
 export function inputOpenTelemetrySendToRoutesTrueConstraintToJSON(

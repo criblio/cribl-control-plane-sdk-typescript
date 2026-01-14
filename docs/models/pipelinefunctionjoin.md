@@ -6,6 +6,7 @@
 import { PipelineFunctionJoin } from "cribl-control-plane/models";
 
 let value: PipelineFunctionJoin = {
+  filter: "<value>",
   id: "join",
   description: "think atop wherever but circle",
   disabled: true,

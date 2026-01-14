@@ -25,11 +25,11 @@ export type RunnableJobScheduledSearch = {
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
    */
-  ttl: string;
+  ttl?: string | undefined;
   /**
    * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
    */
-  ignoreGroupJobsLimit: boolean;
+  ignoreGroupJobsLimit?: boolean | undefined;
   /**
    * List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface.
    */
@@ -37,7 +37,7 @@ export type RunnableJobScheduledSearch = {
   /**
    * Resume the ad hoc job if a failure condition causes Stream to restart during job execution
    */
-  resumeOnBoot: boolean;
+  resumeOnBoot?: boolean | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -65,10 +65,10 @@ export const RunnableJobScheduledSearch$inboundSchema: z.ZodType<
   id: z.string().optional(),
   description: z.string().optional(),
   type: JobTypeOptionsSavedJobCollection$inboundSchema,
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
   removeFields: z.array(z.string()).optional(),
-  resumeOnBoot: z.boolean().default(false),
+  resumeOnBoot: z.boolean().optional(),
   environment: z.string().optional(),
   schedule: ScheduleTypeRunnableJobCollection$inboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),

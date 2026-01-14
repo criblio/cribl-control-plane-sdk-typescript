@@ -53,7 +53,7 @@ export type InputKafkaPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   pq?: PqType | undefined;
   /**
    * Unique ID for this input
@@ -191,7 +191,7 @@ export type InputKafkaPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   /**
    * Unique ID for this input
    */
@@ -329,7 +329,7 @@ export type InputKafkaSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -467,7 +467,7 @@ export type InputKafkaSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Unique ID for this input
    */
@@ -622,40 +622,40 @@ export const InputKafkaPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputKafkaType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
-  groupId: z.string().default("Cribl"),
-  fromBeginning: z.boolean().default(true),
+  groupId: z.string().optional(),
+  fromBeginning: z.boolean().optional(),
   kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$inboundSchema
     .optional(),
-  connectionTimeout: z.number().default(10000),
-  requestTimeout: z.number().default(60000),
-  maxRetries: z.number().default(5),
-  maxBackOff: z.number().default(30000),
-  initialBackoff: z.number().default(300),
-  backoffRate: z.number().default(2),
-  authenticationTimeout: z.number().default(10000),
-  reauthenticationThreshold: z.number().default(10000),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
   sasl: AuthenticationType$inboundSchema.optional(),
   tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
-  sessionTimeout: z.number().default(30000),
-  rebalanceTimeout: z.number().default(60000),
-  heartbeatInterval: z.number().default(3000),
+  sessionTimeout: z.number().optional(),
+  rebalanceTimeout: z.number().optional(),
+  heartbeatInterval: z.number().optional(),
   autoCommitInterval: z.number().optional(),
   autoCommitThreshold: z.number().optional(),
-  maxBytesPerPartition: z.number().default(1048576),
-  maxBytes: z.number().default(10485760),
-  maxSocketErrors: z.number().default(0),
+  maxBytesPerPartition: z.number().optional(),
+  maxBytes: z.number().optional(),
+  maxSocketErrors: z.number().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
 });
@@ -665,37 +665,37 @@ export type InputKafkaPqEnabledTrueWithPqConstraint$Outbound = {
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   brokers: Array<string>;
   topics: Array<string>;
-  groupId: string;
-  fromBeginning: boolean;
+  groupId?: string | undefined;
+  fromBeginning?: boolean | undefined;
   kafkaSchemaRegistry?:
     | KafkaSchemaRegistryAuthenticationType$Outbound
     | undefined;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
-  maxBackOff: number;
-  initialBackoff: number;
-  backoffRate: number;
-  authenticationTimeout: number;
-  reauthenticationThreshold: number;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
   sasl?: AuthenticationType$Outbound | undefined;
   tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
-  sessionTimeout: number;
-  rebalanceTimeout: number;
-  heartbeatInterval: number;
+  sessionTimeout?: number | undefined;
+  rebalanceTimeout?: number | undefined;
+  heartbeatInterval?: number | undefined;
   autoCommitInterval?: number | undefined;
   autoCommitThreshold?: number | undefined;
-  maxBytesPerPartition: number;
-  maxBytes: number;
-  maxSocketErrors: number;
+  maxBytesPerPartition?: number | undefined;
+  maxBytes?: number | undefined;
+  maxSocketErrors?: number | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
@@ -706,40 +706,40 @@ export const InputKafkaPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputKafkaPqEnabledTrueWithPqConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   pq: PqType$outboundSchema.optional(),
   id: z.string().optional(),
   type: InputKafkaType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
-  groupId: z.string().default("Cribl"),
-  fromBeginning: z.boolean().default(true),
+  groupId: z.string().optional(),
+  fromBeginning: z.boolean().optional(),
   kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
     .optional(),
-  connectionTimeout: z.number().default(10000),
-  requestTimeout: z.number().default(60000),
-  maxRetries: z.number().default(5),
-  maxBackOff: z.number().default(30000),
-  initialBackoff: z.number().default(300),
-  backoffRate: z.number().default(2),
-  authenticationTimeout: z.number().default(10000),
-  reauthenticationThreshold: z.number().default(10000),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
   sasl: AuthenticationType$outboundSchema.optional(),
   tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
-  sessionTimeout: z.number().default(30000),
-  rebalanceTimeout: z.number().default(60000),
-  heartbeatInterval: z.number().default(3000),
+  sessionTimeout: z.number().optional(),
+  rebalanceTimeout: z.number().optional(),
+  heartbeatInterval: z.number().optional(),
   autoCommitInterval: z.number().optional(),
   autoCommitThreshold: z.number().optional(),
-  maxBytesPerPartition: z.number().default(1048576),
-  maxBytes: z.number().default(10485760),
-  maxSocketErrors: z.number().default(0),
+  maxBytesPerPartition: z.number().optional(),
+  maxBytes: z.number().optional(),
+  maxSocketErrors: z.number().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
@@ -776,40 +776,40 @@ export const InputKafkaPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputKafkaType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
-  groupId: z.string().default("Cribl"),
-  fromBeginning: z.boolean().default(true),
+  groupId: z.string().optional(),
+  fromBeginning: z.boolean().optional(),
   kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$inboundSchema
     .optional(),
-  connectionTimeout: z.number().default(10000),
-  requestTimeout: z.number().default(60000),
-  maxRetries: z.number().default(5),
-  maxBackOff: z.number().default(30000),
-  initialBackoff: z.number().default(300),
-  backoffRate: z.number().default(2),
-  authenticationTimeout: z.number().default(10000),
-  reauthenticationThreshold: z.number().default(10000),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
   sasl: AuthenticationType$inboundSchema.optional(),
   tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
-  sessionTimeout: z.number().default(30000),
-  rebalanceTimeout: z.number().default(60000),
-  heartbeatInterval: z.number().default(3000),
+  sessionTimeout: z.number().optional(),
+  rebalanceTimeout: z.number().optional(),
+  heartbeatInterval: z.number().optional(),
   autoCommitInterval: z.number().optional(),
   autoCommitThreshold: z.number().optional(),
-  maxBytesPerPartition: z.number().default(1048576),
-  maxBytes: z.number().default(10485760),
-  maxSocketErrors: z.number().default(0),
+  maxBytesPerPartition: z.number().optional(),
+  maxBytes: z.number().optional(),
+  maxSocketErrors: z.number().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
 });
@@ -818,38 +818,38 @@ export type InputKafkaPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
-  groupId: string;
-  fromBeginning: boolean;
+  groupId?: string | undefined;
+  fromBeginning?: boolean | undefined;
   kafkaSchemaRegistry?:
     | KafkaSchemaRegistryAuthenticationType$Outbound
     | undefined;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
-  maxBackOff: number;
-  initialBackoff: number;
-  backoffRate: number;
-  authenticationTimeout: number;
-  reauthenticationThreshold: number;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
   sasl?: AuthenticationType$Outbound | undefined;
   tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
-  sessionTimeout: number;
-  rebalanceTimeout: number;
-  heartbeatInterval: number;
+  sessionTimeout?: number | undefined;
+  rebalanceTimeout?: number | undefined;
+  heartbeatInterval?: number | undefined;
   autoCommitInterval?: number | undefined;
   autoCommitThreshold?: number | undefined;
-  maxBytesPerPartition: number;
-  maxBytes: number;
-  maxSocketErrors: number;
+  maxBytesPerPartition?: number | undefined;
+  maxBytes?: number | undefined;
+  maxSocketErrors?: number | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
@@ -860,40 +860,40 @@ export const InputKafkaPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputKafkaPqEnabledFalseConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputKafkaType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
-  groupId: z.string().default("Cribl"),
-  fromBeginning: z.boolean().default(true),
+  groupId: z.string().optional(),
+  fromBeginning: z.boolean().optional(),
   kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
     .optional(),
-  connectionTimeout: z.number().default(10000),
-  requestTimeout: z.number().default(60000),
-  maxRetries: z.number().default(5),
-  maxBackOff: z.number().default(30000),
-  initialBackoff: z.number().default(300),
-  backoffRate: z.number().default(2),
-  authenticationTimeout: z.number().default(10000),
-  reauthenticationThreshold: z.number().default(10000),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
   sasl: AuthenticationType$outboundSchema.optional(),
   tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
-  sessionTimeout: z.number().default(30000),
-  rebalanceTimeout: z.number().default(60000),
-  heartbeatInterval: z.number().default(3000),
+  sessionTimeout: z.number().optional(),
+  rebalanceTimeout: z.number().optional(),
+  heartbeatInterval: z.number().optional(),
   autoCommitInterval: z.number().optional(),
   autoCommitThreshold: z.number().optional(),
-  maxBytesPerPartition: z.number().default(1048576),
-  maxBytes: z.number().default(10485760),
-  maxSocketErrors: z.number().default(0),
+  maxBytesPerPartition: z.number().optional(),
+  maxBytes: z.number().optional(),
+  maxSocketErrors: z.number().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
@@ -925,40 +925,40 @@ export const InputKafkaSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputKafkaType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$inboundSchema.optional(),
     brokers: z.array(z.string()),
     topics: z.array(z.string()),
-    groupId: z.string().default("Cribl"),
-    fromBeginning: z.boolean().default(true),
+    groupId: z.string().optional(),
+    fromBeginning: z.boolean().optional(),
     kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$inboundSchema
       .optional(),
-    connectionTimeout: z.number().default(10000),
-    requestTimeout: z.number().default(60000),
-    maxRetries: z.number().default(5),
-    maxBackOff: z.number().default(30000),
-    initialBackoff: z.number().default(300),
-    backoffRate: z.number().default(2),
-    authenticationTimeout: z.number().default(10000),
-    reauthenticationThreshold: z.number().default(10000),
+    connectionTimeout: z.number().optional(),
+    requestTimeout: z.number().optional(),
+    maxRetries: z.number().optional(),
+    maxBackOff: z.number().optional(),
+    initialBackoff: z.number().optional(),
+    backoffRate: z.number().optional(),
+    authenticationTimeout: z.number().optional(),
+    reauthenticationThreshold: z.number().optional(),
     sasl: AuthenticationType$inboundSchema.optional(),
     tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
-    sessionTimeout: z.number().default(30000),
-    rebalanceTimeout: z.number().default(60000),
-    heartbeatInterval: z.number().default(3000),
+    sessionTimeout: z.number().optional(),
+    rebalanceTimeout: z.number().optional(),
+    heartbeatInterval: z.number().optional(),
     autoCommitInterval: z.number().optional(),
     autoCommitThreshold: z.number().optional(),
-    maxBytesPerPartition: z.number().default(1048576),
-    maxBytes: z.number().default(10485760),
-    maxSocketErrors: z.number().default(0),
+    maxBytesPerPartition: z.number().optional(),
+    maxBytes: z.number().optional(),
+    maxSocketErrors: z.number().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
     description: z.string().optional(),
   });
@@ -968,37 +968,37 @@ export type InputKafkaSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
-  groupId: string;
-  fromBeginning: boolean;
+  groupId?: string | undefined;
+  fromBeginning?: boolean | undefined;
   kafkaSchemaRegistry?:
     | KafkaSchemaRegistryAuthenticationType$Outbound
     | undefined;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
-  maxBackOff: number;
-  initialBackoff: number;
-  backoffRate: number;
-  authenticationTimeout: number;
-  reauthenticationThreshold: number;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
   sasl?: AuthenticationType$Outbound | undefined;
   tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
-  sessionTimeout: number;
-  rebalanceTimeout: number;
-  heartbeatInterval: number;
+  sessionTimeout?: number | undefined;
+  rebalanceTimeout?: number | undefined;
+  heartbeatInterval?: number | undefined;
   autoCommitInterval?: number | undefined;
   autoCommitThreshold?: number | undefined;
-  maxBytesPerPartition: number;
-  maxBytes: number;
-  maxSocketErrors: number;
+  maxBytesPerPartition?: number | undefined;
+  maxBytes?: number | undefined;
+  maxSocketErrors?: number | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
@@ -1010,41 +1010,41 @@ export const InputKafkaSendToRoutesFalseWithConnectionsConstraint$outboundSchema
     z.ZodTypeDef,
     InputKafkaSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     id: z.string().optional(),
     type: InputKafkaType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
     brokers: z.array(z.string()),
     topics: z.array(z.string()),
-    groupId: z.string().default("Cribl"),
-    fromBeginning: z.boolean().default(true),
+    groupId: z.string().optional(),
+    fromBeginning: z.boolean().optional(),
     kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
       .optional(),
-    connectionTimeout: z.number().default(10000),
-    requestTimeout: z.number().default(60000),
-    maxRetries: z.number().default(5),
-    maxBackOff: z.number().default(30000),
-    initialBackoff: z.number().default(300),
-    backoffRate: z.number().default(2),
-    authenticationTimeout: z.number().default(10000),
-    reauthenticationThreshold: z.number().default(10000),
+    connectionTimeout: z.number().optional(),
+    requestTimeout: z.number().optional(),
+    maxRetries: z.number().optional(),
+    maxBackOff: z.number().optional(),
+    initialBackoff: z.number().optional(),
+    backoffRate: z.number().optional(),
+    authenticationTimeout: z.number().optional(),
+    reauthenticationThreshold: z.number().optional(),
     sasl: AuthenticationType$outboundSchema.optional(),
     tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
-    sessionTimeout: z.number().default(30000),
-    rebalanceTimeout: z.number().default(60000),
-    heartbeatInterval: z.number().default(3000),
+    sessionTimeout: z.number().optional(),
+    rebalanceTimeout: z.number().optional(),
+    heartbeatInterval: z.number().optional(),
     autoCommitInterval: z.number().optional(),
     autoCommitThreshold: z.number().optional(),
-    maxBytesPerPartition: z.number().default(1048576),
-    maxBytes: z.number().default(10485760),
-    maxSocketErrors: z.number().default(0),
+    maxBytesPerPartition: z.number().optional(),
+    maxBytes: z.number().optional(),
+    maxSocketErrors: z.number().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     description: z.string().optional(),
   });
@@ -1081,40 +1081,40 @@ export const InputKafkaSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputKafkaType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
-  groupId: z.string().default("Cribl"),
-  fromBeginning: z.boolean().default(true),
+  groupId: z.string().optional(),
+  fromBeginning: z.boolean().optional(),
   kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$inboundSchema
     .optional(),
-  connectionTimeout: z.number().default(10000),
-  requestTimeout: z.number().default(60000),
-  maxRetries: z.number().default(5),
-  maxBackOff: z.number().default(30000),
-  initialBackoff: z.number().default(300),
-  backoffRate: z.number().default(2),
-  authenticationTimeout: z.number().default(10000),
-  reauthenticationThreshold: z.number().default(10000),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
   sasl: AuthenticationType$inboundSchema.optional(),
   tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
-  sessionTimeout: z.number().default(30000),
-  rebalanceTimeout: z.number().default(60000),
-  heartbeatInterval: z.number().default(3000),
+  sessionTimeout: z.number().optional(),
+  rebalanceTimeout: z.number().optional(),
+  heartbeatInterval: z.number().optional(),
   autoCommitInterval: z.number().optional(),
   autoCommitThreshold: z.number().optional(),
-  maxBytesPerPartition: z.number().default(1048576),
-  maxBytes: z.number().default(10485760),
-  maxSocketErrors: z.number().default(0),
+  maxBytesPerPartition: z.number().optional(),
+  maxBytes: z.number().optional(),
+  maxSocketErrors: z.number().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
 });
@@ -1123,38 +1123,38 @@ export type InputKafkaSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
-  groupId: string;
-  fromBeginning: boolean;
+  groupId?: string | undefined;
+  fromBeginning?: boolean | undefined;
   kafkaSchemaRegistry?:
     | KafkaSchemaRegistryAuthenticationType$Outbound
     | undefined;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
-  maxBackOff: number;
-  initialBackoff: number;
-  backoffRate: number;
-  authenticationTimeout: number;
-  reauthenticationThreshold: number;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
   sasl?: AuthenticationType$Outbound | undefined;
   tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
-  sessionTimeout: number;
-  rebalanceTimeout: number;
-  heartbeatInterval: number;
+  sessionTimeout?: number | undefined;
+  rebalanceTimeout?: number | undefined;
+  heartbeatInterval?: number | undefined;
   autoCommitInterval?: number | undefined;
   autoCommitThreshold?: number | undefined;
-  maxBytesPerPartition: number;
-  maxBytes: number;
-  maxSocketErrors: number;
+  maxBytesPerPartition?: number | undefined;
+  maxBytes?: number | undefined;
+  maxSocketErrors?: number | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
@@ -1165,40 +1165,40 @@ export const InputKafkaSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputKafkaSendToRoutesTrueConstraint
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputKafkaType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
-  groupId: z.string().default("Cribl"),
-  fromBeginning: z.boolean().default(true),
+  groupId: z.string().optional(),
+  fromBeginning: z.boolean().optional(),
   kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
     .optional(),
-  connectionTimeout: z.number().default(10000),
-  requestTimeout: z.number().default(60000),
-  maxRetries: z.number().default(5),
-  maxBackOff: z.number().default(30000),
-  initialBackoff: z.number().default(300),
-  backoffRate: z.number().default(2),
-  authenticationTimeout: z.number().default(10000),
-  reauthenticationThreshold: z.number().default(10000),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
   sasl: AuthenticationType$outboundSchema.optional(),
   tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
-  sessionTimeout: z.number().default(30000),
-  rebalanceTimeout: z.number().default(60000),
-  heartbeatInterval: z.number().default(3000),
+  sessionTimeout: z.number().optional(),
+  rebalanceTimeout: z.number().optional(),
+  heartbeatInterval: z.number().optional(),
   autoCommitInterval: z.number().optional(),
   autoCommitThreshold: z.number().optional(),
-  maxBytesPerPartition: z.number().default(1048576),
-  maxBytes: z.number().default(10485760),
-  maxSocketErrors: z.number().default(0),
+  maxBytesPerPartition: z.number().optional(),
+  maxBytes: z.number().optional(),
+  maxSocketErrors: z.number().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });

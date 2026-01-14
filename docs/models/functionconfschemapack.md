@@ -11,6 +11,7 @@ let value: FunctionConfSchemaPack = {
     "<value 2>",
     "<value 3>",
   ],
+  target: "<value>",
 };
 ```
 

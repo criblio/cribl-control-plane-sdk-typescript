@@ -10,6 +10,7 @@ let value: CreateOutputRule = {
   output: "<value>",
   description:
     "yieldingly fibre unwilling frantically mostly who aw dutiful worth uh-huh",
+  final: true,
 };
 ```
 

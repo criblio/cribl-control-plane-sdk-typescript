@@ -24,11 +24,11 @@ export type FunctionConfSchemaEventBreakerExistingOrNew = OpenEnum<
 >;
 
 export type FunctionConfSchemaEventBreaker = {
-  existingOrNew: FunctionConfSchemaEventBreakerExistingOrNew;
+  existingOrNew?: FunctionConfSchemaEventBreakerExistingOrNew | undefined;
   /**
    * Add this Function name to the cribl_breaker field
    */
-  shouldMarkCriblBreaker: boolean;
+  shouldMarkCriblBreaker?: boolean | undefined;
 };
 
 /** @internal */
@@ -46,8 +46,8 @@ export const FunctionConfSchemaEventBreaker$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   existingOrNew: FunctionConfSchemaEventBreakerExistingOrNew$inboundSchema
-    .default("existing"),
-  shouldMarkCriblBreaker: z.boolean().default(true),
+    .optional(),
+  shouldMarkCriblBreaker: z.boolean().optional(),
 });
 
 export function functionConfSchemaEventBreakerFromJSON(

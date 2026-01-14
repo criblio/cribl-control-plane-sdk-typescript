@@ -6,14 +6,15 @@
 import { InputAppscopePqEnabledFalseConstraint } from "cribl-control-plane/models";
 
 let value: InputAppscopePqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "appscope",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -22,8 +23,21 @@ let value: InputAppscopePqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  ipWhitelistRegex: "<value>",
+  maxActiveCxn: 5761.87,
+  socketIdleTimeout: 1630.36,
+  socketEndingMaxWait: 2253.98,
+  socketMaxLifespan: 4268.24,
+  enableProxyHeader: true,
   metadata: [
     {
       name: "<value>",
@@ -32,9 +46,9 @@ let value: InputAppscopePqEnabledFalseConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
+  staleChannelFlushMs: 3321.32,
+  enableUnixPath: true,
   filter: {
     allow: [
       {
@@ -43,22 +57,36 @@ let value: InputAppscopePqEnabledFalseConstraint = {
         config: "<value>",
       },
     ],
-    transportURL: "https://last-prohibition.name/",
+    transportURL: "https://late-sanity.org/",
   },
-  persistence: {},
-  description: "even questionable deliberately",
-  host: "juvenile-jogging.info",
-  port: 6687.61,
+  persistence: {
+    enable: true,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "none",
+    destPath: "<value>",
+  },
+  authType: "secret",
+  description: "bonfire ramp drat space far gah presell meanwhile who",
+  host: "impartial-husband.info",
+  port: 8402.64,
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  unixSocketPath: "<value>",
   unixSocketPerms: "<value>",
+  authToken: "<value>",
   textSecret: "<value>",
 };
 ```
@@ -67,7 +95,7 @@ let value: InputAppscopePqEnabledFalseConstraint = {
 
 | Field                                                                                                                                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                                                                                  |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `pqEnabled`                                                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                                                                                                 |
+| `pqEnabled`                                                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                                                                                                 |
 | `id`                                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                                                                                                                                       | [models.InputAppscopeType](../models/inputappscopetype.md)                                                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                                                                                                                                          |
 | `disabled`                                                                                                                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                                                                                                                                          |

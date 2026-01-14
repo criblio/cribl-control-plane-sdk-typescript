@@ -6,6 +6,7 @@
 import { InputEventhubSendToRoutesFalseWithConnectionsConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputEventhubSendToRoutesFalseWithConnectionsConstraint = {
+  sendToRoutes: true,
   connections: [
     {
       pipeline: "<value>",
@@ -14,47 +15,81 @@ let value: InputEventhubSendToRoutesFalseWithConnectionsConstraint = {
   ],
   id: "<id>",
   type: "eventhub",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   brokers: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   topics: [
     "<value 1>",
     "<value 2>",
   ],
+  groupId: "<id>",
+  fromBeginning: false,
+  connectionTimeout: 7941.93,
+  requestTimeout: 3822.55,
+  maxRetries: 4841.57,
+  maxBackOff: 1374.2,
+  initialBackoff: 2811.55,
+  backoffRate: 3047.81,
+  authenticationTimeout: 6863.87,
+  reauthenticationThreshold: 6963.27,
   sasl: {
-    password: "crxTx4Amn7CtfAT",
+    disabled: true,
+    authType: "manual",
+    password: "tfATUqXAfby_x5u",
     textSecret: "<value>",
+    mechanism: "oauthbearer",
+    username: "Marge.Hegmann",
+    clientSecretAuthType: "manual",
     clientSecret: "<value>",
     clientTextSecret: "<value>",
     certificateName: "<value>",
     certPath: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
+    oauthEndpoint: "https://login.partner.microsoftonline.cn",
     clientId: "<id>",
     tenantId: "<id>",
     scope: "<value>",
   },
-  tls: {},
-  autoCommitInterval: 7299.24,
-  autoCommitThreshold: 4442.87,
+  tls: {
+    disabled: false,
+    rejectUnauthorized: true,
+  },
+  sessionTimeout: 61.36,
+  rebalanceTimeout: 9610.34,
+  heartbeatInterval: 4424.72,
+  autoCommitInterval: 9041.13,
+  autoCommitThreshold: 313.05,
+  maxBytesPerPartition: 3739.96,
+  maxBytes: 5292.05,
+  maxSocketErrors: 9844.4,
+  minimizeDuplicates: true,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "evince about jubilantly statue regarding ha mom",
+  description: "blindly yearn orchestrate popularize",
 };
 ```
 
@@ -62,7 +97,7 @@ let value: InputEventhubSendToRoutesFalseWithConnectionsConstraint = {
 
 | Field                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Required                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sendToRoutes`                                                                                                                                                                                                                                                                                                                                                                                                                                              | *boolean*                                                                                                                                                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                                                                                                                                                                                         |
+| `sendToRoutes`                                                                                                                                                                                                                                                                                                                                                                                                                                              | *boolean*                                                                                                                                                                                                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                                                                                                                                                                                         |
 | `connections`                                                                                                                                                                                                                                                                                                                                                                                                                                               | [models.ItemsTypeConnectionsOptional](../../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                                                                                                                                                                                                 |
 | `id`                                                                                                                                                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Unique ID for this input                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `type`                                                                                                                                                                                                                                                                                                                                                                                                                                                      | [operations.InputEventhubType](../../models/operations/inputeventhubtype.md)                                                                                                                                                                                                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                         |

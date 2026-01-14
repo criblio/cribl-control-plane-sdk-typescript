@@ -7,6 +7,7 @@ import { UrlXsiam } from "cribl-control-plane/models/operations";
 
 let value: UrlXsiam = {
   url: "https://considerate-ghost.biz/",
+  weight: 9878.27,
 };
 ```
 

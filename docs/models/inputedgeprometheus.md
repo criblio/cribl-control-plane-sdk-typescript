@@ -7,13 +7,15 @@
 
 ```typescript
 const value: models.InputEdgePrometheusSendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "edge_prometheus",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -22,52 +24,84 @@ const value: models.InputEdgePrometheusSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   dimensionList: [
     "<value 1>",
   ],
-  persistence: {},
+  discoveryType: "ec2",
+  interval: 7794.42,
+  timeout: 1862.14,
+  persistence: {
+    enable: false,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+  },
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "tarragon until brr ha nucleotidase",
+  authType: "secret",
+  description:
+    "until brr ha nucleotidase whereas sleepily sometimes bloom than whoever",
   targets: [
     {
-      host: "wealthy-ceramics.com",
+      protocol: "https",
+      host: "mad-carnival.com",
+      port: 8409.15,
+      path: "/home/user",
     },
   ],
+  recordType: "AAAA",
+  scrapePort: 1772.71,
   nameList: [
     "<value 1>",
-    "<value 2>",
   ],
+  scrapeProtocol: "http",
+  scrapePath: "<value>",
+  awsAuthenticationMethod: "<value>",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  usePublicIp: true,
   searchFilter: [
     {
       Name: "<value>",
-      Values: [
-        "<value 1>",
-        "<value 2>",
-      ],
+      Values: [],
     },
   ],
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v2",
+  reuseConnections: false,
+  rejectUnauthorized: true,
+  enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  durationSeconds: 999.13,
+  scrapeProtocolExpr: "<value>",
+  scrapePortExpr: "<value>",
+  scrapePathExpr: "<value>",
   podFilter: [
     {
       filter: "<value>",
-      description: "boo oof wherever circa between",
+      description:
+        "woefully newsletter fathom ack who than productive edge bah",
     },
   ],
-  username: "Barney62",
-  password: "dOZJgt3iUKUu67m",
+  username: "Hailee.Powlowski",
+  password: "Dob08sOJfqFqrf7",
   credentialsSecret: "<value>",
 };
 ```
@@ -77,6 +111,7 @@ const value: models.InputEdgePrometheusSendToRoutesTrueConstraint = {
 ```typescript
 const value:
   models.InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint = {
+    sendToRoutes: false,
     connections: [
       {
         pipeline: "<value>",
@@ -85,63 +120,94 @@ const value:
     ],
     id: "<id>",
     type: "edge_prometheus",
+    disabled: false,
     pipeline: "<value>",
     environment: "<value>",
+    pqEnabled: false,
     streamtags: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     pq: {
+      mode: "smart",
+      maxBufferSize: 1717.96,
+      commitFrequency: 1412.18,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/include",
+      compress: "none",
       pqControls: {},
     },
     dimensionList: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
-    persistence: {},
+    discoveryType: "ec2",
+    interval: 6197.87,
+    timeout: 1346.7,
+    persistence: {
+      enable: false,
+      timeWindow: "<value>",
+      maxDataSize: "<value>",
+      maxDataTime: "<value>",
+      compress: "gzip",
+    },
     metadata: [
       {
         name: "<value>",
         value: "<value>",
       },
     ],
-    description: "aw except reckless uh-huh fatherly brightly gee",
+    authType: "secret",
+    description: "except reckless uh-huh fatherly brightly gee developing",
     targets: [
       {
-        host: "wealthy-ceramics.com",
+        protocol: "https",
+        host: "mad-carnival.com",
+        port: 8409.15,
+        path: "/home/user",
       },
     ],
+    recordType: "SRV",
+    scrapePort: 2999.54,
     nameList: [
       "<value 1>",
       "<value 2>",
       "<value 3>",
     ],
+    scrapeProtocol: "http",
+    scrapePath: "<value>",
+    awsAuthenticationMethod: "<value>",
     awsApiKey: "<value>",
     awsSecret: "<value>",
+    usePublicIp: true,
     searchFilter: [
       {
         Name: "<value>",
-        Values: [
-          "<value 1>",
-          "<value 2>",
-        ],
+        Values: [],
       },
     ],
     awsSecretKey: "<value>",
     region: "<value>",
     endpoint: "<value>",
+    signatureVersion: "v2",
+    reuseConnections: true,
+    rejectUnauthorized: true,
+    enableAssumeRole: false,
     assumeRoleArn: "<value>",
     assumeRoleExternalId: "<id>",
+    durationSeconds: 7868.66,
+    scrapeProtocolExpr: "<value>",
+    scrapePortExpr: "<value>",
+    scrapePathExpr: "<value>",
     podFilter: [
       {
         filter: "<value>",
-        description: "boo oof wherever circa between",
+        description:
+          "woefully newsletter fathom ack who than productive edge bah",
       },
     ],
-    username: "Katelin.Stoltenberg73",
-    password: "yOI8JWkABElxKrJ",
+    username: "Fabiola_Brakus",
+    password: "lxKrJR0dQKyEkyP",
     credentialsSecret: "<value>",
   };
 ```
@@ -150,9 +216,12 @@ const value:
 
 ```typescript
 const value: models.InputEdgePrometheusPqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "edge_prometheus",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -166,53 +235,86 @@ const value: models.InputEdgePrometheusPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   dimensionList: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  persistence: {},
+  discoveryType: "k8s-node",
+  interval: 4990.25,
+  timeout: 934.99,
+  persistence: {
+    enable: false,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+  },
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "scent ad ravel primary pity fooey usually furthermore",
+  authType: "manual",
+  description:
+    "ad ravel primary pity fooey usually furthermore finally monocle",
   targets: [
     {
-      host: "wealthy-ceramics.com",
+      protocol: "https",
+      host: "mad-carnival.com",
+      port: 8409.15,
+      path: "/home/user",
     },
   ],
+  recordType: "A",
+  scrapePort: 95.42,
   nameList: [
     "<value 1>",
-    "<value 2>",
   ],
+  scrapeProtocol: "http",
+  scrapePath: "<value>",
+  awsAuthenticationMethod: "<value>",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  usePublicIp: false,
   searchFilter: [
     {
       Name: "<value>",
-      Values: [
-        "<value 1>",
-        "<value 2>",
-      ],
+      Values: [],
     },
   ],
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v2",
+  reuseConnections: true,
+  rejectUnauthorized: true,
+  enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  durationSeconds: 6104.36,
+  scrapeProtocolExpr: "<value>",
+  scrapePortExpr: "<value>",
+  scrapePathExpr: "<value>",
   podFilter: [
     {
       filter: "<value>",
-      description: "boo oof wherever circa between",
+      description:
+        "woefully newsletter fathom ack who than productive edge bah",
     },
   ],
-  username: "Lorena.Kautzer4",
-  password: "65XMWXNJSE2VZQE",
+  username: "Johnson_Reynolds",
+  password: "9rVEA9g5hYAUt_p",
   credentialsSecret: "<value>",
 };
 ```
@@ -221,17 +323,25 @@ const value: models.InputEdgePrometheusPqEnabledFalseConstraint = {
 
 ```typescript
 const value: models.InputEdgePrometheusPqEnabledTrueWithPqConstraint = {
+  pqEnabled: false,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "edge_prometheus",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -244,48 +354,71 @@ const value: models.InputEdgePrometheusPqEnabledTrueWithPqConstraint = {
     "<value 2>",
     "<value 3>",
   ],
-  persistence: {},
+  discoveryType: "static",
+  interval: 7461.05,
+  timeout: 6465.43,
+  persistence: {
+    enable: false,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+  },
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "hunt moor tool fixed despite besides mammoth mixture",
+  authType: "kubernetes",
+  description: "moor tool fixed despite besides mammoth",
   targets: [
     {
-      host: "wealthy-ceramics.com",
+      protocol: "https",
+      host: "mad-carnival.com",
+      port: 8409.15,
+      path: "/home/user",
     },
   ],
+  recordType: "AAAA",
+  scrapePort: 83.74,
   nameList: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
+  scrapeProtocol: "https",
+  scrapePath: "<value>",
+  awsAuthenticationMethod: "<value>",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  usePublicIp: false,
   searchFilter: [
     {
       Name: "<value>",
-      Values: [
-        "<value 1>",
-        "<value 2>",
-      ],
+      Values: [],
     },
   ],
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v4",
+  reuseConnections: false,
+  rejectUnauthorized: false,
+  enableAssumeRole: true,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  durationSeconds: 2272.27,
+  scrapeProtocolExpr: "<value>",
+  scrapePortExpr: "<value>",
+  scrapePathExpr: "<value>",
   podFilter: [
     {
       filter: "<value>",
-      description: "boo oof wherever circa between",
+      description:
+        "woefully newsletter fathom ack who than productive edge bah",
     },
   ],
-  username: "Carolina3",
-  password: "DGTXApbAV_Y4_lh",
+  username: "Kamren_Bashirian37",
+  password: "GTXApbAV_Y4_lhC",
   credentialsSecret: "<value>",
 };
 ```

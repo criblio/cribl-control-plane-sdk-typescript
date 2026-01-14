@@ -7,10 +7,13 @@
 
 ```typescript
 const value: models.InputAzureBlobSendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "azure_blob",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -22,9 +25,22 @@ const value: models.InputAzureBlobSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   queueName: "<value>",
+  fileFilter: "<value>",
+  visibilityTimeout: 7280.64,
+  numReceivers: 8020.39,
+  maxMessages: 6505.39,
+  servicePeriodSecs: 1735.92,
+  skipOnError: false,
   metadata: [
     {
       name: "<value>",
@@ -33,8 +49,13 @@ const value: models.InputAzureBlobSendToRoutesTrueConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
-  description: "fork gah whether successfully anti",
+  staleChannelFlushMs: 9371.28,
+  parquetChunkSizeMB: 1022.46,
+  parquetChunkDownloadTimeout: 4838.96,
+  authType: "secret",
+  description: "coin frilly zowie wobbly cruelly unto repossess bah bran",
   connectionString: "<value>",
   textSecret: "<value>",
   storageAccountName: "<value>",
@@ -53,6 +74,7 @@ const value: models.InputAzureBlobSendToRoutesTrueConstraint = {
 
 ```typescript
 const value: models.InputAzureBlobSendToRoutesFalseWithConnectionsConstraint = {
+  sendToRoutes: false,
   connections: [
     {
       pipeline: "<value>",
@@ -61,17 +83,31 @@ const value: models.InputAzureBlobSendToRoutesFalseWithConnectionsConstraint = {
   ],
   id: "<id>",
   type: "azure_blob",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   queueName: "<value>",
+  fileFilter: "<value>",
+  visibilityTimeout: 6967.29,
+  numReceivers: 372.26,
+  maxMessages: 8624,
+  servicePeriodSecs: 4809.55,
+  skipOnError: false,
   metadata: [
     {
       name: "<value>",
@@ -82,7 +118,11 @@ const value: models.InputAzureBlobSendToRoutesFalseWithConnectionsConstraint = {
     "<value 1>",
     "<value 2>",
   ],
-  description: "near whoever recent unaccountably and barring after while",
+  staleChannelFlushMs: 1562.53,
+  parquetChunkSizeMB: 9456.51,
+  parquetChunkDownloadTimeout: 6877.71,
+  authType: "clientCert",
+  description: "until retract knowledgeably boohoo",
   connectionString: "<value>",
   textSecret: "<value>",
   storageAccountName: "<value>",
@@ -101,9 +141,12 @@ const value: models.InputAzureBlobSendToRoutesFalseWithConnectionsConstraint = {
 
 ```typescript
 const value: models.InputAzureBlobPqEnabledFalseConstraint = {
+  pqEnabled: true,
   id: "<id>",
   type: "azure_blob",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -115,9 +158,22 @@ const value: models.InputAzureBlobPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   queueName: "<value>",
+  fileFilter: "<value>",
+  visibilityTimeout: 2205.73,
+  numReceivers: 3966.49,
+  maxMessages: 289.44,
+  servicePeriodSecs: 7191.31,
+  skipOnError: false,
   metadata: [
     {
       name: "<value>",
@@ -126,8 +182,14 @@ const value: models.InputAzureBlobPqEnabledFalseConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
-  description: "psst ack till that",
+  staleChannelFlushMs: 1613.84,
+  parquetChunkSizeMB: 777.47,
+  parquetChunkDownloadTimeout: 9802.16,
+  authType: "manual",
+  description:
+    "burgeon questionably outside descendant huzzah sticky behest junior outrun wonderfully",
   connectionString: "<value>",
   textSecret: "<value>",
   storageAccountName: "<value>",
@@ -146,16 +208,27 @@ const value: models.InputAzureBlobPqEnabledFalseConstraint = {
 
 ```typescript
 const value: models.InputAzureBlobPqEnabledTrueWithPqConstraint = {
+  pqEnabled: true,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "azure_blob",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -164,6 +237,12 @@ const value: models.InputAzureBlobPqEnabledTrueWithPqConstraint = {
     },
   ],
   queueName: "<value>",
+  fileFilter: "<value>",
+  visibilityTimeout: 5359.8,
+  numReceivers: 2209.53,
+  maxMessages: 8181.16,
+  servicePeriodSecs: 9003.8,
+  skipOnError: false,
   metadata: [
     {
       name: "<value>",
@@ -173,8 +252,13 @@ const value: models.InputAzureBlobPqEnabledTrueWithPqConstraint = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  description: "weighty sternly loftily",
+  staleChannelFlushMs: 5330.43,
+  parquetChunkSizeMB: 648.17,
+  parquetChunkDownloadTimeout: 7733.57,
+  authType: "clientSecret",
+  description: "duh colorfully except",
   connectionString: "<value>",
   textSecret: "<value>",
   storageAccountName: "<value>",

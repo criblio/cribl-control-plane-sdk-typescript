@@ -23,6 +23,8 @@ let value: FunctionFoldkeys = {
   },
   version: "<value>",
   schema: {
+    deleteOriginal: false,
+    separator: "<value>",
     selectionRegExp: "<value>",
   },
 };

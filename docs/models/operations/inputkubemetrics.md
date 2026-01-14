@@ -7,14 +7,16 @@
 
 ```typescript
 const value: operations.InputKubeMetricsSendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "kube_metrics",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -23,13 +25,20 @@ const value: operations.InputKubeMetricsSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  interval: 8170.19,
   rules: [
     {
       filter: "<value>",
-      description:
-        "afore progress ethyl um gratefully pish whose till hydrocarbon",
+      description: "gerbil who despite each ha deliquesce",
     },
   ],
   metadata: [
@@ -38,8 +47,15 @@ const value: operations.InputKubeMetricsSendToRoutesTrueConstraint = {
       value: "<value>",
     },
   ],
-  persistence: {},
-  description: "eventually er given pish",
+  persistence: {
+    enable: false,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "none",
+    destPath: "<value>",
+  },
+  description: "because since knowingly",
 };
 ```
 
@@ -48,6 +64,7 @@ const value: operations.InputKubeMetricsSendToRoutesTrueConstraint = {
 ```typescript
 const value:
   operations.InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint = {
+    sendToRoutes: false,
     connections: [
       {
         pipeline: "<value>",
@@ -56,20 +73,28 @@ const value:
     ],
     id: "<id>",
     type: "kube_metrics",
+    disabled: true,
     pipeline: "<value>",
     environment: "<value>",
+    pqEnabled: true,
     streamtags: [
       "<value 1>",
-      "<value 2>",
     ],
     pq: {
+      mode: "smart",
+      maxBufferSize: 1717.96,
+      commitFrequency: 1412.18,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/include",
+      compress: "none",
       pqControls: {},
     },
+    interval: 1878.22,
     rules: [
       {
         filter: "<value>",
-        description:
-          "afore progress ethyl um gratefully pish whose till hydrocarbon",
+        description: "gerbil who despite each ha deliquesce",
       },
     ],
     metadata: [
@@ -78,8 +103,15 @@ const value:
         value: "<value>",
       },
     ],
-    persistence: {},
-    description: "chairperson interestingly sizzling",
+    persistence: {
+      enable: false,
+      timeWindow: "<value>",
+      maxDataSize: "<value>",
+      maxDataTime: "<value>",
+      compress: "none",
+      destPath: "<value>",
+    },
+    description: "topsail wheel unique whether along doubter boo",
   };
 ```
 
@@ -87,9 +119,78 @@ const value:
 
 ```typescript
 const value: operations.InputKubeMetricsPqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "kube_metrics",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
+    pqControls: {},
+  },
+  interval: 9363.14,
+  rules: [
+    {
+      filter: "<value>",
+      description: "gerbil who despite each ha deliquesce",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {
+    enable: false,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "none",
+    destPath: "<value>",
+  },
+  description:
+    "now necessary boastfully fiercely geez instead ah educated inside",
+};
+```
+
+### `operations.InputKubeMetricsPqEnabledTrueWithPqConstraint`
+
+```typescript
+const value: operations.InputKubeMetricsPqEnabledTrueWithPqConstraint = {
+  pqEnabled: true,
+  pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
+    pqControls: {},
+  },
+  id: "<id>",
+  type: "kube_metrics",
+  disabled: true,
+  pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -102,14 +203,11 @@ const value: operations.InputKubeMetricsPqEnabledFalseConstraint = {
       output: "<value>",
     },
   ],
-  pq: {
-    pqControls: {},
-  },
+  interval: 9927.97,
   rules: [
     {
       filter: "<value>",
-      description:
-        "afore progress ethyl um gratefully pish whose till hydrocarbon",
+      description: "gerbil who despite each ha deliquesce",
     },
   ],
   metadata: [
@@ -118,47 +216,15 @@ const value: operations.InputKubeMetricsPqEnabledFalseConstraint = {
       value: "<value>",
     },
   ],
-  persistence: {},
-  description:
-    "apud reflecting slink whose how frantically apropos phew parody",
-};
-```
-
-### `operations.InputKubeMetricsPqEnabledTrueWithPqConstraint`
-
-```typescript
-const value: operations.InputKubeMetricsPqEnabledTrueWithPqConstraint = {
-  pq: {
-    pqControls: {},
+  persistence: {
+    enable: false,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "none",
+    destPath: "<value>",
   },
-  id: "<id>",
-  type: "kube_metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  rules: [
-    {
-      filter: "<value>",
-      description:
-        "afore progress ethyl um gratefully pish whose till hydrocarbon",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  description: "how once though better",
+  description: "after at downshift narrate analogy superior",
 };
 ```
 

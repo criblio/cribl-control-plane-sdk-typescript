@@ -19,7 +19,9 @@ let value: FunctionLimit = {
   sync: true,
   uischema: {},
   version: "<value>",
-  schema: {},
+  schema: {
+    limit: 85258,
+  },
 };
 ```
 

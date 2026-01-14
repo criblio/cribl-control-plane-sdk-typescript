@@ -6,6 +6,7 @@
 import { PipelineFunctionDrop } from "cribl-control-plane/models";
 
 let value: PipelineFunctionDrop = {
+  filter: "<value>",
   id: "drop",
   description: "gulp skean wire pronoun gladly",
   disabled: false,

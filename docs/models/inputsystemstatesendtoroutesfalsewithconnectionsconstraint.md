@@ -6,6 +6,7 @@
 import { InputSystemStateSendToRoutesFalseWithConnectionsConstraint } from "cribl-control-plane/models";
 
 let value: InputSystemStateSendToRoutesFalseWithConnectionsConstraint = {
+  sendToRoutes: true,
   connections: [
     {
       pipeline: "<value>",
@@ -14,15 +15,26 @@ let value: InputSystemStateSendToRoutesFalseWithConnectionsConstraint = {
   ],
   id: "<id>",
   type: "system_state",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  interval: 3013.77,
   metadata: [
     {
       name: "<value>",
@@ -30,20 +42,50 @@ let value: InputSystemStateSendToRoutesFalseWithConnectionsConstraint = {
     },
   ],
   collectors: {
-    hostsfile: {},
-    interfaces: {},
-    disk: {},
-    metadata: {},
-    routes: {},
-    dns: {},
-    user: {},
-    firewall: {},
-    services: {},
-    ports: {},
-    loginUsers: {},
+    hostsfile: {
+      enable: true,
+    },
+    interfaces: {
+      enable: false,
+    },
+    disk: {
+      enable: true,
+    },
+    metadata: {
+      enable: false,
+    },
+    routes: {
+      enable: true,
+    },
+    dns: {
+      enable: false,
+    },
+    user: {
+      enable: true,
+    },
+    firewall: {
+      enable: false,
+    },
+    services: {
+      enable: false,
+    },
+    ports: {
+      enable: true,
+    },
+    loginUsers: {
+      enable: false,
+    },
   },
-  persistence: {},
-  description: "provided deselect besides unless however",
+  persistence: {
+    enable: true,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "none",
+    destPath: "<value>",
+  },
+  disableNativeModule: false,
+  description: "dicker while near license galoshes duh",
 };
 ```
 
@@ -51,7 +93,7 @@ let value: InputSystemStateSendToRoutesFalseWithConnectionsConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
 | `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [models.InputSystemStateType](../models/inputsystemstatetype.md)                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

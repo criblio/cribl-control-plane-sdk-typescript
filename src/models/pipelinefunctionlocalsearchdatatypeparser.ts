@@ -47,7 +47,7 @@ export const PipelineFunctionLocalSearchDatatypeParser$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("local_search_datatype_parser"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionLocalSearchDatatypeParser$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionLocalSearchDatatypeParser$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "local_search_datatype_parser";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -73,7 +73,7 @@ export const PipelineFunctionLocalSearchDatatypeParser$outboundSchema:
     z.ZodTypeDef,
     PipelineFunctionLocalSearchDatatypeParser
   > = z.object({
-    filter: z.string().default("true"),
+    filter: z.string().optional(),
     id: z.literal("local_search_datatype_parser"),
     description: z.string().optional(),
     disabled: z.boolean().optional(),

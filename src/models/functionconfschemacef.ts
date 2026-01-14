@@ -27,7 +27,7 @@ export type FunctionConfSchemaCef = {
   /**
    * The field to which the CEF formatted event will be output
    */
-  outputField: string;
+  outputField?: string | undefined;
   /**
    * Set of header key/value pairs
    */
@@ -121,7 +121,7 @@ export const FunctionConfSchemaCef$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  outputField: z.string().default("_raw"),
+  outputField: z.string().optional(),
   header: z.array(z.lazy(() => Header$inboundSchema)).optional(),
   extension: z.array(z.lazy(() => Extension$inboundSchema)).optional(),
 });
@@ -156,7 +156,7 @@ export function headerInputToJSON(headerInput: HeaderInput): string {
 
 /** @internal */
 export type FunctionConfSchemaCefInput$Outbound = {
-  outputField: string;
+  outputField?: string | undefined;
   header?: Array<HeaderInput$Outbound> | undefined;
   extension?: Array<Extension$Outbound> | undefined;
 };
@@ -167,7 +167,7 @@ export const FunctionConfSchemaCefInput$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   FunctionConfSchemaCefInput
 > = z.object({
-  outputField: z.string().default("_raw"),
+  outputField: z.string().optional(),
   header: z.array(z.lazy(() => HeaderInput$outboundSchema)).optional(),
   extension: z.array(z.lazy(() => Extension$outboundSchema)).optional(),
 });

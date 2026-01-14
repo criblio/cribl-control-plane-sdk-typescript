@@ -23,11 +23,11 @@ export type FunctionConfSchemaRegexExtract = {
   /**
    * Field on which to perform regex field extraction
    */
-  source: string;
+  source?: string | undefined;
   /**
    * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
    */
-  iterations: number;
+  iterations?: number | undefined;
   /**
    * JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
    */
@@ -35,7 +35,7 @@ export type FunctionConfSchemaRegexExtract = {
   /**
    * Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
    */
-  overwrite: boolean;
+  overwrite?: boolean | undefined;
 };
 
 /** @internal */
@@ -73,10 +73,10 @@ export const FunctionConfSchemaRegexExtract$inboundSchema: z.ZodType<
   regexList: z.array(
     z.lazy(() => FunctionConfSchemaRegexExtractRegexList$inboundSchema),
   ).optional(),
-  source: z.string().default("_raw"),
-  iterations: z.number().default(100),
+  source: z.string().optional(),
+  iterations: z.number().optional(),
   fieldNameExpression: z.string().optional(),
-  overwrite: z.boolean().default(false),
+  overwrite: z.boolean().optional(),
 });
 
 export function functionConfSchemaRegexExtractFromJSON(

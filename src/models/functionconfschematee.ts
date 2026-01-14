@@ -16,7 +16,7 @@ export type FunctionConfSchemaTee = {
   /**
    * Restart the process if it exits and/or we fail to write to it
    */
-  restartOnExit: boolean;
+  restartOnExit?: boolean | undefined;
   /**
    * Environment variables to overwrite or set
    */
@@ -31,7 +31,7 @@ export const FunctionConfSchemaTee$inboundSchema: z.ZodType<
 > = z.object({
   command: z.string().optional(),
   args: z.array(z.string()).optional(),
-  restartOnExit: z.boolean().default(true),
+  restartOnExit: z.boolean().optional(),
   env: z.record(z.string()).optional(),
 });
 

@@ -23,11 +23,11 @@ export type FunctionConfSchemaMvPull = {
   /**
    * Optionally, specify a bag as the target for K-V entries. If not specified, these entries are stored on each top-level event.
    */
-  targetBagPath: string | null;
+  targetBagPath?: string | undefined;
   /**
    * Toggle this on to remove each original array of data objects after extraction. If toggled off, arrays are retained.
    */
-  deleteOriginal: boolean;
+  deleteOriginal?: boolean | undefined;
 };
 
 /** @internal */
@@ -39,8 +39,8 @@ export const FunctionConfSchemaMvPull$inboundSchema: z.ZodType<
   arrayPath: z.string().optional(),
   relativeKeyPath: z.string().optional(),
   relativeValuePath: z.string().optional(),
-  targetBagPath: z.nullable(z.string()).default(null),
-  deleteOriginal: z.boolean().default(false),
+  targetBagPath: z.string().optional(),
+  deleteOriginal: z.boolean().optional(),
 });
 
 export function functionConfSchemaMvPullFromJSON(

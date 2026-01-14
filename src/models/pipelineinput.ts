@@ -45,7 +45,7 @@ export type PipelineInput = {
 /** @internal */
 export type ConfInput$Outbound = {
   asyncFuncTimeout?: number | undefined;
-  output: string;
+  output?: string | undefined;
   description?: string | undefined;
   streamtags?: Array<string> | undefined;
   functions?: Array<PipelineFunctionConfInput$Outbound> | undefined;
@@ -61,7 +61,7 @@ export const ConfInput$outboundSchema: z.ZodType<
   ConfInput
 > = z.object({
   asyncFuncTimeout: z.number().int().optional(),
-  output: z.string().default("default"),
+  output: z.string().optional(),
   description: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   functions: z.array(PipelineFunctionConfInput$outboundSchema).optional(),

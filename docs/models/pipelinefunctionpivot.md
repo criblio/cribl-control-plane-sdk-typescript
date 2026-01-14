@@ -6,6 +6,7 @@
 import { PipelineFunctionPivot } from "cribl-control-plane/models";
 
 let value: PipelineFunctionPivot = {
+  filter: "<value>",
   id: "pivot",
   description:
     "thankfully unimpressively secondary that insert sturdy phew loftily",

@@ -6,6 +6,7 @@
 import { InputAppscopeSendToRoutesFalseWithConnectionsConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputAppscopeSendToRoutesFalseWithConnectionsConstraint = {
+  sendToRoutes: true,
   connections: [
     {
       pipeline: "<value>",
@@ -14,15 +15,31 @@ let value: InputAppscopeSendToRoutesFalseWithConnectionsConstraint = {
   ],
   id: "<id>",
   type: "appscope",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  ipWhitelistRegex: "<value>",
+  maxActiveCxn: 3363.66,
+  socketIdleTimeout: 7818.84,
+  socketEndingMaxWait: 7336.54,
+  socketMaxLifespan: 7827.84,
+  enableProxyHeader: true,
   metadata: [
     {
       name: "<value>",
@@ -31,7 +48,10 @@ let value: InputAppscopeSendToRoutesFalseWithConnectionsConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
+  staleChannelFlushMs: 4967.04,
+  enableUnixPath: true,
   filter: {
     allow: [
       {
@@ -40,22 +60,36 @@ let value: InputAppscopeSendToRoutesFalseWithConnectionsConstraint = {
         config: "<value>",
       },
     ],
-    transportURL: "https://diligent-worth.com",
+    transportURL: "https://clean-blight.net",
   },
-  persistence: {},
-  description: "longingly battle of sunbeam",
-  host: "ample-turret.net",
-  port: 8759.54,
+  persistence: {
+    enable: true,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "none",
+    destPath: "<value>",
+  },
+  authType: "manual",
+  description: "hmph after pish since eminent",
+  host: "vivid-sock.com",
+  port: 2612.56,
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  unixSocketPath: "<value>",
   unixSocketPerms: "<value>",
+  authToken: "<value>",
   textSecret: "<value>",
 };
 ```
@@ -64,7 +98,7 @@ let value: InputAppscopeSendToRoutesFalseWithConnectionsConstraint = {
 
 | Field                                                                                                                                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                                                                                  |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `sendToRoutes`                                                                                                                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                                                                                          |
+| `sendToRoutes`                                                                                                                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                                                                                          |
 | `connections`                                                                                                                                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                                                                                                  |
 | `id`                                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                                                                                                                                       | [operations.InputAppscopeType](../../models/operations/inputappscopetype.md)                                                                                                                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                                                                                                                                          |

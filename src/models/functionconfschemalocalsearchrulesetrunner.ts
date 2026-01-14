@@ -97,7 +97,7 @@ export const FunctionConfSchemaLocalSearchRulesetRunner$inboundSchema:
       ruleset: z.lazy(() =>
         FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets$inboundSchema
       ).optional(),
-      markAndIncludeDroppedEvents: z.boolean().default(false),
+      markAndIncludeDroppedEvents: z.boolean().optional(),
     });
 /** @internal */
 export type FunctionConfSchemaLocalSearchRulesetRunner$Outbound = {
@@ -106,7 +106,7 @@ export type FunctionConfSchemaLocalSearchRulesetRunner$Outbound = {
   ruleset?:
     | FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets$Outbound
     | undefined;
-  markAndIncludeDroppedEvents: boolean;
+  markAndIncludeDroppedEvents?: boolean | undefined;
 };
 
 /** @internal */
@@ -121,7 +121,7 @@ export const FunctionConfSchemaLocalSearchRulesetRunner$outboundSchema:
     ruleset: z.lazy(() =>
       FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets$outboundSchema
     ).optional(),
-    markAndIncludeDroppedEvents: z.boolean().default(false),
+    markAndIncludeDroppedEvents: z.boolean().optional(),
   });
 
 export function functionConfSchemaLocalSearchRulesetRunnerToJSON(

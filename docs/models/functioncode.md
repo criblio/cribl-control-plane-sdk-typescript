@@ -24,6 +24,9 @@ let value: FunctionCode = {
   version: "<value>",
   schema: {
     code: "<value>",
+    maxNumOfIterations: 4339.37,
+    activeLogSampleRate: 8310.57,
+    useUniqueLogChannel: true,
   },
 };
 ```

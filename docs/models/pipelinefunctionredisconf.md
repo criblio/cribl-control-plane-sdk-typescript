@@ -7,6 +7,9 @@ import { PipelineFunctionRedisConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionRedisConf = {
   commands: [],
+  deploymentType: "standalone",
+  authType: "manual",
+  maxBlockSecs: 2430.43,
   enableClientSideCaching: true,
 };
 ```

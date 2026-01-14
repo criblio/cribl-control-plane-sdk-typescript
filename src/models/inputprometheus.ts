@@ -8,11 +8,6 @@ import * as openEnums from "../types/enums.js";
 import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
-  AuthenticationMethodOptions,
-  AuthenticationMethodOptions$inboundSchema,
-  AuthenticationMethodOptions$outboundSchema,
-} from "./authenticationmethodoptions.js";
-import {
   AuthenticationMethodOptionsSasl,
   AuthenticationMethodOptionsSasl$inboundSchema,
   AuthenticationMethodOptionsSasl$outboundSchema,
@@ -112,7 +107,7 @@ export type InputPrometheusPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   pq?: PqType | undefined;
   /**
    * Unique ID for this input
@@ -151,11 +146,11 @@ export type InputPrometheusPqEnabledTrueWithPqConstraint = {
   /**
    * How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
    */
-  interval?: number | undefined;
+  interval: number;
   /**
    * Collector runtime log level
    */
-  logLevel?: InputPrometheusLogLevel | undefined;
+  logLevel: InputPrometheusLogLevel;
   /**
    * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
    */
@@ -220,7 +215,7 @@ export type InputPrometheusPqEnabledTrueWithPqConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -285,7 +280,7 @@ export type InputPrometheusPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   /**
    * Unique ID for this input
    */
@@ -324,11 +319,11 @@ export type InputPrometheusPqEnabledFalseConstraint = {
   /**
    * How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
    */
-  interval?: number | undefined;
+  interval: number;
   /**
    * Collector runtime log level
    */
-  logLevel?: InputPrometheusLogLevel | undefined;
+  logLevel: InputPrometheusLogLevel;
   /**
    * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
    */
@@ -393,7 +388,7 @@ export type InputPrometheusPqEnabledFalseConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -458,7 +453,7 @@ export type InputPrometheusSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -497,11 +492,11 @@ export type InputPrometheusSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
    */
-  interval?: number | undefined;
+  interval: number;
   /**
    * Collector runtime log level
    */
-  logLevel?: InputPrometheusLogLevel | undefined;
+  logLevel: InputPrometheusLogLevel;
   /**
    * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
    */
@@ -566,7 +561,7 @@ export type InputPrometheusSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -631,7 +626,7 @@ export type InputPrometheusSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Unique ID for this input
    */
@@ -670,11 +665,11 @@ export type InputPrometheusSendToRoutesTrueConstraint = {
   /**
    * How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
    */
-  interval?: number | undefined;
+  interval: number;
   /**
    * Collector runtime log level
    */
-  logLevel?: InputPrometheusLogLevel | undefined;
+  logLevel: InputPrometheusLogLevel;
   /**
    * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
    */
@@ -739,7 +734,7 @@ export type InputPrometheusSendToRoutesTrueConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -861,52 +856,50 @@ export const InputPrometheusPqEnabledTrueWithPqConstraint$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     pq: PqType$inboundSchema.optional(),
     id: z.string().optional(),
     type: InputPrometheusType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     dimensionList: z.array(z.string()).optional(),
-    discoveryType: InputPrometheusDiscoveryType$inboundSchema.default("static"),
-    interval: z.number().default(15),
-    logLevel: InputPrometheusLogLevel$inboundSchema.default("info"),
-    rejectUnauthorized: z.boolean().default(true),
-    timeout: z.number().default(0),
-    keepAliveTime: z.number().default(30),
-    jobTimeout: z.string().default("0"),
-    maxMissedKeepAlives: z.number().default(3),
-    ttl: z.string().default("4h"),
-    ignoreGroupJobsLimit: z.boolean().default(false),
+    discoveryType: InputPrometheusDiscoveryType$inboundSchema.optional(),
+    interval: z.number(),
+    logLevel: InputPrometheusLogLevel$inboundSchema,
+    rejectUnauthorized: z.boolean().optional(),
+    timeout: z.number().optional(),
+    keepAliveTime: z.number().optional(),
+    jobTimeout: z.string().optional(),
+    maxMissedKeepAlives: z.number().optional(),
+    ttl: z.string().optional(),
+    ignoreGroupJobsLimit: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    authType: AuthenticationMethodOptionsSasl$inboundSchema.default("manual"),
+    authType: AuthenticationMethodOptionsSasl$inboundSchema.optional(),
     description: z.string().optional(),
     targetList: z.array(z.string()).optional(),
-    recordType: RecordTypeOptions$inboundSchema.default("SRV"),
-    scrapePort: z.number().default(9090),
+    recordType: RecordTypeOptions$inboundSchema.optional(),
+    scrapePort: z.number().optional(),
     nameList: z.array(z.string()).optional(),
-    scrapeProtocol: MetricsProtocol$inboundSchema.default("http"),
-    scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
-      "auto",
-    ),
+    scrapeProtocol: MetricsProtocol$inboundSchema.optional(),
+    scrapePath: z.string().optional(),
+    awsAuthenticationMethod: z.string().optional(),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
-    usePublicIp: z.boolean().default(true),
+    usePublicIp: z.boolean().optional(),
     searchFilter: z.array(ItemsTypeSearchFilter$inboundSchema).optional(),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptions1$inboundSchema.default("v4"),
-    reuseConnections: z.boolean().default(true),
-    enableAssumeRole: z.boolean().default(false),
+    signatureVersion: SignatureVersionOptions1$inboundSchema.optional(),
+    reuseConnections: z.boolean().optional(),
+    enableAssumeRole: z.boolean().optional(),
     assumeRoleArn: z.string().optional(),
     assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
+    durationSeconds: z.number().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
     credentialsSecret: z.string().optional(),
@@ -917,46 +910,46 @@ export type InputPrometheusPqEnabledTrueWithPqConstraint$Outbound = {
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   dimensionList?: Array<string> | undefined;
-  discoveryType: string;
+  discoveryType?: string | undefined;
   interval: number;
   logLevel: string;
-  rejectUnauthorized: boolean;
-  timeout: number;
-  keepAliveTime: number;
-  jobTimeout: string;
-  maxMissedKeepAlives: number;
-  ttl: string;
-  ignoreGroupJobsLimit: boolean;
+  rejectUnauthorized?: boolean | undefined;
+  timeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  jobTimeout?: string | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  authType: string;
+  authType?: string | undefined;
   description?: string | undefined;
   targetList?: Array<string> | undefined;
-  recordType: string;
-  scrapePort: number;
+  recordType?: string | undefined;
+  scrapePort?: number | undefined;
   nameList?: Array<string> | undefined;
-  scrapeProtocol: string;
-  scrapePath: string;
-  awsAuthenticationMethod: string;
+  scrapeProtocol?: string | undefined;
+  scrapePath?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  usePublicIp: boolean;
+  usePublicIp?: boolean | undefined;
   searchFilter?: Array<ItemsTypeSearchFilter$Outbound> | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
+  durationSeconds?: number | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -969,55 +962,51 @@ export const InputPrometheusPqEnabledTrueWithPqConstraint$outboundSchema:
     z.ZodTypeDef,
     InputPrometheusPqEnabledTrueWithPqConstraint
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputPrometheusType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     dimensionList: z.array(z.string()).optional(),
-    discoveryType: InputPrometheusDiscoveryType$outboundSchema.default(
-      "static",
-    ),
-    interval: z.number().default(15),
-    logLevel: InputPrometheusLogLevel$outboundSchema.default("info"),
-    rejectUnauthorized: z.boolean().default(true),
-    timeout: z.number().default(0),
-    keepAliveTime: z.number().default(30),
-    jobTimeout: z.string().default("0"),
-    maxMissedKeepAlives: z.number().default(3),
-    ttl: z.string().default("4h"),
-    ignoreGroupJobsLimit: z.boolean().default(false),
+    discoveryType: InputPrometheusDiscoveryType$outboundSchema.optional(),
+    interval: z.number(),
+    logLevel: InputPrometheusLogLevel$outboundSchema,
+    rejectUnauthorized: z.boolean().optional(),
+    timeout: z.number().optional(),
+    keepAliveTime: z.number().optional(),
+    jobTimeout: z.string().optional(),
+    maxMissedKeepAlives: z.number().optional(),
+    ttl: z.string().optional(),
+    ignoreGroupJobsLimit: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    authType: AuthenticationMethodOptionsSasl$outboundSchema.default("manual"),
+    authType: AuthenticationMethodOptionsSasl$outboundSchema.optional(),
     description: z.string().optional(),
     targetList: z.array(z.string()).optional(),
-    recordType: RecordTypeOptions$outboundSchema.default("SRV"),
-    scrapePort: z.number().default(9090),
+    recordType: RecordTypeOptions$outboundSchema.optional(),
+    scrapePort: z.number().optional(),
     nameList: z.array(z.string()).optional(),
-    scrapeProtocol: MetricsProtocol$outboundSchema.default("http"),
-    scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
-      "auto",
-    ),
+    scrapeProtocol: MetricsProtocol$outboundSchema.optional(),
+    scrapePath: z.string().optional(),
+    awsAuthenticationMethod: z.string().optional(),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
-    usePublicIp: z.boolean().default(true),
+    usePublicIp: z.boolean().optional(),
     searchFilter: z.array(ItemsTypeSearchFilter$outboundSchema).optional(),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptions1$outboundSchema.default("v4"),
-    reuseConnections: z.boolean().default(true),
-    enableAssumeRole: z.boolean().default(false),
+    signatureVersion: SignatureVersionOptions1$outboundSchema.optional(),
+    reuseConnections: z.boolean().optional(),
+    enableAssumeRole: z.boolean().optional(),
     assumeRoleArn: z.string().optional(),
     assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
+    durationSeconds: z.number().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
     credentialsSecret: z.string().optional(),
@@ -1055,52 +1044,50 @@ export const InputPrometheusPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputPrometheusType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
   dimensionList: z.array(z.string()).optional(),
-  discoveryType: InputPrometheusDiscoveryType$inboundSchema.default("static"),
-  interval: z.number().default(15),
-  logLevel: InputPrometheusLogLevel$inboundSchema.default("info"),
-  rejectUnauthorized: z.boolean().default(true),
-  timeout: z.number().default(0),
-  keepAliveTime: z.number().default(30),
-  jobTimeout: z.string().default("0"),
-  maxMissedKeepAlives: z.number().default(3),
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
+  discoveryType: InputPrometheusDiscoveryType$inboundSchema.optional(),
+  interval: z.number(),
+  logLevel: InputPrometheusLogLevel$inboundSchema,
+  rejectUnauthorized: z.boolean().optional(),
+  timeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  jobTimeout: z.string().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  authType: AuthenticationMethodOptionsSasl$inboundSchema.default("manual"),
+  authType: AuthenticationMethodOptionsSasl$inboundSchema.optional(),
   description: z.string().optional(),
   targetList: z.array(z.string()).optional(),
-  recordType: RecordTypeOptions$inboundSchema.default("SRV"),
-  scrapePort: z.number().default(9090),
+  recordType: RecordTypeOptions$inboundSchema.optional(),
+  scrapePort: z.number().optional(),
   nameList: z.array(z.string()).optional(),
-  scrapeProtocol: MetricsProtocol$inboundSchema.default("http"),
-  scrapePath: z.string().default("/metrics"),
-  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
-    "auto",
-  ),
+  scrapeProtocol: MetricsProtocol$inboundSchema.optional(),
+  scrapePath: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  usePublicIp: z.boolean().default(true),
+  usePublicIp: z.boolean().optional(),
   searchFilter: z.array(ItemsTypeSearchFilter$inboundSchema).optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions1$inboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionOptions1$inboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
+  durationSeconds: z.number().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -1110,47 +1097,47 @@ export type InputPrometheusPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   dimensionList?: Array<string> | undefined;
-  discoveryType: string;
+  discoveryType?: string | undefined;
   interval: number;
   logLevel: string;
-  rejectUnauthorized: boolean;
-  timeout: number;
-  keepAliveTime: number;
-  jobTimeout: string;
-  maxMissedKeepAlives: number;
-  ttl: string;
-  ignoreGroupJobsLimit: boolean;
+  rejectUnauthorized?: boolean | undefined;
+  timeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  jobTimeout?: string | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  authType: string;
+  authType?: string | undefined;
   description?: string | undefined;
   targetList?: Array<string> | undefined;
-  recordType: string;
-  scrapePort: number;
+  recordType?: string | undefined;
+  scrapePort?: number | undefined;
   nameList?: Array<string> | undefined;
-  scrapeProtocol: string;
-  scrapePath: string;
-  awsAuthenticationMethod: string;
+  scrapeProtocol?: string | undefined;
+  scrapePath?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  usePublicIp: boolean;
+  usePublicIp?: boolean | undefined;
   searchFilter?: Array<ItemsTypeSearchFilter$Outbound> | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
+  durationSeconds?: number | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -1162,52 +1149,50 @@ export const InputPrometheusPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputPrometheusPqEnabledFalseConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputPrometheusType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   dimensionList: z.array(z.string()).optional(),
-  discoveryType: InputPrometheusDiscoveryType$outboundSchema.default("static"),
-  interval: z.number().default(15),
-  logLevel: InputPrometheusLogLevel$outboundSchema.default("info"),
-  rejectUnauthorized: z.boolean().default(true),
-  timeout: z.number().default(0),
-  keepAliveTime: z.number().default(30),
-  jobTimeout: z.string().default("0"),
-  maxMissedKeepAlives: z.number().default(3),
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
+  discoveryType: InputPrometheusDiscoveryType$outboundSchema.optional(),
+  interval: z.number(),
+  logLevel: InputPrometheusLogLevel$outboundSchema,
+  rejectUnauthorized: z.boolean().optional(),
+  timeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  jobTimeout: z.string().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  authType: AuthenticationMethodOptionsSasl$outboundSchema.default("manual"),
+  authType: AuthenticationMethodOptionsSasl$outboundSchema.optional(),
   description: z.string().optional(),
   targetList: z.array(z.string()).optional(),
-  recordType: RecordTypeOptions$outboundSchema.default("SRV"),
-  scrapePort: z.number().default(9090),
+  recordType: RecordTypeOptions$outboundSchema.optional(),
+  scrapePort: z.number().optional(),
   nameList: z.array(z.string()).optional(),
-  scrapeProtocol: MetricsProtocol$outboundSchema.default("http"),
-  scrapePath: z.string().default("/metrics"),
-  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
-    "auto",
-  ),
+  scrapeProtocol: MetricsProtocol$outboundSchema.optional(),
+  scrapePath: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  usePublicIp: z.boolean().default(true),
+  usePublicIp: z.boolean().optional(),
   searchFilter: z.array(ItemsTypeSearchFilter$outboundSchema).optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions1$outboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionOptions1$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
+  durationSeconds: z.number().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -1246,52 +1231,50 @@ export const InputPrometheusSendToRoutesFalseWithConnectionsConstraint$inboundSc
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputPrometheusType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$inboundSchema.optional(),
     dimensionList: z.array(z.string()).optional(),
-    discoveryType: InputPrometheusDiscoveryType$inboundSchema.default("static"),
-    interval: z.number().default(15),
-    logLevel: InputPrometheusLogLevel$inboundSchema.default("info"),
-    rejectUnauthorized: z.boolean().default(true),
-    timeout: z.number().default(0),
-    keepAliveTime: z.number().default(30),
-    jobTimeout: z.string().default("0"),
-    maxMissedKeepAlives: z.number().default(3),
-    ttl: z.string().default("4h"),
-    ignoreGroupJobsLimit: z.boolean().default(false),
+    discoveryType: InputPrometheusDiscoveryType$inboundSchema.optional(),
+    interval: z.number(),
+    logLevel: InputPrometheusLogLevel$inboundSchema,
+    rejectUnauthorized: z.boolean().optional(),
+    timeout: z.number().optional(),
+    keepAliveTime: z.number().optional(),
+    jobTimeout: z.string().optional(),
+    maxMissedKeepAlives: z.number().optional(),
+    ttl: z.string().optional(),
+    ignoreGroupJobsLimit: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    authType: AuthenticationMethodOptionsSasl$inboundSchema.default("manual"),
+    authType: AuthenticationMethodOptionsSasl$inboundSchema.optional(),
     description: z.string().optional(),
     targetList: z.array(z.string()).optional(),
-    recordType: RecordTypeOptions$inboundSchema.default("SRV"),
-    scrapePort: z.number().default(9090),
+    recordType: RecordTypeOptions$inboundSchema.optional(),
+    scrapePort: z.number().optional(),
     nameList: z.array(z.string()).optional(),
-    scrapeProtocol: MetricsProtocol$inboundSchema.default("http"),
-    scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
-      "auto",
-    ),
+    scrapeProtocol: MetricsProtocol$inboundSchema.optional(),
+    scrapePath: z.string().optional(),
+    awsAuthenticationMethod: z.string().optional(),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
-    usePublicIp: z.boolean().default(true),
+    usePublicIp: z.boolean().optional(),
     searchFilter: z.array(ItemsTypeSearchFilter$inboundSchema).optional(),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptions1$inboundSchema.default("v4"),
-    reuseConnections: z.boolean().default(true),
-    enableAssumeRole: z.boolean().default(false),
+    signatureVersion: SignatureVersionOptions1$inboundSchema.optional(),
+    reuseConnections: z.boolean().optional(),
+    enableAssumeRole: z.boolean().optional(),
     assumeRoleArn: z.string().optional(),
     assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
+    durationSeconds: z.number().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
     credentialsSecret: z.string().optional(),
@@ -1303,46 +1286,46 @@ export type InputPrometheusSendToRoutesFalseWithConnectionsConstraint$Outbound =
     connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
     id?: string | undefined;
     type: string;
-    disabled: boolean;
+    disabled?: boolean | undefined;
     pipeline?: string | undefined;
     environment?: string | undefined;
-    pqEnabled: boolean;
+    pqEnabled?: boolean | undefined;
     streamtags?: Array<string> | undefined;
     pq?: PqType$Outbound | undefined;
     dimensionList?: Array<string> | undefined;
-    discoveryType: string;
+    discoveryType?: string | undefined;
     interval: number;
     logLevel: string;
-    rejectUnauthorized: boolean;
-    timeout: number;
-    keepAliveTime: number;
-    jobTimeout: string;
-    maxMissedKeepAlives: number;
-    ttl: string;
-    ignoreGroupJobsLimit: boolean;
+    rejectUnauthorized?: boolean | undefined;
+    timeout?: number | undefined;
+    keepAliveTime?: number | undefined;
+    jobTimeout?: string | undefined;
+    maxMissedKeepAlives?: number | undefined;
+    ttl?: string | undefined;
+    ignoreGroupJobsLimit?: boolean | undefined;
     metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-    authType: string;
+    authType?: string | undefined;
     description?: string | undefined;
     targetList?: Array<string> | undefined;
-    recordType: string;
-    scrapePort: number;
+    recordType?: string | undefined;
+    scrapePort?: number | undefined;
     nameList?: Array<string> | undefined;
-    scrapeProtocol: string;
-    scrapePath: string;
-    awsAuthenticationMethod: string;
+    scrapeProtocol?: string | undefined;
+    scrapePath?: string | undefined;
+    awsAuthenticationMethod?: string | undefined;
     awsApiKey?: string | undefined;
     awsSecret?: string | undefined;
-    usePublicIp: boolean;
+    usePublicIp?: boolean | undefined;
     searchFilter?: Array<ItemsTypeSearchFilter$Outbound> | undefined;
     awsSecretKey?: string | undefined;
     region?: string | undefined;
     endpoint?: string | undefined;
-    signatureVersion: string;
-    reuseConnections: boolean;
-    enableAssumeRole: boolean;
+    signatureVersion?: string | undefined;
+    reuseConnections?: boolean | undefined;
+    enableAssumeRole?: boolean | undefined;
     assumeRoleArn?: string | undefined;
     assumeRoleExternalId?: string | undefined;
-    durationSeconds: number;
+    durationSeconds?: number | undefined;
     username?: string | undefined;
     password?: string | undefined;
     credentialsSecret?: string | undefined;
@@ -1355,55 +1338,51 @@ export const InputPrometheusSendToRoutesFalseWithConnectionsConstraint$outboundS
     z.ZodTypeDef,
     InputPrometheusSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     id: z.string().optional(),
     type: InputPrometheusType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
     dimensionList: z.array(z.string()).optional(),
-    discoveryType: InputPrometheusDiscoveryType$outboundSchema.default(
-      "static",
-    ),
-    interval: z.number().default(15),
-    logLevel: InputPrometheusLogLevel$outboundSchema.default("info"),
-    rejectUnauthorized: z.boolean().default(true),
-    timeout: z.number().default(0),
-    keepAliveTime: z.number().default(30),
-    jobTimeout: z.string().default("0"),
-    maxMissedKeepAlives: z.number().default(3),
-    ttl: z.string().default("4h"),
-    ignoreGroupJobsLimit: z.boolean().default(false),
+    discoveryType: InputPrometheusDiscoveryType$outboundSchema.optional(),
+    interval: z.number(),
+    logLevel: InputPrometheusLogLevel$outboundSchema,
+    rejectUnauthorized: z.boolean().optional(),
+    timeout: z.number().optional(),
+    keepAliveTime: z.number().optional(),
+    jobTimeout: z.string().optional(),
+    maxMissedKeepAlives: z.number().optional(),
+    ttl: z.string().optional(),
+    ignoreGroupJobsLimit: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    authType: AuthenticationMethodOptionsSasl$outboundSchema.default("manual"),
+    authType: AuthenticationMethodOptionsSasl$outboundSchema.optional(),
     description: z.string().optional(),
     targetList: z.array(z.string()).optional(),
-    recordType: RecordTypeOptions$outboundSchema.default("SRV"),
-    scrapePort: z.number().default(9090),
+    recordType: RecordTypeOptions$outboundSchema.optional(),
+    scrapePort: z.number().optional(),
     nameList: z.array(z.string()).optional(),
-    scrapeProtocol: MetricsProtocol$outboundSchema.default("http"),
-    scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
-      "auto",
-    ),
+    scrapeProtocol: MetricsProtocol$outboundSchema.optional(),
+    scrapePath: z.string().optional(),
+    awsAuthenticationMethod: z.string().optional(),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
-    usePublicIp: z.boolean().default(true),
+    usePublicIp: z.boolean().optional(),
     searchFilter: z.array(ItemsTypeSearchFilter$outboundSchema).optional(),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptions1$outboundSchema.default("v4"),
-    reuseConnections: z.boolean().default(true),
-    enableAssumeRole: z.boolean().default(false),
+    signatureVersion: SignatureVersionOptions1$outboundSchema.optional(),
+    reuseConnections: z.boolean().optional(),
+    enableAssumeRole: z.boolean().optional(),
     assumeRoleArn: z.string().optional(),
     assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
+    durationSeconds: z.number().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
     credentialsSecret: z.string().optional(),
@@ -1439,52 +1418,50 @@ export const InputPrometheusSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputPrometheusType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
   dimensionList: z.array(z.string()).optional(),
-  discoveryType: InputPrometheusDiscoveryType$inboundSchema.default("static"),
-  interval: z.number().default(15),
-  logLevel: InputPrometheusLogLevel$inboundSchema.default("info"),
-  rejectUnauthorized: z.boolean().default(true),
-  timeout: z.number().default(0),
-  keepAliveTime: z.number().default(30),
-  jobTimeout: z.string().default("0"),
-  maxMissedKeepAlives: z.number().default(3),
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
+  discoveryType: InputPrometheusDiscoveryType$inboundSchema.optional(),
+  interval: z.number(),
+  logLevel: InputPrometheusLogLevel$inboundSchema,
+  rejectUnauthorized: z.boolean().optional(),
+  timeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  jobTimeout: z.string().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  authType: AuthenticationMethodOptionsSasl$inboundSchema.default("manual"),
+  authType: AuthenticationMethodOptionsSasl$inboundSchema.optional(),
   description: z.string().optional(),
   targetList: z.array(z.string()).optional(),
-  recordType: RecordTypeOptions$inboundSchema.default("SRV"),
-  scrapePort: z.number().default(9090),
+  recordType: RecordTypeOptions$inboundSchema.optional(),
+  scrapePort: z.number().optional(),
   nameList: z.array(z.string()).optional(),
-  scrapeProtocol: MetricsProtocol$inboundSchema.default("http"),
-  scrapePath: z.string().default("/metrics"),
-  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
-    "auto",
-  ),
+  scrapeProtocol: MetricsProtocol$inboundSchema.optional(),
+  scrapePath: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  usePublicIp: z.boolean().default(true),
+  usePublicIp: z.boolean().optional(),
   searchFilter: z.array(ItemsTypeSearchFilter$inboundSchema).optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions1$inboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionOptions1$inboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
+  durationSeconds: z.number().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -1494,47 +1471,47 @@ export type InputPrometheusSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   dimensionList?: Array<string> | undefined;
-  discoveryType: string;
+  discoveryType?: string | undefined;
   interval: number;
   logLevel: string;
-  rejectUnauthorized: boolean;
-  timeout: number;
-  keepAliveTime: number;
-  jobTimeout: string;
-  maxMissedKeepAlives: number;
-  ttl: string;
-  ignoreGroupJobsLimit: boolean;
+  rejectUnauthorized?: boolean | undefined;
+  timeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  jobTimeout?: string | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  authType: string;
+  authType?: string | undefined;
   description?: string | undefined;
   targetList?: Array<string> | undefined;
-  recordType: string;
-  scrapePort: number;
+  recordType?: string | undefined;
+  scrapePort?: number | undefined;
   nameList?: Array<string> | undefined;
-  scrapeProtocol: string;
-  scrapePath: string;
-  awsAuthenticationMethod: string;
+  scrapeProtocol?: string | undefined;
+  scrapePath?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  usePublicIp: boolean;
+  usePublicIp?: boolean | undefined;
   searchFilter?: Array<ItemsTypeSearchFilter$Outbound> | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
+  durationSeconds?: number | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -1547,55 +1524,51 @@ export const InputPrometheusSendToRoutesTrueConstraint$outboundSchema:
     z.ZodTypeDef,
     InputPrometheusSendToRoutesTrueConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     id: z.string().optional(),
     type: InputPrometheusType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     pq: PqType$outboundSchema.optional(),
     dimensionList: z.array(z.string()).optional(),
-    discoveryType: InputPrometheusDiscoveryType$outboundSchema.default(
-      "static",
-    ),
-    interval: z.number().default(15),
-    logLevel: InputPrometheusLogLevel$outboundSchema.default("info"),
-    rejectUnauthorized: z.boolean().default(true),
-    timeout: z.number().default(0),
-    keepAliveTime: z.number().default(30),
-    jobTimeout: z.string().default("0"),
-    maxMissedKeepAlives: z.number().default(3),
-    ttl: z.string().default("4h"),
-    ignoreGroupJobsLimit: z.boolean().default(false),
+    discoveryType: InputPrometheusDiscoveryType$outboundSchema.optional(),
+    interval: z.number(),
+    logLevel: InputPrometheusLogLevel$outboundSchema,
+    rejectUnauthorized: z.boolean().optional(),
+    timeout: z.number().optional(),
+    keepAliveTime: z.number().optional(),
+    jobTimeout: z.string().optional(),
+    maxMissedKeepAlives: z.number().optional(),
+    ttl: z.string().optional(),
+    ignoreGroupJobsLimit: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    authType: AuthenticationMethodOptionsSasl$outboundSchema.default("manual"),
+    authType: AuthenticationMethodOptionsSasl$outboundSchema.optional(),
     description: z.string().optional(),
     targetList: z.array(z.string()).optional(),
-    recordType: RecordTypeOptions$outboundSchema.default("SRV"),
-    scrapePort: z.number().default(9090),
+    recordType: RecordTypeOptions$outboundSchema.optional(),
+    scrapePort: z.number().optional(),
     nameList: z.array(z.string()).optional(),
-    scrapeProtocol: MetricsProtocol$outboundSchema.default("http"),
-    scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
-      "auto",
-    ),
+    scrapeProtocol: MetricsProtocol$outboundSchema.optional(),
+    scrapePath: z.string().optional(),
+    awsAuthenticationMethod: z.string().optional(),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
-    usePublicIp: z.boolean().default(true),
+    usePublicIp: z.boolean().optional(),
     searchFilter: z.array(ItemsTypeSearchFilter$outboundSchema).optional(),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptions1$outboundSchema.default("v4"),
-    reuseConnections: z.boolean().default(true),
-    enableAssumeRole: z.boolean().default(false),
+    signatureVersion: SignatureVersionOptions1$outboundSchema.optional(),
+    reuseConnections: z.boolean().optional(),
+    enableAssumeRole: z.boolean().optional(),
     assumeRoleArn: z.string().optional(),
     assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
+    durationSeconds: z.number().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
     credentialsSecret: z.string().optional(),

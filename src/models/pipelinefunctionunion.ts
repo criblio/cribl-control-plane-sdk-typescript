@@ -94,7 +94,7 @@ export const PipelineFunctionUnion$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("union"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -104,7 +104,7 @@ export const PipelineFunctionUnion$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionUnion$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "union";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -119,7 +119,7 @@ export const PipelineFunctionUnion$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionUnion
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("union"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

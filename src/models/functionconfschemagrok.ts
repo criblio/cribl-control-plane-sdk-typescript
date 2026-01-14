@@ -23,7 +23,7 @@ export type FunctionConfSchemaGrok = {
   /**
    * Field on which to perform Grok extractions
    */
-  source: string;
+  source?: string | undefined;
 };
 
 /** @internal */
@@ -55,7 +55,7 @@ export const FunctionConfSchemaGrok$inboundSchema: z.ZodType<
   patternList: z.array(
     z.lazy(() => FunctionConfSchemaGrokPatternList$inboundSchema),
   ).optional(),
-  source: z.string().default("_raw"),
+  source: z.string().optional(),
 });
 
 export function functionConfSchemaGrokFromJSON(

@@ -32,6 +32,8 @@ let value: FunctionEventstats = {
       "<value 1>",
       "<value 2>",
     ],
+    maxEvents: 9096.42,
+    flushOnInputClose: true,
   },
 };
 ```

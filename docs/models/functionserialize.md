@@ -24,6 +24,7 @@ let value: FunctionSerialize = {
   },
   version: "<value>",
   schema: {
+    type: "csv",
     delimChar: "<value>",
     quoteChar: "<value>",
     escapeChar: "<value>",
@@ -32,6 +33,7 @@ let value: FunctionSerialize = {
       "<value 1>",
     ],
     srcField: "<value>",
+    dstField: "<value>",
   },
 };
 ```

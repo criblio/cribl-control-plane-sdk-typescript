@@ -84,7 +84,7 @@ export type OutputSplunk = {
   /**
    * The port to connect to on the provided host
    */
-  port?: number | undefined;
+  port: number;
   /**
    * How to serialize nested fields into index-time fields
    */
@@ -232,35 +232,33 @@ export const OutputSplunk$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   host: z.string(),
-  port: z.number().default(9997),
-  nestedFields: NestedFieldSerializationOptions$inboundSchema.default("none"),
-  throttleRatePerSec: z.string().default("0"),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
+  port: z.number(),
+  nestedFields: NestedFieldSerializationOptions$inboundSchema.optional(),
+  throttleRatePerSec: z.string().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
   tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
-  enableMultiMetrics: z.boolean().default(false),
-  enableACK: z.boolean().default(true),
-  logFailedRequests: z.boolean().default(false),
-  maxS2Sversion: MaxS2SVersionOptions$inboundSchema.default("v3"),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-    "manual",
-  ),
+  enableMultiMetrics: z.boolean().optional(),
+  enableACK: z.boolean().optional(),
+  logFailedRequests: z.boolean().optional(),
+  maxS2Sversion: MaxS2SVersionOptions$inboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
+  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
   description: z.string().optional(),
-  maxFailedHealthChecks: z.number().default(1),
-  compress: CompressionOptions$inboundSchema.default("disabled"),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  maxFailedHealthChecks: z.number().optional(),
+  compress: CompressionOptions$inboundSchema.optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputSplunkPqControls$inboundSchema).optional(),
-  authToken: z.string().default(""),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 /** @internal */
@@ -273,32 +271,32 @@ export type OutputSplunk$Outbound = {
   streamtags?: Array<string> | undefined;
   host: string;
   port: number;
-  nestedFields: string;
-  throttleRatePerSec: string;
-  connectionTimeout: number;
-  writeTimeout: number;
+  nestedFields?: string | undefined;
+  throttleRatePerSec?: string | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
   tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
-  enableMultiMetrics: boolean;
-  enableACK: boolean;
-  logFailedRequests: boolean;
-  maxS2Sversion: string;
-  onBackpressure: string;
-  authType: string;
+  enableMultiMetrics?: boolean | undefined;
+  enableACK?: boolean | undefined;
+  logFailedRequests?: boolean | undefined;
+  maxS2Sversion?: string | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
   description?: string | undefined;
-  maxFailedHealthChecks: number;
-  compress: string;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  maxFailedHealthChecks?: number | undefined;
+  compress?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputSplunkPqControls$Outbound | undefined;
-  authToken: string;
+  authToken?: string | undefined;
   textSecret?: string | undefined;
 };
 
@@ -315,35 +313,34 @@ export const OutputSplunk$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   host: z.string(),
-  port: z.number().default(9997),
-  nestedFields: NestedFieldSerializationOptions$outboundSchema.default("none"),
-  throttleRatePerSec: z.string().default("0"),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
+  port: z.number(),
+  nestedFields: NestedFieldSerializationOptions$outboundSchema.optional(),
+  throttleRatePerSec: z.string().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
   tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
-  enableMultiMetrics: z.boolean().default(false),
-  enableACK: z.boolean().default(true),
-  logFailedRequests: z.boolean().default(false),
-  maxS2Sversion: MaxS2SVersionOptions$outboundSchema.default("v3"),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
-  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-    "manual",
-  ),
+  enableMultiMetrics: z.boolean().optional(),
+  enableACK: z.boolean().optional(),
+  logFailedRequests: z.boolean().optional(),
+  maxS2Sversion: MaxS2SVersionOptions$outboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
   description: z.string().optional(),
-  maxFailedHealthChecks: z.number().default(1),
-  compress: CompressionOptions$outboundSchema.default("disabled"),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  maxFailedHealthChecks: z.number().optional(),
+  compress: CompressionOptions$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputSplunkPqControls$outboundSchema).optional(),
-  authToken: z.string().default(""),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 

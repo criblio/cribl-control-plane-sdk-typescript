@@ -8,7 +8,10 @@ import { FunctionConfSchemaLakeExport } from "cribl-control-plane/models";
 let value: FunctionConfSchemaLakeExport = {
   searchJobId: "<id>",
   dataset: "<value>",
-  suppressPreviews: true,
+  lake: "<value>",
+  tee: "<value>",
+  flushMs: 2420.41,
+  suppressPreviews: false,
 };
 ```
 

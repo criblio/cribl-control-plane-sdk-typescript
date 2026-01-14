@@ -66,17 +66,17 @@ export const FunctionConfSchemaNumerify$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  depth: z.number().int().default(5),
+  depth: z.number().int().optional(),
   ignoreFields: z.array(z.string()).optional(),
   filterExpr: z.string().optional(),
-  format: FunctionConfSchemaNumerifyFormat$inboundSchema.default("none"),
+  format: FunctionConfSchemaNumerifyFormat$inboundSchema.optional(),
 });
 /** @internal */
 export type FunctionConfSchemaNumerify$Outbound = {
-  depth: number;
+  depth?: number | undefined;
   ignoreFields?: Array<string> | undefined;
   filterExpr?: string | undefined;
-  format: string;
+  format?: string | undefined;
 };
 
 /** @internal */
@@ -85,10 +85,10 @@ export const FunctionConfSchemaNumerify$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   FunctionConfSchemaNumerify
 > = z.object({
-  depth: z.number().int().default(5),
+  depth: z.number().int().optional(),
   ignoreFields: z.array(z.string()).optional(),
   filterExpr: z.string().optional(),
-  format: FunctionConfSchemaNumerifyFormat$outboundSchema.default("none"),
+  format: FunctionConfSchemaNumerifyFormat$outboundSchema.optional(),
 });
 
 export function functionConfSchemaNumerifyToJSON(

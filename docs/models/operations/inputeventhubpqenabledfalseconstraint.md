@@ -6,14 +6,16 @@
 import { InputEventhubPqEnabledFalseConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputEventhubPqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "eventhub",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -22,37 +24,70 @@ let value: InputEventhubPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   brokers: [],
   topics: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
+  groupId: "<id>",
+  fromBeginning: false,
+  connectionTimeout: 4066.6,
+  requestTimeout: 1206.68,
+  maxRetries: 1921.69,
+  maxBackOff: 5775.52,
+  initialBackoff: 7417.7,
+  backoffRate: 4745.62,
+  authenticationTimeout: 5026.39,
+  reauthenticationThreshold: 802.86,
   sasl: {
-    password: "crxTx4Amn7CtfAT",
+    disabled: true,
+    authType: "manual",
+    password: "tfATUqXAfby_x5u",
     textSecret: "<value>",
+    mechanism: "oauthbearer",
+    username: "Marge.Hegmann",
+    clientSecretAuthType: "manual",
     clientSecret: "<value>",
     clientTextSecret: "<value>",
     certificateName: "<value>",
     certPath: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
+    oauthEndpoint: "https://login.partner.microsoftonline.cn",
     clientId: "<id>",
     tenantId: "<id>",
     scope: "<value>",
   },
-  tls: {},
-  autoCommitInterval: 3446.15,
-  autoCommitThreshold: 2140.19,
+  tls: {
+    disabled: false,
+    rejectUnauthorized: true,
+  },
+  sessionTimeout: 6827.03,
+  rebalanceTimeout: 9171.3,
+  heartbeatInterval: 5143.67,
+  autoCommitInterval: 3537.32,
+  autoCommitThreshold: 9779.96,
+  maxBytesPerPartition: 1.5,
+  maxBytes: 7391.77,
+  maxSocketErrors: 6772.32,
+  minimizeDuplicates: true,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "gah why uselessly although off consign colorfully deserted stock",
+  description: "once lest dismal phew underneath whereas um whenever",
 };
 ```
 
@@ -60,7 +95,7 @@ let value: InputEventhubPqEnabledFalseConstraint = {
 
 | Field                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Required                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pqEnabled`                                                                                                                                                                                                                                                                                                                                                                                                                                                 | *boolean*                                                                                                                                                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                                                                                                                                                                                                |
+| `pqEnabled`                                                                                                                                                                                                                                                                                                                                                                                                                                                 | *boolean*                                                                                                                                                                                                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                                                                                                                                                                                                |
 | `id`                                                                                                                                                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Unique ID for this input                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `type`                                                                                                                                                                                                                                                                                                                                                                                                                                                      | [operations.InputEventhubType](../../models/operations/inputeventhubtype.md)                                                                                                                                                                                                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | `disabled`                                                                                                                                                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                         |

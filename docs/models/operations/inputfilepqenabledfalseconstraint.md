@@ -6,14 +6,16 @@
 import { InputFilePqEnabledFalseConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputFilePqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "file",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -22,14 +24,30 @@ let value: InputFilePqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  mode: "auto",
+  interval: 664.05,
   filenames: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
+  filterArchivedFiles: true,
+  tailOnly: true,
+  idleTimeout: 1197.21,
   minAgeDur: "<value>",
   maxAgeDur: "<value>",
+  checkFileModTime: false,
+  forceText: true,
+  hashLen: 4105.34,
   metadata: [
     {
       name: "<value>",
@@ -39,11 +57,14 @@ let value: InputFilePqEnabledFalseConstraint = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  description: "since ajar since vivaciously junior greedy duh",
-  path: "/proc",
-  depth: 2677.68,
+  staleChannelFlushMs: 8213.53,
+  description: "aha worse filthy given ravage purse gosh scratch mortally",
+  path: "/usr/src",
+  depth: 7701.56,
+  suppressMissingPathErrors: false,
+  deleteFiles: false,
+  includeUnidentifiableBinary: false,
 };
 ```
 
@@ -51,7 +72,7 @@ let value: InputFilePqEnabledFalseConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [operations.PqEnabledFalseConstraintInputFileType](../../models/operations/pqenabledfalseconstraintinputfiletype.md)                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

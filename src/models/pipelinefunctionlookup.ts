@@ -186,7 +186,7 @@ export const PipelineFunctionLookupConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   file: z.string(),
-  dbLookup: z.boolean().default(false),
+  dbLookup: z.boolean().optional(),
   matchMode: z.any().optional(),
   matchType: z.any().optional(),
   reloadPeriodSec: z.any().optional(),
@@ -194,19 +194,19 @@ export const PipelineFunctionLookupConf$inboundSchema: z.ZodType<
     .optional(),
   outFields: z.array(z.lazy(() => PipelineFunctionLookupOutField$inboundSchema))
     .optional(),
-  addToEvent: z.boolean().default(false),
+  addToEvent: z.boolean().optional(),
   ignoreCase: z.any().optional(),
 });
 /** @internal */
 export type PipelineFunctionLookupConf$Outbound = {
   file: string;
-  dbLookup: boolean;
+  dbLookup?: boolean | undefined;
   matchMode?: any | undefined;
   matchType?: any | undefined;
   reloadPeriodSec?: any | undefined;
   inFields?: Array<PipelineFunctionLookupInField$Outbound> | undefined;
   outFields?: Array<PipelineFunctionLookupOutField$Outbound> | undefined;
-  addToEvent: boolean;
+  addToEvent?: boolean | undefined;
   ignoreCase?: any | undefined;
 };
 
@@ -217,7 +217,7 @@ export const PipelineFunctionLookupConf$outboundSchema: z.ZodType<
   PipelineFunctionLookupConf
 > = z.object({
   file: z.string(),
-  dbLookup: z.boolean().default(false),
+  dbLookup: z.boolean().optional(),
   matchMode: z.any().optional(),
   matchType: z.any().optional(),
   reloadPeriodSec: z.any().optional(),
@@ -226,7 +226,7 @@ export const PipelineFunctionLookupConf$outboundSchema: z.ZodType<
   outFields: z.array(
     z.lazy(() => PipelineFunctionLookupOutField$outboundSchema),
   ).optional(),
-  addToEvent: z.boolean().default(false),
+  addToEvent: z.boolean().optional(),
   ignoreCase: z.any().optional(),
 });
 
@@ -253,7 +253,7 @@ export const PipelineFunctionLookup$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("lookup"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -263,7 +263,7 @@ export const PipelineFunctionLookup$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionLookup$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "lookup";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -278,7 +278,7 @@ export const PipelineFunctionLookup$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionLookup
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("lookup"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

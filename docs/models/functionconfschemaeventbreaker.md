@@ -5,7 +5,10 @@
 ```typescript
 import { FunctionConfSchemaEventBreaker } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaEventBreaker = {};
+let value: FunctionConfSchemaEventBreaker = {
+  existingOrNew: "new",
+  shouldMarkCriblBreaker: false,
+};
 ```
 
 ## Fields

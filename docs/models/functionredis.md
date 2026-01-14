@@ -32,7 +32,10 @@ let value: FunctionRedis = {
         argsExpr: "<value>",
       },
     ],
-    enableClientSideCaching: true,
+    deploymentType: "standalone",
+    authType: "textSecret",
+    maxBlockSecs: 6047.11,
+    enableClientSideCaching: false,
   },
 };
 ```

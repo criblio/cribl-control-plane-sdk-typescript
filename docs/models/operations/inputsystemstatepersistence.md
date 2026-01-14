@@ -5,7 +5,14 @@
 ```typescript
 import { InputSystemStatePersistence } from "cribl-control-plane/models/operations";
 
-let value: InputSystemStatePersistence = {};
+let value: InputSystemStatePersistence = {
+  enable: false,
+  timeWindow: "<value>",
+  maxDataSize: "<value>",
+  maxDataTime: "<value>",
+  compress: "none",
+  destPath: "<value>",
+};
 ```
 
 ## Fields
@@ -16,5 +23,5 @@ let value: InputSystemStatePersistence = {};
 | `timeWindow`                                                                                                         | *string*                                                                                                             | :heavy_minus_sign:                                                                                                   | Time span for each file bucket                                                                                       |
 | `maxDataSize`                                                                                                        | *string*                                                                                                             | :heavy_minus_sign:                                                                                                   | Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted. |
 | `maxDataTime`                                                                                                        | *string*                                                                                                             | :heavy_minus_sign:                                                                                                   | Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.         |
-| `compress`                                                                                                           | [operations.DataCompressionFormat](../../models/operations/datacompressionformat.md)                                 | :heavy_minus_sign:                                                                                                   | N/A                                                                                                                  |
+| `compress`                                                                                                           | [models.DataCompressionFormatOptionsPersistence](../../models/datacompressionformatoptionspersistence.md)            | :heavy_minus_sign:                                                                                                   | N/A                                                                                                                  |
 | `destPath`                                                                                                           | *string*                                                                                                             | :heavy_minus_sign:                                                                                                   | Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state                                             |

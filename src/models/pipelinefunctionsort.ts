@@ -115,7 +115,7 @@ export const PipelineFunctionSort$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("sort"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -125,7 +125,7 @@ export const PipelineFunctionSort$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionSort$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "sort";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -140,7 +140,7 @@ export const PipelineFunctionSort$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionSort
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("sort"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

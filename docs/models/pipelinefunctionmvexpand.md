@@ -6,6 +6,7 @@
 import { PipelineFunctionMvExpand } from "cribl-control-plane/models";
 
 let value: PipelineFunctionMvExpand = {
+  filter: "<value>",
   id: "mv_expand",
   description: "however fooey greedily",
   disabled: true,
@@ -17,7 +18,9 @@ let value: PipelineFunctionMvExpand = {
       "<value 2>",
       "<value 3>",
     ],
+    rowLimit: 2781.53,
     itemIndexName: "<value>",
+    bagExpansionMode: "bag",
   },
   groupId: "<id>",
 };

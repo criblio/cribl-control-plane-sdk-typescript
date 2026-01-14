@@ -8,7 +8,7 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type TlsSettingsClientSideType = {
-  disabled?: boolean | undefined;
+  disabled: boolean;
   /**
    * Reject certificates that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's)
    */
@@ -21,13 +21,13 @@ export const TlsSettingsClientSideType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
+  disabled: z.boolean(),
+  rejectUnauthorized: z.boolean().optional(),
 });
 /** @internal */
 export type TlsSettingsClientSideType$Outbound = {
   disabled: boolean;
-  rejectUnauthorized: boolean;
+  rejectUnauthorized?: boolean | undefined;
 };
 
 /** @internal */
@@ -36,8 +36,8 @@ export const TlsSettingsClientSideType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   TlsSettingsClientSideType
 > = z.object({
-  disabled: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
+  disabled: z.boolean(),
+  rejectUnauthorized: z.boolean().optional(),
 });
 
 export function tlsSettingsClientSideTypeToJSON(

@@ -200,21 +200,17 @@ export const PipelineFunctionRedisConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   commands: z.array(z.lazy(() => PipelineFunctionRedisCommand$inboundSchema)),
-  deploymentType: PipelineFunctionRedisDeploymentType$inboundSchema.default(
-    "standalone",
-  ),
-  authType: PipelineFunctionRedisAuthenticationMethod$inboundSchema.default(
-    "none",
-  ),
-  maxBlockSecs: z.number().default(60),
+  deploymentType: PipelineFunctionRedisDeploymentType$inboundSchema.optional(),
+  authType: PipelineFunctionRedisAuthenticationMethod$inboundSchema.optional(),
+  maxBlockSecs: z.number().optional(),
   enableClientSideCaching: z.boolean().optional(),
 });
 /** @internal */
 export type PipelineFunctionRedisConf$Outbound = {
   commands: Array<PipelineFunctionRedisCommand$Outbound>;
-  deploymentType: string;
-  authType: string;
-  maxBlockSecs: number;
+  deploymentType?: string | undefined;
+  authType?: string | undefined;
+  maxBlockSecs?: number | undefined;
   enableClientSideCaching?: boolean | undefined;
 };
 
@@ -225,13 +221,9 @@ export const PipelineFunctionRedisConf$outboundSchema: z.ZodType<
   PipelineFunctionRedisConf
 > = z.object({
   commands: z.array(z.lazy(() => PipelineFunctionRedisCommand$outboundSchema)),
-  deploymentType: PipelineFunctionRedisDeploymentType$outboundSchema.default(
-    "standalone",
-  ),
-  authType: PipelineFunctionRedisAuthenticationMethod$outboundSchema.default(
-    "none",
-  ),
-  maxBlockSecs: z.number().default(60),
+  deploymentType: PipelineFunctionRedisDeploymentType$outboundSchema.optional(),
+  authType: PipelineFunctionRedisAuthenticationMethod$outboundSchema.optional(),
+  maxBlockSecs: z.number().optional(),
   enableClientSideCaching: z.boolean().optional(),
 });
 
@@ -258,7 +250,7 @@ export const PipelineFunctionRedis$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("redis"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -268,7 +260,7 @@ export const PipelineFunctionRedis$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionRedis$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "redis";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -283,7 +275,7 @@ export const PipelineFunctionRedis$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionRedis
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("redis"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

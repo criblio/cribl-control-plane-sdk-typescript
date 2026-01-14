@@ -9,12 +9,25 @@ import { ScheduleTypeSavedJobCollection } from "cribl-control-plane/models";
 
 let value: ScheduleTypeSavedJobCollection = {
   enabled: true,
+  skippable: false,
+  resumeMissed: true,
+  cronSchedule: "<value>",
+  maxConcurrentRuns: 7940.73,
   run: {
     type: "collection",
-    earliest: 475.38,
-    latest: 1125.35,
+    rescheduleDroppedTasks: true,
+    maxTaskReschedule: 981.31,
+    logLevel: "warn",
+    jobTimeout: "<value>",
+    mode: "<value>",
+    timeRangeType: "<value>",
+    earliest: 6541.75,
+    latest: 2881.28,
     timestampTimezone: "<value>",
     timeWarning: {},
+    expression: "<value>",
+    minTaskSize: "<value>",
+    maxTaskSize: "<value>",
   },
 };
 ```

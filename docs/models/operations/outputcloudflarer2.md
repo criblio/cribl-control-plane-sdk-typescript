@@ -20,23 +20,60 @@ let value: OutputCloudflareR2 = {
   ],
   endpoint: "<value>",
   bucket: "<value>",
+  awsAuthenticationMethod: "manual",
   awsSecretKey: "<value>",
   region: "<value>",
+  stagePath: "<value>",
+  addIdToStagePath: false,
   destPath: "<value>",
+  signatureVersion: "v2",
   objectACL: "<value>",
   storageClass: "REDUCED_REDUNDANCY",
   serverSideEncryption: "AES256",
-  description:
-    "jovially ack vamoose inasmuch yowza foretell yippee trash zowie",
+  reuseConnections: true,
+  rejectUnauthorized: true,
+  verifyPermissions: true,
+  removeEmptyDirs: true,
+  partitionExpr: "<value>",
+  format: "raw",
+  baseFileName: "<value>",
+  fileNameSuffix: "<value>",
+  maxFileSizeMB: 998.32,
+  maxOpenFiles: 397.5,
+  headerLine: "<value>",
+  writeHighWaterMark: 8771.1,
+  onBackpressure: "block",
+  deadletterEnabled: true,
+  onDiskFullBackpressure: "block",
+  forceCloseOnShutdown: false,
+  maxFileOpenTimeSec: 3540.51,
+  maxFileIdleTimeSec: 7504.56,
+  maxConcurrentFileParts: 2829.8,
+  description: "the heartache far knife lounge geez watery cruel decisive",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  compress: "gzip",
+  compressionLevel: "best_speed",
+  automaticSchema: false,
   parquetSchema: "<value>",
+  parquetVersion: "PARQUET_2_6",
+  parquetDataPageVersion: "DATA_PAGE_V2",
+  parquetRowGroupLength: 6606.37,
+  parquetPageSize: "<value>",
   shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
+      key: "<key>",
       value: "<value>",
     },
   ],
+  enableStatistics: false,
+  enableWritePageIndex: true,
+  enablePageChecksum: true,
+  emptyDirCleanupSec: 7186.62,
+  directoryBatchSize: 8097.89,
+  deadletterPath: "<value>",
+  maxRetryNum: 6435.18,
 };
 ```
 
@@ -52,10 +89,10 @@ let value: OutputCloudflareR2 = {
 | `streamtags`                                                                                                                                                                                                                                                         | *string*[]                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                        |
 | `endpoint`                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                   | Cloudflare R2 service URL (example: https://<ACCOUNT_ID>.r2.cloudflarestorage.com)                                                                                                                                                                                   |
 | `bucket`                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                   | Name of the destination R2 bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`                                                                |
-| `awsAuthenticationMethod`                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | AWS authentication method. Choose Auto to use IAM roles.                                                                                                                                                                                                             |
+| `awsAuthenticationMethod`                                                                                                                                                                                                                                            | [operations.AuthenticationMethodCloudflareR2](../../models/operations/authenticationmethodcloudflarer2.md)                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                   | AWS authentication method. Choose Auto to use IAM roles.                                                                                                                                                                                                             |
 | `awsSecretKey`                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).                                                                                                                                                                |
 | `region`                                                                                                                                                                                                                                                             | *any*                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                  |
-| `stagePath`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.                                                                                                                                     |
+| `stagePath`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                   | Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.                                                                                                                                     |
 | `addIdToStagePath`                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Add the Output ID value to staging location                                                                                                                                                                                                                          |
 | `destPath`                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.                                                                                                                                    |
 | `signatureVersion`                                                                                                                                                                                                                                                   | [models.SignatureVersionOptions5](../../models/signatureversionoptions5.md)                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Signature version to use for signing MinIO requests                                                                                                                                                                                                                  |

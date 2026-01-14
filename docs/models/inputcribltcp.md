@@ -7,13 +7,17 @@
 
 ```typescript
 const value: models.InputCriblTcpSendToRoutesTrueConstraint = {
+  sendToRoutes: true,
   id: "<id>",
   type: "cribl_tcp",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -22,31 +26,50 @@ const value: models.InputCriblTcpSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  port: 4270.71,
+  host: "radiant-charm.biz",
+  port: 7728.91,
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveCxn: 4976.85,
+  socketIdleTimeout: 5200.15,
+  socketEndingMaxWait: 521.6,
+  socketMaxLifespan: 733.31,
+  enableProxyHeader: true,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  enableLoadBalancing: false,
   authTokens: [
     {
       tokenSecret: "<value>",
-      description: "psst whoa zowie when waterspout",
+      enabled: true,
+      description: "without slipper appropriate",
     },
   ],
-  description: "miskey partially although wilted portray misfire",
+  description: "certainly following whoa",
 };
 ```
 
@@ -54,6 +77,7 @@ const value: models.InputCriblTcpSendToRoutesTrueConstraint = {
 
 ```typescript
 const value: models.InputCriblTcpSendToRoutesFalseWithConnectionsConstraint = {
+  sendToRoutes: true,
   connections: [
     {
       pipeline: "<value>",
@@ -62,38 +86,61 @@ const value: models.InputCriblTcpSendToRoutesFalseWithConnectionsConstraint = {
   ],
   id: "<id>",
   type: "cribl_tcp",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  port: 6453.01,
+  host: "wide-eyed-cutover.biz",
+  port: 6783.52,
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveCxn: 6889.84,
+  socketIdleTimeout: 2547.85,
+  socketEndingMaxWait: 7620.66,
+  socketMaxLifespan: 7162.52,
+  enableProxyHeader: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  enableLoadBalancing: true,
   authTokens: [
     {
       tokenSecret: "<value>",
-      description: "psst whoa zowie when waterspout",
+      enabled: true,
+      description: "without slipper appropriate",
     },
   ],
   description:
-    "pfft hmph while barracks impanel devise overcooked yesterday forenenst sunbathe",
+    "yahoo upright heartbeat vainly considering daintily making amid boo pocket-watch",
 };
 ```
 
@@ -101,9 +148,12 @@ const value: models.InputCriblTcpSendToRoutesFalseWithConnectionsConstraint = {
 
 ```typescript
 const value: models.InputCriblTcpPqEnabledFalseConstraint = {
+  pqEnabled: true,
   id: "<id>",
   type: "cribl_tcp",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -115,31 +165,50 @@ const value: models.InputCriblTcpPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  port: 782.77,
+  host: "magnificent-reservation.com",
+  port: 6198.05,
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveCxn: 5419.25,
+  socketIdleTimeout: 3761.51,
+  socketEndingMaxWait: 6643.12,
+  socketMaxLifespan: 4245.06,
+  enableProxyHeader: true,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  enableLoadBalancing: true,
   authTokens: [
     {
       tokenSecret: "<value>",
-      description: "psst whoa zowie when waterspout",
+      enabled: true,
+      description: "without slipper appropriate",
     },
   ],
-  description: "giant ha amid hm",
+  description: "ugh joyfully thick whoever ugh overspend",
 };
 ```
 
@@ -147,12 +216,22 @@ const value: models.InputCriblTcpPqEnabledFalseConstraint = {
 
 ```typescript
 const value: models.InputCriblTcpPqEnabledTrueWithPqConstraint = {
+  pqEnabled: true,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "cribl_tcp",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -163,30 +242,41 @@ const value: models.InputCriblTcpPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 7372.46,
+  host: "bowed-jogging.name",
+  port: 5874.46,
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveCxn: 6466.01,
+  socketIdleTimeout: 1191.1,
+  socketEndingMaxWait: 8278.4,
+  socketMaxLifespan: 7327.67,
+  enableProxyHeader: true,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  enableLoadBalancing: false,
   authTokens: [
     {
       tokenSecret: "<value>",
-      description: "psst whoa zowie when waterspout",
+      enabled: true,
+      description: "without slipper appropriate",
     },
   ],
-  description:
-    "amid sunbathe whenever metabolite aha pfft upwardly thigh chunder while",
+  description: "cruelly except in well furthermore",
 };
 ```
 

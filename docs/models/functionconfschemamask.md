@@ -9,12 +9,15 @@ let value: FunctionConfSchemaMask = {
   rules: [
     {
       matchRegex: "<value>",
+      replaceExpr: "<value>",
+      disabled: true,
     },
   ],
   fields: [
     "<value 1>",
     "<value 2>",
   ],
+  depth: 577054,
   flags: [
     {
       name: "<value>",

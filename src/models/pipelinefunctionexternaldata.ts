@@ -47,7 +47,7 @@ export const PipelineFunctionExternaldata$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("externaldata"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionExternaldata$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionExternaldata$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "externaldata";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionExternaldata$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionExternaldata
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("externaldata"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

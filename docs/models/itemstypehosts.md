@@ -8,7 +8,9 @@ import { ItemsTypeHosts } from "cribl-control-plane/models";
 let value: ItemsTypeHosts = {
   host: "far-gastropod.com",
   port: 6043.02,
+  tls: "inherit",
   servername: "<value>",
+  weight: 7534.91,
 };
 ```
 

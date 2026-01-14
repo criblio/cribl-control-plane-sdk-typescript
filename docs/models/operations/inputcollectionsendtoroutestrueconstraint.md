@@ -6,12 +6,15 @@
 import { InputCollectionSendToRoutesTrueConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputCollectionSendToRoutesTrueConstraint = {
+  sendToRoutes: true,
   id: "<id>",
+  type: "collection",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -20,21 +23,28 @@ let value: InputCollectionSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
+  staleChannelFlushMs: 3631.18,
   preprocess: {
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
   },
+  throttleRatePerSec: "<value>",
   metadata: [
     {
       name: "<value>",
@@ -49,9 +59,9 @@ let value: InputCollectionSendToRoutesTrueConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.                                                                                                                           |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.                                                                                                                           |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
-| `type`                                                                                                                                                                                                                                       | [operations.InputCollectionType](../../models/operations/inputcollectiontype.md)                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `type`                                                                                                                                                                                                                                       | [operations.InputCollectionType](../../models/operations/inputcollectiontype.md)                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process results                                                                                                                                                                                                                  |
 | `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |

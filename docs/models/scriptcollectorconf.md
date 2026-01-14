@@ -8,6 +8,7 @@ import { ScriptCollectorConf } from "cribl-control-plane/models";
 let value: ScriptCollectorConf = {
   discoverScript: "<value>",
   collectScript: "<value>",
+  shell: "<value>",
   envVars: [
     {
       name: "<value>",

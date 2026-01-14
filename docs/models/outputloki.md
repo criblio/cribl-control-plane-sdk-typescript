@@ -19,34 +19,66 @@ let value: OutputLoki = {
   ],
   url: "https://excitable-entry.org",
   message: "<value>",
+  messageFormat: "protobuf",
   labels: [
     {
+      name: "<value>",
       value: "<value>",
     },
   ],
+  authType: "textSecret",
+  concurrency: 9131.85,
+  maxPayloadSizeKB: 1840.1,
+  maxPayloadEvents: 6488.26,
+  rejectUnauthorized: false,
+  timeoutSec: 3841.67,
+  flushPeriodSec: 3446.66,
   extraHttpHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  useRoundRobinDns: false,
+  failedRequestLoggingMode: "payload",
   safeHeaders: [
     "<value 1>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 2591.04,
+      initialBackoff: 4815.7,
+      backoffRate: 5576.87,
+      maxBackoff: 1844.93,
     },
   ],
-  timeoutRetrySettings: {},
-  totalMemoryLimitKB: 5801.8,
-  description:
-    "gaseous yum seriously economise shadowbox powerfully despite across best inside",
+  timeoutRetrySettings: {
+    timeoutRetry: false,
+    initialBackoff: 4289.71,
+    backoffRate: 7830.71,
+    maxBackoff: 6330,
+  },
+  responseHonorRetryAfterHeader: false,
+  enableDynamicHeaders: true,
+  onBackpressure: "drop",
+  totalMemoryLimitKB: 5270.25,
+  description: "gah reel accompany as sate",
+  compress: true,
   token: "<value>",
   textSecret: "<value>",
-  username: "Oleta_McClure",
-  password: "RGL9_RdzpYCbnwO",
+  username: "Yvonne.Greenholt",
+  password: "grNANT6B5zRjXXj",
   credentialsSecret: "<value>",
+  pqStrictOrdering: false,
+  pqRatePerSec: 3651.78,
+  pqMode: "backpressure",
+  pqMaxBufferSize: 9594.22,
+  pqMaxBackpressureSec: 5222.58,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "none",
+  pqOnBackpressure: "block",
   pqControls: {},
 };
 ```
@@ -65,7 +97,7 @@ let value: OutputLoki = {
 | `message`                                                                                                                                                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                               | Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.                                                                                                                                                                                                                                                                                                                              |
 | `messageFormat`                                                                                                                                                                                                                                                                                                                                                                                                                                                  | [models.MessageFormatOptions](../models/messageformatoptions.md)                                                                                                                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                               | Format to use when sending logs to Loki (Protobuf or JSON)                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `labels`                                                                                                                                                                                                                                                                                                                                                                                                                                                         | [models.ItemsTypeLabels](../models/itemstypelabels.md)[]                                                                                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                               | List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'                                                                                                                                                                                           |
-| `authType`                                                                                                                                                                                                                                                                                                                                                                                                                                                       | [models.OutputLokiAuthenticationType](../models/outputlokiauthenticationtype.md)                                                                                                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `authType`                                                                                                                                                                                                                                                                                                                                                                                                                                                       | [models.AuthenticationTypeOptionsPrometheusAuth1](../models/authenticationtypeoptionsprometheusauth1.md)                                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `concurrency`                                                                                                                                                                                                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                               | Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.                                                                                                                                                                                                                                                                                                       |
 | `maxPayloadSizeKB`                                                                                                                                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                               | Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.                                                                                                                                                                                                               |
 | `maxPayloadEvents`                                                                                                                                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                               | Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.                                                                                                                                                                     |

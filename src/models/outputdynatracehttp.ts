@@ -216,9 +216,9 @@ export type OutputDynatraceHttp = {
   /**
    * How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
    */
-  format?: OutputDynatraceHttpFormat | undefined;
-  endpoint?: Endpoint | undefined;
-  telemetryType?: TelemetryType | undefined;
+  format: OutputDynatraceHttpFormat;
+  endpoint: Endpoint;
+  telemetryType: TelemetryType;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -386,43 +386,41 @@ export const OutputDynatraceHttp$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  method: MethodOptions$inboundSchema.default("POST"),
-  keepAlive: z.boolean().default(true),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  method: MethodOptions$inboundSchema.optional(),
+  keepAlive: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
-    .default("none"),
+    .optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
-  authType: OutputDynatraceHttpAuthenticationType$inboundSchema.default(
-    "token",
-  ),
-  format: OutputDynatraceHttpFormat$inboundSchema.default("json_array"),
-  endpoint: Endpoint$inboundSchema.default("cloud"),
-  telemetryType: TelemetryType$inboundSchema.default("logs"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
+  authType: OutputDynatraceHttpAuthenticationType$inboundSchema.optional(),
+  format: OutputDynatraceHttpFormat$inboundSchema,
+  endpoint: Endpoint$inboundSchema,
+  telemetryType: TelemetryType$inboundSchema,
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputDynatraceHttpPqControls$inboundSchema)
     .optional(),
   token: z.string().optional(),
@@ -439,41 +437,41 @@ export type OutputDynatraceHttp$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  method: string;
-  keepAlive: boolean;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  method?: string | undefined;
+  keepAlive?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
-  authType: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
   format: string;
   endpoint: string;
   telemetryType: string;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputDynatraceHttpPqControls$Outbound | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
@@ -494,44 +492,42 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  method: MethodOptions$outboundSchema.default("POST"),
-  keepAlive: z.boolean().default(true),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  method: MethodOptions$outboundSchema.optional(),
+  keepAlive: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
-    .default("none"),
+    .optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
-  authType: OutputDynatraceHttpAuthenticationType$outboundSchema.default(
-    "token",
-  ),
-  format: OutputDynatraceHttpFormat$outboundSchema.default("json_array"),
-  endpoint: Endpoint$outboundSchema.default("cloud"),
-  telemetryType: TelemetryType$outboundSchema.default("logs"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: OutputDynatraceHttpAuthenticationType$outboundSchema.optional(),
+  format: OutputDynatraceHttpFormat$outboundSchema,
+  endpoint: Endpoint$outboundSchema,
+  telemetryType: TelemetryType$outboundSchema,
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputDynatraceHttpPqControls$outboundSchema)
     .optional(),
   token: z.string().optional(),

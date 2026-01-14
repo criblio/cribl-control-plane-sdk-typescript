@@ -7,14 +7,16 @@
 
 ```typescript
 const value: operations.InputKubeLogsSendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "kube_logs",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -23,27 +25,44 @@ const value: operations.InputKubeLogsSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  interval: 5606.69,
   rules: [
     {
       filter: "<value>",
-      description: "hmph supposing thoughtfully however pepper",
+      description: "brr until whose coarse how gosh settler premeditation",
     },
   ],
+  timestamps: true,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  persistence: {},
+  persistence: {
+    enable: false,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+  },
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  description: "championship softly convalesce hence good-natured amongst",
+  staleChannelFlushMs: 6883.3,
+  enableLoadBalancing: true,
+  description: "softly convalesce hence good-natured",
 };
 ```
 
@@ -52,6 +71,7 @@ const value: operations.InputKubeLogsSendToRoutesTrueConstraint = {
 ```typescript
 const value:
   operations.InputKubeLogsSendToRoutesFalseWithConnectionsConstraint = {
+    sendToRoutes: true,
     connections: [
       {
         pipeline: "<value>",
@@ -60,34 +80,53 @@ const value:
     ],
     id: "<id>",
     type: "kube_logs",
+    disabled: false,
     pipeline: "<value>",
     environment: "<value>",
+    pqEnabled: true,
     streamtags: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
     pq: {
+      mode: "smart",
+      maxBufferSize: 1717.96,
+      commitFrequency: 1412.18,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/include",
+      compress: "none",
       pqControls: {},
     },
+    interval: 9439.41,
     rules: [
       {
         filter: "<value>",
-        description: "hmph supposing thoughtfully however pepper",
+        description: "brr until whose coarse how gosh settler premeditation",
       },
     ],
+    timestamps: false,
     metadata: [
       {
         name: "<value>",
         value: "<value>",
       },
     ],
-    persistence: {},
+    persistence: {
+      enable: false,
+      timeWindow: "<value>",
+      maxDataSize: "<value>",
+      maxDataTime: "<value>",
+      compress: "gzip",
+    },
     breakerRulesets: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
-    description: "victoriously hippodrome primary unlike",
+    staleChannelFlushMs: 1729.52,
+    enableLoadBalancing: true,
+    description:
+      "hippodrome primary unlike riser terrible solemnly pointless brisk key save",
   };
 ```
 
@@ -95,9 +134,12 @@ const value:
 
 ```typescript
 const value: operations.InputKubeLogsPqEnabledFalseConstraint = {
+  pqEnabled: true,
   id: "<id>",
   type: "kube_logs",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -109,27 +151,42 @@ const value: operations.InputKubeLogsPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  interval: 6590.8,
   rules: [
     {
       filter: "<value>",
-      description: "hmph supposing thoughtfully however pepper",
+      description: "brr until whose coarse how gosh settler premeditation",
     },
   ],
+  timestamps: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  persistence: {},
+  persistence: {
+    enable: false,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+  },
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  description: "folklore webbed bell unto pro gosh zowie actually by terrorise",
+  staleChannelFlushMs: 4733.28,
+  enableLoadBalancing: true,
+  description: "webbed bell unto pro gosh",
 };
 ```
 
@@ -137,12 +194,22 @@ const value: operations.InputKubeLogsPqEnabledFalseConstraint = {
 
 ```typescript
 const value: operations.InputKubeLogsPqEnabledTrueWithPqConstraint = {
+  pqEnabled: true,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "kube_logs",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -153,24 +220,34 @@ const value: operations.InputKubeLogsPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
+  interval: 4918.53,
   rules: [
     {
       filter: "<value>",
-      description: "hmph supposing thoughtfully however pepper",
+      description: "brr until whose coarse how gosh settler premeditation",
     },
   ],
+  timestamps: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  persistence: {},
+  persistence: {
+    enable: false,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+  },
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
-  description: "trial gosh pitiful",
+  staleChannelFlushMs: 3961.23,
+  enableLoadBalancing: false,
+  description:
+    "questioningly probe charter whether whenever unsteady around pro",
 };
 ```
 

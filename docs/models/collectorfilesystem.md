@@ -18,6 +18,8 @@ let value: CollectorFilesystem = {
         expression: "<value>",
       },
     ],
+    recurse: false,
+    maxBatchSize: 4087.23,
   },
 };
 ```

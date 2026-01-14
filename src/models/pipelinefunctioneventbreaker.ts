@@ -24,7 +24,7 @@ export type PipelineFunctionEventBreakerExistingOrNew = OpenEnum<
 >;
 
 export type PipelineFunctionEventBreakerConf = {
-  existingOrNew?: PipelineFunctionEventBreakerExistingOrNew | undefined;
+  existingOrNew: PipelineFunctionEventBreakerExistingOrNew;
   /**
    * Add this Function name to the cribl_breaker field
    */
@@ -76,14 +76,13 @@ export const PipelineFunctionEventBreakerConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  existingOrNew: PipelineFunctionEventBreakerExistingOrNew$inboundSchema
-    .default("existing"),
-  shouldMarkCriblBreaker: z.boolean().default(true),
+  existingOrNew: PipelineFunctionEventBreakerExistingOrNew$inboundSchema,
+  shouldMarkCriblBreaker: z.boolean().optional(),
 });
 /** @internal */
 export type PipelineFunctionEventBreakerConf$Outbound = {
   existingOrNew: string;
-  shouldMarkCriblBreaker: boolean;
+  shouldMarkCriblBreaker?: boolean | undefined;
 };
 
 /** @internal */
@@ -92,9 +91,8 @@ export const PipelineFunctionEventBreakerConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionEventBreakerConf
 > = z.object({
-  existingOrNew: PipelineFunctionEventBreakerExistingOrNew$outboundSchema
-    .default("existing"),
-  shouldMarkCriblBreaker: z.boolean().default(true),
+  existingOrNew: PipelineFunctionEventBreakerExistingOrNew$outboundSchema,
+  shouldMarkCriblBreaker: z.boolean().optional(),
 });
 
 export function pipelineFunctionEventBreakerConfToJSON(
@@ -122,7 +120,7 @@ export const PipelineFunctionEventBreaker$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("event_breaker"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -132,7 +130,7 @@ export const PipelineFunctionEventBreaker$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionEventBreaker$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "event_breaker";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -147,7 +145,7 @@ export const PipelineFunctionEventBreaker$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionEventBreaker
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("event_breaker"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

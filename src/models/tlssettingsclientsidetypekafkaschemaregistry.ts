@@ -61,8 +61,8 @@ export const TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    disabled: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
+    disabled: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
     servername: z.string().optional(),
     certificateName: z.string().optional(),
     caPath: z.string().optional(),
@@ -76,8 +76,8 @@ export const TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema:
   });
 /** @internal */
 export type TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
+  disabled?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
   servername?: string | undefined;
   certificateName?: string | undefined;
   caPath?: string | undefined;
@@ -95,8 +95,8 @@ export const TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema:
     z.ZodTypeDef,
     TlsSettingsClientSideTypeKafkaSchemaRegistry
   > = z.object({
-    disabled: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
+    disabled: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
     servername: z.string().optional(),
     certificateName: z.string().optional(),
     caPath: z.string().optional(),

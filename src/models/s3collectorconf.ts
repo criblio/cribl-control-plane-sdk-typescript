@@ -18,7 +18,13 @@ import {
  * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
  */
 export const S3AwsAuthenticationMethodSecretPartitioningScheme = {
+  /**
+   * Defined in Path
+   */
   None: "none",
+  /**
+   * DDSS
+   */
   Ddss: "ddss",
 } as const;
 /**
@@ -133,7 +139,13 @@ export type S3AwsAuthenticationMethodSecret = {
  * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
  */
 export const S3AwsAuthenticationMethodManualPartitioningScheme = {
+  /**
+   * Defined in Path
+   */
   None: "none",
+  /**
+   * DDSS
+   */
   Ddss: "ddss",
 } as const;
 /**
@@ -252,7 +264,13 @@ export type S3AwsAuthenticationMethodManual = {
  * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
  */
 export const S3AwsAuthenticationMethodAutoPartitioningScheme = {
+  /**
+   * Defined in Path
+   */
   None: "none",
+  /**
+   * DDSS
+   */
   Ddss: "ddss",
 } as const;
 /**
@@ -363,7 +381,13 @@ export type S3AwsAuthenticationMethodAuto = {
  * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
  */
 export const S3PartitioningSchemeNonePartitioningScheme = {
+  /**
+   * Defined in Path
+   */
   None: "none",
+  /**
+   * DDSS
+   */
   Ddss: "ddss",
 } as const;
 /**
@@ -472,7 +496,13 @@ export type S3PartitioningSchemeNone = {
  * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
  */
 export const S3PartitioningSchemeDdssPartitioningScheme = {
+  /**
+   * Defined in Path
+   */
   None: "none",
+  /**
+   * DDSS
+   */
   Ddss: "ddss",
 } as const;
 /**
@@ -662,30 +692,28 @@ export const S3AwsAuthenticationMethodSecret$inboundSchema: z.ZodType<
   awsSecret: z.string().optional(),
   outputName: z.string().optional(),
   bucket: z.string(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
   region: z.string().optional(),
   path: z.string().optional(),
   partitioningScheme:
-    S3AwsAuthenticationMethodSecretPartitioningScheme$inboundSchema.default(
-      "none",
-    ),
+    S3AwsAuthenticationMethodSecretPartitioningScheme$inboundSchema.optional(),
   extractors: z.array(
     z.lazy(() => S3AwsAuthenticationMethodSecretExtractor$inboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
-    .default("v4"),
-  enableAssumeRole: z.boolean().default(false),
+    .optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  maxBatchSize: z.number().default(10),
+  durationSeconds: z.number().optional(),
+  maxBatchSize: z.number().optional(),
   recurse: z.any().optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  verifyPermissions: z.boolean().default(true),
-  disableTimeFilter: z.boolean().default(false),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
 });
 /** @internal */
 export type S3AwsAuthenticationMethodSecret$Outbound = {
@@ -693,26 +721,26 @@ export type S3AwsAuthenticationMethodSecret$Outbound = {
   awsSecret?: string | undefined;
   outputName?: string | undefined;
   bucket: string;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
   region?: string | undefined;
   path?: string | undefined;
-  partitioningScheme: string;
+  partitioningScheme?: string | undefined;
   extractors?:
     | Array<S3AwsAuthenticationMethodSecretExtractor$Outbound>
     | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  maxBatchSize: number;
+  durationSeconds?: number | undefined;
+  maxBatchSize?: number | undefined;
   recurse?: any | undefined;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  verifyPermissions: boolean;
-  disableTimeFilter: boolean;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  verifyPermissions?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
 };
 
 /** @internal */
@@ -725,30 +753,28 @@ export const S3AwsAuthenticationMethodSecret$outboundSchema: z.ZodType<
   awsSecret: z.string().optional(),
   outputName: z.string().optional(),
   bucket: z.string(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
   region: z.string().optional(),
   path: z.string().optional(),
   partitioningScheme:
-    S3AwsAuthenticationMethodSecretPartitioningScheme$outboundSchema.default(
-      "none",
-    ),
+    S3AwsAuthenticationMethodSecretPartitioningScheme$outboundSchema.optional(),
   extractors: z.array(
     z.lazy(() => S3AwsAuthenticationMethodSecretExtractor$outboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .default("v4"),
-  enableAssumeRole: z.boolean().default(false),
+    .optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  maxBatchSize: z.number().default(10),
+  durationSeconds: z.number().optional(),
+  maxBatchSize: z.number().optional(),
   recurse: z.any().optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  verifyPermissions: z.boolean().default(true),
-  disableTimeFilter: z.boolean().default(false),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
 });
 
 export function s3AwsAuthenticationMethodSecretToJSON(
@@ -851,30 +877,28 @@ export const S3AwsAuthenticationMethodManual$inboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   outputName: z.string().optional(),
   bucket: z.string(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
   region: z.string().optional(),
   path: z.string().optional(),
   partitioningScheme:
-    S3AwsAuthenticationMethodManualPartitioningScheme$inboundSchema.default(
-      "none",
-    ),
+    S3AwsAuthenticationMethodManualPartitioningScheme$inboundSchema.optional(),
   extractors: z.array(
     z.lazy(() => S3AwsAuthenticationMethodManualExtractor$inboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
-    .default("v4"),
-  enableAssumeRole: z.boolean().default(false),
+    .optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  maxBatchSize: z.number().default(10),
+  durationSeconds: z.number().optional(),
+  maxBatchSize: z.number().optional(),
   recurse: z.any().optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  verifyPermissions: z.boolean().default(true),
-  disableTimeFilter: z.boolean().default(false),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
 });
 /** @internal */
 export type S3AwsAuthenticationMethodManual$Outbound = {
@@ -883,26 +907,26 @@ export type S3AwsAuthenticationMethodManual$Outbound = {
   awsSecretKey?: string | undefined;
   outputName?: string | undefined;
   bucket: string;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
   region?: string | undefined;
   path?: string | undefined;
-  partitioningScheme: string;
+  partitioningScheme?: string | undefined;
   extractors?:
     | Array<S3AwsAuthenticationMethodManualExtractor$Outbound>
     | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  maxBatchSize: number;
+  durationSeconds?: number | undefined;
+  maxBatchSize?: number | undefined;
   recurse?: any | undefined;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  verifyPermissions: boolean;
-  disableTimeFilter: boolean;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  verifyPermissions?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
 };
 
 /** @internal */
@@ -916,30 +940,28 @@ export const S3AwsAuthenticationMethodManual$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   outputName: z.string().optional(),
   bucket: z.string(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
   region: z.string().optional(),
   path: z.string().optional(),
   partitioningScheme:
-    S3AwsAuthenticationMethodManualPartitioningScheme$outboundSchema.default(
-      "none",
-    ),
+    S3AwsAuthenticationMethodManualPartitioningScheme$outboundSchema.optional(),
   extractors: z.array(
     z.lazy(() => S3AwsAuthenticationMethodManualExtractor$outboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .default("v4"),
-  enableAssumeRole: z.boolean().default(false),
+    .optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  maxBatchSize: z.number().default(10),
+  durationSeconds: z.number().optional(),
+  maxBatchSize: z.number().optional(),
   recurse: z.any().optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  verifyPermissions: z.boolean().default(true),
-  disableTimeFilter: z.boolean().default(false),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
 });
 
 export function s3AwsAuthenticationMethodManualToJSON(
@@ -1031,56 +1053,54 @@ export const S3AwsAuthenticationMethodAuto$inboundSchema: z.ZodType<
   awsAuthenticationMethod: z.literal("auto"),
   outputName: z.string().optional(),
   bucket: z.string(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
   region: z.string().optional(),
   path: z.string().optional(),
   partitioningScheme:
-    S3AwsAuthenticationMethodAutoPartitioningScheme$inboundSchema.default(
-      "none",
-    ),
+    S3AwsAuthenticationMethodAutoPartitioningScheme$inboundSchema.optional(),
   extractors: z.array(
     z.lazy(() => S3AwsAuthenticationMethodAutoExtractor$inboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
-    .default("v4"),
-  enableAssumeRole: z.boolean().default(false),
+    .optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  maxBatchSize: z.number().default(10),
+  durationSeconds: z.number().optional(),
+  maxBatchSize: z.number().optional(),
   recurse: z.any().optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  verifyPermissions: z.boolean().default(true),
-  disableTimeFilter: z.boolean().default(false),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
 });
 /** @internal */
 export type S3AwsAuthenticationMethodAuto$Outbound = {
   awsAuthenticationMethod: "auto";
   outputName?: string | undefined;
   bucket: string;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
   region?: string | undefined;
   path?: string | undefined;
-  partitioningScheme: string;
+  partitioningScheme?: string | undefined;
   extractors?:
     | Array<S3AwsAuthenticationMethodAutoExtractor$Outbound>
     | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  maxBatchSize: number;
+  durationSeconds?: number | undefined;
+  maxBatchSize?: number | undefined;
   recurse?: any | undefined;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  verifyPermissions: boolean;
-  disableTimeFilter: boolean;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  verifyPermissions?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
 };
 
 /** @internal */
@@ -1092,30 +1112,28 @@ export const S3AwsAuthenticationMethodAuto$outboundSchema: z.ZodType<
   awsAuthenticationMethod: z.literal("auto"),
   outputName: z.string().optional(),
   bucket: z.string(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
   region: z.string().optional(),
   path: z.string().optional(),
   partitioningScheme:
-    S3AwsAuthenticationMethodAutoPartitioningScheme$outboundSchema.default(
-      "none",
-    ),
+    S3AwsAuthenticationMethodAutoPartitioningScheme$outboundSchema.optional(),
   extractors: z.array(
     z.lazy(() => S3AwsAuthenticationMethodAutoExtractor$outboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .default("v4"),
-  enableAssumeRole: z.boolean().default(false),
+    .optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  maxBatchSize: z.number().default(10),
+  durationSeconds: z.number().optional(),
+  maxBatchSize: z.number().optional(),
   recurse: z.any().optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  verifyPermissions: z.boolean().default(true),
-  disableTimeFilter: z.boolean().default(false),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
 });
 
 export function s3AwsAuthenticationMethodAutoToJSON(
@@ -1197,54 +1215,54 @@ export const S3PartitioningSchemeNone$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   partitioningScheme: S3PartitioningSchemeNonePartitioningScheme$inboundSchema
-    .default("none"),
+    .optional(),
   recurse: z.any().optional(),
   outputName: z.string().optional(),
   bucket: z.string(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
   region: z.string().optional(),
   path: z.string().optional(),
   extractors: z.array(
     z.lazy(() => S3PartitioningSchemeNoneExtractor$inboundSchema),
   ).optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: z.string().optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
-    .default("v4"),
-  enableAssumeRole: z.boolean().default(false),
+    .optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  maxBatchSize: z.number().default(10),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  verifyPermissions: z.boolean().default(true),
-  disableTimeFilter: z.boolean().default(false),
+  durationSeconds: z.number().optional(),
+  maxBatchSize: z.number().optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
 });
 /** @internal */
 export type S3PartitioningSchemeNone$Outbound = {
-  partitioningScheme: string;
+  partitioningScheme?: string | undefined;
   recurse?: any | undefined;
   outputName?: string | undefined;
   bucket: string;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
   region?: string | undefined;
   path?: string | undefined;
   extractors?: Array<S3PartitioningSchemeNoneExtractor$Outbound> | undefined;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  maxBatchSize: number;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  verifyPermissions: boolean;
-  disableTimeFilter: boolean;
+  durationSeconds?: number | undefined;
+  maxBatchSize?: number | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  verifyPermissions?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
 };
 
 /** @internal */
@@ -1254,30 +1272,30 @@ export const S3PartitioningSchemeNone$outboundSchema: z.ZodType<
   S3PartitioningSchemeNone
 > = z.object({
   partitioningScheme: S3PartitioningSchemeNonePartitioningScheme$outboundSchema
-    .default("none"),
+    .optional(),
   recurse: z.any().optional(),
   outputName: z.string().optional(),
   bucket: z.string(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
   region: z.string().optional(),
   path: z.string().optional(),
   extractors: z.array(
     z.lazy(() => S3PartitioningSchemeNoneExtractor$outboundSchema),
   ).optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: z.string().optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .default("v4"),
-  enableAssumeRole: z.boolean().default(false),
+    .optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  maxBatchSize: z.number().default(10),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  verifyPermissions: z.boolean().default(true),
-  disableTimeFilter: z.boolean().default(false),
+  durationSeconds: z.number().optional(),
+  maxBatchSize: z.number().optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
 });
 
 export function s3PartitioningSchemeNoneToJSON(
@@ -1357,54 +1375,54 @@ export const S3PartitioningSchemeDdss$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   partitioningScheme: S3PartitioningSchemeDdssPartitioningScheme$inboundSchema
-    .default("none"),
+    .optional(),
   outputName: z.string().optional(),
   bucket: z.string(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
   region: z.string().optional(),
   path: z.string().optional(),
   extractors: z.array(
     z.lazy(() => S3PartitioningSchemeDdssExtractor$inboundSchema),
   ).optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: z.string().optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
-    .default("v4"),
-  enableAssumeRole: z.boolean().default(false),
+    .optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  maxBatchSize: z.number().default(10),
+  durationSeconds: z.number().optional(),
+  maxBatchSize: z.number().optional(),
   recurse: z.any().optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  verifyPermissions: z.boolean().default(true),
-  disableTimeFilter: z.boolean().default(false),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
 });
 /** @internal */
 export type S3PartitioningSchemeDdss$Outbound = {
-  partitioningScheme: string;
+  partitioningScheme?: string | undefined;
   outputName?: string | undefined;
   bucket: string;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
   region?: string | undefined;
   path?: string | undefined;
   extractors?: Array<S3PartitioningSchemeDdssExtractor$Outbound> | undefined;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  maxBatchSize: number;
+  durationSeconds?: number | undefined;
+  maxBatchSize?: number | undefined;
   recurse?: any | undefined;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  verifyPermissions: boolean;
-  disableTimeFilter: boolean;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  verifyPermissions?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
 };
 
 /** @internal */
@@ -1414,30 +1432,30 @@ export const S3PartitioningSchemeDdss$outboundSchema: z.ZodType<
   S3PartitioningSchemeDdss
 > = z.object({
   partitioningScheme: S3PartitioningSchemeDdssPartitioningScheme$outboundSchema
-    .default("none"),
+    .optional(),
   outputName: z.string().optional(),
   bucket: z.string(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
   region: z.string().optional(),
   path: z.string().optional(),
   extractors: z.array(
     z.lazy(() => S3PartitioningSchemeDdssExtractor$outboundSchema),
   ).optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: z.string().optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .default("v4"),
-  enableAssumeRole: z.boolean().default(false),
+    .optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  maxBatchSize: z.number().default(10),
+  durationSeconds: z.number().optional(),
+  maxBatchSize: z.number().optional(),
   recurse: z.any().optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  verifyPermissions: z.boolean().default(true),
-  disableTimeFilter: z.boolean().default(false),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
 });
 
 export function s3PartitioningSchemeDdssToJSON(

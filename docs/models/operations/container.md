@@ -6,14 +6,20 @@
 import { Container } from "cribl-control-plane/models/operations";
 
 let value: Container = {
+  mode: "basic",
   dockerSocket: [
     "<value 1>",
+    "<value 2>",
   ],
+  dockerTimeout: 9990.92,
   filters: [
     {
       expr: "<value>",
     },
   ],
+  allContainers: true,
+  perDevice: false,
+  detail: false,
 };
 ```
 

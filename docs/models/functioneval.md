@@ -24,6 +24,7 @@ let value: FunctionEval = {
       {
         name: "<value>",
         value: "<value>",
+        disabled: true,
       },
     ],
     keep: [

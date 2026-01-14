@@ -22,7 +22,11 @@ let value: FunctionOtlpTraces = {
     "key1": "<value>",
   },
   version: "<value>",
-  schema: {},
+  schema: {
+    dropNonTraceEvents: false,
+    otlpVersion: "0.10.0",
+    batchOTLPTraces: true,
+  },
 };
 ```
 

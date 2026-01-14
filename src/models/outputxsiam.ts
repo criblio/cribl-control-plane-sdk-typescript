@@ -260,12 +260,12 @@ export const OutputXsiamUrl$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   url: z.any().optional(),
-  weight: z.number().default(1),
+  weight: z.number().optional(),
 });
 /** @internal */
 export type OutputXsiamUrl$Outbound = {
   url?: any | undefined;
-  weight: number;
+  weight?: number | undefined;
 };
 
 /** @internal */
@@ -275,7 +275,7 @@ export const OutputXsiamUrl$outboundSchema: z.ZodType<
   OutputXsiamUrl
 > = z.object({
   url: z.any().optional(),
-  weight: z.number().default(1),
+  weight: z.number().optional(),
 });
 
 export function outputXsiamUrlToJSON(outputXsiamUrl: OutputXsiamUrl): string {
@@ -336,44 +336,44 @@ export const OutputXsiam$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(false),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(9500),
-  maxPayloadEvents: z.number().default(0),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  loadBalanced: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
-    .default("none"),
+    .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  authType: OutputXsiamAuthenticationMethod$inboundSchema.default("token"),
+  authType: OutputXsiamAuthenticationMethod$inboundSchema.optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  throttleRateReqPerSec: z.number().int().default(400),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  throttleRateReqPerSec: z.number().int().optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  url: z.string().default("http://localhost:8088/logs/v1/event"),
-  useRoundRobinDns: z.boolean().default(false),
-  excludeSelf: z.boolean().default(false),
+  url: z.string().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => OutputXsiamUrl$inboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputXsiamPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -384,44 +384,44 @@ export type OutputXsiam$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced: boolean;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  loadBalanced?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
-  failedRequestLoggingMode: string;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  authType: string;
+  authType?: string | undefined;
   responseRetrySettings?:
     | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  throttleRateReqPerSec: number;
-  onBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  throttleRateReqPerSec?: number | undefined;
+  onBackpressure?: string | undefined;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
-  url: string;
-  useRoundRobinDns: boolean;
-  excludeSelf: boolean;
+  url?: string | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  excludeSelf?: boolean | undefined;
   urls?: Array<OutputXsiamUrl$Outbound> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputXsiamPqControls$Outbound | undefined;
 };
 
@@ -437,45 +437,45 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(false),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(9500),
-  maxPayloadEvents: z.number().default(0),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  loadBalanced: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
-    .default("none"),
+    .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  authType: OutputXsiamAuthenticationMethod$outboundSchema.default("token"),
+  authType: OutputXsiamAuthenticationMethod$outboundSchema.optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  throttleRateReqPerSec: z.number().int().default(400),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  throttleRateReqPerSec: z.number().int().optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  url: z.string().default("http://localhost:8088/logs/v1/event"),
-  useRoundRobinDns: z.boolean().default(false),
-  excludeSelf: z.boolean().default(false),
+  url: z.string().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => OutputXsiamUrl$outboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputXsiamPqControls$outboundSchema).optional(),
 });
 

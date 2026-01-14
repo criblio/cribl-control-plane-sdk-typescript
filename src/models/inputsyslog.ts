@@ -72,7 +72,7 @@ export type InputSyslogSyslog2 = {
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Enter UDP port number to listen on. Not required if listening on TCP.
    */
@@ -197,7 +197,7 @@ export type InputSyslogSyslog1 = {
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Enter UDP port number to listen on. Not required if listening on TCP.
    */
@@ -301,35 +301,35 @@ export const InputSyslogSyslog2$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: InputSyslogType2$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   udpPort: z.number().optional(),
   tcpPort: z.number(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  timestampTimezone: z.string().default("local"),
-  singleMsgUdpPackets: z.boolean().default(false),
-  enableProxyHeader: z.boolean().default(false),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  timestampTimezone: z.string().optional(),
+  singleMsgUdpPackets: z.boolean().optional(),
+  enableProxyHeader: z.boolean().optional(),
   keepFieldsList: z.array(z.string()).optional(),
-  octetCounting: z.boolean().default(false),
-  inferFraming: z.boolean().default(true),
-  strictlyInferOctetCounting: z.boolean().default(true),
-  allowNonStandardAppName: z.boolean().default(false),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
+  octetCounting: z.boolean().optional(),
+  inferFraming: z.boolean().optional(),
+  strictlyInferOctetCounting: z.boolean().optional(),
+  allowNonStandardAppName: z.boolean().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
   tls: TlsSettingsServerSideType$inboundSchema.optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
-  enableLoadBalancing: z.boolean().default(false),
+  enableLoadBalancing: z.boolean().optional(),
   description: z.string().optional(),
   enableEnhancedProxyHeaderParsing: z.boolean().optional(),
 });
@@ -337,35 +337,35 @@ export const InputSyslogSyslog2$inboundSchema: z.ZodType<
 export type InputSyslogSyslog2$Outbound = {
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   udpPort?: number | undefined;
   tcpPort: number;
-  maxBufferSize: number;
-  ipWhitelistRegex: string;
-  timestampTimezone: string;
-  singleMsgUdpPackets: boolean;
-  enableProxyHeader: boolean;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
+  timestampTimezone?: string | undefined;
+  singleMsgUdpPackets?: boolean | undefined;
+  enableProxyHeader?: boolean | undefined;
   keepFieldsList?: Array<string> | undefined;
-  octetCounting: boolean;
-  inferFraming: boolean;
-  strictlyInferOctetCounting: boolean;
-  allowNonStandardAppName: boolean;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
+  octetCounting?: boolean | undefined;
+  inferFraming?: boolean | undefined;
+  strictlyInferOctetCounting?: boolean | undefined;
+  allowNonStandardAppName?: boolean | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
-  enableLoadBalancing: boolean;
+  enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
 };
@@ -378,35 +378,35 @@ export const InputSyslogSyslog2$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: InputSyslogType2$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   udpPort: z.number().optional(),
   tcpPort: z.number(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  timestampTimezone: z.string().default("local"),
-  singleMsgUdpPackets: z.boolean().default(false),
-  enableProxyHeader: z.boolean().default(false),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  timestampTimezone: z.string().optional(),
+  singleMsgUdpPackets: z.boolean().optional(),
+  enableProxyHeader: z.boolean().optional(),
   keepFieldsList: z.array(z.string()).optional(),
-  octetCounting: z.boolean().default(false),
-  inferFraming: z.boolean().default(true),
-  strictlyInferOctetCounting: z.boolean().default(true),
-  allowNonStandardAppName: z.boolean().default(false),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
+  octetCounting: z.boolean().optional(),
+  inferFraming: z.boolean().optional(),
+  strictlyInferOctetCounting: z.boolean().optional(),
+  allowNonStandardAppName: z.boolean().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
-  enableLoadBalancing: z.boolean().default(false),
+  enableLoadBalancing: z.boolean().optional(),
   description: z.string().optional(),
   enableEnhancedProxyHeaderParsing: z.boolean().optional(),
 });
@@ -445,35 +445,35 @@ export const InputSyslogSyslog1$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: InputSyslogType1$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   udpPort: z.number(),
   tcpPort: z.number().optional(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  timestampTimezone: z.string().default("local"),
-  singleMsgUdpPackets: z.boolean().default(false),
-  enableProxyHeader: z.boolean().default(false),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  timestampTimezone: z.string().optional(),
+  singleMsgUdpPackets: z.boolean().optional(),
+  enableProxyHeader: z.boolean().optional(),
   keepFieldsList: z.array(z.string()).optional(),
-  octetCounting: z.boolean().default(false),
-  inferFraming: z.boolean().default(true),
-  strictlyInferOctetCounting: z.boolean().default(true),
-  allowNonStandardAppName: z.boolean().default(false),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
+  octetCounting: z.boolean().optional(),
+  inferFraming: z.boolean().optional(),
+  strictlyInferOctetCounting: z.boolean().optional(),
+  allowNonStandardAppName: z.boolean().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
   tls: TlsSettingsServerSideType$inboundSchema.optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
-  enableLoadBalancing: z.boolean().default(false),
+  enableLoadBalancing: z.boolean().optional(),
   description: z.string().optional(),
   enableEnhancedProxyHeaderParsing: z.boolean().optional(),
 });
@@ -481,35 +481,35 @@ export const InputSyslogSyslog1$inboundSchema: z.ZodType<
 export type InputSyslogSyslog1$Outbound = {
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   udpPort: number;
   tcpPort?: number | undefined;
-  maxBufferSize: number;
-  ipWhitelistRegex: string;
-  timestampTimezone: string;
-  singleMsgUdpPackets: boolean;
-  enableProxyHeader: boolean;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
+  timestampTimezone?: string | undefined;
+  singleMsgUdpPackets?: boolean | undefined;
+  enableProxyHeader?: boolean | undefined;
   keepFieldsList?: Array<string> | undefined;
-  octetCounting: boolean;
-  inferFraming: boolean;
-  strictlyInferOctetCounting: boolean;
-  allowNonStandardAppName: boolean;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
+  octetCounting?: boolean | undefined;
+  inferFraming?: boolean | undefined;
+  strictlyInferOctetCounting?: boolean | undefined;
+  allowNonStandardAppName?: boolean | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
-  enableLoadBalancing: boolean;
+  enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
 };
@@ -522,35 +522,35 @@ export const InputSyslogSyslog1$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: InputSyslogType1$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   udpPort: z.number(),
   tcpPort: z.number().optional(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  timestampTimezone: z.string().default("local"),
-  singleMsgUdpPackets: z.boolean().default(false),
-  enableProxyHeader: z.boolean().default(false),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  timestampTimezone: z.string().optional(),
+  singleMsgUdpPackets: z.boolean().optional(),
+  enableProxyHeader: z.boolean().optional(),
   keepFieldsList: z.array(z.string()).optional(),
-  octetCounting: z.boolean().default(false),
-  inferFraming: z.boolean().default(true),
-  strictlyInferOctetCounting: z.boolean().default(true),
-  allowNonStandardAppName: z.boolean().default(false),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
+  octetCounting: z.boolean().optional(),
+  inferFraming: z.boolean().optional(),
+  strictlyInferOctetCounting: z.boolean().optional(),
+  allowNonStandardAppName: z.boolean().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
-  enableLoadBalancing: z.boolean().default(false),
+  enableLoadBalancing: z.boolean().optional(),
   description: z.string().optional(),
   enableEnhancedProxyHeaderParsing: z.boolean().optional(),
 });

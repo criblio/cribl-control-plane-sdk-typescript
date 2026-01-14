@@ -48,7 +48,7 @@ export type InputJournalFilesPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   pq?: PqType | undefined;
   /**
    * Unique ID for this input
@@ -129,7 +129,7 @@ export type InputJournalFilesPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   /**
    * Unique ID for this input
    */
@@ -211,7 +211,7 @@ export type InputJournalFilesSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -292,7 +292,7 @@ export type InputJournalFilesSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Unique ID for this input
    */
@@ -417,23 +417,23 @@ export const InputJournalFilesPqEnabledTrueWithPqConstraint$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     pq: PqType$inboundSchema.optional(),
     id: z.string().optional(),
     type: InputJournalFilesPqEnabledTrueWithPqConstraintType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     path: z.string(),
-    interval: z.number().default(10),
+    interval: z.number().optional(),
     journals: z.array(z.string()),
     rules: z.array(
       z.lazy(() => PqEnabledTrueWithPqConstraintRule$inboundSchema),
     ).optional(),
-    currentBoot: z.boolean().default(false),
+    currentBoot: z.boolean().optional(),
     maxAgeDur: z.string().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
     description: z.string().optional(),
@@ -444,17 +444,17 @@ export type InputJournalFilesPqEnabledTrueWithPqConstraint$Outbound = {
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   path: string;
-  interval: number;
+  interval?: number | undefined;
   journals: Array<string>;
   rules?: Array<PqEnabledTrueWithPqConstraintRule$Outbound> | undefined;
-  currentBoot: boolean;
+  currentBoot?: boolean | undefined;
   maxAgeDur?: string | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
@@ -467,24 +467,24 @@ export const InputJournalFilesPqEnabledTrueWithPqConstraint$outboundSchema:
     z.ZodTypeDef,
     InputJournalFilesPqEnabledTrueWithPqConstraint
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputJournalFilesPqEnabledTrueWithPqConstraintType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     path: z.string(),
-    interval: z.number().default(10),
+    interval: z.number().optional(),
     journals: z.array(z.string()),
     rules: z.array(
       z.lazy(() => PqEnabledTrueWithPqConstraintRule$outboundSchema),
     ).optional(),
-    currentBoot: z.boolean().default(false),
+    currentBoot: z.boolean().optional(),
     maxAgeDur: z.string().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     description: z.string().optional(),
@@ -575,22 +575,22 @@ export const InputJournalFilesPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputJournalFilesPqEnabledFalseConstraintType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
   path: z.string(),
-  interval: z.number().default(10),
+  interval: z.number().optional(),
   journals: z.array(z.string()),
   rules: z.array(z.lazy(() => PqEnabledFalseConstraintRule$inboundSchema))
     .optional(),
-  currentBoot: z.boolean().default(false),
+  currentBoot: z.boolean().optional(),
   maxAgeDur: z.string().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
@@ -600,18 +600,18 @@ export type InputJournalFilesPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   path: string;
-  interval: number;
+  interval?: number | undefined;
   journals: Array<string>;
   rules?: Array<PqEnabledFalseConstraintRule$Outbound> | undefined;
-  currentBoot: boolean;
+  currentBoot?: boolean | undefined;
   maxAgeDur?: string | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
@@ -624,23 +624,23 @@ export const InputJournalFilesPqEnabledFalseConstraint$outboundSchema:
     z.ZodTypeDef,
     InputJournalFilesPqEnabledFalseConstraint
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     id: z.string().optional(),
     type: InputJournalFilesPqEnabledFalseConstraintType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     pq: PqType$outboundSchema.optional(),
     path: z.string(),
-    interval: z.number().default(10),
+    interval: z.number().optional(),
     journals: z.array(z.string()),
     rules: z.array(z.lazy(() => PqEnabledFalseConstraintRule$outboundSchema))
       .optional(),
-    currentBoot: z.boolean().default(false),
+    currentBoot: z.boolean().optional(),
     maxAgeDur: z.string().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     description: z.string().optional(),
@@ -746,26 +746,26 @@ export const InputJournalFilesSendToRoutesFalseWithConnectionsConstraint$inbound
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type:
       InputJournalFilesSendToRoutesFalseWithConnectionsConstraintType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$inboundSchema.optional(),
     path: z.string(),
-    interval: z.number().default(10),
+    interval: z.number().optional(),
     journals: z.array(z.string()),
     rules: z.array(
       z.lazy(() =>
         SendToRoutesFalseWithConnectionsConstraintRule$inboundSchema
       ),
     ).optional(),
-    currentBoot: z.boolean().default(false),
+    currentBoot: z.boolean().optional(),
     maxAgeDur: z.string().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
     description: z.string().optional(),
@@ -777,19 +777,19 @@ export type InputJournalFilesSendToRoutesFalseWithConnectionsConstraint$Outbound
     connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
     id?: string | undefined;
     type: string;
-    disabled: boolean;
+    disabled?: boolean | undefined;
     pipeline?: string | undefined;
     environment?: string | undefined;
-    pqEnabled: boolean;
+    pqEnabled?: boolean | undefined;
     streamtags?: Array<string> | undefined;
     pq?: PqType$Outbound | undefined;
     path: string;
-    interval: number;
+    interval?: number | undefined;
     journals: Array<string>;
     rules?:
       | Array<SendToRoutesFalseWithConnectionsConstraintRule$Outbound>
       | undefined;
-    currentBoot: boolean;
+    currentBoot?: boolean | undefined;
     maxAgeDur?: string | undefined;
     metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
     description?: string | undefined;
@@ -802,27 +802,27 @@ export const InputJournalFilesSendToRoutesFalseWithConnectionsConstraint$outboun
     z.ZodTypeDef,
     InputJournalFilesSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     id: z.string().optional(),
     type:
       InputJournalFilesSendToRoutesFalseWithConnectionsConstraintType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
     path: z.string(),
-    interval: z.number().default(10),
+    interval: z.number().optional(),
     journals: z.array(z.string()),
     rules: z.array(
       z.lazy(() =>
         SendToRoutesFalseWithConnectionsConstraintRule$outboundSchema
       ),
     ).optional(),
-    currentBoot: z.boolean().default(false),
+    currentBoot: z.boolean().optional(),
     maxAgeDur: z.string().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     description: z.string().optional(),
@@ -912,22 +912,22 @@ export const InputJournalFilesSendToRoutesTrueConstraint$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     id: z.string().optional(),
     type: InputJournalFilesSendToRoutesTrueConstraintType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     pq: PqType$inboundSchema.optional(),
     path: z.string(),
-    interval: z.number().default(10),
+    interval: z.number().optional(),
     journals: z.array(z.string()),
     rules: z.array(z.lazy(() => SendToRoutesTrueConstraintRule$inboundSchema))
       .optional(),
-    currentBoot: z.boolean().default(false),
+    currentBoot: z.boolean().optional(),
     maxAgeDur: z.string().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
     description: z.string().optional(),
@@ -937,18 +937,18 @@ export type InputJournalFilesSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   path: string;
-  interval: number;
+  interval?: number | undefined;
   journals: Array<string>;
   rules?: Array<SendToRoutesTrueConstraintRule$Outbound> | undefined;
-  currentBoot: boolean;
+  currentBoot?: boolean | undefined;
   maxAgeDur?: string | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
@@ -961,23 +961,23 @@ export const InputJournalFilesSendToRoutesTrueConstraint$outboundSchema:
     z.ZodTypeDef,
     InputJournalFilesSendToRoutesTrueConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     id: z.string().optional(),
     type: InputJournalFilesSendToRoutesTrueConstraintType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     pq: PqType$outboundSchema.optional(),
     path: z.string(),
-    interval: z.number().default(10),
+    interval: z.number().optional(),
     journals: z.array(z.string()),
     rules: z.array(z.lazy(() => SendToRoutesTrueConstraintRule$outboundSchema))
       .optional(),
-    currentBoot: z.boolean().default(false),
+    currentBoot: z.boolean().optional(),
     maxAgeDur: z.string().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     description: z.string().optional(),

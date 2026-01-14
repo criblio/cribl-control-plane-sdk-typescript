@@ -7,10 +7,13 @@
 
 ```typescript
 const value: models.InputWizSendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "wiz",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -22,19 +25,25 @@ const value: models.InputWizSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  authUrl: "https://thrifty-ostrich.com/",
+  endpoint: "<value>",
+  authUrl: "https://unaware-formation.com/",
   authAudienceOverride: "<value>",
   clientId: "<id>",
-  contentConfig: [
-    {
-      contentType: "<value>",
-      contentDescription: "<value>",
-      manageState: {},
-      contentQuery: "<value>",
-    },
-  ],
+  contentConfig: [],
+  requestTimeout: 9960.16,
+  keepAliveTime: 8244.23,
+  maxMissedKeepAlives: 7119.26,
+  ttl: "<value>",
+  ignoreGroupJobsLimit: true,
   metadata: [
     {
       name: "<value>",
@@ -42,11 +51,22 @@ const value: models.InputWizSendToRoutesTrueConstraint = {
     },
   ],
   retryRules: {
+    type: "static",
+    interval: 3153.33,
+    limit: 2659.11,
+    multiplier: 376.03,
     codes: [
-      3836.07,
+      5006.8,
+      7560.55,
+      2139.95,
     ],
+    enableHeader: false,
+    retryConnectTimeout: false,
+    retryConnectReset: false,
   },
-  description: "vainly madly off meanwhile annual",
+  authType: "secret",
+  description:
+    "unless colorless armoire beside following if intervention entomb ew upon",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
@@ -56,6 +76,7 @@ const value: models.InputWizSendToRoutesTrueConstraint = {
 
 ```typescript
 const value: models.InputWizSendToRoutesFalseWithConnectionsConstraint = {
+  sendToRoutes: true,
   connections: [
     {
       pipeline: "<value>",
@@ -64,25 +85,35 @@ const value: models.InputWizSendToRoutesFalseWithConnectionsConstraint = {
   ],
   id: "<id>",
   type: "wiz",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  authUrl: "https://pessimistic-underpants.com/",
+  endpoint: "<value>",
+  authUrl: "https://superficial-petticoat.name/",
   authAudienceOverride: "<value>",
   clientId: "<id>",
-  contentConfig: [
-    {
-      contentType: "<value>",
-      contentDescription: "<value>",
-      manageState: {},
-      contentQuery: "<value>",
-    },
-  ],
+  contentConfig: [],
+  requestTimeout: 1785.68,
+  keepAliveTime: 537.15,
+  maxMissedKeepAlives: 1595.85,
+  ttl: "<value>",
+  ignoreGroupJobsLimit: true,
   metadata: [
     {
       name: "<value>",
@@ -90,11 +121,22 @@ const value: models.InputWizSendToRoutesFalseWithConnectionsConstraint = {
     },
   ],
   retryRules: {
+    type: "static",
+    interval: 3153.33,
+    limit: 2659.11,
+    multiplier: 376.03,
     codes: [
-      3836.07,
+      5006.8,
+      7560.55,
+      2139.95,
     ],
+    enableHeader: false,
+    retryConnectTimeout: false,
+    retryConnectReset: false,
   },
-  description: "kindly revere adviser diversity gym plus develop sometimes",
+  authType: "manual",
+  description:
+    "beyond tuxedo successfully yuck digitize ameliorate until boohoo",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
@@ -104,14 +146,16 @@ const value: models.InputWizSendToRoutesFalseWithConnectionsConstraint = {
 
 ```typescript
 const value: models.InputWizPqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "wiz",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -120,12 +164,25 @@ const value: models.InputWizPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  authUrl: "https://shallow-forgery.org/",
+  endpoint: "<value>",
+  authUrl: "https://caring-elevation.net",
   authAudienceOverride: "<value>",
   clientId: "<id>",
   contentConfig: [],
+  requestTimeout: 4741.73,
+  keepAliveTime: 523.92,
+  maxMissedKeepAlives: 191.54,
+  ttl: "<value>",
+  ignoreGroupJobsLimit: false,
   metadata: [
     {
       name: "<value>",
@@ -133,11 +190,22 @@ const value: models.InputWizPqEnabledFalseConstraint = {
     },
   ],
   retryRules: {
+    type: "static",
+    interval: 3153.33,
+    limit: 2659.11,
+    multiplier: 376.03,
     codes: [
-      3836.07,
+      5006.8,
+      7560.55,
+      2139.95,
     ],
+    enableHeader: false,
+    retryConnectTimeout: false,
+    retryConnectReset: false,
   },
-  description: "bowler focalise inasmuch nippy under",
+  authType: "manual",
+  description:
+    "queasily brr wilted rosin warlike zowie acidly designation readily",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
@@ -147,15 +215,26 @@ const value: models.InputWizPqEnabledFalseConstraint = {
 
 ```typescript
 const value: models.InputWizPqEnabledTrueWithPqConstraint = {
+  pqEnabled: true,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "wiz",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -163,17 +242,16 @@ const value: models.InputWizPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
-  authUrl: "https://friendly-pacemaker.org",
+  endpoint: "<value>",
+  authUrl: "https://witty-governance.biz",
   authAudienceOverride: "<value>",
   clientId: "<id>",
-  contentConfig: [
-    {
-      contentType: "<value>",
-      contentDescription: "<value>",
-      manageState: {},
-      contentQuery: "<value>",
-    },
-  ],
+  contentConfig: [],
+  requestTimeout: 3065.32,
+  keepAliveTime: 4346.2,
+  maxMissedKeepAlives: 8715.02,
+  ttl: "<value>",
+  ignoreGroupJobsLimit: true,
   metadata: [
     {
       name: "<value>",
@@ -181,11 +259,22 @@ const value: models.InputWizPqEnabledTrueWithPqConstraint = {
     },
   ],
   retryRules: {
+    type: "static",
+    interval: 3153.33,
+    limit: 2659.11,
+    multiplier: 376.03,
     codes: [
-      3836.07,
+      5006.8,
+      7560.55,
+      2139.95,
     ],
+    enableHeader: false,
+    retryConnectTimeout: false,
+    retryConnectReset: false,
   },
-  description: "eek aside rudely below wring about",
+  authType: "secret",
+  description:
+    "eek than ha provided up black replacement furiously meaty quicker",
   clientSecret: "<value>",
   textSecret: "<value>",
 };

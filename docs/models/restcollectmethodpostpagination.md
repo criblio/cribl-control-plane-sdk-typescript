@@ -5,11 +5,13 @@
 ```typescript
 import { RestCollectMethodPostPagination } from "cribl-control-plane/models";
 
-let value: RestCollectMethodPostPagination = {};
+let value: RestCollectMethodPostPagination = {
+  type: "response_header_link",
+};
 ```
 
 ## Fields
 
 | Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
 | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `type`                                                                                         | [models.RestCollectMethodPostPaginationEnum](../models/restcollectmethodpostpaginationenum.md) | :heavy_minus_sign:                                                                             | N/A                                                                                            |
+| `type`                                                                                         | [models.RestCollectMethodPostPaginationEnum](../models/restcollectmethodpostpaginationenum.md) | :heavy_check_mark:                                                                             | N/A                                                                                            |

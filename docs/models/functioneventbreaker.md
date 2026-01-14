@@ -19,7 +19,10 @@ let value: FunctionEventBreaker = {
   sync: true,
   uischema: {},
   version: "<value>",
-  schema: {},
+  schema: {
+    existingOrNew: "existing",
+    shouldMarkCriblBreaker: false,
+  },
 };
 ```
 
