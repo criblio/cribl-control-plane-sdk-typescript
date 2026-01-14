@@ -22,27 +22,7 @@ export const FunctionConfSchemaChain$inboundSchema: z.ZodType<
 > = z.object({
   processor: z.string().optional(),
 });
-/** @internal */
-export type FunctionConfSchemaChain$Outbound = {
-  processor?: string | undefined;
-};
 
-/** @internal */
-export const FunctionConfSchemaChain$outboundSchema: z.ZodType<
-  FunctionConfSchemaChain$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaChain
-> = z.object({
-  processor: z.string().optional(),
-});
-
-export function functionConfSchemaChainToJSON(
-  functionConfSchemaChain: FunctionConfSchemaChain,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaChain$outboundSchema.parse(functionConfSchemaChain),
-  );
-}
 export function functionConfSchemaChainFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaChain, SDKValidationError> {

@@ -6,12 +6,7 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeAdd,
-  ItemsTypeAdd$inboundSchema,
-  ItemsTypeAdd$Outbound,
-  ItemsTypeAdd$outboundSchema,
-} from "./itemstypeadd.js";
+import { ItemsTypeAdd, ItemsTypeAdd$inboundSchema } from "./itemstypeadd.js";
 
 export type FunctionConfSchemaMaskRule = {
   /**
@@ -54,31 +49,7 @@ export const FunctionConfSchemaMaskRule$inboundSchema: z.ZodType<
   replaceExpr: z.string(),
   disabled: z.boolean().optional(),
 });
-/** @internal */
-export type FunctionConfSchemaMaskRule$Outbound = {
-  matchRegex: string;
-  replaceExpr: string;
-  disabled?: boolean | undefined;
-};
 
-/** @internal */
-export const FunctionConfSchemaMaskRule$outboundSchema: z.ZodType<
-  FunctionConfSchemaMaskRule$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaMaskRule
-> = z.object({
-  matchRegex: z.string(),
-  replaceExpr: z.string(),
-  disabled: z.boolean().optional(),
-});
-
-export function functionConfSchemaMaskRuleToJSON(
-  functionConfSchemaMaskRule: FunctionConfSchemaMaskRule,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaMaskRule$outboundSchema.parse(functionConfSchemaMaskRule),
-  );
-}
 export function functionConfSchemaMaskRuleFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaMaskRule, SDKValidationError> {
@@ -101,34 +72,7 @@ export const FunctionConfSchemaMask$inboundSchema: z.ZodType<
   depth: z.number().int().optional(),
   flags: z.array(ItemsTypeAdd$inboundSchema).optional(),
 });
-/** @internal */
-export type FunctionConfSchemaMask$Outbound = {
-  rules?: Array<FunctionConfSchemaMaskRule$Outbound> | undefined;
-  fields?: Array<string> | undefined;
-  depth?: number | undefined;
-  flags?: Array<ItemsTypeAdd$Outbound> | undefined;
-};
 
-/** @internal */
-export const FunctionConfSchemaMask$outboundSchema: z.ZodType<
-  FunctionConfSchemaMask$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaMask
-> = z.object({
-  rules: z.array(z.lazy(() => FunctionConfSchemaMaskRule$outboundSchema))
-    .optional(),
-  fields: z.array(z.string()).optional(),
-  depth: z.number().int().optional(),
-  flags: z.array(ItemsTypeAdd$outboundSchema).optional(),
-});
-
-export function functionConfSchemaMaskToJSON(
-  functionConfSchemaMask: FunctionConfSchemaMask,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaMask$outboundSchema.parse(functionConfSchemaMask),
-  );
-}
 export function functionConfSchemaMaskFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaMask, SDKValidationError> {

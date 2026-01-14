@@ -6,12 +6,13 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaChain,
-  FunctionConfSchemaChain$inboundSchema,
-  FunctionConfSchemaChain$Outbound,
-  FunctionConfSchemaChain$outboundSchema,
-} from "./functionconfschemachain.js";
+
+export type PipelineFunctionChainConf = {
+  /**
+   * The data processor (Pack/Pipeline) to send events through
+   */
+  processor: string;
+};
 
 export type PipelineFunctionChain = {
   /**
@@ -34,12 +35,51 @@ export type PipelineFunctionChain = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionConfSchemaChain;
+  conf: PipelineFunctionChainConf;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
+
+/** @internal */
+export const PipelineFunctionChainConf$inboundSchema: z.ZodType<
+  PipelineFunctionChainConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  processor: z.string(),
+});
+/** @internal */
+export type PipelineFunctionChainConf$Outbound = {
+  processor: string;
+};
+
+/** @internal */
+export const PipelineFunctionChainConf$outboundSchema: z.ZodType<
+  PipelineFunctionChainConf$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionChainConf
+> = z.object({
+  processor: z.string(),
+});
+
+export function pipelineFunctionChainConfToJSON(
+  pipelineFunctionChainConf: PipelineFunctionChainConf,
+): string {
+  return JSON.stringify(
+    PipelineFunctionChainConf$outboundSchema.parse(pipelineFunctionChainConf),
+  );
+}
+export function pipelineFunctionChainConfFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionChainConf, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionChainConf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionChainConf' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionChain$inboundSchema: z.ZodType<
@@ -52,7 +92,7 @@ export const PipelineFunctionChain$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaChain$inboundSchema,
+  conf: z.lazy(() => PipelineFunctionChainConf$inboundSchema),
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -62,7 +102,7 @@ export type PipelineFunctionChain$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionConfSchemaChain$Outbound;
+  conf: PipelineFunctionChainConf$Outbound;
   groupId?: string | undefined;
 };
 
@@ -77,7 +117,7 @@ export const PipelineFunctionChain$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaChain$outboundSchema,
+  conf: z.lazy(() => PipelineFunctionChainConf$outboundSchema),
   groupId: z.string().optional(),
 });
 

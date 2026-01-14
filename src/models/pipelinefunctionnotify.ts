@@ -4,14 +4,125 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaNotify,
-  FunctionConfSchemaNotify$inboundSchema,
-  FunctionConfSchemaNotify$Outbound,
-  FunctionConfSchemaNotify$outboundSchema,
-} from "./functionconfschemanotify.js";
+
+/**
+ * Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
+ */
+export const PipelineFunctionNotifyTriggerType = {
+  /**
+   * Where
+   */
+  Custom: "custom",
+  /**
+   * Count of Results
+   */
+  ResultsCount: "resultsCount",
+} as const;
+/**
+ * Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
+ */
+export type PipelineFunctionNotifyTriggerType = OpenEnum<
+  typeof PipelineFunctionNotifyTriggerType
+>;
+
+/**
+ * Operation to be applied over the results count
+ */
+export const PipelineFunctionNotifyCountComparator = {
+  /**
+   * greater than
+   */
+  GreaterThan: ">",
+  /**
+   * less than
+   */
+  LessThan: "<",
+  /**
+   * equals
+   */
+  EqualEqualEqual: "===",
+  /**
+   * not equal to
+   */
+  NotEqualEqual: "!==",
+  /**
+   * greater than or equal to
+   */
+  GreaterThanEqual: ">=",
+  /**
+   * less than or equal to
+   */
+  LessThanEqual: "<=",
+} as const;
+/**
+ * Operation to be applied over the results count
+ */
+export type PipelineFunctionNotifyCountComparator = OpenEnum<
+  typeof PipelineFunctionNotifyCountComparator
+>;
+
+export type NotifyConfiguration = {
+  /**
+   * Group the notification belongs to
+   */
+  group: string;
+  /**
+   * Workspace within the deployment to send the search results to.
+   */
+  notificationId: string;
+  /**
+   * Id of the search this function is running on.
+   */
+  searchId: string;
+  /**
+   * Id of the saved query
+   */
+  savedQueryId: string;
+  /**
+   * Js expression that filters events, a greater than 'Trigger Count' events will trigger the notification
+   */
+  trigger?: string | undefined;
+  /**
+   * Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
+   */
+  triggerType?: PipelineFunctionNotifyTriggerType | undefined;
+  /**
+   * Operation to be applied over the results count
+   */
+  triggerComparator?: PipelineFunctionNotifyCountComparator | undefined;
+  /**
+   * How many results that match trigger the condition
+   */
+  triggerCount?: number | undefined;
+  /**
+   * Number of results to include in the notification event
+   */
+  resultsLimit?: number | undefined;
+  /**
+   * Url of the search results
+   */
+  searchUrl: string;
+  /**
+   * Message content template, available fields: searchId, resultSet, savedQueryId, notificationId, searchResultsUrl
+   */
+  message?: string | undefined;
+  /**
+   * Auth token for sending notification messages
+   */
+  authToken: string;
+  /**
+   * System messages api endpoint
+   */
+  messagesEndpoint: string;
+  /**
+   * Current tenant id
+   */
+  tenantId?: string | undefined;
+};
 
 export type PipelineFunctionNotify = {
   /**
@@ -34,12 +145,118 @@ export type PipelineFunctionNotify = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionConfSchemaNotify;
+  conf: NotifyConfiguration;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
+
+/** @internal */
+export const PipelineFunctionNotifyTriggerType$inboundSchema: z.ZodType<
+  PipelineFunctionNotifyTriggerType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PipelineFunctionNotifyTriggerType);
+/** @internal */
+export const PipelineFunctionNotifyTriggerType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PipelineFunctionNotifyTriggerType
+> = openEnums.outboundSchema(PipelineFunctionNotifyTriggerType);
+
+/** @internal */
+export const PipelineFunctionNotifyCountComparator$inboundSchema: z.ZodType<
+  PipelineFunctionNotifyCountComparator,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PipelineFunctionNotifyCountComparator);
+/** @internal */
+export const PipelineFunctionNotifyCountComparator$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PipelineFunctionNotifyCountComparator
+> = openEnums.outboundSchema(PipelineFunctionNotifyCountComparator);
+
+/** @internal */
+export const NotifyConfiguration$inboundSchema: z.ZodType<
+  NotifyConfiguration,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  group: z.string(),
+  notificationId: z.string(),
+  searchId: z.string(),
+  savedQueryId: z.string(),
+  trigger: z.string().optional(),
+  triggerType: PipelineFunctionNotifyTriggerType$inboundSchema.optional(),
+  triggerComparator: PipelineFunctionNotifyCountComparator$inboundSchema
+    .optional(),
+  triggerCount: z.number().optional(),
+  resultsLimit: z.number().optional(),
+  searchUrl: z.string(),
+  message: z.string().optional(),
+  authToken: z.string(),
+  messagesEndpoint: z.string(),
+  tenantId: z.string().optional(),
+});
+/** @internal */
+export type NotifyConfiguration$Outbound = {
+  group: string;
+  notificationId: string;
+  searchId: string;
+  savedQueryId: string;
+  trigger?: string | undefined;
+  triggerType?: string | undefined;
+  triggerComparator?: string | undefined;
+  triggerCount?: number | undefined;
+  resultsLimit?: number | undefined;
+  searchUrl: string;
+  message?: string | undefined;
+  authToken: string;
+  messagesEndpoint: string;
+  tenantId?: string | undefined;
+};
+
+/** @internal */
+export const NotifyConfiguration$outboundSchema: z.ZodType<
+  NotifyConfiguration$Outbound,
+  z.ZodTypeDef,
+  NotifyConfiguration
+> = z.object({
+  group: z.string(),
+  notificationId: z.string(),
+  searchId: z.string(),
+  savedQueryId: z.string(),
+  trigger: z.string().optional(),
+  triggerType: PipelineFunctionNotifyTriggerType$outboundSchema.optional(),
+  triggerComparator: PipelineFunctionNotifyCountComparator$outboundSchema
+    .optional(),
+  triggerCount: z.number().optional(),
+  resultsLimit: z.number().optional(),
+  searchUrl: z.string(),
+  message: z.string().optional(),
+  authToken: z.string(),
+  messagesEndpoint: z.string(),
+  tenantId: z.string().optional(),
+});
+
+export function notifyConfigurationToJSON(
+  notifyConfiguration: NotifyConfiguration,
+): string {
+  return JSON.stringify(
+    NotifyConfiguration$outboundSchema.parse(notifyConfiguration),
+  );
+}
+export function notifyConfigurationFromJSON(
+  jsonString: string,
+): SafeParseResult<NotifyConfiguration, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NotifyConfiguration$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NotifyConfiguration' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionNotify$inboundSchema: z.ZodType<
@@ -52,7 +269,7 @@ export const PipelineFunctionNotify$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaNotify$inboundSchema,
+  conf: z.lazy(() => NotifyConfiguration$inboundSchema),
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -62,7 +279,7 @@ export type PipelineFunctionNotify$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionConfSchemaNotify$Outbound;
+  conf: NotifyConfiguration$Outbound;
   groupId?: string | undefined;
 };
 
@@ -77,7 +294,7 @@ export const PipelineFunctionNotify$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaNotify$outboundSchema,
+  conf: z.lazy(() => NotifyConfiguration$outboundSchema),
   groupId: z.string().optional(),
 });
 

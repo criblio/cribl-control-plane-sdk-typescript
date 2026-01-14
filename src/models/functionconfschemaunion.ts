@@ -27,29 +27,7 @@ export const FunctionConfSchemaUnion$inboundSchema: z.ZodType<
   searchJobId: z.string().optional(),
   stageIds: z.array(z.string()).optional(),
 });
-/** @internal */
-export type FunctionConfSchemaUnion$Outbound = {
-  searchJobId?: string | undefined;
-  stageIds?: Array<string> | undefined;
-};
 
-/** @internal */
-export const FunctionConfSchemaUnion$outboundSchema: z.ZodType<
-  FunctionConfSchemaUnion$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaUnion
-> = z.object({
-  searchJobId: z.string().optional(),
-  stageIds: z.array(z.string()).optional(),
-});
-
-export function functionConfSchemaUnionToJSON(
-  functionConfSchemaUnion: FunctionConfSchemaUnion,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaUnion$outboundSchema.parse(functionConfSchemaUnion),
-  );
-}
 export function functionConfSchemaUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaUnion, SDKValidationError> {

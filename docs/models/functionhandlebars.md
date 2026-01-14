@@ -28,13 +28,14 @@ let value: FunctionHandlebars = {
       {
         id: "<id>",
         content: "<value>",
-        description: "upwardly however hmph",
+        description:
+          "zesty red contrail fiercely international sympathetically yum",
         type: "<value>",
       },
     ],
     targetField: "<value>",
-    parseJson: false,
-    removeOnNull: false,
+    parseJson: true,
+    removeOnNull: true,
   },
 };
 ```

@@ -10,7 +10,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 /**
  * Mapping event property names to output field names
  */
-export type MappingOfFieldNames = {};
+export type FunctionConfSchemaStoreMappingOfFieldNames = {};
 
 export type FunctionConfSchemaStore = {
   /**
@@ -28,7 +28,7 @@ export type FunctionConfSchemaStore = {
   /**
    * Mapping event property names to output field names
    */
-  fieldMapping?: MappingOfFieldNames | undefined;
+  fieldMapping?: FunctionConfSchemaStoreMappingOfFieldNames | undefined;
   /**
    * Character to be used as value delimiter in output
    */
@@ -56,35 +56,23 @@ export type FunctionConfSchemaStore = {
 };
 
 /** @internal */
-export const MappingOfFieldNames$inboundSchema: z.ZodType<
-  MappingOfFieldNames,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type MappingOfFieldNames$Outbound = {};
+export const FunctionConfSchemaStoreMappingOfFieldNames$inboundSchema:
+  z.ZodType<FunctionConfSchemaStoreMappingOfFieldNames, z.ZodTypeDef, unknown> =
+    z.object({});
 
-/** @internal */
-export const MappingOfFieldNames$outboundSchema: z.ZodType<
-  MappingOfFieldNames$Outbound,
-  z.ZodTypeDef,
-  MappingOfFieldNames
-> = z.object({});
-
-export function mappingOfFieldNamesToJSON(
-  mappingOfFieldNames: MappingOfFieldNames,
-): string {
-  return JSON.stringify(
-    MappingOfFieldNames$outboundSchema.parse(mappingOfFieldNames),
-  );
-}
-export function mappingOfFieldNamesFromJSON(
+export function functionConfSchemaStoreMappingOfFieldNamesFromJSON(
   jsonString: string,
-): SafeParseResult<MappingOfFieldNames, SDKValidationError> {
+): SafeParseResult<
+  FunctionConfSchemaStoreMappingOfFieldNames,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => MappingOfFieldNames$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MappingOfFieldNames' from JSON`,
+    (x) =>
+      FunctionConfSchemaStoreMappingOfFieldNames$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'FunctionConfSchemaStoreMappingOfFieldNames' from JSON`,
   );
 }
 
@@ -97,38 +85,9 @@ export const FunctionConfSchemaStore$inboundSchema: z.ZodType<
   type: z.string().optional(),
   destination: z.string().optional(),
   description: z.string().optional(),
-  fieldMapping: z.lazy(() => MappingOfFieldNames$inboundSchema).optional(),
-  separator: z.string().optional(),
-  overwrite: z.boolean().optional(),
-  compress: z.string().optional(),
-  tee: z.boolean().optional(),
-  maxEvents: z.number().optional(),
-  suppressPreviews: z.boolean().optional(),
-});
-/** @internal */
-export type FunctionConfSchemaStore$Outbound = {
-  type?: string | undefined;
-  destination?: string | undefined;
-  description?: string | undefined;
-  fieldMapping?: MappingOfFieldNames$Outbound | undefined;
-  separator?: string | undefined;
-  overwrite?: boolean | undefined;
-  compress?: string | undefined;
-  tee?: boolean | undefined;
-  maxEvents?: number | undefined;
-  suppressPreviews?: boolean | undefined;
-};
-
-/** @internal */
-export const FunctionConfSchemaStore$outboundSchema: z.ZodType<
-  FunctionConfSchemaStore$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaStore
-> = z.object({
-  type: z.string().optional(),
-  destination: z.string().optional(),
-  description: z.string().optional(),
-  fieldMapping: z.lazy(() => MappingOfFieldNames$outboundSchema).optional(),
+  fieldMapping: z.lazy(() =>
+    FunctionConfSchemaStoreMappingOfFieldNames$inboundSchema
+  ).optional(),
   separator: z.string().optional(),
   overwrite: z.boolean().optional(),
   compress: z.string().optional(),
@@ -137,13 +96,6 @@ export const FunctionConfSchemaStore$outboundSchema: z.ZodType<
   suppressPreviews: z.boolean().optional(),
 });
 
-export function functionConfSchemaStoreToJSON(
-  functionConfSchemaStore: FunctionConfSchemaStore,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaStore$outboundSchema.parse(functionConfSchemaStore),
-  );
-}
 export function functionConfSchemaStoreFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaStore, SDKValidationError> {

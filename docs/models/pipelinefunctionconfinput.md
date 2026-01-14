@@ -26,20 +26,18 @@ const value: models.PipelineFunctionAggregateMetrics = {
     ],
     groupbys: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
-    flushEventLimit: 1582.91,
+    flushEventLimit: 6231.35,
     flushMemLimit: "<value>",
-    cumulative: false,
-    shouldTreatDotsAsLiterals: true,
+    cumulative: true,
+    shouldTreatDotsAsLiterals: false,
     add: [
       {
         name: "<value>",
         value: "<value>",
       },
     ],
-    flushOnInputClose: false,
+    flushOnInputClose: true,
   },
   groupId: "<id>",
 };
@@ -391,9 +389,7 @@ const value: models.PipelineFunctionEventstats = {
   disabled: true,
   final: false,
   conf: {
-    aggregations: [
-      "<value 1>",
-    ],
+    aggregations: [],
     groupBys: [
       "<value 1>",
       "<value 2>",
@@ -535,17 +531,10 @@ const value: models.PipelineFunctionHandlebars = {
   disabled: false,
   final: true,
   conf: {
-    templates: [
-      {
-        id: "<id>",
-        content: "<value>",
-        description: "upwardly however hmph",
-        type: "<value>",
-      },
-    ],
+    templates: [],
     targetField: "<value>",
     parseJson: false,
-    removeOnNull: true,
+    removeOnNull: false,
   },
   groupId: "<id>",
 };
@@ -567,12 +556,7 @@ const value: models.PipelineFunctionJoin = {
       "key1": "<value>",
       "key2": "<value>",
     },
-    fieldConditions: [
-      {
-        leftFieldName: "<value>",
-        rightFieldName: "<value>",
-      },
-    ],
+    fieldConditions: [],
     searchJobId: "<id>",
     stageId: "<id>",
   },
@@ -722,9 +706,8 @@ const value: models.PipelineFunctionMask = {
     fields: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
-    depth: 373484,
+    depth: 95074,
     flags: [
       {
         name: "<value>",
@@ -746,9 +729,7 @@ const value: models.PipelineFunctionMvExpand = {
   disabled: true,
   final: true,
   conf: {
-    sourceFields: [
-      "<value 1>",
-    ],
+    sourceFields: [],
     targetNames: [
       "<value 1>",
       "<value 2>",
@@ -964,7 +945,6 @@ const value: models.PipelineFunctionPack = {
   conf: {
     unpackedFields: [
       "<value 1>",
-      "<value 2>",
     ],
     target: "<value>",
   },
@@ -986,7 +966,6 @@ const value: models.PipelineFunctionPivot = {
     labelField: "<value>",
     dataFields: [
       "<value 1>",
-      "<value 2>",
     ],
     qualifierFields: [
       "<value 1>",
@@ -1043,17 +1022,10 @@ const value: models.PipelineFunctionRedis = {
   disabled: false,
   final: false,
   conf: {
-    commands: [
-      {
-        outField: "<value>",
-        command: "<value>",
-        keyExpr: "<value>",
-        argsExpr: "<value>",
-      },
-    ],
+    commands: [],
     deploymentType: "cluster",
-    authType: "manual",
-    maxBlockSecs: 8522.53,
+    authType: "textSecret",
+    maxBlockSecs: 5990.87,
     enableClientSideCaching: false,
   },
   groupId: "<id>",
@@ -1186,13 +1158,13 @@ const value: models.PipelineFunctionSend = {
   disabled: false,
   final: true,
   conf: {
-    url: "https://fond-fireplace.com/",
+    url: "https://worthy-sauerkraut.info/",
     group: "<value>",
     workspace: "<value>",
     sendUrlTemplate: "<value>",
     searchId: "<id>",
     tee: "<value>",
-    flushMs: 2814.69,
+    flushMs: 987.72,
     suppressPreviews: true,
     mode: "metrics",
   },
@@ -1226,7 +1198,6 @@ const value: models.PipelineFunctionSensitiveDataScanner = {
     excludeFields: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
     flags: [
       {
@@ -1234,7 +1205,7 @@ const value: models.PipelineFunctionSensitiveDataScanner = {
         value: "<value>",
       },
     ],
-    includeDetectedRules: true,
+    includeDetectedRules: false,
     backgroundDetection: false,
   },
   groupId: "<id>",

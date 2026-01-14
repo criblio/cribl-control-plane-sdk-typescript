@@ -32,33 +32,7 @@ export const FunctionConfSchemaNotifications$inboundSchema: z.ZodType<
   field: z.string().optional(),
   deduplicate: z.boolean().optional(),
 });
-/** @internal */
-export type FunctionConfSchemaNotifications$Outbound = {
-  id?: string | undefined;
-  field?: string | undefined;
-  deduplicate?: boolean | undefined;
-};
 
-/** @internal */
-export const FunctionConfSchemaNotifications$outboundSchema: z.ZodType<
-  FunctionConfSchemaNotifications$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaNotifications
-> = z.object({
-  id: z.string().optional(),
-  field: z.string().optional(),
-  deduplicate: z.boolean().optional(),
-});
-
-export function functionConfSchemaNotificationsToJSON(
-  functionConfSchemaNotifications: FunctionConfSchemaNotifications,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaNotifications$outboundSchema.parse(
-      functionConfSchemaNotifications,
-    ),
-  );
-}
 export function functionConfSchemaNotificationsFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaNotifications, SDKValidationError> {

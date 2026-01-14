@@ -4,14 +4,53 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaDynamicSampling,
-  FunctionConfSchemaDynamicSampling$inboundSchema,
-  FunctionConfSchemaDynamicSampling$Outbound,
-  FunctionConfSchemaDynamicSampling$outboundSchema,
-} from "./functionconfschemadynamicsampling.js";
+
+/**
+ * Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
+ */
+export const PipelineFunctionDynamicSamplingSampleMode = {
+  /**
+   * Logarithmic
+   */
+  Log: "log",
+  /**
+   * Square Root
+   */
+  Sqrt: "sqrt",
+} as const;
+/**
+ * Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
+ */
+export type PipelineFunctionDynamicSamplingSampleMode = OpenEnum<
+  typeof PipelineFunctionDynamicSamplingSampleMode
+>;
+
+export type PipelineFunctionDynamicSamplingConf = {
+  /**
+   * Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
+   */
+  mode: PipelineFunctionDynamicSamplingSampleMode;
+  /**
+   * Expression used to derive sample group key. Example:`${domain}:${status}`. Each sample group will have its own derived sampling rate based on volume. Defaults to `${host}`.
+   */
+  keyExpr: string;
+  /**
+   * How often (in seconds) sample rates will be adjusted
+   */
+  samplePeriod?: number | undefined;
+  /**
+   * Minimum number of events that must be received in previous sample period for sampling mode to be applied to current period. If the number of events received for a sample group is less than this minimum, a sample rate of 1:1 is used.
+   */
+  minEvents?: number | undefined;
+  /**
+   * Maximum sampling rate. If computed sampling rate is above this value, it will be limited to this value.
+   */
+  maxSampleRate?: number | undefined;
+};
 
 export type PipelineFunctionDynamicSampling = {
   /**
@@ -34,12 +73,77 @@ export type PipelineFunctionDynamicSampling = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionConfSchemaDynamicSampling;
+  conf: PipelineFunctionDynamicSamplingConf;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
+
+/** @internal */
+export const PipelineFunctionDynamicSamplingSampleMode$inboundSchema: z.ZodType<
+  PipelineFunctionDynamicSamplingSampleMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PipelineFunctionDynamicSamplingSampleMode);
+/** @internal */
+export const PipelineFunctionDynamicSamplingSampleMode$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, PipelineFunctionDynamicSamplingSampleMode> =
+    openEnums.outboundSchema(PipelineFunctionDynamicSamplingSampleMode);
+
+/** @internal */
+export const PipelineFunctionDynamicSamplingConf$inboundSchema: z.ZodType<
+  PipelineFunctionDynamicSamplingConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: PipelineFunctionDynamicSamplingSampleMode$inboundSchema,
+  keyExpr: z.string(),
+  samplePeriod: z.number().optional(),
+  minEvents: z.number().optional(),
+  maxSampleRate: z.number().optional(),
+});
+/** @internal */
+export type PipelineFunctionDynamicSamplingConf$Outbound = {
+  mode: string;
+  keyExpr: string;
+  samplePeriod?: number | undefined;
+  minEvents?: number | undefined;
+  maxSampleRate?: number | undefined;
+};
+
+/** @internal */
+export const PipelineFunctionDynamicSamplingConf$outboundSchema: z.ZodType<
+  PipelineFunctionDynamicSamplingConf$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionDynamicSamplingConf
+> = z.object({
+  mode: PipelineFunctionDynamicSamplingSampleMode$outboundSchema,
+  keyExpr: z.string(),
+  samplePeriod: z.number().optional(),
+  minEvents: z.number().optional(),
+  maxSampleRate: z.number().optional(),
+});
+
+export function pipelineFunctionDynamicSamplingConfToJSON(
+  pipelineFunctionDynamicSamplingConf: PipelineFunctionDynamicSamplingConf,
+): string {
+  return JSON.stringify(
+    PipelineFunctionDynamicSamplingConf$outboundSchema.parse(
+      pipelineFunctionDynamicSamplingConf,
+    ),
+  );
+}
+export function pipelineFunctionDynamicSamplingConfFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionDynamicSamplingConf, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PipelineFunctionDynamicSamplingConf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionDynamicSamplingConf' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionDynamicSampling$inboundSchema: z.ZodType<
@@ -52,7 +156,7 @@ export const PipelineFunctionDynamicSampling$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaDynamicSampling$inboundSchema,
+  conf: z.lazy(() => PipelineFunctionDynamicSamplingConf$inboundSchema),
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -62,7 +166,7 @@ export type PipelineFunctionDynamicSampling$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionConfSchemaDynamicSampling$Outbound;
+  conf: PipelineFunctionDynamicSamplingConf$Outbound;
   groupId?: string | undefined;
 };
 
@@ -77,7 +181,7 @@ export const PipelineFunctionDynamicSampling$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaDynamicSampling$outboundSchema,
+  conf: z.lazy(() => PipelineFunctionDynamicSamplingConf$outboundSchema),
   groupId: z.string().optional(),
 });
 

@@ -6,12 +6,29 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaDistinct,
-  FunctionConfSchemaDistinct$inboundSchema,
-  FunctionConfSchemaDistinct$Outbound,
-  FunctionConfSchemaDistinct$outboundSchema,
-} from "./functionconfschemadistinct.js";
+
+export type DistinctConfiguration = {
+  /**
+   * Defines the properties that are concatenated to produce distinct key
+   */
+  groupBy: Array<string>;
+  /**
+   * maximum number of tracked combinations
+   */
+  maxCombinations?: number | undefined;
+  /**
+   * maximum number of groupBy properties
+   */
+  maxDepth?: number | undefined;
+  /**
+   * indicator that the operator runs on a federated executor
+   */
+  isFederated?: boolean | undefined;
+  /**
+   * Toggle this on to suppress generating previews of intermediate results
+   */
+  suppressPreviews?: boolean | undefined;
+};
 
 export type PipelineFunctionDistinct = {
   /**
@@ -34,12 +51,63 @@ export type PipelineFunctionDistinct = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionConfSchemaDistinct;
+  conf: DistinctConfiguration;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
+
+/** @internal */
+export const DistinctConfiguration$inboundSchema: z.ZodType<
+  DistinctConfiguration,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  groupBy: z.array(z.string()),
+  maxCombinations: z.number().optional(),
+  maxDepth: z.number().optional(),
+  isFederated: z.boolean().optional(),
+  suppressPreviews: z.boolean().optional(),
+});
+/** @internal */
+export type DistinctConfiguration$Outbound = {
+  groupBy: Array<string>;
+  maxCombinations?: number | undefined;
+  maxDepth?: number | undefined;
+  isFederated?: boolean | undefined;
+  suppressPreviews?: boolean | undefined;
+};
+
+/** @internal */
+export const DistinctConfiguration$outboundSchema: z.ZodType<
+  DistinctConfiguration$Outbound,
+  z.ZodTypeDef,
+  DistinctConfiguration
+> = z.object({
+  groupBy: z.array(z.string()),
+  maxCombinations: z.number().optional(),
+  maxDepth: z.number().optional(),
+  isFederated: z.boolean().optional(),
+  suppressPreviews: z.boolean().optional(),
+});
+
+export function distinctConfigurationToJSON(
+  distinctConfiguration: DistinctConfiguration,
+): string {
+  return JSON.stringify(
+    DistinctConfiguration$outboundSchema.parse(distinctConfiguration),
+  );
+}
+export function distinctConfigurationFromJSON(
+  jsonString: string,
+): SafeParseResult<DistinctConfiguration, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DistinctConfiguration$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DistinctConfiguration' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionDistinct$inboundSchema: z.ZodType<
@@ -52,7 +120,7 @@ export const PipelineFunctionDistinct$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaDistinct$inboundSchema,
+  conf: z.lazy(() => DistinctConfiguration$inboundSchema),
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -62,7 +130,7 @@ export type PipelineFunctionDistinct$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionConfSchemaDistinct$Outbound;
+  conf: DistinctConfiguration$Outbound;
   groupId?: string | undefined;
 };
 
@@ -77,7 +145,7 @@ export const PipelineFunctionDistinct$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaDistinct$outboundSchema,
+  conf: z.lazy(() => DistinctConfiguration$outboundSchema),
   groupId: z.string().optional(),
 });
 

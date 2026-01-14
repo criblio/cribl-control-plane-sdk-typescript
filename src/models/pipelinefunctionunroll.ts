@@ -6,12 +6,17 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaUnroll,
-  FunctionConfSchemaUnroll$inboundSchema,
-  FunctionConfSchemaUnroll$Outbound,
-  FunctionConfSchemaUnroll$outboundSchema,
-} from "./functionconfschemaunroll.js";
+
+export type PipelineFunctionUnrollConf = {
+  /**
+   * Field in which to find/calculate the array to unroll. Example: _raw, _raw.split(/\n/)
+   */
+  srcExpr: string;
+  /**
+   * Field in destination event in which to place the unrolled value
+   */
+  dstField: string;
+};
 
 export type PipelineFunctionUnroll = {
   /**
@@ -34,12 +39,54 @@ export type PipelineFunctionUnroll = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionConfSchemaUnroll;
+  conf: PipelineFunctionUnrollConf;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
+
+/** @internal */
+export const PipelineFunctionUnrollConf$inboundSchema: z.ZodType<
+  PipelineFunctionUnrollConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  srcExpr: z.string(),
+  dstField: z.string(),
+});
+/** @internal */
+export type PipelineFunctionUnrollConf$Outbound = {
+  srcExpr: string;
+  dstField: string;
+};
+
+/** @internal */
+export const PipelineFunctionUnrollConf$outboundSchema: z.ZodType<
+  PipelineFunctionUnrollConf$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionUnrollConf
+> = z.object({
+  srcExpr: z.string(),
+  dstField: z.string(),
+});
+
+export function pipelineFunctionUnrollConfToJSON(
+  pipelineFunctionUnrollConf: PipelineFunctionUnrollConf,
+): string {
+  return JSON.stringify(
+    PipelineFunctionUnrollConf$outboundSchema.parse(pipelineFunctionUnrollConf),
+  );
+}
+export function pipelineFunctionUnrollConfFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionUnrollConf, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionUnrollConf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionUnrollConf' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionUnroll$inboundSchema: z.ZodType<
@@ -52,7 +99,7 @@ export const PipelineFunctionUnroll$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaUnroll$inboundSchema,
+  conf: z.lazy(() => PipelineFunctionUnrollConf$inboundSchema),
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -62,7 +109,7 @@ export type PipelineFunctionUnroll$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionConfSchemaUnroll$Outbound;
+  conf: PipelineFunctionUnrollConf$Outbound;
   groupId?: string | undefined;
 };
 
@@ -77,7 +124,7 @@ export const PipelineFunctionUnroll$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaUnroll$outboundSchema,
+  conf: z.lazy(() => PipelineFunctionUnrollConf$outboundSchema),
   groupId: z.string().optional(),
 });
 

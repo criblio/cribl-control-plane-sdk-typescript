@@ -26,15 +26,15 @@ let value: FunctionSensitiveDataScanner = {
       {
         rulesetId: "<id>",
         replaceExpr: "<value>",
-        disabled: false,
+        disabled: true,
       },
     ],
     fields: [
       "<value 1>",
+      "<value 2>",
     ],
     excludeFields: [
       "<value 1>",
-      "<value 2>",
     ],
     flags: [
       {
@@ -42,8 +42,8 @@ let value: FunctionSensitiveDataScanner = {
         value: "<value>",
       },
     ],
-    includeDetectedRules: true,
-    backgroundDetection: false,
+    includeDetectedRules: false,
+    backgroundDetection: true,
   },
 };
 ```

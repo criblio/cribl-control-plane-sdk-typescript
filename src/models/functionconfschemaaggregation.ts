@@ -6,12 +6,7 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeAdd,
-  ItemsTypeAdd$inboundSchema,
-  ItemsTypeAdd$Outbound,
-  ItemsTypeAdd$outboundSchema,
-} from "./itemstypeadd.js";
+import { ItemsTypeAdd, ItemsTypeAdd$inboundSchema } from "./itemstypeadd.js";
 
 export type FunctionConfSchemaAggregation = {
   /**
@@ -98,57 +93,7 @@ export const FunctionConfSchemaAggregation$inboundSchema: z.ZodType<
   shouldTreatDotsAsLiterals: z.boolean().optional(),
   flushOnInputClose: z.boolean().optional(),
 });
-/** @internal */
-export type FunctionConfSchemaAggregation$Outbound = {
-  passthrough?: boolean | undefined;
-  preserveGroupBys?: boolean | undefined;
-  sufficientStatsOnly?: boolean | undefined;
-  metricsMode?: boolean | undefined;
-  prefix?: string | undefined;
-  timeWindow?: string | undefined;
-  aggregations?: Array<string> | undefined;
-  groupbys?: Array<string> | undefined;
-  flushEventLimit?: number | undefined;
-  flushMemLimit?: string | undefined;
-  cumulative?: boolean | undefined;
-  searchAggMode?: string | undefined;
-  add?: Array<ItemsTypeAdd$Outbound> | undefined;
-  shouldTreatDotsAsLiterals?: boolean | undefined;
-  flushOnInputClose?: boolean | undefined;
-};
 
-/** @internal */
-export const FunctionConfSchemaAggregation$outboundSchema: z.ZodType<
-  FunctionConfSchemaAggregation$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaAggregation
-> = z.object({
-  passthrough: z.boolean().optional(),
-  preserveGroupBys: z.boolean().optional(),
-  sufficientStatsOnly: z.boolean().optional(),
-  metricsMode: z.boolean().optional(),
-  prefix: z.string().optional(),
-  timeWindow: z.string().optional(),
-  aggregations: z.array(z.string()).optional(),
-  groupbys: z.array(z.string()).optional(),
-  flushEventLimit: z.number().optional(),
-  flushMemLimit: z.string().optional(),
-  cumulative: z.boolean().optional(),
-  searchAggMode: z.string().optional(),
-  add: z.array(ItemsTypeAdd$outboundSchema).optional(),
-  shouldTreatDotsAsLiterals: z.boolean().optional(),
-  flushOnInputClose: z.boolean().optional(),
-});
-
-export function functionConfSchemaAggregationToJSON(
-  functionConfSchemaAggregation: FunctionConfSchemaAggregation,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaAggregation$outboundSchema.parse(
-      functionConfSchemaAggregation,
-    ),
-  );
-}
 export function functionConfSchemaAggregationFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaAggregation, SDKValidationError> {

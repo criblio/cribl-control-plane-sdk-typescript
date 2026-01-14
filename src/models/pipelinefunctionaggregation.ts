@@ -7,11 +7,74 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  FunctionConfSchemaAggregation,
-  FunctionConfSchemaAggregation$inboundSchema,
-  FunctionConfSchemaAggregation$Outbound,
-  FunctionConfSchemaAggregation$outboundSchema,
-} from "./functionconfschemaaggregation.js";
+  ItemsTypeAdd,
+  ItemsTypeAdd$inboundSchema,
+  ItemsTypeAdd$Outbound,
+  ItemsTypeAdd$outboundSchema,
+} from "./itemstypeadd.js";
+
+export type PipelineFunctionAggregationConf = {
+  /**
+   * Pass through the original events along with the aggregation events
+   */
+  passthrough?: boolean | undefined;
+  /**
+   * Preserve the structure of the original aggregation event's groupby fields
+   */
+  preserveGroupBys?: boolean | undefined;
+  /**
+   * Output only statistics that are sufficient for the supplied aggregations
+   */
+  sufficientStatsOnly?: boolean | undefined;
+  /**
+   * Enable to output the aggregates as metrics. When disabled, aggregates are output as events.
+   */
+  metricsMode?: boolean | undefined;
+  /**
+   * A prefix that is prepended to all of the fields output by this Aggregations Function
+   */
+  prefix?: string | undefined;
+  /**
+   * The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
+   */
+  timeWindow: string;
+  /**
+   * Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
+   */
+  aggregations: Array<string>;
+  /**
+   * Optional: One or more fields to group aggregates by. Supports wildcard expressions. Warning: Using wildcard '*' causes all fields in the event to be included, which can result in high cardinality and increased memory usage. Exclude fields that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
+   */
+  groupbys?: Array<string> | undefined;
+  /**
+   * The maximum number of events to include in any given aggregation event
+   */
+  flushEventLimit?: number | undefined;
+  /**
+   * The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
+   */
+  flushMemLimit?: string | undefined;
+  /**
+   * Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
+   */
+  cumulative?: boolean | undefined;
+  /**
+   * Allows Cribl Search-specific aggregation configuration
+   */
+  searchAggMode?: string | undefined;
+  /**
+   * Set of key-value pairs to evaluate and add/set
+   */
+  add?: Array<ItemsTypeAdd> | undefined;
+  /**
+   * Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
+   */
+  shouldTreatDotsAsLiterals?: boolean | undefined;
+  /**
+   * Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
+   */
+  flushOnInputClose?: boolean | undefined;
+};
 
 export type PipelineFunctionAggregation = {
   /**
@@ -34,12 +97,95 @@ export type PipelineFunctionAggregation = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionConfSchemaAggregation;
+  conf: PipelineFunctionAggregationConf;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
+
+/** @internal */
+export const PipelineFunctionAggregationConf$inboundSchema: z.ZodType<
+  PipelineFunctionAggregationConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  passthrough: z.boolean().optional(),
+  preserveGroupBys: z.boolean().optional(),
+  sufficientStatsOnly: z.boolean().optional(),
+  metricsMode: z.boolean().optional(),
+  prefix: z.string().optional(),
+  timeWindow: z.string(),
+  aggregations: z.array(z.string()),
+  groupbys: z.array(z.string()).optional(),
+  flushEventLimit: z.number().optional(),
+  flushMemLimit: z.string().optional(),
+  cumulative: z.boolean().optional(),
+  searchAggMode: z.string().optional(),
+  add: z.array(ItemsTypeAdd$inboundSchema).optional(),
+  shouldTreatDotsAsLiterals: z.boolean().optional(),
+  flushOnInputClose: z.boolean().optional(),
+});
+/** @internal */
+export type PipelineFunctionAggregationConf$Outbound = {
+  passthrough?: boolean | undefined;
+  preserveGroupBys?: boolean | undefined;
+  sufficientStatsOnly?: boolean | undefined;
+  metricsMode?: boolean | undefined;
+  prefix?: string | undefined;
+  timeWindow: string;
+  aggregations: Array<string>;
+  groupbys?: Array<string> | undefined;
+  flushEventLimit?: number | undefined;
+  flushMemLimit?: string | undefined;
+  cumulative?: boolean | undefined;
+  searchAggMode?: string | undefined;
+  add?: Array<ItemsTypeAdd$Outbound> | undefined;
+  shouldTreatDotsAsLiterals?: boolean | undefined;
+  flushOnInputClose?: boolean | undefined;
+};
+
+/** @internal */
+export const PipelineFunctionAggregationConf$outboundSchema: z.ZodType<
+  PipelineFunctionAggregationConf$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionAggregationConf
+> = z.object({
+  passthrough: z.boolean().optional(),
+  preserveGroupBys: z.boolean().optional(),
+  sufficientStatsOnly: z.boolean().optional(),
+  metricsMode: z.boolean().optional(),
+  prefix: z.string().optional(),
+  timeWindow: z.string(),
+  aggregations: z.array(z.string()),
+  groupbys: z.array(z.string()).optional(),
+  flushEventLimit: z.number().optional(),
+  flushMemLimit: z.string().optional(),
+  cumulative: z.boolean().optional(),
+  searchAggMode: z.string().optional(),
+  add: z.array(ItemsTypeAdd$outboundSchema).optional(),
+  shouldTreatDotsAsLiterals: z.boolean().optional(),
+  flushOnInputClose: z.boolean().optional(),
+});
+
+export function pipelineFunctionAggregationConfToJSON(
+  pipelineFunctionAggregationConf: PipelineFunctionAggregationConf,
+): string {
+  return JSON.stringify(
+    PipelineFunctionAggregationConf$outboundSchema.parse(
+      pipelineFunctionAggregationConf,
+    ),
+  );
+}
+export function pipelineFunctionAggregationConfFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionAggregationConf, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionAggregationConf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionAggregationConf' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionAggregation$inboundSchema: z.ZodType<
@@ -52,7 +198,7 @@ export const PipelineFunctionAggregation$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaAggregation$inboundSchema,
+  conf: z.lazy(() => PipelineFunctionAggregationConf$inboundSchema),
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -62,7 +208,7 @@ export type PipelineFunctionAggregation$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionConfSchemaAggregation$Outbound;
+  conf: PipelineFunctionAggregationConf$Outbound;
   groupId?: string | undefined;
 };
 
@@ -77,7 +223,7 @@ export const PipelineFunctionAggregation$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaAggregation$outboundSchema,
+  conf: z.lazy(() => PipelineFunctionAggregationConf$outboundSchema),
   groupId: z.string().optional(),
 });
 

@@ -6,12 +6,25 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaGrok,
-  FunctionConfSchemaGrok$inboundSchema,
-  FunctionConfSchemaGrok$Outbound,
-  FunctionConfSchemaGrok$outboundSchema,
-} from "./functionconfschemagrok.js";
+
+export type PipelineFunctionGrokPatternList = {
+  /**
+   * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
+   */
+  pattern: string;
+};
+
+export type PipelineFunctionGrokConf = {
+  /**
+   * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
+   */
+  pattern: string;
+  patternList?: Array<PipelineFunctionGrokPatternList> | undefined;
+  /**
+   * Field on which to perform Grok extractions
+   */
+  source?: string | undefined;
+};
 
 export type PipelineFunctionGrok = {
   /**
@@ -34,12 +47,102 @@ export type PipelineFunctionGrok = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionConfSchemaGrok;
+  conf: PipelineFunctionGrokConf;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
+
+/** @internal */
+export const PipelineFunctionGrokPatternList$inboundSchema: z.ZodType<
+  PipelineFunctionGrokPatternList,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pattern: z.string(),
+});
+/** @internal */
+export type PipelineFunctionGrokPatternList$Outbound = {
+  pattern: string;
+};
+
+/** @internal */
+export const PipelineFunctionGrokPatternList$outboundSchema: z.ZodType<
+  PipelineFunctionGrokPatternList$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionGrokPatternList
+> = z.object({
+  pattern: z.string(),
+});
+
+export function pipelineFunctionGrokPatternListToJSON(
+  pipelineFunctionGrokPatternList: PipelineFunctionGrokPatternList,
+): string {
+  return JSON.stringify(
+    PipelineFunctionGrokPatternList$outboundSchema.parse(
+      pipelineFunctionGrokPatternList,
+    ),
+  );
+}
+export function pipelineFunctionGrokPatternListFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionGrokPatternList, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionGrokPatternList$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionGrokPatternList' from JSON`,
+  );
+}
+
+/** @internal */
+export const PipelineFunctionGrokConf$inboundSchema: z.ZodType<
+  PipelineFunctionGrokConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pattern: z.string(),
+  patternList: z.array(
+    z.lazy(() => PipelineFunctionGrokPatternList$inboundSchema),
+  ).optional(),
+  source: z.string().optional(),
+});
+/** @internal */
+export type PipelineFunctionGrokConf$Outbound = {
+  pattern: string;
+  patternList?: Array<PipelineFunctionGrokPatternList$Outbound> | undefined;
+  source?: string | undefined;
+};
+
+/** @internal */
+export const PipelineFunctionGrokConf$outboundSchema: z.ZodType<
+  PipelineFunctionGrokConf$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionGrokConf
+> = z.object({
+  pattern: z.string(),
+  patternList: z.array(
+    z.lazy(() => PipelineFunctionGrokPatternList$outboundSchema),
+  ).optional(),
+  source: z.string().optional(),
+});
+
+export function pipelineFunctionGrokConfToJSON(
+  pipelineFunctionGrokConf: PipelineFunctionGrokConf,
+): string {
+  return JSON.stringify(
+    PipelineFunctionGrokConf$outboundSchema.parse(pipelineFunctionGrokConf),
+  );
+}
+export function pipelineFunctionGrokConfFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionGrokConf, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionGrokConf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionGrokConf' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionGrok$inboundSchema: z.ZodType<
@@ -52,7 +155,7 @@ export const PipelineFunctionGrok$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaGrok$inboundSchema,
+  conf: z.lazy(() => PipelineFunctionGrokConf$inboundSchema),
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -62,7 +165,7 @@ export type PipelineFunctionGrok$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionConfSchemaGrok$Outbound;
+  conf: PipelineFunctionGrokConf$Outbound;
   groupId?: string | undefined;
 };
 
@@ -77,7 +180,7 @@ export const PipelineFunctionGrok$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaGrok$outboundSchema,
+  conf: z.lazy(() => PipelineFunctionGrokConf$outboundSchema),
   groupId: z.string().optional(),
 });
 

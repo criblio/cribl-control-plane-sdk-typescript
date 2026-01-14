@@ -42,35 +42,7 @@ export const FunctionConfSchemaDistinct$inboundSchema: z.ZodType<
   isFederated: z.boolean().optional(),
   suppressPreviews: z.boolean().optional(),
 });
-/** @internal */
-export type FunctionConfSchemaDistinct$Outbound = {
-  groupBy?: Array<string> | undefined;
-  maxCombinations?: number | undefined;
-  maxDepth?: number | undefined;
-  isFederated?: boolean | undefined;
-  suppressPreviews?: boolean | undefined;
-};
 
-/** @internal */
-export const FunctionConfSchemaDistinct$outboundSchema: z.ZodType<
-  FunctionConfSchemaDistinct$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaDistinct
-> = z.object({
-  groupBy: z.array(z.string()).optional(),
-  maxCombinations: z.number().optional(),
-  maxDepth: z.number().optional(),
-  isFederated: z.boolean().optional(),
-  suppressPreviews: z.boolean().optional(),
-});
-
-export function functionConfSchemaDistinctToJSON(
-  functionConfSchemaDistinct: FunctionConfSchemaDistinct,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaDistinct$outboundSchema.parse(functionConfSchemaDistinct),
-  );
-}
 export function functionConfSchemaDistinctFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaDistinct, SDKValidationError> {

@@ -37,35 +37,7 @@ export const FunctionConfSchemaEventstats$inboundSchema: z.ZodType<
   maxEvents: z.number().optional(),
   flushOnInputClose: z.boolean().optional(),
 });
-/** @internal */
-export type FunctionConfSchemaEventstats$Outbound = {
-  aggregations?: Array<string> | undefined;
-  groupBys?: Array<string> | undefined;
-  maxEvents?: number | undefined;
-  flushOnInputClose?: boolean | undefined;
-};
 
-/** @internal */
-export const FunctionConfSchemaEventstats$outboundSchema: z.ZodType<
-  FunctionConfSchemaEventstats$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaEventstats
-> = z.object({
-  aggregations: z.array(z.string()).optional(),
-  groupBys: z.array(z.string()).optional(),
-  maxEvents: z.number().optional(),
-  flushOnInputClose: z.boolean().optional(),
-});
-
-export function functionConfSchemaEventstatsToJSON(
-  functionConfSchemaEventstats: FunctionConfSchemaEventstats,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaEventstats$outboundSchema.parse(
-      functionConfSchemaEventstats,
-    ),
-  );
-}
 export function functionConfSchemaEventstatsFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaEventstats, SDKValidationError> {

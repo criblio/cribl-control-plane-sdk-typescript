@@ -6,12 +6,59 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaLookup,
-  FunctionConfSchemaLookup$inboundSchema,
-  FunctionConfSchemaLookup$Outbound,
-  FunctionConfSchemaLookup$outboundSchema,
-} from "./functionconfschemalookup.js";
+
+export type PipelineFunctionLookupInField = {
+  /**
+   * Field name as it appears in events
+   */
+  eventField: string;
+  /**
+   * Optional: The field name as it appears in the lookup file. Defaults to event field name
+   */
+  lookupField?: string | undefined;
+};
+
+export type PipelineFunctionLookupOutField = {
+  /**
+   * The field name as it appears in the lookup file
+   */
+  lookupField: string;
+  /**
+   * Optional: Field name to add to event. Defaults to lookup field name.
+   */
+  eventField?: string | undefined;
+  /**
+   * Optional: Value to assign if lookup entry is not found
+   */
+  defaultValue?: string | undefined;
+};
+
+export type PipelineFunctionLookupConf = {
+  /**
+   * Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
+   */
+  file: string;
+  /**
+   * Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
+   */
+  dbLookup?: boolean | undefined;
+  matchMode?: any | undefined;
+  matchType?: any | undefined;
+  reloadPeriodSec?: any | undefined;
+  /**
+   * Fields that should be used to key into the lookup table
+   */
+  inFields?: Array<PipelineFunctionLookupInField> | undefined;
+  /**
+   * Fields to add to events after matching lookup. Defaults to all if not specified.
+   */
+  outFields?: Array<PipelineFunctionLookupOutField> | undefined;
+  /**
+   * Add the looked-up values to _raw, as key=value pairs
+   */
+  addToEvent?: boolean | undefined;
+  ignoreCase?: any | undefined;
+};
 
 export type PipelineFunctionLookup = {
   /**
@@ -34,12 +81,171 @@ export type PipelineFunctionLookup = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionConfSchemaLookup;
+  conf: PipelineFunctionLookupConf;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
+
+/** @internal */
+export const PipelineFunctionLookupInField$inboundSchema: z.ZodType<
+  PipelineFunctionLookupInField,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  eventField: z.string(),
+  lookupField: z.string().optional(),
+});
+/** @internal */
+export type PipelineFunctionLookupInField$Outbound = {
+  eventField: string;
+  lookupField?: string | undefined;
+};
+
+/** @internal */
+export const PipelineFunctionLookupInField$outboundSchema: z.ZodType<
+  PipelineFunctionLookupInField$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionLookupInField
+> = z.object({
+  eventField: z.string(),
+  lookupField: z.string().optional(),
+});
+
+export function pipelineFunctionLookupInFieldToJSON(
+  pipelineFunctionLookupInField: PipelineFunctionLookupInField,
+): string {
+  return JSON.stringify(
+    PipelineFunctionLookupInField$outboundSchema.parse(
+      pipelineFunctionLookupInField,
+    ),
+  );
+}
+export function pipelineFunctionLookupInFieldFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionLookupInField, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionLookupInField$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionLookupInField' from JSON`,
+  );
+}
+
+/** @internal */
+export const PipelineFunctionLookupOutField$inboundSchema: z.ZodType<
+  PipelineFunctionLookupOutField,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  lookupField: z.string(),
+  eventField: z.string().optional(),
+  defaultValue: z.string().optional(),
+});
+/** @internal */
+export type PipelineFunctionLookupOutField$Outbound = {
+  lookupField: string;
+  eventField?: string | undefined;
+  defaultValue?: string | undefined;
+};
+
+/** @internal */
+export const PipelineFunctionLookupOutField$outboundSchema: z.ZodType<
+  PipelineFunctionLookupOutField$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionLookupOutField
+> = z.object({
+  lookupField: z.string(),
+  eventField: z.string().optional(),
+  defaultValue: z.string().optional(),
+});
+
+export function pipelineFunctionLookupOutFieldToJSON(
+  pipelineFunctionLookupOutField: PipelineFunctionLookupOutField,
+): string {
+  return JSON.stringify(
+    PipelineFunctionLookupOutField$outboundSchema.parse(
+      pipelineFunctionLookupOutField,
+    ),
+  );
+}
+export function pipelineFunctionLookupOutFieldFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionLookupOutField, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionLookupOutField$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionLookupOutField' from JSON`,
+  );
+}
+
+/** @internal */
+export const PipelineFunctionLookupConf$inboundSchema: z.ZodType<
+  PipelineFunctionLookupConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  file: z.string(),
+  dbLookup: z.boolean().optional(),
+  matchMode: z.any().optional(),
+  matchType: z.any().optional(),
+  reloadPeriodSec: z.any().optional(),
+  inFields: z.array(z.lazy(() => PipelineFunctionLookupInField$inboundSchema))
+    .optional(),
+  outFields: z.array(z.lazy(() => PipelineFunctionLookupOutField$inboundSchema))
+    .optional(),
+  addToEvent: z.boolean().optional(),
+  ignoreCase: z.any().optional(),
+});
+/** @internal */
+export type PipelineFunctionLookupConf$Outbound = {
+  file: string;
+  dbLookup?: boolean | undefined;
+  matchMode?: any | undefined;
+  matchType?: any | undefined;
+  reloadPeriodSec?: any | undefined;
+  inFields?: Array<PipelineFunctionLookupInField$Outbound> | undefined;
+  outFields?: Array<PipelineFunctionLookupOutField$Outbound> | undefined;
+  addToEvent?: boolean | undefined;
+  ignoreCase?: any | undefined;
+};
+
+/** @internal */
+export const PipelineFunctionLookupConf$outboundSchema: z.ZodType<
+  PipelineFunctionLookupConf$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionLookupConf
+> = z.object({
+  file: z.string(),
+  dbLookup: z.boolean().optional(),
+  matchMode: z.any().optional(),
+  matchType: z.any().optional(),
+  reloadPeriodSec: z.any().optional(),
+  inFields: z.array(z.lazy(() => PipelineFunctionLookupInField$outboundSchema))
+    .optional(),
+  outFields: z.array(
+    z.lazy(() => PipelineFunctionLookupOutField$outboundSchema),
+  ).optional(),
+  addToEvent: z.boolean().optional(),
+  ignoreCase: z.any().optional(),
+});
+
+export function pipelineFunctionLookupConfToJSON(
+  pipelineFunctionLookupConf: PipelineFunctionLookupConf,
+): string {
+  return JSON.stringify(
+    PipelineFunctionLookupConf$outboundSchema.parse(pipelineFunctionLookupConf),
+  );
+}
+export function pipelineFunctionLookupConfFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionLookupConf, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionLookupConf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionLookupConf' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionLookup$inboundSchema: z.ZodType<
@@ -52,7 +258,7 @@ export const PipelineFunctionLookup$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaLookup$inboundSchema,
+  conf: z.lazy(() => PipelineFunctionLookupConf$inboundSchema),
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -62,7 +268,7 @@ export type PipelineFunctionLookup$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionConfSchemaLookup$Outbound;
+  conf: PipelineFunctionLookupConf$Outbound;
   groupId?: string | undefined;
 };
 
@@ -77,7 +283,7 @@ export const PipelineFunctionLookup$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaLookup$outboundSchema,
+  conf: z.lazy(() => PipelineFunctionLookupConf$outboundSchema),
   groupId: z.string().optional(),
 });
 

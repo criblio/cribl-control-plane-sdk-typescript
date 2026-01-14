@@ -4,14 +4,32 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaEventBreaker,
-  FunctionConfSchemaEventBreaker$inboundSchema,
-  FunctionConfSchemaEventBreaker$Outbound,
-  FunctionConfSchemaEventBreaker$outboundSchema,
-} from "./functionconfschemaeventbreaker.js";
+
+export const PipelineFunctionEventBreakerExistingOrNew = {
+  /**
+   * Use Existing
+   */
+  Existing: "existing",
+  /**
+   * Create New
+   */
+  New: "new",
+} as const;
+export type PipelineFunctionEventBreakerExistingOrNew = OpenEnum<
+  typeof PipelineFunctionEventBreakerExistingOrNew
+>;
+
+export type PipelineFunctionEventBreakerConf = {
+  existingOrNew: PipelineFunctionEventBreakerExistingOrNew;
+  /**
+   * Add this Function name to the cribl_breaker field
+   */
+  shouldMarkCriblBreaker?: boolean | undefined;
+};
 
 export type PipelineFunctionEventBreaker = {
   /**
@@ -34,12 +52,67 @@ export type PipelineFunctionEventBreaker = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionConfSchemaEventBreaker;
+  conf: PipelineFunctionEventBreakerConf;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
+
+/** @internal */
+export const PipelineFunctionEventBreakerExistingOrNew$inboundSchema: z.ZodType<
+  PipelineFunctionEventBreakerExistingOrNew,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PipelineFunctionEventBreakerExistingOrNew);
+/** @internal */
+export const PipelineFunctionEventBreakerExistingOrNew$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, PipelineFunctionEventBreakerExistingOrNew> =
+    openEnums.outboundSchema(PipelineFunctionEventBreakerExistingOrNew);
+
+/** @internal */
+export const PipelineFunctionEventBreakerConf$inboundSchema: z.ZodType<
+  PipelineFunctionEventBreakerConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  existingOrNew: PipelineFunctionEventBreakerExistingOrNew$inboundSchema,
+  shouldMarkCriblBreaker: z.boolean().optional(),
+});
+/** @internal */
+export type PipelineFunctionEventBreakerConf$Outbound = {
+  existingOrNew: string;
+  shouldMarkCriblBreaker?: boolean | undefined;
+};
+
+/** @internal */
+export const PipelineFunctionEventBreakerConf$outboundSchema: z.ZodType<
+  PipelineFunctionEventBreakerConf$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionEventBreakerConf
+> = z.object({
+  existingOrNew: PipelineFunctionEventBreakerExistingOrNew$outboundSchema,
+  shouldMarkCriblBreaker: z.boolean().optional(),
+});
+
+export function pipelineFunctionEventBreakerConfToJSON(
+  pipelineFunctionEventBreakerConf: PipelineFunctionEventBreakerConf,
+): string {
+  return JSON.stringify(
+    PipelineFunctionEventBreakerConf$outboundSchema.parse(
+      pipelineFunctionEventBreakerConf,
+    ),
+  );
+}
+export function pipelineFunctionEventBreakerConfFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionEventBreakerConf, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionEventBreakerConf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionEventBreakerConf' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionEventBreaker$inboundSchema: z.ZodType<
@@ -52,7 +125,7 @@ export const PipelineFunctionEventBreaker$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaEventBreaker$inboundSchema,
+  conf: z.lazy(() => PipelineFunctionEventBreakerConf$inboundSchema),
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -62,7 +135,7 @@ export type PipelineFunctionEventBreaker$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionConfSchemaEventBreaker$Outbound;
+  conf: PipelineFunctionEventBreakerConf$Outbound;
   groupId?: string | undefined;
 };
 
@@ -77,7 +150,7 @@ export const PipelineFunctionEventBreaker$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaEventBreaker$outboundSchema,
+  conf: z.lazy(() => PipelineFunctionEventBreakerConf$outboundSchema),
   groupId: z.string().optional(),
 });
 

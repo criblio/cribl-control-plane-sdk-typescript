@@ -6,12 +6,21 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaNotifications,
-  FunctionConfSchemaNotifications$inboundSchema,
-  FunctionConfSchemaNotifications$Outbound,
-  FunctionConfSchemaNotifications$outboundSchema,
-} from "./functionconfschemanotifications.js";
+
+export type PipelineFunctionNotificationsConf = {
+  /**
+   * Notification ID
+   */
+  id: string;
+  /**
+   * Notification event state field name
+   */
+  field: string;
+  /**
+   * Toggle deduplication.
+   */
+  deduplicate: boolean;
+};
 
 export type PipelineFunctionNotifications = {
   /**
@@ -34,12 +43,59 @@ export type PipelineFunctionNotifications = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionConfSchemaNotifications;
+  conf: PipelineFunctionNotificationsConf;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
+
+/** @internal */
+export const PipelineFunctionNotificationsConf$inboundSchema: z.ZodType<
+  PipelineFunctionNotificationsConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string(),
+  field: z.string(),
+  deduplicate: z.boolean(),
+});
+/** @internal */
+export type PipelineFunctionNotificationsConf$Outbound = {
+  id: string;
+  field: string;
+  deduplicate: boolean;
+};
+
+/** @internal */
+export const PipelineFunctionNotificationsConf$outboundSchema: z.ZodType<
+  PipelineFunctionNotificationsConf$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionNotificationsConf
+> = z.object({
+  id: z.string(),
+  field: z.string(),
+  deduplicate: z.boolean(),
+});
+
+export function pipelineFunctionNotificationsConfToJSON(
+  pipelineFunctionNotificationsConf: PipelineFunctionNotificationsConf,
+): string {
+  return JSON.stringify(
+    PipelineFunctionNotificationsConf$outboundSchema.parse(
+      pipelineFunctionNotificationsConf,
+    ),
+  );
+}
+export function pipelineFunctionNotificationsConfFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionNotificationsConf, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionNotificationsConf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionNotificationsConf' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionNotifications$inboundSchema: z.ZodType<
@@ -52,7 +108,7 @@ export const PipelineFunctionNotifications$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaNotifications$inboundSchema,
+  conf: z.lazy(() => PipelineFunctionNotificationsConf$inboundSchema),
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -62,7 +118,7 @@ export type PipelineFunctionNotifications$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionConfSchemaNotifications$Outbound;
+  conf: PipelineFunctionNotificationsConf$Outbound;
   groupId?: string | undefined;
 };
 
@@ -77,7 +133,7 @@ export const PipelineFunctionNotifications$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaNotifications$outboundSchema,
+  conf: z.lazy(() => PipelineFunctionNotificationsConf$outboundSchema),
   groupId: z.string().optional(),
 });
 

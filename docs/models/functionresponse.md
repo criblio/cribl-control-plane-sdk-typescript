@@ -30,7 +30,7 @@ const value: models.FunctionAggregateMetrics = {
     timeWindow: "<value>",
     aggregations: [
       {
-        metricType: "timer",
+        metricType: "distribution",
         agg: "<value>",
       },
     ],
@@ -38,7 +38,7 @@ const value: models.FunctionAggregateMetrics = {
       "<value 1>",
       "<value 2>",
     ],
-    flushEventLimit: 3667.18,
+    flushEventLimit: 5989.85,
     flushMemLimit: "<value>",
     cumulative: false,
     shouldTreatDotsAsLiterals: false,
@@ -48,7 +48,7 @@ const value: models.FunctionAggregateMetrics = {
         value: "<value>",
       },
     ],
-    flushOnInputClose: false,
+    flushOnInputClose: true,
   },
 };
 ```
@@ -758,13 +758,14 @@ const value: models.FunctionHandlebars = {
       {
         id: "<id>",
         content: "<value>",
-        description: "upwardly however hmph",
+        description:
+          "zesty red contrail fiercely international sympathetically yum",
         type: "<value>",
       },
     ],
     targetField: "<value>",
-    parseJson: false,
-    removeOnNull: false,
+    parseJson: true,
+    removeOnNull: true,
   },
 };
 ```
@@ -1003,13 +1004,15 @@ const value: models.FunctionMask = {
       {
         matchRegex: "<value>",
         replaceExpr: "<value>",
-        disabled: false,
+        disabled: true,
       },
     ],
     fields: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
-    depth: 811212,
+    depth: 10477,
     flags: [
       {
         name: "<value>",
@@ -1668,15 +1671,15 @@ const value: models.FunctionSensitiveDataScanner = {
       {
         rulesetId: "<id>",
         replaceExpr: "<value>",
-        disabled: false,
+        disabled: true,
       },
     ],
     fields: [
       "<value 1>",
+      "<value 2>",
     ],
     excludeFields: [
       "<value 1>",
-      "<value 2>",
     ],
     flags: [
       {
@@ -1684,8 +1687,8 @@ const value: models.FunctionSensitiveDataScanner = {
         value: "<value>",
       },
     ],
-    includeDetectedRules: true,
-    backgroundDetection: false,
+    includeDetectedRules: false,
+    backgroundDetection: true,
   },
 };
 ```
