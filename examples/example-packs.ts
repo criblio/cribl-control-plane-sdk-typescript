@@ -52,7 +52,9 @@ const packUrl = `${groupUrl}/p/${PACK_ID}`;
 const tcpJsonSource: CreateInputRequest = {
   id: "my-tcp-json",
   type: "tcpjson",
+  host: "0.0.0.0",
   port: PORT,
+  sendToRoutes: true,
   authType: "manual",
   authToken: AUTH_TOKEN,
 };
@@ -65,6 +67,7 @@ const s3Destination: CreateOutputRequest = {
   region: AWS_REGION,
   awsSecretKey: AWS_SECRET_KEY,
   awsApiKey: AWS_API_KEY,
+  stagePath: "/tmp/stage",
   compress: "gzip",
   compressionLevel: "best_speed",
   emptyDirCleanupSec: 300,
