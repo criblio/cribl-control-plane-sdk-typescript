@@ -1,14 +1,13 @@
-# RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType
+# RestAuthenticationLoginDiscoverType
 
 Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 
 ## Example Usage
 
 ```typescript
-import { RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType } from "cribl-control-plane/models";
+import { RestAuthenticationLoginDiscoverType } from "cribl-control-plane/models";
 
-let value: RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType =
-  "json";
+let value: RestAuthenticationLoginDiscoverType = "none";
 ```
 
 ## Values

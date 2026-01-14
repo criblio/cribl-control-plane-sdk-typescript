@@ -1,13 +1,11 @@
-# RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum
+# RestAuthenticationLoginSecretPaginationEnum
 
 ## Example Usage
 
 ```typescript
-import { RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum } from "cribl-control-plane/models";
+import { RestAuthenticationLoginSecretPaginationEnum } from "cribl-control-plane/models";
 
-let value:
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum =
-    "response_header";
+let value: RestAuthenticationLoginSecretPaginationEnum = "request_page";
 ```
 
 ## Values

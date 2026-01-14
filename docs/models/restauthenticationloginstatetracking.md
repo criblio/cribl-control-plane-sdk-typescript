@@ -1,14 +1,13 @@
-# RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking
+# RestAuthenticationLoginStateTracking
 
 ## Example Usage
 
 ```typescript
-import { RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking } from "cribl-control-plane/models";
+import { RestAuthenticationLoginStateTracking } from "cribl-control-plane/models";
 
-let value:
-  RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking = {
-    enabled: false,
-  };
+let value: RestAuthenticationLoginStateTracking = {
+  enabled: true,
+};
 ```
 
 ## Fields
