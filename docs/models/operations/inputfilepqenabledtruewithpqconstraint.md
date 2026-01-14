@@ -6,12 +6,22 @@
 import { InputFilePqEnabledTrueWithPqConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputFilePqEnabledTrueWithPqConstraint = {
+  pqEnabled: true,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "file",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -23,13 +33,19 @@ let value: InputFilePqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
+  mode: "auto",
+  interval: 5133.75,
   filenames: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
+  filterArchivedFiles: false,
+  tailOnly: true,
+  idleTimeout: 293.88,
   minAgeDur: "<value>",
   maxAgeDur: "<value>",
+  checkFileModTime: true,
+  forceText: false,
+  hashLen: 3326.78,
   metadata: [
     {
       name: "<value>",
@@ -38,10 +54,16 @@ let value: InputFilePqEnabledTrueWithPqConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
-  description: "fess likewise daily grumpy mmm freckle",
-  path: "/dev",
-  depth: 6623.31,
+  staleChannelFlushMs: 1723.38,
+  description: "dutiful under ick crackle",
+  path: "/opt",
+  depth: 3623.64,
+  suppressMissingPathErrors: true,
+  deleteFiles: false,
+  includeUnidentifiableBinary: true,
 };
 ```
 
@@ -49,7 +71,7 @@ let value: InputFilePqEnabledTrueWithPqConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `pq`                                                                                                                                                                                                                                         | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [operations.PqEnabledTrueWithPqConstraintInputFileType](../../models/operations/pqenabledtruewithpqconstraintinputfiletype.md)                                                                                                               | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

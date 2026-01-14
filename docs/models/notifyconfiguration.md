@@ -6,12 +6,16 @@
 import { NotifyConfiguration } from "cribl-control-plane/models";
 
 let value: NotifyConfiguration = {
+  group: "<value>",
+  notificationId: "<id>",
   searchId: "<id>",
   savedQueryId: "<id>",
   trigger: "<value>",
   triggerType: "custom",
   triggerComparator: "<",
-  searchUrl: "https://dull-language.name/",
+  triggerCount: 1201.04,
+  resultsLimit: 2093.01,
+  searchUrl: "https://oblong-siege.info",
   message: "<value>",
   authToken: "<value>",
   messagesEndpoint: "<value>",
@@ -23,8 +27,8 @@ let value: NotifyConfiguration = {
 
 | Field                                                                                                                                        | Type                                                                                                                                         | Required                                                                                                                                     | Description                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `group`                                                                                                                                      | *string*                                                                                                                                     | :heavy_minus_sign:                                                                                                                           | Group the notification belongs to                                                                                                            |
-| `notificationId`                                                                                                                             | *string*                                                                                                                                     | :heavy_minus_sign:                                                                                                                           | Workspace within the deployment to send the search results to.                                                                               |
+| `group`                                                                                                                                      | *string*                                                                                                                                     | :heavy_check_mark:                                                                                                                           | Group the notification belongs to                                                                                                            |
+| `notificationId`                                                                                                                             | *string*                                                                                                                                     | :heavy_check_mark:                                                                                                                           | Workspace within the deployment to send the search results to.                                                                               |
 | `searchId`                                                                                                                                   | *string*                                                                                                                                     | :heavy_check_mark:                                                                                                                           | Id of the search this function is running on.                                                                                                |
 | `savedQueryId`                                                                                                                               | *string*                                                                                                                                     | :heavy_check_mark:                                                                                                                           | Id of the saved query                                                                                                                        |
 | `trigger`                                                                                                                                    | *string*                                                                                                                                     | :heavy_minus_sign:                                                                                                                           | Js expression that filters events, a greater than 'Trigger Count' events will trigger the notification                                       |

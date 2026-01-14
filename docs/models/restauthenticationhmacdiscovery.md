@@ -5,11 +5,13 @@
 ```typescript
 import { RestAuthenticationHmacDiscovery } from "cribl-control-plane/models";
 
-let value: RestAuthenticationHmacDiscovery = {};
+let value: RestAuthenticationHmacDiscovery = {
+  discoverType: "http",
+};
 ```
 
 ## Fields
 
 | Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
 | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `discoverType`                                                                                                             | [models.RestAuthenticationHmacDiscoverType](../models/restauthenticationhmacdiscovertype.md)                               | :heavy_minus_sign:                                                                                                         | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task. |
+| `discoverType`                                                                                                             | [models.RestAuthenticationHmacDiscoverType](../models/restauthenticationhmacdiscovertype.md)                               | :heavy_check_mark:                                                                                                         | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task. |

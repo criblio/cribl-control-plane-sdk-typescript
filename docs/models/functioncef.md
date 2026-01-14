@@ -23,6 +23,7 @@ let value: FunctionCef = {
   },
   version: "<value>",
   schema: {
+    outputField: "<value>",
     header: [
       {
         name: "<value>",

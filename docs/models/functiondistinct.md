@@ -24,7 +24,10 @@ let value: FunctionDistinct = {
       "<value 1>",
       "<value 2>",
     ],
-    suppressPreviews: true,
+    maxCombinations: 2294.76,
+    maxDepth: 851.72,
+    isFederated: true,
+    suppressPreviews: false,
   },
 };
 ```

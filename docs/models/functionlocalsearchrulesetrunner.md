@@ -25,6 +25,7 @@ let value: FunctionLocalSearchRulesetRunner = {
     rulesetType: "datatype",
     rulesetId: "<id>",
     ruleset: {},
+    markAndIncludeDroppedEvents: true,
   },
 };
 ```

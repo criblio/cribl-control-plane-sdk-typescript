@@ -59,14 +59,14 @@ export const PipelineFunctionTeeConf$inboundSchema: z.ZodType<
 > = z.object({
   command: z.string(),
   args: z.array(z.string()).optional(),
-  restartOnExit: z.boolean().default(true),
+  restartOnExit: z.boolean().optional(),
   env: z.record(z.string()).optional(),
 });
 /** @internal */
 export type PipelineFunctionTeeConf$Outbound = {
   command: string;
   args?: Array<string> | undefined;
-  restartOnExit: boolean;
+  restartOnExit?: boolean | undefined;
   env?: { [k: string]: string } | undefined;
 };
 
@@ -78,7 +78,7 @@ export const PipelineFunctionTeeConf$outboundSchema: z.ZodType<
 > = z.object({
   command: z.string(),
   args: z.array(z.string()).optional(),
-  restartOnExit: z.boolean().default(true),
+  restartOnExit: z.boolean().optional(),
   env: z.record(z.string()).optional(),
 });
 
@@ -105,7 +105,7 @@ export const PipelineFunctionTee$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("tee"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -115,7 +115,7 @@ export const PipelineFunctionTee$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionTee$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "tee";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -130,7 +130,7 @@ export const PipelineFunctionTee$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionTee
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("tee"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

@@ -7,6 +7,9 @@ import { FunctionConfSchemaCode } from "cribl-control-plane/models";
 
 let value: FunctionConfSchemaCode = {
   code: "<value>",
+  maxNumOfIterations: 2342.64,
+  activeLogSampleRate: 6336.62,
+  useUniqueLogChannel: true,
 };
 ```
 

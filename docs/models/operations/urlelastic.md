@@ -7,6 +7,7 @@ import { UrlElastic } from "cribl-control-plane/models/operations";
 
 let value: UrlElastic = {
   url: "https://cloudy-decongestant.name",
+  weight: 6982.38,
 };
 ```
 

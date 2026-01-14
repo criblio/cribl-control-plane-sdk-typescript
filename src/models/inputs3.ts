@@ -7,11 +7,6 @@ import { safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
-  AuthenticationMethodOptions,
-  AuthenticationMethodOptions$inboundSchema,
-  AuthenticationMethodOptions$outboundSchema,
-} from "./authenticationmethodoptions.js";
-import {
   CheckpointingType,
   CheckpointingType$inboundSchema,
   CheckpointingType$Outbound,
@@ -57,7 +52,7 @@ export type InputS3PqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   pq?: PqType | undefined;
   /**
    * Unique ID for this input
@@ -100,7 +95,7 @@ export type InputS3PqEnabledTrueWithPqConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -220,7 +215,7 @@ export type InputS3PqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   /**
    * Unique ID for this input
    */
@@ -263,7 +258,7 @@ export type InputS3PqEnabledFalseConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -383,7 +378,7 @@ export type InputS3SendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -426,7 +421,7 @@ export type InputS3SendToRoutesFalseWithConnectionsConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -546,7 +541,7 @@ export type InputS3SendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Unique ID for this input
    */
@@ -589,7 +584,7 @@ export type InputS3SendToRoutesTrueConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -724,50 +719,48 @@ export const InputS3PqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputS3Type$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
+  fileFilter: z.string().optional(),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
-    .default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  maxMessages: z.number().default(1),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  socketTimeout: z.number().default(300),
-  skipOnError: z.boolean().default(false),
-  includeSqsMetadata: z.boolean().default(false),
-  enableAssumeRole: z.boolean().default(true),
+  staleChannelFlushMs: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  includeSqsMetadata: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  enableSQSAssumeRole: z.boolean().default(false),
+  durationSeconds: z.number().optional(),
+  enableSQSAssumeRole: z.boolean().optional(),
   preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: CheckpointingType$inboundSchema.optional(),
-  pollTimeout: z.number().default(10),
+  pollTimeout: z.number().optional(),
   encoding: z.string().optional(),
-  tagAfterProcessing: z.boolean().default(false),
+  tagAfterProcessing: z.boolean().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
@@ -780,43 +773,43 @@ export type InputS3PqEnabledTrueWithPqConstraint$Outbound = {
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   queueName: string;
-  fileFilter: string;
+  fileFilter?: string | undefined;
   awsAccountId?: string | undefined;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  maxMessages: number;
-  visibilityTimeout: number;
-  numReceivers: number;
-  socketTimeout: number;
-  skipOnError: boolean;
-  includeSqsMetadata: boolean;
-  enableAssumeRole: boolean;
+  staleChannelFlushMs?: number | undefined;
+  maxMessages?: number | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  socketTimeout?: number | undefined;
+  skipOnError?: boolean | undefined;
+  includeSqsMetadata?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  enableSQSAssumeRole: boolean;
+  durationSeconds?: number | undefined;
+  enableSQSAssumeRole?: boolean | undefined;
   preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
   checkpointing?: CheckpointingType$Outbound | undefined;
-  pollTimeout: number;
+  pollTimeout?: number | undefined;
   encoding?: string | undefined;
-  tagAfterProcessing: boolean;
+  tagAfterProcessing?: boolean | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
@@ -830,50 +823,48 @@ export const InputS3PqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputS3PqEnabledTrueWithPqConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   pq: PqType$outboundSchema.optional(),
   id: z.string().optional(),
   type: InputS3Type$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
+  fileFilter: z.string().optional(),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  maxMessages: z.number().default(1),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  socketTimeout: z.number().default(300),
-  skipOnError: z.boolean().default(false),
-  includeSqsMetadata: z.boolean().default(false),
-  enableAssumeRole: z.boolean().default(true),
+  staleChannelFlushMs: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  includeSqsMetadata: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  enableSQSAssumeRole: z.boolean().default(false),
+  durationSeconds: z.number().optional(),
+  enableSQSAssumeRole: z.boolean().optional(),
   preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: CheckpointingType$outboundSchema.optional(),
-  pollTimeout: z.number().default(10),
+  pollTimeout: z.number().optional(),
   encoding: z.string().optional(),
-  tagAfterProcessing: z.boolean().default(false),
+  tagAfterProcessing: z.boolean().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
@@ -907,50 +898,48 @@ export const InputS3PqEnabledFalseConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputS3Type$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
   queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
+  fileFilter: z.string().optional(),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
-    .default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  maxMessages: z.number().default(1),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  socketTimeout: z.number().default(300),
-  skipOnError: z.boolean().default(false),
-  includeSqsMetadata: z.boolean().default(false),
-  enableAssumeRole: z.boolean().default(true),
+  staleChannelFlushMs: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  includeSqsMetadata: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  enableSQSAssumeRole: z.boolean().default(false),
+  durationSeconds: z.number().optional(),
+  enableSQSAssumeRole: z.boolean().optional(),
   preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: CheckpointingType$inboundSchema.optional(),
-  pollTimeout: z.number().default(10),
+  pollTimeout: z.number().optional(),
   encoding: z.string().optional(),
-  tagAfterProcessing: z.boolean().default(false),
+  tagAfterProcessing: z.boolean().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
@@ -962,44 +951,44 @@ export type InputS3PqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   queueName: string;
-  fileFilter: string;
+  fileFilter?: string | undefined;
   awsAccountId?: string | undefined;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  maxMessages: number;
-  visibilityTimeout: number;
-  numReceivers: number;
-  socketTimeout: number;
-  skipOnError: boolean;
-  includeSqsMetadata: boolean;
-  enableAssumeRole: boolean;
+  staleChannelFlushMs?: number | undefined;
+  maxMessages?: number | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  socketTimeout?: number | undefined;
+  skipOnError?: boolean | undefined;
+  includeSqsMetadata?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  enableSQSAssumeRole: boolean;
+  durationSeconds?: number | undefined;
+  enableSQSAssumeRole?: boolean | undefined;
   preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
   checkpointing?: CheckpointingType$Outbound | undefined;
-  pollTimeout: number;
+  pollTimeout?: number | undefined;
   encoding?: string | undefined;
-  tagAfterProcessing: boolean;
+  tagAfterProcessing?: boolean | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
@@ -1013,50 +1002,48 @@ export const InputS3PqEnabledFalseConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputS3PqEnabledFalseConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputS3Type$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
+  fileFilter: z.string().optional(),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  maxMessages: z.number().default(1),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  socketTimeout: z.number().default(300),
-  skipOnError: z.boolean().default(false),
-  includeSqsMetadata: z.boolean().default(false),
-  enableAssumeRole: z.boolean().default(true),
+  staleChannelFlushMs: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  includeSqsMetadata: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  enableSQSAssumeRole: z.boolean().default(false),
+  durationSeconds: z.number().optional(),
+  enableSQSAssumeRole: z.boolean().optional(),
   preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: CheckpointingType$outboundSchema.optional(),
-  pollTimeout: z.number().default(10),
+  pollTimeout: z.number().optional(),
   encoding: z.string().optional(),
-  tagAfterProcessing: z.boolean().default(false),
+  tagAfterProcessing: z.boolean().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
@@ -1090,50 +1077,48 @@ export const InputS3SendToRoutesFalseWithConnectionsConstraint$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputS3Type$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$inboundSchema.optional(),
     queueName: z.string(),
-    fileFilter: z.string().default("/.*/"),
+    fileFilter: z.string().optional(),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
-      "auto",
-    ),
+    awsAuthenticationMethod: z.string().optional(),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
     signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
-      .default("v4"),
-    reuseConnections: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
+      .optional(),
+    reuseConnections: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    maxMessages: z.number().default(1),
-    visibilityTimeout: z.number().default(600),
-    numReceivers: z.number().default(1),
-    socketTimeout: z.number().default(300),
-    skipOnError: z.boolean().default(false),
-    includeSqsMetadata: z.boolean().default(false),
-    enableAssumeRole: z.boolean().default(true),
+    staleChannelFlushMs: z.number().optional(),
+    maxMessages: z.number().optional(),
+    visibilityTimeout: z.number().optional(),
+    numReceivers: z.number().optional(),
+    socketTimeout: z.number().optional(),
+    skipOnError: z.boolean().optional(),
+    includeSqsMetadata: z.boolean().optional(),
+    enableAssumeRole: z.boolean().optional(),
     assumeRoleArn: z.string().optional(),
     assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
-    enableSQSAssumeRole: z.boolean().default(false),
+    durationSeconds: z.number().optional(),
+    enableSQSAssumeRole: z.boolean().optional(),
     preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    parquetChunkSizeMB: z.number().default(5),
-    parquetChunkDownloadTimeout: z.number().default(600),
+    parquetChunkSizeMB: z.number().optional(),
+    parquetChunkDownloadTimeout: z.number().optional(),
     checkpointing: CheckpointingType$inboundSchema.optional(),
-    pollTimeout: z.number().default(10),
+    pollTimeout: z.number().optional(),
     encoding: z.string().optional(),
-    tagAfterProcessing: z.boolean().default(false),
+    tagAfterProcessing: z.boolean().optional(),
     description: z.string().optional(),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
@@ -1146,43 +1131,43 @@ export type InputS3SendToRoutesFalseWithConnectionsConstraint$Outbound = {
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   pq?: PqType$Outbound | undefined;
   queueName: string;
-  fileFilter: string;
+  fileFilter?: string | undefined;
   awsAccountId?: string | undefined;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  maxMessages: number;
-  visibilityTimeout: number;
-  numReceivers: number;
-  socketTimeout: number;
-  skipOnError: boolean;
-  includeSqsMetadata: boolean;
-  enableAssumeRole: boolean;
+  staleChannelFlushMs?: number | undefined;
+  maxMessages?: number | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  socketTimeout?: number | undefined;
+  skipOnError?: boolean | undefined;
+  includeSqsMetadata?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  enableSQSAssumeRole: boolean;
+  durationSeconds?: number | undefined;
+  enableSQSAssumeRole?: boolean | undefined;
   preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
   checkpointing?: CheckpointingType$Outbound | undefined;
-  pollTimeout: number;
+  pollTimeout?: number | undefined;
   encoding?: string | undefined;
-  tagAfterProcessing: boolean;
+  tagAfterProcessing?: boolean | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
@@ -1197,51 +1182,49 @@ export const InputS3SendToRoutesFalseWithConnectionsConstraint$outboundSchema:
     z.ZodTypeDef,
     InputS3SendToRoutesFalseWithConnectionsConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     id: z.string().optional(),
     type: InputS3Type$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
     queueName: z.string(),
-    fileFilter: z.string().default("/.*/"),
+    fileFilter: z.string().optional(),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
-      "auto",
-    ),
+    awsAuthenticationMethod: z.string().optional(),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
     signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-      .default("v4"),
-    reuseConnections: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
+      .optional(),
+    reuseConnections: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    maxMessages: z.number().default(1),
-    visibilityTimeout: z.number().default(600),
-    numReceivers: z.number().default(1),
-    socketTimeout: z.number().default(300),
-    skipOnError: z.boolean().default(false),
-    includeSqsMetadata: z.boolean().default(false),
-    enableAssumeRole: z.boolean().default(true),
+    staleChannelFlushMs: z.number().optional(),
+    maxMessages: z.number().optional(),
+    visibilityTimeout: z.number().optional(),
+    numReceivers: z.number().optional(),
+    socketTimeout: z.number().optional(),
+    skipOnError: z.boolean().optional(),
+    includeSqsMetadata: z.boolean().optional(),
+    enableAssumeRole: z.boolean().optional(),
     assumeRoleArn: z.string().optional(),
     assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().default(3600),
-    enableSQSAssumeRole: z.boolean().default(false),
+    durationSeconds: z.number().optional(),
+    enableSQSAssumeRole: z.boolean().optional(),
     preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    parquetChunkSizeMB: z.number().default(5),
-    parquetChunkDownloadTimeout: z.number().default(600),
+    parquetChunkSizeMB: z.number().optional(),
+    parquetChunkDownloadTimeout: z.number().optional(),
     checkpointing: CheckpointingType$outboundSchema.optional(),
-    pollTimeout: z.number().default(10),
+    pollTimeout: z.number().optional(),
     encoding: z.string().optional(),
-    tagAfterProcessing: z.boolean().default(false),
+    tagAfterProcessing: z.boolean().optional(),
     description: z.string().optional(),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
@@ -1281,50 +1264,48 @@ export const InputS3SendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputS3Type$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
   queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
+  fileFilter: z.string().optional(),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
-    .default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  maxMessages: z.number().default(1),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  socketTimeout: z.number().default(300),
-  skipOnError: z.boolean().default(false),
-  includeSqsMetadata: z.boolean().default(false),
-  enableAssumeRole: z.boolean().default(true),
+  staleChannelFlushMs: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  includeSqsMetadata: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  enableSQSAssumeRole: z.boolean().default(false),
+  durationSeconds: z.number().optional(),
+  enableSQSAssumeRole: z.boolean().optional(),
   preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: CheckpointingType$inboundSchema.optional(),
-  pollTimeout: z.number().default(10),
+  pollTimeout: z.number().optional(),
   encoding: z.string().optional(),
-  tagAfterProcessing: z.boolean().default(false),
+  tagAfterProcessing: z.boolean().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
@@ -1336,44 +1317,44 @@ export type InputS3SendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   queueName: string;
-  fileFilter: string;
+  fileFilter?: string | undefined;
   awsAccountId?: string | undefined;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  maxMessages: number;
-  visibilityTimeout: number;
-  numReceivers: number;
-  socketTimeout: number;
-  skipOnError: boolean;
-  includeSqsMetadata: boolean;
-  enableAssumeRole: boolean;
+  staleChannelFlushMs?: number | undefined;
+  maxMessages?: number | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  socketTimeout?: number | undefined;
+  skipOnError?: boolean | undefined;
+  includeSqsMetadata?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  enableSQSAssumeRole: boolean;
+  durationSeconds?: number | undefined;
+  enableSQSAssumeRole?: boolean | undefined;
   preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
   checkpointing?: CheckpointingType$Outbound | undefined;
-  pollTimeout: number;
+  pollTimeout?: number | undefined;
   encoding?: string | undefined;
-  tagAfterProcessing: boolean;
+  tagAfterProcessing?: boolean | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
@@ -1387,50 +1368,48 @@ export const InputS3SendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputS3SendToRoutesTrueConstraint
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputS3Type$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
+  fileFilter: z.string().optional(),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  maxMessages: z.number().default(1),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  socketTimeout: z.number().default(300),
-  skipOnError: z.boolean().default(false),
-  includeSqsMetadata: z.boolean().default(false),
-  enableAssumeRole: z.boolean().default(true),
+  staleChannelFlushMs: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  includeSqsMetadata: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  enableSQSAssumeRole: z.boolean().default(false),
+  durationSeconds: z.number().optional(),
+  enableSQSAssumeRole: z.boolean().optional(),
   preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: CheckpointingType$outboundSchema.optional(),
-  pollTimeout: z.number().default(10),
+  pollTimeout: z.number().optional(),
   encoding: z.string().optional(),
-  tagAfterProcessing: z.boolean().default(false),
+  tagAfterProcessing: z.boolean().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),

@@ -22,25 +22,32 @@ let value: FunctionAggregateMetrics = {
   },
   version: "<value>",
   schema: {
+    passthrough: false,
+    preserveGroupBys: false,
+    sufficientStatsOnly: true,
     prefix: "<value>",
+    timeWindow: "<value>",
     aggregations: [
       {
+        metricType: "distribution",
         agg: "<value>",
       },
     ],
     groupbys: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
-    flushEventLimit: 9419.26,
+    flushEventLimit: 5989.85,
     flushMemLimit: "<value>",
+    cumulative: false,
+    shouldTreatDotsAsLiterals: false,
     add: [
       {
         name: "<value>",
         value: "<value>",
       },
     ],
+    flushOnInputClose: true,
   },
 };
 ```

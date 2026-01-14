@@ -48,7 +48,7 @@ export type FunctionConfSchemaPublishMetricsField = {
    * JavaScript expression to evaluate the metric field name. Defaults to Event Field Name.
    */
   outFieldExpr?: string | undefined;
-  metricType?: FunctionConfSchemaPublishMetricsMetricType | undefined;
+  metricType: FunctionConfSchemaPublishMetricsMetricType;
 };
 
 export type FunctionConfSchemaPublishMetrics = {
@@ -91,9 +91,7 @@ export const FunctionConfSchemaPublishMetricsField$inboundSchema: z.ZodType<
 > = z.object({
   inFieldName: z.string(),
   outFieldExpr: z.string().optional(),
-  metricType: FunctionConfSchemaPublishMetricsMetricType$inboundSchema.default(
-    "gauge",
-  ),
+  metricType: FunctionConfSchemaPublishMetricsMetricType$inboundSchema,
 });
 /** @internal */
 export type FunctionConfSchemaPublishMetricsField$Outbound = {
@@ -110,9 +108,7 @@ export const FunctionConfSchemaPublishMetricsField$outboundSchema: z.ZodType<
 > = z.object({
   inFieldName: z.string(),
   outFieldExpr: z.string().optional(),
-  metricType: FunctionConfSchemaPublishMetricsMetricType$outboundSchema.default(
-    "gauge",
-  ),
+  metricType: FunctionConfSchemaPublishMetricsMetricType$outboundSchema,
 });
 
 export function functionConfSchemaPublishMetricsFieldToJSON(
@@ -144,7 +140,7 @@ export const FunctionConfSchemaPublishMetrics$inboundSchema: z.ZodType<
   fields: z.array(
     z.lazy(() => FunctionConfSchemaPublishMetricsField$inboundSchema),
   ).optional(),
-  overwrite: z.boolean().default(false),
+  overwrite: z.boolean().optional(),
   dimensions: z.array(z.string()).optional(),
   removeMetrics: z.array(z.string()).optional(),
   removeDimensions: z.array(z.string()).optional(),
@@ -152,7 +148,7 @@ export const FunctionConfSchemaPublishMetrics$inboundSchema: z.ZodType<
 /** @internal */
 export type FunctionConfSchemaPublishMetrics$Outbound = {
   fields?: Array<FunctionConfSchemaPublishMetricsField$Outbound> | undefined;
-  overwrite: boolean;
+  overwrite?: boolean | undefined;
   dimensions?: Array<string> | undefined;
   removeMetrics?: Array<string> | undefined;
   removeDimensions?: Array<string> | undefined;
@@ -167,7 +163,7 @@ export const FunctionConfSchemaPublishMetrics$outboundSchema: z.ZodType<
   fields: z.array(
     z.lazy(() => FunctionConfSchemaPublishMetricsField$outboundSchema),
   ).optional(),
-  overwrite: z.boolean().default(false),
+  overwrite: z.boolean().optional(),
   dimensions: z.array(z.string()).optional(),
   removeMetrics: z.array(z.string()).optional(),
   removeDimensions: z.array(z.string()).optional(),

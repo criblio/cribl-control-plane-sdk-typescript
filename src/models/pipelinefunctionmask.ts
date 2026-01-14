@@ -21,7 +21,7 @@ export type PipelineFunctionMaskRule = {
   /**
    * A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
    */
-  replaceExpr?: string | undefined;
+  replaceExpr: string;
   /**
    * Set to No to disable the evaluation of an individual rule
    */
@@ -79,14 +79,14 @@ export const PipelineFunctionMaskRule$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   matchRegex: z.string(),
-  replaceExpr: z.string().default("''"),
-  disabled: z.boolean().default(false),
+  replaceExpr: z.string(),
+  disabled: z.boolean().optional(),
 });
 /** @internal */
 export type PipelineFunctionMaskRule$Outbound = {
   matchRegex: string;
   replaceExpr: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
 };
 
 /** @internal */
@@ -96,8 +96,8 @@ export const PipelineFunctionMaskRule$outboundSchema: z.ZodType<
   PipelineFunctionMaskRule
 > = z.object({
   matchRegex: z.string(),
-  replaceExpr: z.string().default("''"),
-  disabled: z.boolean().default(false),
+  replaceExpr: z.string(),
+  disabled: z.boolean().optional(),
 });
 
 export function pipelineFunctionMaskRuleToJSON(
@@ -125,14 +125,14 @@ export const PipelineFunctionMaskConf$inboundSchema: z.ZodType<
 > = z.object({
   rules: z.array(z.lazy(() => PipelineFunctionMaskRule$inboundSchema)),
   fields: z.array(z.string()).optional(),
-  depth: z.number().int().default(5),
+  depth: z.number().int().optional(),
   flags: z.array(ItemsTypeAdd$inboundSchema).optional(),
 });
 /** @internal */
 export type PipelineFunctionMaskConf$Outbound = {
   rules: Array<PipelineFunctionMaskRule$Outbound>;
   fields?: Array<string> | undefined;
-  depth: number;
+  depth?: number | undefined;
   flags?: Array<ItemsTypeAdd$Outbound> | undefined;
 };
 
@@ -144,7 +144,7 @@ export const PipelineFunctionMaskConf$outboundSchema: z.ZodType<
 > = z.object({
   rules: z.array(z.lazy(() => PipelineFunctionMaskRule$outboundSchema)),
   fields: z.array(z.string()).optional(),
-  depth: z.number().int().default(5),
+  depth: z.number().int().optional(),
   flags: z.array(ItemsTypeAdd$outboundSchema).optional(),
 });
 
@@ -171,7 +171,7 @@ export const PipelineFunctionMask$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("mask"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -181,7 +181,7 @@ export const PipelineFunctionMask$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionMask$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "mask";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -196,7 +196,7 @@ export const PipelineFunctionMask$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionMask
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("mask"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

@@ -6,9 +6,16 @@
 import { FunctionConfSchemaStore } from "cribl-control-plane/models";
 
 let value: FunctionConfSchemaStore = {
+  type: "<value>",
   destination: "<value>",
   description: "ultimately warmly modulo",
   fieldMapping: {},
+  separator: "<value>",
+  overwrite: false,
+  compress: "<value>",
+  tee: false,
+  maxEvents: 9101.22,
+  suppressPreviews: false,
 };
 ```
 

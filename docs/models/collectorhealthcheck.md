@@ -11,13 +11,12 @@ let value: CollectorHealthCheck = {
   type: "health_check",
   conf: {
     authentication: "login",
-    loginUrl: "`https://localhost:9000/api/v1/auth/login`",
-    username: "Connor_Schowalter",
-    password: "lv0D0RYmS35HdTL",
-    loginBody:
-      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+    loginUrl: "https://crooked-shoulder.name/",
+    username: "Isaac_Schiller",
+    password: "0RYmS35HdTLMgXY",
+    loginBody: "<value>",
     tokenRespAttribute: "<value>",
-    authHeaderExpr: "`Bearer ${token}`",
+    authHeaderExpr: "<value>",
     authRequestHeaders: [
       {
         name: "<value>",
@@ -25,9 +24,9 @@ let value: CollectorHealthCheck = {
       },
     ],
     discovery: {
-      discoverType: "none",
+      discoverType: "list",
     },
-    collectUrl: "https://silver-morning.biz/",
+    collectUrl: "https://soupy-glider.org/",
     collectMethod: "get",
     collectRequestParams: "<value>",
     collectBody: "<value>",
@@ -37,15 +36,15 @@ let value: CollectorHealthCheck = {
         value: "<value>",
       },
     ],
-    authenticateCollect: false,
-    timeout: 30,
+    authenticateCollect: true,
+    timeout: 9055.35,
     rejectUnauthorized: false,
     defaultBreakers: "Cribl",
     safeHeaders: [
       "<value 1>",
     ],
     retryRules: {
-      type: "backoff",
+      type: "static",
       interval: "<value>",
       limit: "<value>",
       multiplier: "<value>",

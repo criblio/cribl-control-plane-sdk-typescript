@@ -23,7 +23,7 @@ export type PipelineConf = {
   /**
    * The output destination for events processed by this Pipeline
    */
-  output: string;
+  output?: string | undefined;
   description?: string | undefined;
   /**
    * Tags for filtering and grouping in @{product}
@@ -50,7 +50,7 @@ export const PipelineConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   asyncFuncTimeout: z.number().int().optional(),
-  output: z.string().default("default"),
+  output: z.string().optional(),
   description: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   functions: z.array(PipelineFunctionConf$inboundSchema).optional(),

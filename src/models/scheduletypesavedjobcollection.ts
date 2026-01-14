@@ -56,7 +56,7 @@ export type ScheduleTypeSavedJobCollectionRunSettings = {
   /**
    * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
    */
-  mode?: string | undefined;
+  mode: string;
   timeRangeType?: string | undefined;
   /**
    * Earliest time to collect data for the selected timezone
@@ -179,38 +179,36 @@ export const ScheduleTypeSavedJobCollectionRunSettings$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   type: ScheduleTypeSavedJobCollectionType$inboundSchema.optional(),
-  rescheduleDroppedTasks: z.boolean().default(true),
-  maxTaskReschedule: z.number().default(1),
-  logLevel: ScheduleTypeSavedJobCollectionLogLevel$inboundSchema.default(
-    "info",
-  ),
-  jobTimeout: z.string().default("0"),
-  mode: z.string().default("list"),
-  timeRangeType: z.string().default("relative"),
+  rescheduleDroppedTasks: z.boolean().optional(),
+  maxTaskReschedule: z.number().optional(),
+  logLevel: ScheduleTypeSavedJobCollectionLogLevel$inboundSchema.optional(),
+  jobTimeout: z.string().optional(),
+  mode: z.string(),
+  timeRangeType: z.string().optional(),
   earliest: z.number().optional(),
   latest: z.number().optional(),
   timestampTimezone: z.any().optional(),
   timeWarning: z.lazy(() => TimeWarning$inboundSchema).optional(),
-  expression: z.string().default("true"),
-  minTaskSize: z.string().default("1MB"),
-  maxTaskSize: z.string().default("10MB"),
+  expression: z.string().optional(),
+  minTaskSize: z.string().optional(),
+  maxTaskSize: z.string().optional(),
 });
 /** @internal */
 export type ScheduleTypeSavedJobCollectionRunSettings$Outbound = {
   type?: string | undefined;
-  rescheduleDroppedTasks: boolean;
-  maxTaskReschedule: number;
-  logLevel: string;
-  jobTimeout: string;
+  rescheduleDroppedTasks?: boolean | undefined;
+  maxTaskReschedule?: number | undefined;
+  logLevel?: string | undefined;
+  jobTimeout?: string | undefined;
   mode: string;
-  timeRangeType: string;
+  timeRangeType?: string | undefined;
   earliest?: number | undefined;
   latest?: number | undefined;
   timestampTimezone?: any | undefined;
   timeWarning?: TimeWarning$Outbound | undefined;
-  expression: string;
-  minTaskSize: string;
-  maxTaskSize: string;
+  expression?: string | undefined;
+  minTaskSize?: string | undefined;
+  maxTaskSize?: string | undefined;
 };
 
 /** @internal */
@@ -221,21 +219,19 @@ export const ScheduleTypeSavedJobCollectionRunSettings$outboundSchema:
     ScheduleTypeSavedJobCollectionRunSettings
   > = z.object({
     type: ScheduleTypeSavedJobCollectionType$outboundSchema.optional(),
-    rescheduleDroppedTasks: z.boolean().default(true),
-    maxTaskReschedule: z.number().default(1),
-    logLevel: ScheduleTypeSavedJobCollectionLogLevel$outboundSchema.default(
-      "info",
-    ),
-    jobTimeout: z.string().default("0"),
-    mode: z.string().default("list"),
-    timeRangeType: z.string().default("relative"),
+    rescheduleDroppedTasks: z.boolean().optional(),
+    maxTaskReschedule: z.number().optional(),
+    logLevel: ScheduleTypeSavedJobCollectionLogLevel$outboundSchema.optional(),
+    jobTimeout: z.string().optional(),
+    mode: z.string(),
+    timeRangeType: z.string().optional(),
     earliest: z.number().optional(),
     latest: z.number().optional(),
     timestampTimezone: z.any().optional(),
     timeWarning: z.lazy(() => TimeWarning$outboundSchema).optional(),
-    expression: z.string().default("true"),
-    minTaskSize: z.string().default("1MB"),
-    maxTaskSize: z.string().default("10MB"),
+    expression: z.string().optional(),
+    minTaskSize: z.string().optional(),
+    maxTaskSize: z.string().optional(),
   });
 
 export function scheduleTypeSavedJobCollectionRunSettingsToJSON(
@@ -271,20 +267,20 @@ export const ScheduleTypeSavedJobCollection$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   enabled: z.boolean().optional(),
-  skippable: z.boolean().default(true),
-  resumeMissed: z.boolean().default(false),
-  cronSchedule: z.string().default("*/5 * * * *"),
-  maxConcurrentRuns: z.number().default(1),
+  skippable: z.boolean().optional(),
+  resumeMissed: z.boolean().optional(),
+  cronSchedule: z.string().optional(),
+  maxConcurrentRuns: z.number().optional(),
   run: z.lazy(() => ScheduleTypeSavedJobCollectionRunSettings$inboundSchema)
     .optional(),
 });
 /** @internal */
 export type ScheduleTypeSavedJobCollection$Outbound = {
   enabled?: boolean | undefined;
-  skippable: boolean;
-  resumeMissed: boolean;
-  cronSchedule: string;
-  maxConcurrentRuns: number;
+  skippable?: boolean | undefined;
+  resumeMissed?: boolean | undefined;
+  cronSchedule?: string | undefined;
+  maxConcurrentRuns?: number | undefined;
   run?: ScheduleTypeSavedJobCollectionRunSettings$Outbound | undefined;
 };
 
@@ -295,10 +291,10 @@ export const ScheduleTypeSavedJobCollection$outboundSchema: z.ZodType<
   ScheduleTypeSavedJobCollection
 > = z.object({
   enabled: z.boolean().optional(),
-  skippable: z.boolean().default(true),
-  resumeMissed: z.boolean().default(false),
-  cronSchedule: z.string().default("*/5 * * * *"),
-  maxConcurrentRuns: z.number().default(1),
+  skippable: z.boolean().optional(),
+  resumeMissed: z.boolean().optional(),
+  cronSchedule: z.string().optional(),
+  maxConcurrentRuns: z.number().optional(),
   run: z.lazy(() => ScheduleTypeSavedJobCollectionRunSettings$outboundSchema)
     .optional(),
 });

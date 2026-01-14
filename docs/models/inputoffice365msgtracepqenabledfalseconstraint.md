@@ -6,12 +6,17 @@
 import { InputOffice365MsgTracePqEnabledFalseConstraint } from "cribl-control-plane/models";
 
 let value: InputOffice365MsgTracePqEnabledFalseConstraint = {
+  pqEnabled: true,
   id: "<id>",
   type: "office365_msg_trace",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -20,10 +25,30 @@ let value: InputOffice365MsgTracePqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  url: "https://grandiose-vibration.org/",
+  interval: 4964.46,
   startDate: "<value>",
   endDate: "<value>",
+  timeout: 6547.11,
+  disableTimeFilter: true,
+  authType: "oauthSecret",
+  rescheduleDroppedTasks: true,
+  maxTaskReschedule: 4512.16,
+  logLevel: "info",
+  jobTimeout: "<value>",
+  keepAliveTime: 2869.62,
+  maxMissedKeepAlives: 3582.39,
+  ttl: "<value>",
+  ignoreGroupJobsLimit: true,
   metadata: [
     {
       name: "<value>",
@@ -31,19 +56,28 @@ let value: InputOffice365MsgTracePqEnabledFalseConstraint = {
     },
   ],
   retryRules: {
+    type: "none",
+    interval: 2764.09,
+    limit: 9039.82,
+    multiplier: 1648,
     codes: [
-      6390.37,
-      2107.49,
-      2764.09,
+      1223.37,
+      608.99,
+      2918.61,
     ],
+    enableHeader: true,
+    retryConnectTimeout: false,
+    retryConnectReset: false,
   },
-  description: "kinase endow cautiously boo weakly back reorganisation phew",
-  username: "Lowell15",
-  password: "mVGMtJHfLrBV6Di",
+  description: "provided huff viability openly",
+  username: "Chad_Paucek3",
+  password: "5yjwyI0mVGMtJHf",
   credentialsSecret: "<value>",
   clientSecret: "<value>",
   tenantId: "<id>",
   clientId: "<id>",
+  resource: "<value>",
+  planType: "enterprise_gcc",
   textSecret: "<value>",
   certOptions: {
     certificateName: "<value>",
@@ -58,7 +92,7 @@ let value: InputOffice365MsgTracePqEnabledFalseConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [models.InputOffice365MsgTraceType](../models/inputoffice365msgtracetype.md)                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
@@ -68,8 +102,8 @@ let value: InputOffice365MsgTracePqEnabledFalseConstraint = {
 | `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
 | `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
 | `pq`                                                                                                                                                                                                                                         | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `url`                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | URL to use when retrieving report data.                                                                                                                                                                                                      |
-| `interval`                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.                                                                                                            |
+| `url`                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | URL to use when retrieving report data.                                                                                                                                                                                                      |
+| `interval`                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.                                                                                                            |
 | `startDate`                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.                                                                               |
 | `endDate`                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.                                                                             |
 | `timeout`                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.                                                                                                                                                 |

@@ -33,7 +33,7 @@ import {
  * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
  */
 export type AuthenticationType = {
-  disabled?: boolean | undefined;
+  disabled: boolean;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -90,19 +90,19 @@ export const AuthenticationType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean().default(true),
+  disabled: z.boolean(),
   username: z.string().optional(),
   password: z.string().optional(),
-  authType: AuthenticationMethodOptionsSasl$inboundSchema.default("manual"),
+  authType: AuthenticationMethodOptionsSasl$inboundSchema.optional(),
   credentialsSecret: z.string().optional(),
-  mechanism: SaslMechanismOptionsSasl$inboundSchema.default("plain"),
+  mechanism: SaslMechanismOptionsSasl$inboundSchema.optional(),
   keytabLocation: z.string().optional(),
   principal: z.string().optional(),
   brokerServiceClass: z.string().optional(),
-  oauthEnabled: z.boolean().default(false),
+  oauthEnabled: z.boolean().optional(),
   tokenUrl: z.string().optional(),
   clientId: z.string().optional(),
-  oauthSecretType: z.string().default("secret"),
+  oauthSecretType: z.string().optional(),
   clientTextSecret: z.string().optional(),
   oauthParams: z.array(ItemsTypeSaslOauthParams$inboundSchema).optional(),
   saslExtensions: z.array(ItemsTypeSaslSaslExtensions$inboundSchema).optional(),
@@ -112,16 +112,16 @@ export type AuthenticationType$Outbound = {
   disabled: boolean;
   username?: string | undefined;
   password?: string | undefined;
-  authType: string;
+  authType?: string | undefined;
   credentialsSecret?: string | undefined;
-  mechanism: string;
+  mechanism?: string | undefined;
   keytabLocation?: string | undefined;
   principal?: string | undefined;
   brokerServiceClass?: string | undefined;
-  oauthEnabled: boolean;
+  oauthEnabled?: boolean | undefined;
   tokenUrl?: string | undefined;
   clientId?: string | undefined;
-  oauthSecretType: string;
+  oauthSecretType?: string | undefined;
   clientTextSecret?: string | undefined;
   oauthParams?: Array<ItemsTypeSaslOauthParams$Outbound> | undefined;
   saslExtensions?: Array<ItemsTypeSaslSaslExtensions$Outbound> | undefined;
@@ -133,19 +133,19 @@ export const AuthenticationType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AuthenticationType
 > = z.object({
-  disabled: z.boolean().default(true),
+  disabled: z.boolean(),
   username: z.string().optional(),
   password: z.string().optional(),
-  authType: AuthenticationMethodOptionsSasl$outboundSchema.default("manual"),
+  authType: AuthenticationMethodOptionsSasl$outboundSchema.optional(),
   credentialsSecret: z.string().optional(),
-  mechanism: SaslMechanismOptionsSasl$outboundSchema.default("plain"),
+  mechanism: SaslMechanismOptionsSasl$outboundSchema.optional(),
   keytabLocation: z.string().optional(),
   principal: z.string().optional(),
   brokerServiceClass: z.string().optional(),
-  oauthEnabled: z.boolean().default(false),
+  oauthEnabled: z.boolean().optional(),
   tokenUrl: z.string().optional(),
   clientId: z.string().optional(),
-  oauthSecretType: z.string().default("secret"),
+  oauthSecretType: z.string().optional(),
   clientTextSecret: z.string().optional(),
   oauthParams: z.array(ItemsTypeSaslOauthParams$outboundSchema).optional(),
   saslExtensions: z.array(ItemsTypeSaslSaslExtensions$outboundSchema)

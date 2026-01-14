@@ -73,7 +73,7 @@ export type InputSnmpV3User = {
  * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
  */
 export type SNMPv3Authentication = {
-  v3AuthEnabled?: boolean | undefined;
+  v3AuthEnabled: boolean;
   /**
    * Pass through traps that don't match any of the configured users. @{product} will not attempt to decrypt these traps.
    */
@@ -88,7 +88,7 @@ export type InputSnmpPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   pq?: PqType | undefined;
   /**
    * Unique ID for this input
@@ -119,11 +119,11 @@ export type InputSnmpPqEnabledTrueWithPqConstraint = {
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
-  host?: string | undefined;
+  host: string;
   /**
    * UDP port to receive SNMP traps on. Defaults to 162.
    */
-  port?: number | undefined;
+  port: number;
   /**
    * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
    */
@@ -159,7 +159,7 @@ export type InputSnmpPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   /**
    * Unique ID for this input
    */
@@ -190,11 +190,11 @@ export type InputSnmpPqEnabledFalseConstraint = {
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
-  host?: string | undefined;
+  host: string;
   /**
    * UDP port to receive SNMP traps on. Defaults to 162.
    */
-  port?: number | undefined;
+  port: number;
   /**
    * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
    */
@@ -230,7 +230,7 @@ export type InputSnmpSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -261,11 +261,11 @@ export type InputSnmpSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
-  host?: string | undefined;
+  host: string;
   /**
    * UDP port to receive SNMP traps on. Defaults to 162.
    */
-  port?: number | undefined;
+  port: number;
   /**
    * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
    */
@@ -301,7 +301,7 @@ export type InputSnmpSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Unique ID for this input
    */
@@ -332,11 +332,11 @@ export type InputSnmpSendToRoutesTrueConstraint = {
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
-  host?: string | undefined;
+  host: string;
   /**
    * UDP port to receive SNMP traps on. Defaults to 162.
    */
-  port?: number | undefined;
+  port: number;
   /**
    * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
    */
@@ -403,19 +403,17 @@ export const InputSnmpV3User$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   name: z.string(),
-  authProtocol: AuthenticationProtocolOptionsV3User$inboundSchema.default(
-    "none",
-  ),
+  authProtocol: AuthenticationProtocolOptionsV3User$inboundSchema.optional(),
   authKey: z.string().optional(),
-  privProtocol: PrivacyProtocol$inboundSchema.default("none"),
+  privProtocol: PrivacyProtocol$inboundSchema.optional(),
   privKey: z.string().optional(),
 });
 /** @internal */
 export type InputSnmpV3User$Outbound = {
   name: string;
-  authProtocol: string;
+  authProtocol?: string | undefined;
   authKey?: string | undefined;
-  privProtocol: string;
+  privProtocol?: string | undefined;
   privKey?: string | undefined;
 };
 
@@ -426,11 +424,9 @@ export const InputSnmpV3User$outboundSchema: z.ZodType<
   InputSnmpV3User
 > = z.object({
   name: z.string(),
-  authProtocol: AuthenticationProtocolOptionsV3User$outboundSchema.default(
-    "none",
-  ),
+  authProtocol: AuthenticationProtocolOptionsV3User$outboundSchema.optional(),
   authKey: z.string().optional(),
-  privProtocol: PrivacyProtocol$outboundSchema.default("none"),
+  privProtocol: PrivacyProtocol$outboundSchema.optional(),
   privKey: z.string().optional(),
 });
 
@@ -455,14 +451,14 @@ export const SNMPv3Authentication$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  v3AuthEnabled: z.boolean().default(false),
-  allowUnmatchedTrap: z.boolean().default(false),
+  v3AuthEnabled: z.boolean(),
+  allowUnmatchedTrap: z.boolean().optional(),
   v3Users: z.array(z.lazy(() => InputSnmpV3User$inboundSchema)).optional(),
 });
 /** @internal */
 export type SNMPv3Authentication$Outbound = {
   v3AuthEnabled: boolean;
-  allowUnmatchedTrap: boolean;
+  allowUnmatchedTrap?: boolean | undefined;
   v3Users?: Array<InputSnmpV3User$Outbound> | undefined;
 };
 
@@ -472,8 +468,8 @@ export const SNMPv3Authentication$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SNMPv3Authentication
 > = z.object({
-  v3AuthEnabled: z.boolean().default(false),
-  allowUnmatchedTrap: z.boolean().default(false),
+  v3AuthEnabled: z.boolean(),
+  allowUnmatchedTrap: z.boolean().optional(),
   v3Users: z.array(z.lazy(() => InputSnmpV3User$outboundSchema)).optional(),
 });
 
@@ -500,25 +496,25 @@ export const InputSnmpPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputSnmpType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(162),
+  host: z.string(),
+  port: z.number(),
   snmpV3Auth: z.lazy(() => SNMPv3Authentication$inboundSchema).optional(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
-  varbindsWithTypes: z.boolean().default(false),
-  bestEffortParsing: z.boolean().default(false),
+  varbindsWithTypes: z.boolean().optional(),
+  bestEffortParsing: z.boolean().optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -527,21 +523,21 @@ export type InputSnmpPqEnabledTrueWithPqConstraint$Outbound = {
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   host: string;
   port: number;
   snmpV3Auth?: SNMPv3Authentication$Outbound | undefined;
-  maxBufferSize: number;
-  ipWhitelistRegex: string;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
-  varbindsWithTypes: boolean;
-  bestEffortParsing: boolean;
+  varbindsWithTypes?: boolean | undefined;
+  bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -551,25 +547,25 @@ export const InputSnmpPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSnmpPqEnabledTrueWithPqConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   pq: PqType$outboundSchema.optional(),
   id: z.string().optional(),
   type: InputSnmpType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(162),
+  host: z.string(),
+  port: z.number(),
   snmpV3Auth: z.lazy(() => SNMPv3Authentication$outboundSchema).optional(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
-  varbindsWithTypes: z.boolean().default(false),
-  bestEffortParsing: z.boolean().default(false),
+  varbindsWithTypes: z.boolean().optional(),
+  bestEffortParsing: z.boolean().optional(),
   description: z.string().optional(),
 });
 
@@ -600,25 +596,25 @@ export const InputSnmpPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputSnmpType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(162),
+  host: z.string(),
+  port: z.number(),
   snmpV3Auth: z.lazy(() => SNMPv3Authentication$inboundSchema).optional(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
-  varbindsWithTypes: z.boolean().default(false),
-  bestEffortParsing: z.boolean().default(false),
+  varbindsWithTypes: z.boolean().optional(),
+  bestEffortParsing: z.boolean().optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -626,9 +622,9 @@ export type InputSnmpPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
@@ -636,12 +632,12 @@ export type InputSnmpPqEnabledFalseConstraint$Outbound = {
   host: string;
   port: number;
   snmpV3Auth?: SNMPv3Authentication$Outbound | undefined;
-  maxBufferSize: number;
-  ipWhitelistRegex: string;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
-  varbindsWithTypes: boolean;
-  bestEffortParsing: boolean;
+  varbindsWithTypes?: boolean | undefined;
+  bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -651,25 +647,25 @@ export const InputSnmpPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSnmpPqEnabledFalseConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputSnmpType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(162),
+  host: z.string(),
+  port: z.number(),
   snmpV3Auth: z.lazy(() => SNMPv3Authentication$outboundSchema).optional(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
-  varbindsWithTypes: z.boolean().default(false),
-  bestEffortParsing: z.boolean().default(false),
+  varbindsWithTypes: z.boolean().optional(),
+  bestEffortParsing: z.boolean().optional(),
   description: z.string().optional(),
 });
 
@@ -699,25 +695,25 @@ export const InputSnmpSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputSnmpType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$inboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number().default(162),
+    host: z.string(),
+    port: z.number(),
     snmpV3Auth: z.lazy(() => SNMPv3Authentication$inboundSchema).optional(),
-    maxBufferSize: z.number().default(1000),
-    ipWhitelistRegex: z.string().default("/.*/"),
+    maxBufferSize: z.number().optional(),
+    ipWhitelistRegex: z.string().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
     udpSocketRxBufSize: z.number().optional(),
-    varbindsWithTypes: z.boolean().default(false),
-    bestEffortParsing: z.boolean().default(false),
+    varbindsWithTypes: z.boolean().optional(),
+    bestEffortParsing: z.boolean().optional(),
     description: z.string().optional(),
   });
 /** @internal */
@@ -726,21 +722,21 @@ export type InputSnmpSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   snmpV3Auth?: SNMPv3Authentication$Outbound | undefined;
-  maxBufferSize: number;
-  ipWhitelistRegex: string;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
-  varbindsWithTypes: boolean;
-  bestEffortParsing: boolean;
+  varbindsWithTypes?: boolean | undefined;
+  bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -751,26 +747,26 @@ export const InputSnmpSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
     z.ZodTypeDef,
     InputSnmpSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     id: z.string().optional(),
     type: InputSnmpType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number().default(162),
+    host: z.string(),
+    port: z.number(),
     snmpV3Auth: z.lazy(() => SNMPv3Authentication$outboundSchema).optional(),
-    maxBufferSize: z.number().default(1000),
-    ipWhitelistRegex: z.string().default("/.*/"),
+    maxBufferSize: z.number().optional(),
+    ipWhitelistRegex: z.string().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     udpSocketRxBufSize: z.number().optional(),
-    varbindsWithTypes: z.boolean().default(false),
-    bestEffortParsing: z.boolean().default(false),
+    varbindsWithTypes: z.boolean().optional(),
+    bestEffortParsing: z.boolean().optional(),
     description: z.string().optional(),
   });
 
@@ -806,25 +802,25 @@ export const InputSnmpSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputSnmpType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(162),
+  host: z.string(),
+  port: z.number(),
   snmpV3Auth: z.lazy(() => SNMPv3Authentication$inboundSchema).optional(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
-  varbindsWithTypes: z.boolean().default(false),
-  bestEffortParsing: z.boolean().default(false),
+  varbindsWithTypes: z.boolean().optional(),
+  bestEffortParsing: z.boolean().optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -832,22 +828,22 @@ export type InputSnmpSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   snmpV3Auth?: SNMPv3Authentication$Outbound | undefined;
-  maxBufferSize: number;
-  ipWhitelistRegex: string;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
-  varbindsWithTypes: boolean;
-  bestEffortParsing: boolean;
+  varbindsWithTypes?: boolean | undefined;
+  bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -857,25 +853,25 @@ export const InputSnmpSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSnmpSendToRoutesTrueConstraint
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputSnmpType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(162),
+  host: z.string(),
+  port: z.number(),
   snmpV3Auth: z.lazy(() => SNMPv3Authentication$outboundSchema).optional(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
-  varbindsWithTypes: z.boolean().default(false),
-  bestEffortParsing: z.boolean().default(false),
+  varbindsWithTypes: z.boolean().optional(),
+  bestEffortParsing: z.boolean().optional(),
   description: z.string().optional(),
 });
 

@@ -19,11 +19,11 @@ export type FunctionConfSchemaXmlUnroll = {
   /**
    * Add a field with this name, containing the index at which the item was located, starting from 0
    */
-  unrollIdxField: string;
+  unrollIdxField?: string | undefined;
   /**
    * Pretty print the output XML
    */
-  pretty: boolean;
+  pretty?: boolean | undefined;
 };
 
 /** @internal */
@@ -34,8 +34,8 @@ export const FunctionConfSchemaXmlUnroll$inboundSchema: z.ZodType<
 > = z.object({
   unroll: z.string().optional(),
   inherit: z.string().optional(),
-  unrollIdxField: z.string().default("unroll_idx"),
-  pretty: z.boolean().default(false),
+  unrollIdxField: z.string().optional(),
+  pretty: z.boolean().optional(),
 });
 
 export function functionConfSchemaXmlUnrollFromJSON(

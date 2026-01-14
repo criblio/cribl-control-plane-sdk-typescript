@@ -27,6 +27,12 @@ import {
 } from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  ItemsTypeHosts,
+  ItemsTypeHosts$inboundSchema,
+  ItemsTypeHosts$Outbound,
+  ItemsTypeHosts$outboundSchema,
+} from "./itemstypehosts.js";
+import {
   MaxS2SVersionOptions,
   MaxS2SVersionOptions$inboundSchema,
   MaxS2SVersionOptions$outboundSchema,
@@ -46,11 +52,6 @@ import {
   QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
-import {
-  TlsOptionsHostsItems,
-  TlsOptionsHostsItems$inboundSchema,
-  TlsOptionsHostsItems$outboundSchema,
-} from "./tlsoptionshostsitems.js";
 import {
   TlsSettingsClientSideTypeKafkaSchemaRegistry,
   TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
@@ -80,7 +81,7 @@ export type IndexerDiscoveryConfigs = {
   /**
    * Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
    */
-  site?: string | undefined;
+  site: string;
   /**
    * Full URI of Splunk cluster manager (scheme://host:port). Example: https://managerAddress:8089
    */
@@ -88,7 +89,7 @@ export type IndexerDiscoveryConfigs = {
   /**
    * Time interval, in seconds, between two consecutive indexer list fetches from cluster manager
    */
-  refreshIntervalSec?: number | undefined;
+  refreshIntervalSec: number;
   /**
    * During indexer discovery, reject cluster manager certificates that are not authorized by the system's CA. Disable to allow untrusted (for example, self-signed) certificates.
    */
@@ -109,29 +110,6 @@ export type IndexerDiscoveryConfigs = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-};
-
-export type OutputSplunkLbHost = {
-  /**
-   * The hostname of the receiver
-   */
-  host: string;
-  /**
-   * The port to connect to on the provided host
-   */
-  port?: number | undefined;
-  /**
-   * Whether to inherit TLS configs from group setting or disable TLS
-   */
-  tls?: TlsOptionsHostsItems | undefined;
-  /**
-   * Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings.
-   */
-  servername?: string | undefined;
-  /**
-   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-   */
-  weight?: number | undefined;
 };
 
 export type OutputSplunkLbPqControls = {};
@@ -239,7 +217,7 @@ export type OutputSplunkLb = {
   /**
    * Set of Splunk indexers to load-balance data to.
    */
-  hosts: Array<OutputSplunkLbHost>;
+  hosts: Array<ItemsTypeHosts>;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -297,16 +275,14 @@ export const OutputSplunkLbAuthToken$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-    "manual",
-  ),
-  authToken: z.string().default(""),
+  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 /** @internal */
 export type OutputSplunkLbAuthToken$Outbound = {
-  authType: string;
-  authToken: string;
+  authType?: string | undefined;
+  authToken?: string | undefined;
   textSecret?: string | undefined;
 };
 
@@ -316,10 +292,9 @@ export const OutputSplunkLbAuthToken$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputSplunkLbAuthToken
 > = z.object({
-  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-    "manual",
-  ),
-  authToken: z.string().default(""),
+  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
@@ -346,16 +321,14 @@ export const IndexerDiscoveryConfigs$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  site: z.string().default("default"),
+  site: z.string(),
   masterUri: z.string(),
-  refreshIntervalSec: z.number().default(300),
-  rejectUnauthorized: z.boolean().default(false),
+  refreshIntervalSec: z.number(),
+  rejectUnauthorized: z.boolean().optional(),
   authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken$inboundSchema))
     .optional(),
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-    "manual",
-  ),
-  authToken: z.string().default(""),
+  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 /** @internal */
@@ -363,10 +336,10 @@ export type IndexerDiscoveryConfigs$Outbound = {
   site: string;
   masterUri: string;
   refreshIntervalSec: number;
-  rejectUnauthorized: boolean;
+  rejectUnauthorized?: boolean | undefined;
   authTokens?: Array<OutputSplunkLbAuthToken$Outbound> | undefined;
-  authType: string;
-  authToken: string;
+  authType?: string | undefined;
+  authToken?: string | undefined;
   textSecret?: string | undefined;
 };
 
@@ -376,16 +349,15 @@ export const IndexerDiscoveryConfigs$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   IndexerDiscoveryConfigs
 > = z.object({
-  site: z.string().default("default"),
+  site: z.string(),
   masterUri: z.string(),
-  refreshIntervalSec: z.number().default(300),
-  rejectUnauthorized: z.boolean().default(false),
+  refreshIntervalSec: z.number(),
+  rejectUnauthorized: z.boolean().optional(),
   authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken$outboundSchema))
     .optional(),
-  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-    "manual",
-  ),
-  authToken: z.string().default(""),
+  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
@@ -403,57 +375,6 @@ export function indexerDiscoveryConfigsFromJSON(
     jsonString,
     (x) => IndexerDiscoveryConfigs$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'IndexerDiscoveryConfigs' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSplunkLbHost$inboundSchema: z.ZodType<
-  OutputSplunkLbHost,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  host: z.string(),
-  port: z.number().default(9997),
-  tls: TlsOptionsHostsItems$inboundSchema.default("inherit"),
-  servername: z.string().optional(),
-  weight: z.number().default(1),
-});
-/** @internal */
-export type OutputSplunkLbHost$Outbound = {
-  host: string;
-  port: number;
-  tls: string;
-  servername?: string | undefined;
-  weight: number;
-};
-
-/** @internal */
-export const OutputSplunkLbHost$outboundSchema: z.ZodType<
-  OutputSplunkLbHost$Outbound,
-  z.ZodTypeDef,
-  OutputSplunkLbHost
-> = z.object({
-  host: z.string(),
-  port: z.number().default(9997),
-  tls: TlsOptionsHostsItems$outboundSchema.default("inherit"),
-  servername: z.string().optional(),
-  weight: z.number().default(1),
-});
-
-export function outputSplunkLbHostToJSON(
-  outputSplunkLbHost: OutputSplunkLbHost,
-): string {
-  return JSON.stringify(
-    OutputSplunkLbHost$outboundSchema.parse(outputSplunkLbHost),
-  );
-}
-export function outputSplunkLbHostFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSplunkLbHost, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSplunkLbHost$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunkLbHost' from JSON`,
   );
 }
 
@@ -502,43 +423,41 @@ export const OutputSplunkLb$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  maxConcurrentSenders: z.number().default(0),
-  nestedFields: NestedFieldSerializationOptions$inboundSchema.default("none"),
-  throttleRatePerSec: z.string().default("0"),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  maxConcurrentSenders: z.number().optional(),
+  nestedFields: NestedFieldSerializationOptions$inboundSchema.optional(),
+  throttleRatePerSec: z.string().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
   tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
-  enableMultiMetrics: z.boolean().default(false),
-  enableACK: z.boolean().default(true),
-  logFailedRequests: z.boolean().default(false),
-  maxS2Sversion: MaxS2SVersionOptions$inboundSchema.default("v3"),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
-  indexerDiscovery: z.boolean().default(false),
-  senderUnhealthyTimeAllowance: z.number().default(100),
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-    "manual",
-  ),
+  enableMultiMetrics: z.boolean().optional(),
+  enableACK: z.boolean().optional(),
+  logFailedRequests: z.boolean().optional(),
+  maxS2Sversion: MaxS2SVersionOptions$inboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
+  indexerDiscovery: z.boolean().optional(),
+  senderUnhealthyTimeAllowance: z.number().optional(),
+  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
   description: z.string().optional(),
-  maxFailedHealthChecks: z.number().default(1),
-  compress: CompressionOptions$inboundSchema.default("disabled"),
+  maxFailedHealthChecks: z.number().optional(),
+  compress: CompressionOptions$inboundSchema.optional(),
   indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs$inboundSchema)
     .optional(),
-  excludeSelf: z.boolean().default(false),
-  hosts: z.array(z.lazy(() => OutputSplunkLbHost$inboundSchema)),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  excludeSelf: z.boolean().optional(),
+  hosts: z.array(ItemsTypeHosts$inboundSchema),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputSplunkLbPqControls$inboundSchema).optional(),
-  authToken: z.string().default(""),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 /** @internal */
@@ -549,40 +468,40 @@ export type OutputSplunkLb$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
-  maxConcurrentSenders: number;
-  nestedFields: string;
-  throttleRatePerSec: string;
-  connectionTimeout: number;
-  writeTimeout: number;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  maxConcurrentSenders?: number | undefined;
+  nestedFields?: string | undefined;
+  throttleRatePerSec?: string | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
   tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
-  enableMultiMetrics: boolean;
-  enableACK: boolean;
-  logFailedRequests: boolean;
-  maxS2Sversion: string;
-  onBackpressure: string;
-  indexerDiscovery: boolean;
-  senderUnhealthyTimeAllowance: number;
-  authType: string;
+  enableMultiMetrics?: boolean | undefined;
+  enableACK?: boolean | undefined;
+  logFailedRequests?: boolean | undefined;
+  maxS2Sversion?: string | undefined;
+  onBackpressure?: string | undefined;
+  indexerDiscovery?: boolean | undefined;
+  senderUnhealthyTimeAllowance?: number | undefined;
+  authType?: string | undefined;
   description?: string | undefined;
-  maxFailedHealthChecks: number;
-  compress: string;
+  maxFailedHealthChecks?: number | undefined;
+  compress?: string | undefined;
   indexerDiscoveryConfigs?: IndexerDiscoveryConfigs$Outbound | undefined;
-  excludeSelf: boolean;
-  hosts: Array<OutputSplunkLbHost$Outbound>;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  excludeSelf?: boolean | undefined;
+  hosts: Array<ItemsTypeHosts$Outbound>;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputSplunkLbPqControls$Outbound | undefined;
-  authToken: string;
+  authToken?: string | undefined;
   textSecret?: string | undefined;
 };
 
@@ -598,43 +517,42 @@ export const OutputSplunkLb$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  maxConcurrentSenders: z.number().default(0),
-  nestedFields: NestedFieldSerializationOptions$outboundSchema.default("none"),
-  throttleRatePerSec: z.string().default("0"),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  maxConcurrentSenders: z.number().optional(),
+  nestedFields: NestedFieldSerializationOptions$outboundSchema.optional(),
+  throttleRatePerSec: z.string().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
   tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
-  enableMultiMetrics: z.boolean().default(false),
-  enableACK: z.boolean().default(true),
-  logFailedRequests: z.boolean().default(false),
-  maxS2Sversion: MaxS2SVersionOptions$outboundSchema.default("v3"),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
-  indexerDiscovery: z.boolean().default(false),
-  senderUnhealthyTimeAllowance: z.number().default(100),
-  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-    "manual",
-  ),
+  enableMultiMetrics: z.boolean().optional(),
+  enableACK: z.boolean().optional(),
+  logFailedRequests: z.boolean().optional(),
+  maxS2Sversion: MaxS2SVersionOptions$outboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
+  indexerDiscovery: z.boolean().optional(),
+  senderUnhealthyTimeAllowance: z.number().optional(),
+  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
   description: z.string().optional(),
-  maxFailedHealthChecks: z.number().default(1),
-  compress: CompressionOptions$outboundSchema.default("disabled"),
+  maxFailedHealthChecks: z.number().optional(),
+  compress: CompressionOptions$outboundSchema.optional(),
   indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs$outboundSchema)
     .optional(),
-  excludeSelf: z.boolean().default(false),
-  hosts: z.array(z.lazy(() => OutputSplunkLbHost$outboundSchema)),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  excludeSelf: z.boolean().optional(),
+  hosts: z.array(ItemsTypeHosts$outboundSchema),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputSplunkLbPqControls$outboundSchema).optional(),
-  authToken: z.string().default(""),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 

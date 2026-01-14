@@ -27,9 +27,11 @@ let value: FunctionTee = {
       "<value 1>",
       "<value 2>",
     ],
+    restartOnExit: false,
     env: {
       "key": "<value>",
       "key1": "<value>",
+      "key2": "<value>",
     },
   },
 };

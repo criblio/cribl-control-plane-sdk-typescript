@@ -101,7 +101,7 @@ export type InputAppscopePqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   pq?: PqType | undefined;
   /**
    * Unique ID for this input
@@ -207,7 +207,7 @@ export type InputAppscopePqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   /**
    * Unique ID for this input
    */
@@ -313,7 +313,7 @@ export type InputAppscopeSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -419,7 +419,7 @@ export type InputAppscopeSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Unique ID for this input
    */
@@ -622,23 +622,21 @@ export const InputAppscopePersistence$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: DataCompressionFormatOptionsPersistence$inboundSchema.default(
-    "gzip",
-  ),
-  destPath: z.string().default("$CRIBL_HOME/state/appscope"),
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: DataCompressionFormatOptionsPersistence$inboundSchema.optional(),
+  destPath: z.string().optional(),
 });
 /** @internal */
 export type InputAppscopePersistence$Outbound = {
-  enable: boolean;
-  timeWindow: string;
-  maxDataSize: string;
-  maxDataTime: string;
-  compress: string;
-  destPath: string;
+  enable?: boolean | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  destPath?: string | undefined;
 };
 
 /** @internal */
@@ -647,14 +645,12 @@ export const InputAppscopePersistence$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputAppscopePersistence
 > = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: DataCompressionFormatOptionsPersistence$outboundSchema.default(
-    "gzip",
-  ),
-  destPath: z.string().default("$CRIBL_HOME/state/appscope"),
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: DataCompressionFormatOptionsPersistence$outboundSchema.optional(),
+  destPath: z.string().optional(),
 });
 
 export function inputAppscopePersistenceToJSON(
@@ -678,39 +674,39 @@ export function inputAppscopePersistenceFromJSON(
 export const InputAppscopePqEnabledTrueWithPqConstraint$inboundSchema:
   z.ZodType<InputAppscopePqEnabledTrueWithPqConstraint, z.ZodTypeDef, unknown> =
     z.object({
-      pqEnabled: z.boolean().default(false),
+      pqEnabled: z.boolean(),
       pq: PqType$inboundSchema.optional(),
       id: z.string().optional(),
       type: InputAppscopeType$inboundSchema,
-      disabled: z.boolean().default(false),
+      disabled: z.boolean().optional(),
       pipeline: z.string().optional(),
-      sendToRoutes: z.boolean().default(true),
+      sendToRoutes: z.boolean().optional(),
       environment: z.string().optional(),
       streamtags: z.array(z.string()).optional(),
       connections: z.array(ItemsTypeConnectionsOptional$inboundSchema)
         .optional(),
-      ipWhitelistRegex: z.string().default("/.*/"),
-      maxActiveCxn: z.number().default(1000),
-      socketIdleTimeout: z.number().default(0),
-      socketEndingMaxWait: z.number().default(30),
-      socketMaxLifespan: z.number().default(0),
-      enableProxyHeader: z.boolean().default(false),
+      ipWhitelistRegex: z.string().optional(),
+      maxActiveCxn: z.number().optional(),
+      socketIdleTimeout: z.number().optional(),
+      socketEndingMaxWait: z.number().optional(),
+      socketMaxLifespan: z.number().optional(),
+      enableProxyHeader: z.boolean().optional(),
       metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
       breakerRulesets: z.array(z.string()).optional(),
-      staleChannelFlushMs: z.number().default(10000),
-      enableUnixPath: z.boolean().default(false),
+      staleChannelFlushMs: z.number().optional(),
+      enableUnixPath: z.boolean().optional(),
       filter: z.lazy(() => InputAppscopeFilter$inboundSchema).optional(),
       persistence: z.lazy(() => InputAppscopePersistence$inboundSchema)
         .optional(),
       authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema
-        .default("manual"),
+        .optional(),
       description: z.string().optional(),
       host: z.string().optional(),
       port: z.number().optional(),
       tls: TlsSettingsServerSideType$inboundSchema.optional(),
-      unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+      unixSocketPath: z.string().optional(),
       unixSocketPerms: z.string().optional(),
-      authToken: z.string().default(""),
+      authToken: z.string().optional(),
       textSecret: z.string().optional(),
     });
 /** @internal */
@@ -719,32 +715,32 @@ export type InputAppscopePqEnabledTrueWithPqConstraint$Outbound = {
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  ipWhitelistRegex: string;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
-  enableProxyHeader: boolean;
+  ipWhitelistRegex?: string | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  enableUnixPath: boolean;
+  staleChannelFlushMs?: number | undefined;
+  enableUnixPath?: boolean | undefined;
   filter?: InputAppscopeFilter$Outbound | undefined;
   persistence?: InputAppscopePersistence$Outbound | undefined;
-  authType: string;
+  authType?: string | undefined;
   description?: string | undefined;
   host?: string | undefined;
   port?: number | undefined;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  unixSocketPath: string;
+  unixSocketPath?: string | undefined;
   unixSocketPerms?: string | undefined;
-  authToken: string;
+  authToken?: string | undefined;
   textSecret?: string | undefined;
 };
 
@@ -755,40 +751,39 @@ export const InputAppscopePqEnabledTrueWithPqConstraint$outboundSchema:
     z.ZodTypeDef,
     InputAppscopePqEnabledTrueWithPqConstraint
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputAppscopeType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
-    ipWhitelistRegex: z.string().default("/.*/"),
-    maxActiveCxn: z.number().default(1000),
-    socketIdleTimeout: z.number().default(0),
-    socketEndingMaxWait: z.number().default(30),
-    socketMaxLifespan: z.number().default(0),
-    enableProxyHeader: z.boolean().default(false),
+    ipWhitelistRegex: z.string().optional(),
+    maxActiveCxn: z.number().optional(),
+    socketIdleTimeout: z.number().optional(),
+    socketEndingMaxWait: z.number().optional(),
+    socketMaxLifespan: z.number().optional(),
+    enableProxyHeader: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    enableUnixPath: z.boolean().default(false),
+    staleChannelFlushMs: z.number().optional(),
+    enableUnixPath: z.boolean().optional(),
     filter: z.lazy(() => InputAppscopeFilter$outboundSchema).optional(),
     persistence: z.lazy(() => InputAppscopePersistence$outboundSchema)
       .optional(),
-    authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-      "manual",
-    ),
+    authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+      .optional(),
     description: z.string().optional(),
     host: z.string().optional(),
     port: z.number().optional(),
     tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+    unixSocketPath: z.string().optional(),
     unixSocketPerms: z.string().optional(),
-    authToken: z.string().default(""),
+    authToken: z.string().optional(),
     textSecret: z.string().optional(),
   });
 
@@ -824,38 +819,36 @@ export const InputAppscopePqEnabledFalseConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputAppscopeType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  enableUnixPath: z.boolean().default(false),
+  staleChannelFlushMs: z.number().optional(),
+  enableUnixPath: z.boolean().optional(),
   filter: z.lazy(() => InputAppscopeFilter$inboundSchema).optional(),
   persistence: z.lazy(() => InputAppscopePersistence$inboundSchema).optional(),
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-    "manual",
-  ),
+  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
   description: z.string().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
   tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPath: z.string().optional(),
   unixSocketPerms: z.string().optional(),
-  authToken: z.string().default(""),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 /** @internal */
@@ -863,33 +856,33 @@ export type InputAppscopePqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
-  ipWhitelistRegex: string;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
-  enableProxyHeader: boolean;
+  ipWhitelistRegex?: string | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  enableUnixPath: boolean;
+  staleChannelFlushMs?: number | undefined;
+  enableUnixPath?: boolean | undefined;
   filter?: InputAppscopeFilter$Outbound | undefined;
   persistence?: InputAppscopePersistence$Outbound | undefined;
-  authType: string;
+  authType?: string | undefined;
   description?: string | undefined;
   host?: string | undefined;
   port?: number | undefined;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  unixSocketPath: string;
+  unixSocketPath?: string | undefined;
   unixSocketPerms?: string | undefined;
-  authToken: string;
+  authToken?: string | undefined;
   textSecret?: string | undefined;
 };
 
@@ -899,38 +892,37 @@ export const InputAppscopePqEnabledFalseConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputAppscopePqEnabledFalseConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputAppscopeType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  enableUnixPath: z.boolean().default(false),
+  staleChannelFlushMs: z.number().optional(),
+  enableUnixPath: z.boolean().optional(),
   filter: z.lazy(() => InputAppscopeFilter$outboundSchema).optional(),
   persistence: z.lazy(() => InputAppscopePersistence$outboundSchema).optional(),
-  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-    "manual",
-  ),
+  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
   description: z.string().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPath: z.string().optional(),
   unixSocketPerms: z.string().optional(),
-  authToken: z.string().default(""),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
@@ -961,39 +953,38 @@ export const InputAppscopeSendToRoutesFalseWithConnectionsConstraint$inboundSche
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputAppscopeType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$inboundSchema.optional(),
-    ipWhitelistRegex: z.string().default("/.*/"),
-    maxActiveCxn: z.number().default(1000),
-    socketIdleTimeout: z.number().default(0),
-    socketEndingMaxWait: z.number().default(30),
-    socketMaxLifespan: z.number().default(0),
-    enableProxyHeader: z.boolean().default(false),
+    ipWhitelistRegex: z.string().optional(),
+    maxActiveCxn: z.number().optional(),
+    socketIdleTimeout: z.number().optional(),
+    socketEndingMaxWait: z.number().optional(),
+    socketMaxLifespan: z.number().optional(),
+    enableProxyHeader: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    enableUnixPath: z.boolean().default(false),
+    staleChannelFlushMs: z.number().optional(),
+    enableUnixPath: z.boolean().optional(),
     filter: z.lazy(() => InputAppscopeFilter$inboundSchema).optional(),
     persistence: z.lazy(() => InputAppscopePersistence$inboundSchema)
       .optional(),
-    authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-      "manual",
-    ),
+    authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema
+      .optional(),
     description: z.string().optional(),
     host: z.string().optional(),
     port: z.number().optional(),
     tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+    unixSocketPath: z.string().optional(),
     unixSocketPerms: z.string().optional(),
-    authToken: z.string().default(""),
+    authToken: z.string().optional(),
     textSecret: z.string().optional(),
   });
 /** @internal */
@@ -1002,32 +993,32 @@ export type InputAppscopeSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   pq?: PqType$Outbound | undefined;
-  ipWhitelistRegex: string;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
-  enableProxyHeader: boolean;
+  ipWhitelistRegex?: string | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  enableUnixPath: boolean;
+  staleChannelFlushMs?: number | undefined;
+  enableUnixPath?: boolean | undefined;
   filter?: InputAppscopeFilter$Outbound | undefined;
   persistence?: InputAppscopePersistence$Outbound | undefined;
-  authType: string;
+  authType?: string | undefined;
   description?: string | undefined;
   host?: string | undefined;
   port?: number | undefined;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  unixSocketPath: string;
+  unixSocketPath?: string | undefined;
   unixSocketPerms?: string | undefined;
-  authToken: string;
+  authToken?: string | undefined;
   textSecret?: string | undefined;
 };
 
@@ -1038,40 +1029,39 @@ export const InputAppscopeSendToRoutesFalseWithConnectionsConstraint$outboundSch
     z.ZodTypeDef,
     InputAppscopeSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     id: z.string().optional(),
     type: InputAppscopeType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
-    ipWhitelistRegex: z.string().default("/.*/"),
-    maxActiveCxn: z.number().default(1000),
-    socketIdleTimeout: z.number().default(0),
-    socketEndingMaxWait: z.number().default(30),
-    socketMaxLifespan: z.number().default(0),
-    enableProxyHeader: z.boolean().default(false),
+    ipWhitelistRegex: z.string().optional(),
+    maxActiveCxn: z.number().optional(),
+    socketIdleTimeout: z.number().optional(),
+    socketEndingMaxWait: z.number().optional(),
+    socketMaxLifespan: z.number().optional(),
+    enableProxyHeader: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    enableUnixPath: z.boolean().default(false),
+    staleChannelFlushMs: z.number().optional(),
+    enableUnixPath: z.boolean().optional(),
     filter: z.lazy(() => InputAppscopeFilter$outboundSchema).optional(),
     persistence: z.lazy(() => InputAppscopePersistence$outboundSchema)
       .optional(),
-    authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-      "manual",
-    ),
+    authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+      .optional(),
     description: z.string().optional(),
     host: z.string().optional(),
     port: z.number().optional(),
     tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+    unixSocketPath: z.string().optional(),
     unixSocketPerms: z.string().optional(),
-    authToken: z.string().default(""),
+    authToken: z.string().optional(),
     textSecret: z.string().optional(),
   });
 
@@ -1105,38 +1095,36 @@ export const InputAppscopeSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputAppscopeType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  enableUnixPath: z.boolean().default(false),
+  staleChannelFlushMs: z.number().optional(),
+  enableUnixPath: z.boolean().optional(),
   filter: z.lazy(() => InputAppscopeFilter$inboundSchema).optional(),
   persistence: z.lazy(() => InputAppscopePersistence$inboundSchema).optional(),
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-    "manual",
-  ),
+  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
   description: z.string().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
   tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPath: z.string().optional(),
   unixSocketPerms: z.string().optional(),
-  authToken: z.string().default(""),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 /** @internal */
@@ -1144,33 +1132,33 @@ export type InputAppscopeSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
-  ipWhitelistRegex: string;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
-  enableProxyHeader: boolean;
+  ipWhitelistRegex?: string | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  enableUnixPath: boolean;
+  staleChannelFlushMs?: number | undefined;
+  enableUnixPath?: boolean | undefined;
   filter?: InputAppscopeFilter$Outbound | undefined;
   persistence?: InputAppscopePersistence$Outbound | undefined;
-  authType: string;
+  authType?: string | undefined;
   description?: string | undefined;
   host?: string | undefined;
   port?: number | undefined;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  unixSocketPath: string;
+  unixSocketPath?: string | undefined;
   unixSocketPerms?: string | undefined;
-  authToken: string;
+  authToken?: string | undefined;
   textSecret?: string | undefined;
 };
 
@@ -1180,38 +1168,37 @@ export const InputAppscopeSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputAppscopeSendToRoutesTrueConstraint
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputAppscopeType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  enableUnixPath: z.boolean().default(false),
+  staleChannelFlushMs: z.number().optional(),
+  enableUnixPath: z.boolean().optional(),
   filter: z.lazy(() => InputAppscopeFilter$outboundSchema).optional(),
   persistence: z.lazy(() => InputAppscopePersistence$outboundSchema).optional(),
-  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-    "manual",
-  ),
+  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
   description: z.string().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPath: z.string().optional(),
   unixSocketPerms: z.string().optional(),
-  authToken: z.string().default(""),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 

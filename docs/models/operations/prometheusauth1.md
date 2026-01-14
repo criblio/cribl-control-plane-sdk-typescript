@@ -6,15 +6,18 @@
 import { PrometheusAuth1 } from "cribl-control-plane/models/operations";
 
 let value: PrometheusAuth1 = {
-  username: "Alexzander_Turner24",
-  password: "K57nI_f5thpTDEG",
+  authType: "none",
+  username: "Juana.Rodriguez",
+  password: "57nI_f5thpTDEGm",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://soft-curl.biz",
+  loginUrl: "https://each-declaration.info",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
+  authHeaderExpr: "<value>",
+  tokenTimeoutSecs: 1493.81,
   oauthParams: [
     {
       name: "<value>",

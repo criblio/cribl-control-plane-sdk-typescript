@@ -69,11 +69,11 @@ export type FunctionConfSchemaNotify = {
   /**
    * Group the notification belongs to
    */
-  group: string;
+  group?: string | undefined;
   /**
    * Workspace within the deployment to send the search results to.
    */
-  notificationId: string;
+  notificationId?: string | undefined;
   /**
    * Id of the search this function is running on.
    */
@@ -97,11 +97,11 @@ export type FunctionConfSchemaNotify = {
   /**
    * How many results that match trigger the condition
    */
-  triggerCount: number;
+  triggerCount?: number | undefined;
   /**
    * Number of results to include in the notification event
    */
-  resultsLimit: number;
+  resultsLimit?: number | undefined;
   /**
    * Url of the search results
    */
@@ -144,16 +144,16 @@ export const FunctionConfSchemaNotify$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  group: z.string().default("default"),
-  notificationId: z.string().default("main"),
+  group: z.string().optional(),
+  notificationId: z.string().optional(),
   searchId: z.string().optional(),
   savedQueryId: z.string().optional(),
   trigger: z.string().optional(),
   triggerType: FunctionConfSchemaNotifyTriggerType$inboundSchema.optional(),
   triggerComparator: FunctionConfSchemaNotifyCountComparator$inboundSchema
     .optional(),
-  triggerCount: z.number().default(0),
-  resultsLimit: z.number().default(50),
+  triggerCount: z.number().optional(),
+  resultsLimit: z.number().optional(),
   searchUrl: z.string().optional(),
   message: z.string().optional(),
   authToken: z.string().optional(),

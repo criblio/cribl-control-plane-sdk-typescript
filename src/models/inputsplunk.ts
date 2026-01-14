@@ -90,7 +90,7 @@ export type InputSplunkPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   pq?: PqType | undefined;
   /**
    * Unique ID for this input
@@ -121,7 +121,7 @@ export type InputSplunkPqEnabledTrueWithPqConstraint = {
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
@@ -194,7 +194,7 @@ export type InputSplunkPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   /**
    * Unique ID for this input
    */
@@ -225,7 +225,7 @@ export type InputSplunkPqEnabledFalseConstraint = {
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
@@ -298,7 +298,7 @@ export type InputSplunkSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -329,7 +329,7 @@ export type InputSplunkSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
@@ -402,7 +402,7 @@ export type InputSplunkSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Unique ID for this input
    */
@@ -433,7 +433,7 @@ export type InputSplunkSendToRoutesTrueConstraint = {
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
@@ -591,36 +591,36 @@ export const InputSplunkPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputSplunkType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   port: z.number(),
   tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
+  staleChannelFlushMs: z.number().optional(),
   authTokens: z.array(z.lazy(() => InputSplunkAuthToken$inboundSchema))
     .optional(),
-  maxS2Sversion: MaxS2SVersion$inboundSchema.default("v3"),
+  maxS2Sversion: MaxS2SVersion$inboundSchema.optional(),
   description: z.string().optional(),
-  useFwdTimezone: z.boolean().default(true),
-  dropControlFields: z.boolean().default(true),
-  extractMetrics: z.boolean().default(false),
-  compress: InputSplunkCompression$inboundSchema.default("disabled"),
+  useFwdTimezone: z.boolean().optional(),
+  dropControlFields: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
+  compress: InputSplunkCompression$inboundSchema.optional(),
 });
 /** @internal */
 export type InputSplunkPqEnabledTrueWithPqConstraint$Outbound = {
@@ -628,31 +628,31 @@ export type InputSplunkPqEnabledTrueWithPqConstraint$Outbound = {
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  ipWhitelistRegex: string;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
-  enableProxyHeader: boolean;
+  ipWhitelistRegex?: string | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
+  staleChannelFlushMs?: number | undefined;
   authTokens?: Array<InputSplunkAuthToken$Outbound> | undefined;
-  maxS2Sversion: string;
+  maxS2Sversion?: string | undefined;
   description?: string | undefined;
-  useFwdTimezone: boolean;
-  dropControlFields: boolean;
-  extractMetrics: boolean;
-  compress: string;
+  useFwdTimezone?: boolean | undefined;
+  dropControlFields?: boolean | undefined;
+  extractMetrics?: boolean | undefined;
+  compress?: string | undefined;
 };
 
 /** @internal */
@@ -661,36 +661,36 @@ export const InputSplunkPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSplunkPqEnabledTrueWithPqConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   pq: PqType$outboundSchema.optional(),
   id: z.string().optional(),
   type: InputSplunkType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   port: z.number(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
+  staleChannelFlushMs: z.number().optional(),
   authTokens: z.array(z.lazy(() => InputSplunkAuthToken$outboundSchema))
     .optional(),
-  maxS2Sversion: MaxS2SVersion$outboundSchema.default("v3"),
+  maxS2Sversion: MaxS2SVersion$outboundSchema.optional(),
   description: z.string().optional(),
-  useFwdTimezone: z.boolean().default(true),
-  dropControlFields: z.boolean().default(true),
-  extractMetrics: z.boolean().default(false),
-  compress: InputSplunkCompression$outboundSchema.default("disabled"),
+  useFwdTimezone: z.boolean().optional(),
+  dropControlFields: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
+  compress: InputSplunkCompression$outboundSchema.optional(),
 });
 
 export function inputSplunkPqEnabledTrueWithPqConstraintToJSON(
@@ -725,45 +725,45 @@ export const InputSplunkPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputSplunkType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   port: z.number(),
   tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
+  staleChannelFlushMs: z.number().optional(),
   authTokens: z.array(z.lazy(() => InputSplunkAuthToken$inboundSchema))
     .optional(),
-  maxS2Sversion: MaxS2SVersion$inboundSchema.default("v3"),
+  maxS2Sversion: MaxS2SVersion$inboundSchema.optional(),
   description: z.string().optional(),
-  useFwdTimezone: z.boolean().default(true),
-  dropControlFields: z.boolean().default(true),
-  extractMetrics: z.boolean().default(false),
-  compress: InputSplunkCompression$inboundSchema.default("disabled"),
+  useFwdTimezone: z.boolean().optional(),
+  dropControlFields: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
+  compress: InputSplunkCompression$inboundSchema.optional(),
 });
 /** @internal */
 export type InputSplunkPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
@@ -771,22 +771,22 @@ export type InputSplunkPqEnabledFalseConstraint$Outbound = {
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  ipWhitelistRegex: string;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
-  enableProxyHeader: boolean;
+  ipWhitelistRegex?: string | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
+  staleChannelFlushMs?: number | undefined;
   authTokens?: Array<InputSplunkAuthToken$Outbound> | undefined;
-  maxS2Sversion: string;
+  maxS2Sversion?: string | undefined;
   description?: string | undefined;
-  useFwdTimezone: boolean;
-  dropControlFields: boolean;
-  extractMetrics: boolean;
-  compress: string;
+  useFwdTimezone?: boolean | undefined;
+  dropControlFields?: boolean | undefined;
+  extractMetrics?: boolean | undefined;
+  compress?: string | undefined;
 };
 
 /** @internal */
@@ -795,36 +795,36 @@ export const InputSplunkPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSplunkPqEnabledFalseConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputSplunkType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   port: z.number(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
+  staleChannelFlushMs: z.number().optional(),
   authTokens: z.array(z.lazy(() => InputSplunkAuthToken$outboundSchema))
     .optional(),
-  maxS2Sversion: MaxS2SVersion$outboundSchema.default("v3"),
+  maxS2Sversion: MaxS2SVersion$outboundSchema.optional(),
   description: z.string().optional(),
-  useFwdTimezone: z.boolean().default(true),
-  dropControlFields: z.boolean().default(true),
-  extractMetrics: z.boolean().default(false),
-  compress: InputSplunkCompression$outboundSchema.default("disabled"),
+  useFwdTimezone: z.boolean().optional(),
+  dropControlFields: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
+  compress: InputSplunkCompression$outboundSchema.optional(),
 });
 
 export function inputSplunkPqEnabledFalseConstraintToJSON(
@@ -854,36 +854,36 @@ export const InputSplunkSendToRoutesFalseWithConnectionsConstraint$inboundSchema
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputSplunkType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$inboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
+    host: z.string(),
     port: z.number(),
     tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    ipWhitelistRegex: z.string().default("/.*/"),
-    maxActiveCxn: z.number().default(1000),
-    socketIdleTimeout: z.number().default(0),
-    socketEndingMaxWait: z.number().default(30),
-    socketMaxLifespan: z.number().default(0),
-    enableProxyHeader: z.boolean().default(false),
+    ipWhitelistRegex: z.string().optional(),
+    maxActiveCxn: z.number().optional(),
+    socketIdleTimeout: z.number().optional(),
+    socketEndingMaxWait: z.number().optional(),
+    socketMaxLifespan: z.number().optional(),
+    enableProxyHeader: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
+    staleChannelFlushMs: z.number().optional(),
     authTokens: z.array(z.lazy(() => InputSplunkAuthToken$inboundSchema))
       .optional(),
-    maxS2Sversion: MaxS2SVersion$inboundSchema.default("v3"),
+    maxS2Sversion: MaxS2SVersion$inboundSchema.optional(),
     description: z.string().optional(),
-    useFwdTimezone: z.boolean().default(true),
-    dropControlFields: z.boolean().default(true),
-    extractMetrics: z.boolean().default(false),
-    compress: InputSplunkCompression$inboundSchema.default("disabled"),
+    useFwdTimezone: z.boolean().optional(),
+    dropControlFields: z.boolean().optional(),
+    extractMetrics: z.boolean().optional(),
+    compress: InputSplunkCompression$inboundSchema.optional(),
   });
 /** @internal */
 export type InputSplunkSendToRoutesFalseWithConnectionsConstraint$Outbound = {
@@ -891,31 +891,31 @@ export type InputSplunkSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  ipWhitelistRegex: string;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
-  enableProxyHeader: boolean;
+  ipWhitelistRegex?: string | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
+  staleChannelFlushMs?: number | undefined;
   authTokens?: Array<InputSplunkAuthToken$Outbound> | undefined;
-  maxS2Sversion: string;
+  maxS2Sversion?: string | undefined;
   description?: string | undefined;
-  useFwdTimezone: boolean;
-  dropControlFields: boolean;
-  extractMetrics: boolean;
-  compress: string;
+  useFwdTimezone?: boolean | undefined;
+  dropControlFields?: boolean | undefined;
+  extractMetrics?: boolean | undefined;
+  compress?: string | undefined;
 };
 
 /** @internal */
@@ -925,37 +925,37 @@ export const InputSplunkSendToRoutesFalseWithConnectionsConstraint$outboundSchem
     z.ZodTypeDef,
     InputSplunkSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     id: z.string().optional(),
     type: InputSplunkType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
+    host: z.string(),
     port: z.number(),
     tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    ipWhitelistRegex: z.string().default("/.*/"),
-    maxActiveCxn: z.number().default(1000),
-    socketIdleTimeout: z.number().default(0),
-    socketEndingMaxWait: z.number().default(30),
-    socketMaxLifespan: z.number().default(0),
-    enableProxyHeader: z.boolean().default(false),
+    ipWhitelistRegex: z.string().optional(),
+    maxActiveCxn: z.number().optional(),
+    socketIdleTimeout: z.number().optional(),
+    socketEndingMaxWait: z.number().optional(),
+    socketMaxLifespan: z.number().optional(),
+    enableProxyHeader: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
+    staleChannelFlushMs: z.number().optional(),
     authTokens: z.array(z.lazy(() => InputSplunkAuthToken$outboundSchema))
       .optional(),
-    maxS2Sversion: MaxS2SVersion$outboundSchema.default("v3"),
+    maxS2Sversion: MaxS2SVersion$outboundSchema.optional(),
     description: z.string().optional(),
-    useFwdTimezone: z.boolean().default(true),
-    dropControlFields: z.boolean().default(true),
-    extractMetrics: z.boolean().default(false),
-    compress: InputSplunkCompression$outboundSchema.default("disabled"),
+    useFwdTimezone: z.boolean().optional(),
+    dropControlFields: z.boolean().optional(),
+    extractMetrics: z.boolean().optional(),
+    compress: InputSplunkCompression$outboundSchema.optional(),
   });
 
 export function inputSplunkSendToRoutesFalseWithConnectionsConstraintToJSON(
@@ -990,68 +990,68 @@ export const InputSplunkSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputSplunkType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   port: z.number(),
   tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
+  staleChannelFlushMs: z.number().optional(),
   authTokens: z.array(z.lazy(() => InputSplunkAuthToken$inboundSchema))
     .optional(),
-  maxS2Sversion: MaxS2SVersion$inboundSchema.default("v3"),
+  maxS2Sversion: MaxS2SVersion$inboundSchema.optional(),
   description: z.string().optional(),
-  useFwdTimezone: z.boolean().default(true),
-  dropControlFields: z.boolean().default(true),
-  extractMetrics: z.boolean().default(false),
-  compress: InputSplunkCompression$inboundSchema.default("disabled"),
+  useFwdTimezone: z.boolean().optional(),
+  dropControlFields: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
+  compress: InputSplunkCompression$inboundSchema.optional(),
 });
 /** @internal */
 export type InputSplunkSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  ipWhitelistRegex: string;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
-  enableProxyHeader: boolean;
+  ipWhitelistRegex?: string | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
+  staleChannelFlushMs?: number | undefined;
   authTokens?: Array<InputSplunkAuthToken$Outbound> | undefined;
-  maxS2Sversion: string;
+  maxS2Sversion?: string | undefined;
   description?: string | undefined;
-  useFwdTimezone: boolean;
-  dropControlFields: boolean;
-  extractMetrics: boolean;
-  compress: string;
+  useFwdTimezone?: boolean | undefined;
+  dropControlFields?: boolean | undefined;
+  extractMetrics?: boolean | undefined;
+  compress?: string | undefined;
 };
 
 /** @internal */
@@ -1060,36 +1060,36 @@ export const InputSplunkSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSplunkSendToRoutesTrueConstraint
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputSplunkType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
+  host: z.string(),
   port: z.number(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
+  staleChannelFlushMs: z.number().optional(),
   authTokens: z.array(z.lazy(() => InputSplunkAuthToken$outboundSchema))
     .optional(),
-  maxS2Sversion: MaxS2SVersion$outboundSchema.default("v3"),
+  maxS2Sversion: MaxS2SVersion$outboundSchema.optional(),
   description: z.string().optional(),
-  useFwdTimezone: z.boolean().default(true),
-  dropControlFields: z.boolean().default(true),
-  extractMetrics: z.boolean().default(false),
-  compress: InputSplunkCompression$outboundSchema.default("disabled"),
+  useFwdTimezone: z.boolean().optional(),
+  dropControlFields: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
+  compress: InputSplunkCompression$outboundSchema.optional(),
 });
 
 export function inputSplunkSendToRoutesTrueConstraintToJSON(

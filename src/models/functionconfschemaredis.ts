@@ -79,12 +79,12 @@ export type FunctionConfSchemaRedis = {
   /**
    * How the Redis server is configured. Defaults to Standalone
    */
-  deploymentType: FunctionConfSchemaRedisDeploymentType;
-  authType: FunctionConfSchemaRedisAuthenticationMethod;
+  deploymentType?: FunctionConfSchemaRedisDeploymentType | undefined;
+  authType?: FunctionConfSchemaRedisAuthenticationMethod | undefined;
   /**
    * Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
    */
-  maxBlockSecs: number;
+  maxBlockSecs?: number | undefined;
   /**
    * Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
    */
@@ -136,13 +136,11 @@ export const FunctionConfSchemaRedis$inboundSchema: z.ZodType<
 > = z.object({
   commands: z.array(z.lazy(() => FunctionConfSchemaRedisCommand$inboundSchema))
     .optional(),
-  deploymentType: FunctionConfSchemaRedisDeploymentType$inboundSchema.default(
-    "standalone",
-  ),
-  authType: FunctionConfSchemaRedisAuthenticationMethod$inboundSchema.default(
-    "none",
-  ),
-  maxBlockSecs: z.number().default(60),
+  deploymentType: FunctionConfSchemaRedisDeploymentType$inboundSchema
+    .optional(),
+  authType: FunctionConfSchemaRedisAuthenticationMethod$inboundSchema
+    .optional(),
+  maxBlockSecs: z.number().optional(),
   enableClientSideCaching: z.boolean().optional(),
 });
 

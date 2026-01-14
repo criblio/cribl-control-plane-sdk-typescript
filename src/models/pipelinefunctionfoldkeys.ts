@@ -47,7 +47,7 @@ export const PipelineFunctionFoldkeys$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("foldkeys"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionFoldkeys$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionFoldkeys$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "foldkeys";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionFoldkeys$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionFoldkeys
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("foldkeys"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

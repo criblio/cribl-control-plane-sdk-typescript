@@ -6,17 +6,25 @@
 import { InputAppscopePqEnabledTrueWithPqConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputAppscopePqEnabledTrueWithPqConstraint = {
+  pqEnabled: false,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "appscope",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -24,6 +32,12 @@ let value: InputAppscopePqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
+  ipWhitelistRegex: "<value>",
+  maxActiveCxn: 9917.66,
+  socketIdleTimeout: 756.2,
+  socketEndingMaxWait: 5302.17,
+  socketMaxLifespan: 3124.19,
+  enableProxyHeader: false,
   metadata: [
     {
       name: "<value>",
@@ -32,8 +46,9 @@ let value: InputAppscopePqEnabledTrueWithPqConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
+  staleChannelFlushMs: 6149.02,
+  enableUnixPath: false,
   filter: {
     allow: [
       {
@@ -42,22 +57,37 @@ let value: InputAppscopePqEnabledTrueWithPqConstraint = {
         config: "<value>",
       },
     ],
-    transportURL: "https://diligent-worth.com",
+    transportURL: "https://clean-blight.net",
   },
-  persistence: {},
-  description: "captain phew barring until after likewise capitalize",
-  host: "weird-teammate.com",
-  port: 5065.13,
+  persistence: {
+    enable: true,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "none",
+    destPath: "<value>",
+  },
+  authType: "secret",
+  description:
+    "restructure question repeatedly provided baptise inasmuch mousse psst around",
+  host: "doting-cutlet.com",
+  port: 5631.47,
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  unixSocketPath: "<value>",
   unixSocketPerms: "<value>",
+  authToken: "<value>",
   textSecret: "<value>",
 };
 ```
@@ -66,7 +96,7 @@ let value: InputAppscopePqEnabledTrueWithPqConstraint = {
 
 | Field                                                                                                                                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                                                                                  |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `pqEnabled`                                                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                                                                                                 |
+| `pqEnabled`                                                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                                                                                                 |
 | `pq`                                                                                                                                                                                                                                                                                                                                                         | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                                                                                                                                          |
 | `id`                                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                                                                                                                                       | [operations.InputAppscopeType](../../models/operations/inputappscopetype.md)                                                                                                                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                                                                                                                                          |

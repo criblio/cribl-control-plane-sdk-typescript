@@ -15,15 +15,15 @@ export type FunctionConfSchemaDistinct = {
   /**
    * maximum number of tracked combinations
    */
-  maxCombinations: number;
+  maxCombinations?: number | undefined;
   /**
    * maximum number of groupBy properties
    */
-  maxDepth: number;
+  maxDepth?: number | undefined;
   /**
    * indicator that the operator runs on a federated executor
    */
-  isFederated: boolean;
+  isFederated?: boolean | undefined;
   /**
    * Toggle this on to suppress generating previews of intermediate results
    */
@@ -37,9 +37,9 @@ export const FunctionConfSchemaDistinct$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   groupBy: z.array(z.string()).optional(),
-  maxCombinations: z.number().default(10000),
-  maxDepth: z.number().default(15),
-  isFederated: z.boolean().default(false),
+  maxCombinations: z.number().optional(),
+  maxDepth: z.number().optional(),
+  isFederated: z.boolean().optional(),
   suppressPreviews: z.boolean().optional(),
 });
 

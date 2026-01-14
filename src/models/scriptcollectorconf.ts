@@ -80,14 +80,14 @@ export const ScriptCollectorConf$inboundSchema: z.ZodType<
 > = z.object({
   discoverScript: z.string(),
   collectScript: z.string(),
-  shell: z.string().default("/bin/bash"),
+  shell: z.string().optional(),
   envVars: z.array(z.lazy(() => EnvVar$inboundSchema)).optional(),
 });
 /** @internal */
 export type ScriptCollectorConf$Outbound = {
   discoverScript: string;
   collectScript: string;
-  shell: string;
+  shell?: string | undefined;
   envVars?: Array<EnvVar$Outbound> | undefined;
 };
 
@@ -99,7 +99,7 @@ export const ScriptCollectorConf$outboundSchema: z.ZodType<
 > = z.object({
   discoverScript: z.string(),
   collectScript: z.string(),
-  shell: z.string().default("/bin/bash"),
+  shell: z.string().optional(),
   envVars: z.array(z.lazy(() => EnvVar$outboundSchema)).optional(),
 });
 

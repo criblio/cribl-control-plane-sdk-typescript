@@ -6,17 +6,20 @@
 import { PipelineFunctionNumerify } from "cribl-control-plane/models";
 
 let value: PipelineFunctionNumerify = {
+  filter: "<value>",
   id: "numerify",
   description: "stratify what really excluding",
   disabled: true,
   final: false,
   conf: {
+    depth: 724362,
     ignoreFields: [
       "<value 1>",
       "<value 2>",
       "<value 3>",
     ],
     filterExpr: "<value>",
+    format: "none",
   },
   groupId: "<id>",
 };

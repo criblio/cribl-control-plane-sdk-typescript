@@ -6,16 +6,25 @@
 import { InputSystemMetricsPqEnabledTrueWithPqConstraint } from "cribl-control-plane/models";
 
 let value: InputSystemMetricsPqEnabledTrueWithPqConstraint = {
+  pqEnabled: false,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "system_metrics",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -23,29 +32,50 @@ let value: InputSystemMetricsPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
+  interval: 1219.22,
   host: {
+    mode: "disabled",
     custom: {
-      system: {},
-      cpu: {},
-      memory: {},
+      system: {
+        mode: "custom",
+        processes: true,
+      },
+      cpu: {
+        mode: "basic",
+        perCpu: false,
+        detail: true,
+        time: false,
+      },
+      memory: {
+        mode: "custom",
+        detail: true,
+      },
       network: {
+        mode: "all",
+        detail: true,
+        protocols: false,
         devices: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
+        perInterface: true,
       },
       disk: {
+        mode: "basic",
+        detail: false,
+        inodes: false,
         devices: [
           "<value 1>",
         ],
         mountpoints: [
           "<value 1>",
-          "<value 2>",
         ],
         fstypes: [
           "<value 1>",
           "<value 2>",
         ],
+        perDevice: true,
       },
     },
   },
@@ -54,20 +84,26 @@ let value: InputSystemMetricsPqEnabledTrueWithPqConstraint = {
       {
         name: "<value>",
         filter: "<value>",
+        includeChildren: false,
       },
     ],
   },
   container: {
+    mode: "basic",
     dockerSocket: [
       "<value 1>",
       "<value 2>",
       "<value 3>",
     ],
+    dockerTimeout: 9942.78,
     filters: [
       {
         expr: "<value>",
       },
     ],
+    allContainers: false,
+    perDevice: true,
+    detail: false,
   },
   metadata: [
     {
@@ -75,8 +111,16 @@ let value: InputSystemMetricsPqEnabledTrueWithPqConstraint = {
       value: "<value>",
     },
   ],
-  persistence: {},
-  description: "out stylish silently",
+  persistence: {
+    enable: true,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+    destPath: "<value>",
+  },
+  description:
+    "forenenst concrete supposing quiet but concerning consequently aside hovel",
 };
 ```
 
@@ -84,7 +128,7 @@ let value: InputSystemMetricsPqEnabledTrueWithPqConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `pq`                                                                                                                                                                                                                                         | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [models.InputSystemMetricsType](../models/inputsystemmetricstype.md)                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

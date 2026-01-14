@@ -20,21 +20,60 @@ let value: OutputMinio = {
   ],
   endpoint: "<value>",
   bucket: "<value>",
+  awsAuthenticationMethod: "<value>",
   awsSecretKey: "<value>",
   region: "<value>",
+  stagePath: "<value>",
+  addIdToStagePath: false,
   destPath: "<value>",
+  signatureVersion: "v4",
+  objectACL: "public-read",
   storageClass: "REDUCED_REDUNDANCY",
   serverSideEncryption: "AES256",
-  description: "yet fidget reassuringly mid worth mountain save haversack",
+  reuseConnections: true,
+  rejectUnauthorized: true,
+  verifyPermissions: true,
+  removeEmptyDirs: false,
+  partitionExpr: "<value>",
+  format: "parquet",
+  baseFileName: "<value>",
+  fileNameSuffix: "<value>",
+  maxFileSizeMB: 796.55,
+  maxOpenFiles: 5463.78,
+  headerLine: "<value>",
+  writeHighWaterMark: 5536.78,
+  onBackpressure: "drop",
+  deadletterEnabled: true,
+  onDiskFullBackpressure: "drop",
+  forceCloseOnShutdown: true,
+  maxFileOpenTimeSec: 3219.32,
+  maxFileIdleTimeSec: 9846.47,
+  maxConcurrentFileParts: 4485.43,
+  description: "weary pronoun between really mid rebuild weakly",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  compress: "gzip",
+  compressionLevel: "normal",
+  automaticSchema: true,
   parquetSchema: "<value>",
+  parquetVersion: "PARQUET_2_4",
+  parquetDataPageVersion: "DATA_PAGE_V1",
+  parquetRowGroupLength: 9627.61,
+  parquetPageSize: "<value>",
   shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
+      key: "<key>",
       value: "<value>",
     },
   ],
+  enableStatistics: false,
+  enableWritePageIndex: true,
+  enablePageChecksum: false,
+  emptyDirCleanupSec: 6211.01,
+  directoryBatchSize: 103.99,
+  deadletterPath: "<value>",
+  maxRetryNum: 3038.98,
 };
 ```
 
@@ -50,10 +89,10 @@ let value: OutputMinio = {
 | `streamtags`                                                                                                                                                                                                                                                         | *string*[]                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                        |
 | `endpoint`                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                   | MinIO service url (e.g. http://minioHost:9000)                                                                                                                                                                                                                       |
 | `bucket`                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                   | Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`                                                             |
-| `awsAuthenticationMethod`                                                                                                                                                                                                                                            | [models.AuthenticationMethodOptions](../models/authenticationmethodoptions.md)                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                   | AWS authentication method. Choose Auto to use IAM roles.                                                                                                                                                                                                             |
+| `awsAuthenticationMethod`                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | AWS authentication method. Choose Auto to use IAM roles.                                                                                                                                                                                                             |
 | `awsSecretKey`                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).                                                                                                                                                                |
 | `region`                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Region where the MinIO service/cluster is located                                                                                                                                                                                                                    |
-| `stagePath`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.                                                                                                                                     |
+| `stagePath`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                   | Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.                                                                                                                                     |
 | `addIdToStagePath`                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Add the Output ID value to staging location                                                                                                                                                                                                                          |
 | `destPath`                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.                                                                                                                                    |
 | `signatureVersion`                                                                                                                                                                                                                                                   | [models.SignatureVersionOptions5](../models/signatureversionoptions5.md)                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Signature version to use for signing MinIO requests                                                                                                                                                                                                                  |

@@ -7,14 +7,15 @@
 
 ```typescript
 const value: operations.InputMetricsSendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "metrics",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -23,18 +24,33 @@ const value: operations.InputMetricsSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  udpPort: 2418.45,
-  tcpPort: 5014.46,
+  host: "alienated-diver.org",
+  udpPort: 4654.7,
+  tcpPort: 2637.21,
+  maxBufferSize: 8707.42,
+  ipWhitelistRegex: "<value>",
+  enableProxyHeader: true,
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
   metadata: [
     {
@@ -42,8 +58,8 @@ const value: operations.InputMetricsSendToRoutesTrueConstraint = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 2670.63,
-  description: "um before dulcimer",
+  udpSocketRxBufSize: 9817.88,
+  description: "against monthly woot victoriously sizzling although beneficial",
 };
 ```
 
@@ -52,6 +68,7 @@ const value: operations.InputMetricsSendToRoutesTrueConstraint = {
 ```typescript
 const value: operations.InputMetricsSendToRoutesFalseWithConnectionsConstraint =
   {
+    sendToRoutes: true,
     connections: [
       {
         pipeline: "<value>",
@@ -60,25 +77,43 @@ const value: operations.InputMetricsSendToRoutesFalseWithConnectionsConstraint =
     ],
     id: "<id>",
     type: "metrics",
+    disabled: false,
     pipeline: "<value>",
     environment: "<value>",
+    pqEnabled: true,
     streamtags: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
     pq: {
+      mode: "smart",
+      maxBufferSize: 1717.96,
+      commitFrequency: 1412.18,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/include",
+      compress: "none",
       pqControls: {},
     },
-    udpPort: 9928.77,
-    tcpPort: 2789.06,
+    host: "warmhearted-drug.org",
+    udpPort: 2452.3,
+    tcpPort: 5795.31,
+    maxBufferSize: 3783.82,
+    ipWhitelistRegex: "<value>",
+    enableProxyHeader: true,
     tls: {
+      disabled: true,
+      requestCert: true,
+      rejectUnauthorized: true,
+      commonNameRegex: "<value>",
       certificateName: "<value>",
       privKeyPath: "<value>",
       passphrase: "<value>",
       certPath: "<value>",
       caPath: "<value>",
       minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+      maxVersion: "TLSv1.1",
     },
     metadata: [
       {
@@ -86,8 +121,8 @@ const value: operations.InputMetricsSendToRoutesFalseWithConnectionsConstraint =
         value: "<value>",
       },
     ],
-    udpSocketRxBufSize: 7367.2,
-    description: "yahoo garrote muddy before sad er colon extent phew after",
+    udpSocketRxBufSize: 3721.62,
+    description: "what mummify nearly boring plus woot what",
   };
 ```
 
@@ -95,13 +130,15 @@ const value: operations.InputMetricsSendToRoutesFalseWithConnectionsConstraint =
 
 ```typescript
 const value: operations.InputMetricsPqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "metrics",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -110,18 +147,33 @@ const value: operations.InputMetricsPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  udpPort: 1864.49,
-  tcpPort: 9651.91,
+  host: "judicious-ceramics.com",
+  udpPort: 1464.5,
+  tcpPort: 2513.76,
+  maxBufferSize: 3480.15,
+  ipWhitelistRegex: "<value>",
+  enableProxyHeader: false,
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
   metadata: [
     {
@@ -129,8 +181,8 @@ const value: operations.InputMetricsPqEnabledFalseConstraint = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 3318.13,
-  description: "chairperson seemingly er throughout the vanish",
+  udpSocketRxBufSize: 1358.59,
+  description: "hm excluding meanwhile role ah annex",
 };
 ```
 
@@ -138,17 +190,25 @@ const value: operations.InputMetricsPqEnabledFalseConstraint = {
 
 ```typescript
 const value: operations.InputMetricsPqEnabledTrueWithPqConstraint = {
+  pqEnabled: false,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "metrics",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -156,16 +216,24 @@ const value: operations.InputMetricsPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
-  udpPort: 3255.26,
-  tcpPort: 8223.77,
+  host: "wiggly-mountain.org",
+  udpPort: 3084.88,
+  tcpPort: 9234.81,
+  maxBufferSize: 9679.51,
+  ipWhitelistRegex: "<value>",
+  enableProxyHeader: true,
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
   metadata: [
     {
@@ -173,9 +241,8 @@ const value: operations.InputMetricsPqEnabledTrueWithPqConstraint = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 1151.86,
-  description:
-    "mobilise oof off before worth oof optimal proliferate against on",
+  udpSocketRxBufSize: 5270.48,
+  description: "pfft zowie pish wing divine until circa but",
 };
 ```
 

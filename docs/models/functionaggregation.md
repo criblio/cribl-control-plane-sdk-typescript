@@ -23,17 +23,21 @@ let value: FunctionAggregation = {
   },
   version: "<value>",
   schema: {
+    passthrough: false,
+    preserveGroupBys: false,
+    sufficientStatsOnly: true,
+    metricsMode: true,
     prefix: "<value>",
+    timeWindow: "<value>",
     aggregations: [
       "<value 1>",
-      "<value 2>",
     ],
     groupbys: [
       "<value 1>",
-      "<value 2>",
     ],
-    flushEventLimit: 956.07,
+    flushEventLimit: 6233.54,
     flushMemLimit: "<value>",
+    cumulative: false,
     searchAggMode: "<value>",
     add: [
       {
@@ -41,6 +45,8 @@ let value: FunctionAggregation = {
         value: "<value>",
       },
     ],
+    shouldTreatDotsAsLiterals: false,
+    flushOnInputClose: true,
   },
 };
 ```

@@ -47,7 +47,7 @@ export const PipelineFunctionNumerify$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("numerify"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionNumerify$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionNumerify$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "numerify";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionNumerify$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionNumerify
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("numerify"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

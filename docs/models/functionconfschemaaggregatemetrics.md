@@ -6,25 +6,31 @@
 import { FunctionConfSchemaAggregateMetrics } from "cribl-control-plane/models";
 
 let value: FunctionConfSchemaAggregateMetrics = {
+  passthrough: false,
+  preserveGroupBys: false,
+  sufficientStatsOnly: false,
   prefix: "<value>",
+  timeWindow: "<value>",
   aggregations: [
     {
+      metricType: "distribution",
       agg: "<value>",
     },
   ],
   groupbys: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  flushEventLimit: 8415.18,
+  flushEventLimit: 9703.48,
   flushMemLimit: "<value>",
+  cumulative: false,
+  shouldTreatDotsAsLiterals: false,
   add: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  flushOnInputClose: false,
 };
 ```
 

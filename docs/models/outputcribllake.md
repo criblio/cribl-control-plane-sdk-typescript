@@ -20,14 +20,43 @@ let value: OutputCriblLake = {
   region: "<value>",
   awsSecretKey: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v2",
+  reuseConnections: true,
+  rejectUnauthorized: true,
+  enableAssumeRole: true,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  durationSeconds: 5139.89,
+  stagePath: "<value>",
+  addIdToStagePath: false,
   destPath: "<value>",
+  objectACL: "bucket-owner-full-control",
   storageClass: "STANDARD_IA",
   serverSideEncryption: "AES256",
   kmsKeyId: "<id>",
+  removeEmptyDirs: false,
+  baseFileName: "<value>",
+  fileNameSuffix: "<value>",
+  maxFileSizeMB: 2469.21,
+  maxOpenFiles: 8507.76,
+  headerLine: "<value>",
+  writeHighWaterMark: 2960.21,
+  onBackpressure: "block",
+  deadletterEnabled: true,
+  onDiskFullBackpressure: "block",
+  forceCloseOnShutdown: true,
+  maxFileOpenTimeSec: 582.91,
+  maxFileIdleTimeSec: 2466.43,
+  verifyPermissions: true,
+  maxClosingFilesToBackpressure: 4888.34,
+  awsAuthenticationMethod: "auto",
   format: "json",
-  description: "hence phooey gut gadzooks next",
+  maxConcurrentFileParts: 3322.46,
+  description: "gadzooks next embody phew for unethically",
+  emptyDirCleanupSec: 9645.48,
+  directoryBatchSize: 7252.7,
+  deadletterPath: "<value>",
+  maxRetryNum: 1452.88,
 };
 ```
 
@@ -74,7 +103,7 @@ let value: OutputCriblLake = {
 | `maxFileIdleTimeSec`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.                                                                                                                               |
 | `verifyPermissions`                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Disable if you can access files within the bucket but not the bucket itself                                                                                                                                                                                          |
 | `maxClosingFilesToBackpressure`                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Maximum number of files that can be waiting for upload before backpressure is applied                                                                                                                                                                                |
-| `awsAuthenticationMethod`                                                                                                                                                                                                                                            | [models.AwsAuthenticationMethod](../models/awsauthenticationmethod.md)                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                  |
+| `awsAuthenticationMethod`                                                                                                                                                                                                                                            | [models.MethodOptionsCredentials](../models/methodoptionscredentials.md)                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                  |
 | `format`                                                                                                                                                                                                                                                             | [models.FormatOptionsCriblLakeDataset](../models/formatoptionscribllakedataset.md)                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                  |
 | `maxConcurrentFileParts`                                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.                                                                                                                                                                                    |
 | `description`                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                  |

@@ -18,6 +18,11 @@ let value: GoogleCloudStorageAuthTypeManual = {
     },
   ],
   endpoint: "<value>",
+  disableTimeFilter: true,
+  recurse: true,
+  maxBatchSize: 9246.86,
+  parquetChunkSizeMB: 6359.7,
+  parquetChunkDownloadTimeout: 7241.64,
 };
 ```
 

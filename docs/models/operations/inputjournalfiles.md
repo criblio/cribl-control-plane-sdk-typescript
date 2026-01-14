@@ -7,12 +7,16 @@
 
 ```typescript
 const value: operations.InputJournalFilesSendToRoutesTrueConstraint = {
+  sendToRoutes: true,
   id: "<id>",
   type: "journal_files",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -21,18 +25,28 @@ const value: operations.InputJournalFilesSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  path: "/private/tmp",
+  path: "/var/tmp",
+  interval: 4220.37,
   journals: [
     "<value 1>",
+    "<value 2>",
   ],
   rules: [
     {
       filter: "<value>",
-      description: "via growing fooey utterly instead earth limply",
+      description: "informal frizzy opera ack woot",
     },
   ],
+  currentBoot: true,
   maxAgeDur: "<value>",
   metadata: [
     {
@@ -41,7 +55,7 @@ const value: operations.InputJournalFilesSendToRoutesTrueConstraint = {
     },
   ],
   description:
-    "eek circa consequently pfft given wherever ew accompany insignificant",
+    "adumbrate obediently readmit including monocle chip playfully until",
 };
 ```
 
@@ -50,6 +64,7 @@ const value: operations.InputJournalFilesSendToRoutesTrueConstraint = {
 ```typescript
 const value:
   operations.InputJournalFilesSendToRoutesFalseWithConnectionsConstraint = {
+    sendToRoutes: true,
     connections: [
       {
         pipeline: "<value>",
@@ -58,25 +73,37 @@ const value:
     ],
     id: "<id>",
     type: "journal_files",
+    disabled: false,
     pipeline: "<value>",
     environment: "<value>",
+    pqEnabled: true,
     streamtags: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
     pq: {
+      mode: "smart",
+      maxBufferSize: 1717.96,
+      commitFrequency: 1412.18,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/include",
+      compress: "none",
       pqControls: {},
     },
-    path: "/System",
+    path: "/opt/bin",
+    interval: 7251.35,
     journals: [
       "<value 1>",
     ],
     rules: [
       {
         filter: "<value>",
-        description:
-          "pure toward during webbed beside pertain the officially hungry",
+        description: "sew gladly event an hence warped up",
       },
     ],
+    currentBoot: false,
     maxAgeDur: "<value>",
     metadata: [
       {
@@ -84,7 +111,7 @@ const value:
         value: "<value>",
       },
     ],
-    description: "hutch drat entwine",
+    description: "personal access switch",
   };
 ```
 
@@ -92,14 +119,15 @@ const value:
 
 ```typescript
 const value: operations.InputJournalFilesPqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "journal_files",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -108,18 +136,28 @@ const value: operations.InputJournalFilesPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  path: "/mnt",
+  path: "/home",
+  interval: 5036.36,
   journals: [
     "<value 1>",
   ],
   rules: [
     {
       filter: "<value>",
-      description: "unless into sweetly",
+      description:
+        "unscramble seal if stealthily continually bewail after duh so orchestrate",
     },
   ],
+  currentBoot: false,
   maxAgeDur: "<value>",
   metadata: [
     {
@@ -127,7 +165,7 @@ const value: operations.InputJournalFilesPqEnabledFalseConstraint = {
       value: "<value>",
     },
   ],
-  description: "rue troubled as tremendously nervously",
+  description: "flawless carelessly ugh via youthfully shoddy a as",
 };
 ```
 
@@ -135,12 +173,22 @@ const value: operations.InputJournalFilesPqEnabledFalseConstraint = {
 
 ```typescript
 const value: operations.InputJournalFilesPqEnabledTrueWithPqConstraint = {
+  pqEnabled: false,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "journal_files",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -152,17 +200,18 @@ const value: operations.InputJournalFilesPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
-  path: "/etc/ppp",
+  path: "/boot",
+  interval: 1801.14,
   journals: [
     "<value 1>",
-    "<value 2>",
   ],
   rules: [
     {
       filter: "<value>",
-      description: "palate across impractical faithfully petticoat sunbeam",
+      description: "lazily mesh mmm around upwardly comfortable",
     },
   ],
+  currentBoot: false,
   maxAgeDur: "<value>",
   metadata: [
     {
@@ -170,8 +219,7 @@ const value: operations.InputJournalFilesPqEnabledTrueWithPqConstraint = {
       value: "<value>",
     },
   ],
-  description:
-    "bench gosh following seriously really cycle whale now about fantastic",
+  description: "why midst riser anenst as kosher never hmph which",
 };
 ```
 

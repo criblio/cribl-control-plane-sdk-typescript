@@ -33,11 +33,11 @@ export type PipelineFunctionDynamicSamplingConf = {
   /**
    * Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
    */
-  mode?: PipelineFunctionDynamicSamplingSampleMode | undefined;
+  mode: PipelineFunctionDynamicSamplingSampleMode;
   /**
    * Expression used to derive sample group key. Example:`${domain}:${status}`. Each sample group will have its own derived sampling rate based on volume. Defaults to `${host}`.
    */
-  keyExpr?: string | undefined;
+  keyExpr: string;
   /**
    * How often (in seconds) sample rates will be adjusted
    */
@@ -97,19 +97,19 @@ export const PipelineFunctionDynamicSamplingConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: PipelineFunctionDynamicSamplingSampleMode$inboundSchema.default("log"),
-  keyExpr: z.string().default("`${host}`"),
-  samplePeriod: z.number().default(30),
-  minEvents: z.number().default(30),
-  maxSampleRate: z.number().default(100),
+  mode: PipelineFunctionDynamicSamplingSampleMode$inboundSchema,
+  keyExpr: z.string(),
+  samplePeriod: z.number().optional(),
+  minEvents: z.number().optional(),
+  maxSampleRate: z.number().optional(),
 });
 /** @internal */
 export type PipelineFunctionDynamicSamplingConf$Outbound = {
   mode: string;
   keyExpr: string;
-  samplePeriod: number;
-  minEvents: number;
-  maxSampleRate: number;
+  samplePeriod?: number | undefined;
+  minEvents?: number | undefined;
+  maxSampleRate?: number | undefined;
 };
 
 /** @internal */
@@ -118,11 +118,11 @@ export const PipelineFunctionDynamicSamplingConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionDynamicSamplingConf
 > = z.object({
-  mode: PipelineFunctionDynamicSamplingSampleMode$outboundSchema.default("log"),
-  keyExpr: z.string().default("`${host}`"),
-  samplePeriod: z.number().default(30),
-  minEvents: z.number().default(30),
-  maxSampleRate: z.number().default(100),
+  mode: PipelineFunctionDynamicSamplingSampleMode$outboundSchema,
+  keyExpr: z.string(),
+  samplePeriod: z.number().optional(),
+  minEvents: z.number().optional(),
+  maxSampleRate: z.number().optional(),
 });
 
 export function pipelineFunctionDynamicSamplingConfToJSON(
@@ -151,7 +151,7 @@ export const PipelineFunctionDynamicSampling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("dynamic_sampling"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -161,7 +161,7 @@ export const PipelineFunctionDynamicSampling$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionDynamicSampling$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "dynamic_sampling";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -176,7 +176,7 @@ export const PipelineFunctionDynamicSampling$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionDynamicSampling
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("dynamic_sampling"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

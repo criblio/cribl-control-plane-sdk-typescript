@@ -6,10 +6,13 @@
 import { SplunkAuthenticationNone } from "cribl-control-plane/models";
 
 let value: SplunkAuthenticationNone = {
-  authentication: "none",
+  authentication: "token",
+  searchHead: "<value>",
   search: "<value>",
   earliest: "<value>",
   latest: "<value>",
+  endpoint: "<value>",
+  outputMode: "json",
   collectRequestParams: [
     {
       name: "<value>",
@@ -22,7 +25,13 @@ let value: SplunkAuthenticationNone = {
       value: "<value>",
     },
   ],
+  timeout: 5597.31,
+  useRoundRobinDns: false,
+  disableTimeFilter: false,
+  rejectUnauthorized: false,
+  handleEscapedChars: false,
   retryRules: {
+    type: "static",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -38,13 +47,13 @@ let value: SplunkAuthenticationNone = {
 
 | Field                                                                                                                     | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               |
 | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `authentication`                                                                                                          | *"none"*                                                                                                                  | :heavy_check_mark:                                                                                                        | Authentication method for Discover and Collect REST calls                                                                 |
-| `searchHead`                                                                                                              | *string*                                                                                                                  | :heavy_minus_sign:                                                                                                        | Search head base URL. Can be an expression. Default is https://localhost:8089.                                            |
+| `authentication`                                                                                                          | [models.SplunkAuthenticationNoneAuthentication](../models/splunkauthenticationnoneauthentication.md)                      | :heavy_check_mark:                                                                                                        | Authentication method for Discover and Collect REST calls                                                                 |
+| `searchHead`                                                                                                              | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | Search head base URL. Can be an expression. Default is https://localhost:8089.                                            |
 | `search`                                                                                                                  | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | Examples: 'index=myAppLogs level=error channel=myApp' OR '\| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'      |
 | `earliest`                                                                                                                | *string*                                                                                                                  | :heavy_minus_sign:                                                                                                        | The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m' |
 | `latest`                                                                                                                  | *string*                                                                                                                  | :heavy_minus_sign:                                                                                                        | The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'    |
-| `endpoint`                                                                                                                | *string*                                                                                                                  | :heavy_minus_sign:                                                                                                        | REST API used to create a search                                                                                          |
-| `outputMode`                                                                                                              | [models.OutputModeOptionsSplunkCollectorConf](../models/outputmodeoptionssplunkcollectorconf.md)                          | :heavy_minus_sign:                                                                                                        | Format of the returned output                                                                                             |
+| `endpoint`                                                                                                                | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | REST API used to create a search                                                                                          |
+| `outputMode`                                                                                                              | [models.OutputModeOptionsSplunkCollectorConf](../models/outputmodeoptionssplunkcollectorconf.md)                          | :heavy_check_mark:                                                                                                        | Format of the returned output                                                                                             |
 | `collectRequestParams`                                                                                                    | [models.SplunkAuthenticationNoneCollectRequestParam](../models/splunkauthenticationnonecollectrequestparam.md)[]          | :heavy_minus_sign:                                                                                                        | Optional collect request parameters                                                                                       |
 | `collectRequestHeaders`                                                                                                   | [models.SplunkAuthenticationNoneCollectRequestHeader](../models/splunkauthenticationnonecollectrequestheader.md)[]        | :heavy_minus_sign:                                                                                                        | Optional collect request headers                                                                                          |
 | `timeout`                                                                                                                 | *number*                                                                                                                  | :heavy_minus_sign:                                                                                                        | HTTP request inactivity timeout. Use 0 for no timeout.                                                                    |

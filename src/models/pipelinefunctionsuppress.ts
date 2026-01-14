@@ -15,11 +15,11 @@ export type PipelineFunctionSuppressConf = {
   /**
    * The number of events to allow per time period
    */
-  allow?: number | undefined;
+  allow: number;
   /**
    * The number of seconds to suppress events after 'Number to allow' events are received
    */
-  suppressPeriodSec?: number | undefined;
+  suppressPeriodSec: number;
   /**
    * If disabled, suppressed events will be tagged with suppress=1 but not dropped
    */
@@ -73,22 +73,22 @@ export const PipelineFunctionSuppressConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   keyExpr: z.string(),
-  allow: z.number().default(1),
-  suppressPeriodSec: z.number().default(30),
-  dropEventsMode: z.boolean().default(true),
-  maxCacheSize: z.number().default(50000),
-  cacheIdleTimeoutPeriods: z.number().default(2),
-  numEventsIdleTimeoutTrigger: z.number().default(10000),
+  allow: z.number(),
+  suppressPeriodSec: z.number(),
+  dropEventsMode: z.boolean().optional(),
+  maxCacheSize: z.number().optional(),
+  cacheIdleTimeoutPeriods: z.number().optional(),
+  numEventsIdleTimeoutTrigger: z.number().optional(),
 });
 /** @internal */
 export type PipelineFunctionSuppressConf$Outbound = {
   keyExpr: string;
   allow: number;
   suppressPeriodSec: number;
-  dropEventsMode: boolean;
-  maxCacheSize: number;
-  cacheIdleTimeoutPeriods: number;
-  numEventsIdleTimeoutTrigger: number;
+  dropEventsMode?: boolean | undefined;
+  maxCacheSize?: number | undefined;
+  cacheIdleTimeoutPeriods?: number | undefined;
+  numEventsIdleTimeoutTrigger?: number | undefined;
 };
 
 /** @internal */
@@ -98,12 +98,12 @@ export const PipelineFunctionSuppressConf$outboundSchema: z.ZodType<
   PipelineFunctionSuppressConf
 > = z.object({
   keyExpr: z.string(),
-  allow: z.number().default(1),
-  suppressPeriodSec: z.number().default(30),
-  dropEventsMode: z.boolean().default(true),
-  maxCacheSize: z.number().default(50000),
-  cacheIdleTimeoutPeriods: z.number().default(2),
-  numEventsIdleTimeoutTrigger: z.number().default(10000),
+  allow: z.number(),
+  suppressPeriodSec: z.number(),
+  dropEventsMode: z.boolean().optional(),
+  maxCacheSize: z.number().optional(),
+  cacheIdleTimeoutPeriods: z.number().optional(),
+  numEventsIdleTimeoutTrigger: z.number().optional(),
 });
 
 export function pipelineFunctionSuppressConfToJSON(
@@ -131,7 +131,7 @@ export const PipelineFunctionSuppress$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("suppress"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -141,7 +141,7 @@ export const PipelineFunctionSuppress$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionSuppress$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "suppress";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -156,7 +156,7 @@ export const PipelineFunctionSuppress$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionSuppress
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("suppress"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

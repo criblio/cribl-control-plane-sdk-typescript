@@ -34,15 +34,15 @@ export type FunctionConfSchemaHandlebars = {
   /**
    * Field name to store the rendered template result. Defaults to _raw.
    */
-  targetField: string;
+  targetField?: string | undefined;
   /**
    * Parse the rendered template as JSON and store as an object instead of a string. Useful for building structured data like Slack blocks.
    */
-  parseJson: boolean;
+  parseJson?: boolean | undefined;
   /**
    * Remove the target field if the rendered result is empty or null.
    */
-  removeOnNull: boolean;
+  removeOnNull?: boolean | undefined;
 };
 
 /** @internal */
@@ -55,7 +55,7 @@ export const FunctionConfSchemaHandlebarsTemplateDefinition$inboundSchema:
     id: z.string(),
     content: z.string(),
     description: z.string().optional(),
-    type: z.string().default("Universal"),
+    type: z.string(),
   });
 
 export function functionConfSchemaHandlebarsTemplateDefinitionFromJSON(
@@ -83,9 +83,9 @@ export const FunctionConfSchemaHandlebars$inboundSchema: z.ZodType<
   templates: z.array(
     z.lazy(() => FunctionConfSchemaHandlebarsTemplateDefinition$inboundSchema),
   ).optional(),
-  targetField: z.string().default("_raw"),
-  parseJson: z.boolean().default(false),
-  removeOnNull: z.boolean().default(true),
+  targetField: z.string().optional(),
+  parseJson: z.boolean().optional(),
+  removeOnNull: z.boolean().optional(),
 });
 
 export function functionConfSchemaHandlebarsFromJSON(

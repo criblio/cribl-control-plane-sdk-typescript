@@ -6,9 +6,10 @@
 import { PrometheusAuthType } from "cribl-control-plane/models";
 
 let value: PrometheusAuthType = {
+  authType: "none",
   token: "<value>",
   textSecret: "<value>",
-  username: "Aglae_Gibson",
+  username: "Davon.Ortiz39",
   password: "m3rdAgW4pt2X16F",
   credentialsSecret: "<value>",
 };

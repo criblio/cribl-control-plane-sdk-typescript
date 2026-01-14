@@ -11,7 +11,7 @@ export type PipelineFunctionDropDimensionsConf = {
   /**
    * The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
    */
-  timeWindow?: string | undefined;
+  timeWindow: string;
   /**
    * One or more dimensions to be dropped. Supports wildcard expressions. Warning: Using wildcard '*' causes all dimensions in the event to be dropped.
    */
@@ -56,15 +56,15 @@ export const PipelineFunctionDropDimensionsConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  timeWindow: z.string().default("10s"),
+  timeWindow: z.string(),
   dropDimensions: z.array(z.string()),
-  flushOnInputClose: z.boolean().default(true),
+  flushOnInputClose: z.boolean().optional(),
 });
 /** @internal */
 export type PipelineFunctionDropDimensionsConf$Outbound = {
   timeWindow: string;
   dropDimensions: Array<string>;
-  flushOnInputClose: boolean;
+  flushOnInputClose?: boolean | undefined;
 };
 
 /** @internal */
@@ -73,9 +73,9 @@ export const PipelineFunctionDropDimensionsConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionDropDimensionsConf
 > = z.object({
-  timeWindow: z.string().default("10s"),
+  timeWindow: z.string(),
   dropDimensions: z.array(z.string()),
-  flushOnInputClose: z.boolean().default(true),
+  flushOnInputClose: z.boolean().optional(),
 });
 
 export function pipelineFunctionDropDimensionsConfToJSON(
@@ -104,7 +104,7 @@ export const PipelineFunctionDropDimensions$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("drop_dimensions"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -114,7 +114,7 @@ export const PipelineFunctionDropDimensions$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionDropDimensions$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "drop_dimensions";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -129,7 +129,7 @@ export const PipelineFunctionDropDimensions$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionDropDimensions
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("drop_dimensions"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

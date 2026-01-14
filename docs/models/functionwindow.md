@@ -30,6 +30,8 @@ let value: FunctionWindow = {
       "<value 2>",
       "<value 3>",
     ],
+    tailEventCount: 7215.87,
+    headEventCount: 9901.46,
   },
 };
 ```

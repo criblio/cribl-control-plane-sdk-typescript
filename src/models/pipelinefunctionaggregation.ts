@@ -37,7 +37,7 @@ export type PipelineFunctionAggregationConf = {
   /**
    * The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
    */
-  timeWindow?: string | undefined;
+  timeWindow: string;
   /**
    * Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
    */
@@ -110,39 +110,39 @@ export const PipelineFunctionAggregationConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  passthrough: z.boolean().default(false),
-  preserveGroupBys: z.boolean().default(false),
-  sufficientStatsOnly: z.boolean().default(false),
-  metricsMode: z.boolean().default(false),
+  passthrough: z.boolean().optional(),
+  preserveGroupBys: z.boolean().optional(),
+  sufficientStatsOnly: z.boolean().optional(),
+  metricsMode: z.boolean().optional(),
   prefix: z.string().optional(),
-  timeWindow: z.string().default("10s"),
+  timeWindow: z.string(),
   aggregations: z.array(z.string()),
   groupbys: z.array(z.string()).optional(),
   flushEventLimit: z.number().optional(),
   flushMemLimit: z.string().optional(),
-  cumulative: z.boolean().default(false),
+  cumulative: z.boolean().optional(),
   searchAggMode: z.string().optional(),
   add: z.array(ItemsTypeAdd$inboundSchema).optional(),
-  shouldTreatDotsAsLiterals: z.boolean().default(false),
-  flushOnInputClose: z.boolean().default(true),
+  shouldTreatDotsAsLiterals: z.boolean().optional(),
+  flushOnInputClose: z.boolean().optional(),
 });
 /** @internal */
 export type PipelineFunctionAggregationConf$Outbound = {
-  passthrough: boolean;
-  preserveGroupBys: boolean;
-  sufficientStatsOnly: boolean;
-  metricsMode: boolean;
+  passthrough?: boolean | undefined;
+  preserveGroupBys?: boolean | undefined;
+  sufficientStatsOnly?: boolean | undefined;
+  metricsMode?: boolean | undefined;
   prefix?: string | undefined;
   timeWindow: string;
   aggregations: Array<string>;
   groupbys?: Array<string> | undefined;
   flushEventLimit?: number | undefined;
   flushMemLimit?: string | undefined;
-  cumulative: boolean;
+  cumulative?: boolean | undefined;
   searchAggMode?: string | undefined;
   add?: Array<ItemsTypeAdd$Outbound> | undefined;
-  shouldTreatDotsAsLiterals: boolean;
-  flushOnInputClose: boolean;
+  shouldTreatDotsAsLiterals?: boolean | undefined;
+  flushOnInputClose?: boolean | undefined;
 };
 
 /** @internal */
@@ -151,21 +151,21 @@ export const PipelineFunctionAggregationConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionAggregationConf
 > = z.object({
-  passthrough: z.boolean().default(false),
-  preserveGroupBys: z.boolean().default(false),
-  sufficientStatsOnly: z.boolean().default(false),
-  metricsMode: z.boolean().default(false),
+  passthrough: z.boolean().optional(),
+  preserveGroupBys: z.boolean().optional(),
+  sufficientStatsOnly: z.boolean().optional(),
+  metricsMode: z.boolean().optional(),
   prefix: z.string().optional(),
-  timeWindow: z.string().default("10s"),
+  timeWindow: z.string(),
   aggregations: z.array(z.string()),
   groupbys: z.array(z.string()).optional(),
   flushEventLimit: z.number().optional(),
   flushMemLimit: z.string().optional(),
-  cumulative: z.boolean().default(false),
+  cumulative: z.boolean().optional(),
   searchAggMode: z.string().optional(),
   add: z.array(ItemsTypeAdd$outboundSchema).optional(),
-  shouldTreatDotsAsLiterals: z.boolean().default(false),
-  flushOnInputClose: z.boolean().default(true),
+  shouldTreatDotsAsLiterals: z.boolean().optional(),
+  flushOnInputClose: z.boolean().optional(),
 });
 
 export function pipelineFunctionAggregationConfToJSON(
@@ -193,7 +193,7 @@ export const PipelineFunctionAggregation$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("aggregation"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -203,7 +203,7 @@ export const PipelineFunctionAggregation$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionAggregation$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "aggregation";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -218,7 +218,7 @@ export const PipelineFunctionAggregation$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionAggregation
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("aggregation"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

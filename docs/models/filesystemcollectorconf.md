@@ -14,6 +14,8 @@ let value: FilesystemCollectorConf = {
       expression: "<value>",
     },
   ],
+  recurse: true,
+  maxBatchSize: 9647.63,
 };
 ```
 

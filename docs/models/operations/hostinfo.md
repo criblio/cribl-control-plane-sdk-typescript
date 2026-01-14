@@ -7,7 +7,9 @@ Creates events based on the host system’s current state
 ```typescript
 import { HostInfo } from "cribl-control-plane/models/operations";
 
-let value: HostInfo = {};
+let value: HostInfo = {
+  enable: true,
+};
 ```
 
 ## Fields

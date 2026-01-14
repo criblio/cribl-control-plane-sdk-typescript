@@ -23,9 +23,11 @@ let value: FunctionDropDimensions = {
   },
   version: "<value>",
   schema: {
+    timeWindow: "<value>",
     dropDimensions: [
       "<value 1>",
     ],
+    flushOnInputClose: false,
   },
 };
 ```

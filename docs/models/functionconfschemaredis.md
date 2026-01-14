@@ -14,6 +14,9 @@ let value: FunctionConfSchemaRedis = {
       argsExpr: "<value>",
     },
   ],
+  deploymentType: "cluster",
+  authType: "textSecret",
+  maxBlockSecs: 6819.98,
   enableClientSideCaching: false,
 };
 ```

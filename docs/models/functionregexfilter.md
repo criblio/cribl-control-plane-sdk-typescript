@@ -28,6 +28,7 @@ let value: FunctionRegexFilter = {
         regex: "<value>",
       },
     ],
+    field: "<value>",
   },
 };
 ```

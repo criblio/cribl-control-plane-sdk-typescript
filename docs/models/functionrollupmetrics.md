@@ -26,6 +26,8 @@ let value: FunctionRollupMetrics = {
     dimensions: [
       "<value 1>",
     ],
+    timeWindow: "<value>",
+    gaugeRollup: "avg",
   },
 };
 ```

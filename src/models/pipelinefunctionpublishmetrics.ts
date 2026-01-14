@@ -47,7 +47,7 @@ export const PipelineFunctionPublishMetrics$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("publish_metrics"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionPublishMetrics$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionPublishMetrics$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "publish_metrics";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionPublishMetrics$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionPublishMetrics
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("publish_metrics"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

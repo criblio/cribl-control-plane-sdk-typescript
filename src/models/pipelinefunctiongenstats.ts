@@ -47,7 +47,7 @@ export const PipelineFunctionGenStats$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("gen_stats"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionGenStats$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionGenStats$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "gen_stats";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionGenStats$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionGenStats
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("gen_stats"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

@@ -33,23 +33,23 @@ export type FunctionConfSchemaDynamicSampling = {
   /**
    * Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
    */
-  mode: FunctionConfSchemaDynamicSamplingSampleMode;
+  mode?: FunctionConfSchemaDynamicSamplingSampleMode | undefined;
   /**
    * Expression used to derive sample group key. Example:`${domain}:${status}`. Each sample group will have its own derived sampling rate based on volume. Defaults to `${host}`.
    */
-  keyExpr: string;
+  keyExpr?: string | undefined;
   /**
    * How often (in seconds) sample rates will be adjusted
    */
-  samplePeriod: number;
+  samplePeriod?: number | undefined;
   /**
    * Minimum number of events that must be received in previous sample period for sampling mode to be applied to current period. If the number of events received for a sample group is less than this minimum, a sample rate of 1:1 is used.
    */
-  minEvents: number;
+  minEvents?: number | undefined;
   /**
    * Maximum sampling rate. If computed sampling rate is above this value, it will be limited to this value.
    */
-  maxSampleRate: number;
+  maxSampleRate?: number | undefined;
 };
 
 /** @internal */
@@ -66,13 +66,11 @@ export const FunctionConfSchemaDynamicSampling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: FunctionConfSchemaDynamicSamplingSampleMode$inboundSchema.default(
-    "log",
-  ),
-  keyExpr: z.string().default("`${host}`"),
-  samplePeriod: z.number().default(30),
-  minEvents: z.number().default(30),
-  maxSampleRate: z.number().default(100),
+  mode: FunctionConfSchemaDynamicSamplingSampleMode$inboundSchema.optional(),
+  keyExpr: z.string().optional(),
+  samplePeriod: z.number().optional(),
+  minEvents: z.number().optional(),
+  maxSampleRate: z.number().optional(),
 });
 
 export function functionConfSchemaDynamicSamplingFromJSON(

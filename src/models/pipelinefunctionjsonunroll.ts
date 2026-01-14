@@ -96,7 +96,7 @@ export const PipelineFunctionJsonUnroll$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("json_unroll"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -106,7 +106,7 @@ export const PipelineFunctionJsonUnroll$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionJsonUnroll$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "json_unroll";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -121,7 +121,7 @@ export const PipelineFunctionJsonUnroll$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionJsonUnroll
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("json_unroll"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

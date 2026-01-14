@@ -7,14 +7,16 @@
 
 ```typescript
 const value: operations.InputModelDrivenTelemetrySendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "model_driven_telemetry",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -23,16 +25,29 @@ const value: operations.InputModelDrivenTelemetrySendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  host: "blaring-cosset.net",
+  port: 3151.57,
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
   metadata: [
     {
@@ -40,7 +55,9 @@ const value: operations.InputModelDrivenTelemetrySendToRoutesTrueConstraint = {
       value: "<value>",
     },
   ],
-  description: "safely gigantic deliberately outbid free finally before",
+  maxActiveCxn: 6947.72,
+  shutdownTimeoutMs: 5370.33,
+  description: "next jaggedly which cannon revoke drat faint",
 };
 ```
 
@@ -50,6 +67,7 @@ const value: operations.InputModelDrivenTelemetrySendToRoutesTrueConstraint = {
 const value:
   operations.InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint =
     {
+      sendToRoutes: true,
       connections: [
         {
           pipeline: "<value>",
@@ -58,22 +76,38 @@ const value:
       ],
       id: "<id>",
       type: "model_driven_telemetry",
+      disabled: false,
       pipeline: "<value>",
       environment: "<value>",
+      pqEnabled: false,
       streamtags: [
         "<value 1>",
+        "<value 2>",
       ],
       pq: {
+        mode: "smart",
+        maxBufferSize: 1717.96,
+        commitFrequency: 1412.18,
+        maxFileSize: "<value>",
+        maxSize: "<value>",
+        path: "/opt/include",
+        compress: "none",
         pqControls: {},
       },
+      host: "experienced-technologist.name",
+      port: 7472.25,
       tls: {
+        disabled: true,
+        requestCert: true,
+        rejectUnauthorized: true,
+        commonNameRegex: "<value>",
         certificateName: "<value>",
         privKeyPath: "<value>",
         passphrase: "<value>",
         certPath: "<value>",
         caPath: "<value>",
         minVersion: "TLSv1",
-        maxVersion: "TLSv1.2",
+        maxVersion: "TLSv1.1",
       },
       metadata: [
         {
@@ -81,8 +115,9 @@ const value:
           value: "<value>",
         },
       ],
-      description:
-        "courteous bathrobe ingratiate especially dreamily or portray who lobotomise",
+      maxActiveCxn: 1457.38,
+      shutdownTimeoutMs: 8888.32,
+      description: "between meanwhile failing but who",
     };
 ```
 
@@ -90,9 +125,12 @@ const value:
 
 ```typescript
 const value: operations.InputModelDrivenTelemetryPqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "model_driven_telemetry",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -106,16 +144,29 @@ const value: operations.InputModelDrivenTelemetryPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  host: "mysterious-circumference.com",
+  port: 2600.32,
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
   metadata: [
     {
@@ -123,7 +174,9 @@ const value: operations.InputModelDrivenTelemetryPqEnabledFalseConstraint = {
       value: "<value>",
     },
   ],
-  description: "sham when phooey wildly less norm but vision quietly deprave",
+  maxActiveCxn: 7966.13,
+  shutdownTimeoutMs: 457.23,
+  description: "stack yahoo wafer tedious",
 };
 ```
 
@@ -132,15 +185,27 @@ const value: operations.InputModelDrivenTelemetryPqEnabledFalseConstraint = {
 ```typescript
 const value: operations.InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint =
   {
+    pqEnabled: true,
     pq: {
+      mode: "smart",
+      maxBufferSize: 1717.96,
+      commitFrequency: 1412.18,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/include",
+      compress: "none",
       pqControls: {},
     },
     id: "<id>",
     type: "model_driven_telemetry",
+    disabled: false,
     pipeline: "<value>",
+    sendToRoutes: true,
     environment: "<value>",
     streamtags: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
     connections: [
       {
@@ -148,14 +213,20 @@ const value: operations.InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint =
         output: "<value>",
       },
     ],
+    host: "glum-lift.com",
+    port: 9354.66,
     tls: {
+      disabled: true,
+      requestCert: true,
+      rejectUnauthorized: true,
+      commonNameRegex: "<value>",
       certificateName: "<value>",
       privKeyPath: "<value>",
       passphrase: "<value>",
       certPath: "<value>",
       caPath: "<value>",
       minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+      maxVersion: "TLSv1.1",
     },
     metadata: [
       {
@@ -163,8 +234,9 @@ const value: operations.InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint =
         value: "<value>",
       },
     ],
-    description:
-      "phew submissive ferociously whose amongst brace for till hmph",
+    maxActiveCxn: 7766.65,
+    shutdownTimeoutMs: 2258.61,
+    description: "acidly whoever some atop now",
   };
 ```
 

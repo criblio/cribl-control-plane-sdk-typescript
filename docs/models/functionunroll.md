@@ -22,7 +22,10 @@ let value: FunctionUnroll = {
     "key1": "<value>",
   },
   version: "<value>",
-  schema: {},
+  schema: {
+    srcExpr: "<value>",
+    dstField: "<value>",
+  },
 };
 ```
 

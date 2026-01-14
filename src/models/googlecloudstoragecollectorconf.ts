@@ -261,11 +261,11 @@ export const GoogleCloudStorageAuthTypeSecret$inboundSchema: z.ZodType<
     z.lazy(() => GoogleCloudStorageAuthTypeSecretExtractor$inboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
-  disableTimeFilter: z.boolean().default(false),
-  recurse: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  disableTimeFilter: z.boolean().optional(),
+  recurse: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
 });
 /** @internal */
 export type GoogleCloudStorageAuthTypeSecret$Outbound = {
@@ -278,11 +278,11 @@ export type GoogleCloudStorageAuthTypeSecret$Outbound = {
     | Array<GoogleCloudStorageAuthTypeSecretExtractor$Outbound>
     | undefined;
   endpoint?: string | undefined;
-  disableTimeFilter: boolean;
-  recurse: boolean;
-  maxBatchSize: number;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
+  disableTimeFilter?: boolean | undefined;
+  recurse?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
 };
 
 /** @internal */
@@ -300,11 +300,11 @@ export const GoogleCloudStorageAuthTypeSecret$outboundSchema: z.ZodType<
     z.lazy(() => GoogleCloudStorageAuthTypeSecretExtractor$outboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
-  disableTimeFilter: z.boolean().default(false),
-  recurse: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  disableTimeFilter: z.boolean().optional(),
+  recurse: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
 });
 
 export function googleCloudStorageAuthTypeSecretToJSON(
@@ -393,11 +393,11 @@ export const GoogleCloudStorageAuthTypeManual$inboundSchema: z.ZodType<
     z.lazy(() => GoogleCloudStorageAuthTypeManualExtractor$inboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
-  disableTimeFilter: z.boolean().default(false),
-  recurse: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  disableTimeFilter: z.boolean().optional(),
+  recurse: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
 });
 /** @internal */
 export type GoogleCloudStorageAuthTypeManual$Outbound = {
@@ -410,11 +410,11 @@ export type GoogleCloudStorageAuthTypeManual$Outbound = {
     | Array<GoogleCloudStorageAuthTypeManualExtractor$Outbound>
     | undefined;
   endpoint?: string | undefined;
-  disableTimeFilter: boolean;
-  recurse: boolean;
-  maxBatchSize: number;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
+  disableTimeFilter?: boolean | undefined;
+  recurse?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
 };
 
 /** @internal */
@@ -432,11 +432,11 @@ export const GoogleCloudStorageAuthTypeManual$outboundSchema: z.ZodType<
     z.lazy(() => GoogleCloudStorageAuthTypeManualExtractor$outboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
-  disableTimeFilter: z.boolean().default(false),
-  recurse: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  disableTimeFilter: z.boolean().optional(),
+  recurse: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
 });
 
 export function googleCloudStorageAuthTypeManualToJSON(
@@ -523,11 +523,11 @@ export const GoogleCloudStorageAuthTypeAuto$inboundSchema: z.ZodType<
     z.lazy(() => GoogleCloudStorageAuthTypeAutoExtractor$inboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
-  disableTimeFilter: z.boolean().default(false),
-  recurse: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  disableTimeFilter: z.boolean().optional(),
+  recurse: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
 });
 /** @internal */
 export type GoogleCloudStorageAuthTypeAuto$Outbound = {
@@ -539,11 +539,11 @@ export type GoogleCloudStorageAuthTypeAuto$Outbound = {
     | Array<GoogleCloudStorageAuthTypeAutoExtractor$Outbound>
     | undefined;
   endpoint?: string | undefined;
-  disableTimeFilter: boolean;
-  recurse: boolean;
-  maxBatchSize: number;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
+  disableTimeFilter?: boolean | undefined;
+  recurse?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
 };
 
 /** @internal */
@@ -560,11 +560,11 @@ export const GoogleCloudStorageAuthTypeAuto$outboundSchema: z.ZodType<
     z.lazy(() => GoogleCloudStorageAuthTypeAutoExtractor$outboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
-  disableTimeFilter: z.boolean().default(false),
-  recurse: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  disableTimeFilter: z.boolean().optional(),
+  recurse: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
 });
 
 export function googleCloudStorageAuthTypeAutoToJSON(

@@ -20,11 +20,11 @@ export const FunctionConfSchemaLimit$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  limit: z.number().int().default(100),
+  limit: z.number().int().optional(),
 });
 /** @internal */
 export type FunctionConfSchemaLimit$Outbound = {
-  limit: number;
+  limit?: number | undefined;
 };
 
 /** @internal */
@@ -33,7 +33,7 @@ export const FunctionConfSchemaLimit$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   FunctionConfSchemaLimit
 > = z.object({
-  limit: z.number().int().default(100),
+  limit: z.number().int().optional(),
 });
 
 export function functionConfSchemaLimitToJSON(

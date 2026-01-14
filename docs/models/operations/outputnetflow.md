@@ -22,9 +22,13 @@ let value: OutputNetflow = {
   hosts: [
     {
       host: "wide-eyed-adult.name",
+      port: 1165.51,
     },
   ],
-  description: "for mothball hearten",
+  dnsResolvePeriodSec: 859.55,
+  enableIpSpoofing: false,
+  description: "yuck mediocre whoa",
+  maxRecordSize: 2354.61,
 };
 ```
 

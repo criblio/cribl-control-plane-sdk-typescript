@@ -23,9 +23,13 @@ let value: FunctionSnmpTrapSerialize = {
   },
   version: "<value>",
   schema: {
+    strict: true,
+    dropFailedEvents: true,
     v3User: {
       name: "<value>",
+      authProtocol: "sha384",
       authKey: "<value>",
+      privProtocol: "<value>",
     },
   },
 };

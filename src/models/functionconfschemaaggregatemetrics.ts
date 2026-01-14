@@ -51,15 +51,15 @@ export type FunctionConfSchemaAggregateMetrics = {
   /**
    * Pass through the original events along with the aggregation events
    */
-  passthrough: boolean;
+  passthrough?: boolean | undefined;
   /**
    * Preserve the structure of the original aggregation event's groupby fields
    */
-  preserveGroupBys: boolean;
+  preserveGroupBys?: boolean | undefined;
   /**
    * Output only statistics that are sufficient for the supplied aggregations
    */
-  sufficientStatsOnly: boolean;
+  sufficientStatsOnly?: boolean | undefined;
   /**
    * A prefix that is prepended to all of the fields output by this Aggregations Function
    */
@@ -67,7 +67,7 @@ export type FunctionConfSchemaAggregateMetrics = {
   /**
    * The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
    */
-  timeWindow: string;
+  timeWindow?: string | undefined;
   /**
    * Combination of Aggregation function and output metric type
    */
@@ -89,11 +89,11 @@ export type FunctionConfSchemaAggregateMetrics = {
   /**
    * Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
    */
-  cumulative: boolean;
+  cumulative?: boolean | undefined;
   /**
    * Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
    */
-  shouldTreatDotsAsLiterals: boolean;
+  shouldTreatDotsAsLiterals?: boolean | undefined;
   /**
    * Set of key-value pairs to evaluate and add/set
    */
@@ -101,7 +101,7 @@ export type FunctionConfSchemaAggregateMetrics = {
   /**
    * Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
    */
-  flushOnInputClose: boolean;
+  flushOnInputClose?: boolean | undefined;
 };
 
 /** @internal */
@@ -119,8 +119,7 @@ export const FunctionConfSchemaAggregateMetricsAggregation$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    metricType: FunctionConfSchemaAggregateMetricsMetricType$inboundSchema
-      .default("automatic"),
+    metricType: FunctionConfSchemaAggregateMetricsMetricType$inboundSchema,
     agg: z.string(),
   });
 
@@ -167,23 +166,23 @@ export const FunctionConfSchemaAggregateMetrics$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  passthrough: z.boolean().default(false),
-  preserveGroupBys: z.boolean().default(false),
-  sufficientStatsOnly: z.boolean().default(false),
+  passthrough: z.boolean().optional(),
+  preserveGroupBys: z.boolean().optional(),
+  sufficientStatsOnly: z.boolean().optional(),
   prefix: z.string().optional(),
-  timeWindow: z.string().default("10s"),
+  timeWindow: z.string().optional(),
   aggregations: z.array(
     z.lazy(() => FunctionConfSchemaAggregateMetricsAggregation$inboundSchema),
   ).optional(),
   groupbys: z.array(z.string()).optional(),
   flushEventLimit: z.number().optional(),
   flushMemLimit: z.string().optional(),
-  cumulative: z.boolean().default(false),
-  shouldTreatDotsAsLiterals: z.boolean().default(true),
+  cumulative: z.boolean().optional(),
+  shouldTreatDotsAsLiterals: z.boolean().optional(),
   add: z.array(
     z.lazy(() => FunctionConfSchemaAggregateMetricsAdd$inboundSchema),
   ).optional(),
-  flushOnInputClose: z.boolean().default(true),
+  flushOnInputClose: z.boolean().optional(),
 });
 
 export function functionConfSchemaAggregateMetricsFromJSON(

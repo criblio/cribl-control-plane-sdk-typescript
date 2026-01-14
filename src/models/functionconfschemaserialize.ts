@@ -49,7 +49,7 @@ export type FunctionConfSchemaSerialize = {
   /**
    * Data output format
    */
-  type: FunctionConfSchemaSerializeType;
+  type?: FunctionConfSchemaSerializeType | undefined;
   delimChar?: any | undefined;
   quoteChar?: any | undefined;
   escapeChar?: any | undefined;
@@ -65,7 +65,7 @@ export type FunctionConfSchemaSerialize = {
   /**
    * Field to serialize data to
    */
-  dstField: string;
+  dstField?: string | undefined;
 };
 
 /** @internal */
@@ -81,14 +81,14 @@ export const FunctionConfSchemaSerialize$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: FunctionConfSchemaSerializeType$inboundSchema.default("csv"),
+  type: FunctionConfSchemaSerializeType$inboundSchema.optional(),
   delimChar: z.any().optional(),
   quoteChar: z.any().optional(),
   escapeChar: z.any().optional(),
   nullValue: z.any().optional(),
   fields: z.array(z.string()).optional(),
   srcField: z.string().optional(),
-  dstField: z.string().default("_raw"),
+  dstField: z.string().optional(),
 });
 
 export function functionConfSchemaSerializeFromJSON(

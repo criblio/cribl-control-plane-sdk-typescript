@@ -118,19 +118,19 @@ export const PipelineFunctionRegexExtractConf$inboundSchema: z.ZodType<
   regexList: z.array(
     z.lazy(() => PipelineFunctionRegexExtractRegexList$inboundSchema),
   ).optional(),
-  source: z.string().default("_raw"),
-  iterations: z.number().default(100),
+  source: z.string().optional(),
+  iterations: z.number().optional(),
   fieldNameExpression: z.string().optional(),
-  overwrite: z.boolean().default(false),
+  overwrite: z.boolean().optional(),
 });
 /** @internal */
 export type PipelineFunctionRegexExtractConf$Outbound = {
   regex: string;
   regexList?: Array<PipelineFunctionRegexExtractRegexList$Outbound> | undefined;
-  source: string;
-  iterations: number;
+  source?: string | undefined;
+  iterations?: number | undefined;
   fieldNameExpression?: string | undefined;
-  overwrite: boolean;
+  overwrite?: boolean | undefined;
 };
 
 /** @internal */
@@ -143,10 +143,10 @@ export const PipelineFunctionRegexExtractConf$outboundSchema: z.ZodType<
   regexList: z.array(
     z.lazy(() => PipelineFunctionRegexExtractRegexList$outboundSchema),
   ).optional(),
-  source: z.string().default("_raw"),
-  iterations: z.number().default(100),
+  source: z.string().optional(),
+  iterations: z.number().optional(),
   fieldNameExpression: z.string().optional(),
-  overwrite: z.boolean().default(false),
+  overwrite: z.boolean().optional(),
 });
 
 export function pipelineFunctionRegexExtractConfToJSON(
@@ -174,7 +174,7 @@ export const PipelineFunctionRegexExtract$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("regex_extract"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -184,7 +184,7 @@ export const PipelineFunctionRegexExtract$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionRegexExtract$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "regex_extract";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -199,7 +199,7 @@ export const PipelineFunctionRegexExtract$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionRegexExtract
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("regex_extract"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

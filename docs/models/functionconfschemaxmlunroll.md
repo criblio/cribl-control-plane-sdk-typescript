@@ -8,6 +8,8 @@ import { FunctionConfSchemaXmlUnroll } from "cribl-control-plane/models";
 let value: FunctionConfSchemaXmlUnroll = {
   unroll: "<value>",
   inherit: "<value>",
+  unrollIdxField: "<value>",
+  pretty: true,
 };
 ```
 

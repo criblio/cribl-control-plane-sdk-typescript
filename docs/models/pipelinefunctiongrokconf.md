@@ -12,6 +12,7 @@ let value: PipelineFunctionGrokConf = {
       pattern: "<value>",
     },
   ],
+  source: "<value>",
 };
 ```
 

@@ -6,6 +6,7 @@
 import { PipelineFunctionRegexFilter } from "cribl-control-plane/models";
 
 let value: PipelineFunctionRegexFilter = {
+  filter: "<value>",
   id: "regex_filter",
   description: "near puritan daily only",
   disabled: false,
@@ -17,6 +18,7 @@ let value: PipelineFunctionRegexFilter = {
         regex: "<value>",
       },
     ],
+    field: "<value>",
   },
   groupId: "<id>",
 };

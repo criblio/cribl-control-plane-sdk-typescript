@@ -6,14 +6,16 @@
 import { InputKinesisPqEnabledFalseConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputKinesisPqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "kinesis",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -22,22 +24,43 @@ let value: InputKinesisPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   streamName: "<value>",
+  serviceInterval: 2850.53,
+  shardExpr: "<value>",
+  shardIteratorType: "LATEST",
+  payloadFormat: "line",
+  getRecordsLimit: 4266.69,
+  getRecordsLimitTotal: 5131.57,
+  loadBalancingAlgorithm: "ConsistentHashing",
+  awsAuthenticationMethod: "<value>",
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v2",
+  reuseConnections: false,
+  rejectUnauthorized: true,
+  enableAssumeRole: true,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  durationSeconds: 517.81,
+  verifyKPLCheckSums: false,
+  avoidDuplicates: true,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "lava nectarine over er vivaciously beard joyful expense allegation versus",
+  description: "circa a mostly strategy yippee really",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };
@@ -47,7 +70,7 @@ let value: InputKinesisPqEnabledFalseConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [operations.InputKinesisType](../../models/operations/inputkinesistype.md)                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
@@ -65,7 +88,7 @@ let value: InputKinesisPqEnabledFalseConstraint = {
 | `getRecordsLimit`                                                                                                                                                                                                                            | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of records per getRecords call                                                                                                                                                                                                |
 | `getRecordsLimitTotal`                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of records, across all shards, to pull down at once per Worker Process                                                                                                                                                        |
 | `loadBalancingAlgorithm`                                                                                                                                                                                                                     | [operations.ShardLoadBalancing](../../models/operations/shardloadbalancing.md)                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes                                                                                                                                             |
-| `awsAuthenticationMethod`                                                                                                                                                                                                                    | [models.AuthenticationMethodOptions](../../models/authenticationmethodoptions.md)                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                           | AWS authentication method. Choose Auto to use IAM roles.                                                                                                                                                                                     |
+| `awsAuthenticationMethod`                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | AWS authentication method. Choose Auto to use IAM roles.                                                                                                                                                                                     |
 | `awsSecretKey`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `region`                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Region where the Kinesis stream is located                                                                                                                                                                                                   |
 | `endpoint`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.                                                                                     |

@@ -18,6 +18,11 @@ const value: models.GoogleCloudStorageAuthTypeAuto = {
     },
   ],
   endpoint: "<value>",
+  disableTimeFilter: true,
+  recurse: true,
+  maxBatchSize: 8324.8,
+  parquetChunkSizeMB: 2453.03,
+  parquetChunkDownloadTimeout: 8070.41,
 };
 ```
 
@@ -37,6 +42,11 @@ const value: models.GoogleCloudStorageAuthTypeManual = {
     },
   ],
   endpoint: "<value>",
+  disableTimeFilter: true,
+  recurse: true,
+  maxBatchSize: 9246.86,
+  parquetChunkSizeMB: 6359.7,
+  parquetChunkDownloadTimeout: 7241.64,
 };
 ```
 
@@ -56,6 +66,11 @@ const value: models.GoogleCloudStorageAuthTypeSecret = {
     },
   ],
   endpoint: "<value>",
+  disableTimeFilter: true,
+  recurse: false,
+  maxBatchSize: 3411.84,
+  parquetChunkSizeMB: 7593.48,
+  parquetChunkDownloadTimeout: 6733.73,
 };
 ```
 

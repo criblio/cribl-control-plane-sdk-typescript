@@ -41,7 +41,7 @@ export type FunctionConfSchemaLookup = {
   /**
    * Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
    */
-  dbLookup: boolean;
+  dbLookup?: boolean | undefined;
   matchMode?: any | undefined;
   matchType?: any | undefined;
   reloadPeriodSec?: any | undefined;
@@ -56,7 +56,7 @@ export type FunctionConfSchemaLookup = {
   /**
    * Add the looked-up values to _raw, as key=value pairs
    */
-  addToEvent: boolean;
+  addToEvent?: boolean | undefined;
   ignoreCase?: any | undefined;
 };
 
@@ -108,7 +108,7 @@ export const FunctionConfSchemaLookup$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   file: z.string().optional(),
-  dbLookup: z.boolean().default(false),
+  dbLookup: z.boolean().optional(),
   matchMode: z.any().optional(),
   matchType: z.any().optional(),
   reloadPeriodSec: z.any().optional(),
@@ -117,7 +117,7 @@ export const FunctionConfSchemaLookup$inboundSchema: z.ZodType<
   outFields: z.array(
     z.lazy(() => FunctionConfSchemaLookupOutField$inboundSchema),
   ).optional(),
-  addToEvent: z.boolean().default(false),
+  addToEvent: z.boolean().optional(),
   ignoreCase: z.any().optional(),
 });
 

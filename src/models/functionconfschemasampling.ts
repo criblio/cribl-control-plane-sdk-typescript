@@ -11,11 +11,11 @@ export type FunctionConfSchemaSamplingRule = {
   /**
    * JavaScript filter expression matching events to be sampled. Use true to match all.
    */
-  filter?: string | undefined;
+  filter: string;
   /**
    * Sampling rate; picks one out of N matching events
    */
-  rate?: number | undefined;
+  rate: number;
 };
 
 export type FunctionConfSchemaSampling = {
@@ -31,8 +31,8 @@ export const FunctionConfSchemaSamplingRule$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
-  rate: z.number().int().default(1),
+  filter: z.string(),
+  rate: z.number().int(),
 });
 /** @internal */
 export type FunctionConfSchemaSamplingRule$Outbound = {
@@ -46,8 +46,8 @@ export const FunctionConfSchemaSamplingRule$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   FunctionConfSchemaSamplingRule
 > = z.object({
-  filter: z.string().default("true"),
-  rate: z.number().int().default(1),
+  filter: z.string(),
+  rate: z.number().int(),
 });
 
 export function functionConfSchemaSamplingRuleToJSON(

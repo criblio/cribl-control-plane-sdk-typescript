@@ -70,14 +70,14 @@ export const FunctionConfSchemaRollupMetrics$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   dimensions: z.array(z.string()).optional(),
-  timeWindow: z.string().default("30s"),
-  gaugeRollup: GaugeUpdate$inboundSchema.default("last"),
+  timeWindow: z.string().optional(),
+  gaugeRollup: GaugeUpdate$inboundSchema.optional(),
 });
 /** @internal */
 export type FunctionConfSchemaRollupMetrics$Outbound = {
   dimensions?: Array<string> | undefined;
-  timeWindow: string;
-  gaugeRollup: string;
+  timeWindow?: string | undefined;
+  gaugeRollup?: string | undefined;
 };
 
 /** @internal */
@@ -87,8 +87,8 @@ export const FunctionConfSchemaRollupMetrics$outboundSchema: z.ZodType<
   FunctionConfSchemaRollupMetrics
 > = z.object({
   dimensions: z.array(z.string()).optional(),
-  timeWindow: z.string().default("30s"),
-  gaugeRollup: GaugeUpdate$outboundSchema.default("last"),
+  timeWindow: z.string().optional(),
+  gaugeRollup: GaugeUpdate$outboundSchema.optional(),
 });
 
 export function functionConfSchemaRollupMetricsToJSON(

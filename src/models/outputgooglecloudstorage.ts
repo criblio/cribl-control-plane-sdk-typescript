@@ -116,7 +116,7 @@ export type OutputGoogleCloudStorage = {
   /**
    * Google Cloud Storage service endpoint
    */
-  endpoint?: string | undefined;
+  endpoint: string;
   /**
    * Signature version to use for signing Google Cloud Storage requests
    */
@@ -127,7 +127,7 @@ export type OutputGoogleCloudStorage = {
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
-  stagePath?: string | undefined;
+  stagePath: string;
   /**
    * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
    */
@@ -328,61 +328,51 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   bucket: z.string(),
   region: z.string(),
-  endpoint: z.string().default("https://storage.googleapis.com"),
-  signatureVersion: SignatureVersionOptions4$inboundSchema.default("v4"),
+  endpoint: z.string(),
+  signatureVersion: SignatureVersionOptions4$inboundSchema.optional(),
   awsAuthenticationMethod:
-    OutputGoogleCloudStorageAuthenticationMethod$inboundSchema.default(
-      "manual",
-    ),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  destPath: z.string().default(""),
-  verifyPermissions: z.boolean().default(true),
-  objectACL: ObjectAclOptions1$inboundSchema.default("private"),
+    OutputGoogleCloudStorageAuthenticationMethod$inboundSchema.optional(),
+  stagePath: z.string(),
+  destPath: z.string().optional(),
+  verifyPermissions: z.boolean().optional(),
+  objectACL: ObjectAclOptions1$inboundSchema.optional(),
   storageClass: StorageClassOptions1$inboundSchema.optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  addIdToStagePath: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
-  partitionExpr: z.string().default(
-    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
-  ),
-  format: DataFormatOptions$inboundSchema.default("json"),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.default("block"),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.default(
-    "block",
-  ),
-  forceCloseOnShutdown: z.boolean().default(false),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  addIdToStagePath: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: DataFormatOptions$inboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
   description: z.string().optional(),
-  compress: CompressionOptions2$inboundSchema.default("gzip"),
-  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
-  automaticSchema: z.boolean().default(false),
+  compress: CompressionOptions2$inboundSchema.optional(),
+  compressionLevel: CompressionLevelOptions$inboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
-  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
-  parquetDataPageVersion: DataPageVersionOptions$inboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  parquetVersion: ParquetVersionOptions$inboundSchema.optional(),
+  parquetDataPageVersion: DataPageVersionOptions$inboundSchema.optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   awsSecret: z.string().optional(),
@@ -398,49 +388,49 @@ export type OutputGoogleCloudStorage$Outbound = {
   bucket: string;
   region: string;
   endpoint: string;
-  signatureVersion: string;
-  awsAuthenticationMethod: string;
+  signatureVersion?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
   stagePath: string;
-  destPath: string;
-  verifyPermissions: boolean;
-  objectACL: string;
+  destPath?: string | undefined;
+  verifyPermissions?: boolean | undefined;
+  objectACL?: string | undefined;
   storageClass?: string | undefined;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  addIdToStagePath: boolean;
-  removeEmptyDirs: boolean;
-  partitionExpr: string;
-  format: string;
-  baseFileName: string;
-  fileNameSuffix: string;
-  maxFileSizeMB: number;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  maxOpenFiles: number;
-  headerLine: string;
-  writeHighWaterMark: number;
-  onBackpressure: string;
-  deadletterEnabled: boolean;
-  onDiskFullBackpressure: string;
-  forceCloseOnShutdown: boolean;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  addIdToStagePath?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
   description?: string | undefined;
-  compress: string;
-  compressionLevel: string;
-  automaticSchema: boolean;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
   parquetSchema?: string | undefined;
-  parquetVersion: string;
-  parquetDataPageVersion: string;
-  parquetRowGroupLength: number;
-  parquetPageSize: string;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
-  enableStatistics: boolean;
-  enableWritePageIndex: boolean;
-  enablePageChecksum: boolean;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
-  deadletterPath: string;
-  maxRetryNum: number;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
   awsApiKey?: string | undefined;
   awsSecretKey?: string | undefined;
   awsSecret?: string | undefined;
@@ -460,64 +450,52 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   bucket: z.string(),
   region: z.string(),
-  endpoint: z.string().default("https://storage.googleapis.com"),
-  signatureVersion: SignatureVersionOptions4$outboundSchema.default("v4"),
+  endpoint: z.string(),
+  signatureVersion: SignatureVersionOptions4$outboundSchema.optional(),
   awsAuthenticationMethod:
-    OutputGoogleCloudStorageAuthenticationMethod$outboundSchema.default(
-      "manual",
-    ),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  destPath: z.string().default(""),
-  verifyPermissions: z.boolean().default(true),
-  objectACL: ObjectAclOptions1$outboundSchema.default("private"),
+    OutputGoogleCloudStorageAuthenticationMethod$outboundSchema.optional(),
+  stagePath: z.string(),
+  destPath: z.string().optional(),
+  verifyPermissions: z.boolean().optional(),
+  objectACL: ObjectAclOptions1$outboundSchema.optional(),
   storageClass: StorageClassOptions1$outboundSchema.optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  addIdToStagePath: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
-  partitionExpr: z.string().default(
-    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
-  ),
-  format: DataFormatOptions$outboundSchema.default("json"),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.default("block"),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.default(
-    "block",
-  ),
-  forceCloseOnShutdown: z.boolean().default(false),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  addIdToStagePath: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
   description: z.string().optional(),
-  compress: CompressionOptions2$outboundSchema.default("gzip"),
-  compressionLevel: CompressionLevelOptions$outboundSchema.default(
-    "best_speed",
-  ),
-  automaticSchema: z.boolean().default(false),
+  compress: CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
-  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
-  parquetDataPageVersion: DataPageVersionOptions$outboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  parquetVersion: ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: DataPageVersionOptions$outboundSchema.optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema)
     .optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   awsSecret: z.string().optional(),

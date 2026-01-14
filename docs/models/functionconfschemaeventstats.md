@@ -13,6 +13,8 @@ let value: FunctionConfSchemaEventstats = {
     "<value 1>",
     "<value 2>",
   ],
+  maxEvents: 3630,
+  flushOnInputClose: false,
 };
 ```
 

@@ -6,13 +6,15 @@
 import { InputWindowsMetricsSendToRoutesTrueConstraint } from "cribl-control-plane/models";
 
 let value: InputWindowsMetricsSendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "windows_metrics",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -21,24 +23,50 @@ let value: InputWindowsMetricsSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  interval: 2679.55,
   host: {
+    mode: "basic",
     custom: {
-      system: {},
-      cpu: {},
-      memory: {},
+      system: {
+        mode: "all",
+        detail: false,
+      },
+      cpu: {
+        mode: "disabled",
+        perCpu: false,
+        detail: true,
+        time: true,
+      },
+      memory: {
+        mode: "custom",
+        detail: true,
+      },
       network: {
+        mode: "basic",
+        detail: true,
+        protocols: false,
         devices: [
           "<value 1>",
-          "<value 2>",
-          "<value 3>",
         ],
+        perInterface: false,
       },
       disk: {
+        mode: "basic",
+        perVolume: false,
+        detail: false,
         volumes: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
       },
     },
@@ -48,6 +76,7 @@ let value: InputWindowsMetricsSendToRoutesTrueConstraint = {
       {
         name: "<value>",
         filter: "<value>",
+        includeChildren: false,
       },
     ],
   },
@@ -57,8 +86,16 @@ let value: InputWindowsMetricsSendToRoutesTrueConstraint = {
       value: "<value>",
     },
   ],
-  persistence: {},
-  description: "ugh pish likewise guzzle stupendous although vice dismal",
+  persistence: {
+    enable: true,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "none",
+    destPath: "<value>",
+  },
+  disableNativeModule: true,
+  description: "lamp quizzically menacing",
 };
 ```
 
@@ -66,7 +103,7 @@ let value: InputWindowsMetricsSendToRoutesTrueConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [models.InputWindowsMetricsType](../models/inputwindowsmetricstype.md)                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

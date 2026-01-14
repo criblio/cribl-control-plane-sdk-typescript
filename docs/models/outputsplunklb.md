@@ -18,33 +18,66 @@ let value: OutputSplunkLb = {
   streamtags: [
     "<value 1>",
   ],
+  dnsResolvePeriodSec: 1569.11,
+  loadBalanceStatsPeriodSec: 4466.58,
+  maxConcurrentSenders: 7777.88,
+  nestedFields: "json",
+  throttleRatePerSec: "<value>",
+  connectionTimeout: 1564.08,
+  writeTimeout: 2004.39,
   tls: {
+    disabled: true,
+    rejectUnauthorized: true,
     servername: "<value>",
     certificateName: "<value>",
     caPath: "<value>",
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1.3",
   },
-  description: "amongst hammock across vice",
+  enableMultiMetrics: false,
+  enableACK: true,
+  logFailedRequests: true,
+  maxS2Sversion: "v3",
+  onBackpressure: "drop",
+  indexerDiscovery: true,
+  senderUnhealthyTimeAllowance: 5876.71,
+  authType: "manual",
+  description: "across vice hasty across retool revitalise",
+  maxFailedHealthChecks: 2513.8,
+  compress: "auto",
   indexerDiscoveryConfigs: {
-    masterUri: "https://stunning-settler.info/",
+    site: "<value>",
+    masterUri: "https://stale-role.org",
+    refreshIntervalSec: 6239.4,
+    rejectUnauthorized: true,
     authTokens: [
       {
+        authType: "manual",
+        authToken: "<value>",
         textSecret: "<value>",
       },
     ],
+    authType: "secret",
+    authToken: "<value>",
     textSecret: "<value>",
   },
-  hosts: [
-    {
-      host: "scornful-formula.biz",
-      servername: "<value>",
-    },
-  ],
+  excludeSelf: false,
+  hosts: [],
+  pqStrictOrdering: true,
+  pqRatePerSec: 9617.52,
+  pqMode: "error",
+  pqMaxBufferSize: 2801.9,
+  pqMaxBackpressureSec: 6837.48,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "gzip",
+  pqOnBackpressure: "block",
   pqControls: {},
+  authToken: "<value>",
   textSecret: "<value>",
 };
 ```
@@ -80,7 +113,7 @@ let value: OutputSplunkLb = {
 | `compress`                                                                                                                                                                                                                                                     | [models.CompressionOptions](../models/compressionoptions.md)                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                             | Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.                                                               |
 | `indexerDiscoveryConfigs`                                                                                                                                                                                                                                      | [models.IndexerDiscoveryConfigs](../models/indexerdiscoveryconfigs.md)                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                             | List of configurations to set up indexer discovery in Splunk Indexer clustering environment.                                                                                                                                                                   |
 | `excludeSelf`                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                             | Exclude all IPs of the current host from the list of any resolved hostnames                                                                                                                                                                                    |
-| `hosts`                                                                                                                                                                                                                                                        | [models.OutputSplunkLbHost](../models/outputsplunklbhost.md)[]                                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                                                                             | Set of Splunk indexers to load-balance data to.                                                                                                                                                                                                                |
+| `hosts`                                                                                                                                                                                                                                                        | [models.ItemsTypeHosts](../models/itemstypehosts.md)[]                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                                             | Set of Splunk indexers to load-balance data to.                                                                                                                                                                                                                |
 | `pqStrictOrdering`                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                             | Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.                                                                                                                                                 |
 | `pqRatePerSec`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.                                                                                                                              |
 | `pqMode`                                                                                                                                                                                                                                                       | [models.ModeOptions](../models/modeoptions.md)                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                             | In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem. |

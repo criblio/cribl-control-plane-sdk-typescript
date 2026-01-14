@@ -20,10 +20,13 @@ let value: FunctionSerde = {
   uischema: {},
   version: "<value>",
   schema: {
+    mode: "extract",
+    type: "clf",
     delimChar: "<value>",
     quoteChar: "<value>",
     escapeChar: "<value>",
     nullValue: "<value>",
+    srcField: "<value>",
     dstField: "<value>",
     cleanFields: "<value>",
   },

@@ -29,6 +29,9 @@ let value: FunctionFlatten = {
       "<value 2>",
       "<value 3>",
     ],
+    prefix: "<value>",
+    depth: 4183.57,
+    delimiter: "<value>",
   },
 };
 ```

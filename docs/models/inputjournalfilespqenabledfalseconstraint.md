@@ -6,14 +6,15 @@
 import { InputJournalFilesPqEnabledFalseConstraint } from "cribl-control-plane/models";
 
 let value: InputJournalFilesPqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "journal_files",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -22,18 +23,28 @@ let value: InputJournalFilesPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  path: "/mnt",
+  path: "/home",
+  interval: 5036.36,
   journals: [
     "<value 1>",
   ],
   rules: [
     {
       filter: "<value>",
-      description: "unless into sweetly",
+      description:
+        "unscramble seal if stealthily continually bewail after duh so orchestrate",
     },
   ],
+  currentBoot: false,
   maxAgeDur: "<value>",
   metadata: [
     {
@@ -41,7 +52,7 @@ let value: InputJournalFilesPqEnabledFalseConstraint = {
       value: "<value>",
     },
   ],
-  description: "rue troubled as tremendously nervously",
+  description: "flawless carelessly ugh via youthfully shoddy a as",
 };
 ```
 
@@ -49,7 +60,7 @@ let value: InputJournalFilesPqEnabledFalseConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [models.InputJournalFilesPqEnabledFalseConstraintType](../models/inputjournalfilespqenabledfalseconstrainttype.md)                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

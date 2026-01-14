@@ -7,7 +7,7 @@ import { PodFilter } from "cribl-control-plane/models";
 
 let value: PodFilter = {
   filter: "<value>",
-  description: "boo oof wherever circa between",
+  description: "woefully newsletter fathom ack who than productive edge bah",
 };
 ```
 

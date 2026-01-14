@@ -47,7 +47,7 @@ export const PipelineFunctionTrimTimestamp$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("trim_timestamp"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionTrimTimestamp$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionTrimTimestamp$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "trim_timestamp";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionTrimTimestamp$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionTrimTimestamp
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("trim_timestamp"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

@@ -4,6 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -16,6 +18,38 @@ import {
   RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
   RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
 } from "./retrytypeoptionshealthcheckcollectorconfretryrules.js";
+
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export const SplunkAuthenticationLoginSecretAuthentication = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+  /**
+   * Bearer Token
+   */
+  Token: "token",
+  /**
+   * Bearer Token (text secret)
+   */
+  TokenSecret: "tokenSecret",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export type SplunkAuthenticationLoginSecretAuthentication = OpenEnum<
+  typeof SplunkAuthenticationLoginSecretAuthentication
+>;
 
 export type SplunkAuthenticationLoginSecretCollectRequestParam = {
   name: string;
@@ -37,7 +71,7 @@ export type SplunkAuthenticationLoginSecretRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -51,11 +85,11 @@ export type SplunkAuthenticationLoginSecret = {
   /**
    * Authentication method for Discover and Collect REST calls
    */
-  authentication: "loginSecret";
+  authentication: SplunkAuthenticationLoginSecretAuthentication;
   /**
    * URL to use for login API call, this call is expected to be a POST.
    */
-  loginUrl?: string | undefined;
+  loginUrl: string;
   /**
    * Select or create a stored secret that references your login credentials
    */
@@ -63,19 +97,19 @@ export type SplunkAuthenticationLoginSecret = {
   /**
    * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
    */
-  loginBody?: string | undefined;
+  loginBody: string;
   /**
    * Path to token attribute in login response body. Nested attributes are allowed.
    */
-  tokenRespAttribute?: string | undefined;
+  tokenRespAttribute: string;
   /**
    * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
    */
-  authHeaderExpr?: string | undefined;
+  authHeaderExpr: string;
   /**
    * Search head base URL. Can be an expression. Default is https://localhost:8089.
    */
-  searchHead?: string | undefined;
+  searchHead: string;
   /**
    * Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
    */
@@ -91,11 +125,11 @@ export type SplunkAuthenticationLoginSecret = {
   /**
    * REST API used to create a search
    */
-  endpoint?: string | undefined;
+  endpoint: string;
   /**
    * Format of the returned output
    */
-  outputMode?: OutputModeOptionsSplunkCollectorConf | undefined;
+  outputMode: OutputModeOptionsSplunkCollectorConf;
   /**
    * Optional collect request parameters
    */
@@ -131,6 +165,38 @@ export type SplunkAuthenticationLoginSecret = {
   retryRules?: SplunkAuthenticationLoginSecretRetryRules | undefined;
 };
 
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export const SplunkAuthenticationLoginAuthentication = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+  /**
+   * Bearer Token
+   */
+  Token: "token",
+  /**
+   * Bearer Token (text secret)
+   */
+  TokenSecret: "tokenSecret",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export type SplunkAuthenticationLoginAuthentication = OpenEnum<
+  typeof SplunkAuthenticationLoginAuthentication
+>;
+
 export type SplunkAuthenticationLoginCollectRequestParam = {
   name: string;
   /**
@@ -151,7 +217,7 @@ export type SplunkAuthenticationLoginRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -165,29 +231,29 @@ export type SplunkAuthenticationLogin = {
   /**
    * Authentication method for Discover and Collect REST calls
    */
-  authentication: "login";
+  authentication: SplunkAuthenticationLoginAuthentication;
   /**
    * URL to use for login API call. This call is expected to be a POST.
    */
-  loginUrl?: string | undefined;
+  loginUrl: string;
   username: string;
   password: string;
   /**
    * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
    */
-  loginBody?: string | undefined;
+  loginBody: string;
   /**
    * Path to token attribute in login response body. Nested attributes are allowed.
    */
-  tokenRespAttribute?: string | undefined;
+  tokenRespAttribute: string;
   /**
    * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
    */
-  authHeaderExpr?: string | undefined;
+  authHeaderExpr: string;
   /**
    * Search head base URL. Can be an expression. Default is https://localhost:8089.
    */
-  searchHead?: string | undefined;
+  searchHead: string;
   /**
    * Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
    */
@@ -203,11 +269,11 @@ export type SplunkAuthenticationLogin = {
   /**
    * REST API used to create a search
    */
-  endpoint?: string | undefined;
+  endpoint: string;
   /**
    * Format of the returned output
    */
-  outputMode?: OutputModeOptionsSplunkCollectorConf | undefined;
+  outputMode: OutputModeOptionsSplunkCollectorConf;
   /**
    * Optional collect request parameters
    */
@@ -243,6 +309,38 @@ export type SplunkAuthenticationLogin = {
   retryRules?: SplunkAuthenticationLoginRetryRules | undefined;
 };
 
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export const SplunkAuthenticationTokenSecretAuthentication = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+  /**
+   * Bearer Token
+   */
+  Token: "token",
+  /**
+   * Bearer Token (text secret)
+   */
+  TokenSecret: "tokenSecret",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export type SplunkAuthenticationTokenSecretAuthentication = OpenEnum<
+  typeof SplunkAuthenticationTokenSecretAuthentication
+>;
+
 export type SplunkAuthenticationTokenSecretCollectRequestParam = {
   name: string;
   /**
@@ -263,7 +361,7 @@ export type SplunkAuthenticationTokenSecretRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -277,7 +375,7 @@ export type SplunkAuthenticationTokenSecret = {
   /**
    * Authentication method for Discover and Collect REST calls
    */
-  authentication: "tokenSecret";
+  authentication: SplunkAuthenticationTokenSecretAuthentication;
   /**
    * Select or create a stored secret that references your Bearer token
    */
@@ -285,7 +383,7 @@ export type SplunkAuthenticationTokenSecret = {
   /**
    * Search head base URL. Can be an expression. Default is https://localhost:8089.
    */
-  searchHead?: string | undefined;
+  searchHead: string;
   /**
    * Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
    */
@@ -301,11 +399,11 @@ export type SplunkAuthenticationTokenSecret = {
   /**
    * REST API used to create a search
    */
-  endpoint?: string | undefined;
+  endpoint: string;
   /**
    * Format of the returned output
    */
-  outputMode?: OutputModeOptionsSplunkCollectorConf | undefined;
+  outputMode: OutputModeOptionsSplunkCollectorConf;
   /**
    * Optional collect request parameters
    */
@@ -341,6 +439,38 @@ export type SplunkAuthenticationTokenSecret = {
   retryRules?: SplunkAuthenticationTokenSecretRetryRules | undefined;
 };
 
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export const SplunkAuthenticationTokenAuthentication = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+  /**
+   * Bearer Token
+   */
+  Token: "token",
+  /**
+   * Bearer Token (text secret)
+   */
+  TokenSecret: "tokenSecret",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export type SplunkAuthenticationTokenAuthentication = OpenEnum<
+  typeof SplunkAuthenticationTokenAuthentication
+>;
+
 export type SplunkAuthenticationTokenCollectRequestParam = {
   name: string;
   /**
@@ -361,7 +491,7 @@ export type SplunkAuthenticationTokenRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -375,12 +505,12 @@ export type SplunkAuthenticationToken = {
   /**
    * Authentication method for Discover and Collect REST calls
    */
-  authentication: "token";
+  authentication: SplunkAuthenticationTokenAuthentication;
   token: string;
   /**
    * Search head base URL. Can be an expression. Default is https://localhost:8089.
    */
-  searchHead?: string | undefined;
+  searchHead: string;
   /**
    * Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
    */
@@ -396,11 +526,11 @@ export type SplunkAuthenticationToken = {
   /**
    * REST API used to create a search
    */
-  endpoint?: string | undefined;
+  endpoint: string;
   /**
    * Format of the returned output
    */
-  outputMode?: OutputModeOptionsSplunkCollectorConf | undefined;
+  outputMode: OutputModeOptionsSplunkCollectorConf;
   /**
    * Optional collect request parameters
    */
@@ -436,6 +566,38 @@ export type SplunkAuthenticationToken = {
   retryRules?: SplunkAuthenticationTokenRetryRules | undefined;
 };
 
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export const SplunkAuthenticationBasicSecretAuthentication = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+  /**
+   * Bearer Token
+   */
+  Token: "token",
+  /**
+   * Bearer Token (text secret)
+   */
+  TokenSecret: "tokenSecret",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export type SplunkAuthenticationBasicSecretAuthentication = OpenEnum<
+  typeof SplunkAuthenticationBasicSecretAuthentication
+>;
+
 export type SplunkAuthenticationBasicSecretCollectRequestParam = {
   name: string;
   /**
@@ -456,7 +618,7 @@ export type SplunkAuthenticationBasicSecretRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -470,7 +632,7 @@ export type SplunkAuthenticationBasicSecret = {
   /**
    * Authentication method for Discover and Collect REST calls
    */
-  authentication: "basicSecret";
+  authentication: SplunkAuthenticationBasicSecretAuthentication;
   /**
    * Select or create a stored secret that references your credentials
    */
@@ -478,7 +640,7 @@ export type SplunkAuthenticationBasicSecret = {
   /**
    * Search head base URL. Can be an expression. Default is https://localhost:8089.
    */
-  searchHead?: string | undefined;
+  searchHead: string;
   /**
    * Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
    */
@@ -494,11 +656,11 @@ export type SplunkAuthenticationBasicSecret = {
   /**
    * REST API used to create a search
    */
-  endpoint?: string | undefined;
+  endpoint: string;
   /**
    * Format of the returned output
    */
-  outputMode?: OutputModeOptionsSplunkCollectorConf | undefined;
+  outputMode: OutputModeOptionsSplunkCollectorConf;
   /**
    * Optional collect request parameters
    */
@@ -534,6 +696,38 @@ export type SplunkAuthenticationBasicSecret = {
   retryRules?: SplunkAuthenticationBasicSecretRetryRules | undefined;
 };
 
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export const SplunkAuthenticationBasicAuthentication = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+  /**
+   * Bearer Token
+   */
+  Token: "token",
+  /**
+   * Bearer Token (text secret)
+   */
+  TokenSecret: "tokenSecret",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export type SplunkAuthenticationBasicAuthentication = OpenEnum<
+  typeof SplunkAuthenticationBasicAuthentication
+>;
+
 export type SplunkAuthenticationBasicCollectRequestParam = {
   name: string;
   /**
@@ -554,7 +748,7 @@ export type SplunkAuthenticationBasicRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -568,7 +762,7 @@ export type SplunkAuthenticationBasic = {
   /**
    * Authentication method for Discover and Collect REST calls
    */
-  authentication: "basic";
+  authentication: SplunkAuthenticationBasicAuthentication;
   /**
    * Basic authentication username
    */
@@ -580,7 +774,7 @@ export type SplunkAuthenticationBasic = {
   /**
    * Search head base URL. Can be an expression. Default is https://localhost:8089.
    */
-  searchHead?: string | undefined;
+  searchHead: string;
   /**
    * Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
    */
@@ -596,11 +790,11 @@ export type SplunkAuthenticationBasic = {
   /**
    * REST API used to create a search
    */
-  endpoint?: string | undefined;
+  endpoint: string;
   /**
    * Format of the returned output
    */
-  outputMode?: OutputModeOptionsSplunkCollectorConf | undefined;
+  outputMode: OutputModeOptionsSplunkCollectorConf;
   /**
    * Optional collect request parameters
    */
@@ -636,6 +830,38 @@ export type SplunkAuthenticationBasic = {
   retryRules?: SplunkAuthenticationBasicRetryRules | undefined;
 };
 
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export const SplunkAuthenticationNoneAuthentication = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+  /**
+   * Bearer Token
+   */
+  Token: "token",
+  /**
+   * Bearer Token (text secret)
+   */
+  TokenSecret: "tokenSecret",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export type SplunkAuthenticationNoneAuthentication = OpenEnum<
+  typeof SplunkAuthenticationNoneAuthentication
+>;
+
 export type SplunkAuthenticationNoneCollectRequestParam = {
   name: string;
   /**
@@ -656,7 +882,7 @@ export type SplunkAuthenticationNoneRetryRules = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: RetryTypeOptionsHealthCheckCollectorConfRetryRules | undefined;
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -670,11 +896,11 @@ export type SplunkAuthenticationNone = {
   /**
    * Authentication method for Discover and Collect REST calls
    */
-  authentication: "none";
+  authentication: SplunkAuthenticationNoneAuthentication;
   /**
    * Search head base URL. Can be an expression. Default is https://localhost:8089.
    */
-  searchHead?: string | undefined;
+  searchHead: string;
   /**
    * Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
    */
@@ -690,11 +916,11 @@ export type SplunkAuthenticationNone = {
   /**
    * REST API used to create a search
    */
-  endpoint?: string | undefined;
+  endpoint: string;
   /**
    * Format of the returned output
    */
-  outputMode?: OutputModeOptionsSplunkCollectorConf | undefined;
+  outputMode: OutputModeOptionsSplunkCollectorConf;
   /**
    * Optional collect request parameters
    */
@@ -731,13 +957,28 @@ export type SplunkAuthenticationNone = {
 };
 
 export type SplunkCollectorConf =
-  | SplunkAuthenticationNone
+  | SplunkAuthenticationLogin
+  | SplunkAuthenticationLoginSecret
   | SplunkAuthenticationBasic
   | SplunkAuthenticationBasicSecret
   | SplunkAuthenticationToken
   | SplunkAuthenticationTokenSecret
-  | SplunkAuthenticationLogin
-  | SplunkAuthenticationLoginSecret;
+  | SplunkAuthenticationNone;
+
+/** @internal */
+export const SplunkAuthenticationLoginSecretAuthentication$inboundSchema:
+  z.ZodType<
+    SplunkAuthenticationLoginSecretAuthentication,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(SplunkAuthenticationLoginSecretAuthentication);
+/** @internal */
+export const SplunkAuthenticationLoginSecretAuthentication$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    SplunkAuthenticationLoginSecretAuthentication
+  > = openEnums.outboundSchema(SplunkAuthenticationLoginSecretAuthentication);
 
 /** @internal */
 export const SplunkAuthenticationLoginSecretCollectRequestParam$inboundSchema:
@@ -851,8 +1092,7 @@ export const SplunkAuthenticationLoginSecretRetryRules$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -880,8 +1120,7 @@ export const SplunkAuthenticationLoginSecretRetryRules$outboundSchema:
     z.ZodTypeDef,
     SplunkAuthenticationLoginSecretRetryRules
   > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-      .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -923,22 +1162,18 @@ export const SplunkAuthenticationLoginSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("loginSecret"),
-  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  authentication: SplunkAuthenticationLoginSecretAuthentication$inboundSchema,
+  loginUrl: z.string(),
   credentialsSecret: z.string(),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
-  tokenRespAttribute: z.string().default("token"),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  searchHead: z.string().default("https://localhost:8089"),
+  loginBody: z.string(),
+  tokenRespAttribute: z.string(),
+  authHeaderExpr: z.string(),
+  searchHead: z.string(),
   search: z.string(),
   earliest: z.string().optional(),
   latest: z.string().optional(),
-  endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema.default(
-    "json",
-  ),
+  endpoint: z.string(),
+  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
   collectRequestParams: z.array(
     z.lazy(() =>
       SplunkAuthenticationLoginSecretCollectRequestParam$inboundSchema
@@ -949,18 +1184,18 @@ export const SplunkAuthenticationLoginSecret$inboundSchema: z.ZodType<
       SplunkAuthenticationLoginSecretCollectRequestHeader$inboundSchema
     ),
   ).optional(),
-  timeout: z.number().default(0),
-  useRoundRobinDns: z.boolean().default(false),
-  disableTimeFilter: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(false),
-  handleEscapedChars: z.boolean().default(false),
+  timeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  handleEscapedChars: z.boolean().optional(),
   retryRules: z.lazy(() =>
     SplunkAuthenticationLoginSecretRetryRules$inboundSchema
   ).optional(),
 });
 /** @internal */
 export type SplunkAuthenticationLoginSecret$Outbound = {
-  authentication: "loginSecret";
+  authentication: string;
   loginUrl: string;
   credentialsSecret: string;
   loginBody: string;
@@ -978,11 +1213,11 @@ export type SplunkAuthenticationLoginSecret$Outbound = {
   collectRequestHeaders?:
     | Array<SplunkAuthenticationLoginSecretCollectRequestHeader$Outbound>
     | undefined;
-  timeout: number;
-  useRoundRobinDns: boolean;
-  disableTimeFilter: boolean;
-  rejectUnauthorized: boolean;
-  handleEscapedChars: boolean;
+  timeout?: number | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  handleEscapedChars?: boolean | undefined;
   retryRules?: SplunkAuthenticationLoginSecretRetryRules$Outbound | undefined;
 };
 
@@ -992,22 +1227,18 @@ export const SplunkAuthenticationLoginSecret$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationLoginSecret
 > = z.object({
-  authentication: z.literal("loginSecret"),
-  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  authentication: SplunkAuthenticationLoginSecretAuthentication$outboundSchema,
+  loginUrl: z.string(),
   credentialsSecret: z.string(),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
-  tokenRespAttribute: z.string().default("token"),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  searchHead: z.string().default("https://localhost:8089"),
+  loginBody: z.string(),
+  tokenRespAttribute: z.string(),
+  authHeaderExpr: z.string(),
+  searchHead: z.string(),
   search: z.string(),
   earliest: z.string().optional(),
   latest: z.string().optional(),
-  endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema.default(
-    "json",
-  ),
+  endpoint: z.string(),
+  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema,
   collectRequestParams: z.array(
     z.lazy(() =>
       SplunkAuthenticationLoginSecretCollectRequestParam$outboundSchema
@@ -1018,11 +1249,11 @@ export const SplunkAuthenticationLoginSecret$outboundSchema: z.ZodType<
       SplunkAuthenticationLoginSecretCollectRequestHeader$outboundSchema
     ),
   ).optional(),
-  timeout: z.number().default(0),
-  useRoundRobinDns: z.boolean().default(false),
-  disableTimeFilter: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(false),
-  handleEscapedChars: z.boolean().default(false),
+  timeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  handleEscapedChars: z.boolean().optional(),
   retryRules: z.lazy(() =>
     SplunkAuthenticationLoginSecretRetryRules$outboundSchema
   ).optional(),
@@ -1046,6 +1277,19 @@ export function splunkAuthenticationLoginSecretFromJSON(
     `Failed to parse 'SplunkAuthenticationLoginSecret' from JSON`,
   );
 }
+
+/** @internal */
+export const SplunkAuthenticationLoginAuthentication$inboundSchema: z.ZodType<
+  SplunkAuthenticationLoginAuthentication,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(SplunkAuthenticationLoginAuthentication);
+/** @internal */
+export const SplunkAuthenticationLoginAuthentication$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SplunkAuthenticationLoginAuthentication
+> = openEnums.outboundSchema(SplunkAuthenticationLoginAuthentication);
 
 /** @internal */
 export const SplunkAuthenticationLoginCollectRequestParam$inboundSchema:
@@ -1159,8 +1403,7 @@ export const SplunkAuthenticationLoginRetryRules$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -1187,8 +1430,7 @@ export const SplunkAuthenticationLoginRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationLoginRetryRules
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -1224,40 +1466,36 @@ export const SplunkAuthenticationLogin$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("login"),
-  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  authentication: SplunkAuthenticationLoginAuthentication$inboundSchema,
+  loginUrl: z.string(),
   username: z.string(),
   password: z.string(),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
-  tokenRespAttribute: z.string().default("token"),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  searchHead: z.string().default("https://localhost:8089"),
+  loginBody: z.string(),
+  tokenRespAttribute: z.string(),
+  authHeaderExpr: z.string(),
+  searchHead: z.string(),
   search: z.string(),
   earliest: z.string().optional(),
   latest: z.string().optional(),
-  endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema.default(
-    "json",
-  ),
+  endpoint: z.string(),
+  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
   collectRequestParams: z.array(
     z.lazy(() => SplunkAuthenticationLoginCollectRequestParam$inboundSchema),
   ).optional(),
   collectRequestHeaders: z.array(
     z.lazy(() => SplunkAuthenticationLoginCollectRequestHeader$inboundSchema),
   ).optional(),
-  timeout: z.number().default(0),
-  useRoundRobinDns: z.boolean().default(false),
-  disableTimeFilter: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(false),
-  handleEscapedChars: z.boolean().default(false),
+  timeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  handleEscapedChars: z.boolean().optional(),
   retryRules: z.lazy(() => SplunkAuthenticationLoginRetryRules$inboundSchema)
     .optional(),
 });
 /** @internal */
 export type SplunkAuthenticationLogin$Outbound = {
-  authentication: "login";
+  authentication: string;
   loginUrl: string;
   username: string;
   password: string;
@@ -1276,11 +1514,11 @@ export type SplunkAuthenticationLogin$Outbound = {
   collectRequestHeaders?:
     | Array<SplunkAuthenticationLoginCollectRequestHeader$Outbound>
     | undefined;
-  timeout: number;
-  useRoundRobinDns: boolean;
-  disableTimeFilter: boolean;
-  rejectUnauthorized: boolean;
-  handleEscapedChars: boolean;
+  timeout?: number | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  handleEscapedChars?: boolean | undefined;
   retryRules?: SplunkAuthenticationLoginRetryRules$Outbound | undefined;
 };
 
@@ -1290,34 +1528,30 @@ export const SplunkAuthenticationLogin$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationLogin
 > = z.object({
-  authentication: z.literal("login"),
-  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  authentication: SplunkAuthenticationLoginAuthentication$outboundSchema,
+  loginUrl: z.string(),
   username: z.string(),
   password: z.string(),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
-  tokenRespAttribute: z.string().default("token"),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  searchHead: z.string().default("https://localhost:8089"),
+  loginBody: z.string(),
+  tokenRespAttribute: z.string(),
+  authHeaderExpr: z.string(),
+  searchHead: z.string(),
   search: z.string(),
   earliest: z.string().optional(),
   latest: z.string().optional(),
-  endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema.default(
-    "json",
-  ),
+  endpoint: z.string(),
+  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema,
   collectRequestParams: z.array(
     z.lazy(() => SplunkAuthenticationLoginCollectRequestParam$outboundSchema),
   ).optional(),
   collectRequestHeaders: z.array(
     z.lazy(() => SplunkAuthenticationLoginCollectRequestHeader$outboundSchema),
   ).optional(),
-  timeout: z.number().default(0),
-  useRoundRobinDns: z.boolean().default(false),
-  disableTimeFilter: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(false),
-  handleEscapedChars: z.boolean().default(false),
+  timeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  handleEscapedChars: z.boolean().optional(),
   retryRules: z.lazy(() => SplunkAuthenticationLoginRetryRules$outboundSchema)
     .optional(),
 });
@@ -1338,6 +1572,21 @@ export function splunkAuthenticationLoginFromJSON(
     `Failed to parse 'SplunkAuthenticationLogin' from JSON`,
   );
 }
+
+/** @internal */
+export const SplunkAuthenticationTokenSecretAuthentication$inboundSchema:
+  z.ZodType<
+    SplunkAuthenticationTokenSecretAuthentication,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(SplunkAuthenticationTokenSecretAuthentication);
+/** @internal */
+export const SplunkAuthenticationTokenSecretAuthentication$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    SplunkAuthenticationTokenSecretAuthentication
+  > = openEnums.outboundSchema(SplunkAuthenticationTokenSecretAuthentication);
 
 /** @internal */
 export const SplunkAuthenticationTokenSecretCollectRequestParam$inboundSchema:
@@ -1451,8 +1700,7 @@ export const SplunkAuthenticationTokenSecretRetryRules$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -1480,8 +1728,7 @@ export const SplunkAuthenticationTokenSecretRetryRules$outboundSchema:
     z.ZodTypeDef,
     SplunkAuthenticationTokenSecretRetryRules
   > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-      .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -1523,16 +1770,14 @@ export const SplunkAuthenticationTokenSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("tokenSecret"),
+  authentication: SplunkAuthenticationTokenSecretAuthentication$inboundSchema,
   tokenSecret: z.string(),
-  searchHead: z.string().default("https://localhost:8089"),
+  searchHead: z.string(),
   search: z.string(),
   earliest: z.string().optional(),
   latest: z.string().optional(),
-  endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema.default(
-    "json",
-  ),
+  endpoint: z.string(),
+  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
   collectRequestParams: z.array(
     z.lazy(() =>
       SplunkAuthenticationTokenSecretCollectRequestParam$inboundSchema
@@ -1543,18 +1788,18 @@ export const SplunkAuthenticationTokenSecret$inboundSchema: z.ZodType<
       SplunkAuthenticationTokenSecretCollectRequestHeader$inboundSchema
     ),
   ).optional(),
-  timeout: z.number().default(0),
-  useRoundRobinDns: z.boolean().default(false),
-  disableTimeFilter: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(false),
-  handleEscapedChars: z.boolean().default(false),
+  timeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  handleEscapedChars: z.boolean().optional(),
   retryRules: z.lazy(() =>
     SplunkAuthenticationTokenSecretRetryRules$inboundSchema
   ).optional(),
 });
 /** @internal */
 export type SplunkAuthenticationTokenSecret$Outbound = {
-  authentication: "tokenSecret";
+  authentication: string;
   tokenSecret: string;
   searchHead: string;
   search: string;
@@ -1568,11 +1813,11 @@ export type SplunkAuthenticationTokenSecret$Outbound = {
   collectRequestHeaders?:
     | Array<SplunkAuthenticationTokenSecretCollectRequestHeader$Outbound>
     | undefined;
-  timeout: number;
-  useRoundRobinDns: boolean;
-  disableTimeFilter: boolean;
-  rejectUnauthorized: boolean;
-  handleEscapedChars: boolean;
+  timeout?: number | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  handleEscapedChars?: boolean | undefined;
   retryRules?: SplunkAuthenticationTokenSecretRetryRules$Outbound | undefined;
 };
 
@@ -1582,16 +1827,14 @@ export const SplunkAuthenticationTokenSecret$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationTokenSecret
 > = z.object({
-  authentication: z.literal("tokenSecret"),
+  authentication: SplunkAuthenticationTokenSecretAuthentication$outboundSchema,
   tokenSecret: z.string(),
-  searchHead: z.string().default("https://localhost:8089"),
+  searchHead: z.string(),
   search: z.string(),
   earliest: z.string().optional(),
   latest: z.string().optional(),
-  endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema.default(
-    "json",
-  ),
+  endpoint: z.string(),
+  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema,
   collectRequestParams: z.array(
     z.lazy(() =>
       SplunkAuthenticationTokenSecretCollectRequestParam$outboundSchema
@@ -1602,11 +1845,11 @@ export const SplunkAuthenticationTokenSecret$outboundSchema: z.ZodType<
       SplunkAuthenticationTokenSecretCollectRequestHeader$outboundSchema
     ),
   ).optional(),
-  timeout: z.number().default(0),
-  useRoundRobinDns: z.boolean().default(false),
-  disableTimeFilter: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(false),
-  handleEscapedChars: z.boolean().default(false),
+  timeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  handleEscapedChars: z.boolean().optional(),
   retryRules: z.lazy(() =>
     SplunkAuthenticationTokenSecretRetryRules$outboundSchema
   ).optional(),
@@ -1630,6 +1873,19 @@ export function splunkAuthenticationTokenSecretFromJSON(
     `Failed to parse 'SplunkAuthenticationTokenSecret' from JSON`,
   );
 }
+
+/** @internal */
+export const SplunkAuthenticationTokenAuthentication$inboundSchema: z.ZodType<
+  SplunkAuthenticationTokenAuthentication,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(SplunkAuthenticationTokenAuthentication);
+/** @internal */
+export const SplunkAuthenticationTokenAuthentication$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SplunkAuthenticationTokenAuthentication
+> = openEnums.outboundSchema(SplunkAuthenticationTokenAuthentication);
 
 /** @internal */
 export const SplunkAuthenticationTokenCollectRequestParam$inboundSchema:
@@ -1743,8 +1999,7 @@ export const SplunkAuthenticationTokenRetryRules$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -1771,8 +2026,7 @@ export const SplunkAuthenticationTokenRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationTokenRetryRules
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -1808,33 +2062,31 @@ export const SplunkAuthenticationToken$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("token"),
+  authentication: SplunkAuthenticationTokenAuthentication$inboundSchema,
   token: z.string(),
-  searchHead: z.string().default("https://localhost:8089"),
+  searchHead: z.string(),
   search: z.string(),
   earliest: z.string().optional(),
   latest: z.string().optional(),
-  endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema.default(
-    "json",
-  ),
+  endpoint: z.string(),
+  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
   collectRequestParams: z.array(
     z.lazy(() => SplunkAuthenticationTokenCollectRequestParam$inboundSchema),
   ).optional(),
   collectRequestHeaders: z.array(
     z.lazy(() => SplunkAuthenticationTokenCollectRequestHeader$inboundSchema),
   ).optional(),
-  timeout: z.number().default(0),
-  useRoundRobinDns: z.boolean().default(false),
-  disableTimeFilter: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(false),
-  handleEscapedChars: z.boolean().default(false),
+  timeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  handleEscapedChars: z.boolean().optional(),
   retryRules: z.lazy(() => SplunkAuthenticationTokenRetryRules$inboundSchema)
     .optional(),
 });
 /** @internal */
 export type SplunkAuthenticationToken$Outbound = {
-  authentication: "token";
+  authentication: string;
   token: string;
   searchHead: string;
   search: string;
@@ -1848,11 +2100,11 @@ export type SplunkAuthenticationToken$Outbound = {
   collectRequestHeaders?:
     | Array<SplunkAuthenticationTokenCollectRequestHeader$Outbound>
     | undefined;
-  timeout: number;
-  useRoundRobinDns: boolean;
-  disableTimeFilter: boolean;
-  rejectUnauthorized: boolean;
-  handleEscapedChars: boolean;
+  timeout?: number | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  handleEscapedChars?: boolean | undefined;
   retryRules?: SplunkAuthenticationTokenRetryRules$Outbound | undefined;
 };
 
@@ -1862,27 +2114,25 @@ export const SplunkAuthenticationToken$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationToken
 > = z.object({
-  authentication: z.literal("token"),
+  authentication: SplunkAuthenticationTokenAuthentication$outboundSchema,
   token: z.string(),
-  searchHead: z.string().default("https://localhost:8089"),
+  searchHead: z.string(),
   search: z.string(),
   earliest: z.string().optional(),
   latest: z.string().optional(),
-  endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema.default(
-    "json",
-  ),
+  endpoint: z.string(),
+  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema,
   collectRequestParams: z.array(
     z.lazy(() => SplunkAuthenticationTokenCollectRequestParam$outboundSchema),
   ).optional(),
   collectRequestHeaders: z.array(
     z.lazy(() => SplunkAuthenticationTokenCollectRequestHeader$outboundSchema),
   ).optional(),
-  timeout: z.number().default(0),
-  useRoundRobinDns: z.boolean().default(false),
-  disableTimeFilter: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(false),
-  handleEscapedChars: z.boolean().default(false),
+  timeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  handleEscapedChars: z.boolean().optional(),
   retryRules: z.lazy(() => SplunkAuthenticationTokenRetryRules$outboundSchema)
     .optional(),
 });
@@ -1903,6 +2153,21 @@ export function splunkAuthenticationTokenFromJSON(
     `Failed to parse 'SplunkAuthenticationToken' from JSON`,
   );
 }
+
+/** @internal */
+export const SplunkAuthenticationBasicSecretAuthentication$inboundSchema:
+  z.ZodType<
+    SplunkAuthenticationBasicSecretAuthentication,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(SplunkAuthenticationBasicSecretAuthentication);
+/** @internal */
+export const SplunkAuthenticationBasicSecretAuthentication$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    SplunkAuthenticationBasicSecretAuthentication
+  > = openEnums.outboundSchema(SplunkAuthenticationBasicSecretAuthentication);
 
 /** @internal */
 export const SplunkAuthenticationBasicSecretCollectRequestParam$inboundSchema:
@@ -2016,8 +2281,7 @@ export const SplunkAuthenticationBasicSecretRetryRules$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -2045,8 +2309,7 @@ export const SplunkAuthenticationBasicSecretRetryRules$outboundSchema:
     z.ZodTypeDef,
     SplunkAuthenticationBasicSecretRetryRules
   > = z.object({
-    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-      .default("backoff"),
+    type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
     interval: z.any().optional(),
     limit: z.any().optional(),
     multiplier: z.any().optional(),
@@ -2088,16 +2351,14 @@ export const SplunkAuthenticationBasicSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("basicSecret"),
+  authentication: SplunkAuthenticationBasicSecretAuthentication$inboundSchema,
   credentialsSecret: z.string(),
-  searchHead: z.string().default("https://localhost:8089"),
+  searchHead: z.string(),
   search: z.string(),
   earliest: z.string().optional(),
   latest: z.string().optional(),
-  endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema.default(
-    "json",
-  ),
+  endpoint: z.string(),
+  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
   collectRequestParams: z.array(
     z.lazy(() =>
       SplunkAuthenticationBasicSecretCollectRequestParam$inboundSchema
@@ -2108,18 +2369,18 @@ export const SplunkAuthenticationBasicSecret$inboundSchema: z.ZodType<
       SplunkAuthenticationBasicSecretCollectRequestHeader$inboundSchema
     ),
   ).optional(),
-  timeout: z.number().default(0),
-  useRoundRobinDns: z.boolean().default(false),
-  disableTimeFilter: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(false),
-  handleEscapedChars: z.boolean().default(false),
+  timeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  handleEscapedChars: z.boolean().optional(),
   retryRules: z.lazy(() =>
     SplunkAuthenticationBasicSecretRetryRules$inboundSchema
   ).optional(),
 });
 /** @internal */
 export type SplunkAuthenticationBasicSecret$Outbound = {
-  authentication: "basicSecret";
+  authentication: string;
   credentialsSecret: string;
   searchHead: string;
   search: string;
@@ -2133,11 +2394,11 @@ export type SplunkAuthenticationBasicSecret$Outbound = {
   collectRequestHeaders?:
     | Array<SplunkAuthenticationBasicSecretCollectRequestHeader$Outbound>
     | undefined;
-  timeout: number;
-  useRoundRobinDns: boolean;
-  disableTimeFilter: boolean;
-  rejectUnauthorized: boolean;
-  handleEscapedChars: boolean;
+  timeout?: number | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  handleEscapedChars?: boolean | undefined;
   retryRules?: SplunkAuthenticationBasicSecretRetryRules$Outbound | undefined;
 };
 
@@ -2147,16 +2408,14 @@ export const SplunkAuthenticationBasicSecret$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationBasicSecret
 > = z.object({
-  authentication: z.literal("basicSecret"),
+  authentication: SplunkAuthenticationBasicSecretAuthentication$outboundSchema,
   credentialsSecret: z.string(),
-  searchHead: z.string().default("https://localhost:8089"),
+  searchHead: z.string(),
   search: z.string(),
   earliest: z.string().optional(),
   latest: z.string().optional(),
-  endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema.default(
-    "json",
-  ),
+  endpoint: z.string(),
+  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema,
   collectRequestParams: z.array(
     z.lazy(() =>
       SplunkAuthenticationBasicSecretCollectRequestParam$outboundSchema
@@ -2167,11 +2426,11 @@ export const SplunkAuthenticationBasicSecret$outboundSchema: z.ZodType<
       SplunkAuthenticationBasicSecretCollectRequestHeader$outboundSchema
     ),
   ).optional(),
-  timeout: z.number().default(0),
-  useRoundRobinDns: z.boolean().default(false),
-  disableTimeFilter: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(false),
-  handleEscapedChars: z.boolean().default(false),
+  timeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  handleEscapedChars: z.boolean().optional(),
   retryRules: z.lazy(() =>
     SplunkAuthenticationBasicSecretRetryRules$outboundSchema
   ).optional(),
@@ -2195,6 +2454,19 @@ export function splunkAuthenticationBasicSecretFromJSON(
     `Failed to parse 'SplunkAuthenticationBasicSecret' from JSON`,
   );
 }
+
+/** @internal */
+export const SplunkAuthenticationBasicAuthentication$inboundSchema: z.ZodType<
+  SplunkAuthenticationBasicAuthentication,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(SplunkAuthenticationBasicAuthentication);
+/** @internal */
+export const SplunkAuthenticationBasicAuthentication$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SplunkAuthenticationBasicAuthentication
+> = openEnums.outboundSchema(SplunkAuthenticationBasicAuthentication);
 
 /** @internal */
 export const SplunkAuthenticationBasicCollectRequestParam$inboundSchema:
@@ -2308,8 +2580,7 @@ export const SplunkAuthenticationBasicRetryRules$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -2336,8 +2607,7 @@ export const SplunkAuthenticationBasicRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationBasicRetryRules
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -2373,34 +2643,32 @@ export const SplunkAuthenticationBasic$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("basic"),
+  authentication: SplunkAuthenticationBasicAuthentication$inboundSchema,
   username: z.string(),
   password: z.string(),
-  searchHead: z.string().default("https://localhost:8089"),
+  searchHead: z.string(),
   search: z.string(),
   earliest: z.string().optional(),
   latest: z.string().optional(),
-  endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema.default(
-    "json",
-  ),
+  endpoint: z.string(),
+  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
   collectRequestParams: z.array(
     z.lazy(() => SplunkAuthenticationBasicCollectRequestParam$inboundSchema),
   ).optional(),
   collectRequestHeaders: z.array(
     z.lazy(() => SplunkAuthenticationBasicCollectRequestHeader$inboundSchema),
   ).optional(),
-  timeout: z.number().default(0),
-  useRoundRobinDns: z.boolean().default(false),
-  disableTimeFilter: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(false),
-  handleEscapedChars: z.boolean().default(false),
+  timeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  handleEscapedChars: z.boolean().optional(),
   retryRules: z.lazy(() => SplunkAuthenticationBasicRetryRules$inboundSchema)
     .optional(),
 });
 /** @internal */
 export type SplunkAuthenticationBasic$Outbound = {
-  authentication: "basic";
+  authentication: string;
   username: string;
   password: string;
   searchHead: string;
@@ -2415,11 +2683,11 @@ export type SplunkAuthenticationBasic$Outbound = {
   collectRequestHeaders?:
     | Array<SplunkAuthenticationBasicCollectRequestHeader$Outbound>
     | undefined;
-  timeout: number;
-  useRoundRobinDns: boolean;
-  disableTimeFilter: boolean;
-  rejectUnauthorized: boolean;
-  handleEscapedChars: boolean;
+  timeout?: number | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  handleEscapedChars?: boolean | undefined;
   retryRules?: SplunkAuthenticationBasicRetryRules$Outbound | undefined;
 };
 
@@ -2429,28 +2697,26 @@ export const SplunkAuthenticationBasic$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationBasic
 > = z.object({
-  authentication: z.literal("basic"),
+  authentication: SplunkAuthenticationBasicAuthentication$outboundSchema,
   username: z.string(),
   password: z.string(),
-  searchHead: z.string().default("https://localhost:8089"),
+  searchHead: z.string(),
   search: z.string(),
   earliest: z.string().optional(),
   latest: z.string().optional(),
-  endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema.default(
-    "json",
-  ),
+  endpoint: z.string(),
+  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema,
   collectRequestParams: z.array(
     z.lazy(() => SplunkAuthenticationBasicCollectRequestParam$outboundSchema),
   ).optional(),
   collectRequestHeaders: z.array(
     z.lazy(() => SplunkAuthenticationBasicCollectRequestHeader$outboundSchema),
   ).optional(),
-  timeout: z.number().default(0),
-  useRoundRobinDns: z.boolean().default(false),
-  disableTimeFilter: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(false),
-  handleEscapedChars: z.boolean().default(false),
+  timeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  handleEscapedChars: z.boolean().optional(),
   retryRules: z.lazy(() => SplunkAuthenticationBasicRetryRules$outboundSchema)
     .optional(),
 });
@@ -2471,6 +2737,19 @@ export function splunkAuthenticationBasicFromJSON(
     `Failed to parse 'SplunkAuthenticationBasic' from JSON`,
   );
 }
+
+/** @internal */
+export const SplunkAuthenticationNoneAuthentication$inboundSchema: z.ZodType<
+  SplunkAuthenticationNoneAuthentication,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(SplunkAuthenticationNoneAuthentication);
+/** @internal */
+export const SplunkAuthenticationNoneAuthentication$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SplunkAuthenticationNoneAuthentication
+> = openEnums.outboundSchema(SplunkAuthenticationNoneAuthentication);
 
 /** @internal */
 export const SplunkAuthenticationNoneCollectRequestParam$inboundSchema:
@@ -2584,8 +2863,7 @@ export const SplunkAuthenticationNoneRetryRules$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -2612,8 +2890,7 @@ export const SplunkAuthenticationNoneRetryRules$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationNoneRetryRules
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema
-    .default("backoff"),
+  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -2649,32 +2926,30 @@ export const SplunkAuthenticationNone$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("none"),
-  searchHead: z.string().default("https://localhost:8089"),
+  authentication: SplunkAuthenticationNoneAuthentication$inboundSchema,
+  searchHead: z.string(),
   search: z.string(),
   earliest: z.string().optional(),
   latest: z.string().optional(),
-  endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema.default(
-    "json",
-  ),
+  endpoint: z.string(),
+  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
   collectRequestParams: z.array(
     z.lazy(() => SplunkAuthenticationNoneCollectRequestParam$inboundSchema),
   ).optional(),
   collectRequestHeaders: z.array(
     z.lazy(() => SplunkAuthenticationNoneCollectRequestHeader$inboundSchema),
   ).optional(),
-  timeout: z.number().default(0),
-  useRoundRobinDns: z.boolean().default(false),
-  disableTimeFilter: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(false),
-  handleEscapedChars: z.boolean().default(false),
+  timeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  handleEscapedChars: z.boolean().optional(),
   retryRules: z.lazy(() => SplunkAuthenticationNoneRetryRules$inboundSchema)
     .optional(),
 });
 /** @internal */
 export type SplunkAuthenticationNone$Outbound = {
-  authentication: "none";
+  authentication: string;
   searchHead: string;
   search: string;
   earliest?: string | undefined;
@@ -2687,11 +2962,11 @@ export type SplunkAuthenticationNone$Outbound = {
   collectRequestHeaders?:
     | Array<SplunkAuthenticationNoneCollectRequestHeader$Outbound>
     | undefined;
-  timeout: number;
-  useRoundRobinDns: boolean;
-  disableTimeFilter: boolean;
-  rejectUnauthorized: boolean;
-  handleEscapedChars: boolean;
+  timeout?: number | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  handleEscapedChars?: boolean | undefined;
   retryRules?: SplunkAuthenticationNoneRetryRules$Outbound | undefined;
 };
 
@@ -2701,26 +2976,24 @@ export const SplunkAuthenticationNone$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationNone
 > = z.object({
-  authentication: z.literal("none"),
-  searchHead: z.string().default("https://localhost:8089"),
+  authentication: SplunkAuthenticationNoneAuthentication$outboundSchema,
+  searchHead: z.string(),
   search: z.string(),
   earliest: z.string().optional(),
   latest: z.string().optional(),
-  endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema.default(
-    "json",
-  ),
+  endpoint: z.string(),
+  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema,
   collectRequestParams: z.array(
     z.lazy(() => SplunkAuthenticationNoneCollectRequestParam$outboundSchema),
   ).optional(),
   collectRequestHeaders: z.array(
     z.lazy(() => SplunkAuthenticationNoneCollectRequestHeader$outboundSchema),
   ).optional(),
-  timeout: z.number().default(0),
-  useRoundRobinDns: z.boolean().default(false),
-  disableTimeFilter: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(false),
-  handleEscapedChars: z.boolean().default(false),
+  timeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  handleEscapedChars: z.boolean().optional(),
   retryRules: z.lazy(() => SplunkAuthenticationNoneRetryRules$outboundSchema)
     .optional(),
 });
@@ -2748,23 +3021,23 @@ export const SplunkCollectorConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => SplunkAuthenticationNone$inboundSchema),
+  z.lazy(() => SplunkAuthenticationLogin$inboundSchema),
+  z.lazy(() => SplunkAuthenticationLoginSecret$inboundSchema),
   z.lazy(() => SplunkAuthenticationBasic$inboundSchema),
   z.lazy(() => SplunkAuthenticationBasicSecret$inboundSchema),
   z.lazy(() => SplunkAuthenticationToken$inboundSchema),
   z.lazy(() => SplunkAuthenticationTokenSecret$inboundSchema),
-  z.lazy(() => SplunkAuthenticationLogin$inboundSchema),
-  z.lazy(() => SplunkAuthenticationLoginSecret$inboundSchema),
+  z.lazy(() => SplunkAuthenticationNone$inboundSchema),
 ]);
 /** @internal */
 export type SplunkCollectorConf$Outbound =
-  | SplunkAuthenticationNone$Outbound
+  | SplunkAuthenticationLogin$Outbound
+  | SplunkAuthenticationLoginSecret$Outbound
   | SplunkAuthenticationBasic$Outbound
   | SplunkAuthenticationBasicSecret$Outbound
   | SplunkAuthenticationToken$Outbound
   | SplunkAuthenticationTokenSecret$Outbound
-  | SplunkAuthenticationLogin$Outbound
-  | SplunkAuthenticationLoginSecret$Outbound;
+  | SplunkAuthenticationNone$Outbound;
 
 /** @internal */
 export const SplunkCollectorConf$outboundSchema: z.ZodType<
@@ -2772,13 +3045,13 @@ export const SplunkCollectorConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkCollectorConf
 > = z.union([
-  z.lazy(() => SplunkAuthenticationNone$outboundSchema),
+  z.lazy(() => SplunkAuthenticationLogin$outboundSchema),
+  z.lazy(() => SplunkAuthenticationLoginSecret$outboundSchema),
   z.lazy(() => SplunkAuthenticationBasic$outboundSchema),
   z.lazy(() => SplunkAuthenticationBasicSecret$outboundSchema),
   z.lazy(() => SplunkAuthenticationToken$outboundSchema),
   z.lazy(() => SplunkAuthenticationTokenSecret$outboundSchema),
-  z.lazy(() => SplunkAuthenticationLogin$outboundSchema),
-  z.lazy(() => SplunkAuthenticationLoginSecret$outboundSchema),
+  z.lazy(() => SplunkAuthenticationNone$outboundSchema),
 ]);
 
 export function splunkCollectorConfToJSON(

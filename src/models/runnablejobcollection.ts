@@ -10,10 +10,6 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { Collector, Collector$inboundSchema } from "./collector.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  InputTypeSavedJobCollection,
-  InputTypeSavedJobCollection$inboundSchema,
-} from "./inputtypesavedjobcollection.js";
-import {
   JobTypeOptionsSavedJobCollection,
   JobTypeOptionsSavedJobCollection$inboundSchema,
 } from "./jobtypeoptionssavedjobcollection.js";
@@ -26,6 +22,10 @@ import {
   ScheduleTypeRunnableJobCollection,
   ScheduleTypeRunnableJobCollection$inboundSchema,
 } from "./scheduletyperunnablejobcollection.js";
+import {
+  TypeCollectionWithBreakerRulesetsConstraint,
+  TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+} from "./typecollectionwithbreakerrulesetsconstraint.js";
 
 /**
  * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
@@ -72,36 +72,36 @@ export type CaptureSettings = {
   /**
    * Amount of time to keep capture open, in seconds
    */
-  duration: number;
+  duration?: number | undefined;
   /**
    * Maximum number of events to capture
    */
-  maxEvents: number;
-  level: WhereToCapture;
+  maxEvents?: number | undefined;
+  level?: WhereToCapture | undefined;
 };
 
 export type RunnableJobCollectionRun = {
   /**
    * Reschedule tasks that failed with non-fatal errors
    */
-  rescheduleDroppedTasks: boolean;
+  rescheduleDroppedTasks?: boolean | undefined;
   /**
    * Maximum number of times a task can be rescheduled
    */
-  maxTaskReschedule: number;
+  maxTaskReschedule?: number | undefined;
   /**
    * Level at which to set task logging
    */
-  logLevel: LogLevelOptionsSavedJobCollectionScheduleRun;
+  logLevel?: LogLevelOptionsSavedJobCollectionScheduleRun | undefined;
   /**
    * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
    */
-  jobTimeout: string;
+  jobTimeout?: string | undefined;
   /**
    * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
    */
   mode: RunnableJobCollectionMode;
-  timeRangeType: TimeRange;
+  timeRangeType?: TimeRange | undefined;
   /**
    * Earliest time to collect data for the selected timezone
    */
@@ -113,12 +113,12 @@ export type RunnableJobCollectionRun = {
   /**
    * Timezone to use for Earliest and Latest times
    */
-  timestampTimezone: string;
+  timestampTimezone?: string | undefined;
   timeWarning?: MetricsStore | undefined;
   /**
    * A filter for tokens in the provided collect path and/or the events being collected
    */
-  expression: string;
+  expression?: string | undefined;
   /**
    * Limits the bundle size for small tasks. For example,
    *
@@ -126,7 +126,7 @@ export type RunnableJobCollectionRun = {
    *
    *         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
    */
-  minTaskSize: string;
+  minTaskSize?: string | undefined;
   /**
    * Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
    *
@@ -134,11 +134,11 @@ export type RunnableJobCollectionRun = {
    *
    *         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
    */
-  maxTaskSize: string;
+  maxTaskSize?: string | undefined;
   /**
    * Send discover results to Routes
    */
-  discoverToRoutes: boolean;
+  discoverToRoutes?: boolean | undefined;
   capture?: CaptureSettings | undefined;
 };
 
@@ -152,11 +152,11 @@ export type RunnableJobCollection = {
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
    */
-  ttl: string;
+  ttl?: string | undefined;
   /**
    * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
    */
-  ignoreGroupJobsLimit: boolean;
+  ignoreGroupJobsLimit?: boolean | undefined;
   /**
    * List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface.
    */
@@ -164,7 +164,7 @@ export type RunnableJobCollection = {
   /**
    * Resume the ad hoc job if a failure condition causes Stream to restart during job execution
    */
-  resumeOnBoot: boolean;
+  resumeOnBoot?: boolean | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -180,12 +180,12 @@ export type RunnableJobCollection = {
   /**
    * If enabled, tasks are created and run by the same Worker Node
    */
-  workerAffinity: boolean;
+  workerAffinity?: boolean | undefined;
   /**
    * Collector configuration
    */
   collector: Collector;
-  input?: InputTypeSavedJobCollection | undefined;
+  input?: TypeCollectionWithBreakerRulesetsConstraint | undefined;
   run: RunnableJobCollectionRun;
 };
 
@@ -216,9 +216,9 @@ export const CaptureSettings$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  duration: z.number().default(60),
-  maxEvents: z.number().default(100),
-  level: WhereToCapture$inboundSchema.default(0),
+  duration: z.number().optional(),
+  maxEvents: z.number().optional(),
+  level: WhereToCapture$inboundSchema.optional(),
 });
 
 export function captureSettingsFromJSON(
@@ -237,22 +237,21 @@ export const RunnableJobCollectionRun$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  rescheduleDroppedTasks: z.boolean().default(true),
-  maxTaskReschedule: z.number().default(1),
-  logLevel: LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema.default(
-    "info",
-  ),
-  jobTimeout: z.string().default("0"),
-  mode: RunnableJobCollectionMode$inboundSchema.default("list"),
-  timeRangeType: TimeRange$inboundSchema.default("relative"),
+  rescheduleDroppedTasks: z.boolean().optional(),
+  maxTaskReschedule: z.number().optional(),
+  logLevel: LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema
+    .optional(),
+  jobTimeout: z.string().optional(),
+  mode: RunnableJobCollectionMode$inboundSchema,
+  timeRangeType: TimeRange$inboundSchema.optional(),
   earliest: z.number().optional(),
   latest: z.number().optional(),
-  timestampTimezone: z.string().default("UTC"),
+  timestampTimezone: z.string().optional(),
   timeWarning: MetricsStore$inboundSchema.optional(),
-  expression: z.string().default("true"),
-  minTaskSize: z.string().default("1MB"),
-  maxTaskSize: z.string().default("10MB"),
-  discoverToRoutes: z.boolean().default(false),
+  expression: z.string().optional(),
+  minTaskSize: z.string().optional(),
+  maxTaskSize: z.string().optional(),
+  discoverToRoutes: z.boolean().optional(),
   capture: z.lazy(() => CaptureSettings$inboundSchema).optional(),
 });
 
@@ -275,16 +274,16 @@ export const RunnableJobCollection$inboundSchema: z.ZodType<
   id: z.string().optional(),
   description: z.string().optional(),
   type: JobTypeOptionsSavedJobCollection$inboundSchema.optional(),
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
   removeFields: z.array(z.string()).optional(),
-  resumeOnBoot: z.boolean().default(false),
+  resumeOnBoot: z.boolean().optional(),
   environment: z.string().optional(),
   schedule: ScheduleTypeRunnableJobCollection$inboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),
-  workerAffinity: z.boolean().default(false),
+  workerAffinity: z.boolean().optional(),
   collector: Collector$inboundSchema,
-  input: InputTypeSavedJobCollection$inboundSchema.optional(),
+  input: TypeCollectionWithBreakerRulesetsConstraint$inboundSchema.optional(),
   run: z.lazy(() => RunnableJobCollectionRun$inboundSchema),
 });
 

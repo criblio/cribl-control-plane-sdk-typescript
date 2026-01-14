@@ -7,10 +7,13 @@
 
 ```typescript
 const value: models.InputCriblLakeHttpSendToRoutesTrueConstraint = {
+  sendToRoutes: true,
   id: "<id>",
   type: "cribl_lake_http",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -22,23 +25,50 @@ const value: models.InputCriblLakeHttpSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  port: 2932.11,
+  host: "dead-marimba.name",
+  port: 3758.85,
   authTokens: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveReq: 2163.48,
+  maxRequestsPerSocket: 1853,
+  enableProxyHeader: true,
+  captureHeaders: false,
+  activityLogSampleRate: 4054.78,
+  requestTimeout: 1089.57,
+  socketTimeout: 332.5,
+  keepAliveTimeout: 4872.76,
+  enableHealthCheck: true,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  criblAPI: "<value>",
+  elasticAPI: "<value>",
+  splunkHecAPI: "<value>",
+  splunkHecAcks: false,
   metadata: [
     {
       name: "<value>",
@@ -48,7 +78,7 @@ const value: models.InputCriblLakeHttpSendToRoutesTrueConstraint = {
   authTokensExt: [
     {
       token: "<value>",
-      description: "across fooey judgementally cork",
+      description: "so provided intensely",
       metadata: [
         {
           name: "<value>",
@@ -56,11 +86,12 @@ const value: models.InputCriblLakeHttpSendToRoutesTrueConstraint = {
         },
       ],
       splunkHecMetadata: {
-        enabled: false,
+        enabled: true,
         defaultDataset: "<value>",
         allowedIndexesAtToken: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
       },
       elasticsearchMetadata: {
@@ -69,7 +100,7 @@ const value: models.InputCriblLakeHttpSendToRoutesTrueConstraint = {
       },
     },
   ],
-  description: "a longingly snack colorize cruel bah overconfidently",
+  description: "frantically commodity abnormally uh-huh than ah",
 };
 ```
 
@@ -78,6 +109,7 @@ const value: models.InputCriblLakeHttpSendToRoutesTrueConstraint = {
 ```typescript
 const value:
   models.InputCriblLakeHttpSendToRoutesFalseWithConnectionsConstraint = {
+    sendToRoutes: true,
     connections: [
       {
         pipeline: "<value>",
@@ -86,28 +118,57 @@ const value:
     ],
     id: "<id>",
     type: "cribl_lake_http",
+    disabled: false,
     pipeline: "<value>",
     environment: "<value>",
+    pqEnabled: true,
     streamtags: [
       "<value 1>",
     ],
     pq: {
+      mode: "smart",
+      maxBufferSize: 1717.96,
+      commitFrequency: 1412.18,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/include",
+      compress: "none",
       pqControls: {},
     },
-    port: 5907.63,
+    host: "flickering-haircut.name",
+    port: 802.57,
     authTokens: [
       "<value 1>",
       "<value 2>",
     ],
     tls: {
+      disabled: true,
+      requestCert: true,
+      rejectUnauthorized: true,
+      commonNameRegex: "<value>",
       certificateName: "<value>",
       privKeyPath: "<value>",
       passphrase: "<value>",
       certPath: "<value>",
       caPath: "<value>",
       minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+      maxVersion: "TLSv1.1",
     },
+    maxActiveReq: 3702.83,
+    maxRequestsPerSocket: 9399,
+    enableProxyHeader: false,
+    captureHeaders: true,
+    activityLogSampleRate: 4120.28,
+    requestTimeout: 320.13,
+    socketTimeout: 9393.61,
+    keepAliveTimeout: 3615.98,
+    enableHealthCheck: true,
+    ipAllowlistRegex: "<value>",
+    ipDenylistRegex: "<value>",
+    criblAPI: "<value>",
+    elasticAPI: "<value>",
+    splunkHecAPI: "<value>",
+    splunkHecAcks: true,
     metadata: [
       {
         name: "<value>",
@@ -117,7 +178,7 @@ const value:
     authTokensExt: [
       {
         token: "<value>",
-        description: "across fooey judgementally cork",
+        description: "so provided intensely",
         metadata: [
           {
             name: "<value>",
@@ -125,11 +186,12 @@ const value:
           },
         ],
         splunkHecMetadata: {
-          enabled: false,
+          enabled: true,
           defaultDataset: "<value>",
           allowedIndexesAtToken: [
             "<value 1>",
             "<value 2>",
+            "<value 3>",
           ],
         },
         elasticsearchMetadata: {
@@ -138,7 +200,7 @@ const value:
         },
       },
     ],
-    description: "ad forenenst edge",
+    description: "than cram from prioritize",
   };
 ```
 
@@ -146,13 +208,17 @@ const value:
 
 ```typescript
 const value: models.InputCriblLakeHttpPqEnabledFalseConstraint = {
+  pqEnabled: true,
   id: "<id>",
   type: "cribl_lake_http",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -161,23 +227,49 @@ const value: models.InputCriblLakeHttpPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  port: 3056.24,
+  host: "steel-habit.org",
+  port: 7644.06,
   authTokens: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveReq: 6622.93,
+  maxRequestsPerSocket: 170555,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 9567.93,
+  requestTimeout: 6711.72,
+  socketTimeout: 4616.58,
+  keepAliveTimeout: 4057.73,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  criblAPI: "<value>",
+  elasticAPI: "<value>",
+  splunkHecAPI: "<value>",
+  splunkHecAcks: true,
   metadata: [
     {
       name: "<value>",
@@ -187,7 +279,7 @@ const value: models.InputCriblLakeHttpPqEnabledFalseConstraint = {
   authTokensExt: [
     {
       token: "<value>",
-      description: "across fooey judgementally cork",
+      description: "so provided intensely",
       metadata: [
         {
           name: "<value>",
@@ -195,11 +287,12 @@ const value: models.InputCriblLakeHttpPqEnabledFalseConstraint = {
         },
       ],
       splunkHecMetadata: {
-        enabled: false,
+        enabled: true,
         defaultDataset: "<value>",
         allowedIndexesAtToken: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
       },
       elasticsearchMetadata: {
@@ -208,7 +301,7 @@ const value: models.InputCriblLakeHttpPqEnabledFalseConstraint = {
       },
     },
   ],
-  description: "dearest uh-huh near ruddy even amidst round if reproach",
+  description: "nectarine showy roadway",
 };
 ```
 
@@ -216,12 +309,22 @@ const value: models.InputCriblLakeHttpPqEnabledFalseConstraint = {
 
 ```typescript
 const value: models.InputCriblLakeHttpPqEnabledTrueWithPqConstraint = {
+  pqEnabled: false,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "cribl_lake_http",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -234,19 +337,39 @@ const value: models.InputCriblLakeHttpPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 7519.11,
+  host: "pointless-schnitzel.com",
+  port: 7997.52,
   authTokens: [
     "<value 1>",
   ],
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveReq: 3280.63,
+  maxRequestsPerSocket: 650330,
+  enableProxyHeader: true,
+  captureHeaders: false,
+  activityLogSampleRate: 1754.3,
+  requestTimeout: 4197.3,
+  socketTimeout: 6574.85,
+  keepAliveTimeout: 5139.29,
+  enableHealthCheck: true,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  criblAPI: "<value>",
+  elasticAPI: "<value>",
+  splunkHecAPI: "<value>",
+  splunkHecAcks: false,
   metadata: [
     {
       name: "<value>",
@@ -256,7 +379,7 @@ const value: models.InputCriblLakeHttpPqEnabledTrueWithPqConstraint = {
   authTokensExt: [
     {
       token: "<value>",
-      description: "across fooey judgementally cork",
+      description: "so provided intensely",
       metadata: [
         {
           name: "<value>",
@@ -264,11 +387,12 @@ const value: models.InputCriblLakeHttpPqEnabledTrueWithPqConstraint = {
         },
       ],
       splunkHecMetadata: {
-        enabled: false,
+        enabled: true,
         defaultDataset: "<value>",
         allowedIndexesAtToken: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
       },
       elasticsearchMetadata: {
@@ -277,7 +401,8 @@ const value: models.InputCriblLakeHttpPqEnabledTrueWithPqConstraint = {
       },
     },
   ],
-  description: "really afore huzzah stigmatize shy psst revere regularly",
+  description:
+    "since lest bruised variable like interviewer than meh round phooey",
 };
 ```
 

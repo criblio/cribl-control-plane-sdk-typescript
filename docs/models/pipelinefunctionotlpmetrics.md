@@ -6,6 +6,7 @@
 import { PipelineFunctionOtlpMetrics } from "cribl-control-plane/models";
 
 let value: PipelineFunctionOtlpMetrics = {
+  filter: "<value>",
   id: "otlp_metrics",
   description: "stained pish ack worth aw throughout like ew",
   disabled: false,
@@ -15,6 +16,9 @@ let value: PipelineFunctionOtlpMetrics = {
       "<value 1>",
       "<value 2>",
     ],
+    dropNonMetricEvents: true,
+    otlpVersion: "1.3.1",
+    batchOTLPMetrics: false,
   },
   groupId: "<id>",
 };

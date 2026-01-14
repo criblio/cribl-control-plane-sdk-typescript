@@ -6,17 +6,26 @@
 import { InputWindowsMetricsPqEnabledTrueWithPqConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputWindowsMetricsPqEnabledTrueWithPqConstraint = {
+  pqEnabled: false,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "windows_metrics",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -24,21 +33,40 @@ let value: InputWindowsMetricsPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
+  interval: 4223.62,
   host: {
+    mode: "custom",
     custom: {
-      system: {},
-      cpu: {},
-      memory: {},
+      system: {
+        mode: "disabled",
+        detail: false,
+      },
+      cpu: {
+        mode: "disabled",
+        perCpu: false,
+        detail: false,
+        time: false,
+      },
+      memory: {
+        mode: "disabled",
+        detail: false,
+      },
       network: {
+        mode: "disabled",
+        detail: true,
+        protocols: true,
         devices: [
           "<value 1>",
           "<value 2>",
         ],
+        perInterface: true,
       },
       disk: {
+        mode: "disabled",
+        perVolume: false,
+        detail: false,
         volumes: [
           "<value 1>",
-          "<value 2>",
         ],
       },
     },
@@ -48,6 +76,7 @@ let value: InputWindowsMetricsPqEnabledTrueWithPqConstraint = {
       {
         name: "<value>",
         filter: "<value>",
+        includeChildren: false,
       },
     ],
   },
@@ -57,8 +86,16 @@ let value: InputWindowsMetricsPqEnabledTrueWithPqConstraint = {
       value: "<value>",
     },
   ],
-  persistence: {},
-  description: "wee from thoughtfully duh to advancement",
+  persistence: {
+    enable: true,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+    destPath: "<value>",
+  },
+  disableNativeModule: true,
+  description: "selfishly trial culture amid by self-assured qua er towards",
 };
 ```
 
@@ -66,7 +103,7 @@ let value: InputWindowsMetricsPqEnabledTrueWithPqConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `pq`                                                                                                                                                                                                                                         | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [operations.InputWindowsMetricsType](../../models/operations/inputwindowsmetricstype.md)                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

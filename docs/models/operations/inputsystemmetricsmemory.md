@@ -5,7 +5,10 @@
 ```typescript
 import { InputSystemMetricsMemory } from "cribl-control-plane/models/operations";
 
-let value: InputSystemMetricsMemory = {};
+let value: InputSystemMetricsMemory = {
+  mode: "disabled",
+  detail: true,
+};
 ```
 
 ## Fields

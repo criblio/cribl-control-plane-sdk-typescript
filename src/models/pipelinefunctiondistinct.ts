@@ -65,17 +65,17 @@ export const DistinctConfiguration$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   groupBy: z.array(z.string()),
-  maxCombinations: z.number().default(10000),
-  maxDepth: z.number().default(15),
-  isFederated: z.boolean().default(false),
+  maxCombinations: z.number().optional(),
+  maxDepth: z.number().optional(),
+  isFederated: z.boolean().optional(),
   suppressPreviews: z.boolean().optional(),
 });
 /** @internal */
 export type DistinctConfiguration$Outbound = {
   groupBy: Array<string>;
-  maxCombinations: number;
-  maxDepth: number;
-  isFederated: boolean;
+  maxCombinations?: number | undefined;
+  maxDepth?: number | undefined;
+  isFederated?: boolean | undefined;
   suppressPreviews?: boolean | undefined;
 };
 
@@ -86,9 +86,9 @@ export const DistinctConfiguration$outboundSchema: z.ZodType<
   DistinctConfiguration
 > = z.object({
   groupBy: z.array(z.string()),
-  maxCombinations: z.number().default(10000),
-  maxDepth: z.number().default(15),
-  isFederated: z.boolean().default(false),
+  maxCombinations: z.number().optional(),
+  maxDepth: z.number().optional(),
+  isFederated: z.boolean().optional(),
   suppressPreviews: z.boolean().optional(),
 });
 
@@ -115,7 +115,7 @@ export const PipelineFunctionDistinct$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("distinct"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -125,7 +125,7 @@ export const PipelineFunctionDistinct$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionDistinct$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "distinct";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -140,7 +140,7 @@ export const PipelineFunctionDistinct$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionDistinct
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("distinct"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

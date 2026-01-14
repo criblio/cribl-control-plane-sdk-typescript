@@ -8,7 +8,7 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ItemsTypeKeyValueMetadata = {
-  key?: string | undefined;
+  key: string;
   value: string;
 };
 
@@ -18,7 +18,7 @@ export const ItemsTypeKeyValueMetadata$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  key: z.string().default(""),
+  key: z.string(),
   value: z.string(),
 });
 /** @internal */
@@ -33,7 +33,7 @@ export const ItemsTypeKeyValueMetadata$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ItemsTypeKeyValueMetadata
 > = z.object({
-  key: z.string().default(""),
+  key: z.string(),
   value: z.string(),
 });
 

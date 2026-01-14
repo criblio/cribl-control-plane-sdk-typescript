@@ -7,6 +7,7 @@ import { PipelineFunctionLookupConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionLookupConf = {
   file: "<value>",
+  dbLookup: true,
   matchMode: "<value>",
   matchType: "<value>",
   reloadPeriodSec: "<value>",
@@ -23,6 +24,7 @@ let value: PipelineFunctionLookupConf = {
       defaultValue: "<value>",
     },
   ],
+  addToEvent: true,
   ignoreCase: "<value>",
 };
 ```

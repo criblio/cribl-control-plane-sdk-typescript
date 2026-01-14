@@ -28,12 +28,12 @@ let value: CollectorAzureBlob = {
         expression: "<value>",
       },
     ],
-    recurse: true,
-    includeMetadata: true,
-    includeTags: true,
-    maxBatchSize: 10,
-    parquetChunkSizeMB: 5,
-    parquetChunkDownloadTimeout: 600,
+    recurse: false,
+    includeMetadata: false,
+    includeTags: false,
+    maxBatchSize: 2877.09,
+    parquetChunkSizeMB: 3385.81,
+    parquetChunkDownloadTimeout: 2527.71,
   },
 };
 ```

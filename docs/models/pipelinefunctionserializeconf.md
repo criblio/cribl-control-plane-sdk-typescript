@@ -6,6 +6,7 @@
 import { PipelineFunctionSerializeConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionSerializeConf = {
+  type: "delim",
   delimChar: "<value>",
   quoteChar: "<value>",
   escapeChar: "<value>",
@@ -13,9 +14,9 @@ let value: PipelineFunctionSerializeConf = {
   fields: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   srcField: "<value>",
+  dstField: "<value>",
 };
 ```
 
@@ -23,7 +24,7 @@ let value: PipelineFunctionSerializeConf = {
 
 | Field                                                                                                                              | Type                                                                                                                               | Required                                                                                                                           | Description                                                                                                                        |
 | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                                             | [models.PipelineFunctionSerializeType](../models/pipelinefunctionserializetype.md)                                                 | :heavy_minus_sign:                                                                                                                 | Data output format                                                                                                                 |
+| `type`                                                                                                                             | [models.PipelineFunctionSerializeType](../models/pipelinefunctionserializetype.md)                                                 | :heavy_check_mark:                                                                                                                 | Data output format                                                                                                                 |
 | `delimChar`                                                                                                                        | *any*                                                                                                                              | :heavy_minus_sign:                                                                                                                 | N/A                                                                                                                                |
 | `quoteChar`                                                                                                                        | *any*                                                                                                                              | :heavy_minus_sign:                                                                                                                 | N/A                                                                                                                                |
 | `escapeChar`                                                                                                                       | *any*                                                                                                                              | :heavy_minus_sign:                                                                                                                 | N/A                                                                                                                                |

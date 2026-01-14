@@ -23,7 +23,10 @@ let value: FunctionSampling = {
   version: "<value>",
   schema: {
     rules: [
-      {},
+      {
+        filter: "<value>",
+        rate: 749891,
+      },
     ],
   },
 };

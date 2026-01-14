@@ -47,7 +47,7 @@ export const PipelineFunctionClone$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("clone"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionClone$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionClone$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "clone";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionClone$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionClone
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("clone"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

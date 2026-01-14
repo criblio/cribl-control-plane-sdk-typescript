@@ -9,6 +9,7 @@ let value: FunctionConfSchemaLocalSearchRulesetRunner = {
   rulesetType: "dataset",
   rulesetId: "<id>",
   ruleset: {},
+  markAndIncludeDroppedEvents: false,
 };
 ```
 

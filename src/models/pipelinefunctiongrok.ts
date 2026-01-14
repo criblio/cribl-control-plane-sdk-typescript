@@ -105,13 +105,13 @@ export const PipelineFunctionGrokConf$inboundSchema: z.ZodType<
   patternList: z.array(
     z.lazy(() => PipelineFunctionGrokPatternList$inboundSchema),
   ).optional(),
-  source: z.string().default("_raw"),
+  source: z.string().optional(),
 });
 /** @internal */
 export type PipelineFunctionGrokConf$Outbound = {
   pattern: string;
   patternList?: Array<PipelineFunctionGrokPatternList$Outbound> | undefined;
-  source: string;
+  source?: string | undefined;
 };
 
 /** @internal */
@@ -124,7 +124,7 @@ export const PipelineFunctionGrokConf$outboundSchema: z.ZodType<
   patternList: z.array(
     z.lazy(() => PipelineFunctionGrokPatternList$outboundSchema),
   ).optional(),
-  source: z.string().default("_raw"),
+  source: z.string().optional(),
 });
 
 export function pipelineFunctionGrokConfToJSON(
@@ -150,7 +150,7 @@ export const PipelineFunctionGrok$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("grok"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -160,7 +160,7 @@ export const PipelineFunctionGrok$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionGrok$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "grok";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -175,7 +175,7 @@ export const PipelineFunctionGrok$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionGrok
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("grok"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

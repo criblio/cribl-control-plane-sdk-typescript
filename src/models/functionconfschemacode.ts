@@ -33,16 +33,16 @@ export const FunctionConfSchemaCode$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   code: z.string().optional(),
-  maxNumOfIterations: z.number().default(5000),
-  activeLogSampleRate: z.number().default(1),
-  useUniqueLogChannel: z.boolean().default(true),
+  maxNumOfIterations: z.number().optional(),
+  activeLogSampleRate: z.number().optional(),
+  useUniqueLogChannel: z.boolean().optional(),
 });
 /** @internal */
 export type FunctionConfSchemaCode$Outbound = {
   code?: string | undefined;
-  maxNumOfIterations: number;
-  activeLogSampleRate: number;
-  useUniqueLogChannel: boolean;
+  maxNumOfIterations?: number | undefined;
+  activeLogSampleRate?: number | undefined;
+  useUniqueLogChannel?: boolean | undefined;
 };
 
 /** @internal */
@@ -52,9 +52,9 @@ export const FunctionConfSchemaCode$outboundSchema: z.ZodType<
   FunctionConfSchemaCode
 > = z.object({
   code: z.string().optional(),
-  maxNumOfIterations: z.number().default(5000),
-  activeLogSampleRate: z.number().default(1),
-  useUniqueLogChannel: z.boolean().default(true),
+  maxNumOfIterations: z.number().optional(),
+  activeLogSampleRate: z.number().optional(),
+  useUniqueLogChannel: z.boolean().optional(),
 });
 
 export function functionConfSchemaCodeToJSON(

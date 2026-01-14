@@ -7,14 +7,15 @@
 
 ```typescript
 const value: operations.InputWizWebhookSendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "wiz_webhook",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -23,26 +24,49 @@ const value: operations.InputWizWebhookSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  port: 3337.94,
+  host: "fatal-legging.biz",
+  port: 5558.35,
   authTokens: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveReq: 9581,
+  maxRequestsPerSocket: 720131,
+  enableProxyHeader: false,
+  captureHeaders: true,
+  activityLogSampleRate: 7605.38,
+  requestTimeout: 7830.31,
+  socketTimeout: 8636.73,
+  keepAliveTimeout: 2864.44,
+  enableHealthCheck: true,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
+  staleChannelFlushMs: 2068.09,
   metadata: [
     {
       name: "<value>",
@@ -51,6 +75,7 @@ const value: operations.InputWizWebhookSendToRoutesTrueConstraint = {
   ],
   allowedPaths: [
     "<value 1>",
+    "<value 2>",
   ],
   allowedMethods: [
     "<value 1>",
@@ -59,7 +84,7 @@ const value: operations.InputWizWebhookSendToRoutesTrueConstraint = {
   authTokensExt: [
     {
       token: "<value>",
-      description: "demob apropos indeed ceramic scrabble however given scorn",
+      description: "positively divine about woot",
       metadata: [
         {
           name: "<value>",
@@ -68,7 +93,7 @@ const value: operations.InputWizWebhookSendToRoutesTrueConstraint = {
       ],
     },
   ],
-  description: "sometimes since incidentally eventually",
+  description: "hmph provided down meh swing fruitful queasily diver sideboard",
 };
 ```
 
@@ -77,6 +102,7 @@ const value: operations.InputWizWebhookSendToRoutesTrueConstraint = {
 ```typescript
 const value:
   operations.InputWizWebhookSendToRoutesFalseWithConnectionsConstraint = {
+    sendToRoutes: false,
     connections: [
       {
         pipeline: "<value>",
@@ -85,34 +111,59 @@ const value:
     ],
     id: "<id>",
     type: "wiz_webhook",
+    disabled: true,
     pipeline: "<value>",
     environment: "<value>",
+    pqEnabled: false,
     streamtags: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
     pq: {
+      mode: "smart",
+      maxBufferSize: 1717.96,
+      commitFrequency: 1412.18,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/include",
+      compress: "none",
       pqControls: {},
     },
-    port: 1722.98,
+    host: "tragic-divine.com",
+    port: 3170.16,
     authTokens: [
       "<value 1>",
       "<value 2>",
     ],
     tls: {
+      disabled: true,
+      requestCert: true,
+      rejectUnauthorized: true,
+      commonNameRegex: "<value>",
       certificateName: "<value>",
       privKeyPath: "<value>",
       passphrase: "<value>",
       certPath: "<value>",
       caPath: "<value>",
       minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+      maxVersion: "TLSv1.1",
     },
+    maxActiveReq: 2328.82,
+    maxRequestsPerSocket: 598547,
+    enableProxyHeader: true,
+    captureHeaders: false,
+    activityLogSampleRate: 5208,
+    requestTimeout: 6298.39,
+    socketTimeout: 8319.64,
+    keepAliveTimeout: 3968.73,
+    enableHealthCheck: true,
+    ipAllowlistRegex: "<value>",
+    ipDenylistRegex: "<value>",
     breakerRulesets: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
+    staleChannelFlushMs: 7127.2,
     metadata: [
       {
         name: "<value>",
@@ -121,8 +172,6 @@ const value:
     ],
     allowedPaths: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     allowedMethods: [
       "<value 1>",
@@ -130,8 +179,7 @@ const value:
     authTokensExt: [
       {
         token: "<value>",
-        description:
-          "demob apropos indeed ceramic scrabble however given scorn",
+        description: "positively divine about woot",
         metadata: [
           {
             name: "<value>",
@@ -140,7 +188,7 @@ const value:
         ],
       },
     ],
-    description: "inside although up fail",
+    description: "far scarcely which scope limp tasty",
   };
 ```
 
@@ -148,12 +196,17 @@ const value:
 
 ```typescript
 const value: operations.InputWizWebhookPqEnabledFalseConstraint = {
+  pqEnabled: true,
   id: "<id>",
   type: "wiz_webhook",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -162,28 +215,50 @@ const value: operations.InputWizWebhookPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  port: 38.97,
+  host: "untidy-fort.com",
+  port: 8841.43,
   authTokens: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveReq: 6010.54,
+  maxRequestsPerSocket: 325968,
+  enableProxyHeader: true,
+  captureHeaders: true,
+  activityLogSampleRate: 3487.63,
+  requestTimeout: 7169.35,
+  socketTimeout: 7268.44,
+  keepAliveTimeout: 9726.62,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
+  staleChannelFlushMs: 8333.35,
   metadata: [
     {
       name: "<value>",
@@ -197,12 +272,11 @@ const value: operations.InputWizWebhookPqEnabledFalseConstraint = {
   ],
   allowedMethods: [
     "<value 1>",
-    "<value 2>",
   ],
   authTokensExt: [
     {
       token: "<value>",
-      description: "demob apropos indeed ceramic scrabble however given scorn",
+      description: "positively divine about woot",
       metadata: [
         {
           name: "<value>",
@@ -211,7 +285,8 @@ const value: operations.InputWizWebhookPqEnabledFalseConstraint = {
       ],
     },
   ],
-  description: "by which glorious really",
+  description:
+    "annual because maintainer litter hovercraft rapidly although manage known after",
 };
 ```
 
@@ -219,16 +294,25 @@ const value: operations.InputWizWebhookPqEnabledFalseConstraint = {
 
 ```typescript
 const value: operations.InputWizWebhookPqEnabledTrueWithPqConstraint = {
+  pqEnabled: false,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "wiz_webhook",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -236,22 +320,43 @@ const value: operations.InputWizWebhookPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 493.08,
+  host: "negligible-tenement.name",
+  port: 7311.66,
   authTokens: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveReq: 8492.17,
+  maxRequestsPerSocket: 313167,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 8453.73,
+  requestTimeout: 8960.19,
+  socketTimeout: 7465.21,
+  keepAliveTimeout: 6135.37,
+  enableHealthCheck: true,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
+  staleChannelFlushMs: 639.79,
   metadata: [
     {
       name: "<value>",
@@ -261,16 +366,15 @@ const value: operations.InputWizWebhookPqEnabledTrueWithPqConstraint = {
   allowedPaths: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   allowedMethods: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   authTokensExt: [
     {
       token: "<value>",
-      description: "demob apropos indeed ceramic scrabble however given scorn",
+      description: "positively divine about woot",
       metadata: [
         {
           name: "<value>",
@@ -279,7 +383,7 @@ const value: operations.InputWizWebhookPqEnabledTrueWithPqConstraint = {
       ],
     },
   ],
-  description: "terrible vice and weary desecrate schedule nor",
+  description: "quash shrilly while sad soybean tough upright unblinking",
 };
 ```
 

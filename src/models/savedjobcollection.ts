@@ -13,12 +13,6 @@ import {
 } from "./collector.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  InputTypeSavedJobCollection,
-  InputTypeSavedJobCollection$inboundSchema,
-  InputTypeSavedJobCollection$Outbound,
-  InputTypeSavedJobCollection$outboundSchema,
-} from "./inputtypesavedjobcollection.js";
-import {
   JobTypeOptionsSavedJobCollection,
   JobTypeOptionsSavedJobCollection$inboundSchema,
   JobTypeOptionsSavedJobCollection$outboundSchema,
@@ -29,6 +23,12 @@ import {
   ScheduleTypeSavedJobCollection$Outbound,
   ScheduleTypeSavedJobCollection$outboundSchema,
 } from "./scheduletypesavedjobcollection.js";
+import {
+  TypeCollectionWithBreakerRulesetsConstraint,
+  TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+  TypeCollectionWithBreakerRulesetsConstraint$Outbound,
+  TypeCollectionWithBreakerRulesetsConstraint$outboundSchema,
+} from "./typecollectionwithbreakerrulesetsconstraint.js";
 
 export type SavedJobCollection = {
   /**
@@ -73,7 +73,7 @@ export type SavedJobCollection = {
    * Collector configuration
    */
   collector: Collector;
-  input?: InputTypeSavedJobCollection | undefined;
+  input?: TypeCollectionWithBreakerRulesetsConstraint | undefined;
 };
 
 /** @internal */
@@ -85,32 +85,32 @@ export const SavedJobCollection$inboundSchema: z.ZodType<
   id: z.string().optional(),
   description: z.string().optional(),
   type: JobTypeOptionsSavedJobCollection$inboundSchema,
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
   removeFields: z.array(z.string()).optional(),
-  resumeOnBoot: z.boolean().default(false),
+  resumeOnBoot: z.boolean().optional(),
   environment: z.string().optional(),
   schedule: ScheduleTypeSavedJobCollection$inboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),
-  workerAffinity: z.boolean().default(false),
+  workerAffinity: z.boolean().optional(),
   collector: Collector$inboundSchema,
-  input: InputTypeSavedJobCollection$inboundSchema.optional(),
+  input: TypeCollectionWithBreakerRulesetsConstraint$inboundSchema.optional(),
 });
 /** @internal */
 export type SavedJobCollection$Outbound = {
   id?: string | undefined;
   description?: string | undefined;
   type: string;
-  ttl: string;
-  ignoreGroupJobsLimit: boolean;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
   removeFields?: Array<string> | undefined;
-  resumeOnBoot: boolean;
+  resumeOnBoot?: boolean | undefined;
   environment?: string | undefined;
   schedule?: ScheduleTypeSavedJobCollection$Outbound | undefined;
   streamtags?: Array<string> | undefined;
-  workerAffinity: boolean;
+  workerAffinity?: boolean | undefined;
   collector: Collector$Outbound;
-  input?: InputTypeSavedJobCollection$Outbound | undefined;
+  input?: TypeCollectionWithBreakerRulesetsConstraint$Outbound | undefined;
 };
 
 /** @internal */
@@ -122,16 +122,16 @@ export const SavedJobCollection$outboundSchema: z.ZodType<
   id: z.string().optional(),
   description: z.string().optional(),
   type: JobTypeOptionsSavedJobCollection$outboundSchema,
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
   removeFields: z.array(z.string()).optional(),
-  resumeOnBoot: z.boolean().default(false),
+  resumeOnBoot: z.boolean().optional(),
   environment: z.string().optional(),
   schedule: ScheduleTypeSavedJobCollection$outboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),
-  workerAffinity: z.boolean().default(false),
+  workerAffinity: z.boolean().optional(),
   collector: Collector$outboundSchema,
-  input: InputTypeSavedJobCollection$outboundSchema.optional(),
+  input: TypeCollectionWithBreakerRulesetsConstraint$outboundSchema.optional(),
 });
 
 export function savedJobCollectionToJSON(

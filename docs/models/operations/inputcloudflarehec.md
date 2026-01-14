@@ -7,14 +7,16 @@
 
 ```typescript
 const value: operations.InputCloudflareHecSendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "cloudflare_hec",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -23,18 +25,26 @@ const value: operations.InputCloudflareHecSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  port: 663.81,
+  host: "understated-tabletop.name",
+  port: 3372.62,
   authTokens: [
     {
+      authType: "secret",
       tokenSecret: "<value>",
       token: "<value>",
-      description: "depute that armoire",
+      enabled: true,
+      description: "ugh utterly upon big pfft outrun times anenst stratify",
       allowedIndexesAtToken: [
         "<value 1>",
-        "<value 2>",
-        "<value 3>",
       ],
       metadata: [
         {
@@ -45,15 +55,29 @@ const value: operations.InputCloudflareHecSendToRoutesTrueConstraint = {
     },
   ],
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveReq: 9714.38,
+  maxRequestsPerSocket: 448093,
+  enableProxyHeader: true,
+  captureHeaders: false,
+  activityLogSampleRate: 8778.43,
+  requestTimeout: 3509.52,
+  socketTimeout: 1689.97,
+  keepAliveTimeout: 3505.76,
   enableHealthCheck: "<value>",
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
   hecAPI: "<value>",
   metadata: [
     {
@@ -63,11 +87,14 @@ const value: operations.InputCloudflareHecSendToRoutesTrueConstraint = {
   ],
   allowedIndexes: [
     "<value 1>",
+    "<value 2>",
   ],
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
+  staleChannelFlushMs: 9865.68,
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
@@ -75,10 +102,10 @@ const value: operations.InputCloudflareHecSendToRoutesTrueConstraint = {
   ],
   accessControlAllowHeaders: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  description: "gummy carefree however fairly eek lazy although",
+  emitTokenMetrics: true,
+  description:
+    "through softly definitive apropos although cemetery ick sweetly",
 };
 ```
 
@@ -87,6 +114,7 @@ const value: operations.InputCloudflareHecSendToRoutesTrueConstraint = {
 ```typescript
 const value:
   operations.InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint = {
+    sendToRoutes: true,
     connections: [
       {
         pipeline: "<value>",
@@ -95,24 +123,36 @@ const value:
     ],
     id: "<id>",
     type: "cloudflare_hec",
+    disabled: false,
     pipeline: "<value>",
     environment: "<value>",
+    pqEnabled: false,
     streamtags: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
     pq: {
+      mode: "smart",
+      maxBufferSize: 1717.96,
+      commitFrequency: 1412.18,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/include",
+      compress: "none",
       pqControls: {},
     },
-    port: 5509.23,
+    host: "clumsy-shark.org",
+    port: 3655.19,
     authTokens: [
       {
+        authType: "secret",
         tokenSecret: "<value>",
         token: "<value>",
-        description: "depute that armoire",
+        enabled: true,
+        description: "ugh utterly upon big pfft outrun times anenst stratify",
         allowedIndexesAtToken: [
           "<value 1>",
-          "<value 2>",
-          "<value 3>",
         ],
         metadata: [
           {
@@ -123,15 +163,29 @@ const value:
       },
     ],
     tls: {
+      disabled: true,
+      requestCert: true,
+      rejectUnauthorized: true,
+      commonNameRegex: "<value>",
       certificateName: "<value>",
       privKeyPath: "<value>",
       passphrase: "<value>",
       certPath: "<value>",
       caPath: "<value>",
       minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+      maxVersion: "TLSv1.1",
     },
+    maxActiveReq: 2237.05,
+    maxRequestsPerSocket: 609670,
+    enableProxyHeader: true,
+    captureHeaders: false,
+    activityLogSampleRate: 429.23,
+    requestTimeout: 1424.31,
+    socketTimeout: 8850.72,
+    keepAliveTimeout: 5117.91,
     enableHealthCheck: "<value>",
+    ipAllowlistRegex: "<value>",
+    ipDenylistRegex: "<value>",
     hecAPI: "<value>",
     metadata: [
       {
@@ -142,23 +196,23 @@ const value:
     allowedIndexes: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
     breakerRulesets: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
+    staleChannelFlushMs: 6702.83,
     accessControlAllowOrigin: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
     accessControlAllowHeaders: [
       "<value 1>",
       "<value 2>",
       "<value 3>",
     ],
-    description:
-      "charlatan vision obnoxiously finished midwife republican abseil carouse supposing pace",
+    emitTokenMetrics: true,
+    description: "who bleakly fill forgery starboard when unless",
   };
 ```
 
@@ -166,14 +220,16 @@ const value:
 
 ```typescript
 const value: operations.InputCloudflareHecPqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "cloudflare_hec",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -182,18 +238,26 @@ const value: operations.InputCloudflareHecPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  port: 3246.78,
+  host: "pricey-minister.name",
+  port: 6508.61,
   authTokens: [
     {
+      authType: "secret",
       tokenSecret: "<value>",
       token: "<value>",
-      description: "depute that armoire",
+      enabled: true,
+      description: "ugh utterly upon big pfft outrun times anenst stratify",
       allowedIndexesAtToken: [
         "<value 1>",
-        "<value 2>",
-        "<value 3>",
       ],
       metadata: [
         {
@@ -204,15 +268,29 @@ const value: operations.InputCloudflareHecPqEnabledFalseConstraint = {
     },
   ],
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveReq: 7078.77,
+  maxRequestsPerSocket: 232409,
+  enableProxyHeader: true,
+  captureHeaders: false,
+  activityLogSampleRate: 2589.3,
+  requestTimeout: 6449.38,
+  socketTimeout: 5414.44,
+  keepAliveTimeout: 2661.98,
   enableHealthCheck: "<value>",
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
   hecAPI: "<value>",
   metadata: [
     {
@@ -222,21 +300,23 @@ const value: operations.InputCloudflareHecPqEnabledFalseConstraint = {
   ],
   allowedIndexes: [
     "<value 1>",
-    "<value 2>",
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
+  staleChannelFlushMs: 1254.94,
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  description: "onto where gosh finally after zowie pip",
+  emitTokenMetrics: true,
+  description: "regularly gratefully blah hastily past amid",
 };
 ```
 
@@ -244,15 +324,26 @@ const value: operations.InputCloudflareHecPqEnabledFalseConstraint = {
 
 ```typescript
 const value: operations.InputCloudflareHecPqEnabledTrueWithPqConstraint = {
+  pqEnabled: true,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "cloudflare_hec",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -260,16 +351,17 @@ const value: operations.InputCloudflareHecPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 641.99,
+  host: "primary-desk.com",
+  port: 8111.79,
   authTokens: [
     {
+      authType: "secret",
       tokenSecret: "<value>",
       token: "<value>",
-      description: "depute that armoire",
+      enabled: true,
+      description: "ugh utterly upon big pfft outrun times anenst stratify",
       allowedIndexesAtToken: [
         "<value 1>",
-        "<value 2>",
-        "<value 3>",
       ],
       metadata: [
         {
@@ -280,15 +372,29 @@ const value: operations.InputCloudflareHecPqEnabledTrueWithPqConstraint = {
     },
   ],
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveReq: 4707.92,
+  maxRequestsPerSocket: 518253,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 2535.18,
+  requestTimeout: 6228.36,
+  socketTimeout: 5736,
+  keepAliveTimeout: 7719.07,
   enableHealthCheck: "<value>",
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
   hecAPI: "<value>",
   metadata: [
     {
@@ -303,7 +409,9 @@ const value: operations.InputCloudflareHecPqEnabledTrueWithPqConstraint = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
+  staleChannelFlushMs: 584.16,
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
@@ -311,8 +419,11 @@ const value: operations.InputCloudflareHecPqEnabledTrueWithPqConstraint = {
   ],
   accessControlAllowHeaders: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
-  description: "tabletop describe moisten tarry",
+  emitTokenMetrics: false,
+  description: "geez weary thoroughly coolly amongst during though softly",
 };
 ```
 

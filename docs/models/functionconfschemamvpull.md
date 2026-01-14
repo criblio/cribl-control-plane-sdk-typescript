@@ -10,6 +10,7 @@ let value: FunctionConfSchemaMvPull = {
   relativeKeyPath: "<value>",
   relativeValuePath: "<value>",
   targetBagPath: "<value>",
+  deleteOriginal: true,
 };
 ```
 

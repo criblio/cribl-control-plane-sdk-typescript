@@ -6,7 +6,8 @@
 import { PrometheusAuth2 } from "cribl-control-plane/models";
 
 let value: PrometheusAuth2 = {
-  username: "Brielle40",
+  authType: "none",
+  username: "Winnifred40",
   password: "4kMkaOP1PkUU0a5",
   token: "<value>",
   credentialsSecret: "<value>",
@@ -15,6 +16,8 @@ let value: PrometheusAuth2 = {
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
+  authHeaderExpr: "<value>",
+  tokenTimeoutSecs: 441.74,
   oauthParams: [
     {
       name: "<value>",

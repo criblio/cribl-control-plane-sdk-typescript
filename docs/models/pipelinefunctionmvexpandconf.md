@@ -14,7 +14,9 @@ let value: PipelineFunctionMvExpandConf = {
     "<value 1>",
     "<value 2>",
   ],
+  rowLimit: 4613.26,
   itemIndexName: "<value>",
+  bagExpansionMode: "array",
 };
 ```
 

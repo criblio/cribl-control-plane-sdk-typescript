@@ -10,18 +10,20 @@ let value: FunctionConfSchemaPublishMetrics = {
     {
       inFieldName: "<value>",
       outFieldExpr: "<value>",
+      metricType: "counter",
     },
   ],
+  overwrite: true,
   dimensions: [
     "<value 1>",
     "<value 2>",
   ],
   removeMetrics: [
     "<value 1>",
-    "<value 2>",
   ],
   removeDimensions: [
     "<value 1>",
+    "<value 2>",
   ],
 };
 ```

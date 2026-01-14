@@ -11,7 +11,7 @@ export type FunctionConfSchemaDropDimensions = {
   /**
    * The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
    */
-  timeWindow: string;
+  timeWindow?: string | undefined;
   /**
    * One or more dimensions to be dropped. Supports wildcard expressions. Warning: Using wildcard '*' causes all dimensions in the event to be dropped.
    */
@@ -19,7 +19,7 @@ export type FunctionConfSchemaDropDimensions = {
   /**
    * Flush aggregations when an input stream is closed. If disabled, aggregations are flushed based on Time Window Settings instead.
    */
-  flushOnInputClose: boolean;
+  flushOnInputClose?: boolean | undefined;
 };
 
 /** @internal */
@@ -28,9 +28,9 @@ export const FunctionConfSchemaDropDimensions$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  timeWindow: z.string().default("10s"),
+  timeWindow: z.string().optional(),
   dropDimensions: z.array(z.string()).optional(),
-  flushOnInputClose: z.boolean().default(true),
+  flushOnInputClose: z.boolean().optional(),
 });
 
 export function functionConfSchemaDropDimensionsFromJSON(

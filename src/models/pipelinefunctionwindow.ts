@@ -62,15 +62,15 @@ export const PipelineFunctionWindowConf$inboundSchema: z.ZodType<
 > = z.object({
   eventWindowId: z.number(),
   registeredFunctions: z.array(z.string()),
-  tailEventCount: z.number().default(0),
-  headEventCount: z.number().default(0),
+  tailEventCount: z.number().optional(),
+  headEventCount: z.number().optional(),
 });
 /** @internal */
 export type PipelineFunctionWindowConf$Outbound = {
   eventWindowId: number;
   registeredFunctions: Array<string>;
-  tailEventCount: number;
-  headEventCount: number;
+  tailEventCount?: number | undefined;
+  headEventCount?: number | undefined;
 };
 
 /** @internal */
@@ -81,8 +81,8 @@ export const PipelineFunctionWindowConf$outboundSchema: z.ZodType<
 > = z.object({
   eventWindowId: z.number(),
   registeredFunctions: z.array(z.string()),
-  tailEventCount: z.number().default(0),
-  headEventCount: z.number().default(0),
+  tailEventCount: z.number().optional(),
+  headEventCount: z.number().optional(),
 });
 
 export function pipelineFunctionWindowConfToJSON(
@@ -108,7 +108,7 @@ export const PipelineFunctionWindow$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("window"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -118,7 +118,7 @@ export const PipelineFunctionWindow$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionWindow$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "window";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -133,7 +133,7 @@ export const PipelineFunctionWindow$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionWindow
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("window"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

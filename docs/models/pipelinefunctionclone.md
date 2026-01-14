@@ -6,6 +6,7 @@
 import { PipelineFunctionClone } from "cribl-control-plane/models";
 
 let value: PipelineFunctionClone = {
+  filter: "<value>",
   id: "clone",
   description: "fluctuate gut aha till",
   disabled: true,

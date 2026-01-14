@@ -6,17 +6,22 @@
 import { InputSystemMetricsDisk } from "cribl-control-plane/models/operations";
 
 let value: InputSystemMetricsDisk = {
+  mode: "basic",
+  detail: true,
+  inodes: false,
   devices: [
     "<value 1>",
+    "<value 2>",
   ],
   mountpoints: [
-    "<value 1>",
-  ],
-  fstypes: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
+  fstypes: [
+    "<value 1>",
+  ],
+  perDevice: true,
 };
 ```
 

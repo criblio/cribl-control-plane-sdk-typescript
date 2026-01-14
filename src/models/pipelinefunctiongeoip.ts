@@ -165,8 +165,8 @@ export const PipelineFunctionGeoipConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   file: z.string(),
-  inField: z.string().default("ip"),
-  outField: z.string().default("geoip"),
+  inField: z.string().optional(),
+  outField: z.string().optional(),
   additionalFields: z.array(
     z.lazy(() => PipelineFunctionGeoipAdditionalField$inboundSchema),
   ).optional(),
@@ -177,8 +177,8 @@ export const PipelineFunctionGeoipConf$inboundSchema: z.ZodType<
 /** @internal */
 export type PipelineFunctionGeoipConf$Outbound = {
   file: string;
-  inField: string;
-  outField: string;
+  inField?: string | undefined;
+  outField?: string | undefined;
   additionalFields?:
     | Array<PipelineFunctionGeoipAdditionalField$Outbound>
     | undefined;
@@ -194,8 +194,8 @@ export const PipelineFunctionGeoipConf$outboundSchema: z.ZodType<
   PipelineFunctionGeoipConf
 > = z.object({
   file: z.string(),
-  inField: z.string().default("ip"),
-  outField: z.string().default("geoip"),
+  inField: z.string().optional(),
+  outField: z.string().optional(),
   additionalFields: z.array(
     z.lazy(() => PipelineFunctionGeoipAdditionalField$outboundSchema),
   ).optional(),
@@ -227,7 +227,7 @@ export const PipelineFunctionGeoip$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("geoip"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -237,7 +237,7 @@ export const PipelineFunctionGeoip$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionGeoip$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "geoip";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -252,7 +252,7 @@ export const PipelineFunctionGeoip$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionGeoip
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("geoip"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

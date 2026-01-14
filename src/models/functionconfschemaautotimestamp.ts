@@ -143,30 +143,30 @@ export const FunctionConfSchemaAutoTimestamp$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  srcField: z.string().default("_raw"),
-  dstField: z.string().default("_time"),
-  defaultTimezone: z.string().default("local"),
-  timeExpression: z.string().default("time.getTime() / 1000"),
-  offset: z.number().default(0),
-  maxLen: z.number().default(150),
-  defaultTime: DefaultTime$inboundSchema.default("now"),
-  latestDateAllowed: z.string().default("+1week"),
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
+  defaultTimezone: z.string().optional(),
+  timeExpression: z.string().optional(),
+  offset: z.number().optional(),
+  maxLen: z.number().optional(),
+  defaultTime: DefaultTime$inboundSchema.optional(),
+  latestDateAllowed: z.string().optional(),
   spacer: z.string().optional(),
-  earliestDateAllowed: z.string().default("-420weeks"),
+  earliestDateAllowed: z.string().optional(),
   timestamps: z.array(z.lazy(() => Timestamp$inboundSchema)).optional(),
 });
 /** @internal */
 export type FunctionConfSchemaAutoTimestamp$Outbound = {
-  srcField: string;
-  dstField: string;
-  defaultTimezone: string;
-  timeExpression: string;
-  offset: number;
-  maxLen: number;
-  defaultTime: string;
-  latestDateAllowed: string;
+  srcField?: string | undefined;
+  dstField?: string | undefined;
+  defaultTimezone?: string | undefined;
+  timeExpression?: string | undefined;
+  offset?: number | undefined;
+  maxLen?: number | undefined;
+  defaultTime?: string | undefined;
+  latestDateAllowed?: string | undefined;
   spacer?: string | undefined;
-  earliestDateAllowed: string;
+  earliestDateAllowed?: string | undefined;
   timestamps?: Array<Timestamp$Outbound> | undefined;
 };
 
@@ -176,16 +176,16 @@ export const FunctionConfSchemaAutoTimestamp$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   FunctionConfSchemaAutoTimestamp
 > = z.object({
-  srcField: z.string().default("_raw"),
-  dstField: z.string().default("_time"),
-  defaultTimezone: z.string().default("local"),
-  timeExpression: z.string().default("time.getTime() / 1000"),
-  offset: z.number().default(0),
-  maxLen: z.number().default(150),
-  defaultTime: DefaultTime$outboundSchema.default("now"),
-  latestDateAllowed: z.string().default("+1week"),
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
+  defaultTimezone: z.string().optional(),
+  timeExpression: z.string().optional(),
+  offset: z.number().optional(),
+  maxLen: z.number().optional(),
+  defaultTime: DefaultTime$outboundSchema.optional(),
+  latestDateAllowed: z.string().optional(),
   spacer: z.string().optional(),
-  earliestDateAllowed: z.string().default("-420weeks"),
+  earliestDateAllowed: z.string().optional(),
   timestamps: z.array(z.lazy(() => Timestamp$outboundSchema)).optional(),
 });
 

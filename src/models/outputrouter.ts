@@ -64,14 +64,14 @@ export const OutputRouterRule$inboundSchema: z.ZodType<
   filter: z.string(),
   output: z.string(),
   description: z.string().optional(),
-  final: z.boolean().default(true),
+  final: z.boolean().optional(),
 });
 /** @internal */
 export type OutputRouterRule$Outbound = {
   filter: string;
   output: string;
   description?: string | undefined;
-  final: boolean;
+  final?: boolean | undefined;
 };
 
 /** @internal */
@@ -83,7 +83,7 @@ export const OutputRouterRule$outboundSchema: z.ZodType<
   filter: z.string(),
   output: z.string(),
   description: z.string().optional(),
-  final: z.boolean().default(true),
+  final: z.boolean().optional(),
 });
 
 export function outputRouterRuleToJSON(

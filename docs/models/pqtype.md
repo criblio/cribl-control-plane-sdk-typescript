@@ -6,6 +6,13 @@
 import { PqType } from "cribl-control-plane/models";
 
 let value: PqType = {
+  mode: "always",
+  maxBufferSize: 9090.5,
+  commitFrequency: 3681.63,
+  maxFileSize: "<value>",
+  maxSize: "<value>",
+  path: "/etc/namedb",
+  compress: "none",
   pqControls: {},
 };
 ```

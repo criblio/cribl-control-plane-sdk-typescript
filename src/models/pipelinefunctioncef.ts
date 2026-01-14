@@ -15,7 +15,7 @@ export type PipelineFunctionCef = {
   /**
    * Filter that selects data to be fed through this Function
    */
-  filter: string;
+  filter?: string | undefined;
   /**
    * Function ID
    */
@@ -45,7 +45,7 @@ export const PipelineFunctionCef$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("cef"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

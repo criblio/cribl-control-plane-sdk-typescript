@@ -7,7 +7,9 @@ Creates events based on entries collected from the hosts file
 ```typescript
 import { HostsFile } from "cribl-control-plane/models";
 
-let value: HostsFile = {};
+let value: HostsFile = {
+  enable: false,
+};
 ```
 
 ## Fields

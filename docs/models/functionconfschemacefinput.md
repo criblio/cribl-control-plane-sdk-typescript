@@ -6,6 +6,7 @@
 import { FunctionConfSchemaCefInput } from "cribl-control-plane/models";
 
 let value: FunctionConfSchemaCefInput = {
+  outputField: "<value>",
   header: [
     {
       value: "<value>",

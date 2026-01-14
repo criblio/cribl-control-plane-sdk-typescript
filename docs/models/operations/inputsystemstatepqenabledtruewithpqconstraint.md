@@ -6,12 +6,22 @@
 import { InputSystemStatePqEnabledTrueWithPqConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputSystemStatePqEnabledTrueWithPqConstraint = {
+  pqEnabled: true,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "system_state",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -22,6 +32,7 @@ let value: InputSystemStatePqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
+  interval: 127.68,
   metadata: [
     {
       name: "<value>",
@@ -29,21 +40,51 @@ let value: InputSystemStatePqEnabledTrueWithPqConstraint = {
     },
   ],
   collectors: {
-    hostsfile: {},
-    interfaces: {},
-    disk: {},
-    metadata: {},
-    routes: {},
-    dns: {},
-    user: {},
-    firewall: {},
-    services: {},
-    ports: {},
-    loginUsers: {},
+    hostsfile: {
+      enable: false,
+    },
+    interfaces: {
+      enable: false,
+    },
+    disk: {
+      enable: false,
+    },
+    metadata: {
+      enable: false,
+    },
+    routes: {
+      enable: true,
+    },
+    dns: {
+      enable: false,
+    },
+    user: {
+      enable: false,
+    },
+    firewall: {
+      enable: false,
+    },
+    services: {
+      enable: false,
+    },
+    ports: {
+      enable: true,
+    },
+    loginUsers: {
+      enable: true,
+    },
   },
-  persistence: {},
+  persistence: {
+    enable: false,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+    destPath: "<value>",
+  },
+  disableNativeModule: true,
   description:
-    "parade pfft when fully along redesign portray invite rise advertisement",
+    "term when ultimately extremely showy authentic posh aha dulcimer",
 };
 ```
 
@@ -51,7 +92,7 @@ let value: InputSystemStatePqEnabledTrueWithPqConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `pq`                                                                                                                                                                                                                                         | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [operations.InputSystemStateType](../../models/operations/inputsystemstatetype.md)                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

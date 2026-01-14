@@ -8,7 +8,7 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ItemsTypeLabels = {
-  name?: string | undefined;
+  name: string;
   value: string;
 };
 
@@ -18,7 +18,7 @@ export const ItemsTypeLabels$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string().default(""),
+  name: z.string(),
   value: z.string(),
 });
 /** @internal */
@@ -33,7 +33,7 @@ export const ItemsTypeLabels$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ItemsTypeLabels
 > = z.object({
-  name: z.string().default(""),
+  name: z.string(),
   value: z.string(),
 });
 

@@ -6,13 +6,15 @@
 import { InputWinEventLogsSendToRoutesTrueConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputWinEventLogsSendToRoutesTrueConstraint = {
+  sendToRoutes: true,
   id: "<id>",
   type: "win_event_logs",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -21,20 +23,33 @@ let value: InputWinEventLogsSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   logNames: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
+  readMode: "newest",
+  eventFormat: "json",
+  disableNativeModule: false,
+  interval: 5641.83,
+  batchSize: 1505.45,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "cinder whether lend",
+  maxEventBytes: 5119.23,
+  description: "yowza forage gummy descent vary option fit indeed however",
+  disableJsonRendering: true,
+  disableXmlRendering: false,
 };
 ```
 
@@ -42,7 +57,7 @@ let value: InputWinEventLogsSendToRoutesTrueConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [operations.InputWinEventLogsType](../../models/operations/inputwineventlogstype.md)                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

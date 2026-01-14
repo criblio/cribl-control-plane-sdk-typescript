@@ -6,20 +6,25 @@
 import { PipelineFunctionSerialize } from "cribl-control-plane/models";
 
 let value: PipelineFunctionSerialize = {
+  filter: "<value>",
   id: "serialize",
   description:
     "scenario worst strange supposing around or woot gadzooks safely runway",
   disabled: true,
   final: false,
   conf: {
+    type: "csv",
     delimChar: "<value>",
     quoteChar: "<value>",
     escapeChar: "<value>",
     nullValue: "<value>",
     fields: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
     srcField: "<value>",
+    dstField: "<value>",
   },
   groupId: "<id>",
 };

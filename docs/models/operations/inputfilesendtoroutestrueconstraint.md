@@ -6,14 +6,16 @@
 import { InputFileSendToRoutesTrueConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputFileSendToRoutesTrueConstraint = {
+  sendToRoutes: false,
   id: "<id>",
   type: "file",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -22,15 +24,28 @@ let value: InputFileSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
+  mode: "auto",
+  interval: 3159.74,
   filenames: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
+  filterArchivedFiles: false,
+  tailOnly: false,
+  idleTimeout: 3871.48,
   minAgeDur: "<value>",
   maxAgeDur: "<value>",
+  checkFileModTime: true,
+  forceText: false,
+  hashLen: 3131.4,
   metadata: [
     {
       name: "<value>",
@@ -39,10 +54,17 @@ let value: InputFileSendToRoutesTrueConstraint = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
-  description: "fax pace supposing major knowledgeably yet dwell",
-  path: "/Applications",
-  depth: 1446.23,
+  staleChannelFlushMs: 250.3,
+  description:
+    "questioningly since blah neaten remand boohoo accompanist vice ew know",
+  path: "/usr/sbin",
+  depth: 4180.11,
+  suppressMissingPathErrors: false,
+  deleteFiles: true,
+  includeUnidentifiableBinary: false,
 };
 ```
 
@@ -50,7 +72,7 @@ let value: InputFileSendToRoutesTrueConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [operations.SendToRoutesTrueConstraintInputFileType](../../models/operations/sendtoroutestrueconstraintinputfiletype.md)                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

@@ -16,25 +16,41 @@ let value: OutputElastic = {
   streamtags: [
     "<value 1>",
   ],
+  loadBalanced: false,
   index: "<value>",
   docType: "<value>",
+  concurrency: 7430.05,
+  maxPayloadSizeKB: 4652.06,
+  maxPayloadEvents: 9256.68,
+  compress: true,
+  rejectUnauthorized: true,
+  timeoutSec: 3921.54,
+  flushPeriodSec: 8664.6,
   extraHttpHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  failedRequestLoggingMode: "none",
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 2591.04,
+      initialBackoff: 4815.7,
+      backoffRate: 5576.87,
+      maxBackoff: 1844.93,
     },
   ],
-  timeoutRetrySettings: {},
+  timeoutRetrySettings: {
+    timeoutRetry: false,
+    initialBackoff: 4289.71,
+    backoffRate: 7830.71,
+    maxBackoff: 6330,
+  },
+  responseHonorRetryAfterHeader: true,
   extraParams: [
     {
       name: "<value>",
@@ -42,20 +58,42 @@ let value: OutputElastic = {
     },
   ],
   auth: {
-    username: "Nasir.Walsh",
-    password: "sYcLpzmUAKCdYqd",
+    disabled: false,
+    username: "Mckayla_Brown",
+    password: "zmUAKCdYqdY6aTZ",
+    authType: "secret",
     credentialsSecret: "<value>",
     manualAPIKey: "<value>",
     textSecret: "<value>",
   },
+  elasticVersion: "7",
   elasticPipeline: "<value>",
-  description: "um behold ugh until never along rudely",
-  url: "https://foolhardy-collectivization.org",
+  includeDocId: false,
+  writeAction: "index",
+  retryPartialErrors: false,
+  onBackpressure: "block",
+  description: "woot brr shimmering lawmaker abscond",
+  url: "https://far-off-polarisation.net",
+  useRoundRobinDns: true,
+  excludeSelf: true,
   urls: [
     {
-      url: "https://impressionable-papa.com",
+      url: "https://stale-habit.name",
+      weight: 881.53,
     },
   ],
+  dnsResolvePeriodSec: 6649.53,
+  loadBalanceStatsPeriodSec: 6054.06,
+  pqStrictOrdering: true,
+  pqRatePerSec: 5180.15,
+  pqMode: "backpressure",
+  pqMaxBufferSize: 6942.02,
+  pqMaxBackpressureSec: 1658.24,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "gzip",
+  pqOnBackpressure: "block",
   pqControls: {},
 };
 ```
@@ -87,7 +125,7 @@ let value: OutputElastic = {
 | `timeoutRetrySettings`                                                                                                                                                                                                                                                                                                                           | [models.TimeoutRetrySettingsType](../models/timeoutretrysettingstype.md)                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `responseHonorRetryAfterHeader`                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored. |
 | `extraParams`                                                                                                                                                                                                                                                                                                                                    | [models.ItemsTypeSaslSaslExtensions](../models/itemstypesaslsaslextensions.md)[]                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `auth`                                                                                                                                                                                                                                                                                                                                           | [models.OutputElasticAuth](../models/outputelasticauth.md)                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
+| `auth`                                                                                                                                                                                                                                                                                                                                           | [models.AuthType](../models/authtype.md)                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `elasticVersion`                                                                                                                                                                                                                                                                                                                                 | [models.ElasticVersion](../models/elasticversion.md)                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.                                                                                                                                                                                                                                             |
 | `elasticPipeline`                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Optional Elasticsearch destination pipeline                                                                                                                                                                                                                                                                                                      |
 | `includeDocId`                                                                                                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Include the `document_id` field when sending events to an Elastic TSDS (time series data stream)                                                                                                                                                                                                                                                 |

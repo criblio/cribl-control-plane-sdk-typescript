@@ -7,13 +7,17 @@
 
 ```typescript
 const value: operations.InputZscalerHecSendToRoutesTrueConstraint = {
+  sendToRoutes: true,
   id: "<id>",
   type: "zscaler_hec",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -22,18 +26,27 @@ const value: operations.InputZscalerHecSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  port: 7282.2,
+  host: "colorful-final.org",
+  port: 3974.67,
   authTokens: [
     {
+      authType: "manual",
       tokenSecret: "<value>",
       token: "<value>",
-      description: "meanwhile mmm daughter from upliftingly when",
+      enabled: true,
+      description:
+        "handle considering platypus even gadzooks ah blah comestible inquisitively",
       allowedIndexesAtToken: [
         "<value 1>",
-        "<value 2>",
-        "<value 3>",
       ],
       metadata: [
         {
@@ -44,15 +57,30 @@ const value: operations.InputZscalerHecSendToRoutesTrueConstraint = {
     },
   ],
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveReq: 7229.39,
+  maxRequestsPerSocket: 771992,
+  enableProxyHeader: true,
+  captureHeaders: true,
+  activityLogSampleRate: 8070.32,
+  requestTimeout: 7355.55,
+  socketTimeout: 6847.06,
+  keepAliveTimeout: 2393.88,
   enableHealthCheck: "<value>",
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  hecAPI: "<value>",
   metadata: [
     {
       name: "<value>",
@@ -62,16 +90,20 @@ const value: operations.InputZscalerHecSendToRoutesTrueConstraint = {
   allowedIndexes: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
+  hecAcks: true,
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
+    "<value 2>",
   ],
-  description: "terribly instead bin tusk tame",
+  emitTokenMetrics: false,
+  description:
+    "dispense er desecrate for adventurously whoever teammate what shabby punctuation",
 };
 ```
 
@@ -80,6 +112,7 @@ const value: operations.InputZscalerHecSendToRoutesTrueConstraint = {
 ```typescript
 const value:
   operations.InputZscalerHecSendToRoutesFalseWithConnectionsConstraint = {
+    sendToRoutes: true,
     connections: [
       {
         pipeline: "<value>",
@@ -88,24 +121,37 @@ const value:
     ],
     id: "<id>",
     type: "zscaler_hec",
+    disabled: true,
     pipeline: "<value>",
     environment: "<value>",
+    pqEnabled: true,
     streamtags: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
     pq: {
+      mode: "smart",
+      maxBufferSize: 1717.96,
+      commitFrequency: 1412.18,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/include",
+      compress: "none",
       pqControls: {},
     },
-    port: 3501.16,
+    host: "worst-diversity.com",
+    port: 1665.35,
     authTokens: [
       {
+        authType: "manual",
         tokenSecret: "<value>",
         token: "<value>",
-        description: "meanwhile mmm daughter from upliftingly when",
+        enabled: true,
+        description:
+          "handle considering platypus even gadzooks ah blah comestible inquisitively",
         allowedIndexesAtToken: [
           "<value 1>",
-          "<value 2>",
-          "<value 3>",
         ],
         metadata: [
           {
@@ -116,15 +162,30 @@ const value:
       },
     ],
     tls: {
+      disabled: true,
+      requestCert: true,
+      rejectUnauthorized: true,
+      commonNameRegex: "<value>",
       certificateName: "<value>",
       privKeyPath: "<value>",
       passphrase: "<value>",
       certPath: "<value>",
       caPath: "<value>",
       minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+      maxVersion: "TLSv1.1",
     },
+    maxActiveReq: 9703.02,
+    maxRequestsPerSocket: 336750,
+    enableProxyHeader: false,
+    captureHeaders: false,
+    activityLogSampleRate: 7336.31,
+    requestTimeout: 824.41,
+    socketTimeout: 2281.83,
+    keepAliveTimeout: 9998.47,
     enableHealthCheck: "<value>",
+    ipAllowlistRegex: "<value>",
+    ipDenylistRegex: "<value>",
+    hecAPI: "<value>",
     metadata: [
       {
         name: "<value>",
@@ -133,7 +194,9 @@ const value:
     ],
     allowedIndexes: [
       "<value 1>",
+      "<value 2>",
     ],
+    hecAcks: true,
     accessControlAllowOrigin: [
       "<value 1>",
       "<value 2>",
@@ -142,9 +205,9 @@ const value:
     accessControlAllowHeaders: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
-    description: "pro bah legislature throughout viciously",
+    emitTokenMetrics: false,
+    description: "cleave biodegrade gee",
   };
 ```
 
@@ -152,14 +215,15 @@ const value:
 
 ```typescript
 const value: operations.InputZscalerHecPqEnabledFalseConstraint = {
+  pqEnabled: false,
   id: "<id>",
   type: "zscaler_hec",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -168,18 +232,27 @@ const value: operations.InputZscalerHecPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  port: 2701.58,
+  host: "incomplete-steeple.org",
+  port: 9335.48,
   authTokens: [
     {
+      authType: "manual",
       tokenSecret: "<value>",
       token: "<value>",
-      description: "meanwhile mmm daughter from upliftingly when",
+      enabled: true,
+      description:
+        "handle considering platypus even gadzooks ah blah comestible inquisitively",
       allowedIndexesAtToken: [
         "<value 1>",
-        "<value 2>",
-        "<value 3>",
       ],
       metadata: [
         {
@@ -190,15 +263,30 @@ const value: operations.InputZscalerHecPqEnabledFalseConstraint = {
     },
   ],
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveReq: 8833.19,
+  maxRequestsPerSocket: 878507,
+  enableProxyHeader: true,
+  captureHeaders: true,
+  activityLogSampleRate: 9965.88,
+  requestTimeout: 8332.21,
+  socketTimeout: 6315.35,
+  keepAliveTimeout: 9808,
   enableHealthCheck: "<value>",
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  hecAPI: "<value>",
   metadata: [
     {
       name: "<value>",
@@ -208,16 +296,22 @@ const value: operations.InputZscalerHecPqEnabledFalseConstraint = {
   allowedIndexes: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
+  hecAcks: true,
   accessControlAllowOrigin: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
+  emitTokenMetrics: true,
   description:
-    "yet wherever imaginary super frantically upside-down vice upset drat",
+    "decisive helpful terribly despite substantial sour wherever confirm indeed",
 };
 ```
 
@@ -225,12 +319,22 @@ const value: operations.InputZscalerHecPqEnabledFalseConstraint = {
 
 ```typescript
 const value: operations.InputZscalerHecPqEnabledTrueWithPqConstraint = {
+  pqEnabled: false,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
   type: "zscaler_hec",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -243,16 +347,18 @@ const value: operations.InputZscalerHecPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
-  port: 8065.19,
+  host: "valuable-quart.org",
+  port: 6151.1,
   authTokens: [
     {
+      authType: "manual",
       tokenSecret: "<value>",
       token: "<value>",
-      description: "meanwhile mmm daughter from upliftingly when",
+      enabled: true,
+      description:
+        "handle considering platypus even gadzooks ah blah comestible inquisitively",
       allowedIndexesAtToken: [
         "<value 1>",
-        "<value 2>",
-        "<value 3>",
       ],
       metadata: [
         {
@@ -263,15 +369,30 @@ const value: operations.InputZscalerHecPqEnabledTrueWithPqConstraint = {
     },
   ],
   tls: {
+    disabled: true,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
+  maxActiveReq: 7184.18,
+  maxRequestsPerSocket: 66818,
+  enableProxyHeader: false,
+  captureHeaders: true,
+  activityLogSampleRate: 5189.88,
+  requestTimeout: 465.31,
+  socketTimeout: 2325.6,
+  keepAliveTimeout: 9650.77,
   enableHealthCheck: "<value>",
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  hecAPI: "<value>",
   metadata: [
     {
       name: "<value>",
@@ -280,7 +401,10 @@ const value: operations.InputZscalerHecPqEnabledTrueWithPqConstraint = {
   ],
   allowedIndexes: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
+  hecAcks: false,
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
@@ -289,9 +413,10 @@ const value: operations.InputZscalerHecPqEnabledTrueWithPqConstraint = {
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  description: "informal woot tray poppy until merrily",
+  emitTokenMetrics: false,
+  description:
+    "correctly almost while plain ew around bob feline underplay separately",
 };
 ```
 

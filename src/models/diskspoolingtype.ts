@@ -41,19 +41,19 @@ export const DiskSpoolingType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: CompressionOptionsPersistence$inboundSchema.default("gzip"),
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: CompressionOptionsPersistence$inboundSchema.optional(),
 });
 /** @internal */
 export type DiskSpoolingType$Outbound = {
-  enable: boolean;
-  timeWindow: string;
-  maxDataSize: string;
-  maxDataTime: string;
-  compress: string;
+  enable?: boolean | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
 };
 
 /** @internal */
@@ -62,11 +62,11 @@ export const DiskSpoolingType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DiskSpoolingType
 > = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: CompressionOptionsPersistence$outboundSchema.default("gzip"),
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: CompressionOptionsPersistence$outboundSchema.optional(),
 });
 
 export function diskSpoolingTypeToJSON(

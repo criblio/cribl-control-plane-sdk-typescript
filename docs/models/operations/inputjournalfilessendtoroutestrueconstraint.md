@@ -6,12 +6,16 @@
 import { InputJournalFilesSendToRoutesTrueConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputJournalFilesSendToRoutesTrueConstraint = {
+  sendToRoutes: true,
   id: "<id>",
   type: "journal_files",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -20,18 +24,28 @@ let value: InputJournalFilesSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
-  path: "/private/tmp",
+  path: "/var/tmp",
+  interval: 4220.37,
   journals: [
     "<value 1>",
+    "<value 2>",
   ],
   rules: [
     {
       filter: "<value>",
-      description: "via growing fooey utterly instead earth limply",
+      description: "informal frizzy opera ack woot",
     },
   ],
+  currentBoot: true,
   maxAgeDur: "<value>",
   metadata: [
     {
@@ -40,7 +54,7 @@ let value: InputJournalFilesSendToRoutesTrueConstraint = {
     },
   ],
   description:
-    "eek circa consequently pfft given wherever ew accompany insignificant",
+    "adumbrate obediently readmit including monocle chip playfully until",
 };
 ```
 
@@ -48,7 +62,7 @@ let value: InputJournalFilesSendToRoutesTrueConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [operations.SendToRoutesTrueConstraintInputJournalFilesType](../../models/operations/sendtoroutestrueconstraintinputjournalfilestype.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

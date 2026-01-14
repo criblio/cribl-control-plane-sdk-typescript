@@ -6,9 +6,11 @@
 import { FunctionConfSchemaDropDimensions } from "cribl-control-plane/models";
 
 let value: FunctionConfSchemaDropDimensions = {
+  timeWindow: "<value>",
   dropDimensions: [
     "<value 1>",
   ],
+  flushOnInputClose: true,
 };
 ```
 

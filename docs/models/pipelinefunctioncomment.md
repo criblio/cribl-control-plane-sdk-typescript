@@ -6,6 +6,7 @@
 import { PipelineFunctionComment } from "cribl-control-plane/models";
 
 let value: PipelineFunctionComment = {
+  filter: "<value>",
   id: "comment",
   description: "an rigidly colour boldly gape now",
   disabled: false,

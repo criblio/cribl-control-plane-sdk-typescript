@@ -6,7 +6,10 @@
 import { Target } from "cribl-control-plane/models";
 
 let value: Target = {
-  host: "wilted-designation.name",
+  protocol: "https",
+  host: "exalted-obedience.org",
+  port: 2295.15,
+  path: "/Library",
 };
 ```
 

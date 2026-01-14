@@ -28,14 +28,14 @@ export const FunctionConfSchemaFoldkeys$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  deleteOriginal: z.boolean().default(true),
-  separator: z.string().default("."),
+  deleteOriginal: z.boolean().optional(),
+  separator: z.string().optional(),
   selectionRegExp: z.string().optional(),
 });
 /** @internal */
 export type FunctionConfSchemaFoldkeys$Outbound = {
-  deleteOriginal: boolean;
-  separator: string;
+  deleteOriginal?: boolean | undefined;
+  separator?: string | undefined;
   selectionRegExp?: string | undefined;
 };
 
@@ -45,8 +45,8 @@ export const FunctionConfSchemaFoldkeys$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   FunctionConfSchemaFoldkeys
 > = z.object({
-  deleteOriginal: z.boolean().default(true),
-  separator: z.string().default("."),
+  deleteOriginal: z.boolean().optional(),
+  separator: z.string().optional(),
   selectionRegExp: z.string().optional(),
 });
 

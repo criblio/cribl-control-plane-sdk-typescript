@@ -47,7 +47,7 @@ export const PipelineFunctionSnmpTrapSerialize$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("snmp_trap_serialize"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionSnmpTrapSerialize$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionSnmpTrapSerialize$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "snmp_trap_serialize";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionSnmpTrapSerialize$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionSnmpTrapSerialize
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("snmp_trap_serialize"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

@@ -19,7 +19,10 @@ let value: FunctionOtlpLogs = {
   sync: true,
   uischema: {},
   version: "<value>",
-  schema: {},
+  schema: {
+    dropNonLogEvents: true,
+    batchOTLPLogs: true,
+  },
 };
 ```
 

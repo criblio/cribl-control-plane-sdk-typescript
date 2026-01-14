@@ -26,6 +26,7 @@ let value: FunctionMvPull = {
     relativeKeyPath: "<value>",
     relativeValuePath: "<value>",
     targetBagPath: "<value>",
+    deleteOriginal: true,
   },
 };
 ```

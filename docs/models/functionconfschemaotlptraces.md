@@ -5,7 +5,11 @@
 ```typescript
 import { FunctionConfSchemaOtlpTraces } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaOtlpTraces = {};
+let value: FunctionConfSchemaOtlpTraces = {
+  dropNonTraceEvents: false,
+  otlpVersion: "0.10.0",
+  batchOTLPTraces: true,
+};
 ```
 
 ## Fields

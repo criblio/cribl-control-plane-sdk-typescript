@@ -6,12 +6,15 @@
 import { SplunkAuthenticationBasic } from "cribl-control-plane/models";
 
 let value: SplunkAuthenticationBasic = {
-  authentication: "basic",
-  username: "Rosalyn_Wisoky",
-  password: "Hwqh2mRqngRWb8D",
+  authentication: "tokenSecret",
+  username: "Mabelle41",
+  password: "qh2mRqngRWb8Dmd",
+  searchHead: "<value>",
   search: "<value>",
   earliest: "<value>",
   latest: "<value>",
+  endpoint: "<value>",
+  outputMode: "csv",
   collectRequestParams: [
     {
       name: "<value>",
@@ -24,7 +27,13 @@ let value: SplunkAuthenticationBasic = {
       value: "<value>",
     },
   ],
+  timeout: 5391.84,
+  useRoundRobinDns: false,
+  disableTimeFilter: true,
+  rejectUnauthorized: true,
+  handleEscapedChars: false,
   retryRules: {
+    type: "none",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -40,15 +49,15 @@ let value: SplunkAuthenticationBasic = {
 
 | Field                                                                                                                     | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               |
 | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `authentication`                                                                                                          | *"basic"*                                                                                                                 | :heavy_check_mark:                                                                                                        | Authentication method for Discover and Collect REST calls                                                                 |
+| `authentication`                                                                                                          | [models.SplunkAuthenticationBasicAuthentication](../models/splunkauthenticationbasicauthentication.md)                    | :heavy_check_mark:                                                                                                        | Authentication method for Discover and Collect REST calls                                                                 |
 | `username`                                                                                                                | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | Basic authentication username                                                                                             |
 | `password`                                                                                                                | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | Basic authentication password                                                                                             |
-| `searchHead`                                                                                                              | *string*                                                                                                                  | :heavy_minus_sign:                                                                                                        | Search head base URL. Can be an expression. Default is https://localhost:8089.                                            |
+| `searchHead`                                                                                                              | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | Search head base URL. Can be an expression. Default is https://localhost:8089.                                            |
 | `search`                                                                                                                  | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | Examples: 'index=myAppLogs level=error channel=myApp' OR '\| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'      |
 | `earliest`                                                                                                                | *string*                                                                                                                  | :heavy_minus_sign:                                                                                                        | The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m' |
 | `latest`                                                                                                                  | *string*                                                                                                                  | :heavy_minus_sign:                                                                                                        | The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'    |
-| `endpoint`                                                                                                                | *string*                                                                                                                  | :heavy_minus_sign:                                                                                                        | REST API used to create a search                                                                                          |
-| `outputMode`                                                                                                              | [models.OutputModeOptionsSplunkCollectorConf](../models/outputmodeoptionssplunkcollectorconf.md)                          | :heavy_minus_sign:                                                                                                        | Format of the returned output                                                                                             |
+| `endpoint`                                                                                                                | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | REST API used to create a search                                                                                          |
+| `outputMode`                                                                                                              | [models.OutputModeOptionsSplunkCollectorConf](../models/outputmodeoptionssplunkcollectorconf.md)                          | :heavy_check_mark:                                                                                                        | Format of the returned output                                                                                             |
 | `collectRequestParams`                                                                                                    | [models.SplunkAuthenticationBasicCollectRequestParam](../models/splunkauthenticationbasiccollectrequestparam.md)[]        | :heavy_minus_sign:                                                                                                        | Optional collect request parameters                                                                                       |
 | `collectRequestHeaders`                                                                                                   | [models.SplunkAuthenticationBasicCollectRequestHeader](../models/splunkauthenticationbasiccollectrequestheader.md)[]      | :heavy_minus_sign:                                                                                                        | Optional collect request headers                                                                                          |
 | `timeout`                                                                                                                 | *number*                                                                                                                  | :heavy_minus_sign:                                                                                                        | HTTP request inactivity timeout. Use 0 for no timeout.                                                                    |

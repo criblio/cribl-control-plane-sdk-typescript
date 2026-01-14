@@ -24,6 +24,7 @@ let value: FunctionLookup = {
   version: "<value>",
   schema: {
     file: "<value>",
+    dbLookup: false,
     matchMode: "<value>",
     matchType: "<value>",
     reloadPeriodSec: "<value>",
@@ -40,6 +41,7 @@ let value: FunctionLookup = {
         defaultValue: "<value>",
       },
     ],
+    addToEvent: false,
     ignoreCase: "<value>",
   },
 };

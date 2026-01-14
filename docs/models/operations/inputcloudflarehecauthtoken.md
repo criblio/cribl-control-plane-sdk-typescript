@@ -6,9 +6,11 @@
 import { InputCloudflareHecAuthToken } from "cribl-control-plane/models/operations";
 
 let value: InputCloudflareHecAuthToken = {
+  authType: "secret",
   tokenSecret: "<value>",
   token: "<value>",
-  description: "mechanically foolish airline gee",
+  enabled: true,
+  description: "malfunction well adjourn ouch and space stigmatize willfully",
   allowedIndexesAtToken: [
     "<value 1>",
     "<value 2>",

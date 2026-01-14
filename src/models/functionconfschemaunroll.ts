@@ -11,11 +11,11 @@ export type FunctionConfSchemaUnroll = {
   /**
    * Field in which to find/calculate the array to unroll. Example: _raw, _raw.split(/\n/)
    */
-  srcExpr: string;
+  srcExpr?: string | undefined;
   /**
    * Field in destination event in which to place the unrolled value
    */
-  dstField: string;
+  dstField?: string | undefined;
 };
 
 /** @internal */
@@ -24,8 +24,8 @@ export const FunctionConfSchemaUnroll$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  srcExpr: z.string().default("_raw"),
-  dstField: z.string().default("_raw"),
+  srcExpr: z.string().optional(),
+  dstField: z.string().optional(),
 });
 
 export function functionConfSchemaUnrollFromJSON(

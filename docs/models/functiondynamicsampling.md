@@ -22,7 +22,13 @@ let value: FunctionDynamicSampling = {
     "key1": "<value>",
   },
   version: "<value>",
-  schema: {},
+  schema: {
+    mode: "sqrt",
+    keyExpr: "<value>",
+    samplePeriod: 522.44,
+    minEvents: 7446.19,
+    maxSampleRate: 1997.04,
+  },
 };
 ```
 

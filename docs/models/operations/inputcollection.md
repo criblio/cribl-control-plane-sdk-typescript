@@ -7,12 +7,15 @@
 
 ```typescript
 const value: operations.InputCollectionSendToRoutesTrueConstraint = {
+  sendToRoutes: true,
   id: "<id>",
+  type: "collection",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -21,21 +24,28 @@ const value: operations.InputCollectionSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
+  staleChannelFlushMs: 3631.18,
   preprocess: {
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
   },
+  throttleRatePerSec: "<value>",
   metadata: [
     {
       name: "<value>",
@@ -51,6 +61,7 @@ const value: operations.InputCollectionSendToRoutesTrueConstraint = {
 ```typescript
 const value:
   operations.InputCollectionSendToRoutesFalseWithConnectionsConstraint = {
+    sendToRoutes: false,
     connections: [
       {
         pipeline: "<value>",
@@ -58,27 +69,38 @@ const value:
       },
     ],
     id: "<id>",
+    type: "collection",
+    disabled: true,
     pipeline: "<value>",
     environment: "<value>",
+    pqEnabled: false,
     streamtags: [
       "<value 1>",
       "<value 2>",
       "<value 3>",
     ],
     pq: {
+      mode: "smart",
+      maxBufferSize: 1717.96,
+      commitFrequency: 1412.18,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/include",
+      compress: "none",
       pqControls: {},
     },
     breakerRulesets: [
       "<value 1>",
     ],
+    staleChannelFlushMs: 8730.79,
     preprocess: {
+      disabled: false,
       command: "<value>",
       args: [
         "<value 1>",
-        "<value 2>",
-        "<value 3>",
       ],
     },
+    throttleRatePerSec: "<value>",
     metadata: [
       {
         name: "<value>",
@@ -93,8 +115,12 @@ const value:
 
 ```typescript
 const value: operations.InputCollectionPqEnabledFalseConstraint = {
+  pqEnabled: true,
   id: "<id>",
+  type: "collection",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
@@ -106,21 +132,28 @@ const value: operations.InputCollectionPqEnabledFalseConstraint = {
     },
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
+  staleChannelFlushMs: 9077.19,
   preprocess: {
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
   },
+  throttleRatePerSec: "<value>",
   metadata: [
     {
       name: "<value>",
@@ -135,14 +168,26 @@ const value: operations.InputCollectionPqEnabledFalseConstraint = {
 
 ```typescript
 const value: operations.InputCollectionPqEnabledTrueWithPqConstraint = {
+  pqEnabled: true,
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   id: "<id>",
+  type: "collection",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -153,16 +198,16 @@ const value: operations.InputCollectionPqEnabledTrueWithPqConstraint = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
+  staleChannelFlushMs: 8076.36,
   preprocess: {
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
   },
+  throttleRatePerSec: "<value>",
   metadata: [
     {
       name: "<value>",

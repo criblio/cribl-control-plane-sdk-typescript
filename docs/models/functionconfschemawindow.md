@@ -11,6 +11,8 @@ let value: FunctionConfSchemaWindow = {
     "<value 1>",
     "<value 2>",
   ],
+  tailEventCount: 7748.03,
+  headEventCount: 8868.13,
 };
 ```
 

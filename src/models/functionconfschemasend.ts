@@ -31,11 +31,11 @@ export type FunctionConfSchemaSend = {
   /**
    * Group within the workspace we're sending to.
    */
-  group: string;
+  group?: string | undefined;
   /**
    * Workspace within the deployment to send the search results to.
    */
-  workspace: string;
+  workspace?: string | undefined;
   /**
    * Template to build the URL to send from.
    */
@@ -47,11 +47,11 @@ export type FunctionConfSchemaSend = {
   /**
    * Tee results to search. When set to true results will be shipped instead of stats
    */
-  tee: string;
+  tee?: string | undefined;
   /**
    * How often are stats flushed in ms
    */
-  flushMs: number;
+  flushMs?: number | undefined;
   /**
    * Disables generation of intermediate stats. When true stats will be emitted only on end
    */
@@ -76,12 +76,12 @@ export const FunctionConfSchemaSend$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   url: z.string().optional(),
-  group: z.string().default("default"),
-  workspace: z.string().default("main"),
+  group: z.string().optional(),
+  workspace: z.string().optional(),
   sendUrlTemplate: z.string().optional(),
   searchId: z.string().optional(),
-  tee: z.string().default("false"),
-  flushMs: z.number().default(1000),
+  tee: z.string().optional(),
+  flushMs: z.number().optional(),
   suppressPreviews: z.boolean().optional(),
   mode: FunctionConfSchemaSendMode$inboundSchema.optional(),
 });

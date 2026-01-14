@@ -58,7 +58,7 @@ export type InputFilePqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   pq?: PqType | undefined;
   /**
    * Unique ID for this input
@@ -193,7 +193,7 @@ export type InputFilePqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   /**
    * Unique ID for this input
    */
@@ -327,7 +327,7 @@ export type InputFileSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -462,7 +462,7 @@ export type InputFileSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Unique ID for this input
    */
@@ -600,36 +600,36 @@ export const InputFilePqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputFilePqEnabledTrueWithPqConstraintType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  mode: PqEnabledTrueWithPqConstraintMode$inboundSchema.default("manual"),
-  interval: z.number().default(10),
+  mode: PqEnabledTrueWithPqConstraintMode$inboundSchema.optional(),
+  interval: z.number().optional(),
   filenames: z.array(z.string()).optional(),
-  filterArchivedFiles: z.boolean().default(false),
-  tailOnly: z.boolean().default(true),
-  idleTimeout: z.number().default(300),
+  filterArchivedFiles: z.boolean().optional(),
+  tailOnly: z.boolean().optional(),
+  idleTimeout: z.number().optional(),
   minAgeDur: z.string().optional(),
   maxAgeDur: z.string().optional(),
-  checkFileModTime: z.boolean().default(false),
-  forceText: z.boolean().default(false),
-  hashLen: z.number().default(256),
+  checkFileModTime: z.boolean().optional(),
+  forceText: z.boolean().optional(),
+  hashLen: z.number().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
+  staleChannelFlushMs: z.number().optional(),
   description: z.string().optional(),
   path: z.string().optional(),
   depth: z.number().optional(),
-  suppressMissingPathErrors: z.boolean().default(false),
-  deleteFiles: z.boolean().default(false),
-  includeUnidentifiableBinary: z.boolean().default(false),
+  suppressMissingPathErrors: z.boolean().optional(),
+  deleteFiles: z.boolean().optional(),
+  includeUnidentifiableBinary: z.boolean().optional(),
 });
 /** @internal */
 export type InputFilePqEnabledTrueWithPqConstraint$Outbound = {
@@ -637,32 +637,32 @@ export type InputFilePqEnabledTrueWithPqConstraint$Outbound = {
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  mode: string;
-  interval: number;
+  mode?: string | undefined;
+  interval?: number | undefined;
   filenames?: Array<string> | undefined;
-  filterArchivedFiles: boolean;
-  tailOnly: boolean;
-  idleTimeout: number;
+  filterArchivedFiles?: boolean | undefined;
+  tailOnly?: boolean | undefined;
+  idleTimeout?: number | undefined;
   minAgeDur?: string | undefined;
   maxAgeDur?: string | undefined;
-  checkFileModTime: boolean;
-  forceText: boolean;
-  hashLen: number;
+  checkFileModTime?: boolean | undefined;
+  forceText?: boolean | undefined;
+  hashLen?: number | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
+  staleChannelFlushMs?: number | undefined;
   description?: string | undefined;
   path?: string | undefined;
   depth?: number | undefined;
-  suppressMissingPathErrors: boolean;
-  deleteFiles: boolean;
-  includeUnidentifiableBinary: boolean;
+  suppressMissingPathErrors?: boolean | undefined;
+  deleteFiles?: boolean | undefined;
+  includeUnidentifiableBinary?: boolean | undefined;
 };
 
 /** @internal */
@@ -671,36 +671,36 @@ export const InputFilePqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputFilePqEnabledTrueWithPqConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   pq: PqType$outboundSchema.optional(),
   id: z.string().optional(),
   type: InputFilePqEnabledTrueWithPqConstraintType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  mode: PqEnabledTrueWithPqConstraintMode$outboundSchema.default("manual"),
-  interval: z.number().default(10),
+  mode: PqEnabledTrueWithPqConstraintMode$outboundSchema.optional(),
+  interval: z.number().optional(),
   filenames: z.array(z.string()).optional(),
-  filterArchivedFiles: z.boolean().default(false),
-  tailOnly: z.boolean().default(true),
-  idleTimeout: z.number().default(300),
+  filterArchivedFiles: z.boolean().optional(),
+  tailOnly: z.boolean().optional(),
+  idleTimeout: z.number().optional(),
   minAgeDur: z.string().optional(),
   maxAgeDur: z.string().optional(),
-  checkFileModTime: z.boolean().default(false),
-  forceText: z.boolean().default(false),
-  hashLen: z.number().default(256),
+  checkFileModTime: z.boolean().optional(),
+  forceText: z.boolean().optional(),
+  hashLen: z.number().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
+  staleChannelFlushMs: z.number().optional(),
   description: z.string().optional(),
   path: z.string().optional(),
   depth: z.number().optional(),
-  suppressMissingPathErrors: z.boolean().default(false),
-  deleteFiles: z.boolean().default(false),
-  includeUnidentifiableBinary: z.boolean().default(false),
+  suppressMissingPathErrors: z.boolean().optional(),
+  deleteFiles: z.boolean().optional(),
+  includeUnidentifiableBinary: z.boolean().optional(),
 });
 
 export function inputFilePqEnabledTrueWithPqConstraintToJSON(
@@ -753,69 +753,69 @@ export const InputFilePqEnabledFalseConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputFilePqEnabledFalseConstraintType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  mode: PqEnabledFalseConstraintMode$inboundSchema.default("manual"),
-  interval: z.number().default(10),
+  mode: PqEnabledFalseConstraintMode$inboundSchema.optional(),
+  interval: z.number().optional(),
   filenames: z.array(z.string()).optional(),
-  filterArchivedFiles: z.boolean().default(false),
-  tailOnly: z.boolean().default(true),
-  idleTimeout: z.number().default(300),
+  filterArchivedFiles: z.boolean().optional(),
+  tailOnly: z.boolean().optional(),
+  idleTimeout: z.number().optional(),
   minAgeDur: z.string().optional(),
   maxAgeDur: z.string().optional(),
-  checkFileModTime: z.boolean().default(false),
-  forceText: z.boolean().default(false),
-  hashLen: z.number().default(256),
+  checkFileModTime: z.boolean().optional(),
+  forceText: z.boolean().optional(),
+  hashLen: z.number().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
+  staleChannelFlushMs: z.number().optional(),
   description: z.string().optional(),
   path: z.string().optional(),
   depth: z.number().optional(),
-  suppressMissingPathErrors: z.boolean().default(false),
-  deleteFiles: z.boolean().default(false),
-  includeUnidentifiableBinary: z.boolean().default(false),
+  suppressMissingPathErrors: z.boolean().optional(),
+  deleteFiles: z.boolean().optional(),
+  includeUnidentifiableBinary: z.boolean().optional(),
 });
 /** @internal */
 export type InputFilePqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
-  mode: string;
-  interval: number;
+  mode?: string | undefined;
+  interval?: number | undefined;
   filenames?: Array<string> | undefined;
-  filterArchivedFiles: boolean;
-  tailOnly: boolean;
-  idleTimeout: number;
+  filterArchivedFiles?: boolean | undefined;
+  tailOnly?: boolean | undefined;
+  idleTimeout?: number | undefined;
   minAgeDur?: string | undefined;
   maxAgeDur?: string | undefined;
-  checkFileModTime: boolean;
-  forceText: boolean;
-  hashLen: number;
+  checkFileModTime?: boolean | undefined;
+  forceText?: boolean | undefined;
+  hashLen?: number | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
+  staleChannelFlushMs?: number | undefined;
   description?: string | undefined;
   path?: string | undefined;
   depth?: number | undefined;
-  suppressMissingPathErrors: boolean;
-  deleteFiles: boolean;
-  includeUnidentifiableBinary: boolean;
+  suppressMissingPathErrors?: boolean | undefined;
+  deleteFiles?: boolean | undefined;
+  includeUnidentifiableBinary?: boolean | undefined;
 };
 
 /** @internal */
@@ -824,36 +824,36 @@ export const InputFilePqEnabledFalseConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputFilePqEnabledFalseConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputFilePqEnabledFalseConstraintType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  mode: PqEnabledFalseConstraintMode$outboundSchema.default("manual"),
-  interval: z.number().default(10),
+  mode: PqEnabledFalseConstraintMode$outboundSchema.optional(),
+  interval: z.number().optional(),
   filenames: z.array(z.string()).optional(),
-  filterArchivedFiles: z.boolean().default(false),
-  tailOnly: z.boolean().default(true),
-  idleTimeout: z.number().default(300),
+  filterArchivedFiles: z.boolean().optional(),
+  tailOnly: z.boolean().optional(),
+  idleTimeout: z.number().optional(),
   minAgeDur: z.string().optional(),
   maxAgeDur: z.string().optional(),
-  checkFileModTime: z.boolean().default(false),
-  forceText: z.boolean().default(false),
-  hashLen: z.number().default(256),
+  checkFileModTime: z.boolean().optional(),
+  forceText: z.boolean().optional(),
+  hashLen: z.number().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
+  staleChannelFlushMs: z.number().optional(),
   description: z.string().optional(),
   path: z.string().optional(),
   depth: z.number().optional(),
-  suppressMissingPathErrors: z.boolean().default(false),
-  deleteFiles: z.boolean().default(false),
-  includeUnidentifiableBinary: z.boolean().default(false),
+  suppressMissingPathErrors: z.boolean().optional(),
+  deleteFiles: z.boolean().optional(),
+  includeUnidentifiableBinary: z.boolean().optional(),
 });
 
 export function inputFilePqEnabledFalseConstraintToJSON(
@@ -908,38 +908,37 @@ export const InputFileSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputFileSendToRoutesFalseWithConnectionsConstraintType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$inboundSchema.optional(),
-    mode: SendToRoutesFalseWithConnectionsConstraintMode$inboundSchema.default(
-      "manual",
-    ),
-    interval: z.number().default(10),
+    mode: SendToRoutesFalseWithConnectionsConstraintMode$inboundSchema
+      .optional(),
+    interval: z.number().optional(),
     filenames: z.array(z.string()).optional(),
-    filterArchivedFiles: z.boolean().default(false),
-    tailOnly: z.boolean().default(true),
-    idleTimeout: z.number().default(300),
+    filterArchivedFiles: z.boolean().optional(),
+    tailOnly: z.boolean().optional(),
+    idleTimeout: z.number().optional(),
     minAgeDur: z.string().optional(),
     maxAgeDur: z.string().optional(),
-    checkFileModTime: z.boolean().default(false),
-    forceText: z.boolean().default(false),
-    hashLen: z.number().default(256),
+    checkFileModTime: z.boolean().optional(),
+    forceText: z.boolean().optional(),
+    hashLen: z.number().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
+    staleChannelFlushMs: z.number().optional(),
     description: z.string().optional(),
     path: z.string().optional(),
     depth: z.number().optional(),
-    suppressMissingPathErrors: z.boolean().default(false),
-    deleteFiles: z.boolean().default(false),
-    includeUnidentifiableBinary: z.boolean().default(false),
+    suppressMissingPathErrors: z.boolean().optional(),
+    deleteFiles: z.boolean().optional(),
+    includeUnidentifiableBinary: z.boolean().optional(),
   });
 /** @internal */
 export type InputFileSendToRoutesFalseWithConnectionsConstraint$Outbound = {
@@ -947,32 +946,32 @@ export type InputFileSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   pq?: PqType$Outbound | undefined;
-  mode: string;
-  interval: number;
+  mode?: string | undefined;
+  interval?: number | undefined;
   filenames?: Array<string> | undefined;
-  filterArchivedFiles: boolean;
-  tailOnly: boolean;
-  idleTimeout: number;
+  filterArchivedFiles?: boolean | undefined;
+  tailOnly?: boolean | undefined;
+  idleTimeout?: number | undefined;
   minAgeDur?: string | undefined;
   maxAgeDur?: string | undefined;
-  checkFileModTime: boolean;
-  forceText: boolean;
-  hashLen: number;
+  checkFileModTime?: boolean | undefined;
+  forceText?: boolean | undefined;
+  hashLen?: number | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
+  staleChannelFlushMs?: number | undefined;
   description?: string | undefined;
   path?: string | undefined;
   depth?: number | undefined;
-  suppressMissingPathErrors: boolean;
-  deleteFiles: boolean;
-  includeUnidentifiableBinary: boolean;
+  suppressMissingPathErrors?: boolean | undefined;
+  deleteFiles?: boolean | undefined;
+  includeUnidentifiableBinary?: boolean | undefined;
 };
 
 /** @internal */
@@ -982,40 +981,39 @@ export const InputFileSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
     z.ZodTypeDef,
     InputFileSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     id: z.string().optional(),
     type:
       InputFileSendToRoutesFalseWithConnectionsConstraintType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
-    mode: SendToRoutesFalseWithConnectionsConstraintMode$outboundSchema.default(
-      "manual",
-    ),
-    interval: z.number().default(10),
+    mode: SendToRoutesFalseWithConnectionsConstraintMode$outboundSchema
+      .optional(),
+    interval: z.number().optional(),
     filenames: z.array(z.string()).optional(),
-    filterArchivedFiles: z.boolean().default(false),
-    tailOnly: z.boolean().default(true),
-    idleTimeout: z.number().default(300),
+    filterArchivedFiles: z.boolean().optional(),
+    tailOnly: z.boolean().optional(),
+    idleTimeout: z.number().optional(),
     minAgeDur: z.string().optional(),
     maxAgeDur: z.string().optional(),
-    checkFileModTime: z.boolean().default(false),
-    forceText: z.boolean().default(false),
-    hashLen: z.number().default(256),
+    checkFileModTime: z.boolean().optional(),
+    forceText: z.boolean().optional(),
+    hashLen: z.number().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
+    staleChannelFlushMs: z.number().optional(),
     description: z.string().optional(),
     path: z.string().optional(),
     depth: z.number().optional(),
-    suppressMissingPathErrors: z.boolean().default(false),
-    deleteFiles: z.boolean().default(false),
-    includeUnidentifiableBinary: z.boolean().default(false),
+    suppressMissingPathErrors: z.boolean().optional(),
+    deleteFiles: z.boolean().optional(),
+    includeUnidentifiableBinary: z.boolean().optional(),
   });
 
 export function inputFileSendToRoutesFalseWithConnectionsConstraintToJSON(
@@ -1072,69 +1070,69 @@ export const InputFileSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputFileSendToRoutesTrueConstraintType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  mode: SendToRoutesTrueConstraintMode$inboundSchema.default("manual"),
-  interval: z.number().default(10),
+  mode: SendToRoutesTrueConstraintMode$inboundSchema.optional(),
+  interval: z.number().optional(),
   filenames: z.array(z.string()).optional(),
-  filterArchivedFiles: z.boolean().default(false),
-  tailOnly: z.boolean().default(true),
-  idleTimeout: z.number().default(300),
+  filterArchivedFiles: z.boolean().optional(),
+  tailOnly: z.boolean().optional(),
+  idleTimeout: z.number().optional(),
   minAgeDur: z.string().optional(),
   maxAgeDur: z.string().optional(),
-  checkFileModTime: z.boolean().default(false),
-  forceText: z.boolean().default(false),
-  hashLen: z.number().default(256),
+  checkFileModTime: z.boolean().optional(),
+  forceText: z.boolean().optional(),
+  hashLen: z.number().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
+  staleChannelFlushMs: z.number().optional(),
   description: z.string().optional(),
   path: z.string().optional(),
   depth: z.number().optional(),
-  suppressMissingPathErrors: z.boolean().default(false),
-  deleteFiles: z.boolean().default(false),
-  includeUnidentifiableBinary: z.boolean().default(false),
+  suppressMissingPathErrors: z.boolean().optional(),
+  deleteFiles: z.boolean().optional(),
+  includeUnidentifiableBinary: z.boolean().optional(),
 });
 /** @internal */
 export type InputFileSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
-  mode: string;
-  interval: number;
+  mode?: string | undefined;
+  interval?: number | undefined;
   filenames?: Array<string> | undefined;
-  filterArchivedFiles: boolean;
-  tailOnly: boolean;
-  idleTimeout: number;
+  filterArchivedFiles?: boolean | undefined;
+  tailOnly?: boolean | undefined;
+  idleTimeout?: number | undefined;
   minAgeDur?: string | undefined;
   maxAgeDur?: string | undefined;
-  checkFileModTime: boolean;
-  forceText: boolean;
-  hashLen: number;
+  checkFileModTime?: boolean | undefined;
+  forceText?: boolean | undefined;
+  hashLen?: number | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
+  staleChannelFlushMs?: number | undefined;
   description?: string | undefined;
   path?: string | undefined;
   depth?: number | undefined;
-  suppressMissingPathErrors: boolean;
-  deleteFiles: boolean;
-  includeUnidentifiableBinary: boolean;
+  suppressMissingPathErrors?: boolean | undefined;
+  deleteFiles?: boolean | undefined;
+  includeUnidentifiableBinary?: boolean | undefined;
 };
 
 /** @internal */
@@ -1143,36 +1141,36 @@ export const InputFileSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputFileSendToRoutesTrueConstraint
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputFileSendToRoutesTrueConstraintType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  mode: SendToRoutesTrueConstraintMode$outboundSchema.default("manual"),
-  interval: z.number().default(10),
+  mode: SendToRoutesTrueConstraintMode$outboundSchema.optional(),
+  interval: z.number().optional(),
   filenames: z.array(z.string()).optional(),
-  filterArchivedFiles: z.boolean().default(false),
-  tailOnly: z.boolean().default(true),
-  idleTimeout: z.number().default(300),
+  filterArchivedFiles: z.boolean().optional(),
+  tailOnly: z.boolean().optional(),
+  idleTimeout: z.number().optional(),
   minAgeDur: z.string().optional(),
   maxAgeDur: z.string().optional(),
-  checkFileModTime: z.boolean().default(false),
-  forceText: z.boolean().default(false),
-  hashLen: z.number().default(256),
+  checkFileModTime: z.boolean().optional(),
+  forceText: z.boolean().optional(),
+  hashLen: z.number().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
+  staleChannelFlushMs: z.number().optional(),
   description: z.string().optional(),
   path: z.string().optional(),
   depth: z.number().optional(),
-  suppressMissingPathErrors: z.boolean().default(false),
-  deleteFiles: z.boolean().default(false),
-  includeUnidentifiableBinary: z.boolean().default(false),
+  suppressMissingPathErrors: z.boolean().optional(),
+  deleteFiles: z.boolean().optional(),
+  includeUnidentifiableBinary: z.boolean().optional(),
 });
 
 export function inputFileSendToRoutesTrueConstraintToJSON(

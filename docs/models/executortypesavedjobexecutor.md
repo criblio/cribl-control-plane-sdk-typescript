@@ -7,6 +7,7 @@ import { ExecutorTypeSavedJobExecutor } from "cribl-control-plane/models";
 
 let value: ExecutorTypeSavedJobExecutor = {
   type: "<value>",
+  storeTaskResults: false,
   conf: {},
 };
 ```

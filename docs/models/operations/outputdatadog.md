@@ -19,32 +19,69 @@ let value: OutputDatadog = {
     "<value 1>",
     "<value 2>",
   ],
+  contentType: "text",
   message: "<value>",
   source: "<value>",
-  host: "dapper-understanding.net",
+  host: "wee-pile.biz",
   service: "<value>",
   tags: [
     "<value 1>",
   ],
-  severity: "alert",
+  batchByTags: true,
+  allowApiKeyFromEvents: true,
+  severity: "warning",
+  site: "ap1",
+  sendCountersAsCount: false,
+  concurrency: 4805.77,
+  maxPayloadSizeKB: 9908.94,
+  maxPayloadEvents: 4275.62,
+  compress: false,
+  rejectUnauthorized: false,
+  timeoutSec: 8885.05,
+  flushPeriodSec: 9323.4,
   extraHttpHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  useRoundRobinDns: true,
+  failedRequestLoggingMode: "payloadAndHeaders",
   safeHeaders: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 2591.04,
+      initialBackoff: 4815.7,
+      backoffRate: 5576.87,
+      maxBackoff: 1844.93,
     },
   ],
-  timeoutRetrySettings: {},
-  totalMemoryLimitKB: 3596.93,
-  description: "superficial license tidy spook boohoo neatly whirlwind",
-  customUrl: "https://oily-mozzarella.com/",
+  timeoutRetrySettings: {
+    timeoutRetry: false,
+    initialBackoff: 4289.71,
+    backoffRate: 7830.71,
+    maxBackoff: 6330,
+  },
+  responseHonorRetryAfterHeader: false,
+  onBackpressure: "drop",
+  authType: "secret",
+  totalMemoryLimitKB: 2871.99,
+  description: "glisten so vicinity outdo pale underneath pension loftily",
+  customUrl: "https://gleaming-marksman.net/",
+  pqStrictOrdering: true,
+  pqRatePerSec: 4720.48,
+  pqMode: "error",
+  pqMaxBufferSize: 4027.27,
+  pqMaxBackpressureSec: 8685.81,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "none",
+  pqOnBackpressure: "drop",
   pqControls: {},
   apiKey: "<value>",
   textSecret: "<value>",
@@ -87,7 +124,7 @@ let value: OutputDatadog = {
 | `timeoutRetrySettings`                                                                                                                                                                                                                                                                                                                           | [models.TimeoutRetrySettingsType](../../models/timeoutretrysettingstype.md)                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `responseHonorRetryAfterHeader`                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored. |
 | `onBackpressure`                                                                                                                                                                                                                                                                                                                                 | [models.BackpressureBehaviorOptions](../../models/backpressurebehavioroptions.md)                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                                                                                                                |
-| `authType`                                                                                                                                                                                                                                                                                                                                       | [models.AuthenticationMethodOptions3](../../models/authenticationmethodoptions3.md)                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enter API key directly, or select a stored secret                                                                                                                                                                                                                                                                                                |
+| `authType`                                                                                                                                                                                                                                                                                                                                       | [models.AuthenticationMethodOptions2](../../models/authenticationmethodoptions2.md)                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enter API key directly, or select a stored secret                                                                                                                                                                                                                                                                                                |
 | `totalMemoryLimitKB`                                                                                                                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.                                                                                                                                                                                                 |
 | `description`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `customUrl`                                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |

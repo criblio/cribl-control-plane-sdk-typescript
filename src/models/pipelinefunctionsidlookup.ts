@@ -47,7 +47,7 @@ export const PipelineFunctionSidlookup$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("sidlookup"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionSidlookup$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionSidlookup$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "sidlookup";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionSidlookup$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionSidlookup
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("sidlookup"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

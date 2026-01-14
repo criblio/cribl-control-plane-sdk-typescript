@@ -11,6 +11,9 @@ let value: FunctionConfSchemaDistinct = {
     "<value 2>",
     "<value 3>",
   ],
+  maxCombinations: 1726.31,
+  maxDepth: 2695.95,
+  isFederated: true,
   suppressPreviews: true,
 };
 ```

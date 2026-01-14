@@ -21,6 +21,12 @@ let value: FunctionSuppress = {
   version: "<value>",
   schema: {
     keyExpr: "<value>",
+    allow: 209.85,
+    suppressPeriodSec: 3097.63,
+    dropEventsMode: true,
+    maxCacheSize: 1137.96,
+    cacheIdleTimeoutPeriods: 8217.34,
+    numEventsIdleTimeoutTrigger: 6624.66,
   },
 };
 ```

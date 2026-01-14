@@ -6,12 +6,16 @@
 import { FunctionConfSchemaNotify } from "cribl-control-plane/models";
 
 let value: FunctionConfSchemaNotify = {
+  group: "<value>",
+  notificationId: "<id>",
   searchId: "<id>",
   savedQueryId: "<id>",
   trigger: "<value>",
   triggerType: "resultsCount",
   triggerComparator: "!==",
-  searchUrl: "https://ornery-ecliptic.net/",
+  triggerCount: 3909.29,
+  resultsLimit: 5803.2,
+  searchUrl: "https://strident-reconsideration.com/",
   message: "<value>",
   authToken: "<value>",
   messagesEndpoint: "<value>",

@@ -15,27 +15,27 @@ export type FunctionConfSchemaSuppress = {
   /**
    * The number of events to allow per time period
    */
-  allow: number;
+  allow?: number | undefined;
   /**
    * The number of seconds to suppress events after 'Number to allow' events are received
    */
-  suppressPeriodSec: number;
+  suppressPeriodSec?: number | undefined;
   /**
    * If disabled, suppressed events will be tagged with suppress=1 but not dropped
    */
-  dropEventsMode: boolean;
+  dropEventsMode?: boolean | undefined;
   /**
    * The maximum number of keys that can be cached before idle entries are removed. Leave at default unless you understand the implications of changing.
    */
-  maxCacheSize: number;
+  maxCacheSize?: number | undefined;
   /**
    * The number of suppression periods 'Suppression Period' of inactivity before a cache entry is considered idle. Leave at default unless you understand the implications of changing.
    */
-  cacheIdleTimeoutPeriods: number;
+  cacheIdleTimeoutPeriods?: number | undefined;
   /**
    * Check cache for idle sessions every N events when cache size is > 'Maximum Cache Size'. Leave at default unless you understand the implications of changing.
    */
-  numEventsIdleTimeoutTrigger: number;
+  numEventsIdleTimeoutTrigger?: number | undefined;
 };
 
 /** @internal */
@@ -45,12 +45,12 @@ export const FunctionConfSchemaSuppress$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   keyExpr: z.string().optional(),
-  allow: z.number().default(1),
-  suppressPeriodSec: z.number().default(30),
-  dropEventsMode: z.boolean().default(true),
-  maxCacheSize: z.number().default(50000),
-  cacheIdleTimeoutPeriods: z.number().default(2),
-  numEventsIdleTimeoutTrigger: z.number().default(10000),
+  allow: z.number().optional(),
+  suppressPeriodSec: z.number().optional(),
+  dropEventsMode: z.boolean().optional(),
+  maxCacheSize: z.number().optional(),
+  cacheIdleTimeoutPeriods: z.number().optional(),
+  numEventsIdleTimeoutTrigger: z.number().optional(),
 });
 
 export function functionConfSchemaSuppressFromJSON(

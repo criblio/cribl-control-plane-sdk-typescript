@@ -7,6 +7,7 @@ import { PipelineConf } from "cribl-control-plane/models";
 
 let value: PipelineConf = {
   asyncFuncTimeout: 543977,
+  output: "<value>",
   description: "draft however spew speedily fly marten total spellcheck",
   streamtags: [
     "<value 1>",
@@ -15,7 +16,7 @@ let value: PipelineConf = {
   ],
   functions: [
     {
-      filter: "true",
+      filter: "<value>",
       id: "send",
       description:
         "sundae mythology incidentally huzzah over anenst whenever mechanic what",
@@ -23,14 +24,14 @@ let value: PipelineConf = {
       final: false,
       conf: {
         url: "https://worthy-sauerkraut.info/",
-        group: "default",
-        workspace: "main",
+        group: "<value>",
+        workspace: "<value>",
         sendUrlTemplate: "<value>",
         searchId: "<id>",
-        tee: "false",
-        flushMs: 1000,
+        tee: "<value>",
+        flushMs: 987.72,
         suppressPreviews: true,
-        mode: "sender",
+        mode: "metrics",
       },
       groupId: "<id>",
     },
@@ -39,7 +40,7 @@ let value: PipelineConf = {
     "key": {
       name: "<value>",
       description:
-        "ack regularly uh-huh naturally kettledrum before frenetically beard inasmuch quickly",
+        "march meanwhile potentially although trouser wearily furthermore weary whereas",
       disabled: true,
     },
   },

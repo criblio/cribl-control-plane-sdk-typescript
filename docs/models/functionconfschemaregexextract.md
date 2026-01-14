@@ -12,7 +12,10 @@ let value: FunctionConfSchemaRegexExtract = {
       regex: "<value>",
     },
   ],
+  source: "<value>",
+  iterations: 7819.08,
   fieldNameExpression: "<value>",
+  overwrite: false,
 };
 ```
 

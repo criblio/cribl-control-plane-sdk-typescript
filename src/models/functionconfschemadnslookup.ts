@@ -169,13 +169,13 @@ export const DnsLookupField$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   inFieldName: z.string().optional(),
-  resourceRecordType: ResourceRecordType$inboundSchema.default("A"),
+  resourceRecordType: ResourceRecordType$inboundSchema.optional(),
   outFieldName: z.string().optional(),
 });
 /** @internal */
 export type DnsLookupField$Outbound = {
   inFieldName?: string | undefined;
-  resourceRecordType: string;
+  resourceRecordType?: string | undefined;
   outFieldName?: string | undefined;
 };
 
@@ -186,7 +186,7 @@ export const DnsLookupField$outboundSchema: z.ZodType<
   DnsLookupField
 > = z.object({
   inFieldName: z.string().optional(),
-  resourceRecordType: ResourceRecordType$outboundSchema.default("A"),
+  resourceRecordType: ResourceRecordType$outboundSchema.optional(),
   outFieldName: z.string().optional(),
 });
 
@@ -269,24 +269,24 @@ export const FunctionConfSchemaDnsLookup$inboundSchema: z.ZodType<
   reverseLookupFields: z.array(z.lazy(() => ReverseLookupField$inboundSchema))
     .optional(),
   dnsServers: z.array(z.string()).optional(),
-  cacheTTL: z.number().default(30),
-  maxCacheSize: z.number().default(5000),
-  useResolvConf: z.boolean().default(false),
-  lookupFallback: z.boolean().default(false),
+  cacheTTL: z.number().optional(),
+  maxCacheSize: z.number().optional(),
+  useResolvConf: z.boolean().optional(),
+  lookupFallback: z.boolean().optional(),
   domainOverrides: z.array(z.string()).optional(),
-  lookupFailLogLevel: LogLevelForFailedLookups$inboundSchema.default("error"),
+  lookupFailLogLevel: LogLevelForFailedLookups$inboundSchema.optional(),
 }).catchall(z.any());
 /** @internal */
 export type FunctionConfSchemaDnsLookup$Outbound = {
   dnsLookupFields?: Array<DnsLookupField$Outbound> | undefined;
   reverseLookupFields?: Array<ReverseLookupField$Outbound> | undefined;
   dnsServers?: Array<string> | undefined;
-  cacheTTL: number;
-  maxCacheSize: number;
-  useResolvConf: boolean;
-  lookupFallback: boolean;
+  cacheTTL?: number | undefined;
+  maxCacheSize?: number | undefined;
+  useResolvConf?: boolean | undefined;
+  lookupFallback?: boolean | undefined;
   domainOverrides?: Array<string> | undefined;
-  lookupFailLogLevel: string;
+  lookupFailLogLevel?: string | undefined;
   [additionalProperties: string]: unknown;
 };
 
@@ -301,12 +301,12 @@ export const FunctionConfSchemaDnsLookup$outboundSchema: z.ZodType<
   reverseLookupFields: z.array(z.lazy(() => ReverseLookupField$outboundSchema))
     .optional(),
   dnsServers: z.array(z.string()).optional(),
-  cacheTTL: z.number().default(30),
-  maxCacheSize: z.number().default(5000),
-  useResolvConf: z.boolean().default(false),
-  lookupFallback: z.boolean().default(false),
+  cacheTTL: z.number().optional(),
+  maxCacheSize: z.number().optional(),
+  useResolvConf: z.boolean().optional(),
+  lookupFallback: z.boolean().optional(),
   domainOverrides: z.array(z.string()).optional(),
-  lookupFailLogLevel: LogLevelForFailedLookups$outboundSchema.default("error"),
+  lookupFailLogLevel: LogLevelForFailedLookups$outboundSchema.optional(),
 }).catchall(z.any());
 
 export function functionConfSchemaDnsLookupToJSON(

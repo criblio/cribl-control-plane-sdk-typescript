@@ -5,7 +5,13 @@
 ```typescript
 import { FunctionConfSchemaDynamicSampling } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaDynamicSampling = {};
+let value: FunctionConfSchemaDynamicSampling = {
+  mode: "sqrt",
+  keyExpr: "<value>",
+  samplePeriod: 8255.68,
+  minEvents: 2456.73,
+  maxSampleRate: 2721.9,
+};
 ```
 
 ## Fields

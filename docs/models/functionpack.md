@@ -27,6 +27,7 @@ let value: FunctionPack = {
     unpackedFields: [
       "<value 1>",
     ],
+    target: "<value>",
   },
 };
 ```

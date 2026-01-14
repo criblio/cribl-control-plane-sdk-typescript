@@ -6,6 +6,7 @@
 import { InputExecSendToRoutesFalseWithConnectionsConstraint } from "cribl-control-plane/models";
 
 let value: InputExecSendToRoutesFalseWithConnectionsConstraint = {
+  sendToRoutes: true,
   connections: [
     {
       pipeline: "<value>",
@@ -14,27 +15,42 @@ let value: InputExecSendToRoutesFalseWithConnectionsConstraint = {
   ],
   id: "<id>",
   type: "exec",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    pqControls: {},
-  },
-  command: "<value>",
-  breakerRulesets: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
+  pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
+    pqControls: {},
+  },
+  command: "<value>",
+  retries: 1781.05,
+  scheduleType: "interval",
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  staleChannelFlushMs: 4301.33,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "corny department knuckle whoever testing urgently",
+  description:
+    "hutch pro frightfully ah afterwards fooey chubby reprove questionable",
+  interval: 6011.3,
+  cronSchedule: "<value>",
 };
 ```
 
@@ -42,7 +58,7 @@ let value: InputExecSendToRoutesFalseWithConnectionsConstraint = {
 
 | Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
 | `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
 | `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
 | `type`                                                                                                                                                                                                                                       | [models.InputExecSendToRoutesFalseWithConnectionsConstraintType](../models/inputexecsendtoroutesfalsewithconnectionsconstrainttype.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

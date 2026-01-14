@@ -6,12 +6,15 @@
 import { PipelineFunctionGeoip } from "cribl-control-plane/models";
 
 let value: PipelineFunctionGeoip = {
+  filter: "<value>",
   id: "geoip",
   description: "rim via potentially wordy below freckle officially",
   disabled: true,
   final: false,
   conf: {
     file: "<value>",
+    inField: "<value>",
+    outField: "<value>",
     additionalFields: [
       {
         extraInField: "<value>",

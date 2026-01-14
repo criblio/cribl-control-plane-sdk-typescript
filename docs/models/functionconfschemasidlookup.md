@@ -10,6 +10,7 @@ let value: FunctionConfSchemaSidlookup = {
     {
       name: "<value>",
       expr: "<value>",
+      disabled: false,
     },
   ],
 };

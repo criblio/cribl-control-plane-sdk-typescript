@@ -6,21 +6,29 @@
 import { KafkaSchemaRegistryAuthenticationType1 } from "cribl-control-plane/models";
 
 let value: KafkaSchemaRegistryAuthenticationType1 = {
+  disabled: true,
+  schemaRegistryURL: "https://peaceful-morbidity.name/",
+  connectionTimeout: 2484.88,
+  requestTimeout: 6606.5,
+  maxRetries: 9758.84,
   auth: {
+    disabled: false,
     credentialsSecret: "<value>",
   },
   tls: {
+    disabled: true,
+    rejectUnauthorized: true,
     servername: "<value>",
     certificateName: "<value>",
     caPath: "<value>",
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1.3",
   },
-  defaultKeySchemaId: 2475.18,
-  defaultValueSchemaId: 582.68,
+  defaultKeySchemaId: 9258.1,
+  defaultValueSchemaId: 8804.5,
 };
 ```
 
@@ -28,7 +36,7 @@ let value: KafkaSchemaRegistryAuthenticationType1 = {
 
 | Field                                                                                                                             | Type                                                                                                                              | Required                                                                                                                          | Description                                                                                                                       |
 | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled`                                                                                                                        | *boolean*                                                                                                                         | :heavy_minus_sign:                                                                                                                | N/A                                                                                                                               |
+| `disabled`                                                                                                                        | *boolean*                                                                                                                         | :heavy_check_mark:                                                                                                                | N/A                                                                                                                               |
 | `schemaRegistryURL`                                                                                                               | *string*                                                                                                                          | :heavy_minus_sign:                                                                                                                | URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.  |
 | `connectionTimeout`                                                                                                               | *number*                                                                                                                          | :heavy_minus_sign:                                                                                                                | Maximum time to wait for a Schema Registry connection to complete successfully                                                    |
 | `requestTimeout`                                                                                                                  | *number*                                                                                                                          | :heavy_minus_sign:                                                                                                                | Maximum time to wait for the Schema Registry to respond to a request                                                              |

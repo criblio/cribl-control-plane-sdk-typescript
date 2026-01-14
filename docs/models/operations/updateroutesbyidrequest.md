@@ -14,17 +14,20 @@ let value: UpdateRoutesByIdRequest = {
         id: "<id>",
         name: "<value>",
         disabled: false,
+        filter: "<value>",
         pipeline: "<value>",
+        enableOutputExpression: false,
         output: "<value>",
         outputExpression: "<value>",
-        description: "symbolise ack brr babyish congregate save supposing",
+        description: "how stay quickly perfectly lest self-assured gosh",
+        final: false,
       },
     ],
     groups: {
       "key": {
         name: "<value>",
         description:
-          "ack regularly uh-huh naturally kettledrum before frenetically beard inasmuch quickly",
+          "march meanwhile potentially although trouser wearily furthermore weary whereas",
         disabled: true,
       },
     },

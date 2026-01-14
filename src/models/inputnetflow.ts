@@ -35,7 +35,7 @@ export type InputNetflowPqEnabledTrueWithPqConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   pq?: PqType | undefined;
   /**
    * Unique ID for this input
@@ -66,11 +66,11 @@ export type InputNetflowPqEnabledTrueWithPqConstraint = {
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
-  port?: number | undefined;
+  port: number;
   /**
    * Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.
    */
@@ -114,7 +114,7 @@ export type InputNetflowPqEnabledFalseConstraint = {
   /**
    * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  pqEnabled?: boolean | undefined;
+  pqEnabled: boolean;
   /**
    * Unique ID for this input
    */
@@ -145,11 +145,11 @@ export type InputNetflowPqEnabledFalseConstraint = {
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
-  port?: number | undefined;
+  port: number;
   /**
    * Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.
    */
@@ -193,7 +193,7 @@ export type InputNetflowSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -224,11 +224,11 @@ export type InputNetflowSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
-  port?: number | undefined;
+  port: number;
   /**
    * Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.
    */
@@ -272,7 +272,7 @@ export type InputNetflowSendToRoutesTrueConstraint = {
   /**
    * Select whether to send data to Routes, or directly to Destinations.
    */
-  sendToRoutes?: boolean | undefined;
+  sendToRoutes: boolean;
   /**
    * Unique ID for this input
    */
@@ -303,11 +303,11 @@ export type InputNetflowSendToRoutesTrueConstraint = {
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
-  port?: number | undefined;
+  port: number;
   /**
    * Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.
    */
@@ -368,26 +368,26 @@ export const InputNetflowPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   pq: PqType$inboundSchema.optional(),
   id: z.string().optional(),
   type: InputNetflowType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(2055),
-  enablePassThrough: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
+  host: z.string(),
+  port: z.number(),
+  enablePassThrough: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
   udpSocketRxBufSize: z.number().optional(),
-  templateCacheMinutes: z.number().default(30),
-  v5Enabled: z.boolean().default(true),
-  v9Enabled: z.boolean().default(true),
-  ipfixEnabled: z.boolean().default(false),
+  templateCacheMinutes: z.number().optional(),
+  v5Enabled: z.boolean().optional(),
+  v9Enabled: z.boolean().optional(),
+  ipfixEnabled: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
 });
@@ -397,22 +397,22 @@ export type InputNetflowPqEnabledTrueWithPqConstraint$Outbound = {
   pq?: PqType$Outbound | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   host: string;
   port: number;
-  enablePassThrough: boolean;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
+  enablePassThrough?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
   udpSocketRxBufSize?: number | undefined;
-  templateCacheMinutes: number;
-  v5Enabled: boolean;
-  v9Enabled: boolean;
-  ipfixEnabled: boolean;
+  templateCacheMinutes?: number | undefined;
+  v5Enabled?: boolean | undefined;
+  v9Enabled?: boolean | undefined;
+  ipfixEnabled?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
@@ -424,27 +424,27 @@ export const InputNetflowPqEnabledTrueWithPqConstraint$outboundSchema:
     z.ZodTypeDef,
     InputNetflowPqEnabledTrueWithPqConstraint
   > = z.object({
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean(),
     pq: PqType$outboundSchema.optional(),
     id: z.string().optional(),
     type: InputNetflowType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean().optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number().default(2055),
-    enablePassThrough: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
+    host: z.string(),
+    port: z.number(),
+    enablePassThrough: z.boolean().optional(),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
     udpSocketRxBufSize: z.number().optional(),
-    templateCacheMinutes: z.number().default(30),
-    v5Enabled: z.boolean().default(true),
-    v9Enabled: z.boolean().default(true),
-    ipfixEnabled: z.boolean().default(false),
+    templateCacheMinutes: z.number().optional(),
+    v5Enabled: z.boolean().optional(),
+    v9Enabled: z.boolean().optional(),
+    ipfixEnabled: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     description: z.string().optional(),
   });
@@ -481,26 +481,26 @@ export const InputNetflowPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputNetflowType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(2055),
-  enablePassThrough: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
+  host: z.string(),
+  port: z.number(),
+  enablePassThrough: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
   udpSocketRxBufSize: z.number().optional(),
-  templateCacheMinutes: z.number().default(30),
-  v5Enabled: z.boolean().default(true),
-  v9Enabled: z.boolean().default(true),
-  ipfixEnabled: z.boolean().default(false),
+  templateCacheMinutes: z.number().optional(),
+  v5Enabled: z.boolean().optional(),
+  v9Enabled: z.boolean().optional(),
+  ipfixEnabled: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
 });
@@ -509,23 +509,23 @@ export type InputNetflowPqEnabledFalseConstraint$Outbound = {
   pqEnabled: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
-  enablePassThrough: boolean;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
+  enablePassThrough?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
   udpSocketRxBufSize?: number | undefined;
-  templateCacheMinutes: number;
-  v5Enabled: boolean;
-  v9Enabled: boolean;
-  ipfixEnabled: boolean;
+  templateCacheMinutes?: number | undefined;
+  v5Enabled?: boolean | undefined;
+  v9Enabled?: boolean | undefined;
+  ipfixEnabled?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
@@ -536,26 +536,26 @@ export const InputNetflowPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputNetflowPqEnabledFalseConstraint
 > = z.object({
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean(),
   id: z.string().optional(),
   type: InputNetflowType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(2055),
-  enablePassThrough: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
+  host: z.string(),
+  port: z.number(),
+  enablePassThrough: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
   udpSocketRxBufSize: z.number().optional(),
-  templateCacheMinutes: z.number().default(30),
-  v5Enabled: z.boolean().default(true),
-  v9Enabled: z.boolean().default(true),
-  ipfixEnabled: z.boolean().default(false),
+  templateCacheMinutes: z.number().optional(),
+  v5Enabled: z.boolean().optional(),
+  v9Enabled: z.boolean().optional(),
+  ipfixEnabled: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
@@ -587,26 +587,26 @@ export const InputNetflowSendToRoutesFalseWithConnectionsConstraint$inboundSchem
     z.ZodTypeDef,
     unknown
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
     id: z.string().optional(),
     type: InputNetflowType$inboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$inboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number().default(2055),
-    enablePassThrough: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
+    host: z.string(),
+    port: z.number(),
+    enablePassThrough: z.boolean().optional(),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
     udpSocketRxBufSize: z.number().optional(),
-    templateCacheMinutes: z.number().default(30),
-    v5Enabled: z.boolean().default(true),
-    v9Enabled: z.boolean().default(true),
-    ipfixEnabled: z.boolean().default(false),
+    templateCacheMinutes: z.number().optional(),
+    v5Enabled: z.boolean().optional(),
+    v9Enabled: z.boolean().optional(),
+    ipfixEnabled: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
     description: z.string().optional(),
   });
@@ -616,22 +616,22 @@ export type InputNetflowSendToRoutesFalseWithConnectionsConstraint$Outbound = {
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
-  enablePassThrough: boolean;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
+  enablePassThrough?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
   udpSocketRxBufSize?: number | undefined;
-  templateCacheMinutes: number;
-  v5Enabled: boolean;
-  v9Enabled: boolean;
-  ipfixEnabled: boolean;
+  templateCacheMinutes?: number | undefined;
+  v5Enabled?: boolean | undefined;
+  v9Enabled?: boolean | undefined;
+  ipfixEnabled?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
@@ -643,27 +643,27 @@ export const InputNetflowSendToRoutesFalseWithConnectionsConstraint$outboundSche
     z.ZodTypeDef,
     InputNetflowSendToRoutesFalseWithConnectionsConstraint
   > = z.object({
-    sendToRoutes: z.boolean().default(true),
+    sendToRoutes: z.boolean(),
     connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     id: z.string().optional(),
     type: InputNetflowType$outboundSchema,
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     pipeline: z.string().optional(),
     environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
+    pqEnabled: z.boolean().optional(),
     streamtags: z.array(z.string()).optional(),
     pq: PqType$outboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number().default(2055),
-    enablePassThrough: z.boolean().default(false),
-    ipAllowlistRegex: z.string().default("/.*/"),
-    ipDenylistRegex: z.string().default("/^$/"),
+    host: z.string(),
+    port: z.number(),
+    enablePassThrough: z.boolean().optional(),
+    ipAllowlistRegex: z.string().optional(),
+    ipDenylistRegex: z.string().optional(),
     udpSocketRxBufSize: z.number().optional(),
-    templateCacheMinutes: z.number().default(30),
-    v5Enabled: z.boolean().default(true),
-    v9Enabled: z.boolean().default(true),
-    ipfixEnabled: z.boolean().default(false),
+    templateCacheMinutes: z.number().optional(),
+    v5Enabled: z.boolean().optional(),
+    v9Enabled: z.boolean().optional(),
+    ipfixEnabled: z.boolean().optional(),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     description: z.string().optional(),
   });
@@ -699,26 +699,26 @@ export const InputNetflowSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputNetflowType$inboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(2055),
-  enablePassThrough: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
+  host: z.string(),
+  port: z.number(),
+  enablePassThrough: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
   udpSocketRxBufSize: z.number().optional(),
-  templateCacheMinutes: z.number().default(30),
-  v5Enabled: z.boolean().default(true),
-  v9Enabled: z.boolean().default(true),
-  ipfixEnabled: z.boolean().default(false),
+  templateCacheMinutes: z.number().optional(),
+  v5Enabled: z.boolean().optional(),
+  v9Enabled: z.boolean().optional(),
+  ipfixEnabled: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
 });
@@ -727,23 +727,23 @@ export type InputNetflowSendToRoutesTrueConstraint$Outbound = {
   sendToRoutes: boolean;
   id?: string | undefined;
   type: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
-  enablePassThrough: boolean;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
+  enablePassThrough?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
   udpSocketRxBufSize?: number | undefined;
-  templateCacheMinutes: number;
-  v5Enabled: boolean;
-  v9Enabled: boolean;
-  ipfixEnabled: boolean;
+  templateCacheMinutes?: number | undefined;
+  v5Enabled?: boolean | undefined;
+  v9Enabled?: boolean | undefined;
+  ipfixEnabled?: boolean | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
@@ -754,26 +754,26 @@ export const InputNetflowSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputNetflowSendToRoutesTrueConstraint
 > = z.object({
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean(),
   id: z.string().optional(),
   type: InputNetflowType$outboundSchema,
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(2055),
-  enablePassThrough: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
+  host: z.string(),
+  port: z.number(),
+  enablePassThrough: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
   udpSocketRxBufSize: z.number().optional(),
-  templateCacheMinutes: z.number().default(30),
-  v5Enabled: z.boolean().default(true),
-  v9Enabled: z.boolean().default(true),
-  ipfixEnabled: z.boolean().default(false),
+  templateCacheMinutes: z.number().optional(),
+  v5Enabled: z.boolean().optional(),
+  v9Enabled: z.boolean().optional(),
+  ipfixEnabled: z.boolean().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });

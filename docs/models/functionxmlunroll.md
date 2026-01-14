@@ -26,6 +26,8 @@ let value: FunctionXmlUnroll = {
   schema: {
     unroll: "<value>",
     inherit: "<value>",
+    unrollIdxField: "<value>",
+    pretty: false,
   },
 };
 ```

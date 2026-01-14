@@ -19,45 +19,89 @@ let value: OutputWebhook = {
     "<value 2>",
     "<value 3>",
   ],
+  method: "POST",
+  format: "custom",
+  keepAlive: false,
+  concurrency: 6164.91,
+  maxPayloadSizeKB: 470.04,
+  maxPayloadEvents: 9264.29,
+  compress: false,
+  rejectUnauthorized: true,
+  timeoutSec: 8456.6,
+  flushPeriodSec: 6813.02,
   extraHttpHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  useRoundRobinDns: true,
+  failedRequestLoggingMode: "payload",
   safeHeaders: [
     "<value 1>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 2591.04,
+      initialBackoff: 4815.7,
+      backoffRate: 5576.87,
+      maxBackoff: 1844.93,
     },
   ],
-  timeoutRetrySettings: {},
+  timeoutRetrySettings: {
+    timeoutRetry: false,
+    initialBackoff: 4289.71,
+    backoffRate: 7830.71,
+    maxBackoff: 6330,
+  },
+  responseHonorRetryAfterHeader: false,
+  onBackpressure: "drop",
+  authType: "token",
   tls: {
+    disabled: false,
     servername: "<value>",
     certificateName: "<value>",
     caPath: "<value>",
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.1",
   },
-  totalMemoryLimitKB: 6164.91,
-  description: "desk flint ew",
+  totalMemoryLimitKB: 909.02,
+  loadBalanced: false,
+  description:
+    "ah loyalty kiddingly notwithstanding within transparency concerned whose oxidize blaspheme",
+  customSourceExpression: "<value>",
+  customDropWhenNull: true,
+  customEventDelimiter: "<value>",
+  customContentType: "<value>",
+  customPayloadExpression: "<value>",
+  advancedContentType: "<value>",
   formatEventCode: "<value>",
   formatPayloadCode: "<value>",
+  pqStrictOrdering: false,
+  pqRatePerSec: 9791.64,
+  pqMode: "always",
+  pqMaxBufferSize: 2286.7,
+  pqMaxBackpressureSec: 7516.23,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "none",
+  pqOnBackpressure: "drop",
   pqControls: {},
-  username: "Ena.Gusikowski",
-  password: "jSPwz2GSP4NZBJL",
+  username: "Gunnar_Dibbert15",
+  password: "9qZ2hW0Gv6Mk06S",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://unusual-wedding.com/",
+  loginUrl: "https://irresponsible-help.org",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
+  authHeaderExpr: "<value>",
+  tokenTimeoutSecs: 1443.37,
   oauthParams: [
     {
       name: "<value>",
@@ -70,12 +114,16 @@ let value: OutputWebhook = {
       value: "<value>",
     },
   ],
-  url: "https://enlightened-marimba.biz",
+  url: "https://white-meadow.net/",
+  excludeSelf: false,
   urls: [
     {
-      url: "https://vast-sideboard.name/",
+      url: "https://hefty-curl.org",
+      weight: 3258.88,
     },
   ],
+  dnsResolvePeriodSec: 9591.75,
+  loadBalanceStatsPeriodSec: 9020.67,
 };
 ```
 
@@ -108,7 +156,7 @@ let value: OutputWebhook = {
 | `responseHonorRetryAfterHeader`                                                                                                                                                                                                                                                                                                                                           | *boolean*                                                                                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.                          |
 | `onBackpressure`                                                                                                                                                                                                                                                                                                                                                          | [models.BackpressureBehaviorOptions](../models/backpressurebehavioroptions.md)                                                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                                                                                                                                         |
 | `authType`                                                                                                                                                                                                                                                                                                                                                                | [models.OutputWebhookAuthenticationType](../models/outputwebhookauthenticationtype.md)                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Authentication method to use for the HTTP request                                                                                                                                                                                                                                                                                                                         |
-| `tls`                                                                                                                                                                                                                                                                                                                                                                     | [models.TlsSettingsClientSideType2](../models/tlssettingsclientsidetype2.md)                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                                                                                                                       |
+| `tls`                                                                                                                                                                                                                                                                                                                                                                     | [models.TlsSettingsClientSideType1](../models/tlssettingsclientsidetype1.md)                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                                                                                                                       |
 | `totalMemoryLimitKB`                                                                                                                                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.                                                                                                                                                                                                                          |
 | `loadBalanced`                                                                                                                                                                                                                                                                                                                                                            | *boolean*                                                                                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.                                                                                                                                                                                                                             |
 | `description`                                                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                                                                                                                       |

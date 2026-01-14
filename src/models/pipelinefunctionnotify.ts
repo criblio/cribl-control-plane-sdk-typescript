@@ -69,11 +69,11 @@ export type NotifyConfiguration = {
   /**
    * Group the notification belongs to
    */
-  group?: string | undefined;
+  group: string;
   /**
    * Workspace within the deployment to send the search results to.
    */
-  notificationId?: string | undefined;
+  notificationId: string;
   /**
    * Id of the search this function is running on.
    */
@@ -184,16 +184,16 @@ export const NotifyConfiguration$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  group: z.string().default("default"),
-  notificationId: z.string().default("main"),
+  group: z.string(),
+  notificationId: z.string(),
   searchId: z.string(),
   savedQueryId: z.string(),
   trigger: z.string().optional(),
   triggerType: PipelineFunctionNotifyTriggerType$inboundSchema.optional(),
   triggerComparator: PipelineFunctionNotifyCountComparator$inboundSchema
     .optional(),
-  triggerCount: z.number().default(0),
-  resultsLimit: z.number().default(50),
+  triggerCount: z.number().optional(),
+  resultsLimit: z.number().optional(),
   searchUrl: z.string(),
   message: z.string().optional(),
   authToken: z.string(),
@@ -209,8 +209,8 @@ export type NotifyConfiguration$Outbound = {
   trigger?: string | undefined;
   triggerType?: string | undefined;
   triggerComparator?: string | undefined;
-  triggerCount: number;
-  resultsLimit: number;
+  triggerCount?: number | undefined;
+  resultsLimit?: number | undefined;
   searchUrl: string;
   message?: string | undefined;
   authToken: string;
@@ -224,16 +224,16 @@ export const NotifyConfiguration$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NotifyConfiguration
 > = z.object({
-  group: z.string().default("default"),
-  notificationId: z.string().default("main"),
+  group: z.string(),
+  notificationId: z.string(),
   searchId: z.string(),
   savedQueryId: z.string(),
   trigger: z.string().optional(),
   triggerType: PipelineFunctionNotifyTriggerType$outboundSchema.optional(),
   triggerComparator: PipelineFunctionNotifyCountComparator$outboundSchema
     .optional(),
-  triggerCount: z.number().default(0),
-  resultsLimit: z.number().default(50),
+  triggerCount: z.number().optional(),
+  resultsLimit: z.number().optional(),
   searchUrl: z.string(),
   message: z.string().optional(),
   authToken: z.string(),
@@ -264,7 +264,7 @@ export const PipelineFunctionNotify$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("notify"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -274,7 +274,7 @@ export const PipelineFunctionNotify$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionNotify$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "notify";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -289,7 +289,7 @@ export const PipelineFunctionNotify$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionNotify
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("notify"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

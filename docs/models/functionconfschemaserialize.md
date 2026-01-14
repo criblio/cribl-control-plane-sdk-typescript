@@ -6,16 +6,16 @@
 import { FunctionConfSchemaSerialize } from "cribl-control-plane/models";
 
 let value: FunctionConfSchemaSerialize = {
+  type: "delim",
   delimChar: "<value>",
   quoteChar: "<value>",
   escapeChar: "<value>",
   nullValue: "<value>",
   fields: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   srcField: "<value>",
+  dstField: "<value>",
 };
 ```
 

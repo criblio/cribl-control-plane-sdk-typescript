@@ -24,7 +24,16 @@ let value: FunctionAutoTimestamp = {
   },
   version: "<value>",
   schema: {
+    srcField: "<value>",
+    dstField: "<value>",
+    defaultTimezone: "<value>",
+    timeExpression: "<value>",
+    offset: 7126.84,
+    maxLen: 5237.57,
+    defaultTime: "none",
+    latestDateAllowed: "<value>",
     spacer: "<value>",
+    earliestDateAllowed: "<value>",
     timestamps: [
       {
         regex: "<value>",

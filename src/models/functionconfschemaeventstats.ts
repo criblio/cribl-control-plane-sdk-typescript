@@ -19,11 +19,11 @@ export type FunctionConfSchemaEventstats = {
   /**
    * Specifies how many events are at max kept in memory to be enriched with aggregations
    */
-  maxEvents: number;
+  maxEvents?: number | undefined;
   /**
    * Determines if aggregations should flush when an input stream is closed. If disabled, time window settings will control flush behavior.
    */
-  flushOnInputClose: boolean;
+  flushOnInputClose?: boolean | undefined;
 };
 
 /** @internal */
@@ -34,8 +34,8 @@ export const FunctionConfSchemaEventstats$inboundSchema: z.ZodType<
 > = z.object({
   aggregations: z.array(z.string()).optional(),
   groupBys: z.array(z.string()).optional(),
-  maxEvents: z.number().default(50000),
-  flushOnInputClose: z.boolean().default(false),
+  maxEvents: z.number().optional(),
+  flushOnInputClose: z.boolean().optional(),
 });
 
 export function functionConfSchemaEventstatsFromJSON(

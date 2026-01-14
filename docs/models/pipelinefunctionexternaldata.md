@@ -6,6 +6,7 @@
 import { PipelineFunctionExternaldata } from "cribl-control-plane/models";
 
 let value: PipelineFunctionExternaldata = {
+  filter: "<value>",
   id: "externaldata",
   description: "oh train cannon",
   disabled: true,

@@ -6,9 +6,11 @@
 import { PreprocessTypeSavedJobCollectionInput } from "cribl-control-plane/models";
 
 let value: PreprocessTypeSavedJobCollectionInput = {
+  disabled: true,
   command: "<value>",
   args: [
     "<value 1>",
+    "<value 2>",
   ],
 };
 ```
@@ -17,6 +19,6 @@ let value: PreprocessTypeSavedJobCollectionInput = {
 
 | Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
 | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `disabled`                                                                   | *boolean*                                                                    | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `disabled`                                                                   | *boolean*                                                                    | :heavy_check_mark:                                                           | N/A                                                                          |
 | `command`                                                                    | *string*                                                                     | :heavy_minus_sign:                                                           | Command to feed the data through (via stdin) and process its output (stdout) |
 | `args`                                                                       | *string*[]                                                                   | :heavy_minus_sign:                                                           | Arguments to be added to the custom command                                  |

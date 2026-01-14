@@ -12,6 +12,7 @@ let value: AzureBlobAuthTypeClientSecret = {
   clientId: "<id>",
   clientTextSecret: "<value>",
   endpointSuffix: "<value>",
+  azureCloud: "<value>",
   outputName: "<value>",
   containerName: "<value>",
   path: "/private",
@@ -21,6 +22,12 @@ let value: AzureBlobAuthTypeClientSecret = {
       expression: "<value>",
     },
   ],
+  recurse: true,
+  includeMetadata: false,
+  includeTags: true,
+  maxBatchSize: 7129.12,
+  parquetChunkSizeMB: 924.83,
+  parquetChunkDownloadTimeout: 3879.64,
 };
 ```
 

@@ -6,19 +6,36 @@
 import { InputWindowsMetricsCustom } from "cribl-control-plane/models/operations";
 
 let value: InputWindowsMetricsCustom = {
-  system: {},
-  cpu: {},
-  memory: {},
+  system: {
+    mode: "disabled",
+    detail: false,
+  },
+  cpu: {
+    mode: "disabled",
+    perCpu: false,
+    detail: false,
+    time: false,
+  },
+  memory: {
+    mode: "disabled",
+    detail: false,
+  },
   network: {
+    mode: "disabled",
+    detail: true,
+    protocols: true,
     devices: [
       "<value 1>",
       "<value 2>",
     ],
+    perInterface: true,
   },
   disk: {
+    mode: "disabled",
+    perVolume: false,
+    detail: false,
     volumes: [
       "<value 1>",
-      "<value 2>",
     ],
   },
 };

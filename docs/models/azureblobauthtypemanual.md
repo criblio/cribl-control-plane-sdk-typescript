@@ -17,6 +17,12 @@ let value: AzureBlobAuthTypeManual = {
       expression: "<value>",
     },
   ],
+  recurse: false,
+  includeMetadata: true,
+  includeTags: false,
+  maxBatchSize: 5816.74,
+  parquetChunkSizeMB: 5632.14,
+  parquetChunkDownloadTimeout: 6143.11,
 };
 ```
 

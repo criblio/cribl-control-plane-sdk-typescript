@@ -6,10 +6,13 @@
 import { FunctionConfSchemaSerde } from "cribl-control-plane/models";
 
 let value: FunctionConfSchemaSerde = {
+  mode: "reserialize",
+  type: "regex",
   delimChar: "<value>",
   quoteChar: "<value>",
   escapeChar: "<value>",
   nullValue: "<value>",
+  srcField: "<value>",
   dstField: "<value>",
   cleanFields: "<value>",
 };

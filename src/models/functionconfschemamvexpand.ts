@@ -41,7 +41,7 @@ export type FunctionConfSchemaMvExpand = {
   /**
    * max. number of rows generated out of every source events
    */
-  rowLimit: number;
+  rowLimit?: number | undefined;
   /**
    * name of an optional index property generated into the output
    */
@@ -49,7 +49,7 @@ export type FunctionConfSchemaMvExpand = {
   /**
    * decides if bag-values are expanded to bags or arrays
    */
-  bagExpansionMode: FunctionConfSchemaMvExpandBagExpansionMode;
+  bagExpansionMode?: FunctionConfSchemaMvExpandBagExpansionMode | undefined;
 };
 
 /** @internal */
@@ -65,10 +65,10 @@ export const FunctionConfSchemaMvExpand$inboundSchema: z.ZodType<
 > = z.object({
   sourceFields: z.array(z.string()).optional(),
   targetNames: z.array(z.string()).optional(),
-  rowLimit: z.number().default(9007199254740991),
+  rowLimit: z.number().optional(),
   itemIndexName: z.string().optional(),
   bagExpansionMode: FunctionConfSchemaMvExpandBagExpansionMode$inboundSchema
-    .default("bag"),
+    .optional(),
 });
 
 export function functionConfSchemaMvExpandFromJSON(

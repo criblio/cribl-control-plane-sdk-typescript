@@ -19,24 +19,55 @@ let value: OutputCrowdstrikeNextGenSiem = {
     "<value 2>",
   ],
   url: "https://whispered-smog.biz",
+  concurrency: 1900.65,
+  maxPayloadSizeKB: 2049.86,
+  maxPayloadEvents: 1066.26,
+  compress: false,
+  rejectUnauthorized: true,
+  timeoutSec: 4822.14,
+  flushPeriodSec: 7154.99,
   extraHttpHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  useRoundRobinDns: true,
+  failedRequestLoggingMode: "none",
   safeHeaders: [
     "<value 1>",
   ],
+  format: "raw",
+  authType: "secret",
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 2591.04,
+      initialBackoff: 4815.7,
+      backoffRate: 5576.87,
+      maxBackoff: 1844.93,
     },
   ],
-  timeoutRetrySettings: {},
-  description: "um mortally claw festival",
+  timeoutRetrySettings: {
+    timeoutRetry: false,
+    initialBackoff: 4289.71,
+    backoffRate: 7830.71,
+    maxBackoff: 6330,
+  },
+  responseHonorRetryAfterHeader: false,
+  onBackpressure: "queue",
+  description: "likable toward pfft",
   token: "<value>",
   textSecret: "<value>",
+  pqStrictOrdering: true,
+  pqRatePerSec: 7319.46,
+  pqMode: "always",
+  pqMaxBufferSize: 7809.39,
+  pqMaxBackpressureSec: 4465.69,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "gzip",
+  pqOnBackpressure: "drop",
   pqControls: {},
 };
 ```
@@ -63,7 +94,7 @@ let value: OutputCrowdstrikeNextGenSiem = {
 | `useRoundRobinDns`                                                                                                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.                                                                                                               |
 | `failedRequestLoggingMode`                                                                                                                                                                                                                                                                                                                       | [models.FailedRequestLoggingModeOptions](../../models/failedrequestloggingmodeoptions.md)                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.                                                                                                                                                                                                                                      |
 | `safeHeaders`                                                                                                                                                                                                                                                                                                                                    | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | List of headers that are safe to log in plain text                                                                                                                                                                                                                                                                                               |
-| `format`                                                                                                                                                                                                                                                                                                                                         | [models.RequestFormatOptions](../../models/requestformatoptions.md)                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.                                                                                                                                                                                              |
+| `format`                                                                                                                                                                                                                                                                                                                                         | [models.RequestFormatOptions](../../models/requestformatoptions.md)                                                                                                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                               | When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.                                                                                                                                                                                              |
 | `authType`                                                                                                                                                                                                                                                                                                                                       | [models.AuthenticationMethodOptionsAuthTokensItems](../../models/authenticationmethodoptionsauthtokensitems.md)                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate                                                                                                                                                                                                                                             |
 | `responseRetrySettings`                                                                                                                                                                                                                                                                                                                          | [models.ItemsTypeResponseRetrySettings](../../models/itemstyperesponseretrysettings.md)[]                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)                                                                                                                                                                                                                       |
 | `timeoutRetrySettings`                                                                                                                                                                                                                                                                                                                           | [models.TimeoutRetrySettingsType](../../models/timeoutretrysettingstype.md)                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |

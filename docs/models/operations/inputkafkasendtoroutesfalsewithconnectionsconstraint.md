@@ -6,6 +6,7 @@
 import { InputKafkaSendToRoutesFalseWithConnectionsConstraint } from "cribl-control-plane/models/operations";
 
 let value: InputKafkaSendToRoutesFalseWithConnectionsConstraint = {
+  sendToRoutes: false,
   connections: [
     {
       pipeline: "<value>",
@@ -14,48 +15,77 @@ let value: InputKafkaSendToRoutesFalseWithConnectionsConstraint = {
   ],
   id: "<id>",
   type: "kafka",
+  disabled: true,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   pq: {
+    mode: "smart",
+    maxBufferSize: 1717.96,
+    commitFrequency: 1412.18,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/opt/include",
+    compress: "none",
     pqControls: {},
   },
   brokers: [
     "<value 1>",
-  ],
-  topics: [
-    "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
+  topics: [],
+  groupId: "<id>",
+  fromBeginning: true,
   kafkaSchemaRegistry: {
+    disabled: true,
+    schemaRegistryURL: "https://unfinished-decongestant.org",
+    connectionTimeout: 5018.66,
+    requestTimeout: 4285.6,
+    maxRetries: 9127.09,
     auth: {
+      disabled: false,
       credentialsSecret: "<value>",
     },
     tls: {
+      disabled: true,
+      rejectUnauthorized: true,
       servername: "<value>",
       certificateName: "<value>",
       caPath: "<value>",
       privKeyPath: "<value>",
       certPath: "<value>",
       passphrase: "<value>",
-      minVersion: "TLSv1.2",
+      minVersion: "TLSv1.1",
       maxVersion: "TLSv1.3",
     },
   },
+  connectionTimeout: 577.58,
+  requestTimeout: 9599.14,
+  maxRetries: 6276.66,
+  maxBackOff: 493.56,
+  initialBackoff: 5222.94,
+  backoffRate: 6203.93,
+  authenticationTimeout: 5962.08,
+  reauthenticationThreshold: 4981.45,
   sasl: {
-    username: "Jocelyn_Casper88",
-    password: "PIwQ9BxwvdkIdNi",
+    disabled: false,
+    username: "Lilyan_Kub66",
+    password: "pD36Q7Bu1OSy91K",
+    authType: "manual",
     credentialsSecret: "<value>",
+    mechanism: "kerberos",
     keytabLocation: "<value>",
     principal: "<value>",
     brokerServiceClass: "<value>",
-    tokenUrl: "https://alive-spear.com",
+    oauthEnabled: false,
+    tokenUrl: "https://victorious-tectonics.net",
     clientId: "<id>",
+    oauthSecretType: "<value>",
     clientTextSecret: "<value>",
     oauthParams: [
       {
@@ -71,24 +101,33 @@ let value: InputKafkaSendToRoutesFalseWithConnectionsConstraint = {
     ],
   },
   tls: {
+    disabled: true,
+    rejectUnauthorized: true,
     servername: "<value>",
     certificateName: "<value>",
     caPath: "<value>",
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1.3",
   },
-  autoCommitInterval: 3862.85,
-  autoCommitThreshold: 8371.02,
+  sessionTimeout: 2796.56,
+  rebalanceTimeout: 1964.35,
+  heartbeatInterval: 7556.48,
+  autoCommitInterval: 7207.17,
+  autoCommitThreshold: 7489.37,
+  maxBytesPerPartition: 1073.4,
+  maxBytes: 2571.5,
+  maxSocketErrors: 3476.08,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "gee ouch whoever",
+  description:
+    "however now forenenst lest fleck towards whoa zowie spanish loudly",
 };
 ```
 
@@ -96,7 +135,7 @@ let value: InputKafkaSendToRoutesFalseWithConnectionsConstraint = {
 
 | Field                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Required                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sendToRoutes`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `sendToRoutes`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `connections`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | [models.ItemsTypeConnectionsOptional](../../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `id`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Unique ID for this input                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `type`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | [operations.InputKafkaType](../../models/operations/inputkafkatype.md)                                                                                                                                                                                                                                                                                                                                                                                                                                          | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |

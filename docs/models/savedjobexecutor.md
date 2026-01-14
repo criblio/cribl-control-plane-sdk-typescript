@@ -10,19 +10,35 @@ let value: SavedJobExecutor = {
   description:
     "aw definitive shoddy phooey naturally unselfish plain strange funny",
   type: "executor",
+  ttl: "<value>",
+  ignoreGroupJobsLimit: false,
   removeFields: [
     "<value 1>",
     "<value 2>",
   ],
+  resumeOnBoot: false,
   environment: "<value>",
   schedule: {
     enabled: true,
+    skippable: false,
+    resumeMissed: true,
+    cronSchedule: "<value>",
+    maxConcurrentRuns: 6515.34,
     run: {
       type: "collection",
-      earliest: 475.38,
-      latest: 1125.35,
+      rescheduleDroppedTasks: true,
+      maxTaskReschedule: 981.31,
+      logLevel: "warn",
+      jobTimeout: "<value>",
+      mode: "<value>",
+      timeRangeType: "<value>",
+      earliest: 6541.75,
+      latest: 2881.28,
       timestampTimezone: "<value>",
       timeWarning: {},
+      expression: "<value>",
+      minTaskSize: "<value>",
+      maxTaskSize: "<value>",
     },
   },
   streamtags: [
@@ -31,6 +47,7 @@ let value: SavedJobExecutor = {
   ],
   executor: {
     type: "<value>",
+    storeTaskResults: true,
     conf: {},
   },
 };

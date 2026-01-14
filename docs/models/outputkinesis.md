@@ -17,14 +17,38 @@ let value: OutputKinesis = {
     "<value 1>",
   ],
   streamName: "<value>",
+  awsAuthenticationMethod: "<value>",
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v2",
+  reuseConnections: true,
+  rejectUnauthorized: false,
+  enableAssumeRole: true,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  description: "amidst hm bony",
+  durationSeconds: 7768.59,
+  concurrency: 2339.37,
+  maxRecordSizeKB: 7384.56,
+  flushPeriodSec: 1241.82,
+  compression: "gzip",
+  useListShards: true,
+  asNdjson: true,
+  onBackpressure: "drop",
+  description: "kowtow nearly limp concrete gym memorable soon beyond sturdy",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  maxEventsPerFlush: 7949.28,
+  pqStrictOrdering: true,
+  pqRatePerSec: 3282.97,
+  pqMode: "error",
+  pqMaxBufferSize: 1884.63,
+  pqMaxBackpressureSec: 4247.34,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "none",
+  pqOnBackpressure: "drop",
   pqControls: {},
 };
 ```
@@ -40,7 +64,7 @@ let value: OutputKinesis = {
 | `environment`                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                           |
 | `streamtags`                                                                                                                                                                                                                                                   | *string*[]                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                             | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                  |
 | `streamName`                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                             | Kinesis stream name to send events to.                                                                                                                                                                                                                         |
-| `awsAuthenticationMethod`                                                                                                                                                                                                                                      | [models.AuthenticationMethodOptions](../models/authenticationmethodoptions.md)                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                             | AWS authentication method. Choose Auto to use IAM roles.                                                                                                                                                                                                       |
+| `awsAuthenticationMethod`                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | AWS authentication method. Choose Auto to use IAM roles.                                                                                                                                                                                                       |
 | `awsSecretKey`                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                            |
 | `region`                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                             | Region where the Kinesis stream is located                                                                                                                                                                                                                     |
 | `endpoint`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.                                                                                                       |

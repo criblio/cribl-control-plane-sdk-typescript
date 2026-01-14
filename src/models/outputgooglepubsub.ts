@@ -204,32 +204,30 @@ export const OutputGooglePubsub$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   topicName: z.string(),
-  createTopic: z.boolean().default(false),
-  orderedDelivery: z.boolean().default(false),
+  createTopic: z.boolean().optional(),
+  orderedDelivery: z.boolean().optional(),
   region: z.string().optional(),
-  googleAuthMethod: GoogleAuthenticationMethodOptions$inboundSchema.default(
-    "manual",
-  ),
+  googleAuthMethod: GoogleAuthenticationMethodOptions$inboundSchema.optional(),
   serviceAccountCredentials: z.string().optional(),
   secret: z.string().optional(),
-  batchSize: z.number().default(1000),
-  batchTimeout: z.number().default(100),
-  maxQueueSize: z.number().default(100),
-  maxRecordSizeKB: z.number().default(256),
-  flushPeriod: z.number().default(1),
-  maxInProgress: z.number().default(10),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  batchSize: z.number().optional(),
+  batchTimeout: z.number().optional(),
+  maxQueueSize: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushPeriod: z.number().optional(),
+  maxInProgress: z.number().optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputGooglePubsubPqControls$inboundSchema)
     .optional(),
 });
@@ -242,30 +240,30 @@ export type OutputGooglePubsub$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   topicName: string;
-  createTopic: boolean;
-  orderedDelivery: boolean;
+  createTopic?: boolean | undefined;
+  orderedDelivery?: boolean | undefined;
   region?: string | undefined;
-  googleAuthMethod: string;
+  googleAuthMethod?: string | undefined;
   serviceAccountCredentials?: string | undefined;
   secret?: string | undefined;
-  batchSize: number;
-  batchTimeout: number;
-  maxQueueSize: number;
-  maxRecordSizeKB: number;
-  flushPeriod: number;
-  maxInProgress: number;
-  onBackpressure: string;
+  batchSize?: number | undefined;
+  batchTimeout?: number | undefined;
+  maxQueueSize?: number | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushPeriod?: number | undefined;
+  maxInProgress?: number | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputGooglePubsubPqControls$Outbound | undefined;
 };
 
@@ -282,32 +280,30 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   topicName: z.string(),
-  createTopic: z.boolean().default(false),
-  orderedDelivery: z.boolean().default(false),
+  createTopic: z.boolean().optional(),
+  orderedDelivery: z.boolean().optional(),
   region: z.string().optional(),
-  googleAuthMethod: GoogleAuthenticationMethodOptions$outboundSchema.default(
-    "manual",
-  ),
+  googleAuthMethod: GoogleAuthenticationMethodOptions$outboundSchema.optional(),
   serviceAccountCredentials: z.string().optional(),
   secret: z.string().optional(),
-  batchSize: z.number().default(1000),
-  batchTimeout: z.number().default(100),
-  maxQueueSize: z.number().default(100),
-  maxRecordSizeKB: z.number().default(256),
-  flushPeriod: z.number().default(1),
-  maxInProgress: z.number().default(10),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  batchSize: z.number().optional(),
+  batchTimeout: z.number().optional(),
+  maxQueueSize: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushPeriod: z.number().optional(),
+  maxInProgress: z.number().optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputGooglePubsubPqControls$outboundSchema)
     .optional(),
 });

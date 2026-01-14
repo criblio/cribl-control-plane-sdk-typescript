@@ -20,7 +20,7 @@ export type FunctionConfSchemaMaskRule = {
   /**
    * Set to No to disable the evaluation of an individual rule
    */
-  disabled: boolean;
+  disabled?: boolean | undefined;
 };
 
 export type FunctionConfSchemaMask = {
@@ -32,7 +32,7 @@ export type FunctionConfSchemaMask = {
   /**
    * Depth to which the Mask Function will search for fields to mask
    */
-  depth: number;
+  depth?: number | undefined;
   /**
    * Fields to evaluate if one or more masking rules are matched
    */
@@ -46,8 +46,8 @@ export const FunctionConfSchemaMaskRule$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   matchRegex: z.string(),
-  replaceExpr: z.string().default("''"),
-  disabled: z.boolean().default(false),
+  replaceExpr: z.string(),
+  disabled: z.boolean().optional(),
 });
 
 export function functionConfSchemaMaskRuleFromJSON(
@@ -69,7 +69,7 @@ export const FunctionConfSchemaMask$inboundSchema: z.ZodType<
   rules: z.array(z.lazy(() => FunctionConfSchemaMaskRule$inboundSchema))
     .optional(),
   fields: z.array(z.string()).optional(),
-  depth: z.number().int().default(5),
+  depth: z.number().int().optional(),
   flags: z.array(ItemsTypeAdd$inboundSchema).optional(),
 });
 
