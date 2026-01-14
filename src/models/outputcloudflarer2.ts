@@ -4,8 +4,6 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   BackpressureBehaviorOptions1,
@@ -65,21 +63,6 @@ import {
   StorageClassOptions2$outboundSchema,
 } from "./storageclassoptions2.js";
 
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const OutputCloudflareR2AuthenticationMethod = {
-  Auto: "auto",
-  Secret: "secret",
-  Manual: "manual",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type OutputCloudflareR2AuthenticationMethod = OpenEnum<
-  typeof OutputCloudflareR2AuthenticationMethod
->;
-
 export type OutputCloudflareR2 = {
   /**
    * Unique ID for this output
@@ -113,7 +96,7 @@ export type OutputCloudflareR2 = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: OutputCloudflareR2AuthenticationMethod | undefined;
+  awsAuthenticationMethod?: string | undefined;
   /**
    * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
    */
@@ -300,19 +283,6 @@ export type OutputCloudflareR2 = {
 };
 
 /** @internal */
-export const OutputCloudflareR2AuthenticationMethod$inboundSchema: z.ZodType<
-  OutputCloudflareR2AuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputCloudflareR2AuthenticationMethod);
-/** @internal */
-export const OutputCloudflareR2AuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputCloudflareR2AuthenticationMethod
-> = openEnums.outboundSchema(OutputCloudflareR2AuthenticationMethod);
-
-/** @internal */
 export const OutputCloudflareR2$inboundSchema: z.ZodType<
   OutputCloudflareR2,
   z.ZodTypeDef,
@@ -326,8 +296,7 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   endpoint: z.string(),
   bucket: z.string(),
-  awsAuthenticationMethod: OutputCloudflareR2AuthenticationMethod$inboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: z.string().default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.any().optional(),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
@@ -460,8 +429,7 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   endpoint: z.string(),
   bucket: z.string(),
-  awsAuthenticationMethod: OutputCloudflareR2AuthenticationMethod$outboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: z.string().default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.any().optional(),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),

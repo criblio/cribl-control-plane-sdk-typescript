@@ -7,10 +7,10 @@ import { safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
-  AuthenticationMethodOptions,
-  AuthenticationMethodOptions$inboundSchema,
-  AuthenticationMethodOptions$outboundSchema,
-} from "./authenticationmethodoptions.js";
+  AuthenticationMethodOptions1,
+  AuthenticationMethodOptions1$inboundSchema,
+  AuthenticationMethodOptions1$outboundSchema,
+} from "./authenticationmethodoptions1.js";
 import {
   CertificateTypeAzureBlobAuthTypeClientCert,
   CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
@@ -122,7 +122,7 @@ export type InputAzureBlobPqEnabledTrueWithPqConstraint = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  authType?: AuthenticationMethodOptions | undefined;
+  authType?: AuthenticationMethodOptions1 | undefined;
   description?: string | undefined;
   /**
    * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -239,7 +239,7 @@ export type InputAzureBlobPqEnabledFalseConstraint = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  authType?: AuthenticationMethodOptions | undefined;
+  authType?: AuthenticationMethodOptions1 | undefined;
   description?: string | undefined;
   /**
    * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -356,7 +356,7 @@ export type InputAzureBlobSendToRoutesFalseWithConnectionsConstraint = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  authType?: AuthenticationMethodOptions | undefined;
+  authType?: AuthenticationMethodOptions1 | undefined;
   description?: string | undefined;
   /**
    * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -473,7 +473,7 @@ export type InputAzureBlobSendToRoutesTrueConstraint = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  authType?: AuthenticationMethodOptions | undefined;
+  authType?: AuthenticationMethodOptions1 | undefined;
   description?: string | undefined;
   /**
    * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -554,7 +554,7 @@ export const InputAzureBlobPqEnabledTrueWithPqConstraint$inboundSchema:
     staleChannelFlushMs: z.number().default(10000),
     parquetChunkSizeMB: z.number().default(5),
     parquetChunkDownloadTimeout: z.number().default(600),
-    authType: AuthenticationMethodOptions$inboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
     description: z.string().optional(),
     connectionString: z.string().optional(),
     textSecret: z.string().optional(),
@@ -634,7 +634,7 @@ export const InputAzureBlobPqEnabledTrueWithPqConstraint$outboundSchema:
     staleChannelFlushMs: z.number().default(10000),
     parquetChunkSizeMB: z.number().default(5),
     parquetChunkDownloadTimeout: z.number().default(600),
-    authType: AuthenticationMethodOptions$outboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
     description: z.string().optional(),
     connectionString: z.string().optional(),
     textSecret: z.string().optional(),
@@ -702,7 +702,7 @@ export const InputAzureBlobPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   staleChannelFlushMs: z.number().default(10000),
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
-  authType: AuthenticationMethodOptions$inboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
   description: z.string().optional(),
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),
@@ -780,7 +780,7 @@ export const InputAzureBlobPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   staleChannelFlushMs: z.number().default(10000),
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
-  authType: AuthenticationMethodOptions$outboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
   description: z.string().optional(),
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),
@@ -844,7 +844,7 @@ export const InputAzureBlobSendToRoutesFalseWithConnectionsConstraint$inboundSch
     staleChannelFlushMs: z.number().default(10000),
     parquetChunkSizeMB: z.number().default(5),
     parquetChunkDownloadTimeout: z.number().default(600),
-    authType: AuthenticationMethodOptions$inboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
     description: z.string().optional(),
     connectionString: z.string().optional(),
     textSecret: z.string().optional(),
@@ -927,7 +927,7 @@ export const InputAzureBlobSendToRoutesFalseWithConnectionsConstraint$outboundSc
     staleChannelFlushMs: z.number().default(10000),
     parquetChunkSizeMB: z.number().default(5),
     parquetChunkDownloadTimeout: z.number().default(600),
-    authType: AuthenticationMethodOptions$outboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
     description: z.string().optional(),
     connectionString: z.string().optional(),
     textSecret: z.string().optional(),
@@ -993,7 +993,7 @@ export const InputAzureBlobSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   staleChannelFlushMs: z.number().default(10000),
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
-  authType: AuthenticationMethodOptions$inboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
   description: z.string().optional(),
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),
@@ -1071,7 +1071,7 @@ export const InputAzureBlobSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   staleChannelFlushMs: z.number().default(10000),
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
-  authType: AuthenticationMethodOptions$outboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
   description: z.string().optional(),
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),

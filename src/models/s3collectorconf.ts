@@ -18,13 +18,7 @@ import {
  * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
  */
 export const S3AwsAuthenticationMethodSecretPartitioningScheme = {
-  /**
-   * Defined in Path
-   */
   None: "none",
-  /**
-   * DDSS
-   */
   Ddss: "ddss",
 } as const;
 /**
@@ -139,13 +133,7 @@ export type S3AwsAuthenticationMethodSecret = {
  * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
  */
 export const S3AwsAuthenticationMethodManualPartitioningScheme = {
-  /**
-   * Defined in Path
-   */
   None: "none",
-  /**
-   * DDSS
-   */
   Ddss: "ddss",
 } as const;
 /**
@@ -264,13 +252,7 @@ export type S3AwsAuthenticationMethodManual = {
  * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
  */
 export const S3AwsAuthenticationMethodAutoPartitioningScheme = {
-  /**
-   * Defined in Path
-   */
   None: "none",
-  /**
-   * DDSS
-   */
   Ddss: "ddss",
 } as const;
 /**
@@ -381,13 +363,7 @@ export type S3AwsAuthenticationMethodAuto = {
  * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
  */
 export const S3PartitioningSchemeNonePartitioningScheme = {
-  /**
-   * Defined in Path
-   */
   None: "none",
-  /**
-   * DDSS
-   */
   Ddss: "ddss",
 } as const;
 /**
@@ -496,13 +472,7 @@ export type S3PartitioningSchemeNone = {
  * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
  */
 export const S3PartitioningSchemeDdssPartitioningScheme = {
-  /**
-   * Defined in Path
-   */
   None: "none",
-  /**
-   * DDSS
-   */
   Ddss: "ddss",
 } as const;
 /**

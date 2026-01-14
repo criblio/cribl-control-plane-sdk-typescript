@@ -44,21 +44,9 @@ export type RestAuthenticationHmacDiscovery = {
 };
 
 export const RestAuthenticationHmacCollectMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
-  /**
-   * Other
-   */
   Other: "other",
 } as const;
 export type RestAuthenticationHmacCollectMethod = OpenEnum<
@@ -207,21 +195,9 @@ export type RestAuthenticationGoogleOauthSecretDiscovery = {
 };
 
 export const RestAuthenticationGoogleOauthSecretCollectMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
-  /**
-   * Other
-   */
   Other: "other",
 } as const;
 export type RestAuthenticationGoogleOauthSecretCollectMethod = OpenEnum<
@@ -378,21 +354,9 @@ export type RestAuthenticationGoogleOauthDiscovery = {
 };
 
 export const RestAuthenticationGoogleOauthCollectMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
-  /**
-   * Other
-   */
   Other: "other",
 } as const;
 export type RestAuthenticationGoogleOauthCollectMethod = OpenEnum<
@@ -549,21 +513,9 @@ export type RestAuthenticationOauthSecretDiscovery = {
 };
 
 export const RestAuthenticationOauthSecretCollectMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
-  /**
-   * Other
-   */
   Other: "other",
 } as const;
 export type RestAuthenticationOauthSecretCollectMethod = OpenEnum<
@@ -741,21 +693,9 @@ export type RestAuthenticationOauthDiscovery = {
 };
 
 export const RestAuthenticationOauthCollectMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
-  /**
-   * Other
-   */
   Other: "other",
 } as const;
 export type RestAuthenticationOauthCollectMethod = OpenEnum<
@@ -933,21 +873,9 @@ export type RestAuthenticationLoginSecretDiscovery = {
 };
 
 export const RestAuthenticationLoginSecretCollectMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
-  /**
-   * Other
-   */
   Other: "other",
 } as const;
 export type RestAuthenticationLoginSecretCollectMethod = OpenEnum<
@@ -1119,21 +1047,9 @@ export type RestAuthenticationLoginDiscovery = {
 };
 
 export const RestAuthenticationLoginCollectMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
-  /**
-   * Other
-   */
   Other: "other",
 } as const;
 export type RestAuthenticationLoginCollectMethod = OpenEnum<
@@ -1303,21 +1219,9 @@ export type RestAuthenticationBasicSecretDiscovery = {
 };
 
 export const RestAuthenticationBasicSecretCollectMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
-  /**
-   * Other
-   */
   Other: "other",
 } as const;
 export type RestAuthenticationBasicSecretCollectMethod = OpenEnum<
@@ -1466,21 +1370,9 @@ export type RestAuthenticationBasicDiscovery = {
 };
 
 export const RestAuthenticationBasicCollectMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
-  /**
-   * Other
-   */
   Other: "other",
 } as const;
 export type RestAuthenticationBasicCollectMethod = OpenEnum<
@@ -1627,21 +1519,9 @@ export type RestAuthenticationNoneDiscovery = {
 };
 
 export const RestAuthenticationNoneCollectMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
-  /**
-   * Other
-   */
   Other: "other",
 } as const;
 export type RestAuthenticationNoneCollectMethod = OpenEnum<
@@ -1763,21 +1643,9 @@ export type RestAuthenticationNone = {
 };
 
 export const RestCollectMethodOtherCollectMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
-  /**
-   * Other
-   */
   Other: "other",
 } as const;
 export type RestCollectMethodOtherCollectMethod = OpenEnum<
@@ -1944,21 +1812,9 @@ export type RestCollectMethodOther = {
 };
 
 export const RestCollectMethodPostWithBodyCollectMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
-  /**
-   * Other
-   */
   Other: "other",
 } as const;
 export type RestCollectMethodPostWithBodyCollectMethod = OpenEnum<
@@ -2125,21 +1981,9 @@ export type RestCollectMethodPostWithBody = {
 };
 
 export const RestCollectMethodPostCollectMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
-  /**
-   * Other
-   */
   Other: "other",
 } as const;
 export type RestCollectMethodPostCollectMethod = OpenEnum<
@@ -2306,21 +2150,9 @@ export type RestCollectMethodPost = {
 };
 
 export const RestCollectMethodGetCollectMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
-  /**
-   * Other
-   */
   Other: "other",
 } as const;
 export type RestCollectMethodGetCollectMethod = OpenEnum<

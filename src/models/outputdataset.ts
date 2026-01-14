@@ -8,10 +8,10 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
-  AuthenticationMethodOptions2,
-  AuthenticationMethodOptions2$inboundSchema,
-  AuthenticationMethodOptions2$outboundSchema,
-} from "./authenticationmethodoptions2.js";
+  AuthenticationMethodOptions3,
+  AuthenticationMethodOptions3$inboundSchema,
+  AuthenticationMethodOptions3$outboundSchema,
+} from "./authenticationmethodoptions3.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -229,7 +229,7 @@ export type OutputDataset = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions2 | undefined;
+  authType?: AuthenticationMethodOptions3 | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -381,7 +381,7 @@ export const OutputDataset$inboundSchema: z.ZodType<
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
   onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
-  authType: AuthenticationMethodOptions2$inboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions3$inboundSchema.default("manual"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
@@ -485,7 +485,7 @@ export const OutputDataset$outboundSchema: z.ZodType<
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
-  authType: AuthenticationMethodOptions2$outboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions3$outboundSchema.default("manual"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),

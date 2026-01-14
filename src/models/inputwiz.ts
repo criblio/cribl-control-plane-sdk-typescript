@@ -8,10 +8,10 @@ import * as openEnums from "../types/enums.js";
 import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
-  AuthenticationMethodOptions1,
-  AuthenticationMethodOptions1$inboundSchema,
-  AuthenticationMethodOptions1$outboundSchema,
-} from "./authenticationmethodoptions1.js";
+  AuthenticationMethodOptions2,
+  AuthenticationMethodOptions2$inboundSchema,
+  AuthenticationMethodOptions2$outboundSchema,
+} from "./authenticationmethodoptions2.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -187,7 +187,7 @@ export type InputWizPqEnabledTrueWithPqConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -276,7 +276,7 @@ export type InputWizPqEnabledFalseConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -365,7 +365,7 @@ export type InputWizSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -454,7 +454,7 @@ export type InputWizSendToRoutesTrueConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -635,7 +635,7 @@ export const InputWizPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   ignoreGroupJobsLimit: z.boolean().default(false),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   retryRules: RetryRulesType$inboundSchema.optional(),
-  authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions2$inboundSchema.default("manual"),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
@@ -698,7 +698,7 @@ export const InputWizPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   ignoreGroupJobsLimit: z.boolean().default(false),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   retryRules: RetryRulesType$outboundSchema.optional(),
-  authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions2$outboundSchema.default("manual"),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
@@ -752,7 +752,7 @@ export const InputWizPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   ignoreGroupJobsLimit: z.boolean().default(false),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   retryRules: RetryRulesType$inboundSchema.optional(),
-  authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions2$inboundSchema.default("manual"),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
@@ -815,7 +815,7 @@ export const InputWizPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   ignoreGroupJobsLimit: z.boolean().default(false),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   retryRules: RetryRulesType$outboundSchema.optional(),
-  authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions2$outboundSchema.default("manual"),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
@@ -869,7 +869,7 @@ export const InputWizSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
     ignoreGroupJobsLimit: z.boolean().default(false),
     metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
     retryRules: RetryRulesType$inboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$inboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -934,7 +934,7 @@ export const InputWizSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
     ignoreGroupJobsLimit: z.boolean().default(false),
     metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
     retryRules: RetryRulesType$outboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$outboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -994,7 +994,7 @@ export const InputWizSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   ignoreGroupJobsLimit: z.boolean().default(false),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   retryRules: RetryRulesType$inboundSchema.optional(),
-  authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions2$inboundSchema.default("manual"),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
@@ -1057,7 +1057,7 @@ export const InputWizSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   ignoreGroupJobsLimit: z.boolean().default(false),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   retryRules: RetryRulesType$outboundSchema.optional(),
-  authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions2$outboundSchema.default("manual"),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),

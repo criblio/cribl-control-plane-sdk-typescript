@@ -8,6 +8,11 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+  AuthenticationMethodOptions$outboundSchema,
+} from "./authenticationmethodoptions.js";
+import {
   BackpressureBehaviorOptions1,
   BackpressureBehaviorOptions1$inboundSchema,
   BackpressureBehaviorOptions1$outboundSchema,
@@ -98,7 +103,7 @@ export type OutputSecurityLake = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   /**
    * Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
    */
@@ -321,7 +326,9 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   endpoint: z.string().optional(),
   signatureVersion: OutputSecurityLakeSignatureVersion$inboundSchema.default(
     "v4",
@@ -457,7 +464,9 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   endpoint: z.string().optional(),
   signatureVersion: OutputSecurityLakeSignatureVersion$outboundSchema.default(
     "v4",

@@ -1,13 +1,13 @@
-# AuthenticationMethodOptions2
+# AuthenticationMethodOptions3
 
-Enter client secret directly, or select a stored secret
+Enter API key directly, or select a stored secret
 
 ## Example Usage
 
 ```typescript
-import { AuthenticationMethodOptions2 } from "cribl-control-plane/models";
+import { AuthenticationMethodOptions3 } from "cribl-control-plane/models";
 
-let value: AuthenticationMethodOptions2 = "manual";
+let value: AuthenticationMethodOptions3 = "secret";
 ```
 
 ## Values

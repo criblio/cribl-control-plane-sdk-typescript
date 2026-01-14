@@ -7,6 +7,11 @@ import { safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+  AuthenticationMethodOptions$outboundSchema,
+} from "./authenticationmethodoptions.js";
+import {
   CheckpointingType,
   CheckpointingType$inboundSchema,
   CheckpointingType$Outbound,
@@ -100,7 +105,7 @@ export type InputSecurityLakePqEnabledTrueWithPqConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -260,7 +265,7 @@ export type InputSecurityLakePqEnabledFalseConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -420,7 +425,7 @@ export type InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -580,7 +585,7 @@ export type InputSecurityLakeSendToRoutesTrueConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -728,7 +733,9 @@ export const InputSecurityLakePqEnabledTrueWithPqConstraint$inboundSchema:
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+      "auto",
+    ),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -834,7 +841,9 @@ export const InputSecurityLakePqEnabledTrueWithPqConstraint$outboundSchema:
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+      "auto",
+    ),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -915,7 +924,9 @@ export const InputSecurityLakePqEnabledFalseConstraint$inboundSchema: z.ZodType<
   queueName: z.string(),
   fileFilter: z.string().default("/.*/"),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -1021,7 +1032,9 @@ export const InputSecurityLakePqEnabledFalseConstraint$outboundSchema:
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+      "auto",
+    ),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -1103,7 +1116,9 @@ export const InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint$inbound
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+      "auto",
+    ),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -1210,7 +1225,9 @@ export const InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint$outboun
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+      "auto",
+    ),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -1290,7 +1307,9 @@ export const InputSecurityLakeSendToRoutesTrueConstraint$inboundSchema:
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+      "auto",
+    ),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -1396,7 +1415,9 @@ export const InputSecurityLakeSendToRoutesTrueConstraint$outboundSchema:
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+      "auto",
+    ),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),

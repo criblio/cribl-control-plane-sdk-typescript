@@ -6,6 +6,11 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+  AuthenticationMethodOptions$outboundSchema,
+} from "./authenticationmethodoptions.js";
+import {
   BackpressureBehaviorOptions1,
   BackpressureBehaviorOptions1$inboundSchema,
   BackpressureBehaviorOptions1$outboundSchema,
@@ -105,7 +110,7 @@ export type OutputS3 = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   /**
    * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
    */
@@ -331,7 +336,9 @@ export const OutputS3$inboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string().optional(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
     .default("v4"),
@@ -478,7 +485,9 @@ export const OutputS3$outboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string().optional(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
     .default("v4"),

@@ -1097,7 +1097,7 @@ export type InputSecurityLakePqEnabledTrueWithPqConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -1257,7 +1257,7 @@ export type InputSecurityLakePqEnabledFalseConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -1417,7 +1417,7 @@ export type InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -1577,7 +1577,7 @@ export type InputSecurityLakeSendToRoutesTrueConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -2647,7 +2647,7 @@ export type InputWizPqEnabledTrueWithPqConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -2736,7 +2736,7 @@ export type InputWizPqEnabledFalseConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -2825,7 +2825,7 @@ export type InputWizSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -2914,7 +2914,7 @@ export type InputWizSendToRoutesTrueConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -6257,7 +6257,7 @@ export type InputSqsPqEnabledTrueWithPqConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -6374,7 +6374,7 @@ export type InputSqsPqEnabledFalseConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -6491,7 +6491,7 @@ export type InputSqsSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -6608,7 +6608,7 @@ export type InputSqsSendToRoutesTrueConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -7987,7 +7987,7 @@ export type InputS3InventoryPqEnabledTrueWithPqConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -8155,7 +8155,7 @@ export type InputS3InventoryPqEnabledFalseConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -8323,7 +8323,7 @@ export type InputS3InventorySendToRoutesFalseWithConnectionsConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -8491,7 +8491,7 @@ export type InputS3InventorySendToRoutesTrueConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -8670,7 +8670,7 @@ export type InputS3PqEnabledTrueWithPqConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -8833,7 +8833,7 @@ export type InputS3PqEnabledFalseConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -8996,7 +8996,7 @@ export type InputS3SendToRoutesFalseWithConnectionsConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -9159,7 +9159,7 @@ export type InputS3SendToRoutesTrueConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -9897,7 +9897,7 @@ export type InputKinesisPqEnabledTrueWithPqConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the Kinesis stream is located
@@ -10022,7 +10022,7 @@ export type InputKinesisPqEnabledFalseConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the Kinesis stream is located
@@ -10147,7 +10147,7 @@ export type InputKinesisSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the Kinesis stream is located
@@ -10272,7 +10272,7 @@ export type InputKinesisSendToRoutesTrueConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the Kinesis stream is located
@@ -11452,7 +11452,7 @@ export type InputCrowdstrikePqEnabledTrueWithPqConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -11604,7 +11604,7 @@ export type InputCrowdstrikePqEnabledFalseConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -11756,7 +11756,7 @@ export type InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -11908,7 +11908,7 @@ export type InputCrowdstrikeSendToRoutesTrueConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -18218,7 +18218,7 @@ export type InputOffice365ServicePqEnabledTrueWithPqConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -18310,7 +18310,7 @@ export type InputOffice365ServicePqEnabledFalseConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -18402,7 +18402,7 @@ export type InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -18494,7 +18494,7 @@ export type InputOffice365ServiceSendToRoutesTrueConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -18622,7 +18622,7 @@ export type InputOffice365MgmtPqEnabledTrueWithPqConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -18722,7 +18722,7 @@ export type InputOffice365MgmtPqEnabledFalseConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -18822,7 +18822,7 @@ export type InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -18922,7 +18922,7 @@ export type InputOffice365MgmtSendToRoutesTrueConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -19106,7 +19106,7 @@ export type InputEdgePrometheusPqEnabledTrueWithPqConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -19273,7 +19273,7 @@ export type InputEdgePrometheusPqEnabledFalseConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -19440,7 +19440,7 @@ export type InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -19607,7 +19607,7 @@ export type InputEdgePrometheusSendToRoutesTrueConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -19865,7 +19865,7 @@ export type InputPrometheusPqEnabledTrueWithPqConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -20038,7 +20038,7 @@ export type InputPrometheusPqEnabledFalseConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -20211,7 +20211,7 @@ export type InputPrometheusSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -20384,7 +20384,7 @@ export type InputPrometheusSendToRoutesTrueConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -23310,7 +23310,7 @@ export type InputAzureBlobPqEnabledTrueWithPqConstraint = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  authType?: models.AuthenticationMethodOptions | undefined;
+  authType?: models.AuthenticationMethodOptions1 | undefined;
   description?: string | undefined;
   /**
    * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -23427,7 +23427,7 @@ export type InputAzureBlobPqEnabledFalseConstraint = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  authType?: models.AuthenticationMethodOptions | undefined;
+  authType?: models.AuthenticationMethodOptions1 | undefined;
   description?: string | undefined;
   /**
    * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -23544,7 +23544,7 @@ export type InputAzureBlobSendToRoutesFalseWithConnectionsConstraint = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  authType?: models.AuthenticationMethodOptions | undefined;
+  authType?: models.AuthenticationMethodOptions1 | undefined;
   description?: string | undefined;
   /**
    * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -23661,7 +23661,7 @@ export type InputAzureBlobSendToRoutesTrueConstraint = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  authType?: models.AuthenticationMethodOptions | undefined;
+  authType?: models.AuthenticationMethodOptions1 | undefined;
   description?: string | undefined;
   /**
    * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -26106,7 +26106,7 @@ export type InputMskPqEnabledTrueWithPqConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -26288,7 +26288,7 @@ export type InputMskPqEnabledFalseConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -26470,7 +26470,7 @@ export type InputMskSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -26652,7 +26652,7 @@ export type InputMskSendToRoutesTrueConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -28891,7 +28891,8 @@ export const InputSecurityLakePqEnabledTrueWithPqConstraint$outboundSchema:
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -29014,7 +29015,8 @@ export const InputSecurityLakePqEnabledFalseConstraint$outboundSchema:
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -29140,7 +29142,8 @@ export const InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint$outboun
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -29262,7 +29265,8 @@ export const InputSecurityLakeSendToRoutesTrueConstraint$outboundSchema:
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -30182,7 +30186,7 @@ export const InputWizPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
     .optional(),
   retryRules: models.RetryRulesType$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions1$outboundSchema.default(
+  authType: models.AuthenticationMethodOptions2$outboundSchema.default(
     "manual",
   ),
   description: z.string().optional(),
@@ -30260,7 +30264,7 @@ export const InputWizPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
     .optional(),
   retryRules: models.RetryRulesType$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions1$outboundSchema.default(
+  authType: models.AuthenticationMethodOptions2$outboundSchema.default(
     "manual",
   ),
   description: z.string().optional(),
@@ -30339,7 +30343,7 @@ export const InputWizSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
     metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
       .optional(),
     retryRules: models.RetryRulesType$outboundSchema.optional(),
-    authType: models.AuthenticationMethodOptions1$outboundSchema.default(
+    authType: models.AuthenticationMethodOptions2$outboundSchema.default(
       "manual",
     ),
     description: z.string().optional(),
@@ -30418,7 +30422,7 @@ export const InputWizSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
     .optional(),
   retryRules: models.RetryRulesType$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions1$outboundSchema.default(
+  authType: models.AuthenticationMethodOptions2$outboundSchema.default(
     "manual",
   ),
   description: z.string().optional(),
@@ -33516,7 +33520,8 @@ export const InputSqsPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   queueType: CreateInputQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -33608,7 +33613,8 @@ export const InputSqsPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   queueType: CreateInputQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -33701,7 +33707,8 @@ export const InputSqsSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
     queueType: CreateInputQueueType$outboundSchema,
     awsAccountId: z.string().optional(),
     createQueue: z.boolean().default(false),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -33794,7 +33801,8 @@ export const InputSqsSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   queueType: CreateInputQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -35092,7 +35100,8 @@ export const InputS3InventoryPqEnabledTrueWithPqConstraint$outboundSchema:
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -35218,7 +35227,8 @@ export const InputS3InventoryPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   queueName: z.string(),
   fileFilter: z.string().default("/.*/"),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -35348,7 +35358,8 @@ export const InputS3InventorySendToRoutesFalseWithConnectionsConstraint$outbound
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -35474,7 +35485,8 @@ export const InputS3InventorySendToRoutesTrueConstraint$outboundSchema:
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -35631,7 +35643,8 @@ export const InputS3PqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   queueName: z.string(),
   fileFilter: z.string().default("/.*/"),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -35751,7 +35764,8 @@ export const InputS3PqEnabledFalseConstraint$outboundSchema: z.ZodType<
   queueName: z.string(),
   fileFilter: z.string().default("/.*/"),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -35872,7 +35886,8 @@ export const InputS3SendToRoutesFalseWithConnectionsConstraint$outboundSchema:
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -35993,7 +36008,8 @@ export const InputS3SendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   queueName: z.string(),
   fileFilter: z.string().default("/.*/"),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -36704,7 +36720,8 @@ export const InputKinesisPqEnabledTrueWithPqConstraint$outboundSchema:
     loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.default(
       "ConsistentHashing",
     ),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsSecretKey: z.string().optional(),
     region: z.string(),
     endpoint: z.string().optional(),
@@ -36803,7 +36820,8 @@ export const InputKinesisPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.default(
     "ConsistentHashing",
   ),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -36904,7 +36922,8 @@ export const InputKinesisSendToRoutesFalseWithConnectionsConstraint$outboundSche
     loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.default(
       "ConsistentHashing",
     ),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsSecretKey: z.string().optional(),
     region: z.string(),
     endpoint: z.string().optional(),
@@ -37003,7 +37022,8 @@ export const InputKinesisSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.default(
     "ConsistentHashing",
   ),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -38175,7 +38195,8 @@ export const InputCrowdstrikePqEnabledTrueWithPqConstraint$outboundSchema:
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -38293,7 +38314,8 @@ export const InputCrowdstrikePqEnabledFalseConstraint$outboundSchema: z.ZodType<
   queueName: z.string(),
   fileFilter: z.string().default("/.*/"),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -38415,7 +38437,8 @@ export const InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint$outbound
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -38533,7 +38556,8 @@ export const InputCrowdstrikeSendToRoutesTrueConstraint$outboundSchema:
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -44893,7 +44917,7 @@ export const InputOffice365ServicePqEnabledTrueWithPqConstraint$outboundSchema:
       z.lazy(() => InputOffice365ServiceContentConfig$outboundSchema),
     ).optional(),
     retryRules: models.RetryRulesType1$outboundSchema.optional(),
-    authType: models.AuthenticationMethodOptions1$outboundSchema.default(
+    authType: models.AuthenticationMethodOptions2$outboundSchema.default(
       "manual",
     ),
     description: z.string().optional(),
@@ -44979,7 +45003,7 @@ export const InputOffice365ServicePqEnabledFalseConstraint$outboundSchema:
       z.lazy(() => InputOffice365ServiceContentConfig$outboundSchema),
     ).optional(),
     retryRules: models.RetryRulesType1$outboundSchema.optional(),
-    authType: models.AuthenticationMethodOptions1$outboundSchema.default(
+    authType: models.AuthenticationMethodOptions2$outboundSchema.default(
       "manual",
     ),
     description: z.string().optional(),
@@ -45068,7 +45092,7 @@ export const InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$out
       z.lazy(() => InputOffice365ServiceContentConfig$outboundSchema),
     ).optional(),
     retryRules: models.RetryRulesType1$outboundSchema.optional(),
-    authType: models.AuthenticationMethodOptions1$outboundSchema.default(
+    authType: models.AuthenticationMethodOptions2$outboundSchema.default(
       "manual",
     ),
     description: z.string().optional(),
@@ -45153,7 +45177,7 @@ export const InputOffice365ServiceSendToRoutesTrueConstraint$outboundSchema:
       z.lazy(() => InputOffice365ServiceContentConfig$outboundSchema),
     ).optional(),
     retryRules: models.RetryRulesType1$outboundSchema.optional(),
-    authType: models.AuthenticationMethodOptions1$outboundSchema.default(
+    authType: models.AuthenticationMethodOptions2$outboundSchema.default(
       "manual",
     ),
     description: z.string().optional(),
@@ -45309,7 +45333,7 @@ export const InputOffice365MgmtPqEnabledTrueWithPqConstraint$outboundSchema:
     ).optional(),
     ingestionLag: z.number().default(0),
     retryRules: models.RetryRulesType1$outboundSchema.optional(),
-    authType: models.AuthenticationMethodOptions1$outboundSchema.default(
+    authType: models.AuthenticationMethodOptions2$outboundSchema.default(
       "manual",
     ),
     description: z.string().optional(),
@@ -45397,7 +45421,7 @@ export const InputOffice365MgmtPqEnabledFalseConstraint$outboundSchema:
     ).optional(),
     ingestionLag: z.number().default(0),
     retryRules: models.RetryRulesType1$outboundSchema.optional(),
-    authType: models.AuthenticationMethodOptions1$outboundSchema.default(
+    authType: models.AuthenticationMethodOptions2$outboundSchema.default(
       "manual",
     ),
     description: z.string().optional(),
@@ -45488,7 +45512,7 @@ export const InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint$outbou
     ).optional(),
     ingestionLag: z.number().default(0),
     retryRules: models.RetryRulesType1$outboundSchema.optional(),
-    authType: models.AuthenticationMethodOptions1$outboundSchema.default(
+    authType: models.AuthenticationMethodOptions2$outboundSchema.default(
       "manual",
     ),
     description: z.string().optional(),
@@ -45575,7 +45599,7 @@ export const InputOffice365MgmtSendToRoutesTrueConstraint$outboundSchema:
     ).optional(),
     ingestionLag: z.number().default(0),
     retryRules: models.RetryRulesType1$outboundSchema.optional(),
-    authType: models.AuthenticationMethodOptions1$outboundSchema.default(
+    authType: models.AuthenticationMethodOptions2$outboundSchema.default(
       "manual",
     ),
     description: z.string().optional(),
@@ -45775,7 +45799,8 @@ export const InputEdgePrometheusPqEnabledTrueWithPqConstraint$outboundSchema:
       "http",
     ),
     scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
     usePublicIp: z.boolean().default(true),
@@ -45908,7 +45933,8 @@ export const InputEdgePrometheusPqEnabledFalseConstraint$outboundSchema:
       "http",
     ),
     scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
     usePublicIp: z.boolean().default(true),
@@ -46044,7 +46070,8 @@ export const InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$outbo
       "http",
     ),
     scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
     usePublicIp: z.boolean().default(true),
@@ -46176,7 +46203,8 @@ export const InputEdgePrometheusSendToRoutesTrueConstraint$outboundSchema:
       "http",
     ),
     scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
     usePublicIp: z.boolean().default(true),
@@ -46369,7 +46397,8 @@ export const InputPrometheusPqEnabledTrueWithPqConstraint$outboundSchema:
     nameList: z.array(z.string()).optional(),
     scrapeProtocol: MetricsProtocol$outboundSchema.default("http"),
     scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
     usePublicIp: z.boolean().default(true),
@@ -46493,7 +46522,8 @@ export const InputPrometheusPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   nameList: z.array(z.string()).optional(),
   scrapeProtocol: MetricsProtocol$outboundSchema.default("http"),
   scrapePath: z.string().default("/metrics"),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   usePublicIp: z.boolean().default(true),
@@ -46622,7 +46652,8 @@ export const InputPrometheusSendToRoutesFalseWithConnectionsConstraint$outboundS
     nameList: z.array(z.string()).optional(),
     scrapeProtocol: MetricsProtocol$outboundSchema.default("http"),
     scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
     usePublicIp: z.boolean().default(true),
@@ -46748,7 +46779,8 @@ export const InputPrometheusSendToRoutesTrueConstraint$outboundSchema:
     nameList: z.array(z.string()).optional(),
     scrapeProtocol: MetricsProtocol$outboundSchema.default("http"),
     scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
     usePublicIp: z.boolean().default(true),
@@ -49134,7 +49166,7 @@ export const InputAzureBlobPqEnabledTrueWithPqConstraint$outboundSchema:
     staleChannelFlushMs: z.number().default(10000),
     parquetChunkSizeMB: z.number().default(5),
     parquetChunkDownloadTimeout: z.number().default(600),
-    authType: models.AuthenticationMethodOptions$outboundSchema.default(
+    authType: models.AuthenticationMethodOptions1$outboundSchema.default(
       "manual",
     ),
     description: z.string().optional(),
@@ -49230,7 +49262,9 @@ export const InputAzureBlobPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   staleChannelFlushMs: z.number().default(10000),
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
-  authType: models.AuthenticationMethodOptions$outboundSchema.default("manual"),
+  authType: models.AuthenticationMethodOptions1$outboundSchema.default(
+    "manual",
+  ),
   description: z.string().optional(),
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),
@@ -49328,7 +49362,7 @@ export const InputAzureBlobSendToRoutesFalseWithConnectionsConstraint$outboundSc
     staleChannelFlushMs: z.number().default(10000),
     parquetChunkSizeMB: z.number().default(5),
     parquetChunkDownloadTimeout: z.number().default(600),
-    authType: models.AuthenticationMethodOptions$outboundSchema.default(
+    authType: models.AuthenticationMethodOptions1$outboundSchema.default(
       "manual",
     ),
     description: z.string().optional(),
@@ -49423,7 +49457,9 @@ export const InputAzureBlobSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   staleChannelFlushMs: z.number().default(10000),
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
-  authType: models.AuthenticationMethodOptions$outboundSchema.default("manual"),
+  authType: models.AuthenticationMethodOptions1$outboundSchema.default(
+    "manual",
+  ),
   description: z.string().optional(),
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),
@@ -51438,7 +51474,8 @@ export const InputMskPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -51559,7 +51596,8 @@ export const InputMskPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -51681,7 +51719,8 @@ export const InputMskSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
     backoffRate: z.number().default(2),
     authenticationTimeout: z.number().default(10000),
     reauthenticationThreshold: z.number().default(10000),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+      .default("auto"),
     awsSecretKey: z.string().optional(),
     region: z.string(),
     endpoint: z.string().optional(),
@@ -51805,7 +51844,8 @@ export const InputMskSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),

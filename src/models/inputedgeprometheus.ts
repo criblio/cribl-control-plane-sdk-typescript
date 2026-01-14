@@ -8,6 +8,11 @@ import * as openEnums from "../types/enums.js";
 import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+  AuthenticationMethodOptions$outboundSchema,
+} from "./authenticationmethodoptions.js";
+import {
   DiskSpoolingType,
   DiskSpoolingType$inboundSchema,
   DiskSpoolingType$Outbound,
@@ -220,7 +225,7 @@ export type InputEdgePrometheusPqEnabledTrueWithPqConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -387,7 +392,7 @@ export type InputEdgePrometheusPqEnabledFalseConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -554,7 +559,7 @@ export type InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -721,7 +726,7 @@ export type InputEdgePrometheusSendToRoutesTrueConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -961,7 +966,9 @@ export const InputEdgePrometheusPqEnabledTrueWithPqConstraint$inboundSchema:
     nameList: z.array(z.string()).optional(),
     scrapeProtocol: ProtocolOptionsTargetsItems$inboundSchema.default("http"),
     scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+      "auto",
+    ),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
     usePublicIp: z.boolean().default(true),
@@ -1076,7 +1083,9 @@ export const InputEdgePrometheusPqEnabledTrueWithPqConstraint$outboundSchema:
     nameList: z.array(z.string()).optional(),
     scrapeProtocol: ProtocolOptionsTargetsItems$outboundSchema.default("http"),
     scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+      "auto",
+    ),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
     usePublicIp: z.boolean().default(true),
@@ -1167,7 +1176,9 @@ export const InputEdgePrometheusPqEnabledFalseConstraint$inboundSchema:
     nameList: z.array(z.string()).optional(),
     scrapeProtocol: ProtocolOptionsTargetsItems$inboundSchema.default("http"),
     scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+      "auto",
+    ),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
     usePublicIp: z.boolean().default(true),
@@ -1282,7 +1293,9 @@ export const InputEdgePrometheusPqEnabledFalseConstraint$outboundSchema:
     nameList: z.array(z.string()).optional(),
     scrapeProtocol: ProtocolOptionsTargetsItems$outboundSchema.default("http"),
     scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+      "auto",
+    ),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
     usePublicIp: z.boolean().default(true),
@@ -1373,7 +1386,9 @@ export const InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$inbou
     nameList: z.array(z.string()).optional(),
     scrapeProtocol: ProtocolOptionsTargetsItems$inboundSchema.default("http"),
     scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+      "auto",
+    ),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
     usePublicIp: z.boolean().default(true),
@@ -1489,7 +1504,9 @@ export const InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint$outbo
     nameList: z.array(z.string()).optional(),
     scrapeProtocol: ProtocolOptionsTargetsItems$outboundSchema.default("http"),
     scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+      "auto",
+    ),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
     usePublicIp: z.boolean().default(true),
@@ -1578,7 +1595,9 @@ export const InputEdgePrometheusSendToRoutesTrueConstraint$inboundSchema:
     nameList: z.array(z.string()).optional(),
     scrapeProtocol: ProtocolOptionsTargetsItems$inboundSchema.default("http"),
     scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+      "auto",
+    ),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
     usePublicIp: z.boolean().default(true),
@@ -1693,7 +1712,9 @@ export const InputEdgePrometheusSendToRoutesTrueConstraint$outboundSchema:
     nameList: z.array(z.string()).optional(),
     scrapeProtocol: ProtocolOptionsTargetsItems$outboundSchema.default("http"),
     scrapePath: z.string().default("/metrics"),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+      "auto",
+    ),
     awsApiKey: z.string().optional(),
     awsSecret: z.string().optional(),
     usePublicIp: z.boolean().default(true),

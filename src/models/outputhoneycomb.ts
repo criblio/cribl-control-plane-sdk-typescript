@@ -6,10 +6,10 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
-  AuthenticationMethodOptions2,
-  AuthenticationMethodOptions2$inboundSchema,
-  AuthenticationMethodOptions2$outboundSchema,
-} from "./authenticationmethodoptions2.js";
+  AuthenticationMethodOptions3,
+  AuthenticationMethodOptions3$inboundSchema,
+  AuthenticationMethodOptions3$outboundSchema,
+} from "./authenticationmethodoptions3.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -147,7 +147,7 @@ export type OutputHoneycomb = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions2 | undefined;
+  authType?: AuthenticationMethodOptions3 | undefined;
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -263,7 +263,7 @@ export const OutputHoneycomb$inboundSchema: z.ZodType<
   timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
-  authType: AuthenticationMethodOptions2$inboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions3$inboundSchema.default("manual"),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
@@ -353,7 +353,7 @@ export const OutputHoneycomb$outboundSchema: z.ZodType<
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
-  authType: AuthenticationMethodOptions2$outboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions3$outboundSchema.default("manual"),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
