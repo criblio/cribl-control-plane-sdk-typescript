@@ -13388,6 +13388,10 @@ export type InputSystemStatePqEnabledTrueWithPqConstraint = {
    * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
    */
   disableNativeModule?: boolean | undefined;
+  /**
+   * Enable to only use non-native API to collect LastLog events. This option will be unavailable in future releases. Please contact Support with any concerns about this deprecation. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+   */
+  disableNativeLastLogModule?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -13437,6 +13441,10 @@ export type InputSystemStatePqEnabledFalseConstraint = {
    * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
    */
   disableNativeModule?: boolean | undefined;
+  /**
+   * Enable to only use non-native API to collect LastLog events. This option will be unavailable in future releases. Please contact Support with any concerns about this deprecation. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+   */
+  disableNativeLastLogModule?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -13486,6 +13494,10 @@ export type InputSystemStateSendToRoutesFalseWithConnectionsConstraint = {
    * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
    */
   disableNativeModule?: boolean | undefined;
+  /**
+   * Enable to only use non-native API to collect LastLog events. This option will be unavailable in future releases. Please contact Support with any concerns about this deprecation. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+   */
+  disableNativeLastLogModule?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -13535,6 +13547,10 @@ export type InputSystemStateSendToRoutesTrueConstraint = {
    * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
    */
   disableNativeModule?: boolean | undefined;
+  /**
+   * Enable to only use non-native API to collect LastLog events. This option will be unavailable in future releases. Please contact Support with any concerns about this deprecation. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+   */
+  disableNativeLastLogModule?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -40293,6 +40309,7 @@ export type InputSystemStatePqEnabledTrueWithPqConstraint$Outbound = {
   collectors?: Collectors$Outbound | undefined;
   persistence?: InputSystemStatePersistence$Outbound | undefined;
   disableNativeModule: boolean;
+  disableNativeLastLogModule: boolean;
   description?: string | undefined;
 };
 
@@ -40321,6 +40338,7 @@ export const InputSystemStatePqEnabledTrueWithPqConstraint$outboundSchema:
     persistence: z.lazy(() => InputSystemStatePersistence$outboundSchema)
       .optional(),
     disableNativeModule: z.boolean().default(false),
+    disableNativeLastLogModule: z.boolean().default(false),
     description: z.string().optional(),
   });
 
@@ -40352,6 +40370,7 @@ export type InputSystemStatePqEnabledFalseConstraint$Outbound = {
   collectors?: Collectors$Outbound | undefined;
   persistence?: InputSystemStatePersistence$Outbound | undefined;
   disableNativeModule: boolean;
+  disableNativeLastLogModule: boolean;
   description?: string | undefined;
 };
 
@@ -40379,6 +40398,7 @@ export const InputSystemStatePqEnabledFalseConstraint$outboundSchema: z.ZodType<
   persistence: z.lazy(() => InputSystemStatePersistence$outboundSchema)
     .optional(),
   disableNativeModule: z.boolean().default(false),
+  disableNativeLastLogModule: z.boolean().default(false),
   description: z.string().optional(),
 });
 
@@ -40413,6 +40433,7 @@ export type InputSystemStateSendToRoutesFalseWithConnectionsConstraint$Outbound 
     collectors?: Collectors$Outbound | undefined;
     persistence?: InputSystemStatePersistence$Outbound | undefined;
     disableNativeModule: boolean;
+    disableNativeLastLogModule: boolean;
     description?: string | undefined;
   };
 
@@ -40441,6 +40462,7 @@ export const InputSystemStateSendToRoutesFalseWithConnectionsConstraint$outbound
     persistence: z.lazy(() => InputSystemStatePersistence$outboundSchema)
       .optional(),
     disableNativeModule: z.boolean().default(false),
+    disableNativeLastLogModule: z.boolean().default(false),
     description: z.string().optional(),
   });
 
@@ -40471,6 +40493,7 @@ export type InputSystemStateSendToRoutesTrueConstraint$Outbound = {
   collectors?: Collectors$Outbound | undefined;
   persistence?: InputSystemStatePersistence$Outbound | undefined;
   disableNativeModule: boolean;
+  disableNativeLastLogModule: boolean;
   description?: string | undefined;
 };
 
@@ -40499,6 +40522,7 @@ export const InputSystemStateSendToRoutesTrueConstraint$outboundSchema:
     persistence: z.lazy(() => InputSystemStatePersistence$outboundSchema)
       .optional(),
     disableNativeModule: z.boolean().default(false),
+    disableNativeLastLogModule: z.boolean().default(false),
     description: z.string().optional(),
   });
 

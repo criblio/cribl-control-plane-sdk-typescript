@@ -14266,7 +14266,7 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   loadBalanced: z.boolean().default(false),
   concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(10000),
+  maxPayloadSizeKB: z.number().default(9500),
   maxPayloadEvents: z.number().default(0),
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),

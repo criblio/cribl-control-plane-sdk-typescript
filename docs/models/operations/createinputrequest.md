@@ -2552,6 +2552,7 @@ const value: operations.InputSystemState = {
     destPath: "$CRIBL_HOME/state/system_state",
   },
   disableNativeModule: false,
+  disableNativeLastLogModule: false,
   description: "experienced across briskly likewise procrastinate",
 };
 ```
