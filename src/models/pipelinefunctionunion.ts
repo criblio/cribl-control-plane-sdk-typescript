@@ -6,12 +6,17 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaUnion,
-  FunctionConfSchemaUnion$inboundSchema,
-  FunctionConfSchemaUnion$Outbound,
-  FunctionConfSchemaUnion$outboundSchema,
-} from "./functionconfschemaunion.js";
+
+export type UnionConfiguration = {
+  /**
+   * The id for this search job.
+   */
+  searchJobId: string;
+  /**
+   * The stages we are unioning with.
+   */
+  stageIds: Array<string>;
+};
 
 export type PipelineFunctionUnion = {
   /**
@@ -34,12 +39,54 @@ export type PipelineFunctionUnion = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionConfSchemaUnion;
+  conf: UnionConfiguration;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
+
+/** @internal */
+export const UnionConfiguration$inboundSchema: z.ZodType<
+  UnionConfiguration,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  searchJobId: z.string(),
+  stageIds: z.array(z.string()),
+});
+/** @internal */
+export type UnionConfiguration$Outbound = {
+  searchJobId: string;
+  stageIds: Array<string>;
+};
+
+/** @internal */
+export const UnionConfiguration$outboundSchema: z.ZodType<
+  UnionConfiguration$Outbound,
+  z.ZodTypeDef,
+  UnionConfiguration
+> = z.object({
+  searchJobId: z.string(),
+  stageIds: z.array(z.string()),
+});
+
+export function unionConfigurationToJSON(
+  unionConfiguration: UnionConfiguration,
+): string {
+  return JSON.stringify(
+    UnionConfiguration$outboundSchema.parse(unionConfiguration),
+  );
+}
+export function unionConfigurationFromJSON(
+  jsonString: string,
+): SafeParseResult<UnionConfiguration, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UnionConfiguration$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UnionConfiguration' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionUnion$inboundSchema: z.ZodType<
@@ -52,7 +99,7 @@ export const PipelineFunctionUnion$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaUnion$inboundSchema,
+  conf: z.lazy(() => UnionConfiguration$inboundSchema),
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -62,7 +109,7 @@ export type PipelineFunctionUnion$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionConfSchemaUnion$Outbound;
+  conf: UnionConfiguration$Outbound;
   groupId?: string | undefined;
 };
 
@@ -77,7 +124,7 @@ export const PipelineFunctionUnion$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaUnion$outboundSchema,
+  conf: z.lazy(() => UnionConfiguration$outboundSchema),
   groupId: z.string().optional(),
 });
 

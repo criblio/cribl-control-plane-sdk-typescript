@@ -19,7 +19,7 @@ export type FunctionConfSchemaSensitiveDataScannerRule = {
   disabled?: boolean | undefined;
 };
 
-export type Flag = {
+export type FunctionConfSchemaSensitiveDataScannerFlag = {
   name?: string | undefined;
   value: string;
 };
@@ -37,7 +37,7 @@ export type FunctionConfSchemaSensitiveDataScanner = {
   /**
    * Fields to add when mitigation is applied to an event
    */
-  flags?: Array<Flag> | undefined;
+  flags?: Array<FunctionConfSchemaSensitiveDataScannerFlag> | undefined;
   /**
    * Add matching ruleset IDs to a field called "__detected"
    */
@@ -53,35 +53,7 @@ export const FunctionConfSchemaSensitiveDataScannerRule$inboundSchema:
       replaceExpr: z.string(),
       disabled: z.boolean().optional(),
     });
-/** @internal */
-export type FunctionConfSchemaSensitiveDataScannerRule$Outbound = {
-  rulesetId: string;
-  replaceExpr: string;
-  disabled?: boolean | undefined;
-};
 
-/** @internal */
-export const FunctionConfSchemaSensitiveDataScannerRule$outboundSchema:
-  z.ZodType<
-    FunctionConfSchemaSensitiveDataScannerRule$Outbound,
-    z.ZodTypeDef,
-    FunctionConfSchemaSensitiveDataScannerRule
-  > = z.object({
-    rulesetId: z.string(),
-    replaceExpr: z.string(),
-    disabled: z.boolean().optional(),
-  });
-
-export function functionConfSchemaSensitiveDataScannerRuleToJSON(
-  functionConfSchemaSensitiveDataScannerRule:
-    FunctionConfSchemaSensitiveDataScannerRule,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaSensitiveDataScannerRule$outboundSchema.parse(
-      functionConfSchemaSensitiveDataScannerRule,
-    ),
-  );
-}
 export function functionConfSchemaSensitiveDataScannerRuleFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -99,34 +71,26 @@ export function functionConfSchemaSensitiveDataScannerRuleFromJSON(
 }
 
 /** @internal */
-export const Flag$inboundSchema: z.ZodType<Flag, z.ZodTypeDef, unknown> = z
-  .object({
-    name: z.string().optional(),
-    value: z.string(),
-  });
-/** @internal */
-export type Flag$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
+export const FunctionConfSchemaSensitiveDataScannerFlag$inboundSchema:
+  z.ZodType<FunctionConfSchemaSensitiveDataScannerFlag, z.ZodTypeDef, unknown> =
+    z.object({
+      name: z.string().optional(),
+      value: z.string(),
+    });
 
-/** @internal */
-export const Flag$outboundSchema: z.ZodType<Flag$Outbound, z.ZodTypeDef, Flag> =
-  z.object({
-    name: z.string().optional(),
-    value: z.string(),
-  });
-
-export function flagToJSON(flag: Flag): string {
-  return JSON.stringify(Flag$outboundSchema.parse(flag));
-}
-export function flagFromJSON(
+export function functionConfSchemaSensitiveDataScannerFlagFromJSON(
   jsonString: string,
-): SafeParseResult<Flag, SDKValidationError> {
+): SafeParseResult<
+  FunctionConfSchemaSensitiveDataScannerFlag,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => Flag$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Flag' from JSON`,
+    (x) =>
+      FunctionConfSchemaSensitiveDataScannerFlag$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'FunctionConfSchemaSensitiveDataScannerFlag' from JSON`,
   );
 }
 
@@ -141,48 +105,13 @@ export const FunctionConfSchemaSensitiveDataScanner$inboundSchema: z.ZodType<
   ).optional(),
   fields: z.array(z.string()).optional(),
   excludeFields: z.array(z.string()).optional(),
-  flags: z.array(z.lazy(() => Flag$inboundSchema)).optional(),
-  includeDetectedRules: z.boolean().optional(),
-  backgroundDetection: z.boolean().optional(),
-});
-/** @internal */
-export type FunctionConfSchemaSensitiveDataScanner$Outbound = {
-  rules?:
-    | Array<FunctionConfSchemaSensitiveDataScannerRule$Outbound>
-    | undefined;
-  fields?: Array<string> | undefined;
-  excludeFields?: Array<string> | undefined;
-  flags?: Array<Flag$Outbound> | undefined;
-  includeDetectedRules?: boolean | undefined;
-  backgroundDetection?: boolean | undefined;
-};
-
-/** @internal */
-export const FunctionConfSchemaSensitiveDataScanner$outboundSchema: z.ZodType<
-  FunctionConfSchemaSensitiveDataScanner$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaSensitiveDataScanner
-> = z.object({
-  rules: z.array(
-    z.lazy(() => FunctionConfSchemaSensitiveDataScannerRule$outboundSchema),
+  flags: z.array(
+    z.lazy(() => FunctionConfSchemaSensitiveDataScannerFlag$inboundSchema),
   ).optional(),
-  fields: z.array(z.string()).optional(),
-  excludeFields: z.array(z.string()).optional(),
-  flags: z.array(z.lazy(() => Flag$outboundSchema)).optional(),
   includeDetectedRules: z.boolean().optional(),
   backgroundDetection: z.boolean().optional(),
 });
 
-export function functionConfSchemaSensitiveDataScannerToJSON(
-  functionConfSchemaSensitiveDataScanner:
-    FunctionConfSchemaSensitiveDataScanner,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaSensitiveDataScanner$outboundSchema.parse(
-      functionConfSchemaSensitiveDataScanner,
-    ),
-  );
-}
 export function functionConfSchemaSensitiveDataScannerFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaSensitiveDataScanner, SDKValidationError> {

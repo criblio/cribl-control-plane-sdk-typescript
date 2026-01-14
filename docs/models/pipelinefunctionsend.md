@@ -12,13 +12,13 @@ let value: PipelineFunctionSend = {
   disabled: false,
   final: true,
   conf: {
-    url: "https://fond-fireplace.com/",
+    url: "https://worthy-sauerkraut.info/",
     group: "<value>",
     workspace: "<value>",
     sendUrlTemplate: "<value>",
     searchId: "<id>",
     tee: "<value>",
-    flushMs: 2814.69,
+    flushMs: 987.72,
     suppressPreviews: true,
     mode: "metrics",
   },
@@ -35,5 +35,5 @@ let value: PipelineFunctionSend = {
 | `description`                                                                                | *string*                                                                                     | :heavy_minus_sign:                                                                           | Simple description of this step                                                              |
 | `disabled`                                                                                   | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | If true, data will not be pushed through this function                                       |
 | `final`                                                                                      | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | If enabled, stops the results of this Function from being passed to the downstream Functions |
-| `conf`                                                                                       | [models.FunctionConfSchemaSend](../models/functionconfschemasend.md)                         | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `conf`                                                                                       | [models.SendConfiguration](../models/sendconfiguration.md)                                   | :heavy_check_mark:                                                                           | N/A                                                                                          |
 | `groupId`                                                                                    | *string*                                                                                     | :heavy_minus_sign:                                                                           | Group ID                                                                                     |

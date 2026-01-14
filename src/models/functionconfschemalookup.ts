@@ -7,7 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type InField = {
+export type FunctionConfSchemaLookupInField = {
   /**
    * Field name as it appears in events
    */
@@ -18,7 +18,7 @@ export type InField = {
   lookupField?: string | undefined;
 };
 
-export type OutField = {
+export type FunctionConfSchemaLookupOutField = {
   /**
    * The field name as it appears in the lookup file
    */
@@ -48,11 +48,11 @@ export type FunctionConfSchemaLookup = {
   /**
    * Fields that should be used to key into the lookup table
    */
-  inFields?: Array<InField> | undefined;
+  inFields?: Array<FunctionConfSchemaLookupInField> | undefined;
   /**
    * Fields to add to events after matching lookup. Defaults to all if not specified.
    */
-  outFields?: Array<OutField> | undefined;
+  outFields?: Array<FunctionConfSchemaLookupOutField> | undefined;
   /**
    * Add the looked-up values to _raw, as key=value pairs
    */
@@ -61,43 +61,28 @@ export type FunctionConfSchemaLookup = {
 };
 
 /** @internal */
-export const InField$inboundSchema: z.ZodType<InField, z.ZodTypeDef, unknown> =
-  z.object({
-    eventField: z.string(),
-    lookupField: z.string().optional(),
-  });
-/** @internal */
-export type InField$Outbound = {
-  eventField: string;
-  lookupField?: string | undefined;
-};
-
-/** @internal */
-export const InField$outboundSchema: z.ZodType<
-  InField$Outbound,
+export const FunctionConfSchemaLookupInField$inboundSchema: z.ZodType<
+  FunctionConfSchemaLookupInField,
   z.ZodTypeDef,
-  InField
+  unknown
 > = z.object({
   eventField: z.string(),
   lookupField: z.string().optional(),
 });
 
-export function inFieldToJSON(inField: InField): string {
-  return JSON.stringify(InField$outboundSchema.parse(inField));
-}
-export function inFieldFromJSON(
+export function functionConfSchemaLookupInFieldFromJSON(
   jsonString: string,
-): SafeParseResult<InField, SDKValidationError> {
+): SafeParseResult<FunctionConfSchemaLookupInField, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InField$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InField' from JSON`,
+    (x) => FunctionConfSchemaLookupInField$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'FunctionConfSchemaLookupInField' from JSON`,
   );
 }
 
 /** @internal */
-export const OutField$inboundSchema: z.ZodType<
-  OutField,
+export const FunctionConfSchemaLookupOutField$inboundSchema: z.ZodType<
+  FunctionConfSchemaLookupOutField,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -105,34 +90,14 @@ export const OutField$inboundSchema: z.ZodType<
   eventField: z.string().optional(),
   defaultValue: z.string().optional(),
 });
-/** @internal */
-export type OutField$Outbound = {
-  lookupField: string;
-  eventField?: string | undefined;
-  defaultValue?: string | undefined;
-};
 
-/** @internal */
-export const OutField$outboundSchema: z.ZodType<
-  OutField$Outbound,
-  z.ZodTypeDef,
-  OutField
-> = z.object({
-  lookupField: z.string(),
-  eventField: z.string().optional(),
-  defaultValue: z.string().optional(),
-});
-
-export function outFieldToJSON(outField: OutField): string {
-  return JSON.stringify(OutField$outboundSchema.parse(outField));
-}
-export function outFieldFromJSON(
+export function functionConfSchemaLookupOutFieldFromJSON(
   jsonString: string,
-): SafeParseResult<OutField, SDKValidationError> {
+): SafeParseResult<FunctionConfSchemaLookupOutField, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutField$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutField' from JSON`,
+    (x) => FunctionConfSchemaLookupOutField$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'FunctionConfSchemaLookupOutField' from JSON`,
   );
 }
 
@@ -147,48 +112,15 @@ export const FunctionConfSchemaLookup$inboundSchema: z.ZodType<
   matchMode: z.any().optional(),
   matchType: z.any().optional(),
   reloadPeriodSec: z.any().optional(),
-  inFields: z.array(z.lazy(() => InField$inboundSchema)).optional(),
-  outFields: z.array(z.lazy(() => OutField$inboundSchema)).optional(),
-  addToEvent: z.boolean().optional(),
-  ignoreCase: z.any().optional(),
-});
-/** @internal */
-export type FunctionConfSchemaLookup$Outbound = {
-  file?: string | undefined;
-  dbLookup?: boolean | undefined;
-  matchMode?: any | undefined;
-  matchType?: any | undefined;
-  reloadPeriodSec?: any | undefined;
-  inFields?: Array<InField$Outbound> | undefined;
-  outFields?: Array<OutField$Outbound> | undefined;
-  addToEvent?: boolean | undefined;
-  ignoreCase?: any | undefined;
-};
-
-/** @internal */
-export const FunctionConfSchemaLookup$outboundSchema: z.ZodType<
-  FunctionConfSchemaLookup$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaLookup
-> = z.object({
-  file: z.string().optional(),
-  dbLookup: z.boolean().optional(),
-  matchMode: z.any().optional(),
-  matchType: z.any().optional(),
-  reloadPeriodSec: z.any().optional(),
-  inFields: z.array(z.lazy(() => InField$outboundSchema)).optional(),
-  outFields: z.array(z.lazy(() => OutField$outboundSchema)).optional(),
+  inFields: z.array(z.lazy(() => FunctionConfSchemaLookupInField$inboundSchema))
+    .optional(),
+  outFields: z.array(
+    z.lazy(() => FunctionConfSchemaLookupOutField$inboundSchema),
+  ).optional(),
   addToEvent: z.boolean().optional(),
   ignoreCase: z.any().optional(),
 });
 
-export function functionConfSchemaLookupToJSON(
-  functionConfSchemaLookup: FunctionConfSchemaLookup,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaLookup$outboundSchema.parse(functionConfSchemaLookup),
-  );
-}
 export function functionConfSchemaLookupFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaLookup, SDKValidationError> {

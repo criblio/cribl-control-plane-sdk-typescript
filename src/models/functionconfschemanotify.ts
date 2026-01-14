@@ -12,7 +12,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 /**
  * Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
  */
-export const TriggerType = {
+export const FunctionConfSchemaNotifyTriggerType = {
   /**
    * Where
    */
@@ -25,12 +25,14 @@ export const TriggerType = {
 /**
  * Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
  */
-export type TriggerType = OpenEnum<typeof TriggerType>;
+export type FunctionConfSchemaNotifyTriggerType = OpenEnum<
+  typeof FunctionConfSchemaNotifyTriggerType
+>;
 
 /**
  * Operation to be applied over the results count
  */
-export const CountComparator = {
+export const FunctionConfSchemaNotifyCountComparator = {
   /**
    * greater than
    */
@@ -59,7 +61,9 @@ export const CountComparator = {
 /**
  * Operation to be applied over the results count
  */
-export type CountComparator = OpenEnum<typeof CountComparator>;
+export type FunctionConfSchemaNotifyCountComparator = OpenEnum<
+  typeof FunctionConfSchemaNotifyCountComparator
+>;
 
 export type FunctionConfSchemaNotify = {
   /**
@@ -85,11 +89,11 @@ export type FunctionConfSchemaNotify = {
   /**
    * Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
    */
-  triggerType?: TriggerType | undefined;
+  triggerType?: FunctionConfSchemaNotifyTriggerType | undefined;
   /**
    * Operation to be applied over the results count
    */
-  triggerComparator?: CountComparator | undefined;
+  triggerComparator?: FunctionConfSchemaNotifyCountComparator | undefined;
   /**
    * How many results that match trigger the condition
    */
@@ -121,30 +125,18 @@ export type FunctionConfSchemaNotify = {
 };
 
 /** @internal */
-export const TriggerType$inboundSchema: z.ZodType<
-  TriggerType,
+export const FunctionConfSchemaNotifyTriggerType$inboundSchema: z.ZodType<
+  FunctionConfSchemaNotifyTriggerType,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(TriggerType);
-/** @internal */
-export const TriggerType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  TriggerType
-> = openEnums.outboundSchema(TriggerType);
+> = openEnums.inboundSchema(FunctionConfSchemaNotifyTriggerType);
 
 /** @internal */
-export const CountComparator$inboundSchema: z.ZodType<
-  CountComparator,
+export const FunctionConfSchemaNotifyCountComparator$inboundSchema: z.ZodType<
+  FunctionConfSchemaNotifyCountComparator,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(CountComparator);
-/** @internal */
-export const CountComparator$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CountComparator
-> = openEnums.outboundSchema(CountComparator);
+> = openEnums.inboundSchema(FunctionConfSchemaNotifyCountComparator);
 
 /** @internal */
 export const FunctionConfSchemaNotify$inboundSchema: z.ZodType<
@@ -157,47 +149,9 @@ export const FunctionConfSchemaNotify$inboundSchema: z.ZodType<
   searchId: z.string().optional(),
   savedQueryId: z.string().optional(),
   trigger: z.string().optional(),
-  triggerType: TriggerType$inboundSchema.optional(),
-  triggerComparator: CountComparator$inboundSchema.optional(),
-  triggerCount: z.number().optional(),
-  resultsLimit: z.number().optional(),
-  searchUrl: z.string().optional(),
-  message: z.string().optional(),
-  authToken: z.string().optional(),
-  messagesEndpoint: z.string().optional(),
-  tenantId: z.string().optional(),
-});
-/** @internal */
-export type FunctionConfSchemaNotify$Outbound = {
-  group?: string | undefined;
-  notificationId?: string | undefined;
-  searchId?: string | undefined;
-  savedQueryId?: string | undefined;
-  trigger?: string | undefined;
-  triggerType?: string | undefined;
-  triggerComparator?: string | undefined;
-  triggerCount?: number | undefined;
-  resultsLimit?: number | undefined;
-  searchUrl?: string | undefined;
-  message?: string | undefined;
-  authToken?: string | undefined;
-  messagesEndpoint?: string | undefined;
-  tenantId?: string | undefined;
-};
-
-/** @internal */
-export const FunctionConfSchemaNotify$outboundSchema: z.ZodType<
-  FunctionConfSchemaNotify$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaNotify
-> = z.object({
-  group: z.string().optional(),
-  notificationId: z.string().optional(),
-  searchId: z.string().optional(),
-  savedQueryId: z.string().optional(),
-  trigger: z.string().optional(),
-  triggerType: TriggerType$outboundSchema.optional(),
-  triggerComparator: CountComparator$outboundSchema.optional(),
+  triggerType: FunctionConfSchemaNotifyTriggerType$inboundSchema.optional(),
+  triggerComparator: FunctionConfSchemaNotifyCountComparator$inboundSchema
+    .optional(),
   triggerCount: z.number().optional(),
   resultsLimit: z.number().optional(),
   searchUrl: z.string().optional(),
@@ -207,13 +161,6 @@ export const FunctionConfSchemaNotify$outboundSchema: z.ZodType<
   tenantId: z.string().optional(),
 });
 
-export function functionConfSchemaNotifyToJSON(
-  functionConfSchemaNotify: FunctionConfSchemaNotify,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaNotify$outboundSchema.parse(functionConfSchemaNotify),
-  );
-}
 export function functionConfSchemaNotifyFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaNotify, SDKValidationError> {

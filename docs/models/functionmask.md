@@ -24,13 +24,15 @@ let value: FunctionMask = {
       {
         matchRegex: "<value>",
         replaceExpr: "<value>",
-        disabled: false,
+        disabled: true,
       },
     ],
     fields: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
-    depth: 811212,
+    depth: 10477,
     flags: [
       {
         name: "<value>",

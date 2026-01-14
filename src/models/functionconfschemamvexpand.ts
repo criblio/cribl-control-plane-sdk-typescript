@@ -12,7 +12,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 /**
  * decides if bag-values are expanded to bags or arrays
  */
-export const BagExpansionMode = {
+export const FunctionConfSchemaMvExpandBagExpansionMode = {
   /**
    * Store as object
    */
@@ -25,7 +25,9 @@ export const BagExpansionMode = {
 /**
  * decides if bag-values are expanded to bags or arrays
  */
-export type BagExpansionMode = OpenEnum<typeof BagExpansionMode>;
+export type FunctionConfSchemaMvExpandBagExpansionMode = OpenEnum<
+  typeof FunctionConfSchemaMvExpandBagExpansionMode
+>;
 
 export type FunctionConfSchemaMvExpand = {
   /**
@@ -47,21 +49,13 @@ export type FunctionConfSchemaMvExpand = {
   /**
    * decides if bag-values are expanded to bags or arrays
    */
-  bagExpansionMode?: BagExpansionMode | undefined;
+  bagExpansionMode?: FunctionConfSchemaMvExpandBagExpansionMode | undefined;
 };
 
 /** @internal */
-export const BagExpansionMode$inboundSchema: z.ZodType<
-  BagExpansionMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(BagExpansionMode);
-/** @internal */
-export const BagExpansionMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  BagExpansionMode
-> = openEnums.outboundSchema(BagExpansionMode);
+export const FunctionConfSchemaMvExpandBagExpansionMode$inboundSchema:
+  z.ZodType<FunctionConfSchemaMvExpandBagExpansionMode, z.ZodTypeDef, unknown> =
+    openEnums.inboundSchema(FunctionConfSchemaMvExpandBagExpansionMode);
 
 /** @internal */
 export const FunctionConfSchemaMvExpand$inboundSchema: z.ZodType<
@@ -73,37 +67,10 @@ export const FunctionConfSchemaMvExpand$inboundSchema: z.ZodType<
   targetNames: z.array(z.string()).optional(),
   rowLimit: z.number().optional(),
   itemIndexName: z.string().optional(),
-  bagExpansionMode: BagExpansionMode$inboundSchema.optional(),
-});
-/** @internal */
-export type FunctionConfSchemaMvExpand$Outbound = {
-  sourceFields?: Array<string> | undefined;
-  targetNames?: Array<string> | undefined;
-  rowLimit?: number | undefined;
-  itemIndexName?: string | undefined;
-  bagExpansionMode?: string | undefined;
-};
-
-/** @internal */
-export const FunctionConfSchemaMvExpand$outboundSchema: z.ZodType<
-  FunctionConfSchemaMvExpand$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaMvExpand
-> = z.object({
-  sourceFields: z.array(z.string()).optional(),
-  targetNames: z.array(z.string()).optional(),
-  rowLimit: z.number().optional(),
-  itemIndexName: z.string().optional(),
-  bagExpansionMode: BagExpansionMode$outboundSchema.optional(),
+  bagExpansionMode: FunctionConfSchemaMvExpandBagExpansionMode$inboundSchema
+    .optional(),
 });
 
-export function functionConfSchemaMvExpandToJSON(
-  functionConfSchemaMvExpand: FunctionConfSchemaMvExpand,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaMvExpand$outboundSchema.parse(functionConfSchemaMvExpand),
-  );
-}
 export function functionConfSchemaMvExpandFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaMvExpand, SDKValidationError> {

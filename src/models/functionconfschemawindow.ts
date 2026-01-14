@@ -37,33 +37,7 @@ export const FunctionConfSchemaWindow$inboundSchema: z.ZodType<
   tailEventCount: z.number().optional(),
   headEventCount: z.number().optional(),
 });
-/** @internal */
-export type FunctionConfSchemaWindow$Outbound = {
-  eventWindowId?: number | undefined;
-  registeredFunctions?: Array<string> | undefined;
-  tailEventCount?: number | undefined;
-  headEventCount?: number | undefined;
-};
 
-/** @internal */
-export const FunctionConfSchemaWindow$outboundSchema: z.ZodType<
-  FunctionConfSchemaWindow$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaWindow
-> = z.object({
-  eventWindowId: z.number().optional(),
-  registeredFunctions: z.array(z.string()).optional(),
-  tailEventCount: z.number().optional(),
-  headEventCount: z.number().optional(),
-});
-
-export function functionConfSchemaWindowToJSON(
-  functionConfSchemaWindow: FunctionConfSchemaWindow,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaWindow$outboundSchema.parse(functionConfSchemaWindow),
-  );
-}
 export function functionConfSchemaWindowFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaWindow, SDKValidationError> {

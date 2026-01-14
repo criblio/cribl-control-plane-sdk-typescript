@@ -7,7 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type TemplateDefinition = {
+export type FunctionConfSchemaHandlebarsTemplateDefinition = {
   /**
    * Unique identifier for this template
    */
@@ -30,7 +30,7 @@ export type FunctionConfSchemaHandlebars = {
   /**
    * Array of template definitions. Uses event.__template_id to select template at runtime.
    */
-  templates?: Array<TemplateDefinition> | undefined;
+  templates?: Array<FunctionConfSchemaHandlebarsTemplateDefinition> | undefined;
   /**
    * Field name to store the rendered template result. Defaults to _raw.
    */
@@ -46,50 +46,31 @@ export type FunctionConfSchemaHandlebars = {
 };
 
 /** @internal */
-export const TemplateDefinition$inboundSchema: z.ZodType<
-  TemplateDefinition,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-  content: z.string(),
-  description: z.string().optional(),
-  type: z.string(),
-});
-/** @internal */
-export type TemplateDefinition$Outbound = {
-  id: string;
-  content: string;
-  description?: string | undefined;
-  type: string;
-};
+export const FunctionConfSchemaHandlebarsTemplateDefinition$inboundSchema:
+  z.ZodType<
+    FunctionConfSchemaHandlebarsTemplateDefinition,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    id: z.string(),
+    content: z.string(),
+    description: z.string().optional(),
+    type: z.string(),
+  });
 
-/** @internal */
-export const TemplateDefinition$outboundSchema: z.ZodType<
-  TemplateDefinition$Outbound,
-  z.ZodTypeDef,
-  TemplateDefinition
-> = z.object({
-  id: z.string(),
-  content: z.string(),
-  description: z.string().optional(),
-  type: z.string(),
-});
-
-export function templateDefinitionToJSON(
-  templateDefinition: TemplateDefinition,
-): string {
-  return JSON.stringify(
-    TemplateDefinition$outboundSchema.parse(templateDefinition),
-  );
-}
-export function templateDefinitionFromJSON(
+export function functionConfSchemaHandlebarsTemplateDefinitionFromJSON(
   jsonString: string,
-): SafeParseResult<TemplateDefinition, SDKValidationError> {
+): SafeParseResult<
+  FunctionConfSchemaHandlebarsTemplateDefinition,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => TemplateDefinition$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'TemplateDefinition' from JSON`,
+    (x) =>
+      FunctionConfSchemaHandlebarsTemplateDefinition$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'FunctionConfSchemaHandlebarsTemplateDefinition' from JSON`,
   );
 }
 
@@ -99,41 +80,14 @@ export const FunctionConfSchemaHandlebars$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  templates: z.array(z.lazy(() => TemplateDefinition$inboundSchema)).optional(),
-  targetField: z.string().optional(),
-  parseJson: z.boolean().optional(),
-  removeOnNull: z.boolean().optional(),
-});
-/** @internal */
-export type FunctionConfSchemaHandlebars$Outbound = {
-  templates?: Array<TemplateDefinition$Outbound> | undefined;
-  targetField?: string | undefined;
-  parseJson?: boolean | undefined;
-  removeOnNull?: boolean | undefined;
-};
-
-/** @internal */
-export const FunctionConfSchemaHandlebars$outboundSchema: z.ZodType<
-  FunctionConfSchemaHandlebars$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaHandlebars
-> = z.object({
-  templates: z.array(z.lazy(() => TemplateDefinition$outboundSchema))
-    .optional(),
+  templates: z.array(
+    z.lazy(() => FunctionConfSchemaHandlebarsTemplateDefinition$inboundSchema),
+  ).optional(),
   targetField: z.string().optional(),
   parseJson: z.boolean().optional(),
   removeOnNull: z.boolean().optional(),
 });
 
-export function functionConfSchemaHandlebarsToJSON(
-  functionConfSchemaHandlebars: FunctionConfSchemaHandlebars,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaHandlebars$outboundSchema.parse(
-      functionConfSchemaHandlebars,
-    ),
-  );
-}
 export function functionConfSchemaHandlebarsFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaHandlebars, SDKValidationError> {

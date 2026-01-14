@@ -6,12 +6,44 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaSensitiveDataScanner,
-  FunctionConfSchemaSensitiveDataScanner$inboundSchema,
-  FunctionConfSchemaSensitiveDataScanner$Outbound,
-  FunctionConfSchemaSensitiveDataScanner$outboundSchema,
-} from "./functionconfschemasensitivedatascanner.js";
+
+export type PipelineFunctionSensitiveDataScannerRule = {
+  /**
+   * The ID of the ruleset to use for the scan
+   */
+  rulesetId: string;
+  /**
+   * A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
+   */
+  replaceExpr: string;
+  disabled?: boolean | undefined;
+};
+
+export type PipelineFunctionSensitiveDataScannerFlag = {
+  name?: string | undefined;
+  value: string;
+};
+
+export type PipelineFunctionSensitiveDataScannerConf = {
+  rules: Array<PipelineFunctionSensitiveDataScannerRule>;
+  /**
+   * Rulesets act on the events contained in these fields. Mitigation expressions apply to the scan results. Supports wildcards (*).
+   */
+  fields?: Array<string> | undefined;
+  /**
+   * Fields that the mitigation expression will not be applied to. Supports wildcards (*).
+   */
+  excludeFields?: Array<string> | undefined;
+  /**
+   * Fields to add when mitigation is applied to an event
+   */
+  flags?: Array<PipelineFunctionSensitiveDataScannerFlag> | undefined;
+  /**
+   * Add matching ruleset IDs to a field called "__detected"
+   */
+  includeDetectedRules?: boolean | undefined;
+  backgroundDetection?: boolean | undefined;
+};
 
 export type PipelineFunctionSensitiveDataScanner = {
   /**
@@ -34,12 +66,188 @@ export type PipelineFunctionSensitiveDataScanner = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionConfSchemaSensitiveDataScanner;
+  conf: PipelineFunctionSensitiveDataScannerConf;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
+
+/** @internal */
+export const PipelineFunctionSensitiveDataScannerRule$inboundSchema: z.ZodType<
+  PipelineFunctionSensitiveDataScannerRule,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  rulesetId: z.string(),
+  replaceExpr: z.string(),
+  disabled: z.boolean().optional(),
+});
+/** @internal */
+export type PipelineFunctionSensitiveDataScannerRule$Outbound = {
+  rulesetId: string;
+  replaceExpr: string;
+  disabled?: boolean | undefined;
+};
+
+/** @internal */
+export const PipelineFunctionSensitiveDataScannerRule$outboundSchema: z.ZodType<
+  PipelineFunctionSensitiveDataScannerRule$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionSensitiveDataScannerRule
+> = z.object({
+  rulesetId: z.string(),
+  replaceExpr: z.string(),
+  disabled: z.boolean().optional(),
+});
+
+export function pipelineFunctionSensitiveDataScannerRuleToJSON(
+  pipelineFunctionSensitiveDataScannerRule:
+    PipelineFunctionSensitiveDataScannerRule,
+): string {
+  return JSON.stringify(
+    PipelineFunctionSensitiveDataScannerRule$outboundSchema.parse(
+      pipelineFunctionSensitiveDataScannerRule,
+    ),
+  );
+}
+export function pipelineFunctionSensitiveDataScannerRuleFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PipelineFunctionSensitiveDataScannerRule,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PipelineFunctionSensitiveDataScannerRule$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PipelineFunctionSensitiveDataScannerRule' from JSON`,
+  );
+}
+
+/** @internal */
+export const PipelineFunctionSensitiveDataScannerFlag$inboundSchema: z.ZodType<
+  PipelineFunctionSensitiveDataScannerFlag,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+/** @internal */
+export type PipelineFunctionSensitiveDataScannerFlag$Outbound = {
+  name?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const PipelineFunctionSensitiveDataScannerFlag$outboundSchema: z.ZodType<
+  PipelineFunctionSensitiveDataScannerFlag$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionSensitiveDataScannerFlag
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+
+export function pipelineFunctionSensitiveDataScannerFlagToJSON(
+  pipelineFunctionSensitiveDataScannerFlag:
+    PipelineFunctionSensitiveDataScannerFlag,
+): string {
+  return JSON.stringify(
+    PipelineFunctionSensitiveDataScannerFlag$outboundSchema.parse(
+      pipelineFunctionSensitiveDataScannerFlag,
+    ),
+  );
+}
+export function pipelineFunctionSensitiveDataScannerFlagFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PipelineFunctionSensitiveDataScannerFlag,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PipelineFunctionSensitiveDataScannerFlag$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PipelineFunctionSensitiveDataScannerFlag' from JSON`,
+  );
+}
+
+/** @internal */
+export const PipelineFunctionSensitiveDataScannerConf$inboundSchema: z.ZodType<
+  PipelineFunctionSensitiveDataScannerConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  rules: z.array(
+    z.lazy(() => PipelineFunctionSensitiveDataScannerRule$inboundSchema),
+  ),
+  fields: z.array(z.string()).optional(),
+  excludeFields: z.array(z.string()).optional(),
+  flags: z.array(
+    z.lazy(() => PipelineFunctionSensitiveDataScannerFlag$inboundSchema),
+  ).optional(),
+  includeDetectedRules: z.boolean().optional(),
+  backgroundDetection: z.boolean().optional(),
+});
+/** @internal */
+export type PipelineFunctionSensitiveDataScannerConf$Outbound = {
+  rules: Array<PipelineFunctionSensitiveDataScannerRule$Outbound>;
+  fields?: Array<string> | undefined;
+  excludeFields?: Array<string> | undefined;
+  flags?: Array<PipelineFunctionSensitiveDataScannerFlag$Outbound> | undefined;
+  includeDetectedRules?: boolean | undefined;
+  backgroundDetection?: boolean | undefined;
+};
+
+/** @internal */
+export const PipelineFunctionSensitiveDataScannerConf$outboundSchema: z.ZodType<
+  PipelineFunctionSensitiveDataScannerConf$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionSensitiveDataScannerConf
+> = z.object({
+  rules: z.array(
+    z.lazy(() => PipelineFunctionSensitiveDataScannerRule$outboundSchema),
+  ),
+  fields: z.array(z.string()).optional(),
+  excludeFields: z.array(z.string()).optional(),
+  flags: z.array(
+    z.lazy(() => PipelineFunctionSensitiveDataScannerFlag$outboundSchema),
+  ).optional(),
+  includeDetectedRules: z.boolean().optional(),
+  backgroundDetection: z.boolean().optional(),
+});
+
+export function pipelineFunctionSensitiveDataScannerConfToJSON(
+  pipelineFunctionSensitiveDataScannerConf:
+    PipelineFunctionSensitiveDataScannerConf,
+): string {
+  return JSON.stringify(
+    PipelineFunctionSensitiveDataScannerConf$outboundSchema.parse(
+      pipelineFunctionSensitiveDataScannerConf,
+    ),
+  );
+}
+export function pipelineFunctionSensitiveDataScannerConfFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PipelineFunctionSensitiveDataScannerConf,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PipelineFunctionSensitiveDataScannerConf$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PipelineFunctionSensitiveDataScannerConf' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionSensitiveDataScanner$inboundSchema: z.ZodType<
@@ -52,7 +260,7 @@ export const PipelineFunctionSensitiveDataScanner$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaSensitiveDataScanner$inboundSchema,
+  conf: z.lazy(() => PipelineFunctionSensitiveDataScannerConf$inboundSchema),
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -62,7 +270,7 @@ export type PipelineFunctionSensitiveDataScanner$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionConfSchemaSensitiveDataScanner$Outbound;
+  conf: PipelineFunctionSensitiveDataScannerConf$Outbound;
   groupId?: string | undefined;
 };
 
@@ -77,7 +285,7 @@ export const PipelineFunctionSensitiveDataScanner$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaSensitiveDataScanner$outboundSchema,
+  conf: z.lazy(() => PipelineFunctionSensitiveDataScannerConf$outboundSchema),
   groupId: z.string().optional(),
 });
 

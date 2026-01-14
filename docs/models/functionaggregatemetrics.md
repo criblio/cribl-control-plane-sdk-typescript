@@ -29,7 +29,7 @@ let value: FunctionAggregateMetrics = {
     timeWindow: "<value>",
     aggregations: [
       {
-        metricType: "timer",
+        metricType: "distribution",
         agg: "<value>",
       },
     ],
@@ -37,7 +37,7 @@ let value: FunctionAggregateMetrics = {
       "<value 1>",
       "<value 2>",
     ],
-    flushEventLimit: 3667.18,
+    flushEventLimit: 5989.85,
     flushMemLimit: "<value>",
     cumulative: false,
     shouldTreatDotsAsLiterals: false,
@@ -47,7 +47,7 @@ let value: FunctionAggregateMetrics = {
         value: "<value>",
       },
     ],
-    flushOnInputClose: false,
+    flushOnInputClose: true,
   },
 };
 ```

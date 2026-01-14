@@ -6,12 +6,25 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaXmlUnroll,
-  FunctionConfSchemaXmlUnroll$inboundSchema,
-  FunctionConfSchemaXmlUnroll$Outbound,
-  FunctionConfSchemaXmlUnroll$outboundSchema,
-} from "./functionconfschemaxmlunroll.js";
+
+export type PipelineFunctionXmlUnrollConf = {
+  /**
+   * Path to array to unroll. Example: ^root\.child\.ElementToUnroll$
+   */
+  unroll: string;
+  /**
+   * Regex matching elements to copy into each unrolled event. Example: ^root\.(childA|childB|childC)$
+   */
+  inherit?: string | undefined;
+  /**
+   * Add a field with this name, containing the index at which the item was located, starting from 0
+   */
+  unrollIdxField?: string | undefined;
+  /**
+   * Pretty print the output XML
+   */
+  pretty?: boolean | undefined;
+};
 
 export type PipelineFunctionXmlUnroll = {
   /**
@@ -34,12 +47,62 @@ export type PipelineFunctionXmlUnroll = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionConfSchemaXmlUnroll;
+  conf: PipelineFunctionXmlUnrollConf;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
+
+/** @internal */
+export const PipelineFunctionXmlUnrollConf$inboundSchema: z.ZodType<
+  PipelineFunctionXmlUnrollConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  unroll: z.string(),
+  inherit: z.string().optional(),
+  unrollIdxField: z.string().optional(),
+  pretty: z.boolean().optional(),
+});
+/** @internal */
+export type PipelineFunctionXmlUnrollConf$Outbound = {
+  unroll: string;
+  inherit?: string | undefined;
+  unrollIdxField?: string | undefined;
+  pretty?: boolean | undefined;
+};
+
+/** @internal */
+export const PipelineFunctionXmlUnrollConf$outboundSchema: z.ZodType<
+  PipelineFunctionXmlUnrollConf$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionXmlUnrollConf
+> = z.object({
+  unroll: z.string(),
+  inherit: z.string().optional(),
+  unrollIdxField: z.string().optional(),
+  pretty: z.boolean().optional(),
+});
+
+export function pipelineFunctionXmlUnrollConfToJSON(
+  pipelineFunctionXmlUnrollConf: PipelineFunctionXmlUnrollConf,
+): string {
+  return JSON.stringify(
+    PipelineFunctionXmlUnrollConf$outboundSchema.parse(
+      pipelineFunctionXmlUnrollConf,
+    ),
+  );
+}
+export function pipelineFunctionXmlUnrollConfFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionXmlUnrollConf, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionXmlUnrollConf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionXmlUnrollConf' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionXmlUnroll$inboundSchema: z.ZodType<
@@ -52,7 +115,7 @@ export const PipelineFunctionXmlUnroll$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaXmlUnroll$inboundSchema,
+  conf: z.lazy(() => PipelineFunctionXmlUnrollConf$inboundSchema),
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -62,7 +125,7 @@ export type PipelineFunctionXmlUnroll$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionConfSchemaXmlUnroll$Outbound;
+  conf: PipelineFunctionXmlUnrollConf$Outbound;
   groupId?: string | undefined;
 };
 
@@ -77,7 +140,7 @@ export const PipelineFunctionXmlUnroll$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaXmlUnroll$outboundSchema,
+  conf: z.lazy(() => PipelineFunctionXmlUnrollConf$outboundSchema),
   groupId: z.string().optional(),
 });
 

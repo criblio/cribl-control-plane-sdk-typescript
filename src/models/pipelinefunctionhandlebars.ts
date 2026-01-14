@@ -6,12 +6,44 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaHandlebars,
-  FunctionConfSchemaHandlebars$inboundSchema,
-  FunctionConfSchemaHandlebars$Outbound,
-  FunctionConfSchemaHandlebars$outboundSchema,
-} from "./functionconfschemahandlebars.js";
+
+export type PipelineFunctionHandlebarsTemplateDefinition = {
+  /**
+   * Unique identifier for this template
+   */
+  id: string;
+  /**
+   * Handlebars template string
+   */
+  content: string;
+  /**
+   * Optional description of what this template is used for
+   */
+  description?: string | undefined;
+  /**
+   * Type categorization for the template (e.g., Universal, Email, Slack)
+   */
+  type: string;
+};
+
+export type PipelineFunctionHandlebarsConf = {
+  /**
+   * Array of template definitions. Uses event.__template_id to select template at runtime.
+   */
+  templates: Array<PipelineFunctionHandlebarsTemplateDefinition>;
+  /**
+   * Field name to store the rendered template result. Defaults to _raw.
+   */
+  targetField?: string | undefined;
+  /**
+   * Parse the rendered template as JSON and store as an object instead of a string. Useful for building structured data like Slack blocks.
+   */
+  parseJson?: boolean | undefined;
+  /**
+   * Remove the target field if the rendered result is empty or null.
+   */
+  removeOnNull?: boolean | undefined;
+};
 
 export type PipelineFunctionHandlebars = {
   /**
@@ -34,12 +66,125 @@ export type PipelineFunctionHandlebars = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionConfSchemaHandlebars;
+  conf: PipelineFunctionHandlebarsConf;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
+
+/** @internal */
+export const PipelineFunctionHandlebarsTemplateDefinition$inboundSchema:
+  z.ZodType<
+    PipelineFunctionHandlebarsTemplateDefinition,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    id: z.string(),
+    content: z.string(),
+    description: z.string().optional(),
+    type: z.string(),
+  });
+/** @internal */
+export type PipelineFunctionHandlebarsTemplateDefinition$Outbound = {
+  id: string;
+  content: string;
+  description?: string | undefined;
+  type: string;
+};
+
+/** @internal */
+export const PipelineFunctionHandlebarsTemplateDefinition$outboundSchema:
+  z.ZodType<
+    PipelineFunctionHandlebarsTemplateDefinition$Outbound,
+    z.ZodTypeDef,
+    PipelineFunctionHandlebarsTemplateDefinition
+  > = z.object({
+    id: z.string(),
+    content: z.string(),
+    description: z.string().optional(),
+    type: z.string(),
+  });
+
+export function pipelineFunctionHandlebarsTemplateDefinitionToJSON(
+  pipelineFunctionHandlebarsTemplateDefinition:
+    PipelineFunctionHandlebarsTemplateDefinition,
+): string {
+  return JSON.stringify(
+    PipelineFunctionHandlebarsTemplateDefinition$outboundSchema.parse(
+      pipelineFunctionHandlebarsTemplateDefinition,
+    ),
+  );
+}
+export function pipelineFunctionHandlebarsTemplateDefinitionFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PipelineFunctionHandlebarsTemplateDefinition,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PipelineFunctionHandlebarsTemplateDefinition$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PipelineFunctionHandlebarsTemplateDefinition' from JSON`,
+  );
+}
+
+/** @internal */
+export const PipelineFunctionHandlebarsConf$inboundSchema: z.ZodType<
+  PipelineFunctionHandlebarsConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  templates: z.array(
+    z.lazy(() => PipelineFunctionHandlebarsTemplateDefinition$inboundSchema),
+  ),
+  targetField: z.string().optional(),
+  parseJson: z.boolean().optional(),
+  removeOnNull: z.boolean().optional(),
+});
+/** @internal */
+export type PipelineFunctionHandlebarsConf$Outbound = {
+  templates: Array<PipelineFunctionHandlebarsTemplateDefinition$Outbound>;
+  targetField?: string | undefined;
+  parseJson?: boolean | undefined;
+  removeOnNull?: boolean | undefined;
+};
+
+/** @internal */
+export const PipelineFunctionHandlebarsConf$outboundSchema: z.ZodType<
+  PipelineFunctionHandlebarsConf$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionHandlebarsConf
+> = z.object({
+  templates: z.array(
+    z.lazy(() => PipelineFunctionHandlebarsTemplateDefinition$outboundSchema),
+  ),
+  targetField: z.string().optional(),
+  parseJson: z.boolean().optional(),
+  removeOnNull: z.boolean().optional(),
+});
+
+export function pipelineFunctionHandlebarsConfToJSON(
+  pipelineFunctionHandlebarsConf: PipelineFunctionHandlebarsConf,
+): string {
+  return JSON.stringify(
+    PipelineFunctionHandlebarsConf$outboundSchema.parse(
+      pipelineFunctionHandlebarsConf,
+    ),
+  );
+}
+export function pipelineFunctionHandlebarsConfFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionHandlebarsConf, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionHandlebarsConf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionHandlebarsConf' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionHandlebars$inboundSchema: z.ZodType<
@@ -52,7 +197,7 @@ export const PipelineFunctionHandlebars$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaHandlebars$inboundSchema,
+  conf: z.lazy(() => PipelineFunctionHandlebarsConf$inboundSchema),
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -62,7 +207,7 @@ export type PipelineFunctionHandlebars$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionConfSchemaHandlebars$Outbound;
+  conf: PipelineFunctionHandlebarsConf$Outbound;
   groupId?: string | undefined;
 };
 
@@ -77,7 +222,7 @@ export const PipelineFunctionHandlebars$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaHandlebars$outboundSchema,
+  conf: z.lazy(() => PipelineFunctionHandlebarsConf$outboundSchema),
   groupId: z.string().optional(),
 });
 

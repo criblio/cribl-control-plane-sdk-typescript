@@ -8,16 +8,12 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  TypeOptions,
-  TypeOptions$inboundSchema,
-  TypeOptions$outboundSchema,
-} from "./typeoptions.js";
+import { TypeOptions, TypeOptions$inboundSchema } from "./typeoptions.js";
 
 /**
  * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
  */
-export const OperationMode = {
+export const FunctionConfSchemaSerdeOperationMode = {
   /**
    * Extract
    */
@@ -30,13 +26,15 @@ export const OperationMode = {
 /**
  * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
  */
-export type OperationMode = OpenEnum<typeof OperationMode>;
+export type FunctionConfSchemaSerdeOperationMode = OpenEnum<
+  typeof FunctionConfSchemaSerdeOperationMode
+>;
 
 export type FunctionConfSchemaSerde = {
   /**
    * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
    */
-  mode?: OperationMode | undefined;
+  mode?: FunctionConfSchemaSerdeOperationMode | undefined;
   /**
    * Parser or formatter type to use
    */
@@ -57,17 +55,11 @@ export type FunctionConfSchemaSerde = {
 };
 
 /** @internal */
-export const OperationMode$inboundSchema: z.ZodType<
-  OperationMode,
+export const FunctionConfSchemaSerdeOperationMode$inboundSchema: z.ZodType<
+  FunctionConfSchemaSerdeOperationMode,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(OperationMode);
-/** @internal */
-export const OperationMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OperationMode
-> = openEnums.outboundSchema(OperationMode);
+> = openEnums.inboundSchema(FunctionConfSchemaSerdeOperationMode);
 
 /** @internal */
 export const FunctionConfSchemaSerde$inboundSchema: z.ZodType<
@@ -75,7 +67,7 @@ export const FunctionConfSchemaSerde$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: OperationMode$inboundSchema.optional(),
+  mode: FunctionConfSchemaSerdeOperationMode$inboundSchema.optional(),
   type: TypeOptions$inboundSchema.optional(),
   delimChar: z.any().optional(),
   quoteChar: z.any().optional(),
@@ -85,43 +77,7 @@ export const FunctionConfSchemaSerde$inboundSchema: z.ZodType<
   dstField: z.string().optional(),
   cleanFields: z.any().optional(),
 });
-/** @internal */
-export type FunctionConfSchemaSerde$Outbound = {
-  mode?: string | undefined;
-  type?: string | undefined;
-  delimChar?: any | undefined;
-  quoteChar?: any | undefined;
-  escapeChar?: any | undefined;
-  nullValue?: any | undefined;
-  srcField?: string | undefined;
-  dstField?: string | undefined;
-  cleanFields?: any | undefined;
-};
 
-/** @internal */
-export const FunctionConfSchemaSerde$outboundSchema: z.ZodType<
-  FunctionConfSchemaSerde$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaSerde
-> = z.object({
-  mode: OperationMode$outboundSchema.optional(),
-  type: TypeOptions$outboundSchema.optional(),
-  delimChar: z.any().optional(),
-  quoteChar: z.any().optional(),
-  escapeChar: z.any().optional(),
-  nullValue: z.any().optional(),
-  srcField: z.string().optional(),
-  dstField: z.string().optional(),
-  cleanFields: z.any().optional(),
-});
-
-export function functionConfSchemaSerdeToJSON(
-  functionConfSchemaSerde: FunctionConfSchemaSerde,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaSerde$outboundSchema.parse(functionConfSchemaSerde),
-  );
-}
 export function functionConfSchemaSerdeFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaSerde, SDKValidationError> {

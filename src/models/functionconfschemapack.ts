@@ -27,29 +27,7 @@ export const FunctionConfSchemaPack$inboundSchema: z.ZodType<
   unpackedFields: z.array(z.string()).optional(),
   target: z.string().optional(),
 });
-/** @internal */
-export type FunctionConfSchemaPack$Outbound = {
-  unpackedFields?: Array<string> | undefined;
-  target?: string | undefined;
-};
 
-/** @internal */
-export const FunctionConfSchemaPack$outboundSchema: z.ZodType<
-  FunctionConfSchemaPack$Outbound,
-  z.ZodTypeDef,
-  FunctionConfSchemaPack
-> = z.object({
-  unpackedFields: z.array(z.string()).optional(),
-  target: z.string().optional(),
-});
-
-export function functionConfSchemaPackToJSON(
-  functionConfSchemaPack: FunctionConfSchemaPack,
-): string {
-  return JSON.stringify(
-    FunctionConfSchemaPack$outboundSchema.parse(functionConfSchemaPack),
-  );
-}
 export function functionConfSchemaPackFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaPack, SDKValidationError> {

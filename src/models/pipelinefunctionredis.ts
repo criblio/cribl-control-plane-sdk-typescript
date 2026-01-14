@@ -4,14 +4,92 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaRedis,
-  FunctionConfSchemaRedis$inboundSchema,
-  FunctionConfSchemaRedis$Outbound,
-  FunctionConfSchemaRedis$outboundSchema,
-} from "./functionconfschemaredis.js";
+
+export type PipelineFunctionRedisCommand = {
+  /**
+   * Name of the field in which to store the returned value. Leave blank to discard returned value.
+   */
+  outField?: string | undefined;
+  /**
+   * Redis command to perform. For a complete list visit: https://redis.io/commands
+   */
+  command: string;
+  /**
+   * A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
+   */
+  keyExpr: string;
+  /**
+   * A JavaScript expression to compute arguments to the operation. Can return an array.
+   */
+  argsExpr?: string | undefined;
+};
+
+/**
+ * How the Redis server is configured. Defaults to Standalone
+ */
+export const PipelineFunctionRedisDeploymentType = {
+  /**
+   * Standalone
+   */
+  Standalone: "standalone",
+  /**
+   * Cluster
+   */
+  Cluster: "cluster",
+  /**
+   * Sentinel
+   */
+  Sentinel: "sentinel",
+} as const;
+/**
+ * How the Redis server is configured. Defaults to Standalone
+ */
+export type PipelineFunctionRedisDeploymentType = OpenEnum<
+  typeof PipelineFunctionRedisDeploymentType
+>;
+
+export const PipelineFunctionRedisAuthenticationMethod = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * User Secret
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Admin Secret
+   */
+  TextSecret: "textSecret",
+} as const;
+export type PipelineFunctionRedisAuthenticationMethod = OpenEnum<
+  typeof PipelineFunctionRedisAuthenticationMethod
+>;
+
+export type PipelineFunctionRedisConf = {
+  commands: Array<PipelineFunctionRedisCommand>;
+  /**
+   * How the Redis server is configured. Defaults to Standalone
+   */
+  deploymentType?: PipelineFunctionRedisDeploymentType | undefined;
+  authType?: PipelineFunctionRedisAuthenticationMethod | undefined;
+  /**
+   * Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
+   */
+  maxBlockSecs?: number | undefined;
+  /**
+   * Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
+   */
+  enableClientSideCaching?: boolean | undefined;
+};
 
 export type PipelineFunctionRedis = {
   /**
@@ -34,12 +112,137 @@ export type PipelineFunctionRedis = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionConfSchemaRedis;
+  conf: PipelineFunctionRedisConf;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
+
+/** @internal */
+export const PipelineFunctionRedisCommand$inboundSchema: z.ZodType<
+  PipelineFunctionRedisCommand,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  outField: z.string().optional(),
+  command: z.string(),
+  keyExpr: z.string(),
+  argsExpr: z.string().optional(),
+});
+/** @internal */
+export type PipelineFunctionRedisCommand$Outbound = {
+  outField?: string | undefined;
+  command: string;
+  keyExpr: string;
+  argsExpr?: string | undefined;
+};
+
+/** @internal */
+export const PipelineFunctionRedisCommand$outboundSchema: z.ZodType<
+  PipelineFunctionRedisCommand$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionRedisCommand
+> = z.object({
+  outField: z.string().optional(),
+  command: z.string(),
+  keyExpr: z.string(),
+  argsExpr: z.string().optional(),
+});
+
+export function pipelineFunctionRedisCommandToJSON(
+  pipelineFunctionRedisCommand: PipelineFunctionRedisCommand,
+): string {
+  return JSON.stringify(
+    PipelineFunctionRedisCommand$outboundSchema.parse(
+      pipelineFunctionRedisCommand,
+    ),
+  );
+}
+export function pipelineFunctionRedisCommandFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionRedisCommand, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionRedisCommand$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionRedisCommand' from JSON`,
+  );
+}
+
+/** @internal */
+export const PipelineFunctionRedisDeploymentType$inboundSchema: z.ZodType<
+  PipelineFunctionRedisDeploymentType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PipelineFunctionRedisDeploymentType);
+/** @internal */
+export const PipelineFunctionRedisDeploymentType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PipelineFunctionRedisDeploymentType
+> = openEnums.outboundSchema(PipelineFunctionRedisDeploymentType);
+
+/** @internal */
+export const PipelineFunctionRedisAuthenticationMethod$inboundSchema: z.ZodType<
+  PipelineFunctionRedisAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PipelineFunctionRedisAuthenticationMethod);
+/** @internal */
+export const PipelineFunctionRedisAuthenticationMethod$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, PipelineFunctionRedisAuthenticationMethod> =
+    openEnums.outboundSchema(PipelineFunctionRedisAuthenticationMethod);
+
+/** @internal */
+export const PipelineFunctionRedisConf$inboundSchema: z.ZodType<
+  PipelineFunctionRedisConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  commands: z.array(z.lazy(() => PipelineFunctionRedisCommand$inboundSchema)),
+  deploymentType: PipelineFunctionRedisDeploymentType$inboundSchema.optional(),
+  authType: PipelineFunctionRedisAuthenticationMethod$inboundSchema.optional(),
+  maxBlockSecs: z.number().optional(),
+  enableClientSideCaching: z.boolean().optional(),
+});
+/** @internal */
+export type PipelineFunctionRedisConf$Outbound = {
+  commands: Array<PipelineFunctionRedisCommand$Outbound>;
+  deploymentType?: string | undefined;
+  authType?: string | undefined;
+  maxBlockSecs?: number | undefined;
+  enableClientSideCaching?: boolean | undefined;
+};
+
+/** @internal */
+export const PipelineFunctionRedisConf$outboundSchema: z.ZodType<
+  PipelineFunctionRedisConf$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionRedisConf
+> = z.object({
+  commands: z.array(z.lazy(() => PipelineFunctionRedisCommand$outboundSchema)),
+  deploymentType: PipelineFunctionRedisDeploymentType$outboundSchema.optional(),
+  authType: PipelineFunctionRedisAuthenticationMethod$outboundSchema.optional(),
+  maxBlockSecs: z.number().optional(),
+  enableClientSideCaching: z.boolean().optional(),
+});
+
+export function pipelineFunctionRedisConfToJSON(
+  pipelineFunctionRedisConf: PipelineFunctionRedisConf,
+): string {
+  return JSON.stringify(
+    PipelineFunctionRedisConf$outboundSchema.parse(pipelineFunctionRedisConf),
+  );
+}
+export function pipelineFunctionRedisConfFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionRedisConf, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionRedisConf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionRedisConf' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionRedis$inboundSchema: z.ZodType<
@@ -52,7 +255,7 @@ export const PipelineFunctionRedis$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaRedis$inboundSchema,
+  conf: z.lazy(() => PipelineFunctionRedisConf$inboundSchema),
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -62,7 +265,7 @@ export type PipelineFunctionRedis$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionConfSchemaRedis$Outbound;
+  conf: PipelineFunctionRedisConf$Outbound;
   groupId?: string | undefined;
 };
 
@@ -77,7 +280,7 @@ export const PipelineFunctionRedis$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaRedis$outboundSchema,
+  conf: z.lazy(() => PipelineFunctionRedisConf$outboundSchema),
   groupId: z.string().optional(),
 });
 

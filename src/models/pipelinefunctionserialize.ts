@@ -4,14 +4,69 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaSerialize,
-  FunctionConfSchemaSerialize$inboundSchema,
-  FunctionConfSchemaSerialize$Outbound,
-  FunctionConfSchemaSerialize$outboundSchema,
-} from "./functionconfschemaserialize.js";
+
+/**
+ * Data output format
+ */
+export const PipelineFunctionSerializeType = {
+  /**
+   * CSV
+   */
+  Csv: "csv",
+  /**
+   * Extended Log File Format
+   */
+  Elff: "elff",
+  /**
+   * Common Log Format
+   */
+  Clf: "clf",
+  /**
+   * Key=Value Pairs
+   */
+  Kvp: "kvp",
+  /**
+   * JSON Object
+   */
+  Json: "json",
+  /**
+   * Delimited values
+   */
+  Delim: "delim",
+} as const;
+/**
+ * Data output format
+ */
+export type PipelineFunctionSerializeType = OpenEnum<
+  typeof PipelineFunctionSerializeType
+>;
+
+export type PipelineFunctionSerializeConf = {
+  /**
+   * Data output format
+   */
+  type: PipelineFunctionSerializeType;
+  delimChar?: any | undefined;
+  quoteChar?: any | undefined;
+  escapeChar?: any | undefined;
+  nullValue?: any | undefined;
+  /**
+   * Required for CSV, ELFF, CLF, and Delimited values. All other formats support wildcard field lists. Examples: host, array*, !host *
+   */
+  fields?: Array<string> | undefined;
+  /**
+   * Field containing object to serialize. Leave blank to serialize top-level event fields.
+   */
+  srcField?: string | undefined;
+  /**
+   * Field to serialize data to
+   */
+  dstField?: string | undefined;
+};
 
 export type PipelineFunctionSerialize = {
   /**
@@ -34,12 +89,87 @@ export type PipelineFunctionSerialize = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionConfSchemaSerialize;
+  conf: PipelineFunctionSerializeConf;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
+
+/** @internal */
+export const PipelineFunctionSerializeType$inboundSchema: z.ZodType<
+  PipelineFunctionSerializeType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PipelineFunctionSerializeType);
+/** @internal */
+export const PipelineFunctionSerializeType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PipelineFunctionSerializeType
+> = openEnums.outboundSchema(PipelineFunctionSerializeType);
+
+/** @internal */
+export const PipelineFunctionSerializeConf$inboundSchema: z.ZodType<
+  PipelineFunctionSerializeConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: PipelineFunctionSerializeType$inboundSchema,
+  delimChar: z.any().optional(),
+  quoteChar: z.any().optional(),
+  escapeChar: z.any().optional(),
+  nullValue: z.any().optional(),
+  fields: z.array(z.string()).optional(),
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
+});
+/** @internal */
+export type PipelineFunctionSerializeConf$Outbound = {
+  type: string;
+  delimChar?: any | undefined;
+  quoteChar?: any | undefined;
+  escapeChar?: any | undefined;
+  nullValue?: any | undefined;
+  fields?: Array<string> | undefined;
+  srcField?: string | undefined;
+  dstField?: string | undefined;
+};
+
+/** @internal */
+export const PipelineFunctionSerializeConf$outboundSchema: z.ZodType<
+  PipelineFunctionSerializeConf$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionSerializeConf
+> = z.object({
+  type: PipelineFunctionSerializeType$outboundSchema,
+  delimChar: z.any().optional(),
+  quoteChar: z.any().optional(),
+  escapeChar: z.any().optional(),
+  nullValue: z.any().optional(),
+  fields: z.array(z.string()).optional(),
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
+});
+
+export function pipelineFunctionSerializeConfToJSON(
+  pipelineFunctionSerializeConf: PipelineFunctionSerializeConf,
+): string {
+  return JSON.stringify(
+    PipelineFunctionSerializeConf$outboundSchema.parse(
+      pipelineFunctionSerializeConf,
+    ),
+  );
+}
+export function pipelineFunctionSerializeConfFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionSerializeConf, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionSerializeConf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionSerializeConf' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionSerialize$inboundSchema: z.ZodType<
@@ -52,7 +182,7 @@ export const PipelineFunctionSerialize$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaSerialize$inboundSchema,
+  conf: z.lazy(() => PipelineFunctionSerializeConf$inboundSchema),
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -62,7 +192,7 @@ export type PipelineFunctionSerialize$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionConfSchemaSerialize$Outbound;
+  conf: PipelineFunctionSerializeConf$Outbound;
   groupId?: string | undefined;
 };
 
@@ -77,7 +207,7 @@ export const PipelineFunctionSerialize$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: FunctionConfSchemaSerialize$outboundSchema,
+  conf: z.lazy(() => PipelineFunctionSerializeConf$outboundSchema),
   groupId: z.string().optional(),
 });
 
