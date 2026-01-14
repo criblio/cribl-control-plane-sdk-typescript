@@ -2546,6 +2546,7 @@ const value: models.InputSystemState = {
     destPath: "$CRIBL_HOME/state/system_state",
   },
   disableNativeModule: false,
+  disableNativeLastLogModule: false,
   description: "ugh without when unwilling doubtfully word",
 };
 ```
