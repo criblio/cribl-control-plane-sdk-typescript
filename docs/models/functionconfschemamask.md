@@ -10,7 +10,7 @@ let value: FunctionConfSchemaMask = {
     {
       matchRegex: "<value>",
       replaceExpr: "<value>",
-      disabled: true,
+      disabled: false,
     },
   ],
   fields: [

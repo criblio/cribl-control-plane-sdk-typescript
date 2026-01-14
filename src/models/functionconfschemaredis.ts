@@ -9,7 +9,7 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type FunctionConfSchemaRedisCommand = {
+export type Command = {
   /**
    * Name of the field in which to store the returned value. Leave blank to discard returned value.
    */
@@ -31,7 +31,7 @@ export type FunctionConfSchemaRedisCommand = {
 /**
  * How the Redis server is configured. Defaults to Standalone
  */
-export const FunctionConfSchemaRedisDeploymentType = {
+export const DeploymentType = {
   /**
    * Standalone
    */
@@ -48,9 +48,7 @@ export const FunctionConfSchemaRedisDeploymentType = {
 /**
  * How the Redis server is configured. Defaults to Standalone
  */
-export type FunctionConfSchemaRedisDeploymentType = OpenEnum<
-  typeof FunctionConfSchemaRedisDeploymentType
->;
+export type DeploymentType = OpenEnum<typeof DeploymentType>;
 
 export const FunctionConfSchemaRedisAuthenticationMethod = {
   /**
@@ -75,11 +73,11 @@ export type FunctionConfSchemaRedisAuthenticationMethod = OpenEnum<
 >;
 
 export type FunctionConfSchemaRedis = {
-  commands?: Array<FunctionConfSchemaRedisCommand> | undefined;
+  commands?: Array<Command> | undefined;
   /**
    * How the Redis server is configured. Defaults to Standalone
    */
-  deploymentType?: FunctionConfSchemaRedisDeploymentType | undefined;
+  deploymentType?: DeploymentType | undefined;
   authType?: FunctionConfSchemaRedisAuthenticationMethod | undefined;
   /**
    * Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
@@ -92,10 +90,26 @@ export type FunctionConfSchemaRedis = {
 };
 
 /** @internal */
-export const FunctionConfSchemaRedisCommand$inboundSchema: z.ZodType<
-  FunctionConfSchemaRedisCommand,
+export const Command$inboundSchema: z.ZodType<Command, z.ZodTypeDef, unknown> =
+  z.object({
+    outField: z.string().optional(),
+    command: z.string(),
+    keyExpr: z.string(),
+    argsExpr: z.string().optional(),
+  });
+/** @internal */
+export type Command$Outbound = {
+  outField?: string | undefined;
+  command: string;
+  keyExpr: string;
+  argsExpr?: string | undefined;
+};
+
+/** @internal */
+export const Command$outboundSchema: z.ZodType<
+  Command$Outbound,
   z.ZodTypeDef,
-  unknown
+  Command
 > = z.object({
   outField: z.string().optional(),
   command: z.string(),
@@ -103,22 +117,31 @@ export const FunctionConfSchemaRedisCommand$inboundSchema: z.ZodType<
   argsExpr: z.string().optional(),
 });
 
-export function functionConfSchemaRedisCommandFromJSON(
+export function commandToJSON(command: Command): string {
+  return JSON.stringify(Command$outboundSchema.parse(command));
+}
+export function commandFromJSON(
   jsonString: string,
-): SafeParseResult<FunctionConfSchemaRedisCommand, SDKValidationError> {
+): SafeParseResult<Command, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => FunctionConfSchemaRedisCommand$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionConfSchemaRedisCommand' from JSON`,
+    (x) => Command$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Command' from JSON`,
   );
 }
 
 /** @internal */
-export const FunctionConfSchemaRedisDeploymentType$inboundSchema: z.ZodType<
-  FunctionConfSchemaRedisDeploymentType,
+export const DeploymentType$inboundSchema: z.ZodType<
+  DeploymentType,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(FunctionConfSchemaRedisDeploymentType);
+> = openEnums.inboundSchema(DeploymentType);
+/** @internal */
+export const DeploymentType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  DeploymentType
+> = openEnums.outboundSchema(DeploymentType);
 
 /** @internal */
 export const FunctionConfSchemaRedisAuthenticationMethod$inboundSchema:
@@ -127,6 +150,10 @@ export const FunctionConfSchemaRedisAuthenticationMethod$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(FunctionConfSchemaRedisAuthenticationMethod);
+/** @internal */
+export const FunctionConfSchemaRedisAuthenticationMethod$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, FunctionConfSchemaRedisAuthenticationMethod> =
+    openEnums.outboundSchema(FunctionConfSchemaRedisAuthenticationMethod);
 
 /** @internal */
 export const FunctionConfSchemaRedis$inboundSchema: z.ZodType<
@@ -134,16 +161,43 @@ export const FunctionConfSchemaRedis$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  commands: z.array(z.lazy(() => FunctionConfSchemaRedisCommand$inboundSchema))
-    .optional(),
-  deploymentType: FunctionConfSchemaRedisDeploymentType$inboundSchema
-    .optional(),
+  commands: z.array(z.lazy(() => Command$inboundSchema)).optional(),
+  deploymentType: DeploymentType$inboundSchema.optional(),
   authType: FunctionConfSchemaRedisAuthenticationMethod$inboundSchema
     .optional(),
   maxBlockSecs: z.number().optional(),
   enableClientSideCaching: z.boolean().optional(),
 });
+/** @internal */
+export type FunctionConfSchemaRedis$Outbound = {
+  commands?: Array<Command$Outbound> | undefined;
+  deploymentType?: string | undefined;
+  authType?: string | undefined;
+  maxBlockSecs?: number | undefined;
+  enableClientSideCaching?: boolean | undefined;
+};
 
+/** @internal */
+export const FunctionConfSchemaRedis$outboundSchema: z.ZodType<
+  FunctionConfSchemaRedis$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaRedis
+> = z.object({
+  commands: z.array(z.lazy(() => Command$outboundSchema)).optional(),
+  deploymentType: DeploymentType$outboundSchema.optional(),
+  authType: FunctionConfSchemaRedisAuthenticationMethod$outboundSchema
+    .optional(),
+  maxBlockSecs: z.number().optional(),
+  enableClientSideCaching: z.boolean().optional(),
+});
+
+export function functionConfSchemaRedisToJSON(
+  functionConfSchemaRedis: FunctionConfSchemaRedis,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaRedis$outboundSchema.parse(functionConfSchemaRedis),
+  );
+}
 export function functionConfSchemaRedisFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaRedis, SDKValidationError> {

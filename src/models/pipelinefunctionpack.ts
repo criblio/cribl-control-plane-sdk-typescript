@@ -6,17 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type PipelineFunctionPackConf = {
-  /**
-   * List of fields to keep, everything else will be packed
-   */
-  unpackedFields: Array<string>;
-  /**
-   * Name of the (packed) target field
-   */
-  target?: string | undefined;
-};
+import {
+  FunctionConfSchemaPack,
+  FunctionConfSchemaPack$inboundSchema,
+  FunctionConfSchemaPack$Outbound,
+  FunctionConfSchemaPack$outboundSchema,
+} from "./functionconfschemapack.js";
 
 export type PipelineFunctionPack = {
   /**
@@ -39,54 +34,12 @@ export type PipelineFunctionPack = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: PipelineFunctionPackConf;
+  conf: FunctionConfSchemaPack;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const PipelineFunctionPackConf$inboundSchema: z.ZodType<
-  PipelineFunctionPackConf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  unpackedFields: z.array(z.string()),
-  target: z.string().optional(),
-});
-/** @internal */
-export type PipelineFunctionPackConf$Outbound = {
-  unpackedFields: Array<string>;
-  target?: string | undefined;
-};
-
-/** @internal */
-export const PipelineFunctionPackConf$outboundSchema: z.ZodType<
-  PipelineFunctionPackConf$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionPackConf
-> = z.object({
-  unpackedFields: z.array(z.string()),
-  target: z.string().optional(),
-});
-
-export function pipelineFunctionPackConfToJSON(
-  pipelineFunctionPackConf: PipelineFunctionPackConf,
-): string {
-  return JSON.stringify(
-    PipelineFunctionPackConf$outboundSchema.parse(pipelineFunctionPackConf),
-  );
-}
-export function pipelineFunctionPackConfFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionPackConf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PipelineFunctionPackConf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionPackConf' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionPack$inboundSchema: z.ZodType<
@@ -99,7 +52,7 @@ export const PipelineFunctionPack$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionPackConf$inboundSchema),
+  conf: FunctionConfSchemaPack$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -109,7 +62,7 @@ export type PipelineFunctionPack$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: PipelineFunctionPackConf$Outbound;
+  conf: FunctionConfSchemaPack$Outbound;
   groupId?: string | undefined;
 };
 
@@ -124,7 +77,7 @@ export const PipelineFunctionPack$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionPackConf$outboundSchema),
+  conf: FunctionConfSchemaPack$outboundSchema,
   groupId: z.string().optional(),
 });
 

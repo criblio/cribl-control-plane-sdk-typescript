@@ -15,7 +15,7 @@ import {
   PipelineFunctionConf$inboundSchema,
 } from "./pipelinefunctionconf.js";
 
-export type PipelineConf = {
+export type Conf = {
   /**
    * Time (in ms) to wait for an async function to complete processing of a data item
    */
@@ -40,31 +40,28 @@ export type PipelineConf = {
 
 export type Pipeline = {
   id: string;
-  conf: PipelineConf;
+  conf: Conf;
 };
 
 /** @internal */
-export const PipelineConf$inboundSchema: z.ZodType<
-  PipelineConf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  asyncFuncTimeout: z.number().int().optional(),
-  output: z.string().optional(),
-  description: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  functions: z.array(PipelineFunctionConf$inboundSchema).optional(),
-  groups: z.record(AdditionalPropertiesTypePipelineConfGroups$inboundSchema)
-    .optional(),
-});
+export const Conf$inboundSchema: z.ZodType<Conf, z.ZodTypeDef, unknown> = z
+  .object({
+    asyncFuncTimeout: z.number().int().optional(),
+    output: z.string().optional(),
+    description: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    functions: z.array(PipelineFunctionConf$inboundSchema).optional(),
+    groups: z.record(AdditionalPropertiesTypePipelineConfGroups$inboundSchema)
+      .optional(),
+  });
 
-export function pipelineConfFromJSON(
+export function confFromJSON(
   jsonString: string,
-): SafeParseResult<PipelineConf, SDKValidationError> {
+): SafeParseResult<Conf, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PipelineConf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineConf' from JSON`,
+    (x) => Conf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Conf' from JSON`,
   );
 }
 
@@ -75,7 +72,7 @@ export const Pipeline$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
-  conf: z.lazy(() => PipelineConf$inboundSchema),
+  conf: z.lazy(() => Conf$inboundSchema),
 });
 
 export function pipelineFromJSON(

@@ -74,6 +74,12 @@ export const FunctionConfSchemaSerializeType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(FunctionConfSchemaSerializeType);
+/** @internal */
+export const FunctionConfSchemaSerializeType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  FunctionConfSchemaSerializeType
+> = openEnums.outboundSchema(FunctionConfSchemaSerializeType);
 
 /** @internal */
 export const FunctionConfSchemaSerialize$inboundSchema: z.ZodType<
@@ -90,7 +96,43 @@ export const FunctionConfSchemaSerialize$inboundSchema: z.ZodType<
   srcField: z.string().optional(),
   dstField: z.string().optional(),
 });
+/** @internal */
+export type FunctionConfSchemaSerialize$Outbound = {
+  type?: string | undefined;
+  delimChar?: any | undefined;
+  quoteChar?: any | undefined;
+  escapeChar?: any | undefined;
+  nullValue?: any | undefined;
+  fields?: Array<string> | undefined;
+  srcField?: string | undefined;
+  dstField?: string | undefined;
+};
 
+/** @internal */
+export const FunctionConfSchemaSerialize$outboundSchema: z.ZodType<
+  FunctionConfSchemaSerialize$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaSerialize
+> = z.object({
+  type: FunctionConfSchemaSerializeType$outboundSchema.optional(),
+  delimChar: z.any().optional(),
+  quoteChar: z.any().optional(),
+  escapeChar: z.any().optional(),
+  nullValue: z.any().optional(),
+  fields: z.array(z.string()).optional(),
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
+});
+
+export function functionConfSchemaSerializeToJSON(
+  functionConfSchemaSerialize: FunctionConfSchemaSerialize,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaSerialize$outboundSchema.parse(
+      functionConfSchemaSerialize,
+    ),
+  );
+}
 export function functionConfSchemaSerializeFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaSerialize, SDKValidationError> {

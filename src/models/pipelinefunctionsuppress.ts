@@ -6,37 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type PipelineFunctionSuppressConf = {
-  /**
-   * Suppression key expression used to uniquely identify events to suppress. For example, `${ip}:${port}` will use fields ip and port from each event to generate the key.
-   */
-  keyExpr: string;
-  /**
-   * The number of events to allow per time period
-   */
-  allow: number;
-  /**
-   * The number of seconds to suppress events after 'Number to allow' events are received
-   */
-  suppressPeriodSec: number;
-  /**
-   * If disabled, suppressed events will be tagged with suppress=1 but not dropped
-   */
-  dropEventsMode?: boolean | undefined;
-  /**
-   * The maximum number of keys that can be cached before idle entries are removed. Leave at default unless you understand the implications of changing.
-   */
-  maxCacheSize?: number | undefined;
-  /**
-   * The number of suppression periods 'Suppression Period' of inactivity before a cache entry is considered idle. Leave at default unless you understand the implications of changing.
-   */
-  cacheIdleTimeoutPeriods?: number | undefined;
-  /**
-   * Check cache for idle sessions every N events when cache size is > 'Maximum Cache Size'. Leave at default unless you understand the implications of changing.
-   */
-  numEventsIdleTimeoutTrigger?: number | undefined;
-};
+import {
+  FunctionConfSchemaSuppress,
+  FunctionConfSchemaSuppress$inboundSchema,
+  FunctionConfSchemaSuppress$Outbound,
+  FunctionConfSchemaSuppress$outboundSchema,
+} from "./functionconfschemasuppress.js";
 
 export type PipelineFunctionSuppress = {
   /**
@@ -59,71 +34,12 @@ export type PipelineFunctionSuppress = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: PipelineFunctionSuppressConf;
+  conf: FunctionConfSchemaSuppress;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const PipelineFunctionSuppressConf$inboundSchema: z.ZodType<
-  PipelineFunctionSuppressConf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  keyExpr: z.string(),
-  allow: z.number(),
-  suppressPeriodSec: z.number(),
-  dropEventsMode: z.boolean().optional(),
-  maxCacheSize: z.number().optional(),
-  cacheIdleTimeoutPeriods: z.number().optional(),
-  numEventsIdleTimeoutTrigger: z.number().optional(),
-});
-/** @internal */
-export type PipelineFunctionSuppressConf$Outbound = {
-  keyExpr: string;
-  allow: number;
-  suppressPeriodSec: number;
-  dropEventsMode?: boolean | undefined;
-  maxCacheSize?: number | undefined;
-  cacheIdleTimeoutPeriods?: number | undefined;
-  numEventsIdleTimeoutTrigger?: number | undefined;
-};
-
-/** @internal */
-export const PipelineFunctionSuppressConf$outboundSchema: z.ZodType<
-  PipelineFunctionSuppressConf$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionSuppressConf
-> = z.object({
-  keyExpr: z.string(),
-  allow: z.number(),
-  suppressPeriodSec: z.number(),
-  dropEventsMode: z.boolean().optional(),
-  maxCacheSize: z.number().optional(),
-  cacheIdleTimeoutPeriods: z.number().optional(),
-  numEventsIdleTimeoutTrigger: z.number().optional(),
-});
-
-export function pipelineFunctionSuppressConfToJSON(
-  pipelineFunctionSuppressConf: PipelineFunctionSuppressConf,
-): string {
-  return JSON.stringify(
-    PipelineFunctionSuppressConf$outboundSchema.parse(
-      pipelineFunctionSuppressConf,
-    ),
-  );
-}
-export function pipelineFunctionSuppressConfFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionSuppressConf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PipelineFunctionSuppressConf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionSuppressConf' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionSuppress$inboundSchema: z.ZodType<
@@ -136,7 +52,7 @@ export const PipelineFunctionSuppress$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionSuppressConf$inboundSchema),
+  conf: FunctionConfSchemaSuppress$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -146,7 +62,7 @@ export type PipelineFunctionSuppress$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: PipelineFunctionSuppressConf$Outbound;
+  conf: FunctionConfSchemaSuppress$Outbound;
   groupId?: string | undefined;
 };
 
@@ -161,7 +77,7 @@ export const PipelineFunctionSuppress$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionSuppressConf$outboundSchema),
+  conf: FunctionConfSchemaSuppress$outboundSchema,
   groupId: z.string().optional(),
 });
 

@@ -6,29 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type SortConfiguration = {
-  /**
-   * Has to be unique if there are multiple sorts on the pipeline.
-   */
-  sortId?: string | undefined;
-  /**
-   * The expression can access the events via the 'left' and 'right' properties.
-   */
-  comparisonExpression: string;
-  /**
-   * Limits the output to N (highest/lowest) events
-   */
-  topN?: number | undefined;
-  /**
-   * Specifies the number of events that can flow into this function
-   */
-  maxEvents?: number | undefined;
-  /**
-   * Toggle this on to suppress generating previews of intermediate results
-   */
-  suppressPreviews?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaSort,
+  FunctionConfSchemaSort$inboundSchema,
+  FunctionConfSchemaSort$Outbound,
+  FunctionConfSchemaSort$outboundSchema,
+} from "./functionconfschemasort.js";
 
 export type PipelineFunctionSort = {
   /**
@@ -51,63 +34,12 @@ export type PipelineFunctionSort = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: SortConfiguration;
+  conf: FunctionConfSchemaSort;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const SortConfiguration$inboundSchema: z.ZodType<
-  SortConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sortId: z.string().optional(),
-  comparisonExpression: z.string(),
-  topN: z.number().optional(),
-  maxEvents: z.number().optional(),
-  suppressPreviews: z.boolean().optional(),
-});
-/** @internal */
-export type SortConfiguration$Outbound = {
-  sortId?: string | undefined;
-  comparisonExpression: string;
-  topN?: number | undefined;
-  maxEvents?: number | undefined;
-  suppressPreviews?: boolean | undefined;
-};
-
-/** @internal */
-export const SortConfiguration$outboundSchema: z.ZodType<
-  SortConfiguration$Outbound,
-  z.ZodTypeDef,
-  SortConfiguration
-> = z.object({
-  sortId: z.string().optional(),
-  comparisonExpression: z.string(),
-  topN: z.number().optional(),
-  maxEvents: z.number().optional(),
-  suppressPreviews: z.boolean().optional(),
-});
-
-export function sortConfigurationToJSON(
-  sortConfiguration: SortConfiguration,
-): string {
-  return JSON.stringify(
-    SortConfiguration$outboundSchema.parse(sortConfiguration),
-  );
-}
-export function sortConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<SortConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SortConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SortConfiguration' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionSort$inboundSchema: z.ZodType<
@@ -120,7 +52,7 @@ export const PipelineFunctionSort$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => SortConfiguration$inboundSchema),
+  conf: FunctionConfSchemaSort$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -130,7 +62,7 @@ export type PipelineFunctionSort$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: SortConfiguration$Outbound;
+  conf: FunctionConfSchemaSort$Outbound;
   groupId?: string | undefined;
 };
 
@@ -145,7 +77,7 @@ export const PipelineFunctionSort$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => SortConfiguration$outboundSchema),
+  conf: FunctionConfSchemaSort$outboundSchema,
   groupId: z.string().optional(),
 });
 

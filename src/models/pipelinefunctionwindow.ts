@@ -6,25 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type PipelineFunctionWindowConf = {
-  /**
-   * Identifies the unique ID, used for a event window
-   */
-  eventWindowId: number;
-  /**
-   * All window functions, tracked by this event window
-   */
-  registeredFunctions: Array<string>;
-  /**
-   * Number of events to keep before the current event in the window
-   */
-  tailEventCount?: number | undefined;
-  /**
-   * Number of events to keep after the current event in the window
-   */
-  headEventCount?: number | undefined;
-};
+import {
+  FunctionConfSchemaWindow,
+  FunctionConfSchemaWindow$inboundSchema,
+  FunctionConfSchemaWindow$Outbound,
+  FunctionConfSchemaWindow$outboundSchema,
+} from "./functionconfschemawindow.js";
 
 export type PipelineFunctionWindow = {
   /**
@@ -47,60 +34,12 @@ export type PipelineFunctionWindow = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: PipelineFunctionWindowConf;
+  conf: FunctionConfSchemaWindow;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const PipelineFunctionWindowConf$inboundSchema: z.ZodType<
-  PipelineFunctionWindowConf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  eventWindowId: z.number(),
-  registeredFunctions: z.array(z.string()),
-  tailEventCount: z.number().optional(),
-  headEventCount: z.number().optional(),
-});
-/** @internal */
-export type PipelineFunctionWindowConf$Outbound = {
-  eventWindowId: number;
-  registeredFunctions: Array<string>;
-  tailEventCount?: number | undefined;
-  headEventCount?: number | undefined;
-};
-
-/** @internal */
-export const PipelineFunctionWindowConf$outboundSchema: z.ZodType<
-  PipelineFunctionWindowConf$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionWindowConf
-> = z.object({
-  eventWindowId: z.number(),
-  registeredFunctions: z.array(z.string()),
-  tailEventCount: z.number().optional(),
-  headEventCount: z.number().optional(),
-});
-
-export function pipelineFunctionWindowConfToJSON(
-  pipelineFunctionWindowConf: PipelineFunctionWindowConf,
-): string {
-  return JSON.stringify(
-    PipelineFunctionWindowConf$outboundSchema.parse(pipelineFunctionWindowConf),
-  );
-}
-export function pipelineFunctionWindowConfFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionWindowConf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PipelineFunctionWindowConf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionWindowConf' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionWindow$inboundSchema: z.ZodType<
@@ -113,7 +52,7 @@ export const PipelineFunctionWindow$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionWindowConf$inboundSchema),
+  conf: FunctionConfSchemaWindow$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -123,7 +62,7 @@ export type PipelineFunctionWindow$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: PipelineFunctionWindowConf$Outbound;
+  conf: FunctionConfSchemaWindow$Outbound;
   groupId?: string | undefined;
 };
 
@@ -138,7 +77,7 @@ export const PipelineFunctionWindow$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionWindowConf$outboundSchema),
+  conf: FunctionConfSchemaWindow$outboundSchema,
   groupId: z.string().optional(),
 });
 

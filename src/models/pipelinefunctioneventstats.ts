@@ -6,25 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type EventstatsConfiguration = {
-  /**
-   * Aggregate function(s) to perform on events. E.g., sum(bytes).where(action=='REJECT').as(TotalBytes)
-   */
-  aggregations: Array<string>;
-  /**
-   * Fields to group aggregates by, supports wildcard expressions.
-   */
-  groupBys?: Array<string> | undefined;
-  /**
-   * Specifies how many events are at max kept in memory to be enriched with aggregations
-   */
-  maxEvents?: number | undefined;
-  /**
-   * Determines if aggregations should flush when an input stream is closed. If disabled, time window settings will control flush behavior.
-   */
-  flushOnInputClose?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaEventstats,
+  FunctionConfSchemaEventstats$inboundSchema,
+  FunctionConfSchemaEventstats$Outbound,
+  FunctionConfSchemaEventstats$outboundSchema,
+} from "./functionconfschemaeventstats.js";
 
 export type PipelineFunctionEventstats = {
   /**
@@ -47,60 +34,12 @@ export type PipelineFunctionEventstats = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: EventstatsConfiguration;
+  conf: FunctionConfSchemaEventstats;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const EventstatsConfiguration$inboundSchema: z.ZodType<
-  EventstatsConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  aggregations: z.array(z.string()),
-  groupBys: z.array(z.string()).optional(),
-  maxEvents: z.number().optional(),
-  flushOnInputClose: z.boolean().optional(),
-});
-/** @internal */
-export type EventstatsConfiguration$Outbound = {
-  aggregations: Array<string>;
-  groupBys?: Array<string> | undefined;
-  maxEvents?: number | undefined;
-  flushOnInputClose?: boolean | undefined;
-};
-
-/** @internal */
-export const EventstatsConfiguration$outboundSchema: z.ZodType<
-  EventstatsConfiguration$Outbound,
-  z.ZodTypeDef,
-  EventstatsConfiguration
-> = z.object({
-  aggregations: z.array(z.string()),
-  groupBys: z.array(z.string()).optional(),
-  maxEvents: z.number().optional(),
-  flushOnInputClose: z.boolean().optional(),
-});
-
-export function eventstatsConfigurationToJSON(
-  eventstatsConfiguration: EventstatsConfiguration,
-): string {
-  return JSON.stringify(
-    EventstatsConfiguration$outboundSchema.parse(eventstatsConfiguration),
-  );
-}
-export function eventstatsConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<EventstatsConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EventstatsConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EventstatsConfiguration' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionEventstats$inboundSchema: z.ZodType<
@@ -113,7 +52,7 @@ export const PipelineFunctionEventstats$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => EventstatsConfiguration$inboundSchema),
+  conf: FunctionConfSchemaEventstats$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -123,7 +62,7 @@ export type PipelineFunctionEventstats$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: EventstatsConfiguration$Outbound;
+  conf: FunctionConfSchemaEventstats$Outbound;
   groupId?: string | undefined;
 };
 
@@ -138,7 +77,7 @@ export const PipelineFunctionEventstats$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => EventstatsConfiguration$outboundSchema),
+  conf: FunctionConfSchemaEventstats$outboundSchema,
   groupId: z.string().optional(),
 });
 

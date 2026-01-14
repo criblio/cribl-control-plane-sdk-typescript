@@ -6,10 +6,10 @@
 import { SplunkAuthenticationLogin } from "cribl-control-plane/models";
 
 let value: SplunkAuthenticationLogin = {
-  authentication: "basic",
-  loginUrl: "https://plump-handover.com/",
-  username: "Columbus_Gorczany",
-  password: "UnhU5e52mz0OGva",
+  authentication: "login",
+  loginUrl: "https://incomplete-object.info/",
+  username: "Augustus.Kuvalis",
+  password: "UUnhU5e52mz0OGv",
   loginBody: "<value>",
   tokenRespAttribute: "<value>",
   authHeaderExpr: "<value>",
@@ -31,11 +31,11 @@ let value: SplunkAuthenticationLogin = {
       value: "<value>",
     },
   ],
-  timeout: 1971.24,
-  useRoundRobinDns: false,
-  disableTimeFilter: true,
+  timeout: 5625.55,
+  useRoundRobinDns: true,
+  disableTimeFilter: false,
   rejectUnauthorized: true,
-  handleEscapedChars: false,
+  handleEscapedChars: true,
   retryRules: {
     type: "backoff",
     interval: "<value>",
@@ -53,7 +53,7 @@ let value: SplunkAuthenticationLogin = {
 
 | Field                                                                                                                                                                   | Type                                                                                                                                                                    | Required                                                                                                                                                                | Description                                                                                                                                                             |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `authentication`                                                                                                                                                        | [models.SplunkAuthenticationLoginAuthentication](../models/splunkauthenticationloginauthentication.md)                                                                  | :heavy_check_mark:                                                                                                                                                      | Authentication method for Discover and Collect REST calls                                                                                                               |
+| `authentication`                                                                                                                                                        | *"login"*                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                      | Authentication method for Discover and Collect REST calls                                                                                                               |
 | `loginUrl`                                                                                                                                                              | *string*                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                      | URL to use for login API call. This call is expected to be a POST.                                                                                                      |
 | `username`                                                                                                                                                              | *string*                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                      | N/A                                                                                                                                                                     |
 | `password`                                                                                                                                                              | *string*                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                      | N/A                                                                                                                                                                     |

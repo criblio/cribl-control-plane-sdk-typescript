@@ -52,7 +52,39 @@ export const FunctionConfSchemaSuppress$inboundSchema: z.ZodType<
   cacheIdleTimeoutPeriods: z.number().optional(),
   numEventsIdleTimeoutTrigger: z.number().optional(),
 });
+/** @internal */
+export type FunctionConfSchemaSuppress$Outbound = {
+  keyExpr?: string | undefined;
+  allow?: number | undefined;
+  suppressPeriodSec?: number | undefined;
+  dropEventsMode?: boolean | undefined;
+  maxCacheSize?: number | undefined;
+  cacheIdleTimeoutPeriods?: number | undefined;
+  numEventsIdleTimeoutTrigger?: number | undefined;
+};
 
+/** @internal */
+export const FunctionConfSchemaSuppress$outboundSchema: z.ZodType<
+  FunctionConfSchemaSuppress$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaSuppress
+> = z.object({
+  keyExpr: z.string().optional(),
+  allow: z.number().optional(),
+  suppressPeriodSec: z.number().optional(),
+  dropEventsMode: z.boolean().optional(),
+  maxCacheSize: z.number().optional(),
+  cacheIdleTimeoutPeriods: z.number().optional(),
+  numEventsIdleTimeoutTrigger: z.number().optional(),
+});
+
+export function functionConfSchemaSuppressToJSON(
+  functionConfSchemaSuppress: FunctionConfSchemaSuppress,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaSuppress$outboundSchema.parse(functionConfSchemaSuppress),
+  );
+}
 export function functionConfSchemaSuppressFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaSuppress, SDKValidationError> {

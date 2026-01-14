@@ -4,59 +4,14 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  TypeOptions,
-  TypeOptions$inboundSchema,
-  TypeOptions$outboundSchema,
-} from "./typeoptions.js";
-
-/**
- * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
- */
-export const PipelineFunctionSerdeOperationMode = {
-  /**
-   * Extract
-   */
-  Extract: "extract",
-  /**
-   * Reserialize
-   */
-  Reserialize: "reserialize",
-} as const;
-/**
- * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
- */
-export type PipelineFunctionSerdeOperationMode = OpenEnum<
-  typeof PipelineFunctionSerdeOperationMode
->;
-
-export type PipelineFunctionSerdeConf = {
-  /**
-   * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
-   */
-  mode: PipelineFunctionSerdeOperationMode;
-  /**
-   * Parser or formatter type to use
-   */
-  type: TypeOptions;
-  delimChar?: any | undefined;
-  quoteChar?: any | undefined;
-  escapeChar?: any | undefined;
-  nullValue?: any | undefined;
-  /**
-   * Field containing text to be parsed
-   */
-  srcField?: string | undefined;
-  /**
-   * Name of the field to add fields to. Extract mode only.
-   */
-  dstField?: string | undefined;
-  cleanFields?: any | undefined;
-};
+  FunctionConfSchemaSerde,
+  FunctionConfSchemaSerde$inboundSchema,
+  FunctionConfSchemaSerde$Outbound,
+  FunctionConfSchemaSerde$outboundSchema,
+} from "./functionconfschemaserde.js";
 
 export type PipelineFunctionSerde = {
   /**
@@ -79,88 +34,12 @@ export type PipelineFunctionSerde = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: PipelineFunctionSerdeConf;
+  conf: FunctionConfSchemaSerde;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const PipelineFunctionSerdeOperationMode$inboundSchema: z.ZodType<
-  PipelineFunctionSerdeOperationMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(PipelineFunctionSerdeOperationMode);
-/** @internal */
-export const PipelineFunctionSerdeOperationMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  PipelineFunctionSerdeOperationMode
-> = openEnums.outboundSchema(PipelineFunctionSerdeOperationMode);
-
-/** @internal */
-export const PipelineFunctionSerdeConf$inboundSchema: z.ZodType<
-  PipelineFunctionSerdeConf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: PipelineFunctionSerdeOperationMode$inboundSchema,
-  type: TypeOptions$inboundSchema,
-  delimChar: z.any().optional(),
-  quoteChar: z.any().optional(),
-  escapeChar: z.any().optional(),
-  nullValue: z.any().optional(),
-  srcField: z.string().optional(),
-  dstField: z.string().optional(),
-  cleanFields: z.any().optional(),
-});
-/** @internal */
-export type PipelineFunctionSerdeConf$Outbound = {
-  mode: string;
-  type: string;
-  delimChar?: any | undefined;
-  quoteChar?: any | undefined;
-  escapeChar?: any | undefined;
-  nullValue?: any | undefined;
-  srcField?: string | undefined;
-  dstField?: string | undefined;
-  cleanFields?: any | undefined;
-};
-
-/** @internal */
-export const PipelineFunctionSerdeConf$outboundSchema: z.ZodType<
-  PipelineFunctionSerdeConf$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionSerdeConf
-> = z.object({
-  mode: PipelineFunctionSerdeOperationMode$outboundSchema,
-  type: TypeOptions$outboundSchema,
-  delimChar: z.any().optional(),
-  quoteChar: z.any().optional(),
-  escapeChar: z.any().optional(),
-  nullValue: z.any().optional(),
-  srcField: z.string().optional(),
-  dstField: z.string().optional(),
-  cleanFields: z.any().optional(),
-});
-
-export function pipelineFunctionSerdeConfToJSON(
-  pipelineFunctionSerdeConf: PipelineFunctionSerdeConf,
-): string {
-  return JSON.stringify(
-    PipelineFunctionSerdeConf$outboundSchema.parse(pipelineFunctionSerdeConf),
-  );
-}
-export function pipelineFunctionSerdeConfFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionSerdeConf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PipelineFunctionSerdeConf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionSerdeConf' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionSerde$inboundSchema: z.ZodType<
@@ -173,7 +52,7 @@ export const PipelineFunctionSerde$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionSerdeConf$inboundSchema),
+  conf: FunctionConfSchemaSerde$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -183,7 +62,7 @@ export type PipelineFunctionSerde$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: PipelineFunctionSerdeConf$Outbound;
+  conf: FunctionConfSchemaSerde$Outbound;
   groupId?: string | undefined;
 };
 
@@ -198,7 +77,7 @@ export const PipelineFunctionSerde$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionSerdeConf$outboundSchema),
+  conf: FunctionConfSchemaSerde$outboundSchema,
   groupId: z.string().optional(),
 });
 

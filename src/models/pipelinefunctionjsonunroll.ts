@@ -6,17 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type PipelineFunctionJsonUnrollConf = {
-  /**
-   * Path to array to unroll, such as foo.0.bar
-   */
-  path: string;
-  /**
-   * Name of each exploded array element in each new event. Leave empty to expand the array element with its original name.
-   */
-  name?: string | undefined;
-};
+import {
+  FunctionConfSchemaJsonUnroll,
+  FunctionConfSchemaJsonUnroll$inboundSchema,
+  FunctionConfSchemaJsonUnroll$Outbound,
+  FunctionConfSchemaJsonUnroll$outboundSchema,
+} from "./functionconfschemajsonunroll.js";
 
 export type PipelineFunctionJsonUnroll = {
   /**
@@ -39,56 +34,12 @@ export type PipelineFunctionJsonUnroll = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: PipelineFunctionJsonUnrollConf;
+  conf: FunctionConfSchemaJsonUnroll;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const PipelineFunctionJsonUnrollConf$inboundSchema: z.ZodType<
-  PipelineFunctionJsonUnrollConf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  path: z.string(),
-  name: z.string().optional(),
-});
-/** @internal */
-export type PipelineFunctionJsonUnrollConf$Outbound = {
-  path: string;
-  name?: string | undefined;
-};
-
-/** @internal */
-export const PipelineFunctionJsonUnrollConf$outboundSchema: z.ZodType<
-  PipelineFunctionJsonUnrollConf$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionJsonUnrollConf
-> = z.object({
-  path: z.string(),
-  name: z.string().optional(),
-});
-
-export function pipelineFunctionJsonUnrollConfToJSON(
-  pipelineFunctionJsonUnrollConf: PipelineFunctionJsonUnrollConf,
-): string {
-  return JSON.stringify(
-    PipelineFunctionJsonUnrollConf$outboundSchema.parse(
-      pipelineFunctionJsonUnrollConf,
-    ),
-  );
-}
-export function pipelineFunctionJsonUnrollConfFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionJsonUnrollConf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PipelineFunctionJsonUnrollConf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionJsonUnrollConf' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionJsonUnroll$inboundSchema: z.ZodType<
@@ -101,7 +52,7 @@ export const PipelineFunctionJsonUnroll$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionJsonUnrollConf$inboundSchema),
+  conf: FunctionConfSchemaJsonUnroll$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -111,7 +62,7 @@ export type PipelineFunctionJsonUnroll$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: PipelineFunctionJsonUnrollConf$Outbound;
+  conf: FunctionConfSchemaJsonUnroll$Outbound;
   groupId?: string | undefined;
 };
 
@@ -126,7 +77,7 @@ export const PipelineFunctionJsonUnroll$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionJsonUnrollConf$outboundSchema),
+  conf: FunctionConfSchemaJsonUnroll$outboundSchema,
   groupId: z.string().optional(),
 });
 

@@ -6,14 +6,14 @@
 import { SplunkAuthenticationToken } from "cribl-control-plane/models";
 
 let value: SplunkAuthenticationToken = {
-  authentication: "basicSecret",
+  authentication: "token",
   token: "<value>",
   searchHead: "<value>",
   search: "<value>",
   earliest: "<value>",
   latest: "<value>",
   endpoint: "<value>",
-  outputMode: "csv",
+  outputMode: "json",
   collectRequestParams: [
     {
       name: "<value>",
@@ -26,13 +26,13 @@ let value: SplunkAuthenticationToken = {
       value: "<value>",
     },
   ],
-  timeout: 1952.7,
-  useRoundRobinDns: false,
-  disableTimeFilter: true,
-  rejectUnauthorized: false,
-  handleEscapedChars: true,
+  timeout: 2075.62,
+  useRoundRobinDns: true,
+  disableTimeFilter: false,
+  rejectUnauthorized: true,
+  handleEscapedChars: false,
   retryRules: {
-    type: "backoff",
+    type: "none",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -48,7 +48,7 @@ let value: SplunkAuthenticationToken = {
 
 | Field                                                                                                                     | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               |
 | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `authentication`                                                                                                          | [models.SplunkAuthenticationTokenAuthentication](../models/splunkauthenticationtokenauthentication.md)                    | :heavy_check_mark:                                                                                                        | Authentication method for Discover and Collect REST calls                                                                 |
+| `authentication`                                                                                                          | *"token"*                                                                                                                 | :heavy_check_mark:                                                                                                        | Authentication method for Discover and Collect REST calls                                                                 |
 | `token`                                                                                                                   | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | N/A                                                                                                                       |
 | `searchHead`                                                                                                              | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | Search head base URL. Can be an expression. Default is https://localhost:8089.                                            |
 | `search`                                                                                                                  | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | Examples: 'index=myAppLogs level=error channel=myApp' OR '\| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'      |

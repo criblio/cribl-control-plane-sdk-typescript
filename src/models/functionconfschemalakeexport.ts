@@ -47,7 +47,39 @@ export const FunctionConfSchemaLakeExport$inboundSchema: z.ZodType<
   flushMs: z.number().optional(),
   suppressPreviews: z.boolean().optional(),
 });
+/** @internal */
+export type FunctionConfSchemaLakeExport$Outbound = {
+  searchJobId?: string | undefined;
+  dataset?: string | undefined;
+  lake?: string | undefined;
+  tee?: string | undefined;
+  flushMs?: number | undefined;
+  suppressPreviews?: boolean | undefined;
+};
 
+/** @internal */
+export const FunctionConfSchemaLakeExport$outboundSchema: z.ZodType<
+  FunctionConfSchemaLakeExport$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaLakeExport
+> = z.object({
+  searchJobId: z.string().optional(),
+  dataset: z.string().optional(),
+  lake: z.string().optional(),
+  tee: z.string().optional(),
+  flushMs: z.number().optional(),
+  suppressPreviews: z.boolean().optional(),
+});
+
+export function functionConfSchemaLakeExportToJSON(
+  functionConfSchemaLakeExport: FunctionConfSchemaLakeExport,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaLakeExport$outboundSchema.parse(
+      functionConfSchemaLakeExport,
+    ),
+  );
+}
 export function functionConfSchemaLakeExportFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaLakeExport, SDKValidationError> {

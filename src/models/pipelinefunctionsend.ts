@@ -4,63 +4,14 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * In Sender mode, forwards search results directly to the destination. In Metrics mode, accumulates metrics from federated send operators, and forwards the aggregate metrics.
- */
-export const PipelineFunctionSendMode = {
-  Sender: "sender",
-  Metrics: "metrics",
-} as const;
-/**
- * In Sender mode, forwards search results directly to the destination. In Metrics mode, accumulates metrics from federated send operators, and forwards the aggregate metrics.
- */
-export type PipelineFunctionSendMode = OpenEnum<
-  typeof PipelineFunctionSendMode
->;
-
-export type SendConfiguration = {
-  /**
-   * Full URL to send search to.
-   */
-  url?: string | undefined;
-  /**
-   * Group within the workspace we're sending to.
-   */
-  group?: string | undefined;
-  /**
-   * Workspace within the deployment to send the search results to.
-   */
-  workspace?: string | undefined;
-  /**
-   * Template to build the URL to send from.
-   */
-  sendUrlTemplate?: string | undefined;
-  /**
-   * Id of the search this function is running on.
-   */
-  searchId: string;
-  /**
-   * Tee results to search. When set to true results will be shipped instead of stats
-   */
-  tee?: string | undefined;
-  /**
-   * How often are stats flushed in ms
-   */
-  flushMs?: number | undefined;
-  /**
-   * Disables generation of intermediate stats. When true stats will be emitted only on end
-   */
-  suppressPreviews?: boolean | undefined;
-  /**
-   * In Sender mode, forwards search results directly to the destination. In Metrics mode, accumulates metrics from federated send operators, and forwards the aggregate metrics.
-   */
-  mode?: PipelineFunctionSendMode | undefined;
-};
+import {
+  FunctionConfSchemaSend,
+  FunctionConfSchemaSend$inboundSchema,
+  FunctionConfSchemaSend$Outbound,
+  FunctionConfSchemaSend$outboundSchema,
+} from "./functionconfschemasend.js";
 
 export type PipelineFunctionSend = {
   /**
@@ -83,88 +34,12 @@ export type PipelineFunctionSend = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: SendConfiguration;
+  conf: FunctionConfSchemaSend;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const PipelineFunctionSendMode$inboundSchema: z.ZodType<
-  PipelineFunctionSendMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(PipelineFunctionSendMode);
-/** @internal */
-export const PipelineFunctionSendMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  PipelineFunctionSendMode
-> = openEnums.outboundSchema(PipelineFunctionSendMode);
-
-/** @internal */
-export const SendConfiguration$inboundSchema: z.ZodType<
-  SendConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  url: z.string().optional(),
-  group: z.string().optional(),
-  workspace: z.string().optional(),
-  sendUrlTemplate: z.string().optional(),
-  searchId: z.string(),
-  tee: z.string().optional(),
-  flushMs: z.number().optional(),
-  suppressPreviews: z.boolean().optional(),
-  mode: PipelineFunctionSendMode$inboundSchema.optional(),
-});
-/** @internal */
-export type SendConfiguration$Outbound = {
-  url?: string | undefined;
-  group?: string | undefined;
-  workspace?: string | undefined;
-  sendUrlTemplate?: string | undefined;
-  searchId: string;
-  tee?: string | undefined;
-  flushMs?: number | undefined;
-  suppressPreviews?: boolean | undefined;
-  mode?: string | undefined;
-};
-
-/** @internal */
-export const SendConfiguration$outboundSchema: z.ZodType<
-  SendConfiguration$Outbound,
-  z.ZodTypeDef,
-  SendConfiguration
-> = z.object({
-  url: z.string().optional(),
-  group: z.string().optional(),
-  workspace: z.string().optional(),
-  sendUrlTemplate: z.string().optional(),
-  searchId: z.string(),
-  tee: z.string().optional(),
-  flushMs: z.number().optional(),
-  suppressPreviews: z.boolean().optional(),
-  mode: PipelineFunctionSendMode$outboundSchema.optional(),
-});
-
-export function sendConfigurationToJSON(
-  sendConfiguration: SendConfiguration,
-): string {
-  return JSON.stringify(
-    SendConfiguration$outboundSchema.parse(sendConfiguration),
-  );
-}
-export function sendConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<SendConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SendConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SendConfiguration' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionSend$inboundSchema: z.ZodType<
@@ -177,7 +52,7 @@ export const PipelineFunctionSend$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => SendConfiguration$inboundSchema),
+  conf: FunctionConfSchemaSend$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -187,7 +62,7 @@ export type PipelineFunctionSend$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: SendConfiguration$Outbound;
+  conf: FunctionConfSchemaSend$Outbound;
   groupId?: string | undefined;
 };
 
@@ -202,7 +77,7 @@ export const PipelineFunctionSend$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => SendConfiguration$outboundSchema),
+  conf: FunctionConfSchemaSend$outboundSchema,
   groupId: z.string().optional(),
 });
 
