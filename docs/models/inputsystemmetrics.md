@@ -1,17 +1,16 @@
 # InputSystemMetrics
 
-
-## Supported Types
-
-### `models.InputSystemMetricsSendToRoutesTrueConstraint`
+## Example Usage
 
 ```typescript
-const value: models.InputSystemMetricsSendToRoutesTrueConstraint = {
-  sendToRoutes: false,
+import { InputSystemMetrics } from "cribl-control-plane/models";
+
+let value: InputSystemMetrics = {
   id: "<id>",
   type: "system_metrics",
   disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
@@ -24,57 +23,57 @@ const value: models.InputSystemMetricsSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  interval: 691.85,
+  interval: 5902.57,
   host: {
-    mode: "disabled",
+    mode: "custom",
     custom: {
       system: {
-        mode: "custom",
-        processes: true,
+        mode: "disabled",
+        processes: false,
       },
       cpu: {
-        mode: "basic",
-        perCpu: false,
-        detail: true,
-        time: false,
+        mode: "all",
+        perCpu: true,
+        detail: false,
+        time: true,
       },
       memory: {
-        mode: "custom",
-        detail: true,
+        mode: "disabled",
+        detail: false,
       },
       network: {
-        mode: "all",
+        mode: "basic",
         detail: true,
-        protocols: false,
+        protocols: true,
+        devices: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        perInterface: false,
+      },
+      disk: {
+        mode: "basic",
+        detail: true,
+        inodes: false,
         devices: [
           "<value 1>",
           "<value 2>",
           "<value 3>",
-        ],
-        perInterface: true,
-      },
-      disk: {
-        mode: "basic",
-        detail: false,
-        inodes: false,
-        devices: [
-          "<value 1>",
         ],
         mountpoints: [
           "<value 1>",
         ],
         fstypes: [
           "<value 1>",
-          "<value 2>",
         ],
         perDevice: true,
       },
@@ -85,26 +84,24 @@ const value: models.InputSystemMetricsSendToRoutesTrueConstraint = {
       {
         name: "<value>",
         filter: "<value>",
-        includeChildren: false,
+        includeChildren: true,
       },
     ],
   },
   container: {
-    mode: "basic",
+    mode: "custom",
     dockerSocket: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
-    dockerTimeout: 9942.78,
+    dockerTimeout: 9123.42,
     filters: [
       {
         expr: "<value>",
       },
     ],
     allContainers: false,
-    perDevice: true,
-    detail: false,
+    perDevice: false,
+    detail: true,
   },
   metadata: [
     {
@@ -113,382 +110,35 @@ const value: models.InputSystemMetricsSendToRoutesTrueConstraint = {
     },
   ],
   persistence: {
-    enable: true,
+    enable: false,
     timeWindow: "<value>",
     maxDataSize: "<value>",
     maxDataTime: "<value>",
-    compress: "gzip",
-    destPath: "<value>",
-  },
-  description: "progress analogy regulate bliss",
-};
-```
-
-### `models.InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint`
-
-```typescript
-const value:
-  models.InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint = {
-    sendToRoutes: true,
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "system_metrics",
-    disabled: false,
-    pipeline: "<value>",
-    environment: "<value>",
-    pqEnabled: false,
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    pq: {
-      mode: "smart",
-      maxBufferSize: 1717.96,
-      commitFrequency: 1412.18,
-      maxFileSize: "<value>",
-      maxSize: "<value>",
-      path: "/opt/include",
-      compress: "none",
-      pqControls: {},
-    },
-    interval: 6272.6,
-    host: {
-      mode: "disabled",
-      custom: {
-        system: {
-          mode: "custom",
-          processes: true,
-        },
-        cpu: {
-          mode: "basic",
-          perCpu: false,
-          detail: true,
-          time: false,
-        },
-        memory: {
-          mode: "custom",
-          detail: true,
-        },
-        network: {
-          mode: "all",
-          detail: true,
-          protocols: false,
-          devices: [
-            "<value 1>",
-            "<value 2>",
-            "<value 3>",
-          ],
-          perInterface: true,
-        },
-        disk: {
-          mode: "basic",
-          detail: false,
-          inodes: false,
-          devices: [
-            "<value 1>",
-          ],
-          mountpoints: [
-            "<value 1>",
-          ],
-          fstypes: [
-            "<value 1>",
-            "<value 2>",
-          ],
-          perDevice: true,
-        },
-      },
-    },
-    process: {
-      sets: [
-        {
-          name: "<value>",
-          filter: "<value>",
-          includeChildren: false,
-        },
-      ],
-    },
-    container: {
-      mode: "basic",
-      dockerSocket: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      dockerTimeout: 9942.78,
-      filters: [
-        {
-          expr: "<value>",
-        },
-      ],
-      allContainers: false,
-      perDevice: true,
-      detail: false,
-    },
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    persistence: {
-      enable: true,
-      timeWindow: "<value>",
-      maxDataSize: "<value>",
-      maxDataTime: "<value>",
-      compress: "gzip",
-      destPath: "<value>",
-    },
-    description: "cleaner quart since gosh unto restfully",
-  };
-```
-
-### `models.InputSystemMetricsPqEnabledFalseConstraint`
-
-```typescript
-const value: models.InputSystemMetricsPqEnabledFalseConstraint = {
-  pqEnabled: true,
-  id: "<id>",
-  type: "system_metrics",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
     compress: "none",
-    pqControls: {},
-  },
-  interval: 2981.49,
-  host: {
-    mode: "disabled",
-    custom: {
-      system: {
-        mode: "custom",
-        processes: true,
-      },
-      cpu: {
-        mode: "basic",
-        perCpu: false,
-        detail: true,
-        time: false,
-      },
-      memory: {
-        mode: "custom",
-        detail: true,
-      },
-      network: {
-        mode: "all",
-        detail: true,
-        protocols: false,
-        devices: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-        perInterface: true,
-      },
-      disk: {
-        mode: "basic",
-        detail: false,
-        inodes: false,
-        devices: [
-          "<value 1>",
-        ],
-        mountpoints: [
-          "<value 1>",
-        ],
-        fstypes: [
-          "<value 1>",
-          "<value 2>",
-        ],
-        perDevice: true,
-      },
-    },
-  },
-  process: {
-    sets: [
-      {
-        name: "<value>",
-        filter: "<value>",
-        includeChildren: false,
-      },
-    ],
-  },
-  container: {
-    mode: "basic",
-    dockerSocket: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    dockerTimeout: 9942.78,
-    filters: [
-      {
-        expr: "<value>",
-      },
-    ],
-    allContainers: false,
-    perDevice: true,
-    detail: false,
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {
-    enable: true,
-    timeWindow: "<value>",
-    maxDataSize: "<value>",
-    maxDataTime: "<value>",
-    compress: "gzip",
     destPath: "<value>",
   },
-  description: "begonia down drug knowledgeably",
+  description: "pfft to thorny um daily gently cultivated",
 };
 ```
 
-### `models.InputSystemMetricsPqEnabledTrueWithPqConstraint`
+## Fields
 
-```typescript
-const value: models.InputSystemMetricsPqEnabledTrueWithPqConstraint = {
-  pqEnabled: false,
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "system_metrics",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  interval: 1219.22,
-  host: {
-    mode: "disabled",
-    custom: {
-      system: {
-        mode: "custom",
-        processes: true,
-      },
-      cpu: {
-        mode: "basic",
-        perCpu: false,
-        detail: true,
-        time: false,
-      },
-      memory: {
-        mode: "custom",
-        detail: true,
-      },
-      network: {
-        mode: "all",
-        detail: true,
-        protocols: false,
-        devices: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-        perInterface: true,
-      },
-      disk: {
-        mode: "basic",
-        detail: false,
-        inodes: false,
-        devices: [
-          "<value 1>",
-        ],
-        mountpoints: [
-          "<value 1>",
-        ],
-        fstypes: [
-          "<value 1>",
-          "<value 2>",
-        ],
-        perDevice: true,
-      },
-    },
-  },
-  process: {
-    sets: [
-      {
-        name: "<value>",
-        filter: "<value>",
-        includeChildren: false,
-      },
-    ],
-  },
-  container: {
-    mode: "basic",
-    dockerSocket: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    dockerTimeout: 9942.78,
-    filters: [
-      {
-        expr: "<value>",
-      },
-    ],
-    allContainers: false,
-    perDevice: true,
-    detail: false,
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {
-    enable: true,
-    timeWindow: "<value>",
-    maxDataSize: "<value>",
-    maxDataTime: "<value>",
-    compress: "gzip",
-    destPath: "<value>",
-  },
-  description:
-    "forenenst concrete supposing quiet but concerning consequently aside hovel",
-};
-```
-
+| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
+| `type`                                                                                                                                                                                                                                       | *"system_metrics"*                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                               |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
+| `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
+| `pq`                                                                                                                                                                                                                                         | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `interval`                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Time, in seconds, between consecutive metric collections. Default is 10 seconds.                                                                                                                                                             |
+| `host`                                                                                                                                                                                                                                       | [models.InputSystemMetricsHost](../models/inputsystemmetricshost.md)                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `process`                                                                                                                                                                                                                                    | [models.ProcessType](../models/processtype.md)                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `container`                                                                                                                                                                                                                                  | [models.Container](../models/container.md)                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `persistence`                                                                                                                                                                                                                                | [models.InputSystemMetricsPersistence](../models/inputsystemmetricspersistence.md)                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

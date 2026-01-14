@@ -9,31 +9,33 @@ let value: InputWindowsMetricsHost = {
   mode: "disabled",
   custom: {
     system: {
-      mode: "all",
-      detail: false,
+      mode: "basic",
+      detail: true,
     },
     cpu: {
-      mode: "disabled",
+      mode: "custom",
       perCpu: false,
-      detail: true,
+      detail: false,
       time: true,
     },
     memory: {
-      mode: "custom",
-      detail: true,
+      mode: "all",
+      detail: false,
     },
     network: {
-      mode: "basic",
+      mode: "all",
       detail: true,
-      protocols: false,
+      protocols: true,
       devices: [
         "<value 1>",
+        "<value 2>",
+        "<value 3>",
       ],
-      perInterface: false,
+      perInterface: true,
     },
     disk: {
-      mode: "basic",
-      perVolume: false,
+      mode: "custom",
+      perVolume: true,
       detail: false,
       volumes: [
         "<value 1>",

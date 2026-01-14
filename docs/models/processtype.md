@@ -10,7 +10,7 @@ let value: ProcessType = {
     {
       name: "<value>",
       filter: "<value>",
-      includeChildren: false,
+      includeChildren: true,
     },
   ],
 };

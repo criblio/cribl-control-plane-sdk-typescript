@@ -24,7 +24,7 @@ let value: OutputCriblTcp = {
   logFailedRequests: true,
   throttleRatePerSec: "<value>",
   tls: {
-    disabled: true,
+    disabled: false,
     rejectUnauthorized: true,
     servername: "<value>",
     certificateName: "<value>",
@@ -32,8 +32,8 @@ let value: OutputCriblTcp = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
   },
   connectionTimeout: 6024.38,
   writeTimeout: 7383.65,
@@ -42,7 +42,7 @@ let value: OutputCriblTcp = {
     {
       tokenSecret: "<value>",
       enabled: true,
-      description: "without slipper appropriate",
+      description: "technician flimsy and ha",
     },
   ],
   excludeFields: [

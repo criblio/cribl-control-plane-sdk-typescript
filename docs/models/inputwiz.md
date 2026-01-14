@@ -1,237 +1,18 @@
 # InputWiz
 
-
-## Supported Types
-
-### `models.InputWizSendToRoutesTrueConstraint`
+## Example Usage
 
 ```typescript
-const value: models.InputWizSendToRoutesTrueConstraint = {
-  sendToRoutes: false,
+import { InputWiz } from "cribl-control-plane/models";
+
+let value: InputWiz = {
   id: "<id>",
   type: "wiz",
   disabled: true,
   pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  endpoint: "<value>",
-  authUrl: "https://unaware-formation.com/",
-  authAudienceOverride: "<value>",
-  clientId: "<id>",
-  contentConfig: [],
-  requestTimeout: 9960.16,
-  keepAliveTime: 8244.23,
-  maxMissedKeepAlives: 7119.26,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    type: "static",
-    interval: 3153.33,
-    limit: 2659.11,
-    multiplier: 376.03,
-    codes: [
-      5006.8,
-      7560.55,
-      2139.95,
-    ],
-    enableHeader: false,
-    retryConnectTimeout: false,
-    retryConnectReset: false,
-  },
-  authType: "secret",
-  description:
-    "unless colorless armoire beside following if intervention entomb ew upon",
-  clientSecret: "<value>",
-  textSecret: "<value>",
-};
-```
-
-### `models.InputWizSendToRoutesFalseWithConnectionsConstraint`
-
-```typescript
-const value: models.InputWizSendToRoutesFalseWithConnectionsConstraint = {
   sendToRoutes: true,
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "wiz",
-  disabled: true,
-  pipeline: "<value>",
   environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  endpoint: "<value>",
-  authUrl: "https://superficial-petticoat.name/",
-  authAudienceOverride: "<value>",
-  clientId: "<id>",
-  contentConfig: [],
-  requestTimeout: 1785.68,
-  keepAliveTime: 537.15,
-  maxMissedKeepAlives: 1595.85,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    type: "static",
-    interval: 3153.33,
-    limit: 2659.11,
-    multiplier: 376.03,
-    codes: [
-      5006.8,
-      7560.55,
-      2139.95,
-    ],
-    enableHeader: false,
-    retryConnectTimeout: false,
-    retryConnectReset: false,
-  },
-  authType: "manual",
-  description:
-    "beyond tuxedo successfully yuck digitize ameliorate until boohoo",
-  clientSecret: "<value>",
-  textSecret: "<value>",
-};
-```
-
-### `models.InputWizPqEnabledFalseConstraint`
-
-```typescript
-const value: models.InputWizPqEnabledFalseConstraint = {
-  pqEnabled: false,
-  id: "<id>",
-  type: "wiz",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  endpoint: "<value>",
-  authUrl: "https://caring-elevation.net",
-  authAudienceOverride: "<value>",
-  clientId: "<id>",
-  contentConfig: [],
-  requestTimeout: 4741.73,
-  keepAliveTime: 523.92,
-  maxMissedKeepAlives: 191.54,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    type: "static",
-    interval: 3153.33,
-    limit: 2659.11,
-    multiplier: 376.03,
-    codes: [
-      5006.8,
-      7560.55,
-      2139.95,
-    ],
-    enableHeader: false,
-    retryConnectTimeout: false,
-    retryConnectReset: false,
-  },
-  authType: "manual",
-  description:
-    "queasily brr wilted rosin warlike zowie acidly designation readily",
-  clientSecret: "<value>",
-  textSecret: "<value>",
-};
-```
-
-### `models.InputWizPqEnabledTrueWithPqConstraint`
-
-```typescript
-const value: models.InputWizPqEnabledTrueWithPqConstraint = {
   pqEnabled: true,
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "wiz",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -242,14 +23,24 @@ const value: models.InputWizPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
   endpoint: "<value>",
-  authUrl: "https://witty-governance.biz",
+  authUrl: "https://dependable-riser.name/",
   authAudienceOverride: "<value>",
   clientId: "<id>",
   contentConfig: [],
-  requestTimeout: 3065.32,
-  keepAliveTime: 4346.2,
-  maxMissedKeepAlives: 8715.02,
+  requestTimeout: 2735.91,
+  keepAliveTime: 4208.71,
+  maxMissedKeepAlives: 632.03,
   ttl: "<value>",
   ignoreGroupJobsLimit: true,
   metadata: [
@@ -259,24 +50,51 @@ const value: models.InputWizPqEnabledTrueWithPqConstraint = {
     },
   ],
   retryRules: {
-    type: "static",
-    interval: 3153.33,
-    limit: 2659.11,
-    multiplier: 376.03,
+    type: "none",
+    interval: 6996.29,
+    limit: 5006.8,
+    multiplier: 7560.55,
     codes: [
-      5006.8,
-      7560.55,
-      2139.95,
+      9559.24,
     ],
     enableHeader: false,
     retryConnectTimeout: false,
-    retryConnectReset: false,
+    retryConnectReset: true,
   },
-  authType: "secret",
-  description:
-    "eek than ha provided up black replacement furiously meaty quicker",
+  authType: "manual",
+  description: "stark cannibalise flint fumigate",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
 ```
 
+## Fields
+
+| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
+| `type`                                                                                                                                                                                                                                       | *"wiz"*                                                                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                               |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
+| `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
+| `pq`                                                                                                                                                                                                                                         | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `endpoint`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql                                                                                                                                                                    |
+| `authUrl`                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | The authentication URL to generate an OAuth token                                                                                                                                                                                            |
+| `authAudienceOverride`                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.                                                                                                                        |
+| `clientId`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | The client ID of the Wiz application                                                                                                                                                                                                         |
+| `contentConfig`                                                                                                                                                                                                                              | [models.InputWizContentConfig](../models/inputwizcontentconfig.md)[]                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `requestTimeout`                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | HTTP request inactivity timeout. Use 0 to disable.                                                                                                                                                                                           |
+| `keepAliveTime`                                                                                                                                                                                                                              | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How often workers should check in with the scheduler to keep job subscription alive                                                                                                                                                          |
+| `maxMissedKeepAlives`                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.                                                                                                                                      |
+| `ttl`                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.                                                                                                              |
+| `ignoreGroupJobsLimit`                                                                                                                                                                                                                       | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.                                                     |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `retryRules`                                                                                                                                                                                                                                 | [models.RetryRulesType](../models/retryrulestype.md)                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `authType`                                                                                                                                                                                                                                   | [models.AuthenticationMethodOptions1](../models/authenticationmethodoptions1.md)                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                           | Enter client secret directly, or select a stored secret                                                                                                                                                                                      |
+| `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `clientSecret`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | The client secret of the Wiz application                                                                                                                                                                                                     |
+| `textSecret`                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Select or create a stored text secret                                                                                                                                                                                                        |

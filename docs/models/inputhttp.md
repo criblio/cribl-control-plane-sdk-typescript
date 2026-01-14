@@ -1,296 +1,20 @@
 # InputHttp
 
-
-## Supported Types
-
-### `models.InputHttpSendToRoutesTrueConstraint`
+## Example Usage
 
 ```typescript
-const value: models.InputHttpSendToRoutesTrueConstraint = {
-  sendToRoutes: false,
-  id: "<id>",
-  type: "http",
-  disabled: false,
-  pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "forsaken-clavicle.biz",
-  port: 5249.98,
-  authTokens: [
-    "<value 1>",
-  ],
-  tls: {
-    disabled: true,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  maxActiveReq: 6069.69,
-  maxRequestsPerSocket: 508703,
-  enableProxyHeader: true,
-  captureHeaders: true,
-  activityLogSampleRate: 1254.54,
-  requestTimeout: 3043.34,
-  socketTimeout: 5490.05,
-  keepAliveTimeout: 6272.03,
-  enableHealthCheck: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  criblAPI: "<value>",
-  elasticAPI: "<value>",
-  splunkHecAPI: "<value>",
-  splunkHecAcks: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "positively divine about woot",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  description:
-    "giving hypothesize trash youthfully since midst yowza yet whoever including",
-};
-```
+import { InputHttp } from "cribl-control-plane/models";
 
-### `models.InputHttpSendToRoutesFalseWithConnectionsConstraint`
-
-```typescript
-const value: models.InputHttpSendToRoutesFalseWithConnectionsConstraint = {
-  sendToRoutes: false,
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "http",
-  disabled: false,
-  pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "unruly-elver.name",
-  port: 2263.87,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  tls: {
-    disabled: true,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  maxActiveReq: 8866.15,
-  maxRequestsPerSocket: 765431,
-  enableProxyHeader: false,
-  captureHeaders: true,
-  activityLogSampleRate: 99.83,
-  requestTimeout: 4912.89,
-  socketTimeout: 5321.66,
-  keepAliveTimeout: 7421.5,
-  enableHealthCheck: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  criblAPI: "<value>",
-  elasticAPI: "<value>",
-  splunkHecAPI: "<value>",
-  splunkHecAcks: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "positively divine about woot",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  description: "finally almost hold phew",
-};
-```
-
-### `models.InputHttpPqEnabledFalseConstraint`
-
-```typescript
-const value: models.InputHttpPqEnabledFalseConstraint = {
-  pqEnabled: false,
-  id: "<id>",
-  type: "http",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "icy-blowgun.name",
-  port: 6662.23,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  tls: {
-    disabled: true,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  maxActiveReq: 9847.37,
-  maxRequestsPerSocket: 679993,
-  enableProxyHeader: false,
-  captureHeaders: true,
-  activityLogSampleRate: 7203.72,
-  requestTimeout: 9002.98,
-  socketTimeout: 7645.26,
-  keepAliveTimeout: 6823.44,
-  enableHealthCheck: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  criblAPI: "<value>",
-  elasticAPI: "<value>",
-  splunkHecAPI: "<value>",
-  splunkHecAcks: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "positively divine about woot",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  description:
-    "barring thoughtfully handover sleepily impractical whereas deceivingly instead",
-};
-```
-
-### `models.InputHttpPqEnabledTrueWithPqConstraint`
-
-```typescript
-const value: models.InputHttpPqEnabledTrueWithPqConstraint = {
-  pqEnabled: true,
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
+let value: InputHttp = {
   id: "<id>",
   type: "http",
   disabled: false,
   pipeline: "<value>",
   sendToRoutes: true,
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -298,14 +22,23 @@ const value: models.InputHttpPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
-  host: "gorgeous-sermon.org",
-  port: 1306.69,
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  host: "early-linseed.net",
+  port: 4568.44,
   authTokens: [
     "<value 1>",
-    "<value 2>",
   ],
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -315,17 +48,17 @@ const value: models.InputHttpPqEnabledTrueWithPqConstraint = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
-  maxActiveReq: 8777.77,
-  maxRequestsPerSocket: 517093,
+  maxActiveReq: 2500.22,
+  maxRequestsPerSocket: 729246,
   enableProxyHeader: true,
   captureHeaders: false,
-  activityLogSampleRate: 9636.48,
-  requestTimeout: 8864.52,
-  socketTimeout: 9817.39,
-  keepAliveTimeout: 3648.41,
-  enableHealthCheck: true,
+  activityLogSampleRate: 7856.7,
+  requestTimeout: 934.67,
+  socketTimeout: 1804.56,
+  keepAliveTimeout: 9664.45,
+  enableHealthCheck: false,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
   criblAPI: "<value>",
@@ -341,7 +74,7 @@ const value: models.InputHttpPqEnabledTrueWithPqConstraint = {
   authTokensExt: [
     {
       token: "<value>",
-      description: "positively divine about woot",
+      description: "instead worth trek drain eek below",
       metadata: [
         {
           name: "<value>",
@@ -350,7 +83,43 @@ const value: models.InputHttpPqEnabledTrueWithPqConstraint = {
       ],
     },
   ],
-  description: "because incidentally oh",
+  description: "despite if after hunt immediately so arcade",
 };
 ```
 
+## Fields
+
+| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
+| `type`                                                                                                                                                                                                                                       | *"http"*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                               |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
+| `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
+| `pq`                                                                                                                                                                                                                                         | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
+| `port`                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Port to listen on                                                                                                                                                                                                                            |
+| `authTokens`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.                                                                                                                            |
+| `tls`                                                                                                                                                                                                                                        | [models.TlsSettingsServerSideType](../models/tlssettingsserversidetype.md)                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `maxActiveReq`                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.                      |
+| `maxRequestsPerSocket`                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).                                                                                                              |
+| `enableProxyHeader`                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.                                                           |
+| `captureHeaders`                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Add request headers to events, in the __headers field                                                                                                                                                                                        |
+| `activityLogSampleRate`                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.                                                                                                                  |
+| `requestTimeout`                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How long to wait for an incoming request to complete before aborting it. Use 0 to disable.                                                                                                                                                   |
+| `socketTimeout`                                                                                                                                                                                                                              | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.                                                                                                                            |
+| `keepAliveTimeout`                                                                                                                                                                                                                           | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).                                                                |
+| `enableHealthCheck`                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy                                                                                                                                                          |
+| `ipAllowlistRegex`                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Messages from matched IP addresses will be processed, unless also matched by the denylist                                                                                                                                                    |
+| `ipDenylistRegex`                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.                                                                                                                                                |
+| `criblAPI`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.                                                                                               |
+| `elasticAPI`                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.                                                                                          |
+| `splunkHecAPI`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.                                                                                                                                 |
+| `splunkHecAcks`                                                                                                                                                                                                                              | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `authTokensExt`                                                                                                                                                                                                                              | [models.ItemsTypeAuthTokensExt](../models/itemstypeauthtokensext.md)[]                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                           | Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.                                                                                                                            |
+| `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

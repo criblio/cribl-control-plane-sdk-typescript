@@ -25,7 +25,7 @@ let value: Subscription = {
   ],
   queries: [
     {
-      path: "/var",
+      path: "/usr/libexec",
       queryExpression: "<value>",
     },
   ],

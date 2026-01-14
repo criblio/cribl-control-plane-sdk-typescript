@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -31,11 +31,6 @@ import {
   SignatureVersionOptions2$inboundSchema,
   SignatureVersionOptions2$outboundSchema,
 } from "./signatureversionoptions2.js";
-
-export const InputKinesisType = {
-  Kinesis: "kinesis",
-} as const;
-export type InputKinesisType = ClosedEnum<typeof InputKinesisType>;
 
 /**
  * Location at which to start reading a shard for the first time
@@ -99,17 +94,12 @@ export const ShardLoadBalancing = {
  */
 export type ShardLoadBalancing = OpenEnum<typeof ShardLoadBalancing>;
 
-export type InputKinesisPqEnabledTrueWithPqConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled: boolean;
-  pq?: PqType | undefined;
+export type InputKinesis = {
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputKinesisType;
+  type: "kinesis";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -119,376 +109,6 @@ export type InputKinesisPqEnabledTrueWithPqConstraint = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Kinesis Data Stream to read data from
-   */
-  streamName: string;
-  /**
-   * Time interval in minutes between consecutive service calls
-   */
-  serviceInterval?: number | undefined;
-  /**
-   * A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
-   */
-  shardExpr?: string | undefined;
-  /**
-   * Location at which to start reading a shard for the first time
-   */
-  shardIteratorType?: ShardIteratorStart | undefined;
-  /**
-   * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
-   */
-  payloadFormat?: RecordDataFormat | undefined;
-  /**
-   * Maximum number of records per getRecords call
-   */
-  getRecordsLimit?: number | undefined;
-  /**
-   * Maximum number of records, across all shards, to pull down at once per Worker Process
-   */
-  getRecordsLimitTotal?: number | undefined;
-  /**
-   * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
-   */
-  loadBalancingAlgorithm?: ShardLoadBalancing | undefined;
-  /**
-   * AWS authentication method. Choose Auto to use IAM roles.
-   */
-  awsAuthenticationMethod?: string | undefined;
-  awsSecretKey?: string | undefined;
-  /**
-   * Region where the Kinesis stream is located
-   */
-  region: string;
-  /**
-   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
-   */
-  endpoint?: string | undefined;
-  /**
-   * Signature version to use for signing Kinesis stream requests
-   */
-  signatureVersion?: SignatureVersionOptions2 | undefined;
-  /**
-   * Reuse connections between requests, which can improve performance
-   */
-  reuseConnections?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Use Assume Role credentials to access Kinesis stream
-   */
-  enableAssumeRole?: boolean | undefined;
-  /**
-   * Amazon Resource Name (ARN) of the role to assume
-   */
-  assumeRoleArn?: string | undefined;
-  /**
-   * External ID to use when assuming role
-   */
-  assumeRoleExternalId?: string | undefined;
-  /**
-   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-   */
-  durationSeconds?: number | undefined;
-  /**
-   * Verify Kinesis Producer Library (KPL) event checksums
-   */
-  verifyKPLCheckSums?: boolean | undefined;
-  /**
-   * When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
-   */
-  avoidDuplicates?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-  awsApiKey?: string | undefined;
-  /**
-   * Select or create a stored secret that references your access key and secret key
-   */
-  awsSecret?: string | undefined;
-};
-
-export type InputKinesisPqEnabledFalseConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled: boolean;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputKinesisType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Kinesis Data Stream to read data from
-   */
-  streamName: string;
-  /**
-   * Time interval in minutes between consecutive service calls
-   */
-  serviceInterval?: number | undefined;
-  /**
-   * A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
-   */
-  shardExpr?: string | undefined;
-  /**
-   * Location at which to start reading a shard for the first time
-   */
-  shardIteratorType?: ShardIteratorStart | undefined;
-  /**
-   * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
-   */
-  payloadFormat?: RecordDataFormat | undefined;
-  /**
-   * Maximum number of records per getRecords call
-   */
-  getRecordsLimit?: number | undefined;
-  /**
-   * Maximum number of records, across all shards, to pull down at once per Worker Process
-   */
-  getRecordsLimitTotal?: number | undefined;
-  /**
-   * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
-   */
-  loadBalancingAlgorithm?: ShardLoadBalancing | undefined;
-  /**
-   * AWS authentication method. Choose Auto to use IAM roles.
-   */
-  awsAuthenticationMethod?: string | undefined;
-  awsSecretKey?: string | undefined;
-  /**
-   * Region where the Kinesis stream is located
-   */
-  region: string;
-  /**
-   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
-   */
-  endpoint?: string | undefined;
-  /**
-   * Signature version to use for signing Kinesis stream requests
-   */
-  signatureVersion?: SignatureVersionOptions2 | undefined;
-  /**
-   * Reuse connections between requests, which can improve performance
-   */
-  reuseConnections?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Use Assume Role credentials to access Kinesis stream
-   */
-  enableAssumeRole?: boolean | undefined;
-  /**
-   * Amazon Resource Name (ARN) of the role to assume
-   */
-  assumeRoleArn?: string | undefined;
-  /**
-   * External ID to use when assuming role
-   */
-  assumeRoleExternalId?: string | undefined;
-  /**
-   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-   */
-  durationSeconds?: number | undefined;
-  /**
-   * Verify Kinesis Producer Library (KPL) event checksums
-   */
-  verifyKPLCheckSums?: boolean | undefined;
-  /**
-   * When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
-   */
-  avoidDuplicates?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-  awsApiKey?: string | undefined;
-  /**
-   * Select or create a stored secret that references your access key and secret key
-   */
-  awsSecret?: string | undefined;
-};
-
-export type InputKinesisSendToRoutesFalseWithConnectionsConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes: boolean;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputKinesisType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Kinesis Data Stream to read data from
-   */
-  streamName: string;
-  /**
-   * Time interval in minutes between consecutive service calls
-   */
-  serviceInterval?: number | undefined;
-  /**
-   * A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
-   */
-  shardExpr?: string | undefined;
-  /**
-   * Location at which to start reading a shard for the first time
-   */
-  shardIteratorType?: ShardIteratorStart | undefined;
-  /**
-   * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
-   */
-  payloadFormat?: RecordDataFormat | undefined;
-  /**
-   * Maximum number of records per getRecords call
-   */
-  getRecordsLimit?: number | undefined;
-  /**
-   * Maximum number of records, across all shards, to pull down at once per Worker Process
-   */
-  getRecordsLimitTotal?: number | undefined;
-  /**
-   * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
-   */
-  loadBalancingAlgorithm?: ShardLoadBalancing | undefined;
-  /**
-   * AWS authentication method. Choose Auto to use IAM roles.
-   */
-  awsAuthenticationMethod?: string | undefined;
-  awsSecretKey?: string | undefined;
-  /**
-   * Region where the Kinesis stream is located
-   */
-  region: string;
-  /**
-   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
-   */
-  endpoint?: string | undefined;
-  /**
-   * Signature version to use for signing Kinesis stream requests
-   */
-  signatureVersion?: SignatureVersionOptions2 | undefined;
-  /**
-   * Reuse connections between requests, which can improve performance
-   */
-  reuseConnections?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Use Assume Role credentials to access Kinesis stream
-   */
-  enableAssumeRole?: boolean | undefined;
-  /**
-   * Amazon Resource Name (ARN) of the role to assume
-   */
-  assumeRoleArn?: string | undefined;
-  /**
-   * External ID to use when assuming role
-   */
-  assumeRoleExternalId?: string | undefined;
-  /**
-   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-   */
-  durationSeconds?: number | undefined;
-  /**
-   * Verify Kinesis Producer Library (KPL) event checksums
-   */
-  verifyKPLCheckSums?: boolean | undefined;
-  /**
-   * When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
-   */
-  avoidDuplicates?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-  awsApiKey?: string | undefined;
-  /**
-   * Select or create a stored secret that references your access key and secret key
-   */
-  awsSecret?: string | undefined;
-};
-
-export type InputKinesisSendToRoutesTrueConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes: boolean;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputKinesisType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -598,21 +218,6 @@ export type InputKinesisSendToRoutesTrueConstraint = {
    */
   awsSecret?: string | undefined;
 };
-
-export type InputKinesis =
-  | InputKinesisSendToRoutesTrueConstraint
-  | InputKinesisSendToRoutesFalseWithConnectionsConstraint
-  | InputKinesisPqEnabledFalseConstraint
-  | InputKinesisPqEnabledTrueWithPqConstraint;
-
-/** @internal */
-export const InputKinesisType$inboundSchema: z.ZodNativeEnum<
-  typeof InputKinesisType
-> = z.nativeEnum(InputKinesisType);
-/** @internal */
-export const InputKinesisType$outboundSchema: z.ZodNativeEnum<
-  typeof InputKinesisType
-> = InputKinesisType$inboundSchema;
 
 /** @internal */
 export const ShardIteratorStart$inboundSchema: z.ZodType<
@@ -654,631 +259,128 @@ export const ShardLoadBalancing$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(ShardLoadBalancing);
 
 /** @internal */
-export const InputKinesisPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
-  InputKinesisPqEnabledTrueWithPqConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pqEnabled: z.boolean(),
-  pq: PqType$inboundSchema.optional(),
-  id: z.string().optional(),
-  type: InputKinesisType$inboundSchema,
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  streamName: z.string(),
-  serviceInterval: z.number().optional(),
-  shardExpr: z.string().optional(),
-  shardIteratorType: ShardIteratorStart$inboundSchema.optional(),
-  payloadFormat: RecordDataFormat$inboundSchema.optional(),
-  getRecordsLimit: z.number().optional(),
-  getRecordsLimitTotal: z.number().optional(),
-  loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.optional(),
-  awsAuthenticationMethod: z.string().optional(),
-  awsSecretKey: z.string().optional(),
-  region: z.string(),
-  endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions2$inboundSchema.optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  enableAssumeRole: z.boolean().optional(),
-  assumeRoleArn: z.string().optional(),
-  assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().optional(),
-  verifyKPLCheckSums: z.boolean().optional(),
-  avoidDuplicates: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-  awsApiKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-});
-/** @internal */
-export type InputKinesisPqEnabledTrueWithPqConstraint$Outbound = {
-  pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  streamName: string;
-  serviceInterval?: number | undefined;
-  shardExpr?: string | undefined;
-  shardIteratorType?: string | undefined;
-  payloadFormat?: string | undefined;
-  getRecordsLimit?: number | undefined;
-  getRecordsLimitTotal?: number | undefined;
-  loadBalancingAlgorithm?: string | undefined;
-  awsAuthenticationMethod?: string | undefined;
-  awsSecretKey?: string | undefined;
-  region: string;
-  endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
-  reuseConnections?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
-  enableAssumeRole?: boolean | undefined;
-  assumeRoleArn?: string | undefined;
-  assumeRoleExternalId?: string | undefined;
-  durationSeconds?: number | undefined;
-  verifyKPLCheckSums?: boolean | undefined;
-  avoidDuplicates?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-  awsApiKey?: string | undefined;
-  awsSecret?: string | undefined;
-};
-
-/** @internal */
-export const InputKinesisPqEnabledTrueWithPqConstraint$outboundSchema:
-  z.ZodType<
-    InputKinesisPqEnabledTrueWithPqConstraint$Outbound,
-    z.ZodTypeDef,
-    InputKinesisPqEnabledTrueWithPqConstraint
-  > = z.object({
-    pqEnabled: z.boolean(),
-    pq: PqType$outboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputKinesisType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    streamName: z.string(),
-    serviceInterval: z.number().optional(),
-    shardExpr: z.string().optional(),
-    shardIteratorType: ShardIteratorStart$outboundSchema.optional(),
-    payloadFormat: RecordDataFormat$outboundSchema.optional(),
-    getRecordsLimit: z.number().optional(),
-    getRecordsLimitTotal: z.number().optional(),
-    loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.optional(),
-    awsAuthenticationMethod: z.string().optional(),
-    awsSecretKey: z.string().optional(),
-    region: z.string(),
-    endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptions2$outboundSchema.optional(),
-    reuseConnections: z.boolean().optional(),
-    rejectUnauthorized: z.boolean().optional(),
-    enableAssumeRole: z.boolean().optional(),
-    assumeRoleArn: z.string().optional(),
-    assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().optional(),
-    verifyKPLCheckSums: z.boolean().optional(),
-    avoidDuplicates: z.boolean().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-    awsApiKey: z.string().optional(),
-    awsSecret: z.string().optional(),
-  });
-
-export function inputKinesisPqEnabledTrueWithPqConstraintToJSON(
-  inputKinesisPqEnabledTrueWithPqConstraint:
-    InputKinesisPqEnabledTrueWithPqConstraint,
-): string {
-  return JSON.stringify(
-    InputKinesisPqEnabledTrueWithPqConstraint$outboundSchema.parse(
-      inputKinesisPqEnabledTrueWithPqConstraint,
-    ),
-  );
-}
-export function inputKinesisPqEnabledTrueWithPqConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputKinesisPqEnabledTrueWithPqConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputKinesisPqEnabledTrueWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputKinesisPqEnabledTrueWithPqConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKinesisPqEnabledFalseConstraint$inboundSchema: z.ZodType<
-  InputKinesisPqEnabledFalseConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pqEnabled: z.boolean(),
-  id: z.string().optional(),
-  type: InputKinesisType$inboundSchema,
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  streamName: z.string(),
-  serviceInterval: z.number().optional(),
-  shardExpr: z.string().optional(),
-  shardIteratorType: ShardIteratorStart$inboundSchema.optional(),
-  payloadFormat: RecordDataFormat$inboundSchema.optional(),
-  getRecordsLimit: z.number().optional(),
-  getRecordsLimitTotal: z.number().optional(),
-  loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.optional(),
-  awsAuthenticationMethod: z.string().optional(),
-  awsSecretKey: z.string().optional(),
-  region: z.string(),
-  endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions2$inboundSchema.optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  enableAssumeRole: z.boolean().optional(),
-  assumeRoleArn: z.string().optional(),
-  assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().optional(),
-  verifyKPLCheckSums: z.boolean().optional(),
-  avoidDuplicates: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-  awsApiKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-});
-/** @internal */
-export type InputKinesisPqEnabledFalseConstraint$Outbound = {
-  pqEnabled: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  streamName: string;
-  serviceInterval?: number | undefined;
-  shardExpr?: string | undefined;
-  shardIteratorType?: string | undefined;
-  payloadFormat?: string | undefined;
-  getRecordsLimit?: number | undefined;
-  getRecordsLimitTotal?: number | undefined;
-  loadBalancingAlgorithm?: string | undefined;
-  awsAuthenticationMethod?: string | undefined;
-  awsSecretKey?: string | undefined;
-  region: string;
-  endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
-  reuseConnections?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
-  enableAssumeRole?: boolean | undefined;
-  assumeRoleArn?: string | undefined;
-  assumeRoleExternalId?: string | undefined;
-  durationSeconds?: number | undefined;
-  verifyKPLCheckSums?: boolean | undefined;
-  avoidDuplicates?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-  awsApiKey?: string | undefined;
-  awsSecret?: string | undefined;
-};
-
-/** @internal */
-export const InputKinesisPqEnabledFalseConstraint$outboundSchema: z.ZodType<
-  InputKinesisPqEnabledFalseConstraint$Outbound,
-  z.ZodTypeDef,
-  InputKinesisPqEnabledFalseConstraint
-> = z.object({
-  pqEnabled: z.boolean(),
-  id: z.string().optional(),
-  type: InputKinesisType$outboundSchema,
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  streamName: z.string(),
-  serviceInterval: z.number().optional(),
-  shardExpr: z.string().optional(),
-  shardIteratorType: ShardIteratorStart$outboundSchema.optional(),
-  payloadFormat: RecordDataFormat$outboundSchema.optional(),
-  getRecordsLimit: z.number().optional(),
-  getRecordsLimitTotal: z.number().optional(),
-  loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.optional(),
-  awsAuthenticationMethod: z.string().optional(),
-  awsSecretKey: z.string().optional(),
-  region: z.string(),
-  endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions2$outboundSchema.optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  enableAssumeRole: z.boolean().optional(),
-  assumeRoleArn: z.string().optional(),
-  assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().optional(),
-  verifyKPLCheckSums: z.boolean().optional(),
-  avoidDuplicates: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-  awsApiKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-});
-
-export function inputKinesisPqEnabledFalseConstraintToJSON(
-  inputKinesisPqEnabledFalseConstraint: InputKinesisPqEnabledFalseConstraint,
-): string {
-  return JSON.stringify(
-    InputKinesisPqEnabledFalseConstraint$outboundSchema.parse(
-      inputKinesisPqEnabledFalseConstraint,
-    ),
-  );
-}
-export function inputKinesisPqEnabledFalseConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKinesisPqEnabledFalseConstraint, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputKinesisPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKinesisPqEnabledFalseConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKinesisSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputKinesisSendToRoutesFalseWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputKinesisType$inboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    streamName: z.string(),
-    serviceInterval: z.number().optional(),
-    shardExpr: z.string().optional(),
-    shardIteratorType: ShardIteratorStart$inboundSchema.optional(),
-    payloadFormat: RecordDataFormat$inboundSchema.optional(),
-    getRecordsLimit: z.number().optional(),
-    getRecordsLimitTotal: z.number().optional(),
-    loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.optional(),
-    awsAuthenticationMethod: z.string().optional(),
-    awsSecretKey: z.string().optional(),
-    region: z.string(),
-    endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptions2$inboundSchema.optional(),
-    reuseConnections: z.boolean().optional(),
-    rejectUnauthorized: z.boolean().optional(),
-    enableAssumeRole: z.boolean().optional(),
-    assumeRoleArn: z.string().optional(),
-    assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().optional(),
-    verifyKPLCheckSums: z.boolean().optional(),
-    avoidDuplicates: z.boolean().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    description: z.string().optional(),
-    awsApiKey: z.string().optional(),
-    awsSecret: z.string().optional(),
-  });
-/** @internal */
-export type InputKinesisSendToRoutesFalseWithConnectionsConstraint$Outbound = {
-  sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled?: boolean | undefined;
-  streamtags?: Array<string> | undefined;
-  pq?: PqType$Outbound | undefined;
-  streamName: string;
-  serviceInterval?: number | undefined;
-  shardExpr?: string | undefined;
-  shardIteratorType?: string | undefined;
-  payloadFormat?: string | undefined;
-  getRecordsLimit?: number | undefined;
-  getRecordsLimitTotal?: number | undefined;
-  loadBalancingAlgorithm?: string | undefined;
-  awsAuthenticationMethod?: string | undefined;
-  awsSecretKey?: string | undefined;
-  region: string;
-  endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
-  reuseConnections?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
-  enableAssumeRole?: boolean | undefined;
-  assumeRoleArn?: string | undefined;
-  assumeRoleExternalId?: string | undefined;
-  durationSeconds?: number | undefined;
-  verifyKPLCheckSums?: boolean | undefined;
-  avoidDuplicates?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-  awsApiKey?: string | undefined;
-  awsSecret?: string | undefined;
-};
-
-/** @internal */
-export const InputKinesisSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputKinesisSendToRoutesFalseWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputKinesisSendToRoutesFalseWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    id: z.string().optional(),
-    type: InputKinesisType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    streamName: z.string(),
-    serviceInterval: z.number().optional(),
-    shardExpr: z.string().optional(),
-    shardIteratorType: ShardIteratorStart$outboundSchema.optional(),
-    payloadFormat: RecordDataFormat$outboundSchema.optional(),
-    getRecordsLimit: z.number().optional(),
-    getRecordsLimitTotal: z.number().optional(),
-    loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.optional(),
-    awsAuthenticationMethod: z.string().optional(),
-    awsSecretKey: z.string().optional(),
-    region: z.string(),
-    endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptions2$outboundSchema.optional(),
-    reuseConnections: z.boolean().optional(),
-    rejectUnauthorized: z.boolean().optional(),
-    enableAssumeRole: z.boolean().optional(),
-    assumeRoleArn: z.string().optional(),
-    assumeRoleExternalId: z.string().optional(),
-    durationSeconds: z.number().optional(),
-    verifyKPLCheckSums: z.boolean().optional(),
-    avoidDuplicates: z.boolean().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-    awsApiKey: z.string().optional(),
-    awsSecret: z.string().optional(),
-  });
-
-export function inputKinesisSendToRoutesFalseWithConnectionsConstraintToJSON(
-  inputKinesisSendToRoutesFalseWithConnectionsConstraint:
-    InputKinesisSendToRoutesFalseWithConnectionsConstraint,
-): string {
-  return JSON.stringify(
-    InputKinesisSendToRoutesFalseWithConnectionsConstraint$outboundSchema.parse(
-      inputKinesisSendToRoutesFalseWithConnectionsConstraint,
-    ),
-  );
-}
-export function inputKinesisSendToRoutesFalseWithConnectionsConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputKinesisSendToRoutesFalseWithConnectionsConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputKinesisSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputKinesisSendToRoutesFalseWithConnectionsConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKinesisSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
-  InputKinesisSendToRoutesTrueConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean(),
-  id: z.string().optional(),
-  type: InputKinesisType$inboundSchema,
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  streamName: z.string(),
-  serviceInterval: z.number().optional(),
-  shardExpr: z.string().optional(),
-  shardIteratorType: ShardIteratorStart$inboundSchema.optional(),
-  payloadFormat: RecordDataFormat$inboundSchema.optional(),
-  getRecordsLimit: z.number().optional(),
-  getRecordsLimitTotal: z.number().optional(),
-  loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.optional(),
-  awsAuthenticationMethod: z.string().optional(),
-  awsSecretKey: z.string().optional(),
-  region: z.string(),
-  endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions2$inboundSchema.optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  enableAssumeRole: z.boolean().optional(),
-  assumeRoleArn: z.string().optional(),
-  assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().optional(),
-  verifyKPLCheckSums: z.boolean().optional(),
-  avoidDuplicates: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-  awsApiKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-});
-/** @internal */
-export type InputKinesisSendToRoutesTrueConstraint$Outbound = {
-  sendToRoutes: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled?: boolean | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  streamName: string;
-  serviceInterval?: number | undefined;
-  shardExpr?: string | undefined;
-  shardIteratorType?: string | undefined;
-  payloadFormat?: string | undefined;
-  getRecordsLimit?: number | undefined;
-  getRecordsLimitTotal?: number | undefined;
-  loadBalancingAlgorithm?: string | undefined;
-  awsAuthenticationMethod?: string | undefined;
-  awsSecretKey?: string | undefined;
-  region: string;
-  endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
-  reuseConnections?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
-  enableAssumeRole?: boolean | undefined;
-  assumeRoleArn?: string | undefined;
-  assumeRoleExternalId?: string | undefined;
-  durationSeconds?: number | undefined;
-  verifyKPLCheckSums?: boolean | undefined;
-  avoidDuplicates?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-  awsApiKey?: string | undefined;
-  awsSecret?: string | undefined;
-};
-
-/** @internal */
-export const InputKinesisSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
-  InputKinesisSendToRoutesTrueConstraint$Outbound,
-  z.ZodTypeDef,
-  InputKinesisSendToRoutesTrueConstraint
-> = z.object({
-  sendToRoutes: z.boolean(),
-  id: z.string().optional(),
-  type: InputKinesisType$outboundSchema,
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  streamName: z.string(),
-  serviceInterval: z.number().optional(),
-  shardExpr: z.string().optional(),
-  shardIteratorType: ShardIteratorStart$outboundSchema.optional(),
-  payloadFormat: RecordDataFormat$outboundSchema.optional(),
-  getRecordsLimit: z.number().optional(),
-  getRecordsLimitTotal: z.number().optional(),
-  loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.optional(),
-  awsAuthenticationMethod: z.string().optional(),
-  awsSecretKey: z.string().optional(),
-  region: z.string(),
-  endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions2$outboundSchema.optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  enableAssumeRole: z.boolean().optional(),
-  assumeRoleArn: z.string().optional(),
-  assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().optional(),
-  verifyKPLCheckSums: z.boolean().optional(),
-  avoidDuplicates: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-  awsApiKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-});
-
-export function inputKinesisSendToRoutesTrueConstraintToJSON(
-  inputKinesisSendToRoutesTrueConstraint:
-    InputKinesisSendToRoutesTrueConstraint,
-): string {
-  return JSON.stringify(
-    InputKinesisSendToRoutesTrueConstraint$outboundSchema.parse(
-      inputKinesisSendToRoutesTrueConstraint,
-    ),
-  );
-}
-export function inputKinesisSendToRoutesTrueConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKinesisSendToRoutesTrueConstraint, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputKinesisSendToRoutesTrueConstraint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKinesisSendToRoutesTrueConstraint' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputKinesis$inboundSchema: z.ZodType<
   InputKinesis,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => InputKinesisSendToRoutesTrueConstraint$inboundSchema),
-  z.lazy(() =>
-    InputKinesisSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-  ),
-  z.lazy(() => InputKinesisPqEnabledFalseConstraint$inboundSchema),
-  z.lazy(() => InputKinesisPqEnabledTrueWithPqConstraint$inboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("kinesis"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().optional(),
+  shardExpr: z.string().optional(),
+  shardIteratorType: ShardIteratorStart$inboundSchema.optional(),
+  payloadFormat: RecordDataFormat$inboundSchema.optional(),
+  getRecordsLimit: z.number().optional(),
+  getRecordsLimitTotal: z.number().optional(),
+  loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions2$inboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  verifyKPLCheckSums: z.boolean().optional(),
+  avoidDuplicates: z.boolean().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
 /** @internal */
-export type InputKinesis$Outbound =
-  | InputKinesisSendToRoutesTrueConstraint$Outbound
-  | InputKinesisSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputKinesisPqEnabledFalseConstraint$Outbound
-  | InputKinesisPqEnabledTrueWithPqConstraint$Outbound;
+export type InputKinesis$Outbound = {
+  id?: string | undefined;
+  type: "kinesis";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  streamName: string;
+  serviceInterval?: number | undefined;
+  shardExpr?: string | undefined;
+  shardIteratorType?: string | undefined;
+  payloadFormat?: string | undefined;
+  getRecordsLimit?: number | undefined;
+  getRecordsLimitTotal?: number | undefined;
+  loadBalancingAlgorithm?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  verifyKPLCheckSums?: boolean | undefined;
+  avoidDuplicates?: boolean | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
 
 /** @internal */
 export const InputKinesis$outboundSchema: z.ZodType<
   InputKinesis$Outbound,
   z.ZodTypeDef,
   InputKinesis
-> = z.union([
-  z.lazy(() => InputKinesisSendToRoutesTrueConstraint$outboundSchema),
-  z.lazy(() =>
-    InputKinesisSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-  ),
-  z.lazy(() => InputKinesisPqEnabledFalseConstraint$outboundSchema),
-  z.lazy(() => InputKinesisPqEnabledTrueWithPqConstraint$outboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("kinesis"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().optional(),
+  shardExpr: z.string().optional(),
+  shardIteratorType: ShardIteratorStart$outboundSchema.optional(),
+  payloadFormat: RecordDataFormat$outboundSchema.optional(),
+  getRecordsLimit: z.number().optional(),
+  getRecordsLimitTotal: z.number().optional(),
+  loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions2$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  verifyKPLCheckSums: z.boolean().optional(),
+  avoidDuplicates: z.boolean().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
 
 export function inputKinesisToJSON(inputKinesis: InputKinesis): string {
   return JSON.stringify(InputKinesis$outboundSchema.parse(inputKinesis));

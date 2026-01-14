@@ -4,7 +4,6 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -26,22 +25,12 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 
-export const InputCriblmetricsType = {
-  Criblmetrics: "criblmetrics",
-} as const;
-export type InputCriblmetricsType = ClosedEnum<typeof InputCriblmetricsType>;
-
-export type InputCriblmetricsPqEnabledTrueWithPqConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled: boolean;
-  pq?: PqType | undefined;
+export type InputCriblmetrics = {
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputCriblmetricsType;
+  type: "criblmetrics";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -51,142 +40,6 @@ export type InputCriblmetricsPqEnabledTrueWithPqConstraint = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * A prefix that is applied to the metrics provided by Cribl Stream
-   */
-  prefix?: string | undefined;
-  /**
-   * Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
-   */
-  fullFidelity?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-};
-
-export type InputCriblmetricsPqEnabledFalseConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled: boolean;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputCriblmetricsType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * A prefix that is applied to the metrics provided by Cribl Stream
-   */
-  prefix?: string | undefined;
-  /**
-   * Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
-   */
-  fullFidelity?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-};
-
-export type InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes: boolean;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputCriblmetricsType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * A prefix that is applied to the metrics provided by Cribl Stream
-   */
-  prefix?: string | undefined;
-  /**
-   * Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
-   */
-  fullFidelity?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-};
-
-export type InputCriblmetricsSendToRoutesTrueConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes: boolean;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputCriblmetricsType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -219,124 +72,19 @@ export type InputCriblmetricsSendToRoutesTrueConstraint = {
   description?: string | undefined;
 };
 
-export type InputCriblmetrics =
-  | InputCriblmetricsSendToRoutesTrueConstraint
-  | InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint
-  | InputCriblmetricsPqEnabledFalseConstraint
-  | InputCriblmetricsPqEnabledTrueWithPqConstraint;
-
 /** @internal */
-export const InputCriblmetricsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputCriblmetricsType
-> = z.nativeEnum(InputCriblmetricsType);
-/** @internal */
-export const InputCriblmetricsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputCriblmetricsType
-> = InputCriblmetricsType$inboundSchema;
-
-/** @internal */
-export const InputCriblmetricsPqEnabledTrueWithPqConstraint$inboundSchema:
-  z.ZodType<
-    InputCriblmetricsPqEnabledTrueWithPqConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    pqEnabled: z.boolean(),
-    pq: PqType$inboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputCriblmetricsType$inboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    prefix: z.string().optional(),
-    fullFidelity: z.boolean().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    description: z.string().optional(),
-  });
-/** @internal */
-export type InputCriblmetricsPqEnabledTrueWithPqConstraint$Outbound = {
-  pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  prefix?: string | undefined;
-  fullFidelity?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputCriblmetricsPqEnabledTrueWithPqConstraint$outboundSchema:
-  z.ZodType<
-    InputCriblmetricsPqEnabledTrueWithPqConstraint$Outbound,
-    z.ZodTypeDef,
-    InputCriblmetricsPqEnabledTrueWithPqConstraint
-  > = z.object({
-    pqEnabled: z.boolean(),
-    pq: PqType$outboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputCriblmetricsType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    prefix: z.string().optional(),
-    fullFidelity: z.boolean().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-  });
-
-export function inputCriblmetricsPqEnabledTrueWithPqConstraintToJSON(
-  inputCriblmetricsPqEnabledTrueWithPqConstraint:
-    InputCriblmetricsPqEnabledTrueWithPqConstraint,
-): string {
-  return JSON.stringify(
-    InputCriblmetricsPqEnabledTrueWithPqConstraint$outboundSchema.parse(
-      inputCriblmetricsPqEnabledTrueWithPqConstraint,
-    ),
-  );
-}
-export function inputCriblmetricsPqEnabledTrueWithPqConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputCriblmetricsPqEnabledTrueWithPqConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCriblmetricsPqEnabledTrueWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputCriblmetricsPqEnabledTrueWithPqConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblmetricsPqEnabledFalseConstraint$inboundSchema: z.ZodType<
-  InputCriblmetricsPqEnabledFalseConstraint,
+export const InputCriblmetrics$inboundSchema: z.ZodType<
+  InputCriblmetrics,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean(),
   id: z.string().optional(),
-  type: InputCriblmetricsType$inboundSchema,
+  type: z.literal("criblmetrics"),
   disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
   pq: PqType$inboundSchema.optional(),
@@ -346,191 +94,12 @@ export const InputCriblmetricsPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 /** @internal */
-export type InputCriblmetricsPqEnabledFalseConstraint$Outbound = {
-  pqEnabled: boolean;
+export type InputCriblmetrics$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "criblmetrics";
   disabled?: boolean | undefined;
   pipeline?: string | undefined;
   sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  prefix?: string | undefined;
-  fullFidelity?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputCriblmetricsPqEnabledFalseConstraint$outboundSchema:
-  z.ZodType<
-    InputCriblmetricsPqEnabledFalseConstraint$Outbound,
-    z.ZodTypeDef,
-    InputCriblmetricsPqEnabledFalseConstraint
-  > = z.object({
-    pqEnabled: z.boolean(),
-    id: z.string().optional(),
-    type: InputCriblmetricsType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    pq: PqType$outboundSchema.optional(),
-    prefix: z.string().optional(),
-    fullFidelity: z.boolean().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-  });
-
-export function inputCriblmetricsPqEnabledFalseConstraintToJSON(
-  inputCriblmetricsPqEnabledFalseConstraint:
-    InputCriblmetricsPqEnabledFalseConstraint,
-): string {
-  return JSON.stringify(
-    InputCriblmetricsPqEnabledFalseConstraint$outboundSchema.parse(
-      inputCriblmetricsPqEnabledFalseConstraint,
-    ),
-  );
-}
-export function inputCriblmetricsPqEnabledFalseConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputCriblmetricsPqEnabledFalseConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCriblmetricsPqEnabledFalseConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputCriblmetricsPqEnabledFalseConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputCriblmetricsType$inboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    prefix: z.string().optional(),
-    fullFidelity: z.boolean().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    description: z.string().optional(),
-  });
-/** @internal */
-export type InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint$Outbound =
-  {
-    sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-    id?: string | undefined;
-    type: string;
-    disabled?: boolean | undefined;
-    pipeline?: string | undefined;
-    environment?: string | undefined;
-    pqEnabled?: boolean | undefined;
-    streamtags?: Array<string> | undefined;
-    pq?: PqType$Outbound | undefined;
-    prefix?: string | undefined;
-    fullFidelity?: boolean | undefined;
-    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-    description?: string | undefined;
-  };
-
-/** @internal */
-export const InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    id: z.string().optional(),
-    type: InputCriblmetricsType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    prefix: z.string().optional(),
-    fullFidelity: z.boolean().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-  });
-
-export function inputCriblmetricsSendToRoutesFalseWithConnectionsConstraintToJSON(
-  inputCriblmetricsSendToRoutesFalseWithConnectionsConstraint:
-    InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint,
-): string {
-  return JSON.stringify(
-    InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-      .parse(inputCriblmetricsSendToRoutesFalseWithConnectionsConstraint),
-  );
-}
-export function inputCriblmetricsSendToRoutesFalseWithConnectionsConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblmetricsSendToRoutesTrueConstraint$inboundSchema:
-  z.ZodType<
-    InputCriblmetricsSendToRoutesTrueConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    id: z.string().optional(),
-    type: InputCriblmetricsType$inboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    pq: PqType$inboundSchema.optional(),
-    prefix: z.string().optional(),
-    fullFidelity: z.boolean().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    description: z.string().optional(),
-  });
-/** @internal */
-export type InputCriblmetricsSendToRoutesTrueConstraint$Outbound = {
-  sendToRoutes: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
@@ -543,88 +112,26 @@ export type InputCriblmetricsSendToRoutesTrueConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputCriblmetricsSendToRoutesTrueConstraint$outboundSchema:
-  z.ZodType<
-    InputCriblmetricsSendToRoutesTrueConstraint$Outbound,
-    z.ZodTypeDef,
-    InputCriblmetricsSendToRoutesTrueConstraint
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    id: z.string().optional(),
-    type: InputCriblmetricsType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    pq: PqType$outboundSchema.optional(),
-    prefix: z.string().optional(),
-    fullFidelity: z.boolean().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-  });
-
-export function inputCriblmetricsSendToRoutesTrueConstraintToJSON(
-  inputCriblmetricsSendToRoutesTrueConstraint:
-    InputCriblmetricsSendToRoutesTrueConstraint,
-): string {
-  return JSON.stringify(
-    InputCriblmetricsSendToRoutesTrueConstraint$outboundSchema.parse(
-      inputCriblmetricsSendToRoutesTrueConstraint,
-    ),
-  );
-}
-export function inputCriblmetricsSendToRoutesTrueConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputCriblmetricsSendToRoutesTrueConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCriblmetricsSendToRoutesTrueConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputCriblmetricsSendToRoutesTrueConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblmetrics$inboundSchema: z.ZodType<
-  InputCriblmetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => InputCriblmetricsSendToRoutesTrueConstraint$inboundSchema),
-  z.lazy(() =>
-    InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-  ),
-  z.lazy(() => InputCriblmetricsPqEnabledFalseConstraint$inboundSchema),
-  z.lazy(() => InputCriblmetricsPqEnabledTrueWithPqConstraint$inboundSchema),
-]);
-/** @internal */
-export type InputCriblmetrics$Outbound =
-  | InputCriblmetricsSendToRoutesTrueConstraint$Outbound
-  | InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputCriblmetricsPqEnabledFalseConstraint$Outbound
-  | InputCriblmetricsPqEnabledTrueWithPqConstraint$Outbound;
-
-/** @internal */
 export const InputCriblmetrics$outboundSchema: z.ZodType<
   InputCriblmetrics$Outbound,
   z.ZodTypeDef,
   InputCriblmetrics
-> = z.union([
-  z.lazy(() => InputCriblmetricsSendToRoutesTrueConstraint$outboundSchema),
-  z.lazy(() =>
-    InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-  ),
-  z.lazy(() => InputCriblmetricsPqEnabledFalseConstraint$outboundSchema),
-  z.lazy(() => InputCriblmetricsPqEnabledTrueWithPqConstraint$outboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("criblmetrics"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  prefix: z.string().optional(),
+  fullFidelity: z.boolean().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+});
 
 export function inputCriblmetricsToJSON(
   inputCriblmetrics: InputCriblmetrics,

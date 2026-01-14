@@ -21,7 +21,7 @@ let value: OutputCriblSearchEngine = {
   ],
   loadBalanced: false,
   tls: {
-    disabled: true,
+    disabled: false,
     rejectUnauthorized: true,
     servername: "<value>",
     certificateName: "<value>",
@@ -29,8 +29,8 @@ let value: OutputCriblSearchEngine = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
   },
   tokenTTLMinutes: 6248.64,
   excludeFields: [

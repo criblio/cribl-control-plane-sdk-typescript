@@ -7,43 +7,43 @@ import { InputSystemMetricsCustom } from "cribl-control-plane/models";
 
 let value: InputSystemMetricsCustom = {
   system: {
-    mode: "custom",
-    processes: true,
+    mode: "disabled",
+    processes: false,
   },
   cpu: {
-    mode: "basic",
-    perCpu: false,
-    detail: true,
-    time: false,
+    mode: "all",
+    perCpu: true,
+    detail: false,
+    time: true,
   },
   memory: {
-    mode: "custom",
-    detail: true,
+    mode: "disabled",
+    detail: false,
   },
   network: {
-    mode: "all",
+    mode: "basic",
     detail: true,
-    protocols: false,
+    protocols: true,
+    devices: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    perInterface: false,
+  },
+  disk: {
+    mode: "basic",
+    detail: true,
+    inodes: false,
     devices: [
       "<value 1>",
       "<value 2>",
       "<value 3>",
-    ],
-    perInterface: true,
-  },
-  disk: {
-    mode: "basic",
-    detail: false,
-    inodes: false,
-    devices: [
-      "<value 1>",
     ],
     mountpoints: [
       "<value 1>",
     ],
     fstypes: [
       "<value 1>",
-      "<value 2>",
     ],
     perDevice: true,
   },

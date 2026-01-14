@@ -1,174 +1,22 @@
 # InputRawUdp
 
-
-## Supported Types
-
-### `models.InputRawUdpSendToRoutesTrueConstraint`
+## Example Usage
 
 ```typescript
-const value: models.InputRawUdpSendToRoutesTrueConstraint = {
-  sendToRoutes: false,
-  id: "<id>",
-  type: "raw_udp",
-  disabled: true,
-  pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "forceful-discourse.info",
-  port: 3076.26,
-  maxBufferSize: 2646.48,
-  ipWhitelistRegex: "<value>",
-  singleMsgUdpPackets: false,
-  ingestRawBytes: false,
-  udpSocketRxBufSize: 3909.78,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "apud video psst pale twine whoa",
-};
-```
+import { InputRawUdp } from "cribl-control-plane/models";
 
-### `models.InputRawUdpSendToRoutesFalseWithConnectionsConstraint`
-
-```typescript
-const value: models.InputRawUdpSendToRoutesFalseWithConnectionsConstraint = {
-  sendToRoutes: false,
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+let value: InputRawUdp = {
   id: "<id>",
   type: "raw_udp",
   disabled: false,
   pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "wiggly-instruction.com",
-  port: 2981.95,
-  maxBufferSize: 9985.27,
-  ipWhitelistRegex: "<value>",
-  singleMsgUdpPackets: false,
-  ingestRawBytes: false,
-  udpSocketRxBufSize: 376.95,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "yowza even ugh impressionable an",
-};
-```
-
-### `models.InputRawUdpPqEnabledFalseConstraint`
-
-```typescript
-const value: models.InputRawUdpPqEnabledFalseConstraint = {
-  pqEnabled: true,
-  id: "<id>",
-  type: "raw_udp",
-  disabled: true,
-  pipeline: "<value>",
   sendToRoutes: true,
   environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "arid-unit.net",
-  port: 4726.78,
-  maxBufferSize: 9674.01,
-  ipWhitelistRegex: "<value>",
-  singleMsgUdpPackets: true,
-  ingestRawBytes: true,
-  udpSocketRxBufSize: 5588.54,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "quaintly where solder archive during priesthood apropos weakly",
-};
-```
-
-### `models.InputRawUdpPqEnabledTrueWithPqConstraint`
-
-```typescript
-const value: models.InputRawUdpPqEnabledTrueWithPqConstraint = {
   pqEnabled: false,
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "raw_udp",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -176,20 +24,53 @@ const value: models.InputRawUdpPqEnabledTrueWithPqConstraint = {
       output: "<value>",
     },
   ],
-  host: "unimportant-detective.org",
-  port: 6928.64,
-  maxBufferSize: 5065.56,
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  host: "judicious-pliers.info",
+  port: 546.34,
+  maxBufferSize: 4993.2,
   ipWhitelistRegex: "<value>",
   singleMsgUdpPackets: true,
   ingestRawBytes: true,
-  udpSocketRxBufSize: 3649.12,
+  udpSocketRxBufSize: 2807.29,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "soup midst throughout obediently worriedly",
+  description: "motivate frank showy instead darn without aw beyond cop-out",
 };
 ```
 
+## Fields
+
+| Field                                                                                                                                                                                                                                                                              | Type                                                                                                                                                                                                                                                                               | Required                                                                                                                                                                                                                                                                           | Description                                                                                                                                                                                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Unique ID for this input                                                                                                                                                                                                                                                           |
+| `type`                                                                                                                                                                                                                                                                             | *"raw_udp"*                                                                                                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
+| `disabled`                                                                                                                                                                                                                                                                         | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
+| `pipeline`                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                                                                     |
+| `sendToRoutes`                                                                                                                                                                                                                                                                     | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                |
+| `environment`                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                               |
+| `pqEnabled`                                                                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                       |
+| `streamtags`                                                                                                                                                                                                                                                                       | *string*[]                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                      |
+| `connections`                                                                                                                                                                                                                                                                      | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                        |
+| `pq`                                                                                                                                                                                                                                                                               | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
+| `host`                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                                                                 | Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.                                                                                                                                            |
+| `port`                                                                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                                                                 | Port to listen on                                                                                                                                                                                                                                                                  |
+| `maxBufferSize`                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Maximum number of events to buffer when downstream is blocking.                                                                                                                                                                                                                    |
+| `ipWhitelistRegex`                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Regex matching IP addresses that are allowed to send data                                                                                                                                                                                                                          |
+| `singleMsgUdpPackets`                                                                                                                                                                                                                                                              | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.                                                                                                                         |
+| `ingestRawBytes`                                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.                                                                                                                                                                                  |
+| `udpSocketRxBufSize`                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization. |
+| `metadata`                                                                                                                                                                                                                                                                         | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Fields to add to events from this input                                                                                                                                                                                                                                            |
+| `description`                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |

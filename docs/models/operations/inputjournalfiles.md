@@ -1,133 +1,22 @@
 # InputJournalFiles
 
-
-## Supported Types
-
-### `operations.InputJournalFilesSendToRoutesTrueConstraint`
+## Example Usage
 
 ```typescript
-const value: operations.InputJournalFilesSendToRoutesTrueConstraint = {
-  sendToRoutes: true,
+import { InputJournalFiles } from "cribl-control-plane/models/operations";
+
+let value: InputJournalFiles = {
   id: "<id>",
   type: "journal_files",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  path: "/var/tmp",
-  interval: 4220.37,
-  journals: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  rules: [
-    {
-      filter: "<value>",
-      description: "informal frizzy opera ack woot",
-    },
-  ],
-  currentBoot: true,
-  maxAgeDur: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description:
-    "adumbrate obediently readmit including monocle chip playfully until",
-};
-```
-
-### `operations.InputJournalFilesSendToRoutesFalseWithConnectionsConstraint`
-
-```typescript
-const value:
-  operations.InputJournalFilesSendToRoutesFalseWithConnectionsConstraint = {
-    sendToRoutes: true,
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "journal_files",
-    disabled: false,
-    pipeline: "<value>",
-    environment: "<value>",
-    pqEnabled: true,
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      mode: "smart",
-      maxBufferSize: 1717.96,
-      commitFrequency: 1412.18,
-      maxFileSize: "<value>",
-      maxSize: "<value>",
-      path: "/opt/include",
-      compress: "none",
-      pqControls: {},
-    },
-    path: "/opt/bin",
-    interval: 7251.35,
-    journals: [
-      "<value 1>",
-    ],
-    rules: [
-      {
-        filter: "<value>",
-        description: "sew gladly event an hence warped up",
-      },
-    ],
-    currentBoot: false,
-    maxAgeDur: "<value>",
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "personal access switch",
-  };
-```
-
-### `operations.InputJournalFilesPqEnabledFalseConstraint`
-
-```typescript
-const value: operations.InputJournalFilesPqEnabledFalseConstraint = {
   pqEnabled: false,
-  id: "<id>",
-  type: "journal_files",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -136,25 +25,26 @@ const value: operations.InputJournalFilesPqEnabledFalseConstraint = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  path: "/home",
-  interval: 5036.36,
+  path: "/opt/sbin",
+  interval: 3645.26,
   journals: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   rules: [
     {
       filter: "<value>",
-      description:
-        "unscramble seal if stealthily continually bewail after duh so orchestrate",
+      description: "worthless smog outside by handle into massage nor meh",
     },
   ],
   currentBoot: false,
@@ -165,61 +55,29 @@ const value: operations.InputJournalFilesPqEnabledFalseConstraint = {
       value: "<value>",
     },
   ],
-  description: "flawless carelessly ugh via youthfully shoddy a as",
+  description: "upwardly summer uncommon minus",
 };
 ```
 
-### `operations.InputJournalFilesPqEnabledTrueWithPqConstraint`
+## Fields
 
-```typescript
-const value: operations.InputJournalFilesPqEnabledTrueWithPqConstraint = {
-  pqEnabled: false,
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "journal_files",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  path: "/boot",
-  interval: 1801.14,
-  journals: [
-    "<value 1>",
-  ],
-  rules: [
-    {
-      filter: "<value>",
-      description: "lazily mesh mmm around upwardly comfortable",
-    },
-  ],
-  currentBoot: false,
-  maxAgeDur: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "why midst riser anenst as kosher never hmph which",
-};
-```
-
+| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
+| `type`                                                                                                                                                                                                                                       | *"journal_files"*                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                               |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
+| `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
+| `pq`                                                                                                                                                                                                                                         | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `path`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.                                                                                                         |
+| `interval`                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Time, in seconds, between scanning for journals.                                                                                                                                                                                             |
+| `journals`                                                                                                                                                                                                                                   | *string*[]                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                           | The full path of discovered journals are matched against this wildcard list.                                                                                                                                                                 |
+| `rules`                                                                                                                                                                                                                                      | [operations.InputJournalFilesRule](../../models/operations/inputjournalfilesrule.md)[]                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                           | Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.                                                                                            |
+| `currentBoot`                                                                                                                                                                                                                                | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Skip log messages that are not part of the current boot session.                                                                                                                                                                             |
+| `maxAgeDur`                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.                                                                                                                   |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../../models/itemstypenotificationmetadata.md)[]                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

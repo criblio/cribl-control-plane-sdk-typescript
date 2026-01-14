@@ -1,247 +1,18 @@
 # InputSplunkHec
 
-
-## Supported Types
-
-### `operations.InputSplunkHecSendToRoutesTrueConstraint`
+## Example Usage
 
 ```typescript
-const value: operations.InputSplunkHecSendToRoutesTrueConstraint = {
-  sendToRoutes: true,
+import { InputSplunkHec } from "cribl-control-plane/models/operations";
+
+let value: InputSplunkHec = {
   id: "<id>",
   type: "splunk_hec",
   disabled: false,
-  pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "skeletal-exterior.com",
-  port: 1194.91,
-  authTokens: [
-    {
-      authType: "manual",
-      tokenSecret: "<value>",
-      token: "<value>",
-      enabled: true,
-      description:
-        "between quarterly um maroon drat silk whose hence incidentally after",
-      allowedIndexesAtToken: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  tls: {
-    disabled: true,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  maxActiveReq: 635.3,
-  maxRequestsPerSocket: 271238,
-  enableProxyHeader: false,
-  captureHeaders: false,
-  activityLogSampleRate: 6451.44,
-  requestTimeout: 1656.83,
-  socketTimeout: 1472.75,
-  keepAliveTimeout: 9360.57,
-  enableHealthCheck: "<value>",
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  splunkHecAPI: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  allowedIndexes: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  splunkHecAcks: false,
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  staleChannelFlushMs: 3943.56,
-  useFwdTimezone: false,
-  dropControlFields: true,
-  extractMetrics: false,
-  accessControlAllowOrigin: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  accessControlAllowHeaders: [
-    "<value 1>",
-  ],
-  emitTokenMetrics: true,
-  description: "qua taut than",
-};
-```
-
-### `operations.InputSplunkHecSendToRoutesFalseWithConnectionsConstraint`
-
-```typescript
-const value:
-  operations.InputSplunkHecSendToRoutesFalseWithConnectionsConstraint = {
-    sendToRoutes: false,
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "splunk_hec",
-    disabled: false,
-    pipeline: "<value>",
-    environment: "<value>",
-    pqEnabled: true,
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      mode: "smart",
-      maxBufferSize: 1717.96,
-      commitFrequency: 1412.18,
-      maxFileSize: "<value>",
-      maxSize: "<value>",
-      path: "/opt/include",
-      compress: "none",
-      pqControls: {},
-    },
-    host: "impressive-swath.name",
-    port: 6823.6,
-    authTokens: [
-      {
-        authType: "manual",
-        tokenSecret: "<value>",
-        token: "<value>",
-        enabled: true,
-        description:
-          "between quarterly um maroon drat silk whose hence incidentally after",
-        allowedIndexesAtToken: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-        metadata: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
-        ],
-      },
-    ],
-    tls: {
-      disabled: true,
-      requestCert: true,
-      rejectUnauthorized: true,
-      commonNameRegex: "<value>",
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.1",
-    },
-    maxActiveReq: 2919.8,
-    maxRequestsPerSocket: 222249,
-    enableProxyHeader: false,
-    captureHeaders: false,
-    activityLogSampleRate: 184.51,
-    requestTimeout: 3948.16,
-    socketTimeout: 5418.35,
-    keepAliveTimeout: 6044.64,
-    enableHealthCheck: "<value>",
-    ipAllowlistRegex: "<value>",
-    ipDenylistRegex: "<value>",
-    splunkHecAPI: "<value>",
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    allowedIndexes: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    splunkHecAcks: false,
-    breakerRulesets: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    staleChannelFlushMs: 2193.18,
-    useFwdTimezone: false,
-    dropControlFields: true,
-    extractMetrics: false,
-    accessControlAllowOrigin: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    accessControlAllowHeaders: [
-      "<value 1>",
-    ],
-    emitTokenMetrics: false,
-    description: "hmph gah object tomography pike beyond",
-  };
-```
-
-### `operations.InputSplunkHecPqEnabledFalseConstraint`
-
-```typescript
-const value: operations.InputSplunkHecPqEnabledFalseConstraint = {
-  pqEnabled: false,
-  id: "<id>",
-  type: "splunk_hec",
-  disabled: true,
   pipeline: "<value>",
   sendToRoutes: false,
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -253,29 +24,27 @@ const value: operations.InputSplunkHecPqEnabledFalseConstraint = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "excited-alb.biz",
-  port: 8767.28,
+  host: "neglected-platter.net",
+  port: 5410.31,
   authTokens: [
     {
-      authType: "manual",
+      authType: "secret",
       tokenSecret: "<value>",
       token: "<value>",
       enabled: true,
-      description:
-        "between quarterly um maroon drat silk whose hence incidentally after",
+      description: "guacamole corporation daddy gym colorfully giggle",
       allowedIndexesAtToken: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
       metadata: [
         {
@@ -286,7 +55,7 @@ const value: operations.InputSplunkHecPqEnabledFalseConstraint = {
     },
   ],
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -296,126 +65,16 @@ const value: operations.InputSplunkHecPqEnabledFalseConstraint = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
-  maxActiveReq: 495.23,
-  maxRequestsPerSocket: 112283,
-  enableProxyHeader: false,
-  captureHeaders: false,
-  activityLogSampleRate: 6936.18,
-  requestTimeout: 3511.56,
-  socketTimeout: 8317.16,
-  keepAliveTimeout: 5890.84,
-  enableHealthCheck: "<value>",
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  splunkHecAPI: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  allowedIndexes: [
-    "<value 1>",
-  ],
-  splunkHecAcks: false,
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  staleChannelFlushMs: 4314.41,
-  useFwdTimezone: false,
-  dropControlFields: false,
-  extractMetrics: false,
-  accessControlAllowOrigin: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  accessControlAllowHeaders: [
-    "<value 1>",
-  ],
-  emitTokenMetrics: true,
-  description: "angrily convince jaywalk",
-};
-```
-
-### `operations.InputSplunkHecPqEnabledTrueWithPqConstraint`
-
-```typescript
-const value: operations.InputSplunkHecPqEnabledTrueWithPqConstraint = {
-  pqEnabled: true,
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "splunk_hec",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  host: "writhing-flu.biz",
-  port: 8493.06,
-  authTokens: [
-    {
-      authType: "manual",
-      tokenSecret: "<value>",
-      token: "<value>",
-      enabled: true,
-      description:
-        "between quarterly um maroon drat silk whose hence incidentally after",
-      allowedIndexesAtToken: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  tls: {
-    disabled: true,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  maxActiveReq: 310.06,
-  maxRequestsPerSocket: 943198,
+  maxActiveReq: 9702.28,
+  maxRequestsPerSocket: 262517,
   enableProxyHeader: true,
   captureHeaders: true,
-  activityLogSampleRate: 1457.18,
-  requestTimeout: 8535.64,
-  socketTimeout: 5668.88,
-  keepAliveTimeout: 7302.05,
+  activityLogSampleRate: 2959.6,
+  requestTimeout: 2106.04,
+  socketTimeout: 9520.52,
+  keepAliveTimeout: 7646.16,
   enableHealthCheck: "<value>",
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
@@ -432,23 +91,67 @@ const value: operations.InputSplunkHecPqEnabledTrueWithPqConstraint = {
   splunkHecAcks: false,
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
-  staleChannelFlushMs: 7396.04,
-  useFwdTimezone: false,
+  staleChannelFlushMs: 5366.47,
+  useFwdTimezone: true,
   dropControlFields: false,
-  extractMetrics: false,
+  extractMetrics: true,
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  emitTokenMetrics: false,
+  emitTokenMetrics: true,
   description:
-    "below story usefully worriedly blindly ignite traffic moral once below",
+    "slimy sticky hm gosh indeed wherever anneal notwithstanding anenst as",
 };
 ```
 
+## Fields
+
+| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
+| `type`                                                                                                                                                                                                                                       | *"splunk_hec"*                                                                                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                               |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
+| `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
+| `pq`                                                                                                                                                                                                                                         | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
+| `port`                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Port to listen on                                                                                                                                                                                                                            |
+| `authTokens`                                                                                                                                                                                                                                 | [operations.AuthTokenSplunkHec](../../models/operations/authtokensplunkhec.md)[]                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                           | Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.                                                                                                                            |
+| `tls`                                                                                                                                                                                                                                        | [models.TlsSettingsServerSideType](../../models/tlssettingsserversidetype.md)                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `maxActiveReq`                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.                      |
+| `maxRequestsPerSocket`                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).                                                                                                              |
+| `enableProxyHeader`                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.                                                           |
+| `captureHeaders`                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Add request headers to events, in the __headers field                                                                                                                                                                                        |
+| `activityLogSampleRate`                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.                                                                                                                  |
+| `requestTimeout`                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How long to wait for an incoming request to complete before aborting it. Use 0 to disable.                                                                                                                                                   |
+| `socketTimeout`                                                                                                                                                                                                                              | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.                                                                                                                            |
+| `keepAliveTimeout`                                                                                                                                                                                                                           | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).                                                                |
+| `enableHealthCheck`                                                                                                                                                                                                                          | *any*                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `ipAllowlistRegex`                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Messages from matched IP addresses will be processed, unless also matched by the denylist                                                                                                                                                    |
+| `ipDenylistRegex`                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.                                                                                                                                                |
+| `splunkHecAPI`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.                                                                                                  |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../../models/itemstypenotificationmetadata.md)[]                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.                                                   |
+| `allowedIndexes`                                                                                                                                                                                                                             | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.                                                                            |
+| `splunkHecAcks`                                                                                                                                                                                                                              | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Enable Splunk HEC acknowledgements                                                                                                                                                                                                           |
+| `breakerRulesets`                                                                                                                                                                                                                            | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | A list of event-breaking rulesets that will be applied, in order, to the input data stream                                                                                                                                                   |
+| `staleChannelFlushMs`                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines                                                                            |
+| `useFwdTimezone`                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event                                                                                                                      |
+| `dropControlFields`                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.                                                                                                  |
+| `extractMetrics`                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Extract and process Splunk-generated metrics as Cribl metrics                                                                                                                                                                                |
+| `accessControlAllowOrigin`                                                                                                                                                                                                                   | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.                                                                                       |
+| `accessControlAllowHeaders`                                                                                                                                                                                                                  | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.                                                                     |
+| `emitTokenMetrics`                                                                                                                                                                                                                           | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics                                                                                                                                                  |
+| `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

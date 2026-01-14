@@ -50,7 +50,7 @@ let value: OutputMicrosoftFabric = {
   },
   tls: {
     disabled: false,
-    rejectUnauthorized: true,
+    rejectUnauthorized: false,
   },
   onBackpressure: "queue",
   bootstrap_server: "<value>",

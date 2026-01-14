@@ -16,7 +16,7 @@ let value: KafkaSchemaRegistryAuthenticationType = {
     credentialsSecret: "<value>",
   },
   tls: {
-    disabled: true,
+    disabled: false,
     rejectUnauthorized: true,
     servername: "<value>",
     certificateName: "<value>",
@@ -24,8 +24,8 @@ let value: KafkaSchemaRegistryAuthenticationType = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
   },
 };
 ```

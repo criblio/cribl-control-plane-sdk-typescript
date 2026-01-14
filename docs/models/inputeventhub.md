@@ -1,23 +1,21 @@
 # InputEventhub
 
-
-## Supported Types
-
-### `models.InputEventhubSendToRoutesTrueConstraint`
+## Example Usage
 
 ```typescript
-const value: models.InputEventhubSendToRoutesTrueConstraint = {
-  sendToRoutes: true,
+import { InputEventhub } from "cribl-control-plane/models";
+
+let value: InputEventhub = {
   id: "<id>",
   type: "eventhub",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -26,104 +24,12 @@ const value: models.InputEventhubSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  brokers: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  topics: [
-    "<value 1>",
-  ],
-  groupId: "<id>",
-  fromBeginning: true,
-  connectionTimeout: 7915.23,
-  requestTimeout: 9854.12,
-  maxRetries: 12.1,
-  maxBackOff: 4807.54,
-  initialBackoff: 5181.04,
-  backoffRate: 623.11,
-  authenticationTimeout: 1213.98,
-  reauthenticationThreshold: 9892.51,
-  sasl: {
-    disabled: true,
-    authType: "manual",
-    password: "tfATUqXAfby_x5u",
-    textSecret: "<value>",
-    mechanism: "oauthbearer",
-    username: "Marge.Hegmann",
-    clientSecretAuthType: "manual",
-    clientSecret: "<value>",
-    clientTextSecret: "<value>",
-    certificateName: "<value>",
-    certPath: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    oauthEndpoint: "https://login.partner.microsoftonline.cn",
-    clientId: "<id>",
-    tenantId: "<id>",
-    scope: "<value>",
-  },
-  tls: {
-    disabled: false,
-    rejectUnauthorized: true,
-  },
-  sessionTimeout: 1062,
-  rebalanceTimeout: 7252.57,
-  heartbeatInterval: 6573.94,
-  autoCommitInterval: 6137.46,
-  autoCommitThreshold: 248.08,
-  maxBytesPerPartition: 4551.77,
-  maxBytes: 4885.26,
-  maxSocketErrors: 7427.53,
-  minimizeDuplicates: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "quaver whoa psst ouch gentle charter",
-};
-```
-
-### `models.InputEventhubSendToRoutesFalseWithConnectionsConstraint`
-
-```typescript
-const value: models.InputEventhubSendToRoutesFalseWithConnectionsConstraint = {
-  sendToRoutes: true,
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "eventhub",
-  disabled: false,
-  pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
@@ -136,45 +42,45 @@ const value: models.InputEventhubSendToRoutesFalseWithConnectionsConstraint = {
   ],
   groupId: "<id>",
   fromBeginning: false,
-  connectionTimeout: 7941.93,
-  requestTimeout: 3822.55,
-  maxRetries: 4841.57,
-  maxBackOff: 1374.2,
-  initialBackoff: 2811.55,
-  backoffRate: 3047.81,
-  authenticationTimeout: 6863.87,
-  reauthenticationThreshold: 6963.27,
+  connectionTimeout: 6174.22,
+  requestTimeout: 9238.25,
+  maxRetries: 5438.18,
+  maxBackOff: 9230.31,
+  initialBackoff: 2101.71,
+  backoffRate: 9741.86,
+  authenticationTimeout: 3426.22,
+  reauthenticationThreshold: 8021.76,
   sasl: {
-    disabled: true,
+    disabled: false,
     authType: "manual",
-    password: "tfATUqXAfby_x5u",
+    password: "CtfATUqXAfby_x5",
     textSecret: "<value>",
     mechanism: "oauthbearer",
-    username: "Marge.Hegmann",
-    clientSecretAuthType: "manual",
+    username: "Rosa.Lakin33",
+    clientSecretAuthType: "secret",
     clientSecret: "<value>",
     clientTextSecret: "<value>",
     certificateName: "<value>",
     certPath: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
-    oauthEndpoint: "https://login.partner.microsoftonline.cn",
+    oauthEndpoint: "https://login.microsoftonline.com",
     clientId: "<id>",
     tenantId: "<id>",
     scope: "<value>",
   },
   tls: {
     disabled: false,
-    rejectUnauthorized: true,
+    rejectUnauthorized: false,
   },
-  sessionTimeout: 61.36,
-  rebalanceTimeout: 9610.34,
-  heartbeatInterval: 4424.72,
-  autoCommitInterval: 9041.13,
-  autoCommitThreshold: 313.05,
-  maxBytesPerPartition: 3739.96,
-  maxBytes: 5292.05,
-  maxSocketErrors: 9844.4,
+  sessionTimeout: 147.46,
+  rebalanceTimeout: 2633.53,
+  heartbeatInterval: 3000.96,
+  autoCommitInterval: 6273.62,
+  autoCommitThreshold: 8652.9,
+  maxBytesPerPartition: 7069.03,
+  maxBytes: 8788.12,
+  maxSocketErrors: 5130.3,
   minimizeDuplicates: true,
   metadata: [
     {
@@ -182,184 +88,46 @@ const value: models.InputEventhubSendToRoutesFalseWithConnectionsConstraint = {
       value: "<value>",
     },
   ],
-  description: "blindly yearn orchestrate popularize",
+  description: "which verify victoriously keel dreamily scrape lieu intermesh",
 };
 ```
 
-### `models.InputEventhubPqEnabledFalseConstraint`
+## Fields
 
-```typescript
-const value: models.InputEventhubPqEnabledFalseConstraint = {
-  pqEnabled: false,
-  id: "<id>",
-  type: "eventhub",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  brokers: [],
-  topics: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  groupId: "<id>",
-  fromBeginning: false,
-  connectionTimeout: 4066.6,
-  requestTimeout: 1206.68,
-  maxRetries: 1921.69,
-  maxBackOff: 5775.52,
-  initialBackoff: 7417.7,
-  backoffRate: 4745.62,
-  authenticationTimeout: 5026.39,
-  reauthenticationThreshold: 802.86,
-  sasl: {
-    disabled: true,
-    authType: "manual",
-    password: "tfATUqXAfby_x5u",
-    textSecret: "<value>",
-    mechanism: "oauthbearer",
-    username: "Marge.Hegmann",
-    clientSecretAuthType: "manual",
-    clientSecret: "<value>",
-    clientTextSecret: "<value>",
-    certificateName: "<value>",
-    certPath: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    oauthEndpoint: "https://login.partner.microsoftonline.cn",
-    clientId: "<id>",
-    tenantId: "<id>",
-    scope: "<value>",
-  },
-  tls: {
-    disabled: false,
-    rejectUnauthorized: true,
-  },
-  sessionTimeout: 6827.03,
-  rebalanceTimeout: 9171.3,
-  heartbeatInterval: 5143.67,
-  autoCommitInterval: 3537.32,
-  autoCommitThreshold: 9779.96,
-  maxBytesPerPartition: 1.5,
-  maxBytes: 7391.77,
-  maxSocketErrors: 6772.32,
-  minimizeDuplicates: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "once lest dismal phew underneath whereas um whenever",
-};
-```
-
-### `models.InputEventhubPqEnabledTrueWithPqConstraint`
-
-```typescript
-const value: models.InputEventhubPqEnabledTrueWithPqConstraint = {
-  pqEnabled: false,
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "eventhub",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  brokers: [
-    "<value 1>",
-  ],
-  topics: [],
-  groupId: "<id>",
-  fromBeginning: true,
-  connectionTimeout: 8356.05,
-  requestTimeout: 1693.49,
-  maxRetries: 3492.95,
-  maxBackOff: 7613.22,
-  initialBackoff: 380.66,
-  backoffRate: 417.52,
-  authenticationTimeout: 4347.91,
-  reauthenticationThreshold: 1721.3,
-  sasl: {
-    disabled: true,
-    authType: "manual",
-    password: "tfATUqXAfby_x5u",
-    textSecret: "<value>",
-    mechanism: "oauthbearer",
-    username: "Marge.Hegmann",
-    clientSecretAuthType: "manual",
-    clientSecret: "<value>",
-    clientTextSecret: "<value>",
-    certificateName: "<value>",
-    certPath: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    oauthEndpoint: "https://login.partner.microsoftonline.cn",
-    clientId: "<id>",
-    tenantId: "<id>",
-    scope: "<value>",
-  },
-  tls: {
-    disabled: false,
-    rejectUnauthorized: true,
-  },
-  sessionTimeout: 9880.28,
-  rebalanceTimeout: 4302.98,
-  heartbeatInterval: 9899.43,
-  autoCommitInterval: 4158.55,
-  autoCommitThreshold: 5799.75,
-  maxBytesPerPartition: 4803.57,
-  maxBytes: 6626.59,
-  maxSocketErrors: 9995.08,
-  minimizeDuplicates: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "gee whose uselessly satirise next",
-};
-```
-
+| Field                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Required                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Unique ID for this input                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `type`                                                                                                                                                                                                                                                                                                                                                                                                                                                      | *"eventhub"*                                                                                                                                                                                                                                                                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `disabled`                                                                                                                                                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `pipeline`                                                                                                                                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                                                                                                                                                                                                                                              |
+| `sendToRoutes`                                                                                                                                                                                                                                                                                                                                                                                                                                              | *boolean*                                                                                                                                                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                                                                                                                                                                                         |
+| `environment`                                                                                                                                                                                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                                                                                                                                                                        |
+| `pqEnabled`                                                                                                                                                                                                                                                                                                                                                                                                                                                 | *boolean*                                                                                                                                                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                                                                                                                                                                                                |
+| `streamtags`                                                                                                                                                                                                                                                                                                                                                                                                                                                | *string*[]                                                                                                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `connections`                                                                                                                                                                                                                                                                                                                                                                                                                                               | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                                                                                                                                                                                                 |
+| `pq`                                                                                                                                                                                                                                                                                                                                                                                                                                                        | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `brokers`                                                                                                                                                                                                                                                                                                                                                                                                                                                   | *string*[]                                                                                                                                                                                                                                                                                                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                                          | List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.                                                                                                                                                                                                                                    |
+| `topics`                                                                                                                                                                                                                                                                                                                                                                                                                                                    | *string*[]                                                                                                                                                                                                                                                                                                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                                          | The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.                                                                                                                                                                                                                                                                                        |
+| `groupId`                                                                                                                                                                                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | The consumer group this instance belongs to. Default is 'Cribl'.                                                                                                                                                                                                                                                                                                                                                                                            |
+| `fromBeginning`                                                                                                                                                                                                                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Start reading from earliest available data; relevant only during initial subscription                                                                                                                                                                                                                                                                                                                                                                       |
+| `connectionTimeout`                                                                                                                                                                                                                                                                                                                                                                                                                                         | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Maximum time to wait for a connection to complete successfully                                                                                                                                                                                                                                                                                                                                                                                              |
+| `requestTimeout`                                                                                                                                                                                                                                                                                                                                                                                                                                            | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Maximum time to wait for Kafka to respond to a request                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `maxRetries`                                                                                                                                                                                                                                                                                                                                                                                                                                                | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data                                                                                                                                                                                                                                                                                                                                                   |
+| `maxBackOff`                                                                                                                                                                                                                                                                                                                                                                                                                                                | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).                                                                                                                                                                                                                                                                                                                   |
+| `initialBackoff`                                                                                                                                                                                                                                                                                                                                                                                                                                            | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).                                                                                                                                                                                                                                                                                                                                                             |
+| `backoffRate`                                                                                                                                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.                                                                                              |
+| `authenticationTimeout`                                                                                                                                                                                                                                                                                                                                                                                                                                     | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Maximum time to wait for Kafka to respond to an authentication request                                                                                                                                                                                                                                                                                                                                                                                      |
+| `reauthenticationThreshold`                                                                                                                                                                                                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.                                                                                                                                                                                                                                                                                     |
+| `sasl`                                                                                                                                                                                                                                                                                                                                                                                                                                                      | [models.AuthenticationType1](../models/authenticationtype1.md)                                                                                                                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.                                                                                                                                                                                                                                                                                                                                                               |
+| `tls`                                                                                                                                                                                                                                                                                                                                                                                                                                                       | [models.TlsSettingsClientSideType](../models/tlssettingsclientsidetype.md)                                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `sessionTimeout`                                                                                                                                                                                                                                                                                                                                                                                                                                            | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          |       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.<br/>      If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.<br/>      Value must be lower than rebalanceTimeout.<br/>      See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md). |
+| `rebalanceTimeout`                                                                                                                                                                                                                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          |       Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins.<br/>      If the timeout is exceeded, the coordinator broker will remove the worker from the group.<br/>      See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).                                                                                             |
+| `heartbeatInterval`                                                                                                                                                                                                                                                                                                                                                                                                                                         | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          |       Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities.<br/>      Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.<br/>      See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).                                                 |
+| `autoCommitInterval`                                                                                                                                                                                                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.                                                                                                                                                                                                                                                     |
+| `autoCommitThreshold`                                                                                                                                                                                                                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.                                                                                                                                                                                                                           |
+| `maxBytesPerPartition`                                                                                                                                                                                                                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).                                                                                                                                                                        |
+| `maxBytes`                                                                                                                                                                                                                                                                                                                                                                                                                                                  | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).                                                                                                                                                                                                                                                                                                                                                             |
+| `maxSocketErrors`                                                                                                                                                                                                                                                                                                                                                                                                                                           | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Maximum number of network errors before the consumer re-creates a socket                                                                                                                                                                                                                                                                                                                                                                                    |
+| `minimizeDuplicates`                                                                                                                                                                                                                                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Minimize duplicate events by starting only one consumer for each topic partition                                                                                                                                                                                                                                                                                                                                                                            |
+| `metadata`                                                                                                                                                                                                                                                                                                                                                                                                                                                  | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | Fields to add to events from this input                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `description`                                                                                                                                                                                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
