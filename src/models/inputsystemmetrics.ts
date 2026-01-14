@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   DataCompressionFormatOptionsPersistence,
@@ -42,11 +42,6 @@ import {
   ProcessType$Outbound,
   ProcessType$outboundSchema,
 } from "./processtype.js";
-
-export const InputSystemMetricsType = {
-  SystemMetrics: "system_metrics",
-} as const;
-export type InputSystemMetricsType = ClosedEnum<typeof InputSystemMetricsType>;
 
 /**
  * Select the level of detail for system metrics
@@ -384,17 +379,12 @@ export type InputSystemMetricsPersistence = {
   destPath?: string | undefined;
 };
 
-export type InputSystemMetricsPqEnabledTrueWithPqConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled: boolean;
-  pq?: PqType | undefined;
+export type InputSystemMetrics = {
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSystemMetricsType;
+  type: "system_metrics";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -404,142 +394,6 @@ export type InputSystemMetricsPqEnabledTrueWithPqConstraint = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-   */
-  interval?: number | undefined;
-  host?: InputSystemMetricsHost | undefined;
-  process?: ProcessType | undefined;
-  container?: Container | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  persistence?: InputSystemMetricsPersistence | undefined;
-  description?: string | undefined;
-};
-
-export type InputSystemMetricsPqEnabledFalseConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled: boolean;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputSystemMetricsType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-   */
-  interval?: number | undefined;
-  host?: InputSystemMetricsHost | undefined;
-  process?: ProcessType | undefined;
-  container?: Container | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  persistence?: InputSystemMetricsPersistence | undefined;
-  description?: string | undefined;
-};
-
-export type InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes: boolean;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputSystemMetricsType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-   */
-  interval?: number | undefined;
-  host?: InputSystemMetricsHost | undefined;
-  process?: ProcessType | undefined;
-  container?: Container | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  persistence?: InputSystemMetricsPersistence | undefined;
-  description?: string | undefined;
-};
-
-export type InputSystemMetricsSendToRoutesTrueConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes: boolean;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputSystemMetricsType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -571,21 +425,6 @@ export type InputSystemMetricsSendToRoutesTrueConstraint = {
   persistence?: InputSystemMetricsPersistence | undefined;
   description?: string | undefined;
 };
-
-export type InputSystemMetrics =
-  | InputSystemMetricsSendToRoutesTrueConstraint
-  | InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint
-  | InputSystemMetricsPqEnabledFalseConstraint
-  | InputSystemMetricsPqEnabledTrueWithPqConstraint;
-
-/** @internal */
-export const InputSystemMetricsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputSystemMetricsType
-> = z.nativeEnum(InputSystemMetricsType);
-/** @internal */
-export const InputSystemMetricsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputSystemMetricsType
-> = InputSystemMetricsType$inboundSchema;
 
 /** @internal */
 export const InputSystemMetricsSystemMode$inboundSchema: z.ZodType<
@@ -1149,338 +988,37 @@ export function inputSystemMetricsPersistenceFromJSON(
 }
 
 /** @internal */
-export const InputSystemMetricsPqEnabledTrueWithPqConstraint$inboundSchema:
-  z.ZodType<
-    InputSystemMetricsPqEnabledTrueWithPqConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    pqEnabled: z.boolean(),
-    pq: PqType$inboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputSystemMetricsType$inboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    interval: z.number().optional(),
-    host: z.lazy(() => InputSystemMetricsHost$inboundSchema).optional(),
-    process: ProcessType$inboundSchema.optional(),
-    container: z.lazy(() => Container$inboundSchema).optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    persistence: z.lazy(() => InputSystemMetricsPersistence$inboundSchema)
-      .optional(),
-    description: z.string().optional(),
-  });
+export const InputSystemMetrics$inboundSchema: z.ZodType<
+  InputSystemMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("system_metrics"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  interval: z.number().optional(),
+  host: z.lazy(() => InputSystemMetricsHost$inboundSchema).optional(),
+  process: ProcessType$inboundSchema.optional(),
+  container: z.lazy(() => Container$inboundSchema).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  persistence: z.lazy(() => InputSystemMetricsPersistence$inboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
 /** @internal */
-export type InputSystemMetricsPqEnabledTrueWithPqConstraint$Outbound = {
-  pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
+export type InputSystemMetrics$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "system_metrics";
   disabled?: boolean | undefined;
   pipeline?: string | undefined;
   sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  interval?: number | undefined;
-  host?: InputSystemMetricsHost$Outbound | undefined;
-  process?: ProcessType$Outbound | undefined;
-  container?: Container$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  persistence?: InputSystemMetricsPersistence$Outbound | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputSystemMetricsPqEnabledTrueWithPqConstraint$outboundSchema:
-  z.ZodType<
-    InputSystemMetricsPqEnabledTrueWithPqConstraint$Outbound,
-    z.ZodTypeDef,
-    InputSystemMetricsPqEnabledTrueWithPqConstraint
-  > = z.object({
-    pqEnabled: z.boolean(),
-    pq: PqType$outboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputSystemMetricsType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    interval: z.number().optional(),
-    host: z.lazy(() => InputSystemMetricsHost$outboundSchema).optional(),
-    process: ProcessType$outboundSchema.optional(),
-    container: z.lazy(() => Container$outboundSchema).optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    persistence: z.lazy(() => InputSystemMetricsPersistence$outboundSchema)
-      .optional(),
-    description: z.string().optional(),
-  });
-
-export function inputSystemMetricsPqEnabledTrueWithPqConstraintToJSON(
-  inputSystemMetricsPqEnabledTrueWithPqConstraint:
-    InputSystemMetricsPqEnabledTrueWithPqConstraint,
-): string {
-  return JSON.stringify(
-    InputSystemMetricsPqEnabledTrueWithPqConstraint$outboundSchema.parse(
-      inputSystemMetricsPqEnabledTrueWithPqConstraint,
-    ),
-  );
-}
-export function inputSystemMetricsPqEnabledTrueWithPqConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputSystemMetricsPqEnabledTrueWithPqConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputSystemMetricsPqEnabledTrueWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputSystemMetricsPqEnabledTrueWithPqConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemMetricsPqEnabledFalseConstraint$inboundSchema:
-  z.ZodType<InputSystemMetricsPqEnabledFalseConstraint, z.ZodTypeDef, unknown> =
-    z.object({
-      pqEnabled: z.boolean(),
-      id: z.string().optional(),
-      type: InputSystemMetricsType$inboundSchema,
-      disabled: z.boolean().optional(),
-      pipeline: z.string().optional(),
-      sendToRoutes: z.boolean().optional(),
-      environment: z.string().optional(),
-      streamtags: z.array(z.string()).optional(),
-      connections: z.array(ItemsTypeConnectionsOptional$inboundSchema)
-        .optional(),
-      pq: PqType$inboundSchema.optional(),
-      interval: z.number().optional(),
-      host: z.lazy(() => InputSystemMetricsHost$inboundSchema).optional(),
-      process: ProcessType$inboundSchema.optional(),
-      container: z.lazy(() => Container$inboundSchema).optional(),
-      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-      persistence: z.lazy(() => InputSystemMetricsPersistence$inboundSchema)
-        .optional(),
-      description: z.string().optional(),
-    });
-/** @internal */
-export type InputSystemMetricsPqEnabledFalseConstraint$Outbound = {
-  pqEnabled: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  interval?: number | undefined;
-  host?: InputSystemMetricsHost$Outbound | undefined;
-  process?: ProcessType$Outbound | undefined;
-  container?: Container$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  persistence?: InputSystemMetricsPersistence$Outbound | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputSystemMetricsPqEnabledFalseConstraint$outboundSchema:
-  z.ZodType<
-    InputSystemMetricsPqEnabledFalseConstraint$Outbound,
-    z.ZodTypeDef,
-    InputSystemMetricsPqEnabledFalseConstraint
-  > = z.object({
-    pqEnabled: z.boolean(),
-    id: z.string().optional(),
-    type: InputSystemMetricsType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    pq: PqType$outboundSchema.optional(),
-    interval: z.number().optional(),
-    host: z.lazy(() => InputSystemMetricsHost$outboundSchema).optional(),
-    process: ProcessType$outboundSchema.optional(),
-    container: z.lazy(() => Container$outboundSchema).optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    persistence: z.lazy(() => InputSystemMetricsPersistence$outboundSchema)
-      .optional(),
-    description: z.string().optional(),
-  });
-
-export function inputSystemMetricsPqEnabledFalseConstraintToJSON(
-  inputSystemMetricsPqEnabledFalseConstraint:
-    InputSystemMetricsPqEnabledFalseConstraint,
-): string {
-  return JSON.stringify(
-    InputSystemMetricsPqEnabledFalseConstraint$outboundSchema.parse(
-      inputSystemMetricsPqEnabledFalseConstraint,
-    ),
-  );
-}
-export function inputSystemMetricsPqEnabledFalseConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputSystemMetricsPqEnabledFalseConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputSystemMetricsPqEnabledFalseConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputSystemMetricsPqEnabledFalseConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputSystemMetricsType$inboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    interval: z.number().optional(),
-    host: z.lazy(() => InputSystemMetricsHost$inboundSchema).optional(),
-    process: ProcessType$inboundSchema.optional(),
-    container: z.lazy(() => Container$inboundSchema).optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    persistence: z.lazy(() => InputSystemMetricsPersistence$inboundSchema)
-      .optional(),
-    description: z.string().optional(),
-  });
-/** @internal */
-export type InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint$Outbound =
-  {
-    sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-    id?: string | undefined;
-    type: string;
-    disabled?: boolean | undefined;
-    pipeline?: string | undefined;
-    environment?: string | undefined;
-    pqEnabled?: boolean | undefined;
-    streamtags?: Array<string> | undefined;
-    pq?: PqType$Outbound | undefined;
-    interval?: number | undefined;
-    host?: InputSystemMetricsHost$Outbound | undefined;
-    process?: ProcessType$Outbound | undefined;
-    container?: Container$Outbound | undefined;
-    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-    persistence?: InputSystemMetricsPersistence$Outbound | undefined;
-    description?: string | undefined;
-  };
-
-/** @internal */
-export const InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    id: z.string().optional(),
-    type: InputSystemMetricsType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    interval: z.number().optional(),
-    host: z.lazy(() => InputSystemMetricsHost$outboundSchema).optional(),
-    process: ProcessType$outboundSchema.optional(),
-    container: z.lazy(() => Container$outboundSchema).optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    persistence: z.lazy(() => InputSystemMetricsPersistence$outboundSchema)
-      .optional(),
-    description: z.string().optional(),
-  });
-
-export function inputSystemMetricsSendToRoutesFalseWithConnectionsConstraintToJSON(
-  inputSystemMetricsSendToRoutesFalseWithConnectionsConstraint:
-    InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint,
-): string {
-  return JSON.stringify(
-    InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-      .parse(inputSystemMetricsSendToRoutesFalseWithConnectionsConstraint),
-  );
-}
-export function inputSystemMetricsSendToRoutesFalseWithConnectionsConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemMetricsSendToRoutesTrueConstraint$inboundSchema:
-  z.ZodType<
-    InputSystemMetricsSendToRoutesTrueConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    id: z.string().optional(),
-    type: InputSystemMetricsType$inboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    pq: PqType$inboundSchema.optional(),
-    interval: z.number().optional(),
-    host: z.lazy(() => InputSystemMetricsHost$inboundSchema).optional(),
-    process: ProcessType$inboundSchema.optional(),
-    container: z.lazy(() => Container$inboundSchema).optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    persistence: z.lazy(() => InputSystemMetricsPersistence$inboundSchema)
-      .optional(),
-    description: z.string().optional(),
-  });
-/** @internal */
-export type InputSystemMetricsSendToRoutesTrueConstraint$Outbound = {
-  sendToRoutes: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
@@ -1496,92 +1034,30 @@ export type InputSystemMetricsSendToRoutesTrueConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputSystemMetricsSendToRoutesTrueConstraint$outboundSchema:
-  z.ZodType<
-    InputSystemMetricsSendToRoutesTrueConstraint$Outbound,
-    z.ZodTypeDef,
-    InputSystemMetricsSendToRoutesTrueConstraint
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    id: z.string().optional(),
-    type: InputSystemMetricsType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    pq: PqType$outboundSchema.optional(),
-    interval: z.number().optional(),
-    host: z.lazy(() => InputSystemMetricsHost$outboundSchema).optional(),
-    process: ProcessType$outboundSchema.optional(),
-    container: z.lazy(() => Container$outboundSchema).optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    persistence: z.lazy(() => InputSystemMetricsPersistence$outboundSchema)
-      .optional(),
-    description: z.string().optional(),
-  });
-
-export function inputSystemMetricsSendToRoutesTrueConstraintToJSON(
-  inputSystemMetricsSendToRoutesTrueConstraint:
-    InputSystemMetricsSendToRoutesTrueConstraint,
-): string {
-  return JSON.stringify(
-    InputSystemMetricsSendToRoutesTrueConstraint$outboundSchema.parse(
-      inputSystemMetricsSendToRoutesTrueConstraint,
-    ),
-  );
-}
-export function inputSystemMetricsSendToRoutesTrueConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputSystemMetricsSendToRoutesTrueConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputSystemMetricsSendToRoutesTrueConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputSystemMetricsSendToRoutesTrueConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemMetrics$inboundSchema: z.ZodType<
-  InputSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => InputSystemMetricsSendToRoutesTrueConstraint$inboundSchema),
-  z.lazy(() =>
-    InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-  ),
-  z.lazy(() => InputSystemMetricsPqEnabledFalseConstraint$inboundSchema),
-  z.lazy(() => InputSystemMetricsPqEnabledTrueWithPqConstraint$inboundSchema),
-]);
-/** @internal */
-export type InputSystemMetrics$Outbound =
-  | InputSystemMetricsSendToRoutesTrueConstraint$Outbound
-  | InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputSystemMetricsPqEnabledFalseConstraint$Outbound
-  | InputSystemMetricsPqEnabledTrueWithPqConstraint$Outbound;
-
-/** @internal */
 export const InputSystemMetrics$outboundSchema: z.ZodType<
   InputSystemMetrics$Outbound,
   z.ZodTypeDef,
   InputSystemMetrics
-> = z.union([
-  z.lazy(() => InputSystemMetricsSendToRoutesTrueConstraint$outboundSchema),
-  z.lazy(() =>
-    InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-  ),
-  z.lazy(() => InputSystemMetricsPqEnabledFalseConstraint$outboundSchema),
-  z.lazy(() => InputSystemMetricsPqEnabledTrueWithPqConstraint$outboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("system_metrics"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  interval: z.number().optional(),
+  host: z.lazy(() => InputSystemMetricsHost$outboundSchema).optional(),
+  process: ProcessType$outboundSchema.optional(),
+  container: z.lazy(() => Container$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  persistence: z.lazy(() => InputSystemMetricsPersistence$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
 
 export function inputSystemMetricsToJSON(
   inputSystemMetrics: InputSystemMetrics,

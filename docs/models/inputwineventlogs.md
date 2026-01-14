@@ -1,21 +1,22 @@
 # InputWinEventLogs
 
-
-## Supported Types
-
-### `models.InputWinEventLogsSendToRoutesTrueConstraint`
+## Example Usage
 
 ```typescript
-const value: models.InputWinEventLogsSendToRoutesTrueConstraint = {
-  sendToRoutes: true,
+import { InputWinEventLogs } from "cribl-control-plane/models";
+
+let value: InputWinEventLogs = {
   id: "<id>",
   type: "win_event_logs",
   disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -24,196 +25,59 @@ const value: models.InputWinEventLogsSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   logNames: [
     "<value 1>",
+    "<value 2>",
   ],
   readMode: "newest",
-  eventFormat: "json",
+  eventFormat: "xml",
   disableNativeModule: false,
-  interval: 5641.83,
-  batchSize: 1505.45,
+  interval: 6463.86,
+  batchSize: 5296.2,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  maxEventBytes: 5119.23,
-  description: "yowza forage gummy descent vary option fit indeed however",
+  maxEventBytes: 3079,
+  description: "finished evil consign fooey nor yowza finally round",
   disableJsonRendering: true,
-  disableXmlRendering: false,
+  disableXmlRendering: true,
 };
 ```
 
-### `models.InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint`
+## Fields
 
-```typescript
-const value:
-  models.InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint = {
-    sendToRoutes: false,
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "win_event_logs",
-    disabled: true,
-    pipeline: "<value>",
-    environment: "<value>",
-    pqEnabled: true,
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    pq: {
-      mode: "smart",
-      maxBufferSize: 1717.96,
-      commitFrequency: 1412.18,
-      maxFileSize: "<value>",
-      maxSize: "<value>",
-      path: "/opt/include",
-      compress: "none",
-      pqControls: {},
-    },
-    logNames: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    readMode: "oldest",
-    eventFormat: "xml",
-    disableNativeModule: false,
-    interval: 119.38,
-    batchSize: 2355.19,
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    maxEventBytes: 9685.81,
-    description:
-      "noxious jaunty sheathe unlike procrastinate upward begonia strictly",
-    disableJsonRendering: true,
-    disableXmlRendering: true,
-  };
-```
-
-### `models.InputWinEventLogsPqEnabledFalseConstraint`
-
-```typescript
-const value: models.InputWinEventLogsPqEnabledFalseConstraint = {
-  pqEnabled: true,
-  id: "<id>",
-  type: "win_event_logs",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  logNames: [
-    "<value 1>",
-  ],
-  readMode: "oldest",
-  eventFormat: "json",
-  disableNativeModule: true,
-  interval: 959.49,
-  batchSize: 4628.12,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  maxEventBytes: 2722.95,
-  description: "since evenly mmm tighten dissemble",
-  disableJsonRendering: true,
-  disableXmlRendering: false,
-};
-```
-
-### `models.InputWinEventLogsPqEnabledTrueWithPqConstraint`
-
-```typescript
-const value: models.InputWinEventLogsPqEnabledTrueWithPqConstraint = {
-  pqEnabled: true,
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "win_event_logs",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  logNames: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  readMode: "oldest",
-  eventFormat: "json",
-  disableNativeModule: false,
-  interval: 8851.84,
-  batchSize: 1253.88,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  maxEventBytes: 8254.96,
-  description: "modulo unaccountably yahoo now yippee insert",
-  disableJsonRendering: false,
-  disableXmlRendering: false,
-};
-```
-
+| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
+| `type`                                                                                                                                                                                                                                       | *"win_event_logs"*                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                               |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
+| `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
+| `pq`                                                                                                                                                                                                                                         | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `logNames`                                                                                                                                                                                                                                   | *string*[]                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                           | Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.                                                                                                                                      |
+| `readMode`                                                                                                                                                                                                                                   | [models.ReadMode](../models/readmode.md)                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Read all stored and future event logs, or only future events                                                                                                                                                                                 |
+| `eventFormat`                                                                                                                                                                                                                                | [models.EventFormat](../models/eventformat.md)                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | Format of individual events                                                                                                                                                                                                                  |
+| `disableNativeModule`                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)                            |
+| `interval`                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)                                                                                                                                   |
+| `batchSize`                                                                                                                                                                                                                                  | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)                                   |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `maxEventBytes`                                                                                                                                                                                                                              | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | The maximum number of bytes in an event before it is flushed to the pipelines                                                                                                                                                                |
+| `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `disableJsonRendering`                                                                                                                                                                                                                       | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)                                                                                                               |
+| `disableXmlRendering`                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)                                                                                                               |

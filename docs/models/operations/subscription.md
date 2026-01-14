@@ -25,7 +25,7 @@ let value: Subscription = {
   ],
   queries: [
     {
-      path: "/usr/share",
+      path: "/etc/ppp",
       queryExpression: "<value>",
     },
   ],

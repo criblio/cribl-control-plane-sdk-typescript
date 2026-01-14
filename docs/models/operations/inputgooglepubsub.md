@@ -1,128 +1,18 @@
 # InputGooglePubsub
 
-
-## Supported Types
-
-### `operations.InputGooglePubsubSendToRoutesTrueConstraint`
+## Example Usage
 
 ```typescript
-const value: operations.InputGooglePubsubSendToRoutesTrueConstraint = {
-  sendToRoutes: false,
-  id: "<id>",
-  type: "google_pubsub",
-  disabled: false,
-  pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  topicName: "<value>",
-  subscriptionName: "<value>",
-  monitorSubscription: false,
-  createTopic: true,
-  createSubscription: false,
-  region: "<value>",
-  googleAuthMethod: "secret",
-  serviceAccountCredentials: "<value>",
-  secret: "<value>",
-  maxBacklog: 4271.43,
-  concurrency: 8743.58,
-  requestTimeout: 4366.2,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "courageous excited what",
-  orderedDelivery: false,
-};
-```
+import { InputGooglePubsub } from "cribl-control-plane/models/operations";
 
-### `operations.InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint`
-
-```typescript
-const value:
-  operations.InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint = {
-    sendToRoutes: true,
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "google_pubsub",
-    disabled: false,
-    pipeline: "<value>",
-    environment: "<value>",
-    pqEnabled: false,
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    pq: {
-      mode: "smart",
-      maxBufferSize: 1717.96,
-      commitFrequency: 1412.18,
-      maxFileSize: "<value>",
-      maxSize: "<value>",
-      path: "/opt/include",
-      compress: "none",
-      pqControls: {},
-    },
-    topicName: "<value>",
-    subscriptionName: "<value>",
-    monitorSubscription: false,
-    createTopic: false,
-    createSubscription: false,
-    region: "<value>",
-    googleAuthMethod: "auto",
-    serviceAccountCredentials: "<value>",
-    secret: "<value>",
-    maxBacklog: 8934.12,
-    concurrency: 4542.48,
-    requestTimeout: 7563.26,
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "greatly howl sternly yahoo bowed a mmm yowza",
-    orderedDelivery: false,
-  };
-```
-
-### `operations.InputGooglePubsubPqEnabledFalseConstraint`
-
-```typescript
-const value: operations.InputGooglePubsubPqEnabledFalseConstraint = {
-  pqEnabled: true,
+let value: InputGooglePubsub = {
   id: "<id>",
   type: "google_pubsub",
   disabled: true,
   pipeline: "<value>",
   sendToRoutes: false,
   environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -135,91 +25,64 @@ const value: operations.InputGooglePubsubPqEnabledFalseConstraint = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   topicName: "<value>",
   subscriptionName: "<value>",
-  monitorSubscription: true,
-  createTopic: true,
+  monitorSubscription: false,
+  createTopic: false,
   createSubscription: false,
   region: "<value>",
-  googleAuthMethod: "auto",
+  googleAuthMethod: "secret",
   serviceAccountCredentials: "<value>",
   secret: "<value>",
-  maxBacklog: 3809.78,
-  concurrency: 1561.87,
-  requestTimeout: 7588.66,
+  maxBacklog: 6970.64,
+  concurrency: 8341.33,
+  requestTimeout: 8554.64,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "as slope furthermore blah veto fashion since mediocre sin savour",
+  description: "past creator or given slowly glossy nutritious volunteer but",
   orderedDelivery: true,
 };
 ```
 
-### `operations.InputGooglePubsubPqEnabledTrueWithPqConstraint`
+## Fields
 
-```typescript
-const value: operations.InputGooglePubsubPqEnabledTrueWithPqConstraint = {
-  pqEnabled: true,
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "google_pubsub",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  topicName: "<value>",
-  subscriptionName: "<value>",
-  monitorSubscription: true,
-  createTopic: true,
-  createSubscription: false,
-  region: "<value>",
-  googleAuthMethod: "manual",
-  serviceAccountCredentials: "<value>",
-  secret: "<value>",
-  maxBacklog: 2518.02,
-  concurrency: 4380.03,
-  requestTimeout: 3995.83,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "zowie gadzooks scheme yahoo think oily focused",
-  orderedDelivery: false,
-};
-```
-
+| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
+| `type`                                                                                                                                                                                                                                       | *"google_pubsub"*                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                               |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
+| `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
+| `pq`                                                                                                                                                                                                                                         | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `topicName`                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.                                                                                                                                      |
+| `subscriptionName`                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription                                   |
+| `monitorSubscription`                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use when the subscription is not created by this Source and topic is not known                                                                                                                                                               |
+| `createTopic`                                                                                                                                                                                                                                | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Create topic if it does not exist                                                                                                                                                                                                            |
+| `createSubscription`                                                                                                                                                                                                                         | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Create subscription if it does not exist                                                                                                                                                                                                     |
+| `region`                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Region to retrieve messages from. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.                                            |
+| `googleAuthMethod`                                                                                                                                                                                                                           | [models.GoogleAuthenticationMethodOptions](../../models/googleauthenticationmethodoptions.md)                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                           | Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.              |
+| `serviceAccountCredentials`                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.                                                                                |
+| `secret`                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Select or create a stored text secret                                                                                                                                                                                                        |
+| `maxBacklog`                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | If Destination exerts backpressure, this setting limits how many inbound events Stream will queue for processing before it stops retrieving events                                                                                           |
+| `concurrency`                                                                                                                                                                                                                                | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How many streams to pull messages from at one time. Doubling the value doubles the number of messages this Source pulls from the topic (if available), while consuming more CPU and memory. Defaults to 5.                                   |
+| `requestTimeout`                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pull request timeout, in milliseconds                                                                                                                                                                                                        |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../../models/itemstypenotificationmetadata.md)[]                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `orderedDelivery`                                                                                                                                                                                                                            | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Receive events in the order they were added to the queue. The process sending events must have ordering enabled.                                                                                                                             |

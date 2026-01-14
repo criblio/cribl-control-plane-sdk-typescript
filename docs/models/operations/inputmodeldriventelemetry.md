@@ -1,137 +1,18 @@
 # InputModelDrivenTelemetry
 
-
-## Supported Types
-
-### `operations.InputModelDrivenTelemetrySendToRoutesTrueConstraint`
+## Example Usage
 
 ```typescript
-const value: operations.InputModelDrivenTelemetrySendToRoutesTrueConstraint = {
-  sendToRoutes: false,
-  id: "<id>",
-  type: "model_driven_telemetry",
-  disabled: false,
-  pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "blaring-cosset.net",
-  port: 3151.57,
-  tls: {
-    disabled: true,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  maxActiveCxn: 6947.72,
-  shutdownTimeoutMs: 5370.33,
-  description: "next jaggedly which cannon revoke drat faint",
-};
-```
+import { InputModelDrivenTelemetry } from "cribl-control-plane/models/operations";
 
-### `operations.InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint`
-
-```typescript
-const value:
-  operations.InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint =
-    {
-      sendToRoutes: true,
-      connections: [
-        {
-          pipeline: "<value>",
-          output: "<value>",
-        },
-      ],
-      id: "<id>",
-      type: "model_driven_telemetry",
-      disabled: false,
-      pipeline: "<value>",
-      environment: "<value>",
-      pqEnabled: false,
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      pq: {
-        mode: "smart",
-        maxBufferSize: 1717.96,
-        commitFrequency: 1412.18,
-        maxFileSize: "<value>",
-        maxSize: "<value>",
-        path: "/opt/include",
-        compress: "none",
-        pqControls: {},
-      },
-      host: "experienced-technologist.name",
-      port: 7472.25,
-      tls: {
-        disabled: true,
-        requestCert: true,
-        rejectUnauthorized: true,
-        commonNameRegex: "<value>",
-        certificateName: "<value>",
-        privKeyPath: "<value>",
-        passphrase: "<value>",
-        certPath: "<value>",
-        caPath: "<value>",
-        minVersion: "TLSv1",
-        maxVersion: "TLSv1.1",
-      },
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      maxActiveCxn: 1457.38,
-      shutdownTimeoutMs: 8888.32,
-      description: "between meanwhile failing but who",
-    };
-```
-
-### `operations.InputModelDrivenTelemetryPqEnabledFalseConstraint`
-
-```typescript
-const value: operations.InputModelDrivenTelemetryPqEnabledFalseConstraint = {
-  pqEnabled: false,
+let value: InputModelDrivenTelemetry = {
   id: "<id>",
   type: "model_driven_telemetry",
   disabled: false,
   pipeline: "<value>",
   sendToRoutes: true,
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -144,19 +25,19 @@ const value: operations.InputModelDrivenTelemetryPqEnabledFalseConstraint = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "mysterious-circumference.com",
-  port: 2600.32,
+  host: "impressive-patroller.org",
+  port: 3171.72,
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -166,7 +47,7 @@ const value: operations.InputModelDrivenTelemetryPqEnabledFalseConstraint = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -174,69 +55,30 @@ const value: operations.InputModelDrivenTelemetryPqEnabledFalseConstraint = {
       value: "<value>",
     },
   ],
-  maxActiveCxn: 7966.13,
-  shutdownTimeoutMs: 457.23,
-  description: "stack yahoo wafer tedious",
+  maxActiveCxn: 7750.59,
+  shutdownTimeoutMs: 7039.55,
+  description: "insert connect metabolise flight",
 };
 ```
 
-### `operations.InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint`
+## Fields
 
-```typescript
-const value: operations.InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint =
-  {
-    pqEnabled: true,
-    pq: {
-      mode: "smart",
-      maxBufferSize: 1717.96,
-      commitFrequency: 1412.18,
-      maxFileSize: "<value>",
-      maxSize: "<value>",
-      path: "/opt/include",
-      compress: "none",
-      pqControls: {},
-    },
-    id: "<id>",
-    type: "model_driven_telemetry",
-    disabled: false,
-    pipeline: "<value>",
-    sendToRoutes: true,
-    environment: "<value>",
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    host: "glum-lift.com",
-    port: 9354.66,
-    tls: {
-      disabled: true,
-      requestCert: true,
-      rejectUnauthorized: true,
-      commonNameRegex: "<value>",
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.1",
-    },
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    maxActiveCxn: 7766.65,
-    shutdownTimeoutMs: 2258.61,
-    description: "acidly whoever some atop now",
-  };
-```
-
+| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
+| `type`                                                                                                                                                                                                                                       | *"model_driven_telemetry"*                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                               |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
+| `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
+| `pq`                                                                                                                                                                                                                                         | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
+| `port`                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Port to listen on                                                                                                                                                                                                                            |
+| `tls`                                                                                                                                                                                                                                        | [models.TlsSettingsServerSideType](../../models/tlssettingsserversidetype.md)                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../../models/itemstypenotificationmetadata.md)[]                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `maxActiveCxn`                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.                                                                                                                                                        |
+| `shutdownTimeoutMs`                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.                                                                                                                                   |
+| `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

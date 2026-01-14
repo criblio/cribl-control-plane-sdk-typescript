@@ -23,12 +23,12 @@ let value: InputSyslogSyslog1 = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
@@ -54,7 +54,7 @@ let value: InputSyslogSyslog1 = {
   socketEndingMaxWait: 761.79,
   socketMaxLifespan: 404.51,
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -64,7 +64,7 @@ let value: InputSyslogSyslog1 = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {

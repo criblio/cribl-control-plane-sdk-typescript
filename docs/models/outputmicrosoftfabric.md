@@ -48,7 +48,7 @@ let value: OutputMicrosoftFabric = {
   },
   tls: {
     disabled: false,
-    rejectUnauthorized: true,
+    rejectUnauthorized: false,
   },
   onBackpressure: "block",
   bootstrap_server: "<value>",

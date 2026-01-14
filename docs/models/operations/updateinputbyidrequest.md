@@ -8,16 +8,17 @@ import { UpdateInputByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
-    sendToRoutes: false,
     id: "<id>",
-    type: "splunk",
-    disabled: true,
+    type: "wiz_webhook",
+    disabled: false,
     pipeline: "<value>",
+    sendToRoutes: true,
     environment: "<value>",
     pqEnabled: true,
     streamtags: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
     connections: [
       {
@@ -26,19 +27,24 @@ let value: UpdateInputByIdRequest = {
       },
     ],
     pq: {
-      mode: "smart",
-      maxBufferSize: 1717.96,
-      commitFrequency: 1412.18,
+      mode: "always",
+      maxBufferSize: 357.77,
+      commitFrequency: 1717.96,
       maxFileSize: "<value>",
       maxSize: "<value>",
-      path: "/opt/include",
+      path: "/etc/namedb",
       compress: "none",
       pqControls: {},
     },
-    host: "shy-tool.biz",
-    port: 5868.55,
+    host: "steep-lava.net",
+    port: 718.38,
+    authTokens: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
     tls: {
-      disabled: true,
+      disabled: false,
       requestCert: true,
       rejectUnauthorized: true,
       commonNameRegex: "<value>",
@@ -48,39 +54,50 @@ let value: UpdateInputByIdRequest = {
       certPath: "<value>",
       caPath: "<value>",
       minVersion: "TLSv1",
-      maxVersion: "TLSv1.1",
+      maxVersion: "TLSv1",
     },
-    ipWhitelistRegex: "<value>",
-    maxActiveCxn: 8200.03,
-    socketIdleTimeout: 2908.92,
-    socketEndingMaxWait: 3265.13,
-    socketMaxLifespan: 2912.83,
+    maxActiveReq: 3424.31,
+    maxRequestsPerSocket: 357001,
     enableProxyHeader: false,
+    captureHeaders: false,
+    activityLogSampleRate: 7418.26,
+    requestTimeout: 9183.56,
+    socketTimeout: 2711.62,
+    keepAliveTimeout: 5868.55,
+    enableHealthCheck: false,
+    ipAllowlistRegex: "<value>",
+    ipDenylistRegex: "<value>",
+    breakerRulesets: [
+      "<value 1>",
+    ],
+    staleChannelFlushMs: 3265.13,
     metadata: [
       {
         name: "<value>",
         value: "<value>",
       },
     ],
-    breakerRulesets: [
+    allowedPaths: [
+      "<value 1>",
+    ],
+    allowedMethods: [
       "<value 1>",
       "<value 2>",
       "<value 3>",
     ],
-    staleChannelFlushMs: 3447.64,
-    authTokens: [
+    authTokensExt: [
       {
         token: "<value>",
-        description:
-          "consign though fooey preclude embarrassment till bright aboard opposite hmph",
+        description: "instead worth trek drain eek below",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
       },
     ],
-    maxS2Sversion: "v4",
-    description: "synthesise joshingly weakly mixed",
-    useFwdTimezone: true,
-    dropControlFields: true,
-    extractMetrics: false,
-    compress: "disabled",
+    description: "anenst round cuckoo hm geez gee playfully spiffy for towards",
   },
 };
 ```

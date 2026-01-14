@@ -10,34 +10,34 @@ let value: Collectors = {
     enable: true,
   },
   interfaces: {
-    enable: false,
+    enable: true,
   },
   disk: {
-    enable: true,
+    enable: false,
   },
   metadata: {
-    enable: false,
+    enable: true,
   },
   routes: {
-    enable: true,
+    enable: false,
   },
   dns: {
-    enable: false,
-  },
-  user: {
     enable: true,
   },
-  firewall: {
+  user: {
     enable: false,
+  },
+  firewall: {
+    enable: true,
   },
   services: {
     enable: false,
   },
   ports: {
-    enable: true,
+    enable: false,
   },
   loginUsers: {
-    enable: false,
+    enable: true,
   },
 };
 ```

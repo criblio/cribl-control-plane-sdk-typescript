@@ -4,7 +4,6 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AuthenticationType1,
@@ -38,22 +37,12 @@ import {
   TlsSettingsClientSideType$outboundSchema,
 } from "./tlssettingsclientsidetype.js";
 
-export const InputEventhubType = {
-  Eventhub: "eventhub",
-} as const;
-export type InputEventhubType = ClosedEnum<typeof InputEventhubType>;
-
-export type InputEventhubPqEnabledTrueWithPqConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled: boolean;
-  pq?: PqType | undefined;
+export type InputEventhub = {
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputEventhubType;
+  type: "eventhub";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -63,424 +52,6 @@ export type InputEventhubPqEnabledTrueWithPqConstraint = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
-   */
-  brokers: Array<string>;
-  /**
-   * The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
-   */
-  topics: Array<string>;
-  /**
-   * The consumer group this instance belongs to. Default is 'Cribl'.
-   */
-  groupId?: string | undefined;
-  /**
-   * Start reading from earliest available data; relevant only during initial subscription
-   */
-  fromBeginning?: boolean | undefined;
-  /**
-   * Maximum time to wait for a connection to complete successfully
-   */
-  connectionTimeout?: number | undefined;
-  /**
-   * Maximum time to wait for Kafka to respond to a request
-   */
-  requestTimeout?: number | undefined;
-  /**
-   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-   */
-  maxRetries?: number | undefined;
-  /**
-   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackOff?: number | undefined;
-  /**
-   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * Maximum time to wait for Kafka to respond to an authentication request
-   */
-  authenticationTimeout?: number | undefined;
-  /**
-   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-   */
-  reauthenticationThreshold?: number | undefined;
-  /**
-   * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-   */
-  sasl?: AuthenticationType1 | undefined;
-  tls?: TlsSettingsClientSideType | undefined;
-  /**
-   *       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
-   *
-   * @remarks
-   *       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
-   *       Value must be lower than rebalanceTimeout.
-   *       See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
-   */
-  sessionTimeout?: number | undefined;
-  /**
-   *       Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins.
-   *
-   * @remarks
-   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
-   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
-   */
-  rebalanceTimeout?: number | undefined;
-  /**
-   *       Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
-   *
-   * @remarks
-   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
-   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
-   */
-  heartbeatInterval?: number | undefined;
-  /**
-   * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-   */
-  autoCommitInterval?: number | undefined;
-  /**
-   * How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-   */
-  autoCommitThreshold?: number | undefined;
-  /**
-   * Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
-   */
-  maxBytesPerPartition?: number | undefined;
-  /**
-   * Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
-   */
-  maxBytes?: number | undefined;
-  /**
-   * Maximum number of network errors before the consumer re-creates a socket
-   */
-  maxSocketErrors?: number | undefined;
-  /**
-   * Minimize duplicate events by starting only one consumer for each topic partition
-   */
-  minimizeDuplicates?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-};
-
-export type InputEventhubPqEnabledFalseConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled: boolean;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputEventhubType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
-   */
-  brokers: Array<string>;
-  /**
-   * The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
-   */
-  topics: Array<string>;
-  /**
-   * The consumer group this instance belongs to. Default is 'Cribl'.
-   */
-  groupId?: string | undefined;
-  /**
-   * Start reading from earliest available data; relevant only during initial subscription
-   */
-  fromBeginning?: boolean | undefined;
-  /**
-   * Maximum time to wait for a connection to complete successfully
-   */
-  connectionTimeout?: number | undefined;
-  /**
-   * Maximum time to wait for Kafka to respond to a request
-   */
-  requestTimeout?: number | undefined;
-  /**
-   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-   */
-  maxRetries?: number | undefined;
-  /**
-   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackOff?: number | undefined;
-  /**
-   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * Maximum time to wait for Kafka to respond to an authentication request
-   */
-  authenticationTimeout?: number | undefined;
-  /**
-   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-   */
-  reauthenticationThreshold?: number | undefined;
-  /**
-   * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-   */
-  sasl?: AuthenticationType1 | undefined;
-  tls?: TlsSettingsClientSideType | undefined;
-  /**
-   *       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
-   *
-   * @remarks
-   *       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
-   *       Value must be lower than rebalanceTimeout.
-   *       See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
-   */
-  sessionTimeout?: number | undefined;
-  /**
-   *       Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins.
-   *
-   * @remarks
-   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
-   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
-   */
-  rebalanceTimeout?: number | undefined;
-  /**
-   *       Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
-   *
-   * @remarks
-   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
-   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
-   */
-  heartbeatInterval?: number | undefined;
-  /**
-   * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-   */
-  autoCommitInterval?: number | undefined;
-  /**
-   * How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-   */
-  autoCommitThreshold?: number | undefined;
-  /**
-   * Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
-   */
-  maxBytesPerPartition?: number | undefined;
-  /**
-   * Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
-   */
-  maxBytes?: number | undefined;
-  /**
-   * Maximum number of network errors before the consumer re-creates a socket
-   */
-  maxSocketErrors?: number | undefined;
-  /**
-   * Minimize duplicate events by starting only one consumer for each topic partition
-   */
-  minimizeDuplicates?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-};
-
-export type InputEventhubSendToRoutesFalseWithConnectionsConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes: boolean;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputEventhubType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
-   */
-  brokers: Array<string>;
-  /**
-   * The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
-   */
-  topics: Array<string>;
-  /**
-   * The consumer group this instance belongs to. Default is 'Cribl'.
-   */
-  groupId?: string | undefined;
-  /**
-   * Start reading from earliest available data; relevant only during initial subscription
-   */
-  fromBeginning?: boolean | undefined;
-  /**
-   * Maximum time to wait for a connection to complete successfully
-   */
-  connectionTimeout?: number | undefined;
-  /**
-   * Maximum time to wait for Kafka to respond to a request
-   */
-  requestTimeout?: number | undefined;
-  /**
-   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-   */
-  maxRetries?: number | undefined;
-  /**
-   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackOff?: number | undefined;
-  /**
-   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * Maximum time to wait for Kafka to respond to an authentication request
-   */
-  authenticationTimeout?: number | undefined;
-  /**
-   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-   */
-  reauthenticationThreshold?: number | undefined;
-  /**
-   * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-   */
-  sasl?: AuthenticationType1 | undefined;
-  tls?: TlsSettingsClientSideType | undefined;
-  /**
-   *       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
-   *
-   * @remarks
-   *       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
-   *       Value must be lower than rebalanceTimeout.
-   *       See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
-   */
-  sessionTimeout?: number | undefined;
-  /**
-   *       Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins.
-   *
-   * @remarks
-   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
-   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
-   */
-  rebalanceTimeout?: number | undefined;
-  /**
-   *       Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
-   *
-   * @remarks
-   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
-   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
-   */
-  heartbeatInterval?: number | undefined;
-  /**
-   * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-   */
-  autoCommitInterval?: number | undefined;
-  /**
-   * How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
-   */
-  autoCommitThreshold?: number | undefined;
-  /**
-   * Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
-   */
-  maxBytesPerPartition?: number | undefined;
-  /**
-   * Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
-   */
-  maxBytes?: number | undefined;
-  /**
-   * Maximum number of network errors before the consumer re-creates a socket
-   */
-  maxSocketErrors?: number | undefined;
-  /**
-   * Minimize duplicate events by starting only one consumer for each topic partition
-   */
-  minimizeDuplicates?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-};
-
-export type InputEventhubSendToRoutesTrueConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes: boolean;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputEventhubType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -606,651 +177,130 @@ export type InputEventhubSendToRoutesTrueConstraint = {
   metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   description?: string | undefined;
 };
-
-export type InputEventhub =
-  | InputEventhubSendToRoutesTrueConstraint
-  | InputEventhubSendToRoutesFalseWithConnectionsConstraint
-  | InputEventhubPqEnabledFalseConstraint
-  | InputEventhubPqEnabledTrueWithPqConstraint;
-
-/** @internal */
-export const InputEventhubType$inboundSchema: z.ZodNativeEnum<
-  typeof InputEventhubType
-> = z.nativeEnum(InputEventhubType);
-/** @internal */
-export const InputEventhubType$outboundSchema: z.ZodNativeEnum<
-  typeof InputEventhubType
-> = InputEventhubType$inboundSchema;
-
-/** @internal */
-export const InputEventhubPqEnabledTrueWithPqConstraint$inboundSchema:
-  z.ZodType<InputEventhubPqEnabledTrueWithPqConstraint, z.ZodTypeDef, unknown> =
-    z.object({
-      pqEnabled: z.boolean(),
-      pq: PqType$inboundSchema.optional(),
-      id: z.string().optional(),
-      type: InputEventhubType$inboundSchema,
-      disabled: z.boolean().optional(),
-      pipeline: z.string().optional(),
-      sendToRoutes: z.boolean().optional(),
-      environment: z.string().optional(),
-      streamtags: z.array(z.string()).optional(),
-      connections: z.array(ItemsTypeConnectionsOptional$inboundSchema)
-        .optional(),
-      brokers: z.array(z.string()),
-      topics: z.array(z.string()),
-      groupId: z.string().optional(),
-      fromBeginning: z.boolean().optional(),
-      connectionTimeout: z.number().optional(),
-      requestTimeout: z.number().optional(),
-      maxRetries: z.number().optional(),
-      maxBackOff: z.number().optional(),
-      initialBackoff: z.number().optional(),
-      backoffRate: z.number().optional(),
-      authenticationTimeout: z.number().optional(),
-      reauthenticationThreshold: z.number().optional(),
-      sasl: AuthenticationType1$inboundSchema.optional(),
-      tls: TlsSettingsClientSideType$inboundSchema.optional(),
-      sessionTimeout: z.number().optional(),
-      rebalanceTimeout: z.number().optional(),
-      heartbeatInterval: z.number().optional(),
-      autoCommitInterval: z.number().optional(),
-      autoCommitThreshold: z.number().optional(),
-      maxBytesPerPartition: z.number().optional(),
-      maxBytes: z.number().optional(),
-      maxSocketErrors: z.number().optional(),
-      minimizeDuplicates: z.boolean().optional(),
-      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-      description: z.string().optional(),
-    });
-/** @internal */
-export type InputEventhubPqEnabledTrueWithPqConstraint$Outbound = {
-  pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  brokers: Array<string>;
-  topics: Array<string>;
-  groupId?: string | undefined;
-  fromBeginning?: boolean | undefined;
-  connectionTimeout?: number | undefined;
-  requestTimeout?: number | undefined;
-  maxRetries?: number | undefined;
-  maxBackOff?: number | undefined;
-  initialBackoff?: number | undefined;
-  backoffRate?: number | undefined;
-  authenticationTimeout?: number | undefined;
-  reauthenticationThreshold?: number | undefined;
-  sasl?: AuthenticationType1$Outbound | undefined;
-  tls?: TlsSettingsClientSideType$Outbound | undefined;
-  sessionTimeout?: number | undefined;
-  rebalanceTimeout?: number | undefined;
-  heartbeatInterval?: number | undefined;
-  autoCommitInterval?: number | undefined;
-  autoCommitThreshold?: number | undefined;
-  maxBytesPerPartition?: number | undefined;
-  maxBytes?: number | undefined;
-  maxSocketErrors?: number | undefined;
-  minimizeDuplicates?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputEventhubPqEnabledTrueWithPqConstraint$outboundSchema:
-  z.ZodType<
-    InputEventhubPqEnabledTrueWithPqConstraint$Outbound,
-    z.ZodTypeDef,
-    InputEventhubPqEnabledTrueWithPqConstraint
-  > = z.object({
-    pqEnabled: z.boolean(),
-    pq: PqType$outboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputEventhubType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    brokers: z.array(z.string()),
-    topics: z.array(z.string()),
-    groupId: z.string().optional(),
-    fromBeginning: z.boolean().optional(),
-    connectionTimeout: z.number().optional(),
-    requestTimeout: z.number().optional(),
-    maxRetries: z.number().optional(),
-    maxBackOff: z.number().optional(),
-    initialBackoff: z.number().optional(),
-    backoffRate: z.number().optional(),
-    authenticationTimeout: z.number().optional(),
-    reauthenticationThreshold: z.number().optional(),
-    sasl: AuthenticationType1$outboundSchema.optional(),
-    tls: TlsSettingsClientSideType$outboundSchema.optional(),
-    sessionTimeout: z.number().optional(),
-    rebalanceTimeout: z.number().optional(),
-    heartbeatInterval: z.number().optional(),
-    autoCommitInterval: z.number().optional(),
-    autoCommitThreshold: z.number().optional(),
-    maxBytesPerPartition: z.number().optional(),
-    maxBytes: z.number().optional(),
-    maxSocketErrors: z.number().optional(),
-    minimizeDuplicates: z.boolean().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-  });
-
-export function inputEventhubPqEnabledTrueWithPqConstraintToJSON(
-  inputEventhubPqEnabledTrueWithPqConstraint:
-    InputEventhubPqEnabledTrueWithPqConstraint,
-): string {
-  return JSON.stringify(
-    InputEventhubPqEnabledTrueWithPqConstraint$outboundSchema.parse(
-      inputEventhubPqEnabledTrueWithPqConstraint,
-    ),
-  );
-}
-export function inputEventhubPqEnabledTrueWithPqConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputEventhubPqEnabledTrueWithPqConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputEventhubPqEnabledTrueWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputEventhubPqEnabledTrueWithPqConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputEventhubPqEnabledFalseConstraint$inboundSchema: z.ZodType<
-  InputEventhubPqEnabledFalseConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pqEnabled: z.boolean(),
-  id: z.string().optional(),
-  type: InputEventhubType$inboundSchema,
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  brokers: z.array(z.string()),
-  topics: z.array(z.string()),
-  groupId: z.string().optional(),
-  fromBeginning: z.boolean().optional(),
-  connectionTimeout: z.number().optional(),
-  requestTimeout: z.number().optional(),
-  maxRetries: z.number().optional(),
-  maxBackOff: z.number().optional(),
-  initialBackoff: z.number().optional(),
-  backoffRate: z.number().optional(),
-  authenticationTimeout: z.number().optional(),
-  reauthenticationThreshold: z.number().optional(),
-  sasl: AuthenticationType1$inboundSchema.optional(),
-  tls: TlsSettingsClientSideType$inboundSchema.optional(),
-  sessionTimeout: z.number().optional(),
-  rebalanceTimeout: z.number().optional(),
-  heartbeatInterval: z.number().optional(),
-  autoCommitInterval: z.number().optional(),
-  autoCommitThreshold: z.number().optional(),
-  maxBytesPerPartition: z.number().optional(),
-  maxBytes: z.number().optional(),
-  maxSocketErrors: z.number().optional(),
-  minimizeDuplicates: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-});
-/** @internal */
-export type InputEventhubPqEnabledFalseConstraint$Outbound = {
-  pqEnabled: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  brokers: Array<string>;
-  topics: Array<string>;
-  groupId?: string | undefined;
-  fromBeginning?: boolean | undefined;
-  connectionTimeout?: number | undefined;
-  requestTimeout?: number | undefined;
-  maxRetries?: number | undefined;
-  maxBackOff?: number | undefined;
-  initialBackoff?: number | undefined;
-  backoffRate?: number | undefined;
-  authenticationTimeout?: number | undefined;
-  reauthenticationThreshold?: number | undefined;
-  sasl?: AuthenticationType1$Outbound | undefined;
-  tls?: TlsSettingsClientSideType$Outbound | undefined;
-  sessionTimeout?: number | undefined;
-  rebalanceTimeout?: number | undefined;
-  heartbeatInterval?: number | undefined;
-  autoCommitInterval?: number | undefined;
-  autoCommitThreshold?: number | undefined;
-  maxBytesPerPartition?: number | undefined;
-  maxBytes?: number | undefined;
-  maxSocketErrors?: number | undefined;
-  minimizeDuplicates?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputEventhubPqEnabledFalseConstraint$outboundSchema: z.ZodType<
-  InputEventhubPqEnabledFalseConstraint$Outbound,
-  z.ZodTypeDef,
-  InputEventhubPqEnabledFalseConstraint
-> = z.object({
-  pqEnabled: z.boolean(),
-  id: z.string().optional(),
-  type: InputEventhubType$outboundSchema,
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  brokers: z.array(z.string()),
-  topics: z.array(z.string()),
-  groupId: z.string().optional(),
-  fromBeginning: z.boolean().optional(),
-  connectionTimeout: z.number().optional(),
-  requestTimeout: z.number().optional(),
-  maxRetries: z.number().optional(),
-  maxBackOff: z.number().optional(),
-  initialBackoff: z.number().optional(),
-  backoffRate: z.number().optional(),
-  authenticationTimeout: z.number().optional(),
-  reauthenticationThreshold: z.number().optional(),
-  sasl: AuthenticationType1$outboundSchema.optional(),
-  tls: TlsSettingsClientSideType$outboundSchema.optional(),
-  sessionTimeout: z.number().optional(),
-  rebalanceTimeout: z.number().optional(),
-  heartbeatInterval: z.number().optional(),
-  autoCommitInterval: z.number().optional(),
-  autoCommitThreshold: z.number().optional(),
-  maxBytesPerPartition: z.number().optional(),
-  maxBytes: z.number().optional(),
-  maxSocketErrors: z.number().optional(),
-  minimizeDuplicates: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-});
-
-export function inputEventhubPqEnabledFalseConstraintToJSON(
-  inputEventhubPqEnabledFalseConstraint: InputEventhubPqEnabledFalseConstraint,
-): string {
-  return JSON.stringify(
-    InputEventhubPqEnabledFalseConstraint$outboundSchema.parse(
-      inputEventhubPqEnabledFalseConstraint,
-    ),
-  );
-}
-export function inputEventhubPqEnabledFalseConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<InputEventhubPqEnabledFalseConstraint, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputEventhubPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputEventhubPqEnabledFalseConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputEventhubSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputEventhubSendToRoutesFalseWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputEventhubType$inboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    brokers: z.array(z.string()),
-    topics: z.array(z.string()),
-    groupId: z.string().optional(),
-    fromBeginning: z.boolean().optional(),
-    connectionTimeout: z.number().optional(),
-    requestTimeout: z.number().optional(),
-    maxRetries: z.number().optional(),
-    maxBackOff: z.number().optional(),
-    initialBackoff: z.number().optional(),
-    backoffRate: z.number().optional(),
-    authenticationTimeout: z.number().optional(),
-    reauthenticationThreshold: z.number().optional(),
-    sasl: AuthenticationType1$inboundSchema.optional(),
-    tls: TlsSettingsClientSideType$inboundSchema.optional(),
-    sessionTimeout: z.number().optional(),
-    rebalanceTimeout: z.number().optional(),
-    heartbeatInterval: z.number().optional(),
-    autoCommitInterval: z.number().optional(),
-    autoCommitThreshold: z.number().optional(),
-    maxBytesPerPartition: z.number().optional(),
-    maxBytes: z.number().optional(),
-    maxSocketErrors: z.number().optional(),
-    minimizeDuplicates: z.boolean().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    description: z.string().optional(),
-  });
-/** @internal */
-export type InputEventhubSendToRoutesFalseWithConnectionsConstraint$Outbound = {
-  sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled?: boolean | undefined;
-  streamtags?: Array<string> | undefined;
-  pq?: PqType$Outbound | undefined;
-  brokers: Array<string>;
-  topics: Array<string>;
-  groupId?: string | undefined;
-  fromBeginning?: boolean | undefined;
-  connectionTimeout?: number | undefined;
-  requestTimeout?: number | undefined;
-  maxRetries?: number | undefined;
-  maxBackOff?: number | undefined;
-  initialBackoff?: number | undefined;
-  backoffRate?: number | undefined;
-  authenticationTimeout?: number | undefined;
-  reauthenticationThreshold?: number | undefined;
-  sasl?: AuthenticationType1$Outbound | undefined;
-  tls?: TlsSettingsClientSideType$Outbound | undefined;
-  sessionTimeout?: number | undefined;
-  rebalanceTimeout?: number | undefined;
-  heartbeatInterval?: number | undefined;
-  autoCommitInterval?: number | undefined;
-  autoCommitThreshold?: number | undefined;
-  maxBytesPerPartition?: number | undefined;
-  maxBytes?: number | undefined;
-  maxSocketErrors?: number | undefined;
-  minimizeDuplicates?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputEventhubSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputEventhubSendToRoutesFalseWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputEventhubSendToRoutesFalseWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    id: z.string().optional(),
-    type: InputEventhubType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    brokers: z.array(z.string()),
-    topics: z.array(z.string()),
-    groupId: z.string().optional(),
-    fromBeginning: z.boolean().optional(),
-    connectionTimeout: z.number().optional(),
-    requestTimeout: z.number().optional(),
-    maxRetries: z.number().optional(),
-    maxBackOff: z.number().optional(),
-    initialBackoff: z.number().optional(),
-    backoffRate: z.number().optional(),
-    authenticationTimeout: z.number().optional(),
-    reauthenticationThreshold: z.number().optional(),
-    sasl: AuthenticationType1$outboundSchema.optional(),
-    tls: TlsSettingsClientSideType$outboundSchema.optional(),
-    sessionTimeout: z.number().optional(),
-    rebalanceTimeout: z.number().optional(),
-    heartbeatInterval: z.number().optional(),
-    autoCommitInterval: z.number().optional(),
-    autoCommitThreshold: z.number().optional(),
-    maxBytesPerPartition: z.number().optional(),
-    maxBytes: z.number().optional(),
-    maxSocketErrors: z.number().optional(),
-    minimizeDuplicates: z.boolean().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-  });
-
-export function inputEventhubSendToRoutesFalseWithConnectionsConstraintToJSON(
-  inputEventhubSendToRoutesFalseWithConnectionsConstraint:
-    InputEventhubSendToRoutesFalseWithConnectionsConstraint,
-): string {
-  return JSON.stringify(
-    InputEventhubSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-      .parse(inputEventhubSendToRoutesFalseWithConnectionsConstraint),
-  );
-}
-export function inputEventhubSendToRoutesFalseWithConnectionsConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputEventhubSendToRoutesFalseWithConnectionsConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputEventhubSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputEventhubSendToRoutesFalseWithConnectionsConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputEventhubSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
-  InputEventhubSendToRoutesTrueConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean(),
-  id: z.string().optional(),
-  type: InputEventhubType$inboundSchema,
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  brokers: z.array(z.string()),
-  topics: z.array(z.string()),
-  groupId: z.string().optional(),
-  fromBeginning: z.boolean().optional(),
-  connectionTimeout: z.number().optional(),
-  requestTimeout: z.number().optional(),
-  maxRetries: z.number().optional(),
-  maxBackOff: z.number().optional(),
-  initialBackoff: z.number().optional(),
-  backoffRate: z.number().optional(),
-  authenticationTimeout: z.number().optional(),
-  reauthenticationThreshold: z.number().optional(),
-  sasl: AuthenticationType1$inboundSchema.optional(),
-  tls: TlsSettingsClientSideType$inboundSchema.optional(),
-  sessionTimeout: z.number().optional(),
-  rebalanceTimeout: z.number().optional(),
-  heartbeatInterval: z.number().optional(),
-  autoCommitInterval: z.number().optional(),
-  autoCommitThreshold: z.number().optional(),
-  maxBytesPerPartition: z.number().optional(),
-  maxBytes: z.number().optional(),
-  maxSocketErrors: z.number().optional(),
-  minimizeDuplicates: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-});
-/** @internal */
-export type InputEventhubSendToRoutesTrueConstraint$Outbound = {
-  sendToRoutes: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled?: boolean | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  brokers: Array<string>;
-  topics: Array<string>;
-  groupId?: string | undefined;
-  fromBeginning?: boolean | undefined;
-  connectionTimeout?: number | undefined;
-  requestTimeout?: number | undefined;
-  maxRetries?: number | undefined;
-  maxBackOff?: number | undefined;
-  initialBackoff?: number | undefined;
-  backoffRate?: number | undefined;
-  authenticationTimeout?: number | undefined;
-  reauthenticationThreshold?: number | undefined;
-  sasl?: AuthenticationType1$Outbound | undefined;
-  tls?: TlsSettingsClientSideType$Outbound | undefined;
-  sessionTimeout?: number | undefined;
-  rebalanceTimeout?: number | undefined;
-  heartbeatInterval?: number | undefined;
-  autoCommitInterval?: number | undefined;
-  autoCommitThreshold?: number | undefined;
-  maxBytesPerPartition?: number | undefined;
-  maxBytes?: number | undefined;
-  maxSocketErrors?: number | undefined;
-  minimizeDuplicates?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputEventhubSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
-  InputEventhubSendToRoutesTrueConstraint$Outbound,
-  z.ZodTypeDef,
-  InputEventhubSendToRoutesTrueConstraint
-> = z.object({
-  sendToRoutes: z.boolean(),
-  id: z.string().optional(),
-  type: InputEventhubType$outboundSchema,
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  brokers: z.array(z.string()),
-  topics: z.array(z.string()),
-  groupId: z.string().optional(),
-  fromBeginning: z.boolean().optional(),
-  connectionTimeout: z.number().optional(),
-  requestTimeout: z.number().optional(),
-  maxRetries: z.number().optional(),
-  maxBackOff: z.number().optional(),
-  initialBackoff: z.number().optional(),
-  backoffRate: z.number().optional(),
-  authenticationTimeout: z.number().optional(),
-  reauthenticationThreshold: z.number().optional(),
-  sasl: AuthenticationType1$outboundSchema.optional(),
-  tls: TlsSettingsClientSideType$outboundSchema.optional(),
-  sessionTimeout: z.number().optional(),
-  rebalanceTimeout: z.number().optional(),
-  heartbeatInterval: z.number().optional(),
-  autoCommitInterval: z.number().optional(),
-  autoCommitThreshold: z.number().optional(),
-  maxBytesPerPartition: z.number().optional(),
-  maxBytes: z.number().optional(),
-  maxSocketErrors: z.number().optional(),
-  minimizeDuplicates: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-});
-
-export function inputEventhubSendToRoutesTrueConstraintToJSON(
-  inputEventhubSendToRoutesTrueConstraint:
-    InputEventhubSendToRoutesTrueConstraint,
-): string {
-  return JSON.stringify(
-    InputEventhubSendToRoutesTrueConstraint$outboundSchema.parse(
-      inputEventhubSendToRoutesTrueConstraint,
-    ),
-  );
-}
-export function inputEventhubSendToRoutesTrueConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputEventhubSendToRoutesTrueConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputEventhubSendToRoutesTrueConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputEventhubSendToRoutesTrueConstraint' from JSON`,
-  );
-}
 
 /** @internal */
 export const InputEventhub$inboundSchema: z.ZodType<
   InputEventhub,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => InputEventhubSendToRoutesTrueConstraint$inboundSchema),
-  z.lazy(() =>
-    InputEventhubSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-  ),
-  z.lazy(() => InputEventhubPqEnabledFalseConstraint$inboundSchema),
-  z.lazy(() => InputEventhubPqEnabledTrueWithPqConstraint$inboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("eventhub"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().optional(),
+  fromBeginning: z.boolean().optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
+  sasl: AuthenticationType1$inboundSchema.optional(),
+  tls: TlsSettingsClientSideType$inboundSchema.optional(),
+  sessionTimeout: z.number().optional(),
+  rebalanceTimeout: z.number().optional(),
+  heartbeatInterval: z.number().optional(),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().optional(),
+  maxBytes: z.number().optional(),
+  maxSocketErrors: z.number().optional(),
+  minimizeDuplicates: z.boolean().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+});
 /** @internal */
-export type InputEventhub$Outbound =
-  | InputEventhubSendToRoutesTrueConstraint$Outbound
-  | InputEventhubSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputEventhubPqEnabledFalseConstraint$Outbound
-  | InputEventhubPqEnabledTrueWithPqConstraint$Outbound;
+export type InputEventhub$Outbound = {
+  id?: string | undefined;
+  type: "eventhub";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  brokers: Array<string>;
+  topics: Array<string>;
+  groupId?: string | undefined;
+  fromBeginning?: boolean | undefined;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
+  sasl?: AuthenticationType1$Outbound | undefined;
+  tls?: TlsSettingsClientSideType$Outbound | undefined;
+  sessionTimeout?: number | undefined;
+  rebalanceTimeout?: number | undefined;
+  heartbeatInterval?: number | undefined;
+  autoCommitInterval?: number | undefined;
+  autoCommitThreshold?: number | undefined;
+  maxBytesPerPartition?: number | undefined;
+  maxBytes?: number | undefined;
+  maxSocketErrors?: number | undefined;
+  minimizeDuplicates?: boolean | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
 
 /** @internal */
 export const InputEventhub$outboundSchema: z.ZodType<
   InputEventhub$Outbound,
   z.ZodTypeDef,
   InputEventhub
-> = z.union([
-  z.lazy(() => InputEventhubSendToRoutesTrueConstraint$outboundSchema),
-  z.lazy(() =>
-    InputEventhubSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-  ),
-  z.lazy(() => InputEventhubPqEnabledFalseConstraint$outboundSchema),
-  z.lazy(() => InputEventhubPqEnabledTrueWithPqConstraint$outboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("eventhub"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().optional(),
+  fromBeginning: z.boolean().optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
+  sasl: AuthenticationType1$outboundSchema.optional(),
+  tls: TlsSettingsClientSideType$outboundSchema.optional(),
+  sessionTimeout: z.number().optional(),
+  rebalanceTimeout: z.number().optional(),
+  heartbeatInterval: z.number().optional(),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().optional(),
+  maxBytes: z.number().optional(),
+  maxSocketErrors: z.number().optional(),
+  minimizeDuplicates: z.boolean().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+});
 
 export function inputEventhubToJSON(inputEventhub: InputEventhub): string {
   return JSON.stringify(InputEventhub$outboundSchema.parse(inputEventhub));

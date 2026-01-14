@@ -7,22 +7,22 @@ import { Collectors } from "cribl-control-plane/models/operations";
 
 let value: Collectors = {
   hostsfile: {
-    enable: false,
-  },
-  interfaces: {
-    enable: false,
-  },
-  disk: {
-    enable: false,
-  },
-  metadata: {
-    enable: false,
-  },
-  routes: {
     enable: true,
   },
-  dns: {
+  interfaces: {
+    enable: true,
+  },
+  disk: {
+    enable: true,
+  },
+  metadata: {
+    enable: true,
+  },
+  routes: {
     enable: false,
+  },
+  dns: {
+    enable: true,
   },
   user: {
     enable: false,

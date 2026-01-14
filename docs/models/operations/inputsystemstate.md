@@ -1,22 +1,20 @@
 # InputSystemState
 
-
-## Supported Types
-
-### `operations.InputSystemStateSendToRoutesTrueConstraint`
+## Example Usage
 
 ```typescript
-const value: operations.InputSystemStateSendToRoutesTrueConstraint = {
-  sendToRoutes: false,
+import { InputSystemState } from "cribl-control-plane/models/operations";
+
+let value: InputSystemState = {
   id: "<id>",
   type: "system_state",
   disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -25,16 +23,16 @@ const value: operations.InputSystemStateSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  interval: 4654.21,
+  interval: 7525.13,
   metadata: [
     {
       name: "<value>",
@@ -43,22 +41,22 @@ const value: operations.InputSystemStateSendToRoutesTrueConstraint = {
   ],
   collectors: {
     hostsfile: {
-      enable: false,
-    },
-    interfaces: {
-      enable: false,
-    },
-    disk: {
-      enable: false,
-    },
-    metadata: {
-      enable: false,
-    },
-    routes: {
       enable: true,
     },
-    dns: {
+    interfaces: {
+      enable: true,
+    },
+    disk: {
+      enable: true,
+    },
+    metadata: {
+      enable: true,
+    },
+    routes: {
       enable: false,
+    },
+    dns: {
+      enable: true,
     },
     user: {
       enable: false,
@@ -77,276 +75,35 @@ const value: operations.InputSystemStateSendToRoutesTrueConstraint = {
     },
   },
   persistence: {
-    enable: false,
+    enable: true,
     timeWindow: "<value>",
     maxDataSize: "<value>",
     maxDataTime: "<value>",
-    compress: "gzip",
-    destPath: "<value>",
-  },
-  disableNativeModule: true,
-  description: "sandbar dutiful easily apud yuck illiterate but absent pro yet",
-};
-```
-
-### `operations.InputSystemStateSendToRoutesFalseWithConnectionsConstraint`
-
-```typescript
-const value:
-  operations.InputSystemStateSendToRoutesFalseWithConnectionsConstraint = {
-    sendToRoutes: true,
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "system_state",
-    disabled: true,
-    pipeline: "<value>",
-    environment: "<value>",
-    pqEnabled: false,
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      mode: "smart",
-      maxBufferSize: 1717.96,
-      commitFrequency: 1412.18,
-      maxFileSize: "<value>",
-      maxSize: "<value>",
-      path: "/opt/include",
-      compress: "none",
-      pqControls: {},
-    },
-    interval: 3013.77,
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    collectors: {
-      hostsfile: {
-        enable: false,
-      },
-      interfaces: {
-        enable: false,
-      },
-      disk: {
-        enable: false,
-      },
-      metadata: {
-        enable: false,
-      },
-      routes: {
-        enable: true,
-      },
-      dns: {
-        enable: false,
-      },
-      user: {
-        enable: false,
-      },
-      firewall: {
-        enable: false,
-      },
-      services: {
-        enable: false,
-      },
-      ports: {
-        enable: true,
-      },
-      loginUsers: {
-        enable: true,
-      },
-    },
-    persistence: {
-      enable: false,
-      timeWindow: "<value>",
-      maxDataSize: "<value>",
-      maxDataTime: "<value>",
-      compress: "gzip",
-      destPath: "<value>",
-    },
-    disableNativeModule: false,
-    description: "dicker while near license galoshes duh",
-  };
-```
-
-### `operations.InputSystemStatePqEnabledFalseConstraint`
-
-```typescript
-const value: operations.InputSystemStatePqEnabledFalseConstraint = {
-  pqEnabled: false,
-  id: "<id>",
-  type: "system_state",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
     compress: "none",
-    pqControls: {},
-  },
-  interval: 8933.91,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectors: {
-    hostsfile: {
-      enable: false,
-    },
-    interfaces: {
-      enable: false,
-    },
-    disk: {
-      enable: false,
-    },
-    metadata: {
-      enable: false,
-    },
-    routes: {
-      enable: true,
-    },
-    dns: {
-      enable: false,
-    },
-    user: {
-      enable: false,
-    },
-    firewall: {
-      enable: false,
-    },
-    services: {
-      enable: false,
-    },
-    ports: {
-      enable: true,
-    },
-    loginUsers: {
-      enable: true,
-    },
-  },
-  persistence: {
-    enable: false,
-    timeWindow: "<value>",
-    maxDataSize: "<value>",
-    maxDataTime: "<value>",
-    compress: "gzip",
     destPath: "<value>",
   },
-  disableNativeModule: true,
-  description: "winged if profuse pulp aha ah happy-go-lucky triumphantly",
+  disableNativeModule: false,
+  description: "hmph whoa minister that defiantly inasmuch softly",
 };
 ```
 
-### `operations.InputSystemStatePqEnabledTrueWithPqConstraint`
+## Fields
 
-```typescript
-const value: operations.InputSystemStatePqEnabledTrueWithPqConstraint = {
-  pqEnabled: true,
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "system_state",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  interval: 127.68,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectors: {
-    hostsfile: {
-      enable: false,
-    },
-    interfaces: {
-      enable: false,
-    },
-    disk: {
-      enable: false,
-    },
-    metadata: {
-      enable: false,
-    },
-    routes: {
-      enable: true,
-    },
-    dns: {
-      enable: false,
-    },
-    user: {
-      enable: false,
-    },
-    firewall: {
-      enable: false,
-    },
-    services: {
-      enable: false,
-    },
-    ports: {
-      enable: true,
-    },
-    loginUsers: {
-      enable: true,
-    },
-  },
-  persistence: {
-    enable: false,
-    timeWindow: "<value>",
-    maxDataSize: "<value>",
-    maxDataTime: "<value>",
-    compress: "gzip",
-    destPath: "<value>",
-  },
-  disableNativeModule: true,
-  description:
-    "term when ultimately extremely showy authentic posh aha dulcimer",
-};
-```
-
+| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
+| `type`                                                                                                                                                                                                                                       | *"system_state"*                                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                               |
+| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
+| `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
+| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
+| `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
+| `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
+| `pq`                                                                                                                                                                                                                                         | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `interval`                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).                                                                                                                                                 |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../../models/itemstypenotificationmetadata.md)[]                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `collectors`                                                                                                                                                                                                                                 | [operations.Collectors](../../models/operations/collectors.md)                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `persistence`                                                                                                                                                                                                                                | [operations.PersistenceSystemState](../../models/operations/persistencesystemstate.md)                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `disableNativeModule`                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)                                                                      |
+| `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

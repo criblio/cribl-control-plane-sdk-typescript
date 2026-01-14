@@ -1,21 +1,22 @@
 # InputSplunkSearch
 
-
-## Supported Types
-
-### `operations.InputSplunkSearchSendToRoutesTrueConstraint`
+## Example Usage
 
 ```typescript
-const value: operations.InputSplunkSearchSendToRoutesTrueConstraint = {
-  sendToRoutes: true,
+import { InputSplunkSearch } from "cribl-control-plane/models/operations";
+
+let value: InputSplunkSearch = {
   id: "<id>",
   type: "splunk_search",
   disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -24,12 +25,12 @@ const value: operations.InputSplunkSearchSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
@@ -53,244 +54,13 @@ const value: operations.InputSplunkSearchSendToRoutesTrueConstraint = {
     },
   ],
   logLevel: "error",
-  requestTimeout: 9658.73,
+  requestTimeout: 215.19,
   useRoundRobinDns: false,
-  rejectUnauthorized: true,
-  encoding: "<value>",
-  keepAliveTime: 4432.64,
-  jobTimeout: "<value>",
-  maxMissedKeepAlives: 6751.31,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    type: "static",
-    interval: 3153.33,
-    limit: 2659.11,
-    multiplier: 376.03,
-    codes: [
-      5006.8,
-      7560.55,
-      2139.95,
-    ],
-    enableHeader: false,
-    retryConnectTimeout: false,
-    retryConnectReset: false,
-  },
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  staleChannelFlushMs: 7430.87,
-  authType: "oauth",
-  description:
-    "corner tremendously circa incomparable while for progress useless courteous wetly",
-  username: "Clemens.Langworth37",
-  password: "2LrvQH9LjXJto67",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://eminent-instance.com",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 2766.19,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-};
-```
-
-### `operations.InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint`
-
-```typescript
-const value:
-  operations.InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint = {
-    sendToRoutes: true,
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "splunk_search",
-    disabled: true,
-    pipeline: "<value>",
-    environment: "<value>",
-    pqEnabled: false,
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      mode: "smart",
-      maxBufferSize: 1717.96,
-      commitFrequency: 1412.18,
-      maxFileSize: "<value>",
-      maxSize: "<value>",
-      path: "/opt/include",
-      compress: "none",
-      pqControls: {},
-    },
-    searchHead: "<value>",
-    search: "<value>",
-    earliest: "<value>",
-    latest: "<value>",
-    cronSchedule: "<value>",
-    endpoint: "<value>",
-    outputMode: "csv",
-    endpointParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    endpointHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    logLevel: "warn",
-    requestTimeout: 2503.03,
-    useRoundRobinDns: false,
-    rejectUnauthorized: false,
-    encoding: "<value>",
-    keepAliveTime: 9958.22,
-    jobTimeout: "<value>",
-    maxMissedKeepAlives: 1963.69,
-    ttl: "<value>",
-    ignoreGroupJobsLimit: false,
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    retryRules: {
-      type: "static",
-      interval: 3153.33,
-      limit: 2659.11,
-      multiplier: 376.03,
-      codes: [
-        5006.8,
-        7560.55,
-        2139.95,
-      ],
-      enableHeader: false,
-      retryConnectTimeout: false,
-      retryConnectReset: false,
-    },
-    breakerRulesets: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    staleChannelFlushMs: 2669.87,
-    authType: "none",
-    description: "noisily colorful wicked grandpa offset educated",
-    username: "Jan.Haley",
-    password: "hYfWDtXL1zXHUZr",
-    token: "<value>",
-    credentialsSecret: "<value>",
-    textSecret: "<value>",
-    loginUrl: "https://finished-dwell.name",
-    secretParamName: "<value>",
-    secret: "<value>",
-    tokenAttributeName: "<value>",
-    authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 7478.72,
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    oauthHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  };
-```
-
-### `operations.InputSplunkSearchPqEnabledFalseConstraint`
-
-```typescript
-const value: operations.InputSplunkSearchPqEnabledFalseConstraint = {
-  pqEnabled: true,
-  id: "<id>",
-  type: "splunk_search",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  searchHead: "<value>",
-  search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
-  cronSchedule: "<value>",
-  endpoint: "<value>",
-  outputMode: "json",
-  endpointParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  endpointHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  logLevel: "debug",
-  requestTimeout: 9246.24,
-  useRoundRobinDns: true,
   rejectUnauthorized: false,
   encoding: "<value>",
-  keepAliveTime: 322.09,
+  keepAliveTime: 1841.77,
   jobTimeout: "<value>",
-  maxMissedKeepAlives: 5745.63,
+  maxMissedKeepAlives: 6631.27,
   ttl: "<value>",
   ignoreGroupJobsLimit: true,
   metadata: [
@@ -300,150 +70,36 @@ const value: operations.InputSplunkSearchPqEnabledFalseConstraint = {
     },
   ],
   retryRules: {
-    type: "static",
-    interval: 3153.33,
-    limit: 2659.11,
-    multiplier: 376.03,
+    type: "none",
+    interval: 6996.29,
+    limit: 5006.8,
+    multiplier: 7560.55,
     codes: [
-      5006.8,
-      7560.55,
-      2139.95,
+      9559.24,
     ],
     enableHeader: false,
     retryConnectTimeout: false,
-    retryConnectReset: false,
-  },
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  staleChannelFlushMs: 5552.09,
-  authType: "oauth",
-  description: "who gee gee instead pish honestly",
-  username: "Sophia_Wintheiser",
-  password: "SdLzByINVd7ABcG",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://private-desk.net/",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 8439.78,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-};
-```
-
-### `operations.InputSplunkSearchPqEnabledTrueWithPqConstraint`
-
-```typescript
-const value: operations.InputSplunkSearchPqEnabledTrueWithPqConstraint = {
-  pqEnabled: true,
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "splunk_search",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  searchHead: "<value>",
-  search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
-  cronSchedule: "<value>",
-  endpoint: "<value>",
-  outputMode: "csv",
-  endpointParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  endpointHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  logLevel: "error",
-  requestTimeout: 9190.44,
-  useRoundRobinDns: false,
-  rejectUnauthorized: true,
-  encoding: "<value>",
-  keepAliveTime: 8884.65,
-  jobTimeout: "<value>",
-  maxMissedKeepAlives: 9014.46,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    type: "static",
-    interval: 3153.33,
-    limit: 2659.11,
-    multiplier: 376.03,
-    codes: [
-      5006.8,
-      7560.55,
-      2139.95,
-    ],
-    enableHeader: false,
-    retryConnectTimeout: false,
-    retryConnectReset: false,
+    retryConnectReset: true,
   },
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  staleChannelFlushMs: 2183.36,
-  authType: "token",
-  description: "countess ack unimpressively",
-  username: "Yasmin_Carroll",
-  password: "6xjtloKf8Sch2p8",
+  staleChannelFlushMs: 2782.5,
+  authType: "basic",
+  description: "birth or apud fooey numeric singing whereas nautical",
+  username: "Vida1",
+  password: "9JWrbdohpQJfHCn",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://bouncy-tributary.name",
+  loginUrl: "https://self-reliant-chasuble.info",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
   authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 8641.45,
+  tokenTimeoutSecs: 6490.55,
   oauthParams: [
     {
       name: "<value>",
@@ -459,3 +115,55 @@ const value: operations.InputSplunkSearchPqEnabledTrueWithPqConstraint = {
 };
 ```
 
+## Fields
+
+| Field                                                                                                                                                                                                                                                                                                                                   | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | Unique ID for this input                                                                                                                                                                                                                                                                                                                |
+| `type`                                                                                                                                                                                                                                                                                                                                  | *"splunk_search"*                                                                                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
+| `disabled`                                                                                                                                                                                                                                                                                                                              | *boolean*                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
+| `pipeline`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                                                                                                                          |
+| `sendToRoutes`                                                                                                                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                                                                     |
+| `environment`                                                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                                                    |
+| `pqEnabled`                                                                                                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                                                                            |
+| `streamtags`                                                                                                                                                                                                                                                                                                                            | *string*[]                                                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                                                           |
+| `connections`                                                                                                                                                                                                                                                                                                                           | [models.ItemsTypeConnectionsOptional](../../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                                                                             |
+| `pq`                                                                                                                                                                                                                                                                                                                                    | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
+| `searchHead`                                                                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | Search head base URL. Can be an expression. Default is https://localhost:8089.                                                                                                                                                                                                                                                          |
+| `search`                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '\| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'                                                                                                                                                                                          |
+| `earliest`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'                                                                                                                                                                                                               |
+| `latest`                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'                                                                                                                                                                                                                  |
+| `cronSchedule`                                                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | A cron schedule on which to run this job                                                                                                                                                                                                                                                                                                |
+| `endpoint`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | REST API used to create a search                                                                                                                                                                                                                                                                                                        |
+| `outputMode`                                                                                                                                                                                                                                                                                                                            | [models.OutputModeOptionsSplunkCollectorConf](../../models/outputmodeoptionssplunkcollectorconf.md)                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | Format of the returned output                                                                                                                                                                                                                                                                                                           |
+| `endpointParams`                                                                                                                                                                                                                                                                                                                        | [operations.EndpointParam](../../models/operations/endpointparam.md)[]                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Optional request parameters to send to the endpoint                                                                                                                                                                                                                                                                                     |
+| `endpointHeaders`                                                                                                                                                                                                                                                                                                                       | [operations.EndpointHeader](../../models/operations/endpointheader.md)[]                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Optional request headers to send to the endpoint                                                                                                                                                                                                                                                                                        |
+| `logLevel`                                                                                                                                                                                                                                                                                                                              | [operations.LogLevelSplunkSearch](../../models/operations/loglevelsplunksearch.md)                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Collector runtime log level (verbosity)                                                                                                                                                                                                                                                                                                 |
+| `requestTimeout`                                                                                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | HTTP request inactivity timeout. Use 0 for no timeout.                                                                                                                                                                                                                                                                                  |
+| `useRoundRobinDns`                                                                                                                                                                                                                                                                                                                      | *boolean*                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned                                                                                                                                                                                                                                  |
+| `rejectUnauthorized`                                                                                                                                                                                                                                                                                                                    | *boolean*                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)                                                                                                                                                                                                                                       |
+| `encoding`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.                                                                                                                                                                               |
+| `keepAliveTime`                                                                                                                                                                                                                                                                                                                         | *number*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | How often workers should check in with the scheduler to keep job subscription alive                                                                                                                                                                                                                                                     |
+| `jobTimeout`                                                                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.                                                                                                                                                                                                         |
+| `maxMissedKeepAlives`                                                                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.                                                                                                                                                                                                                                 |
+| `ttl`                                                                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.                                                                                                                                                                                                         |
+| `ignoreGroupJobsLimit`                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.                                                                                                                                                |
+| `metadata`                                                                                                                                                                                                                                                                                                                              | [models.ItemsTypeNotificationMetadata](../../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Fields to add to events from this input                                                                                                                                                                                                                                                                                                 |
+| `retryRules`                                                                                                                                                                                                                                                                                                                            | [models.RetryRulesType](../../models/retryrulestype.md)                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
+| `breakerRulesets`                                                                                                                                                                                                                                                                                                                       | *string*[]                                                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A list of event-breaking rulesets that will be applied, in order, to the input data stream                                                                                                                                                                                                                                              |
+| `staleChannelFlushMs`                                                                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines                                                                                                                                                                       |
+| `authType`                                                                                                                                                                                                                                                                                                                              | [operations.AuthenticationTypeSplunkSearch](../../models/operations/authenticationtypesplunksearch.md)                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Splunk Search authentication type                                                                                                                                                                                                                                                                                                       |
+| `description`                                                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
+| `username`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
+| `password`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
+| `token`                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Bearer token to include in the authorization header                                                                                                                                                                                                                                                                                     |
+| `credentialsSecret`                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Select or create a secret that references your credentials                                                                                                                                                                                                                                                                              |
+| `textSecret`                                                                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Select or create a stored text secret                                                                                                                                                                                                                                                                                                   |
+| `loginUrl`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | URL for OAuth                                                                                                                                                                                                                                                                                                                           |
+| `secretParamName`                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Secret parameter name to pass in request body                                                                                                                                                                                                                                                                                           |
+| `secret`                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Secret parameter value to pass in request body                                                                                                                                                                                                                                                                                          |
+| `tokenAttributeName`                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').                                                                                                                                                                                               |
+| `authHeaderExpr`                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.                                                                                                                                         |
+| `tokenTimeoutSecs`                                                                                                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | How often the OAuth token should be refreshed.                                                                                                                                                                                                                                                                                          |
+| `oauthParams`                                                                                                                                                                                                                                                                                                                           | [models.ItemsTypeOauthParams](../../models/itemstypeoauthparams.md)[]                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request. |
+| `oauthHeaders`                                                                                                                                                                                                                                                                                                                          | [models.ItemsTypeOauthHeaders](../../models/itemstypeoauthheaders.md)[]                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.                                                                                                                                                         |

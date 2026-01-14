@@ -4,7 +4,6 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -32,22 +31,12 @@ import {
   PreprocessTypeSavedJobCollectionInput$outboundSchema,
 } from "./preprocesstypesavedjobcollectioninput.js";
 
-export const InputCollectionType = {
-  Collection: "collection",
-} as const;
-export type InputCollectionType = ClosedEnum<typeof InputCollectionType>;
-
-export type InputCollectionPqEnabledTrueWithPqConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled: boolean;
-  pq?: PqType | undefined;
+export type InputCollection = {
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputCollectionType;
+  type: "collection";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process results
@@ -57,166 +46,6 @@ export type InputCollectionPqEnabledTrueWithPqConstraint = {
    * Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  preprocess?: PreprocessTypeSavedJobCollectionInput | undefined;
-  /**
-   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-   */
-  throttleRatePerSec?: string | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  /**
-   * Destination to send results to
-   */
-  output?: string | undefined;
-};
-
-export type InputCollectionPqEnabledFalseConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled: boolean;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputCollectionType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process results
-   */
-  pipeline?: string | undefined;
-  /**
-   * Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  preprocess?: PreprocessTypeSavedJobCollectionInput | undefined;
-  /**
-   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-   */
-  throttleRatePerSec?: string | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  /**
-   * Destination to send results to
-   */
-  output?: string | undefined;
-};
-
-export type InputCollectionSendToRoutesFalseWithConnectionsConstraint = {
-  /**
-   * Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
-   */
-  sendToRoutes: boolean;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputCollectionType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process results
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  preprocess?: PreprocessTypeSavedJobCollectionInput | undefined;
-  /**
-   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-   */
-  throttleRatePerSec?: string | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  /**
-   * Destination to send results to
-   */
-  output?: string | undefined;
-};
-
-export type InputCollectionSendToRoutesTrueConstraint = {
-  /**
-   * Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
-   */
-  sendToRoutes: boolean;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputCollectionType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process results
-   */
-  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -257,316 +86,17 @@ export type InputCollectionSendToRoutesTrueConstraint = {
   output?: string | undefined;
 };
 
-export type InputCollection =
-  | InputCollectionSendToRoutesTrueConstraint
-  | InputCollectionSendToRoutesFalseWithConnectionsConstraint
-  | InputCollectionPqEnabledFalseConstraint
-  | InputCollectionPqEnabledTrueWithPqConstraint;
-
 /** @internal */
-export const InputCollectionType$inboundSchema: z.ZodNativeEnum<
-  typeof InputCollectionType
-> = z.nativeEnum(InputCollectionType);
-/** @internal */
-export const InputCollectionType$outboundSchema: z.ZodNativeEnum<
-  typeof InputCollectionType
-> = InputCollectionType$inboundSchema;
-
-/** @internal */
-export const InputCollectionPqEnabledTrueWithPqConstraint$inboundSchema:
-  z.ZodType<
-    InputCollectionPqEnabledTrueWithPqConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    pqEnabled: z.boolean(),
-    pq: PqType$inboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputCollectionType$inboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().optional(),
-    preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
-    throttleRatePerSec: z.string().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    output: z.string().optional(),
-  });
-/** @internal */
-export type InputCollectionPqEnabledTrueWithPqConstraint$Outbound = {
-  pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs?: number | undefined;
-  preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
-  throttleRatePerSec?: string | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  output?: string | undefined;
-};
-
-/** @internal */
-export const InputCollectionPqEnabledTrueWithPqConstraint$outboundSchema:
-  z.ZodType<
-    InputCollectionPqEnabledTrueWithPqConstraint$Outbound,
-    z.ZodTypeDef,
-    InputCollectionPqEnabledTrueWithPqConstraint
-  > = z.object({
-    pqEnabled: z.boolean(),
-    pq: PqType$outboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputCollectionType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().optional(),
-    preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
-    throttleRatePerSec: z.string().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    output: z.string().optional(),
-  });
-
-export function inputCollectionPqEnabledTrueWithPqConstraintToJSON(
-  inputCollectionPqEnabledTrueWithPqConstraint:
-    InputCollectionPqEnabledTrueWithPqConstraint,
-): string {
-  return JSON.stringify(
-    InputCollectionPqEnabledTrueWithPqConstraint$outboundSchema.parse(
-      inputCollectionPqEnabledTrueWithPqConstraint,
-    ),
-  );
-}
-export function inputCollectionPqEnabledTrueWithPqConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputCollectionPqEnabledTrueWithPqConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCollectionPqEnabledTrueWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputCollectionPqEnabledTrueWithPqConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCollectionPqEnabledFalseConstraint$inboundSchema: z.ZodType<
-  InputCollectionPqEnabledFalseConstraint,
+export const InputCollection$inboundSchema: z.ZodType<
+  InputCollection,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pqEnabled: z.boolean(),
   id: z.string().optional(),
-  type: InputCollectionType$inboundSchema,
+  type: z.literal("collection"),
   disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().optional(),
-  preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
-  throttleRatePerSec: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  output: z.string().optional(),
-});
-/** @internal */
-export type InputCollectionPqEnabledFalseConstraint$Outbound = {
-  pqEnabled: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs?: number | undefined;
-  preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
-  throttleRatePerSec?: string | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  output?: string | undefined;
-};
-
-/** @internal */
-export const InputCollectionPqEnabledFalseConstraint$outboundSchema: z.ZodType<
-  InputCollectionPqEnabledFalseConstraint$Outbound,
-  z.ZodTypeDef,
-  InputCollectionPqEnabledFalseConstraint
-> = z.object({
-  pqEnabled: z.boolean(),
-  id: z.string().optional(),
-  type: InputCollectionType$outboundSchema,
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().optional(),
-  preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
-  throttleRatePerSec: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  output: z.string().optional(),
-});
-
-export function inputCollectionPqEnabledFalseConstraintToJSON(
-  inputCollectionPqEnabledFalseConstraint:
-    InputCollectionPqEnabledFalseConstraint,
-): string {
-  return JSON.stringify(
-    InputCollectionPqEnabledFalseConstraint$outboundSchema.parse(
-      inputCollectionPqEnabledFalseConstraint,
-    ),
-  );
-}
-export function inputCollectionPqEnabledFalseConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputCollectionPqEnabledFalseConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCollectionPqEnabledFalseConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputCollectionPqEnabledFalseConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCollectionSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputCollectionSendToRoutesFalseWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputCollectionType$inboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().optional(),
-    preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
-    throttleRatePerSec: z.string().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    output: z.string().optional(),
-  });
-/** @internal */
-export type InputCollectionSendToRoutesFalseWithConnectionsConstraint$Outbound =
-  {
-    sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-    id?: string | undefined;
-    type: string;
-    disabled?: boolean | undefined;
-    pipeline?: string | undefined;
-    environment?: string | undefined;
-    pqEnabled?: boolean | undefined;
-    streamtags?: Array<string> | undefined;
-    pq?: PqType$Outbound | undefined;
-    breakerRulesets?: Array<string> | undefined;
-    staleChannelFlushMs?: number | undefined;
-    preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
-    throttleRatePerSec?: string | undefined;
-    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-    output?: string | undefined;
-  };
-
-/** @internal */
-export const InputCollectionSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputCollectionSendToRoutesFalseWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputCollectionSendToRoutesFalseWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    id: z.string().optional(),
-    type: InputCollectionType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().optional(),
-    preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
-    throttleRatePerSec: z.string().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    output: z.string().optional(),
-  });
-
-export function inputCollectionSendToRoutesFalseWithConnectionsConstraintToJSON(
-  inputCollectionSendToRoutesFalseWithConnectionsConstraint:
-    InputCollectionSendToRoutesFalseWithConnectionsConstraint,
-): string {
-  return JSON.stringify(
-    InputCollectionSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-      .parse(inputCollectionSendToRoutesFalseWithConnectionsConstraint),
-  );
-}
-export function inputCollectionSendToRoutesFalseWithConnectionsConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputCollectionSendToRoutesFalseWithConnectionsConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCollectionSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputCollectionSendToRoutesFalseWithConnectionsConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCollectionSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
-  InputCollectionSendToRoutesTrueConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean(),
-  id: z.string().optional(),
-  type: InputCollectionType$inboundSchema,
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
@@ -580,12 +110,12 @@ export const InputCollectionSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   output: z.string().optional(),
 });
 /** @internal */
-export type InputCollectionSendToRoutesTrueConstraint$Outbound = {
-  sendToRoutes: boolean;
+export type InputCollection$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "collection";
   disabled?: boolean | undefined;
   pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
@@ -600,90 +130,28 @@ export type InputCollectionSendToRoutesTrueConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputCollectionSendToRoutesTrueConstraint$outboundSchema:
-  z.ZodType<
-    InputCollectionSendToRoutesTrueConstraint$Outbound,
-    z.ZodTypeDef,
-    InputCollectionSendToRoutesTrueConstraint
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    id: z.string().optional(),
-    type: InputCollectionType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    pq: PqType$outboundSchema.optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().optional(),
-    preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
-    throttleRatePerSec: z.string().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    output: z.string().optional(),
-  });
-
-export function inputCollectionSendToRoutesTrueConstraintToJSON(
-  inputCollectionSendToRoutesTrueConstraint:
-    InputCollectionSendToRoutesTrueConstraint,
-): string {
-  return JSON.stringify(
-    InputCollectionSendToRoutesTrueConstraint$outboundSchema.parse(
-      inputCollectionSendToRoutesTrueConstraint,
-    ),
-  );
-}
-export function inputCollectionSendToRoutesTrueConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputCollectionSendToRoutesTrueConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCollectionSendToRoutesTrueConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputCollectionSendToRoutesTrueConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCollection$inboundSchema: z.ZodType<
-  InputCollection,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => InputCollectionSendToRoutesTrueConstraint$inboundSchema),
-  z.lazy(() =>
-    InputCollectionSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-  ),
-  z.lazy(() => InputCollectionPqEnabledFalseConstraint$inboundSchema),
-  z.lazy(() => InputCollectionPqEnabledTrueWithPqConstraint$inboundSchema),
-]);
-/** @internal */
-export type InputCollection$Outbound =
-  | InputCollectionSendToRoutesTrueConstraint$Outbound
-  | InputCollectionSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputCollectionPqEnabledFalseConstraint$Outbound
-  | InputCollectionPqEnabledTrueWithPqConstraint$Outbound;
-
-/** @internal */
 export const InputCollection$outboundSchema: z.ZodType<
   InputCollection$Outbound,
   z.ZodTypeDef,
   InputCollection
-> = z.union([
-  z.lazy(() => InputCollectionSendToRoutesTrueConstraint$outboundSchema),
-  z.lazy(() =>
-    InputCollectionSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-  ),
-  z.lazy(() => InputCollectionPqEnabledFalseConstraint$outboundSchema),
-  z.lazy(() => InputCollectionPqEnabledTrueWithPqConstraint$outboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("collection"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
+  throttleRatePerSec: z.string().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  output: z.string().optional(),
+});
 
 export function inputCollectionToJSON(
   inputCollection: InputCollection,

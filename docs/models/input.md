@@ -7,13 +7,13 @@
 
 ```typescript
 const value: models.InputCollection = {
-  sendToRoutes: true,
   id: "<id>",
   type: "collection",
   disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
   ],
@@ -24,21 +24,19 @@ const value: models.InputCollection = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  staleChannelFlushMs: 5307.81,
+  staleChannelFlushMs: 8467.21,
   preprocess: {
     disabled: false,
     command: "<value>",
@@ -61,16 +59,15 @@ const value: models.InputCollection = {
 
 ```typescript
 const value: models.InputKafka = {
-  sendToRoutes: true,
   id: "<id>",
   type: "kafka",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -79,38 +76,38 @@ const value: models.InputKafka = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   brokers: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   topics: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   groupId: "<id>",
-  fromBeginning: true,
+  fromBeginning: false,
   kafkaSchemaRegistry: {
     disabled: true,
-    schemaRegistryURL: "https://unfinished-decongestant.org",
-    connectionTimeout: 5018.66,
-    requestTimeout: 4285.6,
-    maxRetries: 9127.09,
+    schemaRegistryURL: "https://regal-switchboard.biz/",
+    connectionTimeout: 9747.78,
+    requestTimeout: 5018.66,
+    maxRetries: 4285.6,
     auth: {
       disabled: false,
       credentialsSecret: "<value>",
     },
     tls: {
-      disabled: true,
+      disabled: false,
       rejectUnauthorized: true,
       servername: "<value>",
       certificateName: "<value>",
@@ -118,21 +115,21 @@ const value: models.InputKafka = {
       privKeyPath: "<value>",
       certPath: "<value>",
       passphrase: "<value>",
-      minVersion: "TLSv1.1",
-      maxVersion: "TLSv1.3",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.1",
     },
   },
-  connectionTimeout: 9152.39,
-  requestTimeout: 8975.46,
-  maxRetries: 7140.45,
-  maxBackOff: 1119.07,
-  initialBackoff: 2881.24,
-  backoffRate: 2817.87,
-  authenticationTimeout: 7812.82,
-  reauthenticationThreshold: 4306.3,
+  connectionTimeout: 9191.7,
+  requestTimeout: 9152.39,
+  maxRetries: 8975.46,
+  maxBackOff: 7140.45,
+  initialBackoff: 1119.07,
+  backoffRate: 2881.24,
+  authenticationTimeout: 2817.87,
+  reauthenticationThreshold: 7812.82,
   sasl: {
-    disabled: false,
-    username: "Lilyan_Kub66",
+    disabled: true,
+    username: "Mertie.Abbott",
     password: "pD36Q7Bu1OSy91K",
     authType: "manual",
     credentialsSecret: "<value>",
@@ -159,7 +156,7 @@ const value: models.InputKafka = {
     ],
   },
   tls: {
-    disabled: true,
+    disabled: false,
     rejectUnauthorized: true,
     servername: "<value>",
     certificateName: "<value>",
@@ -167,8 +164,8 @@ const value: models.InputKafka = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
   },
   sessionTimeout: 9176.35,
   rebalanceTimeout: 1822.55,
@@ -192,294 +189,11 @@ const value: models.InputKafka = {
 
 ```typescript
 const value: models.InputMsk = {
-  sendToRoutes: true,
   id: "<id>",
   type: "msk",
-  disabled: false,
-  pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  brokers: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  topics: [
-    "<value 1>",
-  ],
-  groupId: "<id>",
-  fromBeginning: false,
-  sessionTimeout: 2610.43,
-  rebalanceTimeout: 9334.03,
-  heartbeatInterval: 6019.57,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  kafkaSchemaRegistry: {
-    disabled: true,
-    schemaRegistryURL: "https://unfinished-decongestant.org",
-    connectionTimeout: 5018.66,
-    requestTimeout: 4285.6,
-    maxRetries: 9127.09,
-    auth: {
-      disabled: false,
-      credentialsSecret: "<value>",
-    },
-    tls: {
-      disabled: true,
-      rejectUnauthorized: true,
-      servername: "<value>",
-      certificateName: "<value>",
-      caPath: "<value>",
-      privKeyPath: "<value>",
-      certPath: "<value>",
-      passphrase: "<value>",
-      minVersion: "TLSv1.1",
-      maxVersion: "TLSv1.3",
-    },
-  },
-  connectionTimeout: 3691.44,
-  requestTimeout: 6670.84,
-  maxRetries: 9992.57,
-  maxBackOff: 95.8,
-  initialBackoff: 3598.73,
-  backoffRate: 7153.94,
-  authenticationTimeout: 4857.79,
-  reauthenticationThreshold: 6286.66,
-  awsAuthenticationMethod: "<value>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  signatureVersion: "v2",
-  reuseConnections: false,
-  rejectUnauthorized: false,
-  enableAssumeRole: true,
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  durationSeconds: 8663.73,
-  tls: {
-    disabled: true,
-    rejectUnauthorized: true,
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.3",
-  },
-  autoCommitInterval: 8094.14,
-  autoCommitThreshold: 1153.29,
-  maxBytesPerPartition: 3234.81,
-  maxBytes: 3027.03,
-  maxSocketErrors: 4628.44,
-  description: "ouch pliers tributary but inwardly",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-};
-```
-
-### `models.InputHttp`
-
-```typescript
-const value: models.InputHttp = {
-  sendToRoutes: true,
-  id: "<id>",
-  type: "http",
-  disabled: false,
-  pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "moral-provision.info",
-  port: 1566.43,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  tls: {
-    disabled: true,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  maxActiveReq: 7292.46,
-  maxRequestsPerSocket: 276209,
-  enableProxyHeader: false,
-  captureHeaders: false,
-  activityLogSampleRate: 934.67,
-  requestTimeout: 1804.56,
-  socketTimeout: 9664.45,
-  keepAliveTimeout: 9555.33,
-  enableHealthCheck: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  criblAPI: "<value>",
-  elasticAPI: "<value>",
-  splunkHecAPI: "<value>",
-  splunkHecAcks: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "positively divine about woot",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  description: "anti however before suddenly about which",
-};
-```
-
-### `models.InputSplunk`
-
-```typescript
-const value: models.InputSplunk = {
-  sendToRoutes: false,
-  id: "<id>",
-  type: "splunk",
   disabled: true,
   pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "insignificant-councilman.info",
-  port: 2204.51,
-  tls: {
-    disabled: true,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  ipWhitelistRegex: "<value>",
-  maxActiveCxn: 5287.93,
-  socketIdleTimeout: 4279.79,
-  socketEndingMaxWait: 2470.73,
-  socketMaxLifespan: 763.02,
-  enableProxyHeader: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  staleChannelFlushMs: 4561.94,
-  authTokens: [
-    {
-      token: "<value>",
-      description:
-        "consign though fooey preclude embarrassment till bright aboard opposite hmph",
-    },
-  ],
-  maxS2Sversion: "v4",
-  description: "to pish safe boo conceptualize peppery abaft",
-  useFwdTimezone: false,
-  dropControlFields: true,
-  extractMetrics: false,
-  compress: "always",
-};
-```
-
-### `models.InputSplunkSearch`
-
-```typescript
-const value: models.InputSplunkSearch = {
   sendToRoutes: true,
-  id: "<id>",
-  type: "splunk_search",
-  disabled: true,
-  pipeline: "<value>",
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
@@ -492,12 +206,289 @@ const value: models.InputSplunkSearch = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  brokers: [
+    "<value 1>",
+  ],
+  topics: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  groupId: "<id>",
+  fromBeginning: true,
+  sessionTimeout: 5538.49,
+  rebalanceTimeout: 2610.43,
+  heartbeatInterval: 9334.03,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  kafkaSchemaRegistry: {
+    disabled: true,
+    schemaRegistryURL: "https://regal-switchboard.biz/",
+    connectionTimeout: 9747.78,
+    requestTimeout: 5018.66,
+    maxRetries: 4285.6,
+    auth: {
+      disabled: false,
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      disabled: false,
+      rejectUnauthorized: true,
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.1",
+    },
+  },
+  connectionTimeout: 6019.57,
+  requestTimeout: 3691.44,
+  maxRetries: 6670.84,
+  maxBackOff: 9992.57,
+  initialBackoff: 95.8,
+  backoffRate: 3598.73,
+  authenticationTimeout: 7153.94,
+  reauthenticationThreshold: 4857.79,
+  awsAuthenticationMethod: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  signatureVersion: "v4",
+  reuseConnections: true,
+  rejectUnauthorized: false,
+  enableAssumeRole: false,
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  durationSeconds: 2790.42,
+  tls: {
+    disabled: false,
+    rejectUnauthorized: true,
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  autoCommitInterval: 8663.73,
+  autoCommitThreshold: 8094.14,
+  maxBytesPerPartition: 1153.29,
+  maxBytes: 3234.81,
+  maxSocketErrors: 3027.03,
+  description: "book delight positively majestically freezing beyond",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+};
+```
+
+### `models.InputHttp`
+
+```typescript
+const value: models.InputHttp = {
+  id: "<id>",
+  type: "http",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  host: "early-linseed.net",
+  port: 4568.44,
+  authTokens: [
+    "<value 1>",
+  ],
+  tls: {
+    disabled: false,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  maxActiveReq: 2500.22,
+  maxRequestsPerSocket: 729246,
+  enableProxyHeader: true,
+  captureHeaders: false,
+  activityLogSampleRate: 7856.7,
+  requestTimeout: 934.67,
+  socketTimeout: 1804.56,
+  keepAliveTimeout: 9664.45,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  criblAPI: "<value>",
+  elasticAPI: "<value>",
+  splunkHecAPI: "<value>",
+  splunkHecAcks: false,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description: "instead worth trek drain eek below",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  description: "despite if after hunt immediately so arcade",
+};
+```
+
+### `models.InputSplunk`
+
+```typescript
+const value: models.InputSplunk = {
+  id: "<id>",
+  type: "splunk",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  pqEnabled: true,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  host: "stark-hierarchy.biz",
+  port: 4941.14,
+  tls: {
+    disabled: false,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  ipWhitelistRegex: "<value>",
+  maxActiveCxn: 2204.51,
+  socketIdleTimeout: 5287.93,
+  socketEndingMaxWait: 4279.79,
+  socketMaxLifespan: 2470.73,
+  enableProxyHeader: true,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  staleChannelFlushMs: 7385.66,
+  authTokens: [
+    {
+      token: "<value>",
+      description: "around inside although phooey pfft acidly",
+    },
+  ],
+  maxS2Sversion: "v4",
+  description: "vivaciously upbeat cricket where castanet than",
+  useFwdTimezone: false,
+  dropControlFields: false,
+  extractMetrics: false,
+  compress: "always",
+};
+```
+
+### `models.InputSplunkSearch`
+
+```typescript
+const value: models.InputSplunkSearch = {
+  id: "<id>",
+  type: "splunk_search",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: false,
+  environment: "<value>",
+  pqEnabled: true,
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
@@ -507,7 +498,7 @@ const value: models.InputSplunkSearch = {
   latest: "<value>",
   cronSchedule: "<value>",
   endpoint: "<value>",
-  outputMode: "json",
+  outputMode: "csv",
   endpointParams: [
     {
       name: "<value>",
@@ -520,14 +511,14 @@ const value: models.InputSplunkSearch = {
       value: "<value>",
     },
   ],
-  logLevel: "debug",
-  requestTimeout: 3970.64,
+  logLevel: "info",
+  requestTimeout: 7648.22,
   useRoundRobinDns: true,
   rejectUnauthorized: true,
   encoding: "<value>",
-  keepAliveTime: 171.14,
+  keepAliveTime: 2683.02,
   jobTimeout: "<value>",
-  maxMissedKeepAlives: 1102.95,
+  maxMissedKeepAlives: 171.14,
   ttl: "<value>",
   ignoreGroupJobsLimit: true,
   metadata: [
@@ -537,37 +528,34 @@ const value: models.InputSplunkSearch = {
     },
   ],
   retryRules: {
-    type: "static",
-    interval: 3153.33,
-    limit: 2659.11,
-    multiplier: 376.03,
+    type: "none",
+    interval: 6996.29,
+    limit: 5006.8,
+    multiplier: 7560.55,
     codes: [
-      5006.8,
-      7560.55,
-      2139.95,
+      9559.24,
     ],
     enableHeader: false,
     retryConnectTimeout: false,
-    retryConnectReset: false,
+    retryConnectReset: true,
   },
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
-  staleChannelFlushMs: 9303.69,
-  authType: "credentialsSecret",
-  description: "dowse magnetize until ideal ew versus husk trouser",
-  username: "Felipe23",
-  password: "UGpeaNdPL8ng3Fh",
+  staleChannelFlushMs: 3804.15,
+  authType: "oauth",
+  description: "past cassava however tenderly considerate suitcase",
+  username: "Twila_Homenick",
+  password: "WHMIdyB7lUGpeaN",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://untried-statue.biz/",
+  loginUrl: "https://mealy-pile.info",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
   authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 3063.92,
+  tokenTimeoutSecs: 2444.65,
   oauthParams: [
     {
       name: "<value>",
@@ -587,16 +575,15 @@ const value: models.InputSplunkSearch = {
 
 ```typescript
 const value: models.InputSplunkHec = {
-  sendToRoutes: true,
   id: "<id>",
   type: "splunk_hec",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -605,24 +592,24 @@ const value: models.InputSplunkHec = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "ordinary-trash.net",
-  port: 8739.92,
+  host: "quarrelsome-mixture.org",
+  port: 8060.26,
   authTokens: [
     {
       authType: "secret",
       tokenSecret: "<value>",
       token: "<value>",
       enabled: false,
-      description: "psst too sniff over although er",
+      description: "jubilant agile bowed what mockingly excluding maintainer",
       allowedIndexesAtToken: [
         "<value 1>",
         "<value 2>",
@@ -637,7 +624,7 @@ const value: models.InputSplunkHec = {
     },
   ],
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -647,16 +634,16 @@ const value: models.InputSplunkHec = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
-  maxActiveReq: 769.06,
-  maxRequestsPerSocket: 633445,
-  enableProxyHeader: false,
-  captureHeaders: false,
-  activityLogSampleRate: 5413.24,
-  requestTimeout: 9005.63,
-  socketTimeout: 5366.46,
-  keepAliveTimeout: 5340.04,
+  maxActiveReq: 5366.46,
+  maxRequestsPerSocket: 534004,
+  enableProxyHeader: true,
+  captureHeaders: true,
+  activityLogSampleRate: 3048.18,
+  requestTimeout: 37.27,
+  socketTimeout: 7463.91,
+  keepAliveTimeout: 2663.46,
   enableHealthCheck: "<value>",
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
@@ -669,15 +656,18 @@ const value: models.InputSplunkHec = {
   ],
   allowedIndexes: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
-  splunkHecAcks: true,
+  splunkHecAcks: false,
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
-  staleChannelFlushMs: 37.27,
-  useFwdTimezone: false,
+  staleChannelFlushMs: 6760.1,
+  useFwdTimezone: true,
   dropControlFields: true,
-  extractMetrics: false,
+  extractMetrics: true,
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
@@ -685,10 +675,9 @@ const value: models.InputSplunkHec = {
   ],
   accessControlAllowHeaders: [
     "<value 1>",
-    "<value 2>",
   ],
   emitTokenMetrics: false,
-  description: "slushy hepatitis debut hm",
+  description: "entrench past lest morning boohoo yawningly meh marten",
 };
 ```
 
@@ -696,17 +685,15 @@ const value: models.InputSplunkHec = {
 
 ```typescript
 const value: models.InputAzureBlob = {
-  sendToRoutes: true,
   id: "<id>",
   type: "azure_blob",
   disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -715,21 +702,21 @@ const value: models.InputAzureBlob = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   queueName: "<value>",
   fileFilter: "<value>",
-  visibilityTimeout: 9339.82,
-  numReceivers: 5576.42,
-  maxMessages: 7254.03,
-  servicePeriodSecs: 9073.65,
+  visibilityTimeout: 9945.7,
+  numReceivers: 9339.82,
+  maxMessages: 5576.42,
+  servicePeriodSecs: 7254.03,
   skipOnError: false,
   metadata: [
     {
@@ -741,11 +728,11 @@ const value: models.InputAzureBlob = {
     "<value 1>",
     "<value 2>",
   ],
-  staleChannelFlushMs: 9794.12,
-  parquetChunkSizeMB: 2959.58,
-  parquetChunkDownloadTimeout: 6517.05,
+  staleChannelFlushMs: 6373.06,
+  parquetChunkSizeMB: 9794.12,
+  parquetChunkDownloadTimeout: 2959.58,
   authType: "clientSecret",
-  description: "indeed openly up wetly valuable ouch riser equatorial",
+  description: "since goose idealistic yahoo tricky about exalt scornful",
   connectionString: "<value>",
   textSecret: "<value>",
   storageAccountName: "<value>",
@@ -764,13 +751,13 @@ const value: models.InputAzureBlob = {
 
 ```typescript
 const value: models.InputElastic = {
-  sendToRoutes: false,
   id: "<id>",
   type: "elastic",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
   ],
@@ -781,19 +768,19 @@ const value: models.InputElastic = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "stale-discourse.name",
-  port: 2842.65,
+  host: "coordinated-season.biz",
+  port: 6214.35,
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -803,21 +790,21 @@ const value: models.InputElastic = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
-  maxActiveReq: 9762.55,
-  maxRequestsPerSocket: 218129,
+  maxActiveReq: 2842.65,
+  maxRequestsPerSocket: 976255,
   enableProxyHeader: true,
   captureHeaders: true,
-  activityLogSampleRate: 5252.11,
-  requestTimeout: 7948.46,
-  socketTimeout: 7018.17,
-  keepAliveTimeout: 8330.71,
+  activityLogSampleRate: 4682.34,
+  requestTimeout: 5252.11,
+  socketTimeout: 7948.46,
+  keepAliveTimeout: 7018.17,
   enableHealthCheck: false,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
   elasticAPI: "<value>",
-  authType: "authTokens",
+  authType: "credentialsSecret",
   apiVersion: "custom",
   extraHttpHeaders: [
     {
@@ -833,24 +820,25 @@ const value: models.InputElastic = {
   ],
   proxyMode: {
     enabled: false,
-    authType: "secret",
-    username: "Deon.Buckridge-Altenwerth8",
-    password: "M0cd_ogL9HtpZNw",
+    authType: "manual",
+    username: "Omer.Wilderman0",
+    password: "0M0cd_ogL9HtpZN",
     credentialsSecret: "<value>",
-    url: "https://gaseous-hierarchy.org/",
-    rejectUnauthorized: true,
+    url: "https://graceful-experience.info",
+    rejectUnauthorized: false,
     removeHeaders: [
       "<value 1>",
+      "<value 2>",
     ],
-    timeoutSec: 9081.55,
+    timeoutSec: 2929.22,
   },
-  description: "than mockingly capitalise cheerfully",
-  username: "Elsa23",
-  password: "FmVRDEkfXqSUuye",
+  description:
+    "fly how incidentally fast furthermore repeatedly calmly starboard er waft",
+  username: "Emerson.Mertz",
+  password: "MrCR_bg74dlzuxm",
   credentialsSecret: "<value>",
   authTokens: [
     "<value 1>",
-    "<value 2>",
   ],
   customAPIVersion: "<value>",
 };
@@ -860,16 +848,17 @@ const value: models.InputElastic = {
 
 ```typescript
 const value: models.InputConfluentCloud = {
-  sendToRoutes: true,
   id: "<id>",
   type: "confluent_cloud",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -878,22 +867,20 @@ const value: models.InputConfluentCloud = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   brokers: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   tls: {
-    disabled: true,
+    disabled: false,
     rejectUnauthorized: true,
     servername: "<value>",
     certificateName: "<value>",
@@ -901,27 +888,28 @@ const value: models.InputConfluentCloud = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
   },
   topics: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   groupId: "<id>",
-  fromBeginning: true,
+  fromBeginning: false,
   kafkaSchemaRegistry: {
     disabled: true,
-    schemaRegistryURL: "https://unfinished-decongestant.org",
-    connectionTimeout: 5018.66,
-    requestTimeout: 4285.6,
-    maxRetries: 9127.09,
+    schemaRegistryURL: "https://regal-switchboard.biz/",
+    connectionTimeout: 9747.78,
+    requestTimeout: 5018.66,
+    maxRetries: 4285.6,
     auth: {
       disabled: false,
       credentialsSecret: "<value>",
     },
     tls: {
-      disabled: true,
+      disabled: false,
       rejectUnauthorized: true,
       servername: "<value>",
       certificateName: "<value>",
@@ -929,21 +917,21 @@ const value: models.InputConfluentCloud = {
       privKeyPath: "<value>",
       certPath: "<value>",
       passphrase: "<value>",
-      minVersion: "TLSv1.1",
-      maxVersion: "TLSv1.3",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.1",
     },
   },
-  connectionTimeout: 9243.43,
-  requestTimeout: 7542.92,
-  maxRetries: 1623.19,
-  maxBackOff: 1264.79,
-  initialBackoff: 614.07,
-  backoffRate: 8676.73,
-  authenticationTimeout: 173.2,
-  reauthenticationThreshold: 8004.77,
+  connectionTimeout: 4548.16,
+  requestTimeout: 9243.43,
+  maxRetries: 7542.92,
+  maxBackOff: 1623.19,
+  initialBackoff: 1264.79,
+  backoffRate: 614.07,
+  authenticationTimeout: 8676.73,
+  reauthenticationThreshold: 173.2,
   sasl: {
-    disabled: false,
-    username: "Lilyan_Kub66",
+    disabled: true,
+    username: "Mertie.Abbott",
     password: "pD36Q7Bu1OSy91K",
     authType: "manual",
     credentialsSecret: "<value>",
@@ -969,22 +957,21 @@ const value: models.InputConfluentCloud = {
       },
     ],
   },
-  sessionTimeout: 273.28,
-  rebalanceTimeout: 7569.19,
-  heartbeatInterval: 5951.71,
-  autoCommitInterval: 4048.53,
-  autoCommitThreshold: 9060.05,
-  maxBytesPerPartition: 7602.77,
-  maxBytes: 285.77,
-  maxSocketErrors: 5347.24,
+  sessionTimeout: 8004.77,
+  rebalanceTimeout: 273.28,
+  heartbeatInterval: 7569.19,
+  autoCommitInterval: 5951.71,
+  autoCommitThreshold: 4048.53,
+  maxBytesPerPartition: 9060.05,
+  maxBytes: 7602.77,
+  maxSocketErrors: 285.77,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "enchanting noteworthy ouch against into boo creative anesthetize roughly",
+  description: "soupy why accessorise tune sans aware smuggle",
 };
 ```
 
@@ -1010,19 +997,19 @@ const value: models.InputGrafana = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   host: "grizzled-gown.biz",
   port: 5908.72,
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -1032,7 +1019,7 @@ const value: models.InputGrafana = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   maxActiveReq: 1524.26,
   maxRequestsPerSocket: 293320,
@@ -1113,17 +1100,15 @@ const value: models.InputGrafana = {
 
 ```typescript
 const value: models.InputLoki = {
-  sendToRoutes: false,
   id: "<id>",
   type: "loki",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -1132,19 +1117,19 @@ const value: models.InputLoki = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "carefree-co-producer.name",
-  port: 5913.81,
+  host: "sleepy-brochure.com",
+  port: 5224.57,
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -1154,17 +1139,17 @@ const value: models.InputLoki = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
-  maxActiveReq: 3993.27,
-  maxRequestsPerSocket: 948702,
-  enableProxyHeader: true,
-  captureHeaders: false,
-  activityLogSampleRate: 7251.79,
-  requestTimeout: 1109.26,
-  socketTimeout: 8330.3,
-  keepAliveTimeout: 2404.75,
-  enableHealthCheck: false,
+  maxActiveReq: 5913.81,
+  maxRequestsPerSocket: 399327,
+  enableProxyHeader: false,
+  captureHeaders: true,
+  activityLogSampleRate: 9489.45,
+  requestTimeout: 7251.79,
+  socketTimeout: 1109.26,
+  keepAliveTimeout: 8330.3,
+  enableHealthCheck: true,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
   lokiAPI: "<value>",
@@ -1175,18 +1160,18 @@ const value: models.InputLoki = {
       value: "<value>",
     },
   ],
-  description: "maroon but consequently",
-  username: "Domenick_Heathcote91",
-  password: "gVFzXj8DoFY3c6z",
+  description: "gum playfully phew colossal whose fluffy defendant arrogantly",
+  username: "Ronaldo87",
+  password: "OXGU2LDulsn3fGv",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://intrepid-technician.net",
+  loginUrl: "https://tepid-summer.org",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
   authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 146.79,
+  tokenTimeoutSecs: 2498.36,
   oauthParams: [
     {
       name: "<value>",
@@ -1206,17 +1191,15 @@ const value: models.InputLoki = {
 
 ```typescript
 const value: models.InputPrometheusRw = {
-  sendToRoutes: false,
   id: "<id>",
   type: "prometheus_rw",
   disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -1225,19 +1208,19 @@ const value: models.InputPrometheusRw = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "noteworthy-suspension.com",
-  port: 5425.93,
+  host: "subdued-meal.org",
+  port: 93.83,
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -1247,39 +1230,39 @@ const value: models.InputPrometheusRw = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
-  maxActiveReq: 2559.53,
-  maxRequestsPerSocket: 77228,
-  enableProxyHeader: false,
-  captureHeaders: true,
-  activityLogSampleRate: 2707.33,
-  requestTimeout: 8690.29,
-  socketTimeout: 889.37,
-  keepAliveTimeout: 1630.1,
+  maxActiveReq: 5425.93,
+  maxRequestsPerSocket: 255953,
+  enableProxyHeader: true,
+  captureHeaders: false,
+  activityLogSampleRate: 450.97,
+  requestTimeout: 2707.33,
+  socketTimeout: 8690.29,
+  keepAliveTimeout: 889.37,
   enableHealthCheck: true,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
   prometheusAPI: "<value>",
-  authType: "oauth",
+  authType: "credentialsSecret",
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "tabletop optimal sans ah valiantly",
-  username: "Trent.Casper",
-  password: "l6ZjiY_EdB5gTx4",
+  description: "arcade soybean onto yahoo hydrolyze gee rapid why hm as",
+  username: "Tanya.Mayer13",
+  password: "VVh2TYDsD8VsEpa",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://troubled-minister.com",
+  loginUrl: "https://radiant-hydrolyse.name",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
   authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 1323.48,
+  tokenTimeoutSecs: 7170.49,
   oauthParams: [
     {
       name: "<value>",
@@ -1299,16 +1282,15 @@ const value: models.InputPrometheusRw = {
 
 ```typescript
 const value: models.InputPrometheus = {
-  sendToRoutes: true,
   id: "<id>",
   type: "prometheus",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -1317,30 +1299,29 @@ const value: models.InputPrometheus = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   dimensionList: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  discoveryType: "static",
-  interval: 5538.93,
-  logLevel: "error",
-  rejectUnauthorized: false,
-  timeout: 2125.09,
-  keepAliveTime: 8778.22,
+  discoveryType: "ec2",
+  interval: 2386.57,
+  logLevel: "info",
+  rejectUnauthorized: true,
+  timeout: 9689.51,
+  keepAliveTime: 2125.09,
   jobTimeout: "<value>",
-  maxMissedKeepAlives: 1715.9,
+  maxMissedKeepAlives: 8778.22,
   ttl: "<value>",
-  ignoreGroupJobsLimit: false,
+  ignoreGroupJobsLimit: true,
   metadata: [
     {
       name: "<value>",
@@ -1348,14 +1329,16 @@ const value: models.InputPrometheus = {
     },
   ],
   authType: "secret",
-  description: "drat given vestment",
+  description: "what closely mob gently or ack sudden legal good",
   targetList: [
     "<value 1>",
   ],
   recordType: "AAAA",
-  scrapePort: 8693.9,
+  scrapePort: 6229.35,
   nameList: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   scrapeProtocol: "http",
   scrapePath: "<value>",
@@ -1366,7 +1349,9 @@ const value: models.InputPrometheus = {
   searchFilter: [
     {
       Name: "<value>",
-      Values: [],
+      Values: [
+        "<value 1>",
+      ],
     },
   ],
   awsSecretKey: "<value>",
@@ -1374,12 +1359,12 @@ const value: models.InputPrometheus = {
   endpoint: "<value>",
   signatureVersion: "v2",
   reuseConnections: true,
-  enableAssumeRole: true,
+  enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  durationSeconds: 5787.16,
-  username: "Edna.Bode59",
-  password: "Km_4ZcnFhsMsMjN",
+  durationSeconds: 2790.27,
+  username: "Xander5",
+  password: "th_udqpW8UBrZko",
   credentialsSecret: "<value>",
 };
 ```
@@ -1388,16 +1373,15 @@ const value: models.InputPrometheus = {
 
 ```typescript
 const value: models.InputEdgePrometheus = {
-  sendToRoutes: true,
   id: "<id>",
   type: "edge_prometheus",
   disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -1406,12 +1390,12 @@ const value: models.InputEdgePrometheus = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
@@ -1419,9 +1403,9 @@ const value: models.InputEdgePrometheus = {
     "<value 1>",
     "<value 2>",
   ],
-  discoveryType: "dns",
-  interval: 7099.51,
-  timeout: 6560.58,
+  discoveryType: "ec2",
+  interval: 3298.52,
+  timeout: 7099.51,
   persistence: {
     enable: false,
     timeWindow: "<value>",
@@ -1435,21 +1419,22 @@ const value: models.InputEdgePrometheus = {
       value: "<value>",
     },
   ],
-  authType: "secret",
-  description: "foodstuffs complete so woot boohoo discrete while hmph duh",
+  authType: "kubernetes",
+  description: "authorized wealthy hm lest how plumber",
   targets: [
     {
-      protocol: "https",
-      host: "mad-carnival.com",
-      port: 8409.15,
-      path: "/home/user",
+      protocol: "http",
+      host: "gloomy-petticoat.info",
+      port: 146.54,
+      path: "/net",
     },
   ],
   recordType: "A",
-  scrapePort: 2333.43,
+  scrapePort: 9821.24,
   nameList: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   scrapeProtocol: "http",
   scrapePath: "<value>",
@@ -1460,31 +1445,32 @@ const value: models.InputEdgePrometheus = {
   searchFilter: [
     {
       Name: "<value>",
-      Values: [],
+      Values: [
+        "<value 1>",
+      ],
     },
   ],
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
   signatureVersion: "v2",
-  reuseConnections: false,
+  reuseConnections: true,
   rejectUnauthorized: true,
   enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  durationSeconds: 9570.79,
+  durationSeconds: 1316.68,
   scrapeProtocolExpr: "<value>",
   scrapePortExpr: "<value>",
   scrapePathExpr: "<value>",
   podFilter: [
     {
       filter: "<value>",
-      description:
-        "woefully newsletter fathom ack who than productive edge bah",
+      description: "meh that oof lest mainstream times anti reboot packaging",
     },
   ],
-  username: "Sylvia.Kertzmann",
-  password: "LJXQTRhnACspZCH",
+  username: "Lindsay48",
+  password: "YXAl8n5UV0w6JPk",
   credentialsSecret: "<value>",
 };
 ```
@@ -1493,17 +1479,15 @@ const value: models.InputEdgePrometheus = {
 
 ```typescript
 const value: models.InputOffice365Mgmt = {
-  sendToRoutes: true,
   id: "<id>",
   type: "office365_mgmt",
   disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -1512,22 +1496,22 @@ const value: models.InputOffice365Mgmt = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   planType: "gcc_high",
   tenantId: "<id>",
   appId: "<id>",
-  timeout: 1421.9,
-  keepAliveTime: 1799.63,
+  timeout: 6368.3,
+  keepAliveTime: 1421.9,
   jobTimeout: "<value>",
-  maxMissedKeepAlives: 2725.58,
+  maxMissedKeepAlives: 1799.63,
   ttl: "<value>",
   ignoreGroupJobsLimit: true,
   metadata: [
@@ -1540,29 +1524,27 @@ const value: models.InputOffice365Mgmt = {
   contentConfig: [
     {
       contentType: "<value>",
-      description: "towards pick hmph boring gosh",
-      interval: 1438.92,
-      logLevel: "info",
+      description: "illusion ice-cream if puny towards",
+      interval: 8290.81,
+      logLevel: "error",
       enabled: false,
     },
   ],
-  ingestionLag: 6390.37,
+  ingestionLag: 9152.34,
   retryRules: {
-    type: "none",
-    interval: 2764.09,
-    limit: 9039.82,
-    multiplier: 1648,
+    type: "backoff",
+    interval: 2107.49,
+    limit: 2764.09,
+    multiplier: 9039.82,
     codes: [
-      1223.37,
-      608.99,
-      2918.61,
+      6941.51,
     ],
     enableHeader: true,
-    retryConnectTimeout: false,
-    retryConnectReset: false,
+    retryConnectTimeout: true,
+    retryConnectReset: true,
   },
   authType: "manual",
-  description: "near absent submitter brightly steeple scarcely that ah",
+  description: "caption aw chainstay vice soliloquy vivid without",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
@@ -1572,16 +1554,15 @@ const value: models.InputOffice365Mgmt = {
 
 ```typescript
 const value: models.InputOffice365Service = {
-  sendToRoutes: true,
   id: "<id>",
   type: "office365_service",
   disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -1590,22 +1571,22 @@ const value: models.InputOffice365Service = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  planType: "enterprise_gcc",
+  planType: "gcc",
   tenantId: "<id>",
   appId: "<id>",
-  timeout: 4274.38,
-  keepAliveTime: 1113.52,
+  timeout: 1685.12,
+  keepAliveTime: 4274.38,
   jobTimeout: "<value>",
-  maxMissedKeepAlives: 2638.22,
+  maxMissedKeepAlives: 1113.52,
   ttl: "<value>",
   ignoreGroupJobsLimit: true,
   metadata: [
@@ -1617,28 +1598,26 @@ const value: models.InputOffice365Service = {
   contentConfig: [
     {
       contentType: "<value>",
-      description: "whose acclaimed testify ha despite follower sans",
-      interval: 1354.52,
+      description: "with these overconfidently",
+      interval: 9163.06,
       logLevel: "debug",
-      enabled: false,
+      enabled: true,
     },
   ],
   retryRules: {
-    type: "none",
-    interval: 2764.09,
-    limit: 9039.82,
-    multiplier: 1648,
+    type: "backoff",
+    interval: 2107.49,
+    limit: 2764.09,
+    multiplier: 9039.82,
     codes: [
-      1223.37,
-      608.99,
-      2918.61,
+      6941.51,
     ],
     enableHeader: true,
-    retryConnectTimeout: false,
-    retryConnectReset: false,
+    retryConnectTimeout: true,
+    retryConnectReset: true,
   },
   authType: "manual",
-  description: "yuck reckless which goodwill",
+  description: "as incidentally until bell",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
@@ -1648,11 +1627,11 @@ const value: models.InputOffice365Service = {
 
 ```typescript
 const value: models.InputOffice365MsgTrace = {
-  sendToRoutes: true,
   id: "<id>",
   type: "office365_msg_trace",
   disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
@@ -1665,28 +1644,28 @@ const value: models.InputOffice365MsgTrace = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  url: "https://sturdy-necklace.org",
-  interval: 7291.07,
+  url: "https://mean-signature.name/",
+  interval: 8682.26,
   startDate: "<value>",
   endDate: "<value>",
-  timeout: 3132.64,
+  timeout: 7291.07,
   disableTimeFilter: true,
-  authType: "manual",
-  rescheduleDroppedTasks: false,
-  maxTaskReschedule: 3510.6,
-  logLevel: "silly",
+  authType: "secret",
+  rescheduleDroppedTasks: true,
+  maxTaskReschedule: 5401.17,
+  logLevel: "warn",
   jobTimeout: "<value>",
-  keepAliveTime: 5626.75,
-  maxMissedKeepAlives: 6560.69,
+  keepAliveTime: 8128.14,
+  maxMissedKeepAlives: 5626.75,
   ttl: "<value>",
   ignoreGroupJobsLimit: false,
   metadata: [
@@ -1696,21 +1675,20 @@ const value: models.InputOffice365MsgTrace = {
     },
   ],
   retryRules: {
-    type: "none",
-    interval: 2764.09,
-    limit: 9039.82,
-    multiplier: 1648,
+    type: "backoff",
+    interval: 2107.49,
+    limit: 2764.09,
+    multiplier: 9039.82,
     codes: [
-      1223.37,
-      608.99,
-      2918.61,
+      6941.51,
     ],
     enableHeader: true,
-    retryConnectTimeout: false,
-    retryConnectReset: false,
+    retryConnectTimeout: true,
+    retryConnectReset: true,
   },
-  description: "economise putrefy ack ick madly handful moisten amid access",
-  username: "Silas_Goldner48",
+  description:
+    "microblog ill-fated ha finally detective illiterate before precedent in",
+  username: "Ada.Shanahan",
   password: "oOeRF2zrHIlSKLX",
   credentialsSecret: "<value>",
   clientSecret: "<value>",
@@ -1732,15 +1710,16 @@ const value: models.InputOffice365MsgTrace = {
 
 ```typescript
 const value: models.InputEventhub = {
-  sendToRoutes: true,
   id: "<id>",
   type: "eventhub",
   disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -1749,73 +1728,71 @@ const value: models.InputEventhub = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   brokers: [
     "<value 1>",
-    "<value 2>",
   ],
   topics: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   groupId: "<id>",
   fromBeginning: false,
-  connectionTimeout: 9238.25,
-  requestTimeout: 5438.18,
-  maxRetries: 9230.31,
-  maxBackOff: 2101.71,
-  initialBackoff: 9741.86,
-  backoffRate: 3426.22,
-  authenticationTimeout: 8021.76,
-  reauthenticationThreshold: 8121.91,
+  connectionTimeout: 6174.22,
+  requestTimeout: 9238.25,
+  maxRetries: 5438.18,
+  maxBackOff: 9230.31,
+  initialBackoff: 2101.71,
+  backoffRate: 9741.86,
+  authenticationTimeout: 3426.22,
+  reauthenticationThreshold: 8021.76,
   sasl: {
-    disabled: true,
+    disabled: false,
     authType: "manual",
-    password: "tfATUqXAfby_x5u",
+    password: "CtfATUqXAfby_x5",
     textSecret: "<value>",
     mechanism: "oauthbearer",
-    username: "Marge.Hegmann",
-    clientSecretAuthType: "manual",
+    username: "Rosa.Lakin33",
+    clientSecretAuthType: "secret",
     clientSecret: "<value>",
     clientTextSecret: "<value>",
     certificateName: "<value>",
     certPath: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
-    oauthEndpoint: "https://login.partner.microsoftonline.cn",
+    oauthEndpoint: "https://login.microsoftonline.com",
     clientId: "<id>",
     tenantId: "<id>",
     scope: "<value>",
   },
   tls: {
     disabled: false,
-    rejectUnauthorized: true,
+    rejectUnauthorized: false,
   },
-  sessionTimeout: 2633.53,
-  rebalanceTimeout: 3000.96,
-  heartbeatInterval: 6273.62,
-  autoCommitInterval: 8652.9,
-  autoCommitThreshold: 7069.03,
-  maxBytesPerPartition: 8788.12,
-  maxBytes: 5130.3,
-  maxSocketErrors: 4123.59,
-  minimizeDuplicates: false,
+  sessionTimeout: 147.46,
+  rebalanceTimeout: 2633.53,
+  heartbeatInterval: 3000.96,
+  autoCommitInterval: 6273.62,
+  autoCommitThreshold: 8652.9,
+  maxBytesPerPartition: 7069.03,
+  maxBytes: 8788.12,
+  maxSocketErrors: 5130.3,
+  minimizeDuplicates: true,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "since even so silently hungrily bonnet robust",
+  description: "which verify victoriously keel dreamily scrape lieu intermesh",
 };
 ```
 
@@ -1823,17 +1800,15 @@ const value: models.InputEventhub = {
 
 ```typescript
 const value: models.InputExec = {
-  sendToRoutes: true,
   id: "<id>",
   type: "exec",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -1842,24 +1817,23 @@ const value: models.InputExec = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   command: "<value>",
-  retries: 100.16,
-  scheduleType: "cronSchedule",
+  retries: 8813.07,
+  scheduleType: "interval",
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  staleChannelFlushMs: 8470.95,
+  staleChannelFlushMs: 7140.36,
   metadata: [
     {
       name: "<value>",
@@ -1867,8 +1841,8 @@ const value: models.InputExec = {
     },
   ],
   description:
-    "or nougat ugh ugh interchange retrospectivity if selfishly poorly",
-  interval: 1082.22,
+    "weakly moor around forenenst meanwhile reproach however aside energetically",
+  interval: 5882.92,
   cronSchedule: "<value>",
 };
 ```
@@ -1877,17 +1851,16 @@ const value: models.InputExec = {
 
 ```typescript
 const value: models.InputFirehose = {
-  sendToRoutes: false,
   id: "<id>",
   type: "firehose",
   disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -1896,24 +1869,23 @@ const value: models.InputFirehose = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "black-amendment.biz",
-  port: 5374.58,
+  host: "timely-bathrobe.com",
+  port: 2198.14,
   authTokens: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -1923,16 +1895,16 @@ const value: models.InputFirehose = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
-  maxActiveReq: 5726.88,
-  maxRequestsPerSocket: 579333,
+  maxActiveReq: 6680.86,
+  maxRequestsPerSocket: 572688,
   enableProxyHeader: false,
-  captureHeaders: true,
-  activityLogSampleRate: 8819.28,
-  requestTimeout: 9917.89,
-  socketTimeout: 5197.13,
-  keepAliveTimeout: 9188.71,
+  captureHeaders: false,
+  activityLogSampleRate: 1752.7,
+  requestTimeout: 8819.28,
+  socketTimeout: 9917.89,
+  keepAliveTimeout: 5197.13,
   enableHealthCheck: false,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
@@ -1942,7 +1914,8 @@ const value: models.InputFirehose = {
       value: "<value>",
     },
   ],
-  description: "porter brr that given orchid",
+  description:
+    "meh grizzled righteously clonk against sternly oh whoever duh finally",
 };
 ```
 
@@ -1950,66 +1923,11 @@ const value: models.InputFirehose = {
 
 ```typescript
 const value: models.InputGooglePubsub = {
-  sendToRoutes: false,
   id: "<id>",
   type: "google_pubsub",
   disabled: false,
   pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  topicName: "<value>",
-  subscriptionName: "<value>",
-  monitorSubscription: false,
-  createTopic: false,
-  createSubscription: false,
-  region: "<value>",
-  googleAuthMethod: "auto",
-  serviceAccountCredentials: "<value>",
-  secret: "<value>",
-  maxBacklog: 5475.03,
-  concurrency: 3229.57,
-  requestTimeout: 563.42,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "gosh outnumber attend brr times",
-  orderedDelivery: true,
-};
-```
-
-### `models.InputCribl`
-
-```typescript
-const value: models.InputCribl = {
-  sendToRoutes: false,
-  id: "<id>",
-  type: "cribl",
-  disabled: false,
-  pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
@@ -2024,12 +1942,67 @@ const value: models.InputCribl = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  topicName: "<value>",
+  subscriptionName: "<value>",
+  monitorSubscription: false,
+  createTopic: false,
+  createSubscription: false,
+  region: "<value>",
+  googleAuthMethod: "secret",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  maxBacklog: 2839.01,
+  concurrency: 5475.03,
+  requestTimeout: 3229.57,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "hence once vice",
+  orderedDelivery: true,
+};
+```
+
+### `models.InputCribl`
+
+```typescript
+const value: models.InputCribl = {
+  id: "<id>",
+  type: "cribl",
+  disabled: true,
+  pipeline: "<value>",
+  sendToRoutes: false,
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
@@ -2040,7 +2013,8 @@ const value: models.InputCribl = {
       value: "<value>",
     },
   ],
-  description: "respray which considering adult tabulate approach",
+  description:
+    "excluding whereas eek naturally upon ick ha splosh the negative",
 };
 ```
 
@@ -2048,11 +2022,11 @@ const value: models.InputCribl = {
 
 ```typescript
 const value: models.InputCriblTcp = {
-  sendToRoutes: true,
   id: "<id>",
   type: "cribl_tcp",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
@@ -2065,19 +2039,19 @@ const value: models.InputCriblTcp = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "bleak-advertisement.net",
-  port: 4421.42,
+  host: "aching-bell.com",
+  port: 7144.69,
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -2087,29 +2061,28 @@ const value: models.InputCriblTcp = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
-  maxActiveCxn: 481.62,
-  socketIdleTimeout: 5081.68,
-  socketEndingMaxWait: 669.3,
-  socketMaxLifespan: 4260.65,
-  enableProxyHeader: false,
+  maxActiveCxn: 4421.42,
+  socketIdleTimeout: 481.62,
+  socketEndingMaxWait: 5081.68,
+  socketMaxLifespan: 669.3,
+  enableProxyHeader: true,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  enableLoadBalancing: true,
+  enableLoadBalancing: false,
   authTokens: [
     {
       tokenSecret: "<value>",
       enabled: true,
-      description: "without slipper appropriate",
+      description: "technician flimsy and ha",
     },
   ],
-  description:
-    "ribbon upon joyfully yuck disconnection failing lightly mousse sudden between",
+  description: "embarrassment happily overspend by antique",
 };
 ```
 
@@ -2117,11 +2090,84 @@ const value: models.InputCriblTcp = {
 
 ```typescript
 const value: models.InputCriblHttp = {
-  sendToRoutes: true,
   id: "<id>",
   type: "cribl_http",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  pqEnabled: true,
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  host: "stingy-postbox.com",
+  port: 8372.55,
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      enabled: true,
+      description: "technician flimsy and ha",
+    },
+  ],
+  tls: {
+    disabled: false,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  maxActiveReq: 2912.8,
+  maxRequestsPerSocket: 948559,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 5732.3,
+  requestTimeout: 7297.45,
+  socketTimeout: 9093.35,
+  keepAliveTimeout: 5310.92,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "midst meh off aha",
+};
+```
+
+### `models.InputCriblLakeHttp`
+
+```typescript
+const value: models.InputCriblLakeHttp = {
+  id: "<id>",
+  type: "cribl_lake_http",
   disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
@@ -2136,26 +2182,22 @@ const value: models.InputCriblHttp = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "ruddy-alert.org",
-  port: 2912.8,
+  host: "evil-possession.biz",
+  port: 6193.35,
   authTokens: [
-    {
-      tokenSecret: "<value>",
-      enabled: true,
-      description: "without slipper appropriate",
-    },
+    "<value 1>",
   ],
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -2165,92 +2207,23 @@ const value: models.InputCriblHttp = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
-  maxActiveReq: 9485.59,
-  maxRequestsPerSocket: 642964,
-  enableProxyHeader: false,
+  maxActiveReq: 1430.96,
+  maxRequestsPerSocket: 79286,
+  enableProxyHeader: true,
   captureHeaders: false,
-  activityLogSampleRate: 7297.45,
-  requestTimeout: 9093.35,
-  socketTimeout: 5310.92,
-  keepAliveTimeout: 9495.33,
-  enableHealthCheck: true,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "although once before",
-};
-```
-
-### `models.InputCriblLakeHttp`
-
-```typescript
-const value: models.InputCriblLakeHttp = {
-  sendToRoutes: true,
-  id: "<id>",
-  type: "cribl_lake_http",
-  disabled: true,
-  pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "rubbery-curl.name",
-  port: 1880.73,
-  authTokens: [
-    "<value 1>",
-  ],
-  tls: {
-    disabled: true,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  maxActiveReq: 792.86,
-  maxRequestsPerSocket: 64219,
-  enableProxyHeader: false,
-  captureHeaders: true,
-  activityLogSampleRate: 4284.7,
-  requestTimeout: 5461.22,
-  socketTimeout: 2557.07,
-  keepAliveTimeout: 9268.56,
-  enableHealthCheck: true,
+  activityLogSampleRate: 1022.19,
+  requestTimeout: 4284.7,
+  socketTimeout: 5461.22,
+  keepAliveTimeout: 2557.07,
+  enableHealthCheck: false,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
   criblAPI: "<value>",
   elasticAPI: "<value>",
   splunkHecAPI: "<value>",
-  splunkHecAcks: false,
+  splunkHecAcks: true,
   metadata: [
     {
       name: "<value>",
@@ -2260,7 +2233,7 @@ const value: models.InputCriblLakeHttp = {
   authTokensExt: [
     {
       token: "<value>",
-      description: "so provided intensely",
+      description: "angrily yearningly ferociously vet trusting yum catch",
       metadata: [
         {
           name: "<value>",
@@ -2272,17 +2245,15 @@ const value: models.InputCriblLakeHttp = {
         defaultDataset: "<value>",
         allowedIndexesAtToken: [
           "<value 1>",
-          "<value 2>",
-          "<value 3>",
         ],
       },
       elasticsearchMetadata: {
-        enabled: false,
+        enabled: true,
         defaultDataset: "<value>",
       },
     },
   ],
-  description: "gee incidentally ample desk speedily",
+  description: "cute adult obediently consequently westernise",
 };
 ```
 
@@ -2290,16 +2261,17 @@ const value: models.InputCriblLakeHttp = {
 
 ```typescript
 const value: models.InputTcpjson = {
-  sendToRoutes: false,
   id: "<id>",
   type: "tcpjson",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -2308,19 +2280,19 @@ const value: models.InputTcpjson = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "quarrelsome-character.info",
-  port: 7055.47,
+  host: "intrepid-pendant.com",
+  port: 4813.44,
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -2330,14 +2302,14 @@ const value: models.InputTcpjson = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   ipWhitelistRegex: "<value>",
-  maxActiveCxn: 5503.1,
-  socketIdleTimeout: 712.24,
-  socketEndingMaxWait: 4264.81,
-  socketMaxLifespan: 8716.8,
-  enableProxyHeader: true,
+  maxActiveCxn: 7055.47,
+  socketIdleTimeout: 5503.1,
+  socketEndingMaxWait: 712.24,
+  socketMaxLifespan: 4264.81,
+  enableProxyHeader: false,
   metadata: [
     {
       name: "<value>",
@@ -2345,8 +2317,9 @@ const value: models.InputTcpjson = {
     },
   ],
   enableLoadBalancing: true,
-  authType: "secret",
-  description: "flickering oh although debut needily reluctantly what",
+  authType: "manual",
+  description:
+    "snappy knitting absent denitrify furthermore dwell quietly elevation",
   authToken: "<value>",
   textSecret: "<value>",
 };
@@ -2356,16 +2329,15 @@ const value: models.InputTcpjson = {
 
 ```typescript
 const value: models.InputSystemMetrics = {
-  sendToRoutes: true,
   id: "<id>",
   type: "system_metrics",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -2374,57 +2346,57 @@ const value: models.InputSystemMetrics = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  interval: 5881.76,
+  interval: 5902.57,
   host: {
-    mode: "disabled",
+    mode: "custom",
     custom: {
       system: {
-        mode: "custom",
-        processes: true,
+        mode: "disabled",
+        processes: false,
       },
       cpu: {
-        mode: "basic",
-        perCpu: false,
-        detail: true,
-        time: false,
+        mode: "all",
+        perCpu: true,
+        detail: false,
+        time: true,
       },
       memory: {
-        mode: "custom",
-        detail: true,
+        mode: "disabled",
+        detail: false,
       },
       network: {
-        mode: "all",
+        mode: "basic",
         detail: true,
-        protocols: false,
+        protocols: true,
+        devices: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        perInterface: false,
+      },
+      disk: {
+        mode: "basic",
+        detail: true,
+        inodes: false,
         devices: [
           "<value 1>",
           "<value 2>",
           "<value 3>",
-        ],
-        perInterface: true,
-      },
-      disk: {
-        mode: "basic",
-        detail: false,
-        inodes: false,
-        devices: [
-          "<value 1>",
         ],
         mountpoints: [
           "<value 1>",
         ],
         fstypes: [
           "<value 1>",
-          "<value 2>",
         ],
         perDevice: true,
       },
@@ -2435,26 +2407,24 @@ const value: models.InputSystemMetrics = {
       {
         name: "<value>",
         filter: "<value>",
-        includeChildren: false,
+        includeChildren: true,
       },
     ],
   },
   container: {
-    mode: "basic",
+    mode: "custom",
     dockerSocket: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
-    dockerTimeout: 9942.78,
+    dockerTimeout: 9123.42,
     filters: [
       {
         expr: "<value>",
       },
     ],
     allContainers: false,
-    perDevice: true,
-    detail: false,
+    perDevice: false,
+    detail: true,
   },
   metadata: [
     {
@@ -2463,14 +2433,14 @@ const value: models.InputSystemMetrics = {
     },
   ],
   persistence: {
-    enable: true,
+    enable: false,
     timeWindow: "<value>",
     maxDataSize: "<value>",
     maxDataTime: "<value>",
-    compress: "gzip",
+    compress: "none",
     destPath: "<value>",
   },
-  description: "circa ugh athletic import so slap pfft hexagon righteously",
+  description: "pfft to thorny um daily gently cultivated",
 };
 ```
 
@@ -2478,11 +2448,11 @@ const value: models.InputSystemMetrics = {
 
 ```typescript
 const value: models.InputSystemState = {
-  sendToRoutes: true,
   id: "<id>",
   type: "system_state",
   disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
@@ -2495,16 +2465,16 @@ const value: models.InputSystemState = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  interval: 4822.09,
+  interval: 1355.72,
   metadata: [
     {
       name: "<value>",
@@ -2516,38 +2486,38 @@ const value: models.InputSystemState = {
       enable: true,
     },
     interfaces: {
-      enable: false,
+      enable: true,
     },
     disk: {
-      enable: true,
+      enable: false,
     },
     metadata: {
-      enable: false,
+      enable: true,
     },
     routes: {
-      enable: true,
+      enable: false,
     },
     dns: {
-      enable: false,
-    },
-    user: {
       enable: true,
     },
-    firewall: {
+    user: {
       enable: false,
+    },
+    firewall: {
+      enable: true,
     },
     services: {
       enable: false,
     },
     ports: {
-      enable: true,
+      enable: false,
     },
     loginUsers: {
-      enable: false,
+      enable: true,
     },
   },
   persistence: {
-    enable: true,
+    enable: false,
     timeWindow: "<value>",
     maxDataSize: "<value>",
     maxDataTime: "<value>",
@@ -2555,7 +2525,7 @@ const value: models.InputSystemState = {
     destPath: "<value>",
   },
   disableNativeModule: true,
-  description: "hollow yuck diligently",
+  description: "rebuild questioningly how cycle priesthood",
 };
 ```
 
@@ -2563,13 +2533,13 @@ const value: models.InputSystemState = {
 
 ```typescript
 const value: models.InputKubeMetrics = {
-  sendToRoutes: false,
   id: "<id>",
   type: "kube_metrics",
   disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -2581,20 +2551,20 @@ const value: models.InputKubeMetrics = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  interval: 5289.1,
+  interval: 5840.12,
   rules: [
     {
       filter: "<value>",
-      description: "gerbil who despite each ha deliquesce",
+      description: "perspire positively eek these bruised glaring than",
     },
   ],
   metadata: [
@@ -2604,15 +2574,14 @@ const value: models.InputKubeMetrics = {
     },
   ],
   persistence: {
-    enable: true,
+    enable: false,
     timeWindow: "<value>",
     maxDataSize: "<value>",
     maxDataTime: "<value>",
-    compress: "gzip",
+    compress: "none",
     destPath: "<value>",
   },
-  description:
-    "till hydrocarbon boo eek next uh-huh signature nor mozzarella subdued",
+  description: "ha incidentally after when than yuck reschedule dual",
 };
 ```
 
@@ -2620,15 +2589,17 @@ const value: models.InputKubeMetrics = {
 
 ```typescript
 const value: models.InputKubeLogs = {
-  sendToRoutes: false,
   id: "<id>",
   type: "kube_logs",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -2637,23 +2608,23 @@ const value: models.InputKubeLogs = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  interval: 6007.23,
+  interval: 971.18,
   rules: [
     {
       filter: "<value>",
-      description: "blah that regarding brochure sideboard pleased prudent",
+      description: "graduate now fiddle ouch carefully wherever where",
     },
   ],
-  timestamps: true,
+  timestamps: false,
   metadata: [
     {
       name: "<value>",
@@ -2670,11 +2641,10 @@ const value: models.InputKubeLogs = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  staleChannelFlushMs: 1393.33,
-  enableLoadBalancing: false,
-  description: "rightfully nifty how unaccountably",
+  staleChannelFlushMs: 9531.45,
+  enableLoadBalancing: true,
+  description: "but over wafer following ugh strait dimly yuck crumble hastily",
 };
 ```
 
@@ -2682,13 +2652,13 @@ const value: models.InputKubeLogs = {
 
 ```typescript
 const value: models.InputKubeEvents = {
-  sendToRoutes: true,
   id: "<id>",
   type: "kube_events",
   disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -2701,19 +2671,19 @@ const value: models.InputKubeEvents = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   rules: [
     {
       filter: "<value>",
-      description: "gerbil who despite each ha deliquesce",
+      description: "perspire positively eek these bruised glaring than",
     },
   ],
   metadata: [
@@ -2722,8 +2692,7 @@ const value: models.InputKubeEvents = {
       value: "<value>",
     },
   ],
-  description:
-    "hollow recount bah furthermore likewise pro behold fat compassionate",
+  description: "fussy idle nasalise disbar veto astonishing considerate abseil",
 };
 ```
 
@@ -2731,13 +2700,13 @@ const value: models.InputKubeEvents = {
 
 ```typescript
 const value: models.InputWindowsMetrics = {
-  sendToRoutes: false,
   id: "<id>",
   type: "windows_metrics",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -2749,45 +2718,47 @@ const value: models.InputWindowsMetrics = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  interval: 5565.51,
+  interval: 4147.56,
   host: {
-    mode: "basic",
+    mode: "custom",
     custom: {
       system: {
-        mode: "all",
-        detail: false,
+        mode: "basic",
+        detail: true,
       },
       cpu: {
-        mode: "disabled",
+        mode: "custom",
         perCpu: false,
-        detail: true,
+        detail: false,
         time: true,
       },
       memory: {
-        mode: "custom",
-        detail: true,
+        mode: "all",
+        detail: false,
       },
       network: {
-        mode: "basic",
+        mode: "all",
         detail: true,
-        protocols: false,
+        protocols: true,
         devices: [
           "<value 1>",
+          "<value 2>",
+          "<value 3>",
         ],
-        perInterface: false,
+        perInterface: true,
       },
       disk: {
-        mode: "basic",
-        perVolume: false,
+        mode: "custom",
+        perVolume: true,
         detail: false,
         volumes: [
           "<value 1>",
@@ -2802,7 +2773,7 @@ const value: models.InputWindowsMetrics = {
       {
         name: "<value>",
         filter: "<value>",
-        includeChildren: false,
+        includeChildren: true,
       },
     ],
   },
@@ -2813,16 +2784,16 @@ const value: models.InputWindowsMetrics = {
     },
   ],
   persistence: {
-    enable: true,
+    enable: false,
     timeWindow: "<value>",
     maxDataSize: "<value>",
     maxDataTime: "<value>",
     compress: "none",
     destPath: "<value>",
   },
-  disableNativeModule: false,
+  disableNativeModule: true,
   description:
-    "mountain between once incandescence pfft meanwhile wheel against",
+    "above commemorate quarrelsomely outrun independence kettledrum very along",
 };
 ```
 
@@ -2830,17 +2801,15 @@ const value: models.InputWindowsMetrics = {
 
 ```typescript
 const value: models.InputCrowdstrike = {
-  sendToRoutes: true,
   id: "<id>",
   type: "crowdstrike",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -2849,12 +2818,12 @@ const value: models.InputCrowdstrike = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
@@ -2871,19 +2840,18 @@ const value: models.InputCrowdstrike = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  staleChannelFlushMs: 2238.24,
-  maxMessages: 2190.92,
-  visibilityTimeout: 3052,
-  numReceivers: 1035.25,
-  socketTimeout: 7130.13,
-  skipOnError: true,
+  staleChannelFlushMs: 9153.53,
+  maxMessages: 2238.24,
+  visibilityTimeout: 2190.92,
+  numReceivers: 3052,
+  socketTimeout: 1035.25,
+  skipOnError: false,
   includeSqsMetadata: true,
   enableAssumeRole: true,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  durationSeconds: 3840.8,
+  durationSeconds: 818.63,
   enableSQSAssumeRole: true,
   preprocess: {
     disabled: false,
@@ -2900,14 +2868,14 @@ const value: models.InputCrowdstrike = {
   ],
   checkpointing: {
     enabled: true,
-    retries: 4599.59,
+    retries: 263.57,
   },
-  pollTimeout: 2373.94,
+  pollTimeout: 4599.59,
   encoding: "<value>",
-  description: "notwithstanding as why jubilant although",
+  description: "obscure anxiously strictly wherever",
   awsApiKey: "<value>",
   awsSecret: "<value>",
-  tagAfterProcessing: "true",
+  tagAfterProcessing: "false",
   processedTagKey: "<value>",
   processedTagValue: "<value>",
 };
@@ -2917,17 +2885,16 @@ const value: models.InputCrowdstrike = {
 
 ```typescript
 const value: models.InputDatadogAgent = {
-  sendToRoutes: true,
   id: "<id>",
   type: "datadog_agent",
   disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -2936,19 +2903,19 @@ const value: models.InputDatadogAgent = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "jagged-flat.name",
-  port: 9434.99,
+  host: "stable-hovercraft.info",
+  port: 5714.97,
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -2958,20 +2925,20 @@ const value: models.InputDatadogAgent = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
-  maxActiveReq: 3784.52,
-  maxRequestsPerSocket: 746296,
-  enableProxyHeader: true,
+  maxActiveReq: 9434.99,
+  maxRequestsPerSocket: 378452,
+  enableProxyHeader: false,
   captureHeaders: true,
-  activityLogSampleRate: 8039.38,
-  requestTimeout: 7657.4,
-  socketTimeout: 771,
-  keepAliveTimeout: 3582.28,
+  activityLogSampleRate: 550,
+  requestTimeout: 8039.38,
+  socketTimeout: 7657.4,
+  keepAliveTimeout: 771,
   enableHealthCheck: true,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
-  extractMetrics: false,
+  extractMetrics: true,
   metadata: [
     {
       name: "<value>",
@@ -2983,7 +2950,7 @@ const value: models.InputDatadogAgent = {
     rejectUnauthorized: false,
   },
   description:
-    "clonk yearly motionless override that bitterly sans thunderbolt lashes",
+    "upright outflank mmm per successfully yum ape councilman between grandpa",
 };
 ```
 
@@ -2991,17 +2958,15 @@ const value: models.InputDatadogAgent = {
 
 ```typescript
 const value: models.InputDatagen = {
-  sendToRoutes: false,
   id: "<id>",
   type: "datagen",
   disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -3010,19 +2975,19 @@ const value: models.InputDatagen = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   samples: [
     {
       sample: "<value>",
-      eventsPerSec: 777.05,
+      eventsPerSec: 9494.62,
     },
   ],
   metadata: [
@@ -3031,7 +2996,7 @@ const value: models.InputDatagen = {
       value: "<value>",
     },
   ],
-  description: "yippee hmph basic narrate amid after across openly though",
+  description: "dearest considering gosh",
 };
 ```
 
@@ -3039,16 +3004,15 @@ const value: models.InputDatagen = {
 
 ```typescript
 const value: models.InputHttpRaw = {
-  sendToRoutes: true,
   id: "<id>",
   type: "http_raw",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -3057,24 +3021,24 @@ const value: models.InputHttpRaw = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "smart-role.info",
-  port: 9593.11,
+  host: "intelligent-reward.net",
+  port: 4895.66,
   authTokens: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -3084,23 +3048,25 @@ const value: models.InputHttpRaw = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
-  maxActiveReq: 9672.98,
-  maxRequestsPerSocket: 577018,
-  enableProxyHeader: true,
+  maxActiveReq: 6896.22,
+  maxRequestsPerSocket: 967298,
+  enableProxyHeader: false,
   captureHeaders: true,
-  activityLogSampleRate: 2454.06,
-  requestTimeout: 6101.23,
-  socketTimeout: 3165.33,
-  keepAliveTimeout: 3176.94,
-  enableHealthCheck: false,
+  activityLogSampleRate: 1148.51,
+  requestTimeout: 2454.06,
+  socketTimeout: 6101.23,
+  keepAliveTimeout: 3165.33,
+  enableHealthCheck: true,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
-  staleChannelFlushMs: 9324.25,
+  staleChannelFlushMs: 2369.85,
   metadata: [
     {
       name: "<value>",
@@ -3114,11 +3080,13 @@ const value: models.InputHttpRaw = {
   ],
   allowedMethods: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   authTokensExt: [
     {
       token: "<value>",
-      description: "positively divine about woot",
+      description: "instead worth trek drain eek below",
       metadata: [
         {
           name: "<value>",
@@ -3127,8 +3095,7 @@ const value: models.InputHttpRaw = {
       ],
     },
   ],
-  description:
-    "whether provided distant that manner without equate finally know",
+  description: "very incomparable stale sidetrack",
 };
 ```
 
@@ -3136,15 +3103,17 @@ const value: models.InputHttpRaw = {
 
 ```typescript
 const value: models.InputKinesis = {
-  sendToRoutes: true,
   id: "<id>",
   type: "kinesis",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -3153,35 +3122,35 @@ const value: models.InputKinesis = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   streamName: "<value>",
-  serviceInterval: 7638.01,
+  serviceInterval: 2595.16,
   shardExpr: "<value>",
   shardIteratorType: "LATEST",
-  payloadFormat: "cribl",
-  getRecordsLimit: 4071.84,
-  getRecordsLimitTotal: 5657.45,
+  payloadFormat: "line",
+  getRecordsLimit: 29.69,
+  getRecordsLimitTotal: 4071.84,
   loadBalancingAlgorithm: "RoundRobin",
   awsAuthenticationMethod: "<value>",
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
-  signatureVersion: "v2",
-  reuseConnections: false,
+  signatureVersion: "v4",
+  reuseConnections: true,
   rejectUnauthorized: false,
-  enableAssumeRole: true,
+  enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  durationSeconds: 5699.58,
-  verifyKPLCheckSums: true,
+  durationSeconds: 4231.27,
+  verifyKPLCheckSums: false,
   avoidDuplicates: true,
   metadata: [
     {
@@ -3189,7 +3158,7 @@ const value: models.InputKinesis = {
       value: "<value>",
     },
   ],
-  description: "lounge against nicely dirty under urgently yum now insolence",
+  description: "as until hm",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };
@@ -3199,16 +3168,15 @@ const value: models.InputKinesis = {
 
 ```typescript
 const value: models.InputCriblmetrics = {
-  sendToRoutes: true,
   id: "<id>",
   type: "criblmetrics",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -3217,24 +3185,24 @@ const value: models.InputCriblmetrics = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   prefix: "<value>",
-  fullFidelity: true,
+  fullFidelity: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "present annual alongside",
+  description: "miskey before behind er",
 };
 ```
 
@@ -3242,16 +3210,15 @@ const value: models.InputCriblmetrics = {
 
 ```typescript
 const value: models.InputMetrics = {
-  sendToRoutes: true,
   id: "<id>",
   type: "metrics",
   disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -3260,23 +3227,23 @@ const value: models.InputMetrics = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "questionable-commodity.biz",
-  udpPort: 4101.12,
-  tcpPort: 9929.73,
-  maxBufferSize: 9686.57,
+  host: "needy-pepper.biz",
+  udpPort: 2964.3,
+  tcpPort: 4101.12,
+  maxBufferSize: 9929.73,
   ipWhitelistRegex: "<value>",
   enableProxyHeader: false,
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -3286,7 +3253,7 @@ const value: models.InputMetrics = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -3294,8 +3261,8 @@ const value: models.InputMetrics = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 3131.4,
-  description: "woot similar wretched",
+  udpSocketRxBufSize: 9051.37,
+  description: "aha off whose blah however",
 };
 ```
 
@@ -3303,15 +3270,17 @@ const value: models.InputMetrics = {
 
 ```typescript
 const value: models.InputS3 = {
-  sendToRoutes: false,
   id: "<id>",
   type: "s3",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -3320,12 +3289,12 @@ const value: models.InputS3 = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
@@ -3341,19 +3310,18 @@ const value: models.InputS3 = {
   rejectUnauthorized: true,
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
-  staleChannelFlushMs: 2874.19,
-  maxMessages: 3288.89,
-  visibilityTimeout: 4404.3,
-  numReceivers: 1993.11,
-  socketTimeout: 9001.62,
+  staleChannelFlushMs: 3671.24,
+  maxMessages: 2874.19,
+  visibilityTimeout: 3288.89,
+  numReceivers: 4404.3,
+  socketTimeout: 1993.11,
   skipOnError: false,
   includeSqsMetadata: false,
-  enableAssumeRole: true,
+  enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  durationSeconds: 3227.03,
+  durationSeconds: 3111.12,
   enableSQSAssumeRole: true,
   preprocess: {
     disabled: false,
@@ -3368,16 +3336,17 @@ const value: models.InputS3 = {
       value: "<value>",
     },
   ],
-  parquetChunkSizeMB: 359,
-  parquetChunkDownloadTimeout: 9177.75,
+  parquetChunkSizeMB: 4656.25,
+  parquetChunkDownloadTimeout: 359,
   checkpointing: {
     enabled: true,
-    retries: 4599.59,
+    retries: 263.57,
   },
-  pollTimeout: 3519.43,
+  pollTimeout: 9177.75,
   encoding: "<value>",
-  tagAfterProcessing: false,
-  description: "ouch fooey down reorganisation unique",
+  tagAfterProcessing: true,
+  description:
+    "instructive middle foolish whitewash simple airbus tomorrow minus",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   processedTagKey: "<value>",
@@ -3389,13 +3358,13 @@ const value: models.InputS3 = {
 
 ```typescript
 const value: models.InputS3Inventory = {
-  sendToRoutes: false,
   id: "<id>",
   type: "s3_inventory",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -3408,12 +3377,12 @@ const value: models.InputS3Inventory = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
@@ -3426,22 +3395,22 @@ const value: models.InputS3Inventory = {
   endpoint: "<value>",
   signatureVersion: "v4",
   reuseConnections: false,
-  rejectUnauthorized: true,
+  rejectUnauthorized: false,
   breakerRulesets: [
     "<value 1>",
   ],
-  staleChannelFlushMs: 6997.08,
-  maxMessages: 6483.81,
-  visibilityTimeout: 628.77,
-  numReceivers: 7662.59,
-  socketTimeout: 4368.84,
-  skipOnError: false,
+  staleChannelFlushMs: 2687.78,
+  maxMessages: 6997.08,
+  visibilityTimeout: 6483.81,
+  numReceivers: 628.77,
+  socketTimeout: 7662.59,
+  skipOnError: true,
   includeSqsMetadata: false,
   enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  durationSeconds: 4386.42,
-  enableSQSAssumeRole: false,
+  durationSeconds: 7697.09,
+  enableSQSAssumeRole: true,
   preprocess: {
     disabled: false,
     command: "<value>",
@@ -3455,17 +3424,17 @@ const value: models.InputS3Inventory = {
       value: "<value>",
     },
   ],
-  parquetChunkSizeMB: 8211.71,
-  parquetChunkDownloadTimeout: 6004.27,
+  parquetChunkSizeMB: 7362.78,
+  parquetChunkDownloadTimeout: 8211.71,
   checkpointing: {
     enabled: true,
-    retries: 4599.59,
+    retries: 263.57,
   },
-  pollTimeout: 1591.83,
+  pollTimeout: 6004.27,
   checksumSuffix: "<value>",
-  maxManifestSizeKB: 367051,
+  maxManifestSizeKB: 159183,
   validateInventoryFiles: true,
-  description: "likely bah ew gadzooks anenst",
+  description: "busily as unless angle so little",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   tagAfterProcessing: "true",
@@ -3478,228 +3447,11 @@ const value: models.InputS3Inventory = {
 
 ```typescript
 const value: models.InputSnmp = {
-  sendToRoutes: true,
   id: "<id>",
   type: "snmp",
   disabled: false,
   pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "courteous-flint.com",
-  port: 1513.74,
-  snmpV3Auth: {
-    v3AuthEnabled: true,
-    allowUnmatchedTrap: true,
-    v3Users: [
-      {
-        name: "<value>",
-        authProtocol: "md5",
-        authKey: "<value>",
-        privProtocol: "aes",
-        privKey: "<value>",
-      },
-    ],
-  },
-  maxBufferSize: 5271.05,
-  ipWhitelistRegex: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 7786.2,
-  varbindsWithTypes: false,
-  bestEffortParsing: true,
-  description:
-    "acclaimed inwardly huzzah whether fisherman supposing presell after",
-};
-```
-
-### `models.InputOpenTelemetry`
-
-```typescript
-const value: models.InputOpenTelemetry = {
   sendToRoutes: true,
-  id: "<id>",
-  type: "open_telemetry",
-  disabled: true,
-  pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "profitable-ribbon.org",
-  port: 2111.5,
-  tls: {
-    disabled: true,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  maxActiveReq: 9161.07,
-  maxRequestsPerSocket: 736909,
-  enableProxyHeader: "<value>",
-  captureHeaders: "<value>",
-  activityLogSampleRate: "<value>",
-  requestTimeout: 2624.19,
-  socketTimeout: 3368.85,
-  keepAliveTimeout: 7402.94,
-  enableHealthCheck: true,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  protocol: "http",
-  extractSpans: false,
-  extractMetrics: true,
-  otlpVersion: "1.3.1",
-  authType: "textSecret",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  maxActiveCxn: 6438.67,
-  description: "strictly and emboss oof failing aggravating out old until",
-  username: "Simone64",
-  password: "8yuR5vesgUBzbeo",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://cavernous-lace.name",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 2981.59,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  extractLogs: true,
-};
-```
-
-### `models.InputModelDrivenTelemetry`
-
-```typescript
-const value: models.InputModelDrivenTelemetry = {
-  sendToRoutes: false,
-  id: "<id>",
-  type: "model_driven_telemetry",
-  disabled: false,
-  pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "defenseless-overcoat.name",
-  port: 1920.13,
-  tls: {
-    disabled: true,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  maxActiveCxn: 6456.5,
-  shutdownTimeoutMs: 9208.55,
-  description: "which flawed pip step-mother than",
-};
-```
-
-### `models.InputSqs`
-
-```typescript
-const value: models.InputSqs = {
-  sendToRoutes: true,
-  id: "<id>",
-  type: "sqs",
-  disabled: false,
-  pipeline: "<value>",
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
@@ -3713,17 +3465,234 @@ const value: models.InputSqs = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  host: "simple-cheese.info",
+  port: 1363.98,
+  snmpV3Auth: {
+    v3AuthEnabled: true,
+    allowUnmatchedTrap: true,
+    v3Users: [
+      {
+        name: "<value>",
+        authProtocol: "md5",
+        authKey: "<value>",
+        privProtocol: "des",
+        privKey: "<value>",
+      },
+    ],
+  },
+  maxBufferSize: 5243.71,
+  ipWhitelistRegex: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 5271.05,
+  varbindsWithTypes: false,
+  bestEffortParsing: false,
+  description: "possible merrily along below geez horse",
+};
+```
+
+### `models.InputOpenTelemetry`
+
+```typescript
+const value: models.InputOpenTelemetry = {
+  id: "<id>",
+  type: "open_telemetry",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  pqEnabled: true,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  host: "graceful-palate.net",
+  port: 9236.57,
+  tls: {
+    disabled: false,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  maxActiveReq: 2111.5,
+  maxRequestsPerSocket: 916107,
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  requestTimeout: 7369.09,
+  socketTimeout: 2624.19,
+  keepAliveTimeout: 3368.85,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  protocol: "grpc",
+  extractSpans: false,
+  extractMetrics: false,
+  otlpVersion: "0.10.0",
+  authType: "textSecret",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  maxActiveCxn: 8028.77,
+  description: "hornet mould because where lest settle after who",
+  username: "Kiana7",
+  password: "vuTAFe8yuR5vesg",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://both-forager.org",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  authHeaderExpr: "<value>",
+  tokenTimeoutSecs: 9881.65,
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  extractLogs: false,
+};
+```
+
+### `models.InputModelDrivenTelemetry`
+
+```typescript
+const value: models.InputModelDrivenTelemetry = {
+  id: "<id>",
+  type: "model_driven_telemetry",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  host: "husky-completion.name",
+  port: 5895.55,
+  tls: {
+    disabled: false,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  maxActiveCxn: 1920.13,
+  shutdownTimeoutMs: 6456.5,
+  description: "suddenly while pace now bleak huzzah psst forenenst yet oof",
+};
+```
+
+### `models.InputSqs`
+
+```typescript
+const value: models.InputSqs = {
+  id: "<id>",
+  type: "sqs",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: false,
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   queueName: "<value>",
-  queueType: "fifo",
+  queueType: "standard",
   awsAccountId: "<id>",
   createQueue: false,
   awsAuthenticationMethod: "<value>",
@@ -3731,25 +3700,25 @@ const value: models.InputSqs = {
   region: "<value>",
   endpoint: "<value>",
   signatureVersion: "v4",
-  reuseConnections: true,
-  rejectUnauthorized: false,
-  enableAssumeRole: true,
+  reuseConnections: false,
+  rejectUnauthorized: true,
+  enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  durationSeconds: 6146.94,
-  maxMessages: 813.86,
-  visibilityTimeout: 9189.56,
+  durationSeconds: 4464.29,
+  maxMessages: 6146.94,
+  visibilityTimeout: 813.86,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  pollTimeout: 9060.33,
-  description: "urgently quarrelsomely out woeful whereas sauerkraut vain",
+  pollTimeout: 9189.56,
+  description: "content even down out ew yowza mmm meh keenly anenst",
   awsApiKey: "<value>",
   awsSecret: "<value>",
-  numReceivers: 7121.1,
+  numReceivers: 9368.6,
 };
 ```
 
@@ -3775,12 +3744,12 @@ const value: models.InputSyslog = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
@@ -3805,7 +3774,7 @@ const value: models.InputSyslog = {
   socketEndingMaxWait: 21.25,
   socketMaxLifespan: 8306.75,
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -3815,7 +3784,7 @@ const value: models.InputSyslog = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -3834,15 +3803,17 @@ const value: models.InputSyslog = {
 
 ```typescript
 const value: models.InputFile = {
-  sendToRoutes: true,
   id: "<id>",
   type: "file",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -3851,28 +3822,29 @@ const value: models.InputFile = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   mode: "manual",
-  interval: 5256.77,
+  interval: 353.99,
   filenames: [
     "<value 1>",
+    "<value 2>",
   ],
-  filterArchivedFiles: false,
-  tailOnly: true,
-  idleTimeout: 1744.72,
+  filterArchivedFiles: true,
+  tailOnly: false,
+  idleTimeout: 795.27,
   minAgeDur: "<value>",
   maxAgeDur: "<value>",
   checkFileModTime: true,
   forceText: true,
-  hashLen: 2066.22,
+  hashLen: 3508.88,
   metadata: [
     {
       name: "<value>",
@@ -3882,13 +3854,14 @@ const value: models.InputFile = {
   breakerRulesets: [
     "<value 1>",
   ],
-  staleChannelFlushMs: 8465.57,
-  description: "wildly gah exalted sport scarily wherever",
-  path: "/etc/mail",
-  depth: 3253.57,
+  staleChannelFlushMs: 1033.1,
+  description:
+    "helpless bah raw out fully miscalculate wisecrack frightfully meatloaf",
+  path: "/usr/ports",
+  depth: 8613.44,
   suppressMissingPathErrors: false,
   deleteFiles: false,
-  includeUnidentifiableBinary: false,
+  includeUnidentifiableBinary: true,
 };
 ```
 
@@ -3896,11 +3869,11 @@ const value: models.InputFile = {
 
 ```typescript
 const value: models.InputTcp = {
-  sendToRoutes: true,
   id: "<id>",
   type: "tcp",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
@@ -3913,19 +3886,19 @@ const value: models.InputTcp = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "new-formation.net",
-  port: 9293.87,
+  host: "circular-marimba.info",
+  port: 8231.88,
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -3935,14 +3908,14 @@ const value: models.InputTcp = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   ipWhitelistRegex: "<value>",
-  maxActiveCxn: 7899.93,
-  socketIdleTimeout: 4795.04,
-  socketEndingMaxWait: 4783.69,
-  socketMaxLifespan: 8520.87,
-  enableProxyHeader: true,
+  maxActiveCxn: 9293.87,
+  socketIdleTimeout: 7899.93,
+  socketEndingMaxWait: 4795.04,
+  socketMaxLifespan: 4783.69,
+  enableProxyHeader: false,
   metadata: [
     {
       name: "<value>",
@@ -3951,10 +3924,9 @@ const value: models.InputTcp = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
-  staleChannelFlushMs: 7878.91,
-  enableHeader: true,
+  staleChannelFlushMs: 3615.97,
+  enableHeader: false,
   preprocess: {
     disabled: false,
     command: "<value>",
@@ -3962,7 +3934,7 @@ const value: models.InputTcp = {
       "<value 1>",
     ],
   },
-  description: "zowie er insignificant",
+  description: "meh pharmacopoeia yummy",
   authToken: "<value>",
   authType: "manual",
   textSecret: "<value>",
@@ -3973,13 +3945,13 @@ const value: models.InputTcp = {
 
 ```typescript
 const value: models.InputAppscope = {
-  sendToRoutes: true,
   id: "<id>",
   type: "appscope",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -3991,21 +3963,21 @@ const value: models.InputAppscope = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   ipWhitelistRegex: "<value>",
-  maxActiveCxn: 7115.31,
-  socketIdleTimeout: 5650.48,
-  socketEndingMaxWait: 4966.67,
-  socketMaxLifespan: 5875.12,
-  enableProxyHeader: true,
+  maxActiveCxn: 4559.47,
+  socketIdleTimeout: 7115.31,
+  socketEndingMaxWait: 5650.48,
+  socketMaxLifespan: 4966.67,
+  enableProxyHeader: false,
   metadata: [
     {
       name: "<value>",
@@ -4015,8 +3987,8 @@ const value: models.InputAppscope = {
   breakerRulesets: [
     "<value 1>",
   ],
-  staleChannelFlushMs: 9547.37,
-  enableUnixPath: true,
+  staleChannelFlushMs: 1872.92,
+  enableUnixPath: false,
   filter: {
     allow: [
       {
@@ -4025,10 +3997,10 @@ const value: models.InputAppscope = {
         config: "<value>",
       },
     ],
-    transportURL: "https://late-sanity.org/",
+    transportURL: "https://likable-importance.net/",
   },
   persistence: {
-    enable: true,
+    enable: false,
     timeWindow: "<value>",
     maxDataSize: "<value>",
     maxDataTime: "<value>",
@@ -4036,11 +4008,11 @@ const value: models.InputAppscope = {
     destPath: "<value>",
   },
   authType: "manual",
-  description: "gnash if scheme",
-  host: "powerless-popularity.org",
-  port: 1805.49,
+  description: "alliance extremely coaxingly",
+  host: "sniveling-order.net",
+  port: 9741.69,
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -4050,7 +4022,7 @@ const value: models.InputAppscope = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
   unixSocketPath: "<value>",
   unixSocketPerms: "<value>",
@@ -4063,11 +4035,11 @@ const value: models.InputAppscope = {
 
 ```typescript
 const value: models.InputWef = {
-  sendToRoutes: false,
   id: "<id>",
   type: "wef",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
@@ -4082,21 +4054,21 @@ const value: models.InputWef = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "big-equal.com",
-  port: 9819.67,
-  authMethod: "clientCert",
+  host: "stiff-baseboard.biz",
+  port: 1432.95,
+  authMethod: "kerberos",
   tls: {
     disabled: true,
-    rejectUnauthorized: false,
+    rejectUnauthorized: true,
     requestCert: false,
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -4104,22 +4076,22 @@ const value: models.InputWef = {
     certPath: "<value>",
     caPath: "<value>",
     commonNameRegex: "<value>",
-    minVersion: "TLSv1",
+    minVersion: "TLSv1.2",
     maxVersion: "TLSv1",
     ocspCheck: true,
     keytab: "<value>",
     principal: "<value>",
     ocspCheckFailClose: true,
   },
-  maxActiveReq: 8813,
-  maxRequestsPerSocket: 597932,
+  maxActiveReq: 433.31,
+  maxRequestsPerSocket: 881300,
   enableProxyHeader: false,
-  captureHeaders: true,
-  keepAliveTimeout: 7368.24,
+  captureHeaders: false,
+  keepAliveTimeout: 3234.04,
   enableHealthCheck: false,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
-  socketTimeout: 5027.56,
+  socketTimeout: 6412.18,
   caFingerprint: "<value>",
   keytab: "<value>",
   principal: "<value>",
@@ -4128,17 +4100,14 @@ const value: models.InputWef = {
     {
       subscriptionName: "<value>",
       version: "<value>",
-      contentFormat: "Raw",
-      heartbeatInterval: 5580.43,
-      batchTimeout: 3722.13,
-      readExistingEvents: false,
+      contentFormat: "RenderedText",
+      heartbeatInterval: 2153.04,
+      batchTimeout: 5580.43,
+      readExistingEvents: true,
       sendBookmarks: false,
-      compress: true,
-      targets: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      locale: "el",
+      compress: false,
+      targets: [],
+      locale: "nl",
       querySelector: "xml",
       metadata: [
         {
@@ -4148,7 +4117,7 @@ const value: models.InputWef = {
       ],
       queries: [
         {
-          path: "/var",
+          path: "/usr/libexec",
           queryExpression: "<value>",
         },
       ],
@@ -4161,7 +4130,8 @@ const value: models.InputWef = {
       value: "<value>",
     },
   ],
-  description: "inasmuch harmful whose yuck pulse lovable",
+  description:
+    "pivot slight coincide when neatly obediently upbeat evenly blind saturate",
   logFingerprintMismatch: false,
 };
 ```
@@ -4170,16 +4140,17 @@ const value: models.InputWef = {
 
 ```typescript
 const value: models.InputWinEventLogs = {
-  sendToRoutes: false,
   id: "<id>",
   type: "win_event_logs",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -4188,12 +4159,12 @@ const value: models.InputWinEventLogs = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
@@ -4204,17 +4175,17 @@ const value: models.InputWinEventLogs = {
   readMode: "newest",
   eventFormat: "xml",
   disableNativeModule: false,
-  interval: 5296.2,
-  batchSize: 3079,
+  interval: 6463.86,
+  batchSize: 5296.2,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  maxEventBytes: 6521.9,
-  description: "ew yum pish suffice whose reiterate pish about ruin",
-  disableJsonRendering: false,
+  maxEventBytes: 3079,
+  description: "finished evil consign fooey nor yowza finally round",
+  disableJsonRendering: true,
   disableXmlRendering: true,
 };
 ```
@@ -4223,16 +4194,17 @@ const value: models.InputWinEventLogs = {
 
 ```typescript
 const value: models.InputRawUdp = {
-  sendToRoutes: false,
   id: "<id>",
   type: "raw_udp",
   disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -4241,29 +4213,29 @@ const value: models.InputRawUdp = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "rewarding-joy.com",
-  port: 4993.2,
-  maxBufferSize: 2403.38,
+  host: "judicious-pliers.info",
+  port: 546.34,
+  maxBufferSize: 4993.2,
   ipWhitelistRegex: "<value>",
   singleMsgUdpPackets: true,
   ingestRawBytes: true,
-  udpSocketRxBufSize: 8511.96,
+  udpSocketRxBufSize: 2807.29,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "yum frenetically fine airbus longingly",
+  description: "motivate frank showy instead darn without aw beyond cop-out",
 };
 ```
 
@@ -4271,66 +4243,11 @@ const value: models.InputRawUdp = {
 
 ```typescript
 const value: models.InputJournalFiles = {
-  sendToRoutes: true,
   id: "<id>",
   type: "journal_files",
-  disabled: false,
-  pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  path: "/home/user",
-  interval: 8225.54,
-  journals: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  rules: [
-    {
-      filter: "<value>",
-      description: "sympathetically slushy frizz hm optimal blah annually amid",
-    },
-  ],
-  currentBoot: false,
-  maxAgeDur: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "terrible edge object boo",
-};
-```
-
-### `models.InputWiz`
-
-```typescript
-const value: models.InputWiz = {
-  sendToRoutes: true,
-  id: "<id>",
-  type: "wiz",
   disabled: true,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
@@ -4344,23 +4261,80 @@ const value: models.InputWiz = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  path: "/tmp",
+  interval: 2154.67,
+  journals: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  rules: [
+    {
+      filter: "<value>",
+      description:
+        "catalog self-reliant scare frightened voluminous till fooey other",
+    },
+  ],
+  currentBoot: true,
+  maxAgeDur: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "vengeful repeatedly yippee govern near tricky whose",
+};
+```
+
+### `models.InputWiz`
+
+```typescript
+const value: models.InputWiz = {
+  id: "<id>",
+  type: "wiz",
+  disabled: true,
+  pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  pqEnabled: true,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
   endpoint: "<value>",
-  authUrl: "https://smug-mentor.biz/",
+  authUrl: "https://dependable-riser.name/",
   authAudienceOverride: "<value>",
   clientId: "<id>",
   contentConfig: [],
-  requestTimeout: 4208.71,
-  keepAliveTime: 632.03,
-  maxMissedKeepAlives: 1559.21,
+  requestTimeout: 2735.91,
+  keepAliveTime: 4208.71,
+  maxMissedKeepAlives: 632.03,
   ttl: "<value>",
   ignoreGroupJobsLimit: true,
   metadata: [
@@ -4370,21 +4344,19 @@ const value: models.InputWiz = {
     },
   ],
   retryRules: {
-    type: "static",
-    interval: 3153.33,
-    limit: 2659.11,
-    multiplier: 376.03,
+    type: "none",
+    interval: 6996.29,
+    limit: 5006.8,
+    multiplier: 7560.55,
     codes: [
-      5006.8,
-      7560.55,
-      2139.95,
+      9559.24,
     ],
     enableHeader: false,
     retryConnectTimeout: false,
-    retryConnectReset: false,
+    retryConnectReset: true,
   },
   authType: "manual",
-  description: "caring kiddingly sharply vastly rebel",
+  description: "stark cannibalise flint fumigate",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
@@ -4394,16 +4366,17 @@ const value: models.InputWiz = {
 
 ```typescript
 const value: models.InputWizWebhook = {
-  sendToRoutes: false,
   id: "<id>",
   type: "wiz_webhook",
   disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -4412,24 +4385,23 @@ const value: models.InputWizWebhook = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "worthy-summer.name",
-  port: 4056.72,
+  host: "neat-widow.org",
+  port: 6472.83,
   authTokens: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -4439,25 +4411,24 @@ const value: models.InputWizWebhook = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
-  maxActiveReq: 6612.43,
-  maxRequestsPerSocket: 989950,
+  maxActiveReq: 7652.8,
+  maxRequestsPerSocket: 661243,
   enableProxyHeader: false,
-  captureHeaders: true,
-  activityLogSampleRate: 4540.59,
-  requestTimeout: 3714.99,
-  socketTimeout: 5742.35,
-  keepAliveTimeout: 4090.51,
-  enableHealthCheck: false,
+  captureHeaders: false,
+  activityLogSampleRate: 3018.24,
+  requestTimeout: 4540.59,
+  socketTimeout: 3714.99,
+  keepAliveTimeout: 5742.35,
+  enableHealthCheck: true,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  staleChannelFlushMs: 7783.3,
+  staleChannelFlushMs: 7977.48,
   metadata: [
     {
       name: "<value>",
@@ -4472,11 +4443,12 @@ const value: models.InputWizWebhook = {
   allowedMethods: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   authTokensExt: [
     {
       token: "<value>",
-      description: "positively divine about woot",
+      description: "instead worth trek drain eek below",
       metadata: [
         {
           name: "<value>",
@@ -4485,7 +4457,7 @@ const value: models.InputWizWebhook = {
       ],
     },
   ],
-  description: "graceful woot extroverted why instead yet rudely oh",
+  description: "reckless acceptable pish and solemnly viciously descendant",
 };
 ```
 
@@ -4493,62 +4465,11 @@ const value: models.InputWizWebhook = {
 
 ```typescript
 const value: models.InputNetflow = {
-  sendToRoutes: false,
   id: "<id>",
   type: "netflow",
-  disabled: true,
-  pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "rectangular-solvency.org",
-  port: 572.31,
-  enablePassThrough: true,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  udpSocketRxBufSize: 7232.01,
-  templateCacheMinutes: 7528.92,
-  v5Enabled: true,
-  v9Enabled: false,
-  ipfixEnabled: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "incidentally fog provided now wherever tidy",
-};
-```
-
-### `models.InputSecurityLake`
-
-```typescript
-const value: models.InputSecurityLake = {
-  sendToRoutes: false,
-  id: "<id>",
-  type: "security_lake",
   disabled: false,
   pipeline: "<value>",
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
@@ -4563,12 +4484,65 @@ const value: models.InputSecurityLake = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  host: "official-pilot.net",
+  port: 9390.31,
+  enablePassThrough: true,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  udpSocketRxBufSize: 2956.03,
+  templateCacheMinutes: 7232.01,
+  v5Enabled: false,
+  v9Enabled: true,
+  ipfixEnabled: false,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "incidentally gracefully sin if lest weekly certification blissfully considering",
+};
+```
+
+### `models.InputSecurityLake`
+
+```typescript
+const value: models.InputSecurityLake = {
+  id: "<id>",
+  type: "security_lake",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
@@ -4585,19 +4559,20 @@ const value: models.InputSecurityLake = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  staleChannelFlushMs: 4398.07,
-  maxMessages: 651.05,
-  visibilityTimeout: 3284.87,
-  numReceivers: 7840.45,
-  socketTimeout: 9788.9,
-  skipOnError: true,
+  staleChannelFlushMs: 4483.86,
+  maxMessages: 4398.07,
+  visibilityTimeout: 651.05,
+  numReceivers: 3284.87,
+  socketTimeout: 7840.45,
+  skipOnError: false,
   includeSqsMetadata: true,
   enableAssumeRole: true,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  durationSeconds: 5303.03,
-  enableSQSAssumeRole: true,
+  durationSeconds: 1160.94,
+  enableSQSAssumeRole: false,
   preprocess: {
     disabled: false,
     command: "<value>",
@@ -4611,16 +4586,15 @@ const value: models.InputSecurityLake = {
       value: "<value>",
     },
   ],
-  parquetChunkSizeMB: 4489.99,
-  parquetChunkDownloadTimeout: 7611.23,
+  parquetChunkSizeMB: 2573.09,
+  parquetChunkDownloadTimeout: 4489.99,
   checkpointing: {
     enabled: true,
-    retries: 4599.59,
+    retries: 263.57,
   },
-  pollTimeout: 715.65,
+  pollTimeout: 7611.23,
   encoding: "<value>",
-  description:
-    "pfft viciously astride who shudder ha bleakly ham cardboard until",
+  description: "unless intermesh council",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   tagAfterProcessing: "false",
@@ -4633,112 +4607,11 @@ const value: models.InputSecurityLake = {
 
 ```typescript
 const value: models.InputZscalerHec = {
-  sendToRoutes: false,
   id: "<id>",
   type: "zscaler_hec",
-  disabled: false,
-  pipeline: "<value>",
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "tepid-petticoat.info",
-  port: 4941.59,
-  authTokens: [
-    {
-      authType: "secret",
-      tokenSecret: "<value>",
-      token: "<value>",
-      enabled: true,
-      description: "switch within furthermore quarrelsomely",
-      allowedIndexesAtToken: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  tls: {
-    disabled: true,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  maxActiveReq: 6984.18,
-  maxRequestsPerSocket: 393471,
-  enableProxyHeader: false,
-  captureHeaders: true,
-  activityLogSampleRate: 7213.3,
-  requestTimeout: 3089.96,
-  socketTimeout: 8345.51,
-  keepAliveTimeout: 6225.43,
-  enableHealthCheck: "<value>",
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  hecAPI: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  allowedIndexes: [
-    "<value 1>",
-  ],
-  hecAcks: true,
-  accessControlAllowOrigin: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  accessControlAllowHeaders: [
-    "<value 1>",
-  ],
-  emitTokenMetrics: false,
-  description: "discrete unbearably as beneath to cruelly appreciate yippee",
-};
-```
-
-### `models.InputCloudflareHec`
-
-```typescript
-const value: models.InputCloudflareHec = {
-  sendToRoutes: false,
-  id: "<id>",
-  type: "cloudflare_hec",
   disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
@@ -4751,27 +4624,27 @@ const value: models.InputCloudflareHec = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "confused-overload.org",
-  port: 7404.68,
+  host: "second-hand-starboard.name",
+  port: 3809.87,
   authTokens: [
     {
       authType: "manual",
       tokenSecret: "<value>",
       token: "<value>",
       enabled: false,
-      description:
-        "fall regarding eek vainly carefree ouch zowie messy whereas and",
+      description: "vacantly attraction officially concerned",
       allowedIndexesAtToken: [
         "<value 1>",
+        "<value 2>",
       ],
       metadata: [
         {
@@ -4782,7 +4655,7 @@ const value: models.InputCloudflareHec = {
     },
   ],
   tls: {
-    disabled: true,
+    disabled: false,
     requestCert: true,
     rejectUnauthorized: true,
     commonNameRegex: "<value>",
@@ -4792,16 +4665,116 @@ const value: models.InputCloudflareHec = {
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
-  maxActiveReq: 1295.09,
-  maxRequestsPerSocket: 349074,
+  maxActiveReq: 8385.05,
+  maxRequestsPerSocket: 698418,
   enableProxyHeader: true,
+  captureHeaders: false,
+  activityLogSampleRate: 571.68,
+  requestTimeout: 7213.3,
+  socketTimeout: 3089.96,
+  keepAliveTimeout: 8345.51,
+  enableHealthCheck: "<value>",
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  hecAPI: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedIndexes: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  hecAcks: true,
+  accessControlAllowOrigin: [
+    "<value 1>",
+  ],
+  accessControlAllowHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  emitTokenMetrics: true,
+  description: "nice fax solidly fog brr doubtfully gee apud incline now",
+};
+```
+
+### `models.InputCloudflareHec`
+
+```typescript
+const value: models.InputCloudflareHec = {
+  id: "<id>",
+  type: "cloudflare_hec",
+  disabled: true,
+  pipeline: "<value>",
+  sendToRoutes: false,
+  environment: "<value>",
+  pqEnabled: true,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  host: "disloyal-challenge.name",
+  port: 9753.01,
+  authTokens: [
+    {
+      authType: "manual",
+      tokenSecret: "<value>",
+      token: "<value>",
+      enabled: false,
+      description: "pro pish equate cumbersome unwritten while unless right",
+      allowedIndexesAtToken: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  tls: {
+    disabled: false,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  maxActiveReq: 4987.89,
+  maxRequestsPerSocket: 655252,
+  enableProxyHeader: false,
   captureHeaders: true,
-  activityLogSampleRate: 9509.92,
-  requestTimeout: 5539.42,
-  socketTimeout: 4854.45,
-  keepAliveTimeout: 2430.61,
+  activityLogSampleRate: 6374.67,
+  requestTimeout: 2259.74,
+  socketTimeout: 8058.3,
+  keepAliveTimeout: 7840.92,
   enableHealthCheck: "<value>",
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
@@ -4819,22 +4792,18 @@ const value: models.InputCloudflareHec = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
-  staleChannelFlushMs: 5675.92,
+  staleChannelFlushMs: 9558.71,
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  emitTokenMetrics: false,
-  description:
-    "underneath deform low coagulate geez oddly until brandish whether throughout",
+  emitTokenMetrics: true,
+  description: "loose puzzled well but",
 };
 ```
 

@@ -15,7 +15,7 @@ let value: SNMPv3Authentication = {
       name: "<value>",
       authProtocol: "md5",
       authKey: "<value>",
-      privProtocol: "aes",
+      privProtocol: "des",
       privKey: "<value>",
     },
   ],

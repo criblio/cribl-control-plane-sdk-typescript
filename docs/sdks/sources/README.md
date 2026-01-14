@@ -106,11 +106,11 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.sources.create({
-    sendToRoutes: true,
     id: "appscope-source",
     type: "appscope",
     disabled: false,
     pipeline: "<value>",
+    sendToRoutes: true,
     environment: "<value>",
     pqEnabled: false,
     streamtags: [
@@ -217,11 +217,11 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await sourcesCreate(criblControlPlane, {
-    sendToRoutes: true,
     id: "appscope-source",
     type: "appscope",
     disabled: false,
     pipeline: "<value>",
+    sendToRoutes: true,
     environment: "<value>",
     pqEnabled: false,
     streamtags: [
@@ -434,11 +434,11 @@ async function run() {
   const result = await criblControlPlane.sources.update({
     id: "<id>",
     input: {
-      sendToRoutes: true,
       id: "appscope-source",
       type: "appscope",
       disabled: false,
       pipeline: "<value>",
+      sendToRoutes: true,
       environment: "<value>",
       pqEnabled: false,
       streamtags: [
@@ -547,11 +547,11 @@ async function run() {
   const res = await sourcesUpdate(criblControlPlane, {
     id: "<id>",
     input: {
-      sendToRoutes: true,
       id: "appscope-source",
       type: "appscope",
       disabled: false,
       pipeline: "<value>",
+      sendToRoutes: true,
       environment: "<value>",
       pqEnabled: false,
       streamtags: [

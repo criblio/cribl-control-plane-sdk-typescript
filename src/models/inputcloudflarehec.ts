@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -32,11 +32,6 @@ import {
   TlsSettingsServerSideType$Outbound,
   TlsSettingsServerSideType$outboundSchema,
 } from "./tlssettingsserversidetype.js";
-
-export const InputCloudflareHecType = {
-  CloudflareHec: "cloudflare_hec",
-} as const;
-export type InputCloudflareHecType = ClosedEnum<typeof InputCloudflareHecType>;
 
 /**
  * Select Secret to use a text secret to authenticate
@@ -77,17 +72,12 @@ export type InputCloudflareHecAuthToken = {
   metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
 };
 
-export type InputCloudflareHecPqEnabledTrueWithPqConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled: boolean;
-  pq?: PqType | undefined;
+export type InputCloudflareHec = {
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputCloudflareHecType;
+  type: "cloudflare_hec";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -97,364 +87,6 @@ export type InputCloudflareHecPqEnabledTrueWithPqConstraint = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
-   */
-  host: string;
-  /**
-   * Port to listen on
-   */
-  port: number;
-  /**
-   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-   */
-  authTokens?: Array<InputCloudflareHecAuthToken> | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
-  /**
-   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-   */
-  maxActiveReq?: number | undefined;
-  /**
-   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-   */
-  maxRequestsPerSocket?: number | undefined;
-  /**
-   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-   */
-  enableProxyHeader?: boolean | undefined;
-  /**
-   * Add request headers to events, in the __headers field
-   */
-  captureHeaders?: boolean | undefined;
-  /**
-   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-   */
-  activityLogSampleRate?: number | undefined;
-  /**
-   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-   */
-  requestTimeout?: number | undefined;
-  /**
-   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-   */
-  socketTimeout?: number | undefined;
-  /**
-   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-   */
-  keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
-  /**
-   * Messages from matched IP addresses will be processed, unless also matched by the denylist
-   */
-  ipAllowlistRegex?: string | undefined;
-  /**
-   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-   */
-  ipDenylistRegex?: string | undefined;
-  /**
-   * Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
-   */
-  hecAPI: string;
-  /**
-   * Fields to add to every event. May be overridden by fields added at the token or request level.
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  /**
-   * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
-   */
-  allowedIndexes?: Array<string> | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
-   * HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
-   */
-  accessControlAllowOrigin?: Array<string> | undefined;
-  /**
-   * HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
-   */
-  accessControlAllowHeaders?: Array<string> | undefined;
-  /**
-   * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-   */
-  emitTokenMetrics?: boolean | undefined;
-  description?: string | undefined;
-};
-
-export type InputCloudflareHecPqEnabledFalseConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled: boolean;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputCloudflareHecType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
-   */
-  host: string;
-  /**
-   * Port to listen on
-   */
-  port: number;
-  /**
-   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-   */
-  authTokens?: Array<InputCloudflareHecAuthToken> | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
-  /**
-   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-   */
-  maxActiveReq?: number | undefined;
-  /**
-   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-   */
-  maxRequestsPerSocket?: number | undefined;
-  /**
-   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-   */
-  enableProxyHeader?: boolean | undefined;
-  /**
-   * Add request headers to events, in the __headers field
-   */
-  captureHeaders?: boolean | undefined;
-  /**
-   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-   */
-  activityLogSampleRate?: number | undefined;
-  /**
-   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-   */
-  requestTimeout?: number | undefined;
-  /**
-   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-   */
-  socketTimeout?: number | undefined;
-  /**
-   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-   */
-  keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
-  /**
-   * Messages from matched IP addresses will be processed, unless also matched by the denylist
-   */
-  ipAllowlistRegex?: string | undefined;
-  /**
-   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-   */
-  ipDenylistRegex?: string | undefined;
-  /**
-   * Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
-   */
-  hecAPI: string;
-  /**
-   * Fields to add to every event. May be overridden by fields added at the token or request level.
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  /**
-   * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
-   */
-  allowedIndexes?: Array<string> | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
-   * HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
-   */
-  accessControlAllowOrigin?: Array<string> | undefined;
-  /**
-   * HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
-   */
-  accessControlAllowHeaders?: Array<string> | undefined;
-  /**
-   * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-   */
-  emitTokenMetrics?: boolean | undefined;
-  description?: string | undefined;
-};
-
-export type InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes: boolean;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputCloudflareHecType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
-   */
-  host: string;
-  /**
-   * Port to listen on
-   */
-  port: number;
-  /**
-   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-   */
-  authTokens?: Array<InputCloudflareHecAuthToken> | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
-  /**
-   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-   */
-  maxActiveReq?: number | undefined;
-  /**
-   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-   */
-  maxRequestsPerSocket?: number | undefined;
-  /**
-   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-   */
-  enableProxyHeader?: boolean | undefined;
-  /**
-   * Add request headers to events, in the __headers field
-   */
-  captureHeaders?: boolean | undefined;
-  /**
-   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-   */
-  activityLogSampleRate?: number | undefined;
-  /**
-   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-   */
-  requestTimeout?: number | undefined;
-  /**
-   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-   */
-  socketTimeout?: number | undefined;
-  /**
-   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-   */
-  keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
-  /**
-   * Messages from matched IP addresses will be processed, unless also matched by the denylist
-   */
-  ipAllowlistRegex?: string | undefined;
-  /**
-   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-   */
-  ipDenylistRegex?: string | undefined;
-  /**
-   * Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
-   */
-  hecAPI: string;
-  /**
-   * Fields to add to every event. May be overridden by fields added at the token or request level.
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  /**
-   * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
-   */
-  allowedIndexes?: Array<string> | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
-   * HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
-   */
-  accessControlAllowOrigin?: Array<string> | undefined;
-  /**
-   * HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
-   */
-  accessControlAllowHeaders?: Array<string> | undefined;
-  /**
-   * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-   */
-  emitTokenMetrics?: boolean | undefined;
-  description?: string | undefined;
-};
-
-export type InputCloudflareHecSendToRoutesTrueConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes: boolean;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputCloudflareHecType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -560,21 +192,6 @@ export type InputCloudflareHecSendToRoutesTrueConstraint = {
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
 };
-
-export type InputCloudflareHec =
-  | InputCloudflareHecSendToRoutesTrueConstraint
-  | InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint
-  | InputCloudflareHecPqEnabledFalseConstraint
-  | InputCloudflareHecPqEnabledTrueWithPqConstraint;
-
-/** @internal */
-export const InputCloudflareHecType$inboundSchema: z.ZodNativeEnum<
-  typeof InputCloudflareHecType
-> = z.nativeEnum(InputCloudflareHecType);
-/** @internal */
-export const InputCloudflareHecType$outboundSchema: z.ZodNativeEnum<
-  typeof InputCloudflareHecType
-> = InputCloudflareHecType$inboundSchema;
 
 /** @internal */
 export const InputCloudflareHecAuthenticationMethod$inboundSchema: z.ZodType<
@@ -649,512 +266,54 @@ export function inputCloudflareHecAuthTokenFromJSON(
 }
 
 /** @internal */
-export const InputCloudflareHecPqEnabledTrueWithPqConstraint$inboundSchema:
-  z.ZodType<
-    InputCloudflareHecPqEnabledTrueWithPqConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    pqEnabled: z.boolean(),
-    pq: PqType$inboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputCloudflareHecType$inboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    host: z.string(),
-    port: z.number(),
-    authTokens: z.array(z.lazy(() => InputCloudflareHecAuthToken$inboundSchema))
-      .optional(),
-    tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    maxActiveReq: z.number().optional(),
-    maxRequestsPerSocket: z.number().int().optional(),
-    enableProxyHeader: z.boolean().optional(),
-    captureHeaders: z.boolean().optional(),
-    activityLogSampleRate: z.number().optional(),
-    requestTimeout: z.number().optional(),
-    socketTimeout: z.number().optional(),
-    keepAliveTimeout: z.number().optional(),
-    enableHealthCheck: z.any().optional(),
-    ipAllowlistRegex: z.string().optional(),
-    ipDenylistRegex: z.string().optional(),
-    hecAPI: z.string(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    allowedIndexes: z.array(z.string()).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().optional(),
-    accessControlAllowOrigin: z.array(z.string()).optional(),
-    accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().optional(),
-    description: z.string().optional(),
-  });
+export const InputCloudflareHec$inboundSchema: z.ZodType<
+  InputCloudflareHec,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("cloudflare_hec"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.lazy(() => InputCloudflareHecAuthToken$inboundSchema))
+    .optional(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.any().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  hecAPI: z.string(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  allowedIndexes: z.array(z.string()).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  accessControlAllowOrigin: z.array(z.string()).optional(),
+  accessControlAllowHeaders: z.array(z.string()).optional(),
+  emitTokenMetrics: z.boolean().optional(),
+  description: z.string().optional(),
+});
 /** @internal */
-export type InputCloudflareHecPqEnabledTrueWithPqConstraint$Outbound = {
-  pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
+export type InputCloudflareHec$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "cloudflare_hec";
   disabled?: boolean | undefined;
   pipeline?: string | undefined;
   sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  host: string;
-  port: number;
-  authTokens?: Array<InputCloudflareHecAuthToken$Outbound> | undefined;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq?: number | undefined;
-  maxRequestsPerSocket?: number | undefined;
-  enableProxyHeader?: boolean | undefined;
-  captureHeaders?: boolean | undefined;
-  activityLogSampleRate?: number | undefined;
-  requestTimeout?: number | undefined;
-  socketTimeout?: number | undefined;
-  keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
-  ipAllowlistRegex?: string | undefined;
-  ipDenylistRegex?: string | undefined;
-  hecAPI: string;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  allowedIndexes?: Array<string> | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs?: number | undefined;
-  accessControlAllowOrigin?: Array<string> | undefined;
-  accessControlAllowHeaders?: Array<string> | undefined;
-  emitTokenMetrics?: boolean | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputCloudflareHecPqEnabledTrueWithPqConstraint$outboundSchema:
-  z.ZodType<
-    InputCloudflareHecPqEnabledTrueWithPqConstraint$Outbound,
-    z.ZodTypeDef,
-    InputCloudflareHecPqEnabledTrueWithPqConstraint
-  > = z.object({
-    pqEnabled: z.boolean(),
-    pq: PqType$outboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputCloudflareHecType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    host: z.string(),
-    port: z.number(),
-    authTokens: z.array(
-      z.lazy(() => InputCloudflareHecAuthToken$outboundSchema),
-    ).optional(),
-    tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().optional(),
-    maxRequestsPerSocket: z.number().int().optional(),
-    enableProxyHeader: z.boolean().optional(),
-    captureHeaders: z.boolean().optional(),
-    activityLogSampleRate: z.number().optional(),
-    requestTimeout: z.number().optional(),
-    socketTimeout: z.number().optional(),
-    keepAliveTimeout: z.number().optional(),
-    enableHealthCheck: z.any().optional(),
-    ipAllowlistRegex: z.string().optional(),
-    ipDenylistRegex: z.string().optional(),
-    hecAPI: z.string(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    allowedIndexes: z.array(z.string()).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().optional(),
-    accessControlAllowOrigin: z.array(z.string()).optional(),
-    accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().optional(),
-    description: z.string().optional(),
-  });
-
-export function inputCloudflareHecPqEnabledTrueWithPqConstraintToJSON(
-  inputCloudflareHecPqEnabledTrueWithPqConstraint:
-    InputCloudflareHecPqEnabledTrueWithPqConstraint,
-): string {
-  return JSON.stringify(
-    InputCloudflareHecPqEnabledTrueWithPqConstraint$outboundSchema.parse(
-      inputCloudflareHecPqEnabledTrueWithPqConstraint,
-    ),
-  );
-}
-export function inputCloudflareHecPqEnabledTrueWithPqConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputCloudflareHecPqEnabledTrueWithPqConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCloudflareHecPqEnabledTrueWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputCloudflareHecPqEnabledTrueWithPqConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCloudflareHecPqEnabledFalseConstraint$inboundSchema:
-  z.ZodType<InputCloudflareHecPqEnabledFalseConstraint, z.ZodTypeDef, unknown> =
-    z.object({
-      pqEnabled: z.boolean(),
-      id: z.string().optional(),
-      type: InputCloudflareHecType$inboundSchema,
-      disabled: z.boolean().optional(),
-      pipeline: z.string().optional(),
-      sendToRoutes: z.boolean().optional(),
-      environment: z.string().optional(),
-      streamtags: z.array(z.string()).optional(),
-      connections: z.array(ItemsTypeConnectionsOptional$inboundSchema)
-        .optional(),
-      pq: PqType$inboundSchema.optional(),
-      host: z.string(),
-      port: z.number(),
-      authTokens: z.array(
-        z.lazy(() => InputCloudflareHecAuthToken$inboundSchema),
-      ).optional(),
-      tls: TlsSettingsServerSideType$inboundSchema.optional(),
-      maxActiveReq: z.number().optional(),
-      maxRequestsPerSocket: z.number().int().optional(),
-      enableProxyHeader: z.boolean().optional(),
-      captureHeaders: z.boolean().optional(),
-      activityLogSampleRate: z.number().optional(),
-      requestTimeout: z.number().optional(),
-      socketTimeout: z.number().optional(),
-      keepAliveTimeout: z.number().optional(),
-      enableHealthCheck: z.any().optional(),
-      ipAllowlistRegex: z.string().optional(),
-      ipDenylistRegex: z.string().optional(),
-      hecAPI: z.string(),
-      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-      allowedIndexes: z.array(z.string()).optional(),
-      breakerRulesets: z.array(z.string()).optional(),
-      staleChannelFlushMs: z.number().optional(),
-      accessControlAllowOrigin: z.array(z.string()).optional(),
-      accessControlAllowHeaders: z.array(z.string()).optional(),
-      emitTokenMetrics: z.boolean().optional(),
-      description: z.string().optional(),
-    });
-/** @internal */
-export type InputCloudflareHecPqEnabledFalseConstraint$Outbound = {
-  pqEnabled: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  host: string;
-  port: number;
-  authTokens?: Array<InputCloudflareHecAuthToken$Outbound> | undefined;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq?: number | undefined;
-  maxRequestsPerSocket?: number | undefined;
-  enableProxyHeader?: boolean | undefined;
-  captureHeaders?: boolean | undefined;
-  activityLogSampleRate?: number | undefined;
-  requestTimeout?: number | undefined;
-  socketTimeout?: number | undefined;
-  keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
-  ipAllowlistRegex?: string | undefined;
-  ipDenylistRegex?: string | undefined;
-  hecAPI: string;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  allowedIndexes?: Array<string> | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs?: number | undefined;
-  accessControlAllowOrigin?: Array<string> | undefined;
-  accessControlAllowHeaders?: Array<string> | undefined;
-  emitTokenMetrics?: boolean | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputCloudflareHecPqEnabledFalseConstraint$outboundSchema:
-  z.ZodType<
-    InputCloudflareHecPqEnabledFalseConstraint$Outbound,
-    z.ZodTypeDef,
-    InputCloudflareHecPqEnabledFalseConstraint
-  > = z.object({
-    pqEnabled: z.boolean(),
-    id: z.string().optional(),
-    type: InputCloudflareHecType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    pq: PqType$outboundSchema.optional(),
-    host: z.string(),
-    port: z.number(),
-    authTokens: z.array(
-      z.lazy(() => InputCloudflareHecAuthToken$outboundSchema),
-    ).optional(),
-    tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().optional(),
-    maxRequestsPerSocket: z.number().int().optional(),
-    enableProxyHeader: z.boolean().optional(),
-    captureHeaders: z.boolean().optional(),
-    activityLogSampleRate: z.number().optional(),
-    requestTimeout: z.number().optional(),
-    socketTimeout: z.number().optional(),
-    keepAliveTimeout: z.number().optional(),
-    enableHealthCheck: z.any().optional(),
-    ipAllowlistRegex: z.string().optional(),
-    ipDenylistRegex: z.string().optional(),
-    hecAPI: z.string(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    allowedIndexes: z.array(z.string()).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().optional(),
-    accessControlAllowOrigin: z.array(z.string()).optional(),
-    accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().optional(),
-    description: z.string().optional(),
-  });
-
-export function inputCloudflareHecPqEnabledFalseConstraintToJSON(
-  inputCloudflareHecPqEnabledFalseConstraint:
-    InputCloudflareHecPqEnabledFalseConstraint,
-): string {
-  return JSON.stringify(
-    InputCloudflareHecPqEnabledFalseConstraint$outboundSchema.parse(
-      inputCloudflareHecPqEnabledFalseConstraint,
-    ),
-  );
-}
-export function inputCloudflareHecPqEnabledFalseConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputCloudflareHecPqEnabledFalseConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCloudflareHecPqEnabledFalseConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputCloudflareHecPqEnabledFalseConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputCloudflareHecType$inboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    host: z.string(),
-    port: z.number(),
-    authTokens: z.array(z.lazy(() => InputCloudflareHecAuthToken$inboundSchema))
-      .optional(),
-    tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    maxActiveReq: z.number().optional(),
-    maxRequestsPerSocket: z.number().int().optional(),
-    enableProxyHeader: z.boolean().optional(),
-    captureHeaders: z.boolean().optional(),
-    activityLogSampleRate: z.number().optional(),
-    requestTimeout: z.number().optional(),
-    socketTimeout: z.number().optional(),
-    keepAliveTimeout: z.number().optional(),
-    enableHealthCheck: z.any().optional(),
-    ipAllowlistRegex: z.string().optional(),
-    ipDenylistRegex: z.string().optional(),
-    hecAPI: z.string(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    allowedIndexes: z.array(z.string()).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().optional(),
-    accessControlAllowOrigin: z.array(z.string()).optional(),
-    accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().optional(),
-    description: z.string().optional(),
-  });
-/** @internal */
-export type InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint$Outbound =
-  {
-    sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-    id?: string | undefined;
-    type: string;
-    disabled?: boolean | undefined;
-    pipeline?: string | undefined;
-    environment?: string | undefined;
-    pqEnabled?: boolean | undefined;
-    streamtags?: Array<string> | undefined;
-    pq?: PqType$Outbound | undefined;
-    host: string;
-    port: number;
-    authTokens?: Array<InputCloudflareHecAuthToken$Outbound> | undefined;
-    tls?: TlsSettingsServerSideType$Outbound | undefined;
-    maxActiveReq?: number | undefined;
-    maxRequestsPerSocket?: number | undefined;
-    enableProxyHeader?: boolean | undefined;
-    captureHeaders?: boolean | undefined;
-    activityLogSampleRate?: number | undefined;
-    requestTimeout?: number | undefined;
-    socketTimeout?: number | undefined;
-    keepAliveTimeout?: number | undefined;
-    enableHealthCheck?: any | undefined;
-    ipAllowlistRegex?: string | undefined;
-    ipDenylistRegex?: string | undefined;
-    hecAPI: string;
-    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-    allowedIndexes?: Array<string> | undefined;
-    breakerRulesets?: Array<string> | undefined;
-    staleChannelFlushMs?: number | undefined;
-    accessControlAllowOrigin?: Array<string> | undefined;
-    accessControlAllowHeaders?: Array<string> | undefined;
-    emitTokenMetrics?: boolean | undefined;
-    description?: string | undefined;
-  };
-
-/** @internal */
-export const InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    id: z.string().optional(),
-    type: InputCloudflareHecType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    host: z.string(),
-    port: z.number(),
-    authTokens: z.array(
-      z.lazy(() => InputCloudflareHecAuthToken$outboundSchema),
-    ).optional(),
-    tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().optional(),
-    maxRequestsPerSocket: z.number().int().optional(),
-    enableProxyHeader: z.boolean().optional(),
-    captureHeaders: z.boolean().optional(),
-    activityLogSampleRate: z.number().optional(),
-    requestTimeout: z.number().optional(),
-    socketTimeout: z.number().optional(),
-    keepAliveTimeout: z.number().optional(),
-    enableHealthCheck: z.any().optional(),
-    ipAllowlistRegex: z.string().optional(),
-    ipDenylistRegex: z.string().optional(),
-    hecAPI: z.string(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    allowedIndexes: z.array(z.string()).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().optional(),
-    accessControlAllowOrigin: z.array(z.string()).optional(),
-    accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().optional(),
-    description: z.string().optional(),
-  });
-
-export function inputCloudflareHecSendToRoutesFalseWithConnectionsConstraintToJSON(
-  inputCloudflareHecSendToRoutesFalseWithConnectionsConstraint:
-    InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint,
-): string {
-  return JSON.stringify(
-    InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-      .parse(inputCloudflareHecSendToRoutesFalseWithConnectionsConstraint),
-  );
-}
-export function inputCloudflareHecSendToRoutesFalseWithConnectionsConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCloudflareHecSendToRoutesTrueConstraint$inboundSchema:
-  z.ZodType<
-    InputCloudflareHecSendToRoutesTrueConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    id: z.string().optional(),
-    type: InputCloudflareHecType$inboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    pq: PqType$inboundSchema.optional(),
-    host: z.string(),
-    port: z.number(),
-    authTokens: z.array(z.lazy(() => InputCloudflareHecAuthToken$inboundSchema))
-      .optional(),
-    tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    maxActiveReq: z.number().optional(),
-    maxRequestsPerSocket: z.number().int().optional(),
-    enableProxyHeader: z.boolean().optional(),
-    captureHeaders: z.boolean().optional(),
-    activityLogSampleRate: z.number().optional(),
-    requestTimeout: z.number().optional(),
-    socketTimeout: z.number().optional(),
-    keepAliveTimeout: z.number().optional(),
-    enableHealthCheck: z.any().optional(),
-    ipAllowlistRegex: z.string().optional(),
-    ipDenylistRegex: z.string().optional(),
-    hecAPI: z.string(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    allowedIndexes: z.array(z.string()).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().optional(),
-    accessControlAllowOrigin: z.array(z.string()).optional(),
-    accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().optional(),
-    description: z.string().optional(),
-  });
-/** @internal */
-export type InputCloudflareHecSendToRoutesTrueConstraint$Outbound = {
-  sendToRoutes: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
@@ -1187,110 +346,47 @@ export type InputCloudflareHecSendToRoutesTrueConstraint$Outbound = {
 };
 
 /** @internal */
-export const InputCloudflareHecSendToRoutesTrueConstraint$outboundSchema:
-  z.ZodType<
-    InputCloudflareHecSendToRoutesTrueConstraint$Outbound,
-    z.ZodTypeDef,
-    InputCloudflareHecSendToRoutesTrueConstraint
-  > = z.object({
-    sendToRoutes: z.boolean(),
-    id: z.string().optional(),
-    type: InputCloudflareHecType$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    pq: PqType$outboundSchema.optional(),
-    host: z.string(),
-    port: z.number(),
-    authTokens: z.array(
-      z.lazy(() => InputCloudflareHecAuthToken$outboundSchema),
-    ).optional(),
-    tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().optional(),
-    maxRequestsPerSocket: z.number().int().optional(),
-    enableProxyHeader: z.boolean().optional(),
-    captureHeaders: z.boolean().optional(),
-    activityLogSampleRate: z.number().optional(),
-    requestTimeout: z.number().optional(),
-    socketTimeout: z.number().optional(),
-    keepAliveTimeout: z.number().optional(),
-    enableHealthCheck: z.any().optional(),
-    ipAllowlistRegex: z.string().optional(),
-    ipDenylistRegex: z.string().optional(),
-    hecAPI: z.string(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    allowedIndexes: z.array(z.string()).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().optional(),
-    accessControlAllowOrigin: z.array(z.string()).optional(),
-    accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().optional(),
-    description: z.string().optional(),
-  });
-
-export function inputCloudflareHecSendToRoutesTrueConstraintToJSON(
-  inputCloudflareHecSendToRoutesTrueConstraint:
-    InputCloudflareHecSendToRoutesTrueConstraint,
-): string {
-  return JSON.stringify(
-    InputCloudflareHecSendToRoutesTrueConstraint$outboundSchema.parse(
-      inputCloudflareHecSendToRoutesTrueConstraint,
-    ),
-  );
-}
-export function inputCloudflareHecSendToRoutesTrueConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputCloudflareHecSendToRoutesTrueConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCloudflareHecSendToRoutesTrueConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputCloudflareHecSendToRoutesTrueConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCloudflareHec$inboundSchema: z.ZodType<
-  InputCloudflareHec,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => InputCloudflareHecSendToRoutesTrueConstraint$inboundSchema),
-  z.lazy(() =>
-    InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-  ),
-  z.lazy(() => InputCloudflareHecPqEnabledFalseConstraint$inboundSchema),
-  z.lazy(() => InputCloudflareHecPqEnabledTrueWithPqConstraint$inboundSchema),
-]);
-/** @internal */
-export type InputCloudflareHec$Outbound =
-  | InputCloudflareHecSendToRoutesTrueConstraint$Outbound
-  | InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputCloudflareHecPqEnabledFalseConstraint$Outbound
-  | InputCloudflareHecPqEnabledTrueWithPqConstraint$Outbound;
-
-/** @internal */
 export const InputCloudflareHec$outboundSchema: z.ZodType<
   InputCloudflareHec$Outbound,
   z.ZodTypeDef,
   InputCloudflareHec
-> = z.union([
-  z.lazy(() => InputCloudflareHecSendToRoutesTrueConstraint$outboundSchema),
-  z.lazy(() =>
-    InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-  ),
-  z.lazy(() => InputCloudflareHecPqEnabledFalseConstraint$outboundSchema),
-  z.lazy(() => InputCloudflareHecPqEnabledTrueWithPqConstraint$outboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("cloudflare_hec"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.lazy(() => InputCloudflareHecAuthToken$outboundSchema))
+    .optional(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.any().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  hecAPI: z.string(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  allowedIndexes: z.array(z.string()).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  accessControlAllowOrigin: z.array(z.string()).optional(),
+  accessControlAllowHeaders: z.array(z.string()).optional(),
+  emitTokenMetrics: z.boolean().optional(),
+  description: z.string().optional(),
+});
 
 export function inputCloudflareHecToJSON(
   inputCloudflareHec: InputCloudflareHec,

@@ -1,22 +1,20 @@
 # InputNetflow
 
-
-## Supported Types
-
-### `operations.InputNetflowSendToRoutesTrueConstraint`
+## Example Usage
 
 ```typescript
-const value: operations.InputNetflowSendToRoutesTrueConstraint = {
-  sendToRoutes: true,
+import { InputNetflow } from "cribl-control-plane/models/operations";
+
+let value: InputNetflow = {
   id: "<id>",
   type: "netflow",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -25,22 +23,22 @@ const value: operations.InputNetflowSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
     maxFileSize: "<value>",
     maxSize: "<value>",
-    path: "/opt/include",
+    path: "/etc/namedb",
     compress: "none",
     pqControls: {},
   },
-  host: "overdue-tabletop.org",
-  port: 7648.24,
+  host: "zealous-fund.org",
+  port: 3209.42,
   enablePassThrough: false,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
-  udpSocketRxBufSize: 9169.5,
-  templateCacheMinutes: 486.53,
+  udpSocketRxBufSize: 8327.74,
+  templateCacheMinutes: 7161.42,
   v5Enabled: false,
   v9Enabled: true,
   ipfixEnabled: false,
@@ -50,162 +48,33 @@ const value: operations.InputNetflowSendToRoutesTrueConstraint = {
       value: "<value>",
     },
   ],
-  description: "astride woot intervention effector disconnection shanghai",
+  description: "schlep however question step entice yowza past whoever",
 };
 ```
 
-### `operations.InputNetflowSendToRoutesFalseWithConnectionsConstraint`
+## Fields
 
-```typescript
-const value: operations.InputNetflowSendToRoutesFalseWithConnectionsConstraint =
-  {
-    sendToRoutes: false,
-    connections: [
-      {
-        pipeline: "<value>",
-        output: "<value>",
-      },
-    ],
-    id: "<id>",
-    type: "netflow",
-    disabled: false,
-    pipeline: "<value>",
-    environment: "<value>",
-    pqEnabled: false,
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    pq: {
-      mode: "smart",
-      maxBufferSize: 1717.96,
-      commitFrequency: 1412.18,
-      maxFileSize: "<value>",
-      maxSize: "<value>",
-      path: "/opt/include",
-      compress: "none",
-      pqControls: {},
-    },
-    host: "infatuated-planula.biz",
-    port: 3892.99,
-    enablePassThrough: false,
-    ipAllowlistRegex: "<value>",
-    ipDenylistRegex: "<value>",
-    udpSocketRxBufSize: 612.52,
-    templateCacheMinutes: 6028.29,
-    v5Enabled: true,
-    v9Enabled: true,
-    ipfixEnabled: false,
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    description: "mealy neaten down despite ugh savour monthly rim phew",
-  };
-```
-
-### `operations.InputNetflowPqEnabledFalseConstraint`
-
-```typescript
-const value: operations.InputNetflowPqEnabledFalseConstraint = {
-  pqEnabled: false,
-  id: "<id>",
-  type: "netflow",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "doting-swim.info",
-  port: 4877.89,
-  enablePassThrough: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  udpSocketRxBufSize: 6637.1,
-  templateCacheMinutes: 575.64,
-  v5Enabled: true,
-  v9Enabled: true,
-  ipfixEnabled: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "personalise ha fumigate over plagiarise fuel qua pace tangible",
-};
-```
-
-### `operations.InputNetflowPqEnabledTrueWithPqConstraint`
-
-```typescript
-const value: operations.InputNetflowPqEnabledTrueWithPqConstraint = {
-  pqEnabled: false,
-  pq: {
-    mode: "smart",
-    maxBufferSize: 1717.96,
-    commitFrequency: 1412.18,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/opt/include",
-    compress: "none",
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "netflow",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  host: "sparse-distinction.org",
-  port: 7156.56,
-  enablePassThrough: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  udpSocketRxBufSize: 15.34,
-  templateCacheMinutes: 3817.65,
-  v5Enabled: true,
-  v9Enabled: true,
-  ipfixEnabled: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "sunbathe great meh before flu conservative including baa glow",
-};
-```
-
+| Field                                                                                                                                                                                                                                                                              | Type                                                                                                                                                                                                                                                                               | Required                                                                                                                                                                                                                                                                           | Description                                                                                                                                                                                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                                                                 | Unique ID for this input                                                                                                                                                                                                                                                           |
+| `type`                                                                                                                                                                                                                                                                             | *"netflow"*                                                                                                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
+| `disabled`                                                                                                                                                                                                                                                                         | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
+| `pipeline`                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                                                                     |
+| `sendToRoutes`                                                                                                                                                                                                                                                                     | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                |
+| `environment`                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                               |
+| `pqEnabled`                                                                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                       |
+| `streamtags`                                                                                                                                                                                                                                                                       | *string*[]                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                      |
+| `connections`                                                                                                                                                                                                                                                                      | [models.ItemsTypeConnectionsOptional](../../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                        |
+| `pq`                                                                                                                                                                                                                                                                               | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
+| `host`                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                                                                 | Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.                                                                                                                                            |
+| `port`                                                                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                                                                 | Port to listen on                                                                                                                                                                                                                                                                  |
+| `enablePassThrough`                                                                                                                                                                                                                                                                | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.                                          |
+| `ipAllowlistRegex`                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Messages from matched IP addresses will be processed, unless also matched by the denylist.                                                                                                                                                                                         |
+| `ipDenylistRegex`                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.                                                                                                                                                                                      |
+| `udpSocketRxBufSize`                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization. |
+| `templateCacheMinutes`                                                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Specifies how many minutes NetFlow v9 templates are cached before being discarded if not refreshed. Adjust based on your network's template update frequency to optimize performance and memory usage.                                                                             |
+| `v5Enabled`                                                                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Accept messages in Netflow V5 format.                                                                                                                                                                                                                                              |
+| `v9Enabled`                                                                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Accept messages in Netflow V9 format.                                                                                                                                                                                                                                              |
+| `ipfixEnabled`                                                                                                                                                                                                                                                                     | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Accept messages in IPFIX format.                                                                                                                                                                                                                                                   |
+| `metadata`                                                                                                                                                                                                                                                                         | [models.ItemsTypeNotificationMetadata](../../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Fields to add to events from this input                                                                                                                                                                                                                                            |
+| `description`                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
