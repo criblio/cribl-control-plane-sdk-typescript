@@ -126,27 +126,17 @@ const value: models.RestAuthenticationBasicSecret = {
 
 ```typescript
 const value: models.RestAuthenticationLogin = {
-  getAuthTokenFromHeader: false,
-  tokenRespAttribute: "<value>",
-  authentication: "none",
-  loginUrl: "`https://localhost:9000/api/v1/auth/login`",
-  username: "Henry_Borer",
-  password: "bMBKWTVRBk1ydeV",
-  loginBody:
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  authHeaderKey: "Authorization",
-  authHeaderExpr: "`Bearer ${token}`",
+  authentication: "login",
+  username: "Sandrine76",
+  password: "L6eFLYm6snDntQz",
   authRequestHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  discovery: {
-    discoverType: "none",
-  },
-  collectUrl: "https://uniform-tackle.biz/",
-  collectMethod: "get",
+  discovery: {},
+  collectUrl: "https://vibrant-interior.biz/",
   collectVerb: "<value>",
   collectRequestParams: "<value>",
   collectBody: "<value>",
@@ -156,22 +146,11 @@ const value: models.RestAuthenticationLogin = {
       value: "<value>",
     },
   ],
-  pagination: {
-    type: "none",
-  },
-  timeout: 0,
-  useRoundRobinDns: false,
-  disableTimeFilter: false,
-  decodeUrl: true,
-  rejectUnauthorized: false,
-  captureHeaders: false,
-  stopOnEmptyResults: false,
+  pagination: {},
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
   ],
   retryRules: {
-    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -193,26 +172,16 @@ const value: models.RestAuthenticationLogin = {
 
 ```typescript
 const value: models.RestAuthenticationLoginSecret = {
-  getAuthTokenFromHeader: false,
-  tokenRespAttribute: "<value>",
-  authentication: "none",
-  loginUrl: "`https://localhost:9000/api/v1/auth/login`",
+  authentication: "loginSecret",
   credentialsSecret: "<value>",
-  loginBody:
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  authHeaderKey: "Authorization",
-  authHeaderExpr: "`Bearer ${token}`",
   authRequestHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  discovery: {
-    discoverType: "none",
-  },
-  collectUrl: "https://kooky-mentor.com/",
-  collectMethod: "get",
+  discovery: {},
+  collectUrl: "https://zesty-e-mail.name/",
   collectVerb: "<value>",
   collectRequestParams: "<value>",
   collectBody: "<value>",
@@ -222,21 +191,12 @@ const value: models.RestAuthenticationLoginSecret = {
       value: "<value>",
     },
   ],
-  pagination: {
-    type: "none",
-  },
-  timeout: 0,
-  useRoundRobinDns: false,
-  disableTimeFilter: false,
-  decodeUrl: true,
-  rejectUnauthorized: false,
-  captureHeaders: false,
-  stopOnEmptyResults: false,
+  pagination: {},
   safeHeaders: [
     "<value 1>",
+    "<value 2>",
   ],
   retryRules: {
-    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -248,7 +208,7 @@ const value: models.RestAuthenticationLoginSecret = {
   },
   __scheduling: {
     stateTracking: {
-      enabled: true,
+      enabled: false,
     },
   },
 };

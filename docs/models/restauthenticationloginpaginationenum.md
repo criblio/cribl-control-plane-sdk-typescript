@@ -1,12 +1,11 @@
-# RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum
+# RestAuthenticationLoginPaginationEnum
 
 ## Example Usage
 
 ```typescript
-import { RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum } from "cribl-control-plane/models";
+import { RestAuthenticationLoginPaginationEnum } from "cribl-control-plane/models";
 
-let value: RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum =
-  "request_offset";
+let value: RestAuthenticationLoginPaginationEnum = "request_offset";
 ```
 
 ## Values
