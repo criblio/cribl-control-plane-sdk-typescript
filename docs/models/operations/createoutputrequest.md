@@ -5,6 +5,25 @@ Output object
 
 ## Supported Types
 
+### `operations.OutputDefault`
+
+```typescript
+const value: operations.OutputDefault = {
+  id: "<id>",
+  type: "default",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  defaultId: "<id>",
+};
+```
+
 ### `operations.OutputWebhook`
 
 ```typescript

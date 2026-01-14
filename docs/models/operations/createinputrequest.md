@@ -2547,7 +2547,8 @@ const value: operations.InputSystemState = {
     destPath: "<value>",
   },
   disableNativeModule: false,
-  description: "hmph whoa minister that defiantly inasmuch softly",
+  disableNativeLastLogModule: false,
+  description: "chapel search petty",
 };
 ```
 

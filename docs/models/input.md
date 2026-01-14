@@ -2525,7 +2525,8 @@ const value: models.InputSystemState = {
     destPath: "<value>",
   },
   disableNativeModule: true,
-  description: "rebuild questioningly how cycle priesthood",
+  disableNativeLastLogModule: true,
+  description: "hollow yuck diligently",
 };
 ```
 
