@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 6e008fa8931b87dce6b74fc69eb06168
-  docVersion: 4.16.0-alpha.1768408105528-07b61e99
+  docChecksum: 8df043df673b3e3f3a1ad26c53451da2
+  docVersion: 4.16.0-alpha.1768420591615-34b394cb
   speakeasyVersion: 1.683.2
   generationVersion: 2.792.3
-  releaseVersion: 0.5.0-rc.20
-  configChecksum: 0a41110807b777a5faa2889d818fbf9d
+  releaseVersion: 0.5.0-rc.21
+  configChecksum: b2e92a191c4b8818771ddfdd5de601b6
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 340b2716-f0a8-4a01-8961-c6df0293c11f
-  pristine_commit_hash: 1764b34632dbfce595dfc3da03fd2fdccaf01fb7
-  pristine_tree_hash: 6fb8b6489d40993b8a21fc96e4ed4685d45387d0
+  generation_id: b190126a-66b9-4ece-b317-30d08f08e665
+  pristine_commit_hash: 8f5e98b888158d462432adf41fa732a22e3ba5f4
+  pristine_tree_hash: 19903bd3848ff6e813e999a15fabb651e88e8776
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -1890,8 +1890,8 @@ trackedFiles:
     pristine_git_object: 4ccbde8756964da51145b025050773263023579d
   docs/models/input.md:
     id: 5cbc446a3956
-    last_write_checksum: sha1:be0ca1aa1476eacc70f0f47dc9ad78027a77c060
-    pristine_git_object: 6d17a91c03e733b4fe37dad5a62c8ad12139644c
+    last_write_checksum: sha1:d4be2a424e7d19d1e435153ff15ca2f6860cace6
+    pristine_git_object: a0e6b14d0810fa4ae75257844ef037e23a723fc4
   docs/models/inputappscope.md:
     id: ff69a212f541
     last_write_checksum: sha1:25c7e84d41dd00755c589a8e523468bd3c99f98a
@@ -2310,8 +2310,8 @@ trackedFiles:
     pristine_git_object: 52bf4e2cc10de045a1f94007d3ecd4a719f5970d
   docs/models/inputsystemstate.md:
     id: 68e04b9aa43e
-    last_write_checksum: sha1:6f8fd0909ae3adbe7d780706b74c75178b05ca3f
-    pristine_git_object: e6ba7c46dd7ff10bc59f7ce94404db644350273c
+    last_write_checksum: sha1:f355250872256707c993e850a732adb478605936
+    pristine_git_object: 434dcee9dca3332747a131535b4896d5e0a78ebc
   docs/models/inputsystemstatepersistence.md:
     id: bd689a0eebe1
     last_write_checksum: sha1:e190a9d9d476f8da1bbe0a8fd13b62cd820eb5aa
@@ -2958,8 +2958,8 @@ trackedFiles:
     pristine_git_object: 9db2d89b59222afc21c298aa25a013eb54ae28ea
   docs/models/operations/createinputrequest.md:
     id: 47be44e9cc4a
-    last_write_checksum: sha1:0cf863899ec2f108b6f270bf23f638c3d1f9e9d4
-    pristine_git_object: 561c31f4d68ba3498ec1e77fd9936695a54d960c
+    last_write_checksum: sha1:2d67a8901971ce59a7a2cd7e682431eacd186782
+    pristine_git_object: 4b8dac11afe6adad952eff0ee31d22b17439ddc1
   docs/models/operations/createoutputapiversion.md:
     id: 8aebc09e5f00
     last_write_checksum: sha1:7ee8252b55da7a6dee56da7545b340fb97588ad7
@@ -2982,8 +2982,8 @@ trackedFiles:
     pristine_git_object: 0098b93057fab216f5219c90950bff4a1f1d75e8
   docs/models/operations/createoutputrequest.md:
     id: 1ed98d6cd06b
-    last_write_checksum: sha1:6ab62f750ac18c4bbd1cb7cfb0fba736204206d8
-    pristine_git_object: 3de41b697fb9d82683e210285749ae954cfba967
+    last_write_checksum: sha1:d7e680fbd302ac4ab176be45272533ba13735721
+    pristine_git_object: 0379531d02bf3e3f2c3de059b62f87d5de519c15
   docs/models/operations/createoutputrule.md:
     id: 7155862b7d46
     last_write_checksum: sha1:6026f6b5447a3d138400c03c04750292f4425f22
@@ -3562,8 +3562,8 @@ trackedFiles:
     pristine_git_object: 3b17f1ba290b491031c5a0d5bd1c59f5ae73cfb7
   docs/models/operations/inputsystemstate.md:
     id: ecce04d2c080
-    last_write_checksum: sha1:ebbdb57304f85f7e6f09aa08f6a5b024a2f0605a
-    pristine_git_object: 8b74fd77aeb56e925022e0300b48a2392ba21f68
+    last_write_checksum: sha1:8c90c75ca68cfc500d3cfe5faebe5300287c4508
+    pristine_git_object: 43083ffc3c9492f853e43e2da296a767e6089af1
   docs/models/operations/inputtcp.md:
     id: 9b28f503ca45
     last_write_checksum: sha1:f25548e1304ee62829085ff01cadca1802cdbb19
@@ -3774,8 +3774,8 @@ trackedFiles:
     pristine_git_object: 3d9a5c9e3d0c0fc915b5eb00b828dd6533dcc279
   docs/models/operations/outputdefault.md:
     id: 9a5c637adcb3
-    last_write_checksum: sha1:95f5a795e36e0b39c7f58ec3d091e73a29bf0ca6
-    pristine_git_object: d888f74f205fa80f5f5515244e75305c38f765dd
+    last_write_checksum: sha1:7bba87cc4278bb37ac3db97c990ca99d88fe215a
+    pristine_git_object: 63f2d2d3cf898848f62d580fa2073cd94433fb87
   docs/models/operations/outputdevnull.md:
     id: 3d4049a0a7e5
     last_write_checksum: sha1:82d980fe5b77a309617747e13c637ef2d6e6b0db
@@ -4400,10 +4400,6 @@ trackedFiles:
     id: 9cd03f4fd1ea
     last_write_checksum: sha1:266f403540d571b8d08b972678b10d504abb4367
     pristine_git_object: cb58c98ec71a7b6e729bffd63a308c311501afa9
-  docs/models/operations/typedefault.md:
-    id: 82402c3fd443
-    last_write_checksum: sha1:7eacd278f5127c6a4ea06a1397bdb066bec2a330
-    pristine_git_object: 77601e74c36d86964680a573b170fd3c228c4ba0
   docs/models/operations/udmtype.md:
     id: ec1d715f01e8
     last_write_checksum: sha1:da788c5d205ae9f781a1e2afd200454268b24ad9
@@ -4422,8 +4418,8 @@ trackedFiles:
     pristine_git_object: ff0238655a7bc6211b3f8e74934a638fef9fc692
   docs/models/operations/updateinputbyidrequest.md:
     id: ce88025623d0
-    last_write_checksum: sha1:d6bac52a4756d88de68db4fcbf824c3b3b3474dd
-    pristine_git_object: da40859a3ed1729ec5d1796411a6e767586bc72f
+    last_write_checksum: sha1:fb53e77601125d6367d2291a07cf5fa46d6378ef
+    pristine_git_object: 5f16831796ea1452997441d8021c999e62e58f03
   docs/models/operations/updateinputhectokenbyidandtokenrequest.md:
     id: 930fa5921130
     last_write_checksum: sha1:794426bdb14d9807eaefc2fd03c0c59bf94c5db5
@@ -4510,8 +4506,8 @@ trackedFiles:
     pristine_git_object: ebdf3c0fbc37f47d4e3c49b7c1b51d2e852b6189
   docs/models/output.md:
     id: 376633b966cd
-    last_write_checksum: sha1:f1a6d4fd5f698537db3ba13a445cc2283b45245b
-    pristine_git_object: d4a1a8ff244779cdaec632eb962507162b3811e2
+    last_write_checksum: sha1:5189d61bba39868ee75abbd7db1b7adc57618917
+    pristine_git_object: 5325766be686eac0dccb146ed86a2b7f159b7411
   docs/models/outputazureblob.md:
     id: a995af061056
     last_write_checksum: sha1:20c43dfd59cbd4bdcb522c3938d0bab3c8d4c4ce
@@ -4666,12 +4662,8 @@ trackedFiles:
     pristine_git_object: c839bc378c7963634d2121392ea757e0b2f63fab
   docs/models/outputdefault.md:
     id: 39bbabebf52a
-    last_write_checksum: sha1:76dd5a5e456ed6adf288fa1cccf1100128fa2d68
-    pristine_git_object: 229d0304a01311485e8eb8f37a65ee5ebbf4eac2
-  docs/models/outputdefaulttype.md:
-    id: 3145be45e6ce
-    last_write_checksum: sha1:81c01b387cf5f4e74f3814006f929ae7298352cf
-    pristine_git_object: 973b9c221f05b0128e0b2bccf5d8cf1a0732ca9c
+    last_write_checksum: sha1:4394d7b0ee5f88999ca9fe2711cf8d45f4d85a10
+    pristine_git_object: c06c094f5cbfe05e1c5656095dc3a45c8575ec57
   docs/models/outputdevnull.md:
     id: 11f426fd9829
     last_write_checksum: sha1:6c877be00060c3664316f5132190569969fa7db0
@@ -7194,8 +7186,8 @@ trackedFiles:
     pristine_git_object: aec3da19c344cda028d61af986235bc9aef0c41f
   docs/sdks/destinations/README.md:
     id: e83d288899aa
-    last_write_checksum: sha1:4cbe8d21e97f332deb33cdf32884e4cd2aa36da4
-    pristine_git_object: 09f45f3c01e4ed0febf8327894097716237961af
+    last_write_checksum: sha1:d3386bac54b810a6e701c9ccf3052e2db0d5bbb1
+    pristine_git_object: e3c03a92a5e72256f502caca60f0244e4ff321d5
   docs/sdks/files/README.md:
     id: e576d7a117f0
     last_write_checksum: sha1:182c82b857b438be94e54a28d1feec10d70f2d21
@@ -7274,12 +7266,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:255c022acd414420f727e5d9ec7b2c4f29f54569
-    pristine_git_object: bcc8c8598c95b571230135b998c779071871aad0
+    last_write_checksum: sha1:d60e551d85ca20373fa749aed7c4db7e2ed62fe2
+    pristine_git_object: ca027b591eed79a3474c9b4c42d519878aa42d40
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:40f7fe04a92bf6c52c6ef5f84ff5e8b324bd5dbc
-    pristine_git_object: 2b36f860d6def15c0677efbae5b66c073a6fd6be
+    last_write_checksum: sha1:fd4db99d8451832bbec35933ea0abe81cf94bad7
+    pristine_git_object: 61ae8b88aa1f6db28733ab9b16bc32a499dd7ea6
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -7598,8 +7590,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:7bfd0f6bcf7ec2779e50432dc20e87019a4c5aa8
-    pristine_git_object: efe38dafacda5bff06e65cccd134c267c6c73935
+    last_write_checksum: sha1:d4440781a9a9b06078f4e5591e48b5826fd8fe98
+    pristine_git_object: d8084dc6211fe507a2f752a8ab0a12ec22a58ca8
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -9006,8 +8998,8 @@ trackedFiles:
     pristine_git_object: 0d470416962f731de5d64016dad30db80aa7d18e
   src/models/inputsystemstate.ts:
     id: b30e3af3163b
-    last_write_checksum: sha1:08c918be47640f3aec5f9cf9e2893e748b70e866
-    pristine_git_object: 6d031791f366a3f080f4ec8fd430cf21fc3b6ada
+    last_write_checksum: sha1:1ddd357950a337d0eb96e86bebc5cb62bd790574
+    pristine_git_object: 4f62c221d27e89dd51c0282a986b3eb099f3412e
   src/models/inputtcp.ts:
     id: 06449dc6e65a
     last_write_checksum: sha1:8c11dd31a009221345d6baaf59458f9898b39185
@@ -9294,16 +9286,16 @@ trackedFiles:
     pristine_git_object: b70baf74b65eb6014e2e326c2e60baf3d8967a5f
   src/models/operations/createinput.ts:
     id: 9b961c34b2ad
-    last_write_checksum: sha1:1fc47fa54e8d8f7eb6684259b40fdd5902010050
-    pristine_git_object: e7275ce039c74ce87095fc43c2d62343abdaea6f
+    last_write_checksum: sha1:5fb8fb89865fa84a1f2bc0bd8af12c848c2a05b2
+    pristine_git_object: 85ef8cf82ec2ceaef13f0ec4f2b05daf320a5161
   src/models/operations/createinputhectokenbyid.ts:
     id: 9a464b44af35
     last_write_checksum: sha1:03dd8fb2b2839e7942c5878317541441f3b3dabd
     pristine_git_object: d50a0dbe7b197ac6f66323b5b328909b1f8d4bcb
   src/models/operations/createoutput.ts:
     id: b78d02594812
-    last_write_checksum: sha1:d6934aa881b43503e83c4aa0cda9987f3a783f2f
-    pristine_git_object: f5ec334aaeb75a3a651239390c6bb2b3fce84704
+    last_write_checksum: sha1:cd678bca72f29a9d8f33228e76bc5fcf00007c62
+    pristine_git_object: 5cff25967f3286e18aab0f0d94b2c5da59dfdf6c
   src/models/operations/createoutputtestbyid.ts:
     id: edef7624f001
     last_write_checksum: sha1:f502988a771b0ba17ed81c979b346ccdb47c96ea
@@ -9530,8 +9522,8 @@ trackedFiles:
     pristine_git_object: 249979a4dedde96ea419748e033ab14caf332760
   src/models/output.ts:
     id: 7cf8a406e886
-    last_write_checksum: sha1:0c7191536a0476eead1e6815bb1fe3f9305be413
-    pristine_git_object: 323a2a9eea2a49e9fa0e5aa3384568af549ec5e1
+    last_write_checksum: sha1:eeafe327ce8e0d8ff272d77ca3b9cddfc506181c
+    pristine_git_object: 4a4dc1f561428d6d998989b92db9ee3aac15bb6b
   src/models/outputazureblob.ts:
     id: 1135a47e98e0
     last_write_checksum: sha1:70255e0f40a93578344268e56ffb3dc445402b0b
@@ -9602,8 +9594,8 @@ trackedFiles:
     pristine_git_object: ff38324340683282138f916f7cf35bc870cdcf2b
   src/models/outputdefault.ts:
     id: 21f749a4f09b
-    last_write_checksum: sha1:a01b3141cf6e513d62c54e918dc07bdaa13ecd7d
-    pristine_git_object: 1fc6ad671ad4978d6a458810f20d9b9d40195e12
+    last_write_checksum: sha1:7992689662f477a52622b6bb953ca49b103557ef
+    pristine_git_object: 9d3db84fd10ca41d470f8d94913c8e20f88810cb
   src/models/outputdevnull.ts:
     id: e71f779cb247
     last_write_checksum: sha1:22c8a12f7754c146897a7634c5250f7f58c53497
@@ -11071,7 +11063,7 @@ examples:
           application/json: {"message": "<value>"}
     InputCreateExamplesSystemState:
       requestBody:
-        application/json: {"id": "system-state-source", "type": "system_state", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "interval": 300, "metadata": [{"name": "<value>", "value": "<value>"}], "collectors": {"hostsfile": {"enable": true}, "interfaces": {"enable": true}, "disk": {"enable": true}, "metadata": {"enable": true}, "routes": {"enable": true}, "dns": {"enable": true}, "user": {"enable": true}, "firewall": {"enable": true}, "services": {"enable": true}, "ports": {"enable": true}, "loginUsers": {"enable": true}}, "persistence": {"enable": false, "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "none", "destPath": "$CRIBL_HOME/state/system_state"}, "disableNativeModule": false, "description": "times even descendant absent although mortally"}
+        application/json: {"id": "system-state-source", "type": "system_state", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "interval": 300, "metadata": [{"name": "<value>", "value": "<value>"}], "collectors": {"hostsfile": {"enable": true}, "interfaces": {"enable": true}, "disk": {"enable": true}, "metadata": {"enable": true}, "routes": {"enable": true}, "dns": {"enable": true}, "user": {"enable": true}, "firewall": {"enable": true}, "services": {"enable": true}, "ports": {"enable": true}, "loginUsers": {"enable": true}}, "persistence": {"enable": false, "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "none", "destPath": "$CRIBL_HOME/state/system_state"}, "disableNativeModule": false, "disableNativeLastLogModule": false, "description": "times even descendant absent although mortally"}
       responses:
         "200":
           application/json: {"count": 152889, "items": [{"id": "<id>", "type": "kube_metrics", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "interval": 15, "rules": [{"filter": "<value>", "description": "saloon where faithfully"}], "metadata": [{"name": "<value>", "value": "<value>"}], "persistence": {"enable": false, "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "destPath": "$CRIBL_HOME/state/kube_metrics"}, "description": "within ack tenant"}]}
@@ -11729,7 +11721,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "system-state-source", "type": "system_state", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "interval": 300, "metadata": [{"name": "<value>", "value": "<value>"}], "collectors": {"hostsfile": {"enable": true}, "interfaces": {"enable": true}, "disk": {"enable": true}, "metadata": {"enable": true}, "routes": {"enable": true}, "dns": {"enable": true}, "user": {"enable": true}, "firewall": {"enable": true}, "services": {"enable": true}, "ports": {"enable": true}, "loginUsers": {"enable": true}}, "persistence": {"enable": false, "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "none", "destPath": "$CRIBL_HOME/state/system_state"}, "disableNativeModule": false, "description": "catalog past whitewash seafood"}
+        application/json: {"id": "system-state-source", "type": "system_state", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "interval": 300, "metadata": [{"name": "<value>", "value": "<value>"}], "collectors": {"hostsfile": {"enable": true}, "interfaces": {"enable": true}, "disk": {"enable": true}, "metadata": {"enable": true}, "routes": {"enable": true}, "dns": {"enable": true}, "user": {"enable": true}, "firewall": {"enable": true}, "services": {"enable": true}, "ports": {"enable": true}, "loginUsers": {"enable": true}}, "persistence": {"enable": false, "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "none", "destPath": "$CRIBL_HOME/state/system_state"}, "disableNativeModule": false, "disableNativeLastLogModule": false, "description": "catalog past whitewash seafood"}
       responses:
         "200":
           application/json: {"count": 624327, "items": [{"id": "<id>", "type": "tcp", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 311.34, "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": true, "commonNameRegex": "/.*/", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1.1", "maxVersion": "TLSv1.3"}, "ipWhitelistRegex": "/.*/", "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "enableProxyHeader": false, "metadata": [{"name": "<value>", "value": "<value>"}], "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "enableHeader": false, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>"]}, "description": "likely despite investigate minor given underneath wallaby sin moisten anenst", "authToken": "", "authType": "manual", "textSecret": "<value>"}]}
@@ -12491,7 +12483,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "default-output", "type": "filesystem", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "destPath": "<value>", "stagePath": "<value>", "addIdToStagePath": false, "removeEmptyDirs": true, "partitionExpr": "<value>", "format": "json", "baseFileName": "<value>", "fileNameSuffix": "<value>", "maxFileSizeMB": 4562.74, "maxFileOpenTimeSec": 2532.09, "maxFileIdleTimeSec": 1271.28, "maxOpenFiles": 3246.22, "headerLine": "<value>", "writeHighWaterMark": 3612.5, "onBackpressure": "block", "deadletterEnabled": true, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "description": "bouncy tenderly yet immediate", "compress": "gzip", "compressionLevel": "best_compression", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_1_0", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 1944.46, "parquetPageSize": "<value>", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "<key>", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 1965.22, "directoryBatchSize": 3079.24, "deadletterPath": "<value>", "maxRetryNum": 7017.51}
+        application/json: {"id": "default-output", "type": "default", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "defaultId": "my-default-output"}
       responses:
         "200":
           application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "serviceAccount", "responseRetrySettings": [{"httpStatus": 1271.28, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5, "maxPayloadSizeKB": 1024, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 90, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "block", "totalMemoryLimitKB": 3612.5, "description": "yum tomatillo off tune-up", "extraLogTypes": [{"logType": "<value>", "description": "busy for concerned buck grandiose dreamily what solder"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
@@ -15306,7 +15298,7 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.create()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.update()`:  `response.items.[]` **Changed** **Breaking** :warning:\n"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.destinations.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.list()`:  `response.items.[].[systemState].disableNativeLastLogModule` **Added**\n* `criblcontrolplane.sources.create()`: \n  *  `request.[systemState].disableNativeLastLogModule` **Added**\n  *  `response.items.[].[systemState].disableNativeLastLogModule` **Added**\n* `criblcontrolplane.sources.get()`:  `response.items.[].[systemState].disableNativeLastLogModule` **Added**\n* `criblcontrolplane.sources.update()`: \n  *  `request.input.[systemState].disableNativeLastLogModule` **Added**\n  *  `response.items.[].[systemState].disableNativeLastLogModule` **Added**\n* `criblcontrolplane.sources.delete()`:  `response.items.[].[systemState].disableNativeLastLogModule` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

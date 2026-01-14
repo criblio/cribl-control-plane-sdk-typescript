@@ -109,6 +109,12 @@ import {
   OutputDataset$outboundSchema,
 } from "./outputdataset.js";
 import {
+  OutputDefault,
+  OutputDefault$inboundSchema,
+  OutputDefault$Outbound,
+  OutputDefault$outboundSchema,
+} from "./outputdefault.js";
+import {
   OutputDevnull,
   OutputDevnull$inboundSchema,
   OutputDevnull$Outbound,
@@ -422,6 +428,7 @@ import {
 } from "./outputxsiam.js";
 
 export type Output =
+  | OutputDefault
   | OutputWebhook
   | OutputSentinel
   | OutputDevnull
@@ -495,6 +502,7 @@ export type Output =
 /** @internal */
 export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
   .union([
+    OutputDefault$inboundSchema,
     OutputWebhook$inboundSchema,
     OutputSentinel$inboundSchema,
     OutputDevnull$inboundSchema,
@@ -569,6 +577,7 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
   ]);
 /** @internal */
 export type Output$Outbound =
+  | OutputDefault$Outbound
   | OutputWebhook$Outbound
   | OutputSentinel$Outbound
   | OutputDevnull$Outbound
@@ -645,6 +654,7 @@ export const Output$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Output
 > = z.union([
+  OutputDefault$outboundSchema,
   OutputWebhook$outboundSchema,
   OutputSentinel$outboundSchema,
   OutputDevnull$outboundSchema,

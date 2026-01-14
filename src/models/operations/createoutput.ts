@@ -12717,17 +12717,12 @@ export type OutputWebhook = {
   loadBalanceStatsPeriodSec?: number | undefined;
 };
 
-export const TypeDefault = {
-  Default: "default",
-} as const;
-export type TypeDefault = ClosedEnum<typeof TypeDefault>;
-
 export type OutputDefault = {
   /**
    * Unique ID for this output
    */
   id: string;
-  type: TypeDefault;
+  type: "default";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -12754,6 +12749,7 @@ export type OutputDefault = {
  * Output object
  */
 export type CreateOutputRequest =
+  | OutputDefault
   | OutputWebhook
   | OutputSentinel
   | OutputDevnull
@@ -22261,13 +22257,9 @@ export function outputWebhookToJSON(outputWebhook: OutputWebhook): string {
 }
 
 /** @internal */
-export const TypeDefault$outboundSchema: z.ZodNativeEnum<typeof TypeDefault> = z
-  .nativeEnum(TypeDefault);
-
-/** @internal */
 export type OutputDefault$Outbound = {
   id: string;
-  type: string;
+  type: "default";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -22282,7 +22274,7 @@ export const OutputDefault$outboundSchema: z.ZodType<
   OutputDefault
 > = z.object({
   id: z.string(),
-  type: TypeDefault$outboundSchema,
+  type: z.literal("default"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -22296,6 +22288,7 @@ export function outputDefaultToJSON(outputDefault: OutputDefault): string {
 
 /** @internal */
 export type CreateOutputRequest$Outbound =
+  | OutputDefault$Outbound
   | OutputWebhook$Outbound
   | OutputSentinel$Outbound
   | OutputDevnull$Outbound
@@ -22375,6 +22368,7 @@ export const CreateOutputRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateOutputRequest
 > = z.union([
+  z.lazy(() => OutputDefault$outboundSchema),
   z.lazy(() => OutputWebhook$outboundSchema),
   z.lazy(() => OutputSentinel$outboundSchema),
   z.lazy(() => OutputDevnull$outboundSchema),

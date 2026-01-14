@@ -9,7 +9,7 @@ let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
     id: "<id>",
-    type: "wiz_webhook",
+    type: "splunk",
     disabled: false,
     pipeline: "<value>",
     sendToRoutes: true,
@@ -36,13 +36,8 @@ let value: UpdateInputByIdRequest = {
       compress: "none",
       pqControls: {},
     },
-    host: "steep-lava.net",
-    port: 718.38,
-    authTokens: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
+    host: "ornery-release.org",
+    port: 2711.62,
     tls: {
       disabled: false,
       requestCert: true,
@@ -56,48 +51,37 @@ let value: UpdateInputByIdRequest = {
       minVersion: "TLSv1",
       maxVersion: "TLSv1",
     },
-    maxActiveReq: 3424.31,
-    maxRequestsPerSocket: 357001,
-    enableProxyHeader: false,
-    captureHeaders: false,
-    activityLogSampleRate: 7418.26,
-    requestTimeout: 9183.56,
-    socketTimeout: 2711.62,
-    keepAliveTimeout: 5868.55,
-    enableHealthCheck: false,
-    ipAllowlistRegex: "<value>",
-    ipDenylistRegex: "<value>",
-    breakerRulesets: [
-      "<value 1>",
-    ],
-    staleChannelFlushMs: 3265.13,
+    ipWhitelistRegex: "<value>",
+    maxActiveCxn: 5868.55,
+    socketIdleTimeout: 8200.03,
+    socketEndingMaxWait: 2908.92,
+    socketMaxLifespan: 3265.13,
+    enableProxyHeader: true,
     metadata: [
       {
         name: "<value>",
         value: "<value>",
       },
     ],
-    allowedPaths: [
-      "<value 1>",
-    ],
-    allowedMethods: [
+    breakerRulesets: [
       "<value 1>",
       "<value 2>",
       "<value 3>",
     ],
-    authTokensExt: [
+    staleChannelFlushMs: 9958.42,
+    authTokens: [
       {
         token: "<value>",
-        description: "instead worth trek drain eek below",
-        metadata: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
-        ],
+        description: "around inside although phooey pfft acidly",
       },
     ],
-    description: "anenst round cuckoo hm geez gee playfully spiffy for towards",
+    maxS2Sversion: "v3",
+    description:
+      "painfully fooey commonly upon upbeat per depot tousle presell",
+    useFwdTimezone: false,
+    dropControlFields: false,
+    extractMetrics: false,
+    compress: "disabled",
   },
 };
 ```

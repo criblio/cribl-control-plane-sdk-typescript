@@ -224,6 +224,10 @@ export type InputSystemState = {
    * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
    */
   disableNativeModule?: boolean | undefined;
+  /**
+   * Enable to only use non-native API to collect LastLog events. This option will be unavailable in future releases. Please contact Support with any concerns about this deprecation. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+   */
+  disableNativeLastLogModule?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -757,6 +761,7 @@ export const InputSystemState$inboundSchema: z.ZodType<
   persistence: z.lazy(() => InputSystemStatePersistence$inboundSchema)
     .optional(),
   disableNativeModule: z.boolean().optional(),
+  disableNativeLastLogModule: z.boolean().optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -776,6 +781,7 @@ export type InputSystemState$Outbound = {
   collectors?: Collectors$Outbound | undefined;
   persistence?: InputSystemStatePersistence$Outbound | undefined;
   disableNativeModule?: boolean | undefined;
+  disableNativeLastLogModule?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -801,6 +807,7 @@ export const InputSystemState$outboundSchema: z.ZodType<
   persistence: z.lazy(() => InputSystemStatePersistence$outboundSchema)
     .optional(),
   disableNativeModule: z.boolean().optional(),
+  disableNativeLastLogModule: z.boolean().optional(),
   description: z.string().optional(),
 });
 

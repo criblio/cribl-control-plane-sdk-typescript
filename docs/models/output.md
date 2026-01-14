@@ -3,6 +3,27 @@
 
 ## Supported Types
 
+### `models.OutputDefault`
+
+```typescript
+const value: models.OutputDefault = {
+  id: "<id>",
+  type: "default",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  defaultId: "<id>",
+};
+```
+
 ### `models.OutputWebhook`
 
 ```typescript
