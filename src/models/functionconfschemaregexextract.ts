@@ -46,7 +46,30 @@ export const FunctionConfSchemaRegexExtractRegexList$inboundSchema: z.ZodType<
 > = z.object({
   regex: z.string(),
 });
+/** @internal */
+export type FunctionConfSchemaRegexExtractRegexList$Outbound = {
+  regex: string;
+};
 
+/** @internal */
+export const FunctionConfSchemaRegexExtractRegexList$outboundSchema: z.ZodType<
+  FunctionConfSchemaRegexExtractRegexList$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaRegexExtractRegexList
+> = z.object({
+  regex: z.string(),
+});
+
+export function functionConfSchemaRegexExtractRegexListToJSON(
+  functionConfSchemaRegexExtractRegexList:
+    FunctionConfSchemaRegexExtractRegexList,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaRegexExtractRegexList$outboundSchema.parse(
+      functionConfSchemaRegexExtractRegexList,
+    ),
+  );
+}
 export function functionConfSchemaRegexExtractRegexListFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -78,7 +101,43 @@ export const FunctionConfSchemaRegexExtract$inboundSchema: z.ZodType<
   fieldNameExpression: z.string().optional(),
   overwrite: z.boolean().optional(),
 });
+/** @internal */
+export type FunctionConfSchemaRegexExtract$Outbound = {
+  regex?: string | undefined;
+  regexList?:
+    | Array<FunctionConfSchemaRegexExtractRegexList$Outbound>
+    | undefined;
+  source?: string | undefined;
+  iterations?: number | undefined;
+  fieldNameExpression?: string | undefined;
+  overwrite?: boolean | undefined;
+};
 
+/** @internal */
+export const FunctionConfSchemaRegexExtract$outboundSchema: z.ZodType<
+  FunctionConfSchemaRegexExtract$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaRegexExtract
+> = z.object({
+  regex: z.string().optional(),
+  regexList: z.array(
+    z.lazy(() => FunctionConfSchemaRegexExtractRegexList$outboundSchema),
+  ).optional(),
+  source: z.string().optional(),
+  iterations: z.number().optional(),
+  fieldNameExpression: z.string().optional(),
+  overwrite: z.boolean().optional(),
+});
+
+export function functionConfSchemaRegexExtractToJSON(
+  functionConfSchemaRegexExtract: FunctionConfSchemaRegexExtract,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaRegexExtract$outboundSchema.parse(
+      functionConfSchemaRegexExtract,
+    ),
+  );
+}
 export function functionConfSchemaRegexExtractFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaRegexExtract, SDKValidationError> {

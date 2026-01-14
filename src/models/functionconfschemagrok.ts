@@ -7,7 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type FunctionConfSchemaGrokPatternList = {
+export type PatternList = {
   /**
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
@@ -19,7 +19,7 @@ export type FunctionConfSchemaGrok = {
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
   pattern?: string | undefined;
-  patternList?: Array<FunctionConfSchemaGrokPatternList> | undefined;
+  patternList?: Array<PatternList> | undefined;
   /**
    * Field on which to perform Grok extractions
    */
@@ -27,21 +27,37 @@ export type FunctionConfSchemaGrok = {
 };
 
 /** @internal */
-export const FunctionConfSchemaGrokPatternList$inboundSchema: z.ZodType<
-  FunctionConfSchemaGrokPatternList,
+export const PatternList$inboundSchema: z.ZodType<
+  PatternList,
   z.ZodTypeDef,
   unknown
 > = z.object({
   pattern: z.string(),
 });
+/** @internal */
+export type PatternList$Outbound = {
+  pattern: string;
+};
 
-export function functionConfSchemaGrokPatternListFromJSON(
+/** @internal */
+export const PatternList$outboundSchema: z.ZodType<
+  PatternList$Outbound,
+  z.ZodTypeDef,
+  PatternList
+> = z.object({
+  pattern: z.string(),
+});
+
+export function patternListToJSON(patternList: PatternList): string {
+  return JSON.stringify(PatternList$outboundSchema.parse(patternList));
+}
+export function patternListFromJSON(
   jsonString: string,
-): SafeParseResult<FunctionConfSchemaGrokPatternList, SDKValidationError> {
+): SafeParseResult<PatternList, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => FunctionConfSchemaGrokPatternList$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionConfSchemaGrokPatternList' from JSON`,
+    (x) => PatternList$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PatternList' from JSON`,
   );
 }
 
@@ -52,12 +68,34 @@ export const FunctionConfSchemaGrok$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   pattern: z.string().optional(),
-  patternList: z.array(
-    z.lazy(() => FunctionConfSchemaGrokPatternList$inboundSchema),
-  ).optional(),
+  patternList: z.array(z.lazy(() => PatternList$inboundSchema)).optional(),
+  source: z.string().optional(),
+});
+/** @internal */
+export type FunctionConfSchemaGrok$Outbound = {
+  pattern?: string | undefined;
+  patternList?: Array<PatternList$Outbound> | undefined;
+  source?: string | undefined;
+};
+
+/** @internal */
+export const FunctionConfSchemaGrok$outboundSchema: z.ZodType<
+  FunctionConfSchemaGrok$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaGrok
+> = z.object({
+  pattern: z.string().optional(),
+  patternList: z.array(z.lazy(() => PatternList$outboundSchema)).optional(),
   source: z.string().optional(),
 });
 
+export function functionConfSchemaGrokToJSON(
+  functionConfSchemaGrok: FunctionConfSchemaGrok,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaGrok$outboundSchema.parse(functionConfSchemaGrok),
+  );
+}
 export function functionConfSchemaGrokFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaGrok, SDKValidationError> {

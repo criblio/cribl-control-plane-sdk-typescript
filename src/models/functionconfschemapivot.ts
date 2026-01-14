@@ -32,7 +32,31 @@ export const FunctionConfSchemaPivot$inboundSchema: z.ZodType<
   dataFields: z.array(z.string()).optional(),
   qualifierFields: z.array(z.string()).optional(),
 });
+/** @internal */
+export type FunctionConfSchemaPivot$Outbound = {
+  labelField?: string | undefined;
+  dataFields?: Array<string> | undefined;
+  qualifierFields?: Array<string> | undefined;
+};
 
+/** @internal */
+export const FunctionConfSchemaPivot$outboundSchema: z.ZodType<
+  FunctionConfSchemaPivot$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaPivot
+> = z.object({
+  labelField: z.string().optional(),
+  dataFields: z.array(z.string()).optional(),
+  qualifierFields: z.array(z.string()).optional(),
+});
+
+export function functionConfSchemaPivotToJSON(
+  functionConfSchemaPivot: FunctionConfSchemaPivot,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaPivot$outboundSchema.parse(functionConfSchemaPivot),
+  );
+}
 export function functionConfSchemaPivotFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaPivot, SDKValidationError> {

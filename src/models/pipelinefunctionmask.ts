@@ -7,42 +7,11 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeAdd,
-  ItemsTypeAdd$inboundSchema,
-  ItemsTypeAdd$Outbound,
-  ItemsTypeAdd$outboundSchema,
-} from "./itemstypeadd.js";
-
-export type PipelineFunctionMaskRule = {
-  /**
-   * Pattern to replace. Use /g to replace all matches.
-   */
-  matchRegex: string;
-  /**
-   * A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
-   */
-  replaceExpr: string;
-  /**
-   * Set to No to disable the evaluation of an individual rule
-   */
-  disabled?: boolean | undefined;
-};
-
-export type PipelineFunctionMaskConf = {
-  rules: Array<PipelineFunctionMaskRule>;
-  /**
-   * Fields on which to apply the masking rules. Supports * wildcards, except when used on internal fields.
-   */
-  fields?: Array<string> | undefined;
-  /**
-   * Depth to which the Mask Function will search for fields to mask
-   */
-  depth?: number | undefined;
-  /**
-   * Fields to evaluate if one or more masking rules are matched
-   */
-  flags?: Array<ItemsTypeAdd> | undefined;
-};
+  FunctionConfSchemaMask,
+  FunctionConfSchemaMask$inboundSchema,
+  FunctionConfSchemaMask$Outbound,
+  FunctionConfSchemaMask$outboundSchema,
+} from "./functionconfschemamask.js";
 
 export type PipelineFunctionMask = {
   /**
@@ -65,105 +34,12 @@ export type PipelineFunctionMask = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: PipelineFunctionMaskConf;
+  conf: FunctionConfSchemaMask;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const PipelineFunctionMaskRule$inboundSchema: z.ZodType<
-  PipelineFunctionMaskRule,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  matchRegex: z.string(),
-  replaceExpr: z.string(),
-  disabled: z.boolean().optional(),
-});
-/** @internal */
-export type PipelineFunctionMaskRule$Outbound = {
-  matchRegex: string;
-  replaceExpr: string;
-  disabled?: boolean | undefined;
-};
-
-/** @internal */
-export const PipelineFunctionMaskRule$outboundSchema: z.ZodType<
-  PipelineFunctionMaskRule$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionMaskRule
-> = z.object({
-  matchRegex: z.string(),
-  replaceExpr: z.string(),
-  disabled: z.boolean().optional(),
-});
-
-export function pipelineFunctionMaskRuleToJSON(
-  pipelineFunctionMaskRule: PipelineFunctionMaskRule,
-): string {
-  return JSON.stringify(
-    PipelineFunctionMaskRule$outboundSchema.parse(pipelineFunctionMaskRule),
-  );
-}
-export function pipelineFunctionMaskRuleFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionMaskRule, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PipelineFunctionMaskRule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionMaskRule' from JSON`,
-  );
-}
-
-/** @internal */
-export const PipelineFunctionMaskConf$inboundSchema: z.ZodType<
-  PipelineFunctionMaskConf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  rules: z.array(z.lazy(() => PipelineFunctionMaskRule$inboundSchema)),
-  fields: z.array(z.string()).optional(),
-  depth: z.number().int().optional(),
-  flags: z.array(ItemsTypeAdd$inboundSchema).optional(),
-});
-/** @internal */
-export type PipelineFunctionMaskConf$Outbound = {
-  rules: Array<PipelineFunctionMaskRule$Outbound>;
-  fields?: Array<string> | undefined;
-  depth?: number | undefined;
-  flags?: Array<ItemsTypeAdd$Outbound> | undefined;
-};
-
-/** @internal */
-export const PipelineFunctionMaskConf$outboundSchema: z.ZodType<
-  PipelineFunctionMaskConf$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionMaskConf
-> = z.object({
-  rules: z.array(z.lazy(() => PipelineFunctionMaskRule$outboundSchema)),
-  fields: z.array(z.string()).optional(),
-  depth: z.number().int().optional(),
-  flags: z.array(ItemsTypeAdd$outboundSchema).optional(),
-});
-
-export function pipelineFunctionMaskConfToJSON(
-  pipelineFunctionMaskConf: PipelineFunctionMaskConf,
-): string {
-  return JSON.stringify(
-    PipelineFunctionMaskConf$outboundSchema.parse(pipelineFunctionMaskConf),
-  );
-}
-export function pipelineFunctionMaskConfFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionMaskConf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PipelineFunctionMaskConf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionMaskConf' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionMask$inboundSchema: z.ZodType<
@@ -176,7 +52,7 @@ export const PipelineFunctionMask$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionMaskConf$inboundSchema),
+  conf: FunctionConfSchemaMask$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -186,7 +62,7 @@ export type PipelineFunctionMask$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: PipelineFunctionMaskConf$Outbound;
+  conf: FunctionConfSchemaMask$Outbound;
   groupId?: string | undefined;
 };
 
@@ -201,7 +77,7 @@ export const PipelineFunctionMask$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionMaskConf$outboundSchema),
+  conf: FunctionConfSchemaMask$outboundSchema,
   groupId: z.string().optional(),
 });
 

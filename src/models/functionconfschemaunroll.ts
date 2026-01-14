@@ -27,7 +27,29 @@ export const FunctionConfSchemaUnroll$inboundSchema: z.ZodType<
   srcExpr: z.string().optional(),
   dstField: z.string().optional(),
 });
+/** @internal */
+export type FunctionConfSchemaUnroll$Outbound = {
+  srcExpr?: string | undefined;
+  dstField?: string | undefined;
+};
 
+/** @internal */
+export const FunctionConfSchemaUnroll$outboundSchema: z.ZodType<
+  FunctionConfSchemaUnroll$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaUnroll
+> = z.object({
+  srcExpr: z.string().optional(),
+  dstField: z.string().optional(),
+});
+
+export function functionConfSchemaUnrollToJSON(
+  functionConfSchemaUnroll: FunctionConfSchemaUnroll,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaUnroll$outboundSchema.parse(functionConfSchemaUnroll),
+  );
+}
 export function functionConfSchemaUnrollFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaUnroll, SDKValidationError> {

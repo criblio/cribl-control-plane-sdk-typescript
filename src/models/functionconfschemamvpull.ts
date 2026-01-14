@@ -42,7 +42,35 @@ export const FunctionConfSchemaMvPull$inboundSchema: z.ZodType<
   targetBagPath: z.string().optional(),
   deleteOriginal: z.boolean().optional(),
 });
+/** @internal */
+export type FunctionConfSchemaMvPull$Outbound = {
+  arrayPath?: string | undefined;
+  relativeKeyPath?: string | undefined;
+  relativeValuePath?: string | undefined;
+  targetBagPath?: string | undefined;
+  deleteOriginal?: boolean | undefined;
+};
 
+/** @internal */
+export const FunctionConfSchemaMvPull$outboundSchema: z.ZodType<
+  FunctionConfSchemaMvPull$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaMvPull
+> = z.object({
+  arrayPath: z.string().optional(),
+  relativeKeyPath: z.string().optional(),
+  relativeValuePath: z.string().optional(),
+  targetBagPath: z.string().optional(),
+  deleteOriginal: z.boolean().optional(),
+});
+
+export function functionConfSchemaMvPullToJSON(
+  functionConfSchemaMvPull: FunctionConfSchemaMvPull,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaMvPull$outboundSchema.parse(functionConfSchemaMvPull),
+  );
+}
 export function functionConfSchemaMvPullFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaMvPull, SDKValidationError> {

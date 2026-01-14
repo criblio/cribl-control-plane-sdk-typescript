@@ -6,33 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type LakeExportConfiguration = {
-  /**
-   * Id of the search job this function is running on.
-   */
-  searchJobId: string;
-  /**
-   * Name of the dataset
-   */
-  dataset: string;
-  /**
-   * Name of the lake
-   */
-  lake?: string | undefined;
-  /**
-   * Tee results to search. When set to true results will be shipped instead of stats
-   */
-  tee?: string | undefined;
-  /**
-   * How often are stats flushed in ms
-   */
-  flushMs?: number | undefined;
-  /**
-   * Disables generation of intermediate stats. When true stats will be emitted only on end
-   */
-  suppressPreviews?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaLakeExport,
+  FunctionConfSchemaLakeExport$inboundSchema,
+  FunctionConfSchemaLakeExport$Outbound,
+  FunctionConfSchemaLakeExport$outboundSchema,
+} from "./functionconfschemalakeexport.js";
 
 export type PipelineFunctionLakeExport = {
   /**
@@ -55,66 +34,12 @@ export type PipelineFunctionLakeExport = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: LakeExportConfiguration;
+  conf: FunctionConfSchemaLakeExport;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const LakeExportConfiguration$inboundSchema: z.ZodType<
-  LakeExportConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  searchJobId: z.string(),
-  dataset: z.string(),
-  lake: z.string().optional(),
-  tee: z.string().optional(),
-  flushMs: z.number().optional(),
-  suppressPreviews: z.boolean().optional(),
-});
-/** @internal */
-export type LakeExportConfiguration$Outbound = {
-  searchJobId: string;
-  dataset: string;
-  lake?: string | undefined;
-  tee?: string | undefined;
-  flushMs?: number | undefined;
-  suppressPreviews?: boolean | undefined;
-};
-
-/** @internal */
-export const LakeExportConfiguration$outboundSchema: z.ZodType<
-  LakeExportConfiguration$Outbound,
-  z.ZodTypeDef,
-  LakeExportConfiguration
-> = z.object({
-  searchJobId: z.string(),
-  dataset: z.string(),
-  lake: z.string().optional(),
-  tee: z.string().optional(),
-  flushMs: z.number().optional(),
-  suppressPreviews: z.boolean().optional(),
-});
-
-export function lakeExportConfigurationToJSON(
-  lakeExportConfiguration: LakeExportConfiguration,
-): string {
-  return JSON.stringify(
-    LakeExportConfiguration$outboundSchema.parse(lakeExportConfiguration),
-  );
-}
-export function lakeExportConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<LakeExportConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => LakeExportConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'LakeExportConfiguration' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionLakeExport$inboundSchema: z.ZodType<
@@ -127,7 +52,7 @@ export const PipelineFunctionLakeExport$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => LakeExportConfiguration$inboundSchema),
+  conf: FunctionConfSchemaLakeExport$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -137,7 +62,7 @@ export type PipelineFunctionLakeExport$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: LakeExportConfiguration$Outbound;
+  conf: FunctionConfSchemaLakeExport$Outbound;
   groupId?: string | undefined;
 };
 
@@ -152,7 +77,7 @@ export const PipelineFunctionLakeExport$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => LakeExportConfiguration$outboundSchema),
+  conf: FunctionConfSchemaLakeExport$outboundSchema,
   groupId: z.string().optional(),
 });
 

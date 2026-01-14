@@ -6,22 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type PipelineFunctionTeeConf = {
-  /**
-   * Command to execute and feed events to, via stdin. One JSON-formatted event per line.
-   */
-  command: string;
-  args?: Array<string> | undefined;
-  /**
-   * Restart the process if it exits and/or we fail to write to it
-   */
-  restartOnExit?: boolean | undefined;
-  /**
-   * Environment variables to overwrite or set
-   */
-  env?: { [k: string]: string } | undefined;
-};
+import {
+  FunctionConfSchemaTee,
+  FunctionConfSchemaTee$inboundSchema,
+  FunctionConfSchemaTee$Outbound,
+  FunctionConfSchemaTee$outboundSchema,
+} from "./functionconfschematee.js";
 
 export type PipelineFunctionTee = {
   /**
@@ -44,60 +34,12 @@ export type PipelineFunctionTee = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: PipelineFunctionTeeConf;
+  conf: FunctionConfSchemaTee;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const PipelineFunctionTeeConf$inboundSchema: z.ZodType<
-  PipelineFunctionTeeConf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  command: z.string(),
-  args: z.array(z.string()).optional(),
-  restartOnExit: z.boolean().optional(),
-  env: z.record(z.string()).optional(),
-});
-/** @internal */
-export type PipelineFunctionTeeConf$Outbound = {
-  command: string;
-  args?: Array<string> | undefined;
-  restartOnExit?: boolean | undefined;
-  env?: { [k: string]: string } | undefined;
-};
-
-/** @internal */
-export const PipelineFunctionTeeConf$outboundSchema: z.ZodType<
-  PipelineFunctionTeeConf$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionTeeConf
-> = z.object({
-  command: z.string(),
-  args: z.array(z.string()).optional(),
-  restartOnExit: z.boolean().optional(),
-  env: z.record(z.string()).optional(),
-});
-
-export function pipelineFunctionTeeConfToJSON(
-  pipelineFunctionTeeConf: PipelineFunctionTeeConf,
-): string {
-  return JSON.stringify(
-    PipelineFunctionTeeConf$outboundSchema.parse(pipelineFunctionTeeConf),
-  );
-}
-export function pipelineFunctionTeeConfFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionTeeConf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PipelineFunctionTeeConf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionTeeConf' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionTee$inboundSchema: z.ZodType<
@@ -110,7 +52,7 @@ export const PipelineFunctionTee$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionTeeConf$inboundSchema),
+  conf: FunctionConfSchemaTee$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -120,7 +62,7 @@ export type PipelineFunctionTee$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: PipelineFunctionTeeConf$Outbound;
+  conf: FunctionConfSchemaTee$Outbound;
   groupId?: string | undefined;
 };
 
@@ -135,7 +77,7 @@ export const PipelineFunctionTee$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionTeeConf$outboundSchema),
+  conf: FunctionConfSchemaTee$outboundSchema,
   groupId: z.string().optional(),
 });
 

@@ -6,15 +6,15 @@
 import { SplunkAuthenticationBasic } from "cribl-control-plane/models";
 
 let value: SplunkAuthenticationBasic = {
-  authentication: "tokenSecret",
-  username: "Mabelle41",
-  password: "qh2mRqngRWb8Dmd",
+  authentication: "basic",
+  username: "Rosalyn_Wisoky",
+  password: "Hwqh2mRqngRWb8D",
   searchHead: "<value>",
   search: "<value>",
   earliest: "<value>",
   latest: "<value>",
   endpoint: "<value>",
-  outputMode: "csv",
+  outputMode: "json",
   collectRequestParams: [
     {
       name: "<value>",
@@ -27,13 +27,13 @@ let value: SplunkAuthenticationBasic = {
       value: "<value>",
     },
   ],
-  timeout: 5391.84,
-  useRoundRobinDns: false,
-  disableTimeFilter: true,
-  rejectUnauthorized: true,
-  handleEscapedChars: false,
+  timeout: 7103.1,
+  useRoundRobinDns: true,
+  disableTimeFilter: false,
+  rejectUnauthorized: false,
+  handleEscapedChars: true,
   retryRules: {
-    type: "none",
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -49,7 +49,7 @@ let value: SplunkAuthenticationBasic = {
 
 | Field                                                                                                                     | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               |
 | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `authentication`                                                                                                          | [models.SplunkAuthenticationBasicAuthentication](../models/splunkauthenticationbasicauthentication.md)                    | :heavy_check_mark:                                                                                                        | Authentication method for Discover and Collect REST calls                                                                 |
+| `authentication`                                                                                                          | *"basic"*                                                                                                                 | :heavy_check_mark:                                                                                                        | Authentication method for Discover and Collect REST calls                                                                 |
 | `username`                                                                                                                | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | Basic authentication username                                                                                             |
 | `password`                                                                                                                | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | Basic authentication password                                                                                             |
 | `searchHead`                                                                                                              | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | Search head base URL. Can be an expression. Default is https://localhost:8089.                                            |

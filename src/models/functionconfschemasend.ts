@@ -68,6 +68,12 @@ export const FunctionConfSchemaSendMode$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(FunctionConfSchemaSendMode);
+/** @internal */
+export const FunctionConfSchemaSendMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  FunctionConfSchemaSendMode
+> = openEnums.outboundSchema(FunctionConfSchemaSendMode);
 
 /** @internal */
 export const FunctionConfSchemaSend$inboundSchema: z.ZodType<
@@ -85,7 +91,43 @@ export const FunctionConfSchemaSend$inboundSchema: z.ZodType<
   suppressPreviews: z.boolean().optional(),
   mode: FunctionConfSchemaSendMode$inboundSchema.optional(),
 });
+/** @internal */
+export type FunctionConfSchemaSend$Outbound = {
+  url?: string | undefined;
+  group?: string | undefined;
+  workspace?: string | undefined;
+  sendUrlTemplate?: string | undefined;
+  searchId?: string | undefined;
+  tee?: string | undefined;
+  flushMs?: number | undefined;
+  suppressPreviews?: boolean | undefined;
+  mode?: string | undefined;
+};
 
+/** @internal */
+export const FunctionConfSchemaSend$outboundSchema: z.ZodType<
+  FunctionConfSchemaSend$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaSend
+> = z.object({
+  url: z.string().optional(),
+  group: z.string().optional(),
+  workspace: z.string().optional(),
+  sendUrlTemplate: z.string().optional(),
+  searchId: z.string().optional(),
+  tee: z.string().optional(),
+  flushMs: z.number().optional(),
+  suppressPreviews: z.boolean().optional(),
+  mode: FunctionConfSchemaSendMode$outboundSchema.optional(),
+});
+
+export function functionConfSchemaSendToJSON(
+  functionConfSchemaSend: FunctionConfSchemaSend,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaSend$outboundSchema.parse(functionConfSchemaSend),
+  );
+}
 export function functionConfSchemaSendFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaSend, SDKValidationError> {

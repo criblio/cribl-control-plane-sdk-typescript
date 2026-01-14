@@ -12,10 +12,17 @@ let value: PipelineFunctionRedis = {
   disabled: false,
   final: false,
   conf: {
-    commands: [],
+    commands: [
+      {
+        outField: "<value>",
+        command: "<value>",
+        keyExpr: "<value>",
+        argsExpr: "<value>",
+      },
+    ],
     deploymentType: "cluster",
-    authType: "textSecret",
-    maxBlockSecs: 5990.87,
+    authType: "manual",
+    maxBlockSecs: 8522.53,
     enableClientSideCaching: false,
   },
   groupId: "<id>",
@@ -31,5 +38,5 @@ let value: PipelineFunctionRedis = {
 | `description`                                                                                | *string*                                                                                     | :heavy_minus_sign:                                                                           | Simple description of this step                                                              |
 | `disabled`                                                                                   | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | If true, data will not be pushed through this function                                       |
 | `final`                                                                                      | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | If enabled, stops the results of this Function from being passed to the downstream Functions |
-| `conf`                                                                                       | [models.PipelineFunctionRedisConf](../models/pipelinefunctionredisconf.md)                   | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `conf`                                                                                       | [models.FunctionConfSchemaRedis](../models/functionconfschemaredis.md)                       | :heavy_check_mark:                                                                           | N/A                                                                                          |
 | `groupId`                                                                                    | *string*                                                                                     | :heavy_minus_sign:                                                                           | Group ID                                                                                     |

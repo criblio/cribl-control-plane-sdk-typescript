@@ -12,7 +12,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 /**
  * Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
  */
-export const FunctionConfSchemaDynamicSamplingSampleMode = {
+export const SampleMode = {
   /**
    * Logarithmic
    */
@@ -25,15 +25,13 @@ export const FunctionConfSchemaDynamicSamplingSampleMode = {
 /**
  * Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
  */
-export type FunctionConfSchemaDynamicSamplingSampleMode = OpenEnum<
-  typeof FunctionConfSchemaDynamicSamplingSampleMode
->;
+export type SampleMode = OpenEnum<typeof SampleMode>;
 
 export type FunctionConfSchemaDynamicSampling = {
   /**
    * Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
    */
-  mode?: FunctionConfSchemaDynamicSamplingSampleMode | undefined;
+  mode?: SampleMode | undefined;
   /**
    * Expression used to derive sample group key. Example:`${domain}:${status}`. Each sample group will have its own derived sampling rate based on volume. Defaults to `${host}`.
    */
@@ -53,12 +51,17 @@ export type FunctionConfSchemaDynamicSampling = {
 };
 
 /** @internal */
-export const FunctionConfSchemaDynamicSamplingSampleMode$inboundSchema:
-  z.ZodType<
-    FunctionConfSchemaDynamicSamplingSampleMode,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(FunctionConfSchemaDynamicSamplingSampleMode);
+export const SampleMode$inboundSchema: z.ZodType<
+  SampleMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(SampleMode);
+/** @internal */
+export const SampleMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SampleMode
+> = openEnums.outboundSchema(SampleMode);
 
 /** @internal */
 export const FunctionConfSchemaDynamicSampling$inboundSchema: z.ZodType<
@@ -66,13 +69,43 @@ export const FunctionConfSchemaDynamicSampling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: FunctionConfSchemaDynamicSamplingSampleMode$inboundSchema.optional(),
+  mode: SampleMode$inboundSchema.optional(),
+  keyExpr: z.string().optional(),
+  samplePeriod: z.number().optional(),
+  minEvents: z.number().optional(),
+  maxSampleRate: z.number().optional(),
+});
+/** @internal */
+export type FunctionConfSchemaDynamicSampling$Outbound = {
+  mode?: string | undefined;
+  keyExpr?: string | undefined;
+  samplePeriod?: number | undefined;
+  minEvents?: number | undefined;
+  maxSampleRate?: number | undefined;
+};
+
+/** @internal */
+export const FunctionConfSchemaDynamicSampling$outboundSchema: z.ZodType<
+  FunctionConfSchemaDynamicSampling$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaDynamicSampling
+> = z.object({
+  mode: SampleMode$outboundSchema.optional(),
   keyExpr: z.string().optional(),
   samplePeriod: z.number().optional(),
   minEvents: z.number().optional(),
   maxSampleRate: z.number().optional(),
 });
 
+export function functionConfSchemaDynamicSamplingToJSON(
+  functionConfSchemaDynamicSampling: FunctionConfSchemaDynamicSampling,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaDynamicSampling$outboundSchema.parse(
+      functionConfSchemaDynamicSampling,
+    ),
+  );
+}
 export function functionConfSchemaDynamicSamplingFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaDynamicSampling, SDKValidationError> {

@@ -6,7 +6,7 @@
 import { SplunkAuthenticationNone } from "cribl-control-plane/models";
 
 let value: SplunkAuthenticationNone = {
-  authentication: "token",
+  authentication: "none",
   searchHead: "<value>",
   search: "<value>",
   earliest: "<value>",
@@ -25,7 +25,7 @@ let value: SplunkAuthenticationNone = {
       value: "<value>",
     },
   ],
-  timeout: 5597.31,
+  timeout: 5419.69,
   useRoundRobinDns: false,
   disableTimeFilter: false,
   rejectUnauthorized: false,
@@ -47,7 +47,7 @@ let value: SplunkAuthenticationNone = {
 
 | Field                                                                                                                     | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               |
 | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `authentication`                                                                                                          | [models.SplunkAuthenticationNoneAuthentication](../models/splunkauthenticationnoneauthentication.md)                      | :heavy_check_mark:                                                                                                        | Authentication method for Discover and Collect REST calls                                                                 |
+| `authentication`                                                                                                          | *"none"*                                                                                                                  | :heavy_check_mark:                                                                                                        | Authentication method for Discover and Collect REST calls                                                                 |
 | `searchHead`                                                                                                              | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | Search head base URL. Can be an expression. Default is https://localhost:8089.                                            |
 | `search`                                                                                                                  | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | Examples: 'index=myAppLogs level=error channel=myApp' OR '\| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'      |
 | `earliest`                                                                                                                | *string*                                                                                                                  | :heavy_minus_sign:                                                                                                        | The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m' |

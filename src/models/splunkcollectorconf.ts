@@ -4,8 +4,6 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -18,38 +16,6 @@ import {
   RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
   RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
 } from "./retrytypeoptionshealthcheckcollectorconfretryrules.js";
-
-/**
- * Authentication method for Discover and Collect REST calls
- */
-export const SplunkAuthenticationLoginSecretAuthentication = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Basic
-   */
-  Basic: "basic",
-  /**
-   * Basic (credentials secret)
-   */
-  BasicSecret: "basicSecret",
-  /**
-   * Bearer Token
-   */
-  Token: "token",
-  /**
-   * Bearer Token (text secret)
-   */
-  TokenSecret: "tokenSecret",
-} as const;
-/**
- * Authentication method for Discover and Collect REST calls
- */
-export type SplunkAuthenticationLoginSecretAuthentication = OpenEnum<
-  typeof SplunkAuthenticationLoginSecretAuthentication
->;
 
 export type SplunkAuthenticationLoginSecretCollectRequestParam = {
   name: string;
@@ -85,7 +51,7 @@ export type SplunkAuthenticationLoginSecret = {
   /**
    * Authentication method for Discover and Collect REST calls
    */
-  authentication: SplunkAuthenticationLoginSecretAuthentication;
+  authentication: "loginSecret";
   /**
    * URL to use for login API call, this call is expected to be a POST.
    */
@@ -165,38 +131,6 @@ export type SplunkAuthenticationLoginSecret = {
   retryRules?: SplunkAuthenticationLoginSecretRetryRules | undefined;
 };
 
-/**
- * Authentication method for Discover and Collect REST calls
- */
-export const SplunkAuthenticationLoginAuthentication = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Basic
-   */
-  Basic: "basic",
-  /**
-   * Basic (credentials secret)
-   */
-  BasicSecret: "basicSecret",
-  /**
-   * Bearer Token
-   */
-  Token: "token",
-  /**
-   * Bearer Token (text secret)
-   */
-  TokenSecret: "tokenSecret",
-} as const;
-/**
- * Authentication method for Discover and Collect REST calls
- */
-export type SplunkAuthenticationLoginAuthentication = OpenEnum<
-  typeof SplunkAuthenticationLoginAuthentication
->;
-
 export type SplunkAuthenticationLoginCollectRequestParam = {
   name: string;
   /**
@@ -231,7 +165,7 @@ export type SplunkAuthenticationLogin = {
   /**
    * Authentication method for Discover and Collect REST calls
    */
-  authentication: SplunkAuthenticationLoginAuthentication;
+  authentication: "login";
   /**
    * URL to use for login API call. This call is expected to be a POST.
    */
@@ -309,38 +243,6 @@ export type SplunkAuthenticationLogin = {
   retryRules?: SplunkAuthenticationLoginRetryRules | undefined;
 };
 
-/**
- * Authentication method for Discover and Collect REST calls
- */
-export const SplunkAuthenticationTokenSecretAuthentication = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Basic
-   */
-  Basic: "basic",
-  /**
-   * Basic (credentials secret)
-   */
-  BasicSecret: "basicSecret",
-  /**
-   * Bearer Token
-   */
-  Token: "token",
-  /**
-   * Bearer Token (text secret)
-   */
-  TokenSecret: "tokenSecret",
-} as const;
-/**
- * Authentication method for Discover and Collect REST calls
- */
-export type SplunkAuthenticationTokenSecretAuthentication = OpenEnum<
-  typeof SplunkAuthenticationTokenSecretAuthentication
->;
-
 export type SplunkAuthenticationTokenSecretCollectRequestParam = {
   name: string;
   /**
@@ -375,7 +277,7 @@ export type SplunkAuthenticationTokenSecret = {
   /**
    * Authentication method for Discover and Collect REST calls
    */
-  authentication: SplunkAuthenticationTokenSecretAuthentication;
+  authentication: "tokenSecret";
   /**
    * Select or create a stored secret that references your Bearer token
    */
@@ -439,38 +341,6 @@ export type SplunkAuthenticationTokenSecret = {
   retryRules?: SplunkAuthenticationTokenSecretRetryRules | undefined;
 };
 
-/**
- * Authentication method for Discover and Collect REST calls
- */
-export const SplunkAuthenticationTokenAuthentication = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Basic
-   */
-  Basic: "basic",
-  /**
-   * Basic (credentials secret)
-   */
-  BasicSecret: "basicSecret",
-  /**
-   * Bearer Token
-   */
-  Token: "token",
-  /**
-   * Bearer Token (text secret)
-   */
-  TokenSecret: "tokenSecret",
-} as const;
-/**
- * Authentication method for Discover and Collect REST calls
- */
-export type SplunkAuthenticationTokenAuthentication = OpenEnum<
-  typeof SplunkAuthenticationTokenAuthentication
->;
-
 export type SplunkAuthenticationTokenCollectRequestParam = {
   name: string;
   /**
@@ -505,7 +375,7 @@ export type SplunkAuthenticationToken = {
   /**
    * Authentication method for Discover and Collect REST calls
    */
-  authentication: SplunkAuthenticationTokenAuthentication;
+  authentication: "token";
   token: string;
   /**
    * Search head base URL. Can be an expression. Default is https://localhost:8089.
@@ -566,38 +436,6 @@ export type SplunkAuthenticationToken = {
   retryRules?: SplunkAuthenticationTokenRetryRules | undefined;
 };
 
-/**
- * Authentication method for Discover and Collect REST calls
- */
-export const SplunkAuthenticationBasicSecretAuthentication = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Basic
-   */
-  Basic: "basic",
-  /**
-   * Basic (credentials secret)
-   */
-  BasicSecret: "basicSecret",
-  /**
-   * Bearer Token
-   */
-  Token: "token",
-  /**
-   * Bearer Token (text secret)
-   */
-  TokenSecret: "tokenSecret",
-} as const;
-/**
- * Authentication method for Discover and Collect REST calls
- */
-export type SplunkAuthenticationBasicSecretAuthentication = OpenEnum<
-  typeof SplunkAuthenticationBasicSecretAuthentication
->;
-
 export type SplunkAuthenticationBasicSecretCollectRequestParam = {
   name: string;
   /**
@@ -632,7 +470,7 @@ export type SplunkAuthenticationBasicSecret = {
   /**
    * Authentication method for Discover and Collect REST calls
    */
-  authentication: SplunkAuthenticationBasicSecretAuthentication;
+  authentication: "basicSecret";
   /**
    * Select or create a stored secret that references your credentials
    */
@@ -696,38 +534,6 @@ export type SplunkAuthenticationBasicSecret = {
   retryRules?: SplunkAuthenticationBasicSecretRetryRules | undefined;
 };
 
-/**
- * Authentication method for Discover and Collect REST calls
- */
-export const SplunkAuthenticationBasicAuthentication = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Basic
-   */
-  Basic: "basic",
-  /**
-   * Basic (credentials secret)
-   */
-  BasicSecret: "basicSecret",
-  /**
-   * Bearer Token
-   */
-  Token: "token",
-  /**
-   * Bearer Token (text secret)
-   */
-  TokenSecret: "tokenSecret",
-} as const;
-/**
- * Authentication method for Discover and Collect REST calls
- */
-export type SplunkAuthenticationBasicAuthentication = OpenEnum<
-  typeof SplunkAuthenticationBasicAuthentication
->;
-
 export type SplunkAuthenticationBasicCollectRequestParam = {
   name: string;
   /**
@@ -762,7 +568,7 @@ export type SplunkAuthenticationBasic = {
   /**
    * Authentication method for Discover and Collect REST calls
    */
-  authentication: SplunkAuthenticationBasicAuthentication;
+  authentication: "basic";
   /**
    * Basic authentication username
    */
@@ -830,38 +636,6 @@ export type SplunkAuthenticationBasic = {
   retryRules?: SplunkAuthenticationBasicRetryRules | undefined;
 };
 
-/**
- * Authentication method for Discover and Collect REST calls
- */
-export const SplunkAuthenticationNoneAuthentication = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Basic
-   */
-  Basic: "basic",
-  /**
-   * Basic (credentials secret)
-   */
-  BasicSecret: "basicSecret",
-  /**
-   * Bearer Token
-   */
-  Token: "token",
-  /**
-   * Bearer Token (text secret)
-   */
-  TokenSecret: "tokenSecret",
-} as const;
-/**
- * Authentication method for Discover and Collect REST calls
- */
-export type SplunkAuthenticationNoneAuthentication = OpenEnum<
-  typeof SplunkAuthenticationNoneAuthentication
->;
-
 export type SplunkAuthenticationNoneCollectRequestParam = {
   name: string;
   /**
@@ -896,7 +670,7 @@ export type SplunkAuthenticationNone = {
   /**
    * Authentication method for Discover and Collect REST calls
    */
-  authentication: SplunkAuthenticationNoneAuthentication;
+  authentication: "none";
   /**
    * Search head base URL. Can be an expression. Default is https://localhost:8089.
    */
@@ -957,28 +731,13 @@ export type SplunkAuthenticationNone = {
 };
 
 export type SplunkCollectorConf =
-  | SplunkAuthenticationLogin
-  | SplunkAuthenticationLoginSecret
+  | SplunkAuthenticationNone
   | SplunkAuthenticationBasic
   | SplunkAuthenticationBasicSecret
   | SplunkAuthenticationToken
   | SplunkAuthenticationTokenSecret
-  | SplunkAuthenticationNone;
-
-/** @internal */
-export const SplunkAuthenticationLoginSecretAuthentication$inboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSecretAuthentication,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(SplunkAuthenticationLoginSecretAuthentication);
-/** @internal */
-export const SplunkAuthenticationLoginSecretAuthentication$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    SplunkAuthenticationLoginSecretAuthentication
-  > = openEnums.outboundSchema(SplunkAuthenticationLoginSecretAuthentication);
+  | SplunkAuthenticationLogin
+  | SplunkAuthenticationLoginSecret;
 
 /** @internal */
 export const SplunkAuthenticationLoginSecretCollectRequestParam$inboundSchema:
@@ -1162,7 +921,7 @@ export const SplunkAuthenticationLoginSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: SplunkAuthenticationLoginSecretAuthentication$inboundSchema,
+  authentication: z.literal("loginSecret"),
   loginUrl: z.string(),
   credentialsSecret: z.string(),
   loginBody: z.string(),
@@ -1195,7 +954,7 @@ export const SplunkAuthenticationLoginSecret$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type SplunkAuthenticationLoginSecret$Outbound = {
-  authentication: string;
+  authentication: "loginSecret";
   loginUrl: string;
   credentialsSecret: string;
   loginBody: string;
@@ -1227,7 +986,7 @@ export const SplunkAuthenticationLoginSecret$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationLoginSecret
 > = z.object({
-  authentication: SplunkAuthenticationLoginSecretAuthentication$outboundSchema,
+  authentication: z.literal("loginSecret"),
   loginUrl: z.string(),
   credentialsSecret: z.string(),
   loginBody: z.string(),
@@ -1277,19 +1036,6 @@ export function splunkAuthenticationLoginSecretFromJSON(
     `Failed to parse 'SplunkAuthenticationLoginSecret' from JSON`,
   );
 }
-
-/** @internal */
-export const SplunkAuthenticationLoginAuthentication$inboundSchema: z.ZodType<
-  SplunkAuthenticationLoginAuthentication,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationLoginAuthentication);
-/** @internal */
-export const SplunkAuthenticationLoginAuthentication$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SplunkAuthenticationLoginAuthentication
-> = openEnums.outboundSchema(SplunkAuthenticationLoginAuthentication);
 
 /** @internal */
 export const SplunkAuthenticationLoginCollectRequestParam$inboundSchema:
@@ -1466,7 +1212,7 @@ export const SplunkAuthenticationLogin$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: SplunkAuthenticationLoginAuthentication$inboundSchema,
+  authentication: z.literal("login"),
   loginUrl: z.string(),
   username: z.string(),
   password: z.string(),
@@ -1495,7 +1241,7 @@ export const SplunkAuthenticationLogin$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type SplunkAuthenticationLogin$Outbound = {
-  authentication: string;
+  authentication: "login";
   loginUrl: string;
   username: string;
   password: string;
@@ -1528,7 +1274,7 @@ export const SplunkAuthenticationLogin$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationLogin
 > = z.object({
-  authentication: SplunkAuthenticationLoginAuthentication$outboundSchema,
+  authentication: z.literal("login"),
   loginUrl: z.string(),
   username: z.string(),
   password: z.string(),
@@ -1572,21 +1318,6 @@ export function splunkAuthenticationLoginFromJSON(
     `Failed to parse 'SplunkAuthenticationLogin' from JSON`,
   );
 }
-
-/** @internal */
-export const SplunkAuthenticationTokenSecretAuthentication$inboundSchema:
-  z.ZodType<
-    SplunkAuthenticationTokenSecretAuthentication,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(SplunkAuthenticationTokenSecretAuthentication);
-/** @internal */
-export const SplunkAuthenticationTokenSecretAuthentication$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    SplunkAuthenticationTokenSecretAuthentication
-  > = openEnums.outboundSchema(SplunkAuthenticationTokenSecretAuthentication);
 
 /** @internal */
 export const SplunkAuthenticationTokenSecretCollectRequestParam$inboundSchema:
@@ -1770,7 +1501,7 @@ export const SplunkAuthenticationTokenSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: SplunkAuthenticationTokenSecretAuthentication$inboundSchema,
+  authentication: z.literal("tokenSecret"),
   tokenSecret: z.string(),
   searchHead: z.string(),
   search: z.string(),
@@ -1799,7 +1530,7 @@ export const SplunkAuthenticationTokenSecret$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type SplunkAuthenticationTokenSecret$Outbound = {
-  authentication: string;
+  authentication: "tokenSecret";
   tokenSecret: string;
   searchHead: string;
   search: string;
@@ -1827,7 +1558,7 @@ export const SplunkAuthenticationTokenSecret$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationTokenSecret
 > = z.object({
-  authentication: SplunkAuthenticationTokenSecretAuthentication$outboundSchema,
+  authentication: z.literal("tokenSecret"),
   tokenSecret: z.string(),
   searchHead: z.string(),
   search: z.string(),
@@ -1873,19 +1604,6 @@ export function splunkAuthenticationTokenSecretFromJSON(
     `Failed to parse 'SplunkAuthenticationTokenSecret' from JSON`,
   );
 }
-
-/** @internal */
-export const SplunkAuthenticationTokenAuthentication$inboundSchema: z.ZodType<
-  SplunkAuthenticationTokenAuthentication,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationTokenAuthentication);
-/** @internal */
-export const SplunkAuthenticationTokenAuthentication$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SplunkAuthenticationTokenAuthentication
-> = openEnums.outboundSchema(SplunkAuthenticationTokenAuthentication);
 
 /** @internal */
 export const SplunkAuthenticationTokenCollectRequestParam$inboundSchema:
@@ -2062,7 +1780,7 @@ export const SplunkAuthenticationToken$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: SplunkAuthenticationTokenAuthentication$inboundSchema,
+  authentication: z.literal("token"),
   token: z.string(),
   searchHead: z.string(),
   search: z.string(),
@@ -2086,7 +1804,7 @@ export const SplunkAuthenticationToken$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type SplunkAuthenticationToken$Outbound = {
-  authentication: string;
+  authentication: "token";
   token: string;
   searchHead: string;
   search: string;
@@ -2114,7 +1832,7 @@ export const SplunkAuthenticationToken$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationToken
 > = z.object({
-  authentication: SplunkAuthenticationTokenAuthentication$outboundSchema,
+  authentication: z.literal("token"),
   token: z.string(),
   searchHead: z.string(),
   search: z.string(),
@@ -2153,21 +1871,6 @@ export function splunkAuthenticationTokenFromJSON(
     `Failed to parse 'SplunkAuthenticationToken' from JSON`,
   );
 }
-
-/** @internal */
-export const SplunkAuthenticationBasicSecretAuthentication$inboundSchema:
-  z.ZodType<
-    SplunkAuthenticationBasicSecretAuthentication,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(SplunkAuthenticationBasicSecretAuthentication);
-/** @internal */
-export const SplunkAuthenticationBasicSecretAuthentication$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    SplunkAuthenticationBasicSecretAuthentication
-  > = openEnums.outboundSchema(SplunkAuthenticationBasicSecretAuthentication);
 
 /** @internal */
 export const SplunkAuthenticationBasicSecretCollectRequestParam$inboundSchema:
@@ -2351,7 +2054,7 @@ export const SplunkAuthenticationBasicSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: SplunkAuthenticationBasicSecretAuthentication$inboundSchema,
+  authentication: z.literal("basicSecret"),
   credentialsSecret: z.string(),
   searchHead: z.string(),
   search: z.string(),
@@ -2380,7 +2083,7 @@ export const SplunkAuthenticationBasicSecret$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type SplunkAuthenticationBasicSecret$Outbound = {
-  authentication: string;
+  authentication: "basicSecret";
   credentialsSecret: string;
   searchHead: string;
   search: string;
@@ -2408,7 +2111,7 @@ export const SplunkAuthenticationBasicSecret$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationBasicSecret
 > = z.object({
-  authentication: SplunkAuthenticationBasicSecretAuthentication$outboundSchema,
+  authentication: z.literal("basicSecret"),
   credentialsSecret: z.string(),
   searchHead: z.string(),
   search: z.string(),
@@ -2454,19 +2157,6 @@ export function splunkAuthenticationBasicSecretFromJSON(
     `Failed to parse 'SplunkAuthenticationBasicSecret' from JSON`,
   );
 }
-
-/** @internal */
-export const SplunkAuthenticationBasicAuthentication$inboundSchema: z.ZodType<
-  SplunkAuthenticationBasicAuthentication,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationBasicAuthentication);
-/** @internal */
-export const SplunkAuthenticationBasicAuthentication$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SplunkAuthenticationBasicAuthentication
-> = openEnums.outboundSchema(SplunkAuthenticationBasicAuthentication);
 
 /** @internal */
 export const SplunkAuthenticationBasicCollectRequestParam$inboundSchema:
@@ -2643,7 +2333,7 @@ export const SplunkAuthenticationBasic$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: SplunkAuthenticationBasicAuthentication$inboundSchema,
+  authentication: z.literal("basic"),
   username: z.string(),
   password: z.string(),
   searchHead: z.string(),
@@ -2668,7 +2358,7 @@ export const SplunkAuthenticationBasic$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type SplunkAuthenticationBasic$Outbound = {
-  authentication: string;
+  authentication: "basic";
   username: string;
   password: string;
   searchHead: string;
@@ -2697,7 +2387,7 @@ export const SplunkAuthenticationBasic$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationBasic
 > = z.object({
-  authentication: SplunkAuthenticationBasicAuthentication$outboundSchema,
+  authentication: z.literal("basic"),
   username: z.string(),
   password: z.string(),
   searchHead: z.string(),
@@ -2737,19 +2427,6 @@ export function splunkAuthenticationBasicFromJSON(
     `Failed to parse 'SplunkAuthenticationBasic' from JSON`,
   );
 }
-
-/** @internal */
-export const SplunkAuthenticationNoneAuthentication$inboundSchema: z.ZodType<
-  SplunkAuthenticationNoneAuthentication,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SplunkAuthenticationNoneAuthentication);
-/** @internal */
-export const SplunkAuthenticationNoneAuthentication$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SplunkAuthenticationNoneAuthentication
-> = openEnums.outboundSchema(SplunkAuthenticationNoneAuthentication);
 
 /** @internal */
 export const SplunkAuthenticationNoneCollectRequestParam$inboundSchema:
@@ -2926,7 +2603,7 @@ export const SplunkAuthenticationNone$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: SplunkAuthenticationNoneAuthentication$inboundSchema,
+  authentication: z.literal("none"),
   searchHead: z.string(),
   search: z.string(),
   earliest: z.string().optional(),
@@ -2949,7 +2626,7 @@ export const SplunkAuthenticationNone$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type SplunkAuthenticationNone$Outbound = {
-  authentication: string;
+  authentication: "none";
   searchHead: string;
   search: string;
   earliest?: string | undefined;
@@ -2976,7 +2653,7 @@ export const SplunkAuthenticationNone$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkAuthenticationNone
 > = z.object({
-  authentication: SplunkAuthenticationNoneAuthentication$outboundSchema,
+  authentication: z.literal("none"),
   searchHead: z.string(),
   search: z.string(),
   earliest: z.string().optional(),
@@ -3021,23 +2698,23 @@ export const SplunkCollectorConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => SplunkAuthenticationLogin$inboundSchema),
-  z.lazy(() => SplunkAuthenticationLoginSecret$inboundSchema),
+  z.lazy(() => SplunkAuthenticationNone$inboundSchema),
   z.lazy(() => SplunkAuthenticationBasic$inboundSchema),
   z.lazy(() => SplunkAuthenticationBasicSecret$inboundSchema),
   z.lazy(() => SplunkAuthenticationToken$inboundSchema),
   z.lazy(() => SplunkAuthenticationTokenSecret$inboundSchema),
-  z.lazy(() => SplunkAuthenticationNone$inboundSchema),
+  z.lazy(() => SplunkAuthenticationLogin$inboundSchema),
+  z.lazy(() => SplunkAuthenticationLoginSecret$inboundSchema),
 ]);
 /** @internal */
 export type SplunkCollectorConf$Outbound =
-  | SplunkAuthenticationLogin$Outbound
-  | SplunkAuthenticationLoginSecret$Outbound
+  | SplunkAuthenticationNone$Outbound
   | SplunkAuthenticationBasic$Outbound
   | SplunkAuthenticationBasicSecret$Outbound
   | SplunkAuthenticationToken$Outbound
   | SplunkAuthenticationTokenSecret$Outbound
-  | SplunkAuthenticationNone$Outbound;
+  | SplunkAuthenticationLogin$Outbound
+  | SplunkAuthenticationLoginSecret$Outbound;
 
 /** @internal */
 export const SplunkCollectorConf$outboundSchema: z.ZodType<
@@ -3045,13 +2722,13 @@ export const SplunkCollectorConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SplunkCollectorConf
 > = z.union([
-  z.lazy(() => SplunkAuthenticationLogin$outboundSchema),
-  z.lazy(() => SplunkAuthenticationLoginSecret$outboundSchema),
+  z.lazy(() => SplunkAuthenticationNone$outboundSchema),
   z.lazy(() => SplunkAuthenticationBasic$outboundSchema),
   z.lazy(() => SplunkAuthenticationBasicSecret$outboundSchema),
   z.lazy(() => SplunkAuthenticationToken$outboundSchema),
   z.lazy(() => SplunkAuthenticationTokenSecret$outboundSchema),
-  z.lazy(() => SplunkAuthenticationNone$outboundSchema),
+  z.lazy(() => SplunkAuthenticationLogin$outboundSchema),
+  z.lazy(() => SplunkAuthenticationLoginSecret$outboundSchema),
 ]);
 
 export function splunkCollectorConfToJSON(

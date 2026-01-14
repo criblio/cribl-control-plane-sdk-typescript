@@ -6,42 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type PipelineFunctionGeoipAdditionalField = {
-  /**
-   * Field name in which to find an IP to look up. Can be nested.
-   */
-  extraInField: string;
-  /**
-   * Field name in which to store the GeoIP lookup results
-   */
-  extraOutField: string;
-};
-
-/**
- * Search-specific mappings for granular control over event enrichment
- */
-export type PipelineFunctionGeoipOutputFieldMappings = {};
-
-export type PipelineFunctionGeoipConf = {
-  /**
-   * Select an uploaded Maxmind database, or specify path to a Maxmind database with .mmdb extension
-   */
-  file: string;
-  /**
-   * Field name in which to find an IP to look up. Can be nested.
-   */
-  inField?: string | undefined;
-  /**
-   * Field name in which to store the GeoIP lookup results
-   */
-  outField?: string | undefined;
-  additionalFields?: Array<PipelineFunctionGeoipAdditionalField> | undefined;
-  /**
-   * Search-specific mappings for granular control over event enrichment
-   */
-  outFieldMappings?: PipelineFunctionGeoipOutputFieldMappings | undefined;
-};
+import {
+  FunctionConfSchemaGeoip,
+  FunctionConfSchemaGeoip$inboundSchema,
+  FunctionConfSchemaGeoip$Outbound,
+  FunctionConfSchemaGeoip$outboundSchema,
+} from "./functionconfschemageoip.js";
 
 export type PipelineFunctionGeoip = {
   /**
@@ -64,162 +34,12 @@ export type PipelineFunctionGeoip = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: PipelineFunctionGeoipConf;
+  conf: FunctionConfSchemaGeoip;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const PipelineFunctionGeoipAdditionalField$inboundSchema: z.ZodType<
-  PipelineFunctionGeoipAdditionalField,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  extraInField: z.string(),
-  extraOutField: z.string(),
-});
-/** @internal */
-export type PipelineFunctionGeoipAdditionalField$Outbound = {
-  extraInField: string;
-  extraOutField: string;
-};
-
-/** @internal */
-export const PipelineFunctionGeoipAdditionalField$outboundSchema: z.ZodType<
-  PipelineFunctionGeoipAdditionalField$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionGeoipAdditionalField
-> = z.object({
-  extraInField: z.string(),
-  extraOutField: z.string(),
-});
-
-export function pipelineFunctionGeoipAdditionalFieldToJSON(
-  pipelineFunctionGeoipAdditionalField: PipelineFunctionGeoipAdditionalField,
-): string {
-  return JSON.stringify(
-    PipelineFunctionGeoipAdditionalField$outboundSchema.parse(
-      pipelineFunctionGeoipAdditionalField,
-    ),
-  );
-}
-export function pipelineFunctionGeoipAdditionalFieldFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionGeoipAdditionalField, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PipelineFunctionGeoipAdditionalField$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionGeoipAdditionalField' from JSON`,
-  );
-}
-
-/** @internal */
-export const PipelineFunctionGeoipOutputFieldMappings$inboundSchema: z.ZodType<
-  PipelineFunctionGeoipOutputFieldMappings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type PipelineFunctionGeoipOutputFieldMappings$Outbound = {};
-
-/** @internal */
-export const PipelineFunctionGeoipOutputFieldMappings$outboundSchema: z.ZodType<
-  PipelineFunctionGeoipOutputFieldMappings$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionGeoipOutputFieldMappings
-> = z.object({});
-
-export function pipelineFunctionGeoipOutputFieldMappingsToJSON(
-  pipelineFunctionGeoipOutputFieldMappings:
-    PipelineFunctionGeoipOutputFieldMappings,
-): string {
-  return JSON.stringify(
-    PipelineFunctionGeoipOutputFieldMappings$outboundSchema.parse(
-      pipelineFunctionGeoipOutputFieldMappings,
-    ),
-  );
-}
-export function pipelineFunctionGeoipOutputFieldMappingsFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  PipelineFunctionGeoipOutputFieldMappings,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PipelineFunctionGeoipOutputFieldMappings$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'PipelineFunctionGeoipOutputFieldMappings' from JSON`,
-  );
-}
-
-/** @internal */
-export const PipelineFunctionGeoipConf$inboundSchema: z.ZodType<
-  PipelineFunctionGeoipConf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  file: z.string(),
-  inField: z.string().optional(),
-  outField: z.string().optional(),
-  additionalFields: z.array(
-    z.lazy(() => PipelineFunctionGeoipAdditionalField$inboundSchema),
-  ).optional(),
-  outFieldMappings: z.lazy(() =>
-    PipelineFunctionGeoipOutputFieldMappings$inboundSchema
-  ).optional(),
-});
-/** @internal */
-export type PipelineFunctionGeoipConf$Outbound = {
-  file: string;
-  inField?: string | undefined;
-  outField?: string | undefined;
-  additionalFields?:
-    | Array<PipelineFunctionGeoipAdditionalField$Outbound>
-    | undefined;
-  outFieldMappings?:
-    | PipelineFunctionGeoipOutputFieldMappings$Outbound
-    | undefined;
-};
-
-/** @internal */
-export const PipelineFunctionGeoipConf$outboundSchema: z.ZodType<
-  PipelineFunctionGeoipConf$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionGeoipConf
-> = z.object({
-  file: z.string(),
-  inField: z.string().optional(),
-  outField: z.string().optional(),
-  additionalFields: z.array(
-    z.lazy(() => PipelineFunctionGeoipAdditionalField$outboundSchema),
-  ).optional(),
-  outFieldMappings: z.lazy(() =>
-    PipelineFunctionGeoipOutputFieldMappings$outboundSchema
-  ).optional(),
-});
-
-export function pipelineFunctionGeoipConfToJSON(
-  pipelineFunctionGeoipConf: PipelineFunctionGeoipConf,
-): string {
-  return JSON.stringify(
-    PipelineFunctionGeoipConf$outboundSchema.parse(pipelineFunctionGeoipConf),
-  );
-}
-export function pipelineFunctionGeoipConfFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionGeoipConf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PipelineFunctionGeoipConf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionGeoipConf' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionGeoip$inboundSchema: z.ZodType<
@@ -232,7 +52,7 @@ export const PipelineFunctionGeoip$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionGeoipConf$inboundSchema),
+  conf: FunctionConfSchemaGeoip$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -242,7 +62,7 @@ export type PipelineFunctionGeoip$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: PipelineFunctionGeoipConf$Outbound;
+  conf: FunctionConfSchemaGeoip$Outbound;
   groupId?: string | undefined;
 };
 
@@ -257,7 +77,7 @@ export const PipelineFunctionGeoip$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionGeoipConf$outboundSchema),
+  conf: FunctionConfSchemaGeoip$outboundSchema,
   groupId: z.string().optional(),
 });
 

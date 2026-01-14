@@ -32,7 +32,33 @@ export const FunctionConfSchemaDropDimensions$inboundSchema: z.ZodType<
   dropDimensions: z.array(z.string()).optional(),
   flushOnInputClose: z.boolean().optional(),
 });
+/** @internal */
+export type FunctionConfSchemaDropDimensions$Outbound = {
+  timeWindow?: string | undefined;
+  dropDimensions?: Array<string> | undefined;
+  flushOnInputClose?: boolean | undefined;
+};
 
+/** @internal */
+export const FunctionConfSchemaDropDimensions$outboundSchema: z.ZodType<
+  FunctionConfSchemaDropDimensions$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaDropDimensions
+> = z.object({
+  timeWindow: z.string().optional(),
+  dropDimensions: z.array(z.string()).optional(),
+  flushOnInputClose: z.boolean().optional(),
+});
+
+export function functionConfSchemaDropDimensionsToJSON(
+  functionConfSchemaDropDimensions: FunctionConfSchemaDropDimensions,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaDropDimensions$outboundSchema.parse(
+      functionConfSchemaDropDimensions,
+    ),
+  );
+}
 export function functionConfSchemaDropDimensionsFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaDropDimensions, SDKValidationError> {

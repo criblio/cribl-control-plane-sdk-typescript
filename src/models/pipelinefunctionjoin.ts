@@ -6,40 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type PipelineFunctionJoinFieldCondition = {
-  /**
-   * The field name to join on, on the left side.
-   */
-  leftFieldName: string;
-  /**
-   * The field name on the right side of the data, i.e. the stage results, that we are joining with
-   */
-  rightFieldName: string;
-};
-
-export type JoinConfiguration = {
-  /**
-   * Join kind, e.g. inner
-   */
-  kind?: string | undefined;
-  /**
-   * Hints passed to the join function
-   */
-  hints?: { [k: string]: string } | undefined;
-  /**
-   * Fields to use when joining
-   */
-  fieldConditions: Array<PipelineFunctionJoinFieldCondition>;
-  /**
-   * The id for this search job.
-   */
-  searchJobId?: string | undefined;
-  /**
-   * The stage we are joining with.
-   */
-  stageId?: string | undefined;
-};
+import {
+  FunctionConfSchemaJoin,
+  FunctionConfSchemaJoin$inboundSchema,
+  FunctionConfSchemaJoin$Outbound,
+  FunctionConfSchemaJoin$outboundSchema,
+} from "./functionconfschemajoin.js";
 
 export type PipelineFunctionJoin = {
   /**
@@ -62,112 +34,12 @@ export type PipelineFunctionJoin = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: JoinConfiguration;
+  conf: FunctionConfSchemaJoin;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const PipelineFunctionJoinFieldCondition$inboundSchema: z.ZodType<
-  PipelineFunctionJoinFieldCondition,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  leftFieldName: z.string(),
-  rightFieldName: z.string(),
-});
-/** @internal */
-export type PipelineFunctionJoinFieldCondition$Outbound = {
-  leftFieldName: string;
-  rightFieldName: string;
-};
-
-/** @internal */
-export const PipelineFunctionJoinFieldCondition$outboundSchema: z.ZodType<
-  PipelineFunctionJoinFieldCondition$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionJoinFieldCondition
-> = z.object({
-  leftFieldName: z.string(),
-  rightFieldName: z.string(),
-});
-
-export function pipelineFunctionJoinFieldConditionToJSON(
-  pipelineFunctionJoinFieldCondition: PipelineFunctionJoinFieldCondition,
-): string {
-  return JSON.stringify(
-    PipelineFunctionJoinFieldCondition$outboundSchema.parse(
-      pipelineFunctionJoinFieldCondition,
-    ),
-  );
-}
-export function pipelineFunctionJoinFieldConditionFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionJoinFieldCondition, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PipelineFunctionJoinFieldCondition$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionJoinFieldCondition' from JSON`,
-  );
-}
-
-/** @internal */
-export const JoinConfiguration$inboundSchema: z.ZodType<
-  JoinConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  kind: z.string().optional(),
-  hints: z.record(z.string()).optional(),
-  fieldConditions: z.array(
-    z.lazy(() => PipelineFunctionJoinFieldCondition$inboundSchema),
-  ),
-  searchJobId: z.string().optional(),
-  stageId: z.string().optional(),
-});
-/** @internal */
-export type JoinConfiguration$Outbound = {
-  kind?: string | undefined;
-  hints?: { [k: string]: string } | undefined;
-  fieldConditions: Array<PipelineFunctionJoinFieldCondition$Outbound>;
-  searchJobId?: string | undefined;
-  stageId?: string | undefined;
-};
-
-/** @internal */
-export const JoinConfiguration$outboundSchema: z.ZodType<
-  JoinConfiguration$Outbound,
-  z.ZodTypeDef,
-  JoinConfiguration
-> = z.object({
-  kind: z.string().optional(),
-  hints: z.record(z.string()).optional(),
-  fieldConditions: z.array(
-    z.lazy(() => PipelineFunctionJoinFieldCondition$outboundSchema),
-  ),
-  searchJobId: z.string().optional(),
-  stageId: z.string().optional(),
-});
-
-export function joinConfigurationToJSON(
-  joinConfiguration: JoinConfiguration,
-): string {
-  return JSON.stringify(
-    JoinConfiguration$outboundSchema.parse(joinConfiguration),
-  );
-}
-export function joinConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<JoinConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => JoinConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'JoinConfiguration' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionJoin$inboundSchema: z.ZodType<
@@ -180,7 +52,7 @@ export const PipelineFunctionJoin$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => JoinConfiguration$inboundSchema),
+  conf: FunctionConfSchemaJoin$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -190,7 +62,7 @@ export type PipelineFunctionJoin$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: JoinConfiguration$Outbound;
+  conf: FunctionConfSchemaJoin$Outbound;
   groupId?: string | undefined;
 };
 
@@ -205,7 +77,7 @@ export const PipelineFunctionJoin$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => JoinConfiguration$outboundSchema),
+  conf: FunctionConfSchemaJoin$outboundSchema,
   groupId: z.string().optional(),
 });
 

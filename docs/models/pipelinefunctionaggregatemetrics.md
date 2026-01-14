@@ -25,18 +25,20 @@ let value: PipelineFunctionAggregateMetrics = {
     ],
     groupbys: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
-    flushEventLimit: 6231.35,
+    flushEventLimit: 1582.91,
     flushMemLimit: "<value>",
-    cumulative: true,
-    shouldTreatDotsAsLiterals: false,
+    cumulative: false,
+    shouldTreatDotsAsLiterals: true,
     add: [
       {
         name: "<value>",
         value: "<value>",
       },
     ],
-    flushOnInputClose: true,
+    flushOnInputClose: false,
   },
   groupId: "<id>",
 };
@@ -44,12 +46,12 @@ let value: PipelineFunctionAggregateMetrics = {
 
 ## Fields
 
-| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
-| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
-| `filter`                                                                                         | *string*                                                                                         | :heavy_minus_sign:                                                                               | Filter that selects data to be fed through this Function                                         |
-| `id`                                                                                             | *"aggregate_metrics"*                                                                            | :heavy_check_mark:                                                                               | Function ID                                                                                      |
-| `description`                                                                                    | *string*                                                                                         | :heavy_minus_sign:                                                                               | Simple description of this step                                                                  |
-| `disabled`                                                                                       | *boolean*                                                                                        | :heavy_minus_sign:                                                                               | If true, data will not be pushed through this function                                           |
-| `final`                                                                                          | *boolean*                                                                                        | :heavy_minus_sign:                                                                               | If enabled, stops the results of this Function from being passed to the downstream Functions     |
-| `conf`                                                                                           | [models.PipelineFunctionAggregateMetricsConf](../models/pipelinefunctionaggregatemetricsconf.md) | :heavy_check_mark:                                                                               | N/A                                                                                              |
-| `groupId`                                                                                        | *string*                                                                                         | :heavy_minus_sign:                                                                               | Group ID                                                                                         |
+| Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `filter`                                                                                     | *string*                                                                                     | :heavy_minus_sign:                                                                           | Filter that selects data to be fed through this Function                                     |
+| `id`                                                                                         | *"aggregate_metrics"*                                                                        | :heavy_check_mark:                                                                           | Function ID                                                                                  |
+| `description`                                                                                | *string*                                                                                     | :heavy_minus_sign:                                                                           | Simple description of this step                                                              |
+| `disabled`                                                                                   | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | If true, data will not be pushed through this function                                       |
+| `final`                                                                                      | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | If enabled, stops the results of this Function from being passed to the downstream Functions |
+| `conf`                                                                                       | [models.FunctionConfSchemaAggregateMetrics](../models/functionconfschemaaggregatemetrics.md) | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `groupId`                                                                                    | *string*                                                                                     | :heavy_minus_sign:                                                                           | Group ID                                                                                     |

@@ -4,53 +4,14 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * decides if bag-values are expanded to bags or arrays
- */
-export const PipelineFunctionMvExpandBagExpansionMode = {
-  /**
-   * Store as object
-   */
-  Bag: "bag",
-  /**
-   * Store as array
-   */
-  Array: "array",
-} as const;
-/**
- * decides if bag-values are expanded to bags or arrays
- */
-export type PipelineFunctionMvExpandBagExpansionMode = OpenEnum<
-  typeof PipelineFunctionMvExpandBagExpansionMode
->;
-
-export type PipelineFunctionMvExpandConf = {
-  /**
-   * Array of property-/field-names to expand
-   */
-  sourceFields: Array<string>;
-  /**
-   * stores the value as new target field name
-   */
-  targetNames?: Array<string> | undefined;
-  /**
-   * max. number of rows generated out of every source events
-   */
-  rowLimit?: number | undefined;
-  /**
-   * name of an optional index property generated into the output
-   */
-  itemIndexName?: string | undefined;
-  /**
-   * decides if bag-values are expanded to bags or arrays
-   */
-  bagExpansionMode?: PipelineFunctionMvExpandBagExpansionMode | undefined;
-};
+import {
+  FunctionConfSchemaMvExpand,
+  FunctionConfSchemaMvExpand$inboundSchema,
+  FunctionConfSchemaMvExpand$Outbound,
+  FunctionConfSchemaMvExpand$outboundSchema,
+} from "./functionconfschemamvexpand.js";
 
 export type PipelineFunctionMvExpand = {
   /**
@@ -73,80 +34,12 @@ export type PipelineFunctionMvExpand = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: PipelineFunctionMvExpandConf;
+  conf: FunctionConfSchemaMvExpand;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const PipelineFunctionMvExpandBagExpansionMode$inboundSchema: z.ZodType<
-  PipelineFunctionMvExpandBagExpansionMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(PipelineFunctionMvExpandBagExpansionMode);
-/** @internal */
-export const PipelineFunctionMvExpandBagExpansionMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  PipelineFunctionMvExpandBagExpansionMode
-> = openEnums.outboundSchema(PipelineFunctionMvExpandBagExpansionMode);
-
-/** @internal */
-export const PipelineFunctionMvExpandConf$inboundSchema: z.ZodType<
-  PipelineFunctionMvExpandConf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sourceFields: z.array(z.string()),
-  targetNames: z.array(z.string()).optional(),
-  rowLimit: z.number().optional(),
-  itemIndexName: z.string().optional(),
-  bagExpansionMode: PipelineFunctionMvExpandBagExpansionMode$inboundSchema
-    .optional(),
-});
-/** @internal */
-export type PipelineFunctionMvExpandConf$Outbound = {
-  sourceFields: Array<string>;
-  targetNames?: Array<string> | undefined;
-  rowLimit?: number | undefined;
-  itemIndexName?: string | undefined;
-  bagExpansionMode?: string | undefined;
-};
-
-/** @internal */
-export const PipelineFunctionMvExpandConf$outboundSchema: z.ZodType<
-  PipelineFunctionMvExpandConf$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionMvExpandConf
-> = z.object({
-  sourceFields: z.array(z.string()),
-  targetNames: z.array(z.string()).optional(),
-  rowLimit: z.number().optional(),
-  itemIndexName: z.string().optional(),
-  bagExpansionMode: PipelineFunctionMvExpandBagExpansionMode$outboundSchema
-    .optional(),
-});
-
-export function pipelineFunctionMvExpandConfToJSON(
-  pipelineFunctionMvExpandConf: PipelineFunctionMvExpandConf,
-): string {
-  return JSON.stringify(
-    PipelineFunctionMvExpandConf$outboundSchema.parse(
-      pipelineFunctionMvExpandConf,
-    ),
-  );
-}
-export function pipelineFunctionMvExpandConfFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionMvExpandConf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PipelineFunctionMvExpandConf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionMvExpandConf' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionMvExpand$inboundSchema: z.ZodType<
@@ -159,7 +52,7 @@ export const PipelineFunctionMvExpand$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionMvExpandConf$inboundSchema),
+  conf: FunctionConfSchemaMvExpand$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -169,7 +62,7 @@ export type PipelineFunctionMvExpand$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: PipelineFunctionMvExpandConf$Outbound;
+  conf: FunctionConfSchemaMvExpand$Outbound;
   groupId?: string | undefined;
 };
 
@@ -184,7 +77,7 @@ export const PipelineFunctionMvExpand$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionMvExpandConf$outboundSchema),
+  conf: FunctionConfSchemaMvExpand$outboundSchema,
   groupId: z.string().optional(),
 });
 

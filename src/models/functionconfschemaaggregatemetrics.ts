@@ -28,7 +28,7 @@ export type FunctionConfSchemaAggregateMetricsMetricType = OpenEnum<
   typeof FunctionConfSchemaAggregateMetricsMetricType
 >;
 
-export type FunctionConfSchemaAggregateMetricsAggregation = {
+export type Aggregation = {
   /**
    * The output metric type
    */
@@ -71,9 +71,7 @@ export type FunctionConfSchemaAggregateMetrics = {
   /**
    * Combination of Aggregation function and output metric type
    */
-  aggregations?:
-    | Array<FunctionConfSchemaAggregateMetricsAggregation>
-    | undefined;
+  aggregations?: Array<Aggregation> | undefined;
   /**
    * Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
    */
@@ -111,31 +109,49 @@ export const FunctionConfSchemaAggregateMetricsMetricType$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(FunctionConfSchemaAggregateMetricsMetricType);
+/** @internal */
+export const FunctionConfSchemaAggregateMetricsMetricType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    FunctionConfSchemaAggregateMetricsMetricType
+  > = openEnums.outboundSchema(FunctionConfSchemaAggregateMetricsMetricType);
 
 /** @internal */
-export const FunctionConfSchemaAggregateMetricsAggregation$inboundSchema:
-  z.ZodType<
-    FunctionConfSchemaAggregateMetricsAggregation,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    metricType: FunctionConfSchemaAggregateMetricsMetricType$inboundSchema,
-    agg: z.string(),
-  });
+export const Aggregation$inboundSchema: z.ZodType<
+  Aggregation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  metricType: FunctionConfSchemaAggregateMetricsMetricType$inboundSchema,
+  agg: z.string(),
+});
+/** @internal */
+export type Aggregation$Outbound = {
+  metricType: string;
+  agg: string;
+};
 
-export function functionConfSchemaAggregateMetricsAggregationFromJSON(
+/** @internal */
+export const Aggregation$outboundSchema: z.ZodType<
+  Aggregation$Outbound,
+  z.ZodTypeDef,
+  Aggregation
+> = z.object({
+  metricType: FunctionConfSchemaAggregateMetricsMetricType$outboundSchema,
+  agg: z.string(),
+});
+
+export function aggregationToJSON(aggregation: Aggregation): string {
+  return JSON.stringify(Aggregation$outboundSchema.parse(aggregation));
+}
+export function aggregationFromJSON(
   jsonString: string,
-): SafeParseResult<
-  FunctionConfSchemaAggregateMetricsAggregation,
-  SDKValidationError
-> {
+): SafeParseResult<Aggregation, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      FunctionConfSchemaAggregateMetricsAggregation$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'FunctionConfSchemaAggregateMetricsAggregation' from JSON`,
+    (x) => Aggregation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Aggregation' from JSON`,
   );
 }
 
@@ -148,7 +164,31 @@ export const FunctionConfSchemaAggregateMetricsAdd$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
+/** @internal */
+export type FunctionConfSchemaAggregateMetricsAdd$Outbound = {
+  name?: string | undefined;
+  value: string;
+};
 
+/** @internal */
+export const FunctionConfSchemaAggregateMetricsAdd$outboundSchema: z.ZodType<
+  FunctionConfSchemaAggregateMetricsAdd$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaAggregateMetricsAdd
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+
+export function functionConfSchemaAggregateMetricsAddToJSON(
+  functionConfSchemaAggregateMetricsAdd: FunctionConfSchemaAggregateMetricsAdd,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaAggregateMetricsAdd$outboundSchema.parse(
+      functionConfSchemaAggregateMetricsAdd,
+    ),
+  );
+}
 export function functionConfSchemaAggregateMetricsAddFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaAggregateMetricsAdd, SDKValidationError> {
@@ -171,9 +211,7 @@ export const FunctionConfSchemaAggregateMetrics$inboundSchema: z.ZodType<
   sufficientStatsOnly: z.boolean().optional(),
   prefix: z.string().optional(),
   timeWindow: z.string().optional(),
-  aggregations: z.array(
-    z.lazy(() => FunctionConfSchemaAggregateMetricsAggregation$inboundSchema),
-  ).optional(),
+  aggregations: z.array(z.lazy(() => Aggregation$inboundSchema)).optional(),
   groupbys: z.array(z.string()).optional(),
   flushEventLimit: z.number().optional(),
   flushMemLimit: z.string().optional(),
@@ -184,7 +222,55 @@ export const FunctionConfSchemaAggregateMetrics$inboundSchema: z.ZodType<
   ).optional(),
   flushOnInputClose: z.boolean().optional(),
 });
+/** @internal */
+export type FunctionConfSchemaAggregateMetrics$Outbound = {
+  passthrough?: boolean | undefined;
+  preserveGroupBys?: boolean | undefined;
+  sufficientStatsOnly?: boolean | undefined;
+  prefix?: string | undefined;
+  timeWindow?: string | undefined;
+  aggregations?: Array<Aggregation$Outbound> | undefined;
+  groupbys?: Array<string> | undefined;
+  flushEventLimit?: number | undefined;
+  flushMemLimit?: string | undefined;
+  cumulative?: boolean | undefined;
+  shouldTreatDotsAsLiterals?: boolean | undefined;
+  add?: Array<FunctionConfSchemaAggregateMetricsAdd$Outbound> | undefined;
+  flushOnInputClose?: boolean | undefined;
+};
 
+/** @internal */
+export const FunctionConfSchemaAggregateMetrics$outboundSchema: z.ZodType<
+  FunctionConfSchemaAggregateMetrics$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaAggregateMetrics
+> = z.object({
+  passthrough: z.boolean().optional(),
+  preserveGroupBys: z.boolean().optional(),
+  sufficientStatsOnly: z.boolean().optional(),
+  prefix: z.string().optional(),
+  timeWindow: z.string().optional(),
+  aggregations: z.array(z.lazy(() => Aggregation$outboundSchema)).optional(),
+  groupbys: z.array(z.string()).optional(),
+  flushEventLimit: z.number().optional(),
+  flushMemLimit: z.string().optional(),
+  cumulative: z.boolean().optional(),
+  shouldTreatDotsAsLiterals: z.boolean().optional(),
+  add: z.array(
+    z.lazy(() => FunctionConfSchemaAggregateMetricsAdd$outboundSchema),
+  ).optional(),
+  flushOnInputClose: z.boolean().optional(),
+});
+
+export function functionConfSchemaAggregateMetricsToJSON(
+  functionConfSchemaAggregateMetrics: FunctionConfSchemaAggregateMetrics,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaAggregateMetrics$outboundSchema.parse(
+      functionConfSchemaAggregateMetrics,
+    ),
+  );
+}
 export function functionConfSchemaAggregateMetricsFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaAggregateMetrics, SDKValidationError> {

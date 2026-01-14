@@ -6,37 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type PipelineFunctionRegexExtractRegexList = {
-  /**
-   * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-   */
-  regex: string;
-};
-
-export type PipelineFunctionRegexExtractConf = {
-  /**
-   * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-   */
-  regex: string;
-  regexList?: Array<PipelineFunctionRegexExtractRegexList> | undefined;
-  /**
-   * Field on which to perform regex field extraction
-   */
-  source?: string | undefined;
-  /**
-   * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
-   */
-  iterations?: number | undefined;
-  /**
-   * JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
-   */
-  fieldNameExpression?: string | undefined;
-  /**
-   * Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
-   */
-  overwrite?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaRegexExtract,
+  FunctionConfSchemaRegexExtract$inboundSchema,
+  FunctionConfSchemaRegexExtract$Outbound,
+  FunctionConfSchemaRegexExtract$outboundSchema,
+} from "./functionconfschemaregexextract.js";
 
 export type PipelineFunctionRegexExtract = {
   /**
@@ -59,114 +34,12 @@ export type PipelineFunctionRegexExtract = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: PipelineFunctionRegexExtractConf;
+  conf: FunctionConfSchemaRegexExtract;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const PipelineFunctionRegexExtractRegexList$inboundSchema: z.ZodType<
-  PipelineFunctionRegexExtractRegexList,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  regex: z.string(),
-});
-/** @internal */
-export type PipelineFunctionRegexExtractRegexList$Outbound = {
-  regex: string;
-};
-
-/** @internal */
-export const PipelineFunctionRegexExtractRegexList$outboundSchema: z.ZodType<
-  PipelineFunctionRegexExtractRegexList$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionRegexExtractRegexList
-> = z.object({
-  regex: z.string(),
-});
-
-export function pipelineFunctionRegexExtractRegexListToJSON(
-  pipelineFunctionRegexExtractRegexList: PipelineFunctionRegexExtractRegexList,
-): string {
-  return JSON.stringify(
-    PipelineFunctionRegexExtractRegexList$outboundSchema.parse(
-      pipelineFunctionRegexExtractRegexList,
-    ),
-  );
-}
-export function pipelineFunctionRegexExtractRegexListFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionRegexExtractRegexList, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PipelineFunctionRegexExtractRegexList$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionRegexExtractRegexList' from JSON`,
-  );
-}
-
-/** @internal */
-export const PipelineFunctionRegexExtractConf$inboundSchema: z.ZodType<
-  PipelineFunctionRegexExtractConf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  regex: z.string(),
-  regexList: z.array(
-    z.lazy(() => PipelineFunctionRegexExtractRegexList$inboundSchema),
-  ).optional(),
-  source: z.string().optional(),
-  iterations: z.number().optional(),
-  fieldNameExpression: z.string().optional(),
-  overwrite: z.boolean().optional(),
-});
-/** @internal */
-export type PipelineFunctionRegexExtractConf$Outbound = {
-  regex: string;
-  regexList?: Array<PipelineFunctionRegexExtractRegexList$Outbound> | undefined;
-  source?: string | undefined;
-  iterations?: number | undefined;
-  fieldNameExpression?: string | undefined;
-  overwrite?: boolean | undefined;
-};
-
-/** @internal */
-export const PipelineFunctionRegexExtractConf$outboundSchema: z.ZodType<
-  PipelineFunctionRegexExtractConf$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionRegexExtractConf
-> = z.object({
-  regex: z.string(),
-  regexList: z.array(
-    z.lazy(() => PipelineFunctionRegexExtractRegexList$outboundSchema),
-  ).optional(),
-  source: z.string().optional(),
-  iterations: z.number().optional(),
-  fieldNameExpression: z.string().optional(),
-  overwrite: z.boolean().optional(),
-});
-
-export function pipelineFunctionRegexExtractConfToJSON(
-  pipelineFunctionRegexExtractConf: PipelineFunctionRegexExtractConf,
-): string {
-  return JSON.stringify(
-    PipelineFunctionRegexExtractConf$outboundSchema.parse(
-      pipelineFunctionRegexExtractConf,
-    ),
-  );
-}
-export function pipelineFunctionRegexExtractConfFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionRegexExtractConf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PipelineFunctionRegexExtractConf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionRegexExtractConf' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionRegexExtract$inboundSchema: z.ZodType<
@@ -179,7 +52,7 @@ export const PipelineFunctionRegexExtract$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionRegexExtractConf$inboundSchema),
+  conf: FunctionConfSchemaRegexExtract$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -189,7 +62,7 @@ export type PipelineFunctionRegexExtract$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: PipelineFunctionRegexExtractConf$Outbound;
+  conf: FunctionConfSchemaRegexExtract$Outbound;
   groupId?: string | undefined;
 };
 
@@ -204,7 +77,7 @@ export const PipelineFunctionRegexExtract$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionRegexExtractConf$outboundSchema),
+  conf: FunctionConfSchemaRegexExtract$outboundSchema,
   groupId: z.string().optional(),
 });
 

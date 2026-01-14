@@ -34,7 +34,33 @@ export const FunctionConfSchemaTee$inboundSchema: z.ZodType<
   restartOnExit: z.boolean().optional(),
   env: z.record(z.string()).optional(),
 });
+/** @internal */
+export type FunctionConfSchemaTee$Outbound = {
+  command?: string | undefined;
+  args?: Array<string> | undefined;
+  restartOnExit?: boolean | undefined;
+  env?: { [k: string]: string } | undefined;
+};
 
+/** @internal */
+export const FunctionConfSchemaTee$outboundSchema: z.ZodType<
+  FunctionConfSchemaTee$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaTee
+> = z.object({
+  command: z.string().optional(),
+  args: z.array(z.string()).optional(),
+  restartOnExit: z.boolean().optional(),
+  env: z.record(z.string()).optional(),
+});
+
+export function functionConfSchemaTeeToJSON(
+  functionConfSchemaTee: FunctionConfSchemaTee,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaTee$outboundSchema.parse(functionConfSchemaTee),
+  );
+}
 export function functionConfSchemaTeeFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaTee, SDKValidationError> {

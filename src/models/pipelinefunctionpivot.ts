@@ -6,21 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type SimplePivotConfiguration = {
-  /**
-   * Fields to be used for the left-most column.
-   */
-  labelField: string;
-  /**
-   * Fields with the cell values (i.e. aggregates)
-   */
-  dataFields: Array<string>;
-  /**
-   * Fields to qualify or group data fields
-   */
-  qualifierFields: Array<string>;
-};
+import {
+  FunctionConfSchemaPivot,
+  FunctionConfSchemaPivot$inboundSchema,
+  FunctionConfSchemaPivot$Outbound,
+  FunctionConfSchemaPivot$outboundSchema,
+} from "./functionconfschemapivot.js";
 
 export type PipelineFunctionPivot = {
   /**
@@ -43,57 +34,12 @@ export type PipelineFunctionPivot = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: SimplePivotConfiguration;
+  conf: FunctionConfSchemaPivot;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const SimplePivotConfiguration$inboundSchema: z.ZodType<
-  SimplePivotConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  labelField: z.string(),
-  dataFields: z.array(z.string()),
-  qualifierFields: z.array(z.string()),
-});
-/** @internal */
-export type SimplePivotConfiguration$Outbound = {
-  labelField: string;
-  dataFields: Array<string>;
-  qualifierFields: Array<string>;
-};
-
-/** @internal */
-export const SimplePivotConfiguration$outboundSchema: z.ZodType<
-  SimplePivotConfiguration$Outbound,
-  z.ZodTypeDef,
-  SimplePivotConfiguration
-> = z.object({
-  labelField: z.string(),
-  dataFields: z.array(z.string()),
-  qualifierFields: z.array(z.string()),
-});
-
-export function simplePivotConfigurationToJSON(
-  simplePivotConfiguration: SimplePivotConfiguration,
-): string {
-  return JSON.stringify(
-    SimplePivotConfiguration$outboundSchema.parse(simplePivotConfiguration),
-  );
-}
-export function simplePivotConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<SimplePivotConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SimplePivotConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SimplePivotConfiguration' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionPivot$inboundSchema: z.ZodType<
@@ -106,7 +52,7 @@ export const PipelineFunctionPivot$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => SimplePivotConfiguration$inboundSchema),
+  conf: FunctionConfSchemaPivot$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -116,7 +62,7 @@ export type PipelineFunctionPivot$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: SimplePivotConfiguration$Outbound;
+  conf: FunctionConfSchemaPivot$Outbound;
   groupId?: string | undefined;
 };
 
@@ -131,7 +77,7 @@ export const PipelineFunctionPivot$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => SimplePivotConfiguration$outboundSchema),
+  conf: FunctionConfSchemaPivot$outboundSchema,
   groupId: z.string().optional(),
 });
 

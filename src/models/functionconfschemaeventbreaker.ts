@@ -9,7 +9,7 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export const FunctionConfSchemaEventBreakerExistingOrNew = {
+export const ExistingOrNew = {
   /**
    * Use Existing
    */
@@ -19,12 +19,10 @@ export const FunctionConfSchemaEventBreakerExistingOrNew = {
    */
   New: "new",
 } as const;
-export type FunctionConfSchemaEventBreakerExistingOrNew = OpenEnum<
-  typeof FunctionConfSchemaEventBreakerExistingOrNew
->;
+export type ExistingOrNew = OpenEnum<typeof ExistingOrNew>;
 
 export type FunctionConfSchemaEventBreaker = {
-  existingOrNew?: FunctionConfSchemaEventBreakerExistingOrNew | undefined;
+  existingOrNew?: ExistingOrNew | undefined;
   /**
    * Add this Function name to the cribl_breaker field
    */
@@ -32,12 +30,17 @@ export type FunctionConfSchemaEventBreaker = {
 };
 
 /** @internal */
-export const FunctionConfSchemaEventBreakerExistingOrNew$inboundSchema:
-  z.ZodType<
-    FunctionConfSchemaEventBreakerExistingOrNew,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(FunctionConfSchemaEventBreakerExistingOrNew);
+export const ExistingOrNew$inboundSchema: z.ZodType<
+  ExistingOrNew,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(ExistingOrNew);
+/** @internal */
+export const ExistingOrNew$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ExistingOrNew
+> = openEnums.outboundSchema(ExistingOrNew);
 
 /** @internal */
 export const FunctionConfSchemaEventBreaker$inboundSchema: z.ZodType<
@@ -45,11 +48,34 @@ export const FunctionConfSchemaEventBreaker$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  existingOrNew: FunctionConfSchemaEventBreakerExistingOrNew$inboundSchema
-    .optional(),
+  existingOrNew: ExistingOrNew$inboundSchema.optional(),
+  shouldMarkCriblBreaker: z.boolean().optional(),
+});
+/** @internal */
+export type FunctionConfSchemaEventBreaker$Outbound = {
+  existingOrNew?: string | undefined;
+  shouldMarkCriblBreaker?: boolean | undefined;
+};
+
+/** @internal */
+export const FunctionConfSchemaEventBreaker$outboundSchema: z.ZodType<
+  FunctionConfSchemaEventBreaker$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaEventBreaker
+> = z.object({
+  existingOrNew: ExistingOrNew$outboundSchema.optional(),
   shouldMarkCriblBreaker: z.boolean().optional(),
 });
 
+export function functionConfSchemaEventBreakerToJSON(
+  functionConfSchemaEventBreaker: FunctionConfSchemaEventBreaker,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaEventBreaker$outboundSchema.parse(
+      functionConfSchemaEventBreaker,
+    ),
+  );
+}
 export function functionConfSchemaEventBreakerFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaEventBreaker, SDKValidationError> {

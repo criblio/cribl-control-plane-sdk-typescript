@@ -6,21 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type PipelineFunctionDropDimensionsConf = {
-  /**
-   * The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
-   */
-  timeWindow: string;
-  /**
-   * One or more dimensions to be dropped. Supports wildcard expressions. Warning: Using wildcard '*' causes all dimensions in the event to be dropped.
-   */
-  dropDimensions: Array<string>;
-  /**
-   * Flush aggregations when an input stream is closed. If disabled, aggregations are flushed based on Time Window Settings instead.
-   */
-  flushOnInputClose?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaDropDimensions,
+  FunctionConfSchemaDropDimensions$inboundSchema,
+  FunctionConfSchemaDropDimensions$Outbound,
+  FunctionConfSchemaDropDimensions$outboundSchema,
+} from "./functionconfschemadropdimensions.js";
 
 export type PipelineFunctionDropDimensions = {
   /**
@@ -43,60 +34,12 @@ export type PipelineFunctionDropDimensions = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: PipelineFunctionDropDimensionsConf;
+  conf: FunctionConfSchemaDropDimensions;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const PipelineFunctionDropDimensionsConf$inboundSchema: z.ZodType<
-  PipelineFunctionDropDimensionsConf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeWindow: z.string(),
-  dropDimensions: z.array(z.string()),
-  flushOnInputClose: z.boolean().optional(),
-});
-/** @internal */
-export type PipelineFunctionDropDimensionsConf$Outbound = {
-  timeWindow: string;
-  dropDimensions: Array<string>;
-  flushOnInputClose?: boolean | undefined;
-};
-
-/** @internal */
-export const PipelineFunctionDropDimensionsConf$outboundSchema: z.ZodType<
-  PipelineFunctionDropDimensionsConf$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionDropDimensionsConf
-> = z.object({
-  timeWindow: z.string(),
-  dropDimensions: z.array(z.string()),
-  flushOnInputClose: z.boolean().optional(),
-});
-
-export function pipelineFunctionDropDimensionsConfToJSON(
-  pipelineFunctionDropDimensionsConf: PipelineFunctionDropDimensionsConf,
-): string {
-  return JSON.stringify(
-    PipelineFunctionDropDimensionsConf$outboundSchema.parse(
-      pipelineFunctionDropDimensionsConf,
-    ),
-  );
-}
-export function pipelineFunctionDropDimensionsConfFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionDropDimensionsConf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PipelineFunctionDropDimensionsConf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionDropDimensionsConf' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionDropDimensions$inboundSchema: z.ZodType<
@@ -109,7 +52,7 @@ export const PipelineFunctionDropDimensions$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionDropDimensionsConf$inboundSchema),
+  conf: FunctionConfSchemaDropDimensions$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -119,7 +62,7 @@ export type PipelineFunctionDropDimensions$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: PipelineFunctionDropDimensionsConf$Outbound;
+  conf: FunctionConfSchemaDropDimensions$Outbound;
   groupId?: string | undefined;
 };
 
@@ -134,7 +77,7 @@ export const PipelineFunctionDropDimensions$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionDropDimensionsConf$outboundSchema),
+  conf: FunctionConfSchemaDropDimensions$outboundSchema,
   groupId: z.string().optional(),
 });
 

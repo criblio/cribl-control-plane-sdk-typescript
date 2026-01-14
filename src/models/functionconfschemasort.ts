@@ -42,7 +42,35 @@ export const FunctionConfSchemaSort$inboundSchema: z.ZodType<
   maxEvents: z.number().optional(),
   suppressPreviews: z.boolean().optional(),
 });
+/** @internal */
+export type FunctionConfSchemaSort$Outbound = {
+  sortId?: string | undefined;
+  comparisonExpression?: string | undefined;
+  topN?: number | undefined;
+  maxEvents?: number | undefined;
+  suppressPreviews?: boolean | undefined;
+};
 
+/** @internal */
+export const FunctionConfSchemaSort$outboundSchema: z.ZodType<
+  FunctionConfSchemaSort$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaSort
+> = z.object({
+  sortId: z.string().optional(),
+  comparisonExpression: z.string().optional(),
+  topN: z.number().optional(),
+  maxEvents: z.number().optional(),
+  suppressPreviews: z.boolean().optional(),
+});
+
+export function functionConfSchemaSortToJSON(
+  functionConfSchemaSort: FunctionConfSchemaSort,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaSort$outboundSchema.parse(functionConfSchemaSort),
+  );
+}
 export function functionConfSchemaSortFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaSort, SDKValidationError> {

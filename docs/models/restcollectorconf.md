@@ -167,13 +167,12 @@ const value: models.RestAuthenticationBasicSecret = {
 
 ```typescript
 const value: models.RestAuthenticationLogin = {
-  getAuthTokenFromHeader: true,
-  tokenRespAttribute: "<value>",
-  authentication: "basicSecret",
-  loginUrl: "https://warlike-provider.info/",
-  username: "Mason.Heller",
-  password: "VRBk1ydeV0uuBr2",
+  authentication: "login",
+  loginUrl: "https://swift-babushka.biz",
+  username: "Odell29",
+  password: "FLYm6snDntQzyN5",
   loginBody: "<value>",
+  getAuthTokenFromHeader: true,
   authHeaderKey: "<value>",
   authHeaderExpr: "<value>",
   authRequestHeaders: [
@@ -183,10 +182,10 @@ const value: models.RestAuthenticationLogin = {
     },
   ],
   discovery: {
-    discoverType: "json",
+    discoverType: "http",
   },
-  collectUrl: "https://expert-sundae.info/",
-  collectMethod: "post",
+  collectUrl: "https://sparkling-import.net",
+  collectMethod: "get",
   collectVerb: "<value>",
   collectRequestParams: "<value>",
   collectBody: "<value>",
@@ -199,13 +198,13 @@ const value: models.RestAuthenticationLogin = {
   pagination: {
     type: "none",
   },
-  timeout: 6151.58,
+  timeout: 6945.54,
   useRoundRobinDns: false,
   disableTimeFilter: false,
-  decodeUrl: false,
+  decodeUrl: true,
   rejectUnauthorized: false,
   captureHeaders: true,
-  stopOnEmptyResults: true,
+  stopOnEmptyResults: false,
   safeHeaders: [
     "<value 1>",
     "<value 2>",
@@ -234,12 +233,11 @@ const value: models.RestAuthenticationLogin = {
 
 ```typescript
 const value: models.RestAuthenticationLoginSecret = {
-  getAuthTokenFromHeader: true,
-  tokenRespAttribute: "<value>",
   authentication: "loginSecret",
-  loginUrl: "https://artistic-bracelet.com",
+  loginUrl: "https://zesty-e-mail.name/",
   credentialsSecret: "<value>",
   loginBody: "<value>",
+  getAuthTokenFromHeader: true,
   authHeaderKey: "<value>",
   authHeaderExpr: "<value>",
   authRequestHeaders: [
@@ -249,9 +247,9 @@ const value: models.RestAuthenticationLoginSecret = {
     },
   ],
   discovery: {
-    discoverType: "http",
+    discoverType: "none",
   },
-  collectUrl: "https://super-incandescence.biz",
+  collectUrl: "https://ornate-priesthood.biz",
   collectMethod: "post_with_body",
   collectVerb: "<value>",
   collectRequestParams: "<value>",
@@ -263,14 +261,14 @@ const value: models.RestAuthenticationLoginSecret = {
     },
   ],
   pagination: {
-    type: "request_page",
+    type: "response_body",
   },
-  timeout: 1649.91,
-  useRoundRobinDns: true,
+  timeout: 9647.19,
+  useRoundRobinDns: false,
   disableTimeFilter: false,
-  decodeUrl: false,
-  rejectUnauthorized: false,
-  captureHeaders: false,
+  decodeUrl: true,
+  rejectUnauthorized: true,
+  captureHeaders: true,
   stopOnEmptyResults: false,
   safeHeaders: [
     "<value 1>",
@@ -289,7 +287,7 @@ const value: models.RestAuthenticationLoginSecret = {
   },
   __scheduling: {
     stateTracking: {
-      enabled: true,
+      enabled: false,
     },
   },
 };

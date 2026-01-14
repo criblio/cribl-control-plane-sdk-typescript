@@ -6,8 +6,8 @@
 import { SplunkAuthenticationLoginSecret } from "cribl-control-plane/models";
 
 let value: SplunkAuthenticationLoginSecret = {
-  authentication: "basicSecret",
-  loginUrl: "https://outlying-obligation.name/",
+  authentication: "loginSecret",
+  loginUrl: "https://cruel-monster.name/",
   credentialsSecret: "<value>",
   loginBody: "<value>",
   tokenRespAttribute: "<value>",
@@ -17,7 +17,7 @@ let value: SplunkAuthenticationLoginSecret = {
   earliest: "<value>",
   latest: "<value>",
   endpoint: "<value>",
-  outputMode: "csv",
+  outputMode: "json",
   collectRequestParams: [
     {
       name: "<value>",
@@ -30,10 +30,10 @@ let value: SplunkAuthenticationLoginSecret = {
       value: "<value>",
     },
   ],
-  timeout: 10.25,
+  timeout: 4231.82,
   useRoundRobinDns: true,
   disableTimeFilter: true,
-  rejectUnauthorized: false,
+  rejectUnauthorized: true,
   handleEscapedChars: false,
   retryRules: {
     type: "static",
@@ -52,7 +52,7 @@ let value: SplunkAuthenticationLoginSecret = {
 
 | Field                                                                                                                                                                   | Type                                                                                                                                                                    | Required                                                                                                                                                                | Description                                                                                                                                                             |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `authentication`                                                                                                                                                        | [models.SplunkAuthenticationLoginSecretAuthentication](../models/splunkauthenticationloginsecretauthentication.md)                                                      | :heavy_check_mark:                                                                                                                                                      | Authentication method for Discover and Collect REST calls                                                                                                               |
+| `authentication`                                                                                                                                                        | *"loginSecret"*                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                      | Authentication method for Discover and Collect REST calls                                                                                                               |
 | `loginUrl`                                                                                                                                                              | *string*                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                      | URL to use for login API call, this call is expected to be a POST.                                                                                                      |
 | `credentialsSecret`                                                                                                                                                     | *string*                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                      | Select or create a stored secret that references your login credentials                                                                                                 |
 | `loginBody`                                                                                                                                                             | *string*                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                      | Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message                          |

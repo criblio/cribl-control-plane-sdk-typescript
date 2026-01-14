@@ -7,7 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type FunctionConfSchemaJoinFieldCondition = {
+export type FieldCondition = {
   /**
    * The field name to join on, on the left side.
    */
@@ -30,7 +30,7 @@ export type FunctionConfSchemaJoin = {
   /**
    * Fields to use when joining
    */
-  fieldConditions?: Array<FunctionConfSchemaJoinFieldCondition> | undefined;
+  fieldConditions?: Array<FieldCondition> | undefined;
   /**
    * The id for this search job.
    */
@@ -42,23 +42,40 @@ export type FunctionConfSchemaJoin = {
 };
 
 /** @internal */
-export const FunctionConfSchemaJoinFieldCondition$inboundSchema: z.ZodType<
-  FunctionConfSchemaJoinFieldCondition,
+export const FieldCondition$inboundSchema: z.ZodType<
+  FieldCondition,
   z.ZodTypeDef,
   unknown
 > = z.object({
   leftFieldName: z.string(),
   rightFieldName: z.string(),
 });
+/** @internal */
+export type FieldCondition$Outbound = {
+  leftFieldName: string;
+  rightFieldName: string;
+};
 
-export function functionConfSchemaJoinFieldConditionFromJSON(
+/** @internal */
+export const FieldCondition$outboundSchema: z.ZodType<
+  FieldCondition$Outbound,
+  z.ZodTypeDef,
+  FieldCondition
+> = z.object({
+  leftFieldName: z.string(),
+  rightFieldName: z.string(),
+});
+
+export function fieldConditionToJSON(fieldCondition: FieldCondition): string {
+  return JSON.stringify(FieldCondition$outboundSchema.parse(fieldCondition));
+}
+export function fieldConditionFromJSON(
   jsonString: string,
-): SafeParseResult<FunctionConfSchemaJoinFieldCondition, SDKValidationError> {
+): SafeParseResult<FieldCondition, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      FunctionConfSchemaJoinFieldCondition$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionConfSchemaJoinFieldCondition' from JSON`,
+    (x) => FieldCondition$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'FieldCondition' from JSON`,
   );
 }
 
@@ -70,13 +87,41 @@ export const FunctionConfSchemaJoin$inboundSchema: z.ZodType<
 > = z.object({
   kind: z.string().optional(),
   hints: z.record(z.string()).optional(),
-  fieldConditions: z.array(
-    z.lazy(() => FunctionConfSchemaJoinFieldCondition$inboundSchema),
-  ).optional(),
+  fieldConditions: z.array(z.lazy(() => FieldCondition$inboundSchema))
+    .optional(),
+  searchJobId: z.string().optional(),
+  stageId: z.string().optional(),
+});
+/** @internal */
+export type FunctionConfSchemaJoin$Outbound = {
+  kind?: string | undefined;
+  hints?: { [k: string]: string } | undefined;
+  fieldConditions?: Array<FieldCondition$Outbound> | undefined;
+  searchJobId?: string | undefined;
+  stageId?: string | undefined;
+};
+
+/** @internal */
+export const FunctionConfSchemaJoin$outboundSchema: z.ZodType<
+  FunctionConfSchemaJoin$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaJoin
+> = z.object({
+  kind: z.string().optional(),
+  hints: z.record(z.string()).optional(),
+  fieldConditions: z.array(z.lazy(() => FieldCondition$outboundSchema))
+    .optional(),
   searchJobId: z.string().optional(),
   stageId: z.string().optional(),
 });
 
+export function functionConfSchemaJoinToJSON(
+  functionConfSchemaJoin: FunctionConfSchemaJoin,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaJoin$outboundSchema.parse(functionConfSchemaJoin),
+  );
+}
 export function functionConfSchemaJoinFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaJoin, SDKValidationError> {

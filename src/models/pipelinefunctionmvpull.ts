@@ -6,29 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type PipelineFunctionMvPullConf = {
-  /**
-   * Field name of the array within events that contains the data objects of interest. Can be a path.
-   */
-  arrayPath: string;
-  /**
-   * Extract the K-V pair's key from this field, relative to the data object.
-   */
-  relativeKeyPath: string;
-  /**
-   * Extract the K-V pair's value from this field, relative to the data object.
-   */
-  relativeValuePath: string;
-  /**
-   * Optionally, specify a bag as the target for K-V entries. If not specified, these entries are stored on each top-level event.
-   */
-  targetBagPath?: string | undefined;
-  /**
-   * Toggle this on to remove each original array of data objects after extraction. If toggled off, arrays are retained.
-   */
-  deleteOriginal?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaMvPull,
+  FunctionConfSchemaMvPull$inboundSchema,
+  FunctionConfSchemaMvPull$Outbound,
+  FunctionConfSchemaMvPull$outboundSchema,
+} from "./functionconfschemamvpull.js";
 
 export type PipelineFunctionMvPull = {
   /**
@@ -51,63 +34,12 @@ export type PipelineFunctionMvPull = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: PipelineFunctionMvPullConf;
+  conf: FunctionConfSchemaMvPull;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const PipelineFunctionMvPullConf$inboundSchema: z.ZodType<
-  PipelineFunctionMvPullConf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  arrayPath: z.string(),
-  relativeKeyPath: z.string(),
-  relativeValuePath: z.string(),
-  targetBagPath: z.string().optional(),
-  deleteOriginal: z.boolean().optional(),
-});
-/** @internal */
-export type PipelineFunctionMvPullConf$Outbound = {
-  arrayPath: string;
-  relativeKeyPath: string;
-  relativeValuePath: string;
-  targetBagPath?: string | undefined;
-  deleteOriginal?: boolean | undefined;
-};
-
-/** @internal */
-export const PipelineFunctionMvPullConf$outboundSchema: z.ZodType<
-  PipelineFunctionMvPullConf$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionMvPullConf
-> = z.object({
-  arrayPath: z.string(),
-  relativeKeyPath: z.string(),
-  relativeValuePath: z.string(),
-  targetBagPath: z.string().optional(),
-  deleteOriginal: z.boolean().optional(),
-});
-
-export function pipelineFunctionMvPullConfToJSON(
-  pipelineFunctionMvPullConf: PipelineFunctionMvPullConf,
-): string {
-  return JSON.stringify(
-    PipelineFunctionMvPullConf$outboundSchema.parse(pipelineFunctionMvPullConf),
-  );
-}
-export function pipelineFunctionMvPullConfFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineFunctionMvPullConf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PipelineFunctionMvPullConf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionMvPullConf' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionMvPull$inboundSchema: z.ZodType<
@@ -120,7 +52,7 @@ export const PipelineFunctionMvPull$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionMvPullConf$inboundSchema),
+  conf: FunctionConfSchemaMvPull$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -130,7 +62,7 @@ export type PipelineFunctionMvPull$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: PipelineFunctionMvPullConf$Outbound;
+  conf: FunctionConfSchemaMvPull$Outbound;
   groupId?: string | undefined;
 };
 
@@ -145,7 +77,7 @@ export const PipelineFunctionMvPull$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionMvPullConf$outboundSchema),
+  conf: FunctionConfSchemaMvPull$outboundSchema,
   groupId: z.string().optional(),
 });
 
