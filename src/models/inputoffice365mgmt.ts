@@ -7,10 +7,10 @@ import { safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
-  AuthenticationMethodOptions1,
-  AuthenticationMethodOptions1$inboundSchema,
-  AuthenticationMethodOptions1$outboundSchema,
-} from "./authenticationmethodoptions1.js";
+  AuthenticationMethodOptions2,
+  AuthenticationMethodOptions2$inboundSchema,
+  AuthenticationMethodOptions2$outboundSchema,
+} from "./authenticationmethodoptions2.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -157,7 +157,7 @@ export type InputOffice365MgmtPqEnabledTrueWithPqConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -257,7 +257,7 @@ export type InputOffice365MgmtPqEnabledFalseConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -357,7 +357,7 @@ export type InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -457,7 +457,7 @@ export type InputOffice365MgmtSendToRoutesTrueConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -570,7 +570,7 @@ export const InputOffice365MgmtPqEnabledTrueWithPqConstraint$inboundSchema:
     ).optional(),
     ingestionLag: z.number().default(0),
     retryRules: RetryRulesType1$inboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$inboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -641,7 +641,7 @@ export const InputOffice365MgmtPqEnabledTrueWithPqConstraint$outboundSchema:
     ).optional(),
     ingestionLag: z.number().default(0),
     retryRules: RetryRulesType1$outboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$outboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -704,7 +704,7 @@ export const InputOffice365MgmtPqEnabledFalseConstraint$inboundSchema:
       ).optional(),
       ingestionLag: z.number().default(0),
       retryRules: RetryRulesType1$inboundSchema.optional(),
-      authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+      authType: AuthenticationMethodOptions2$inboundSchema.default("manual"),
       description: z.string().optional(),
       clientSecret: z.string().optional(),
       textSecret: z.string().optional(),
@@ -775,7 +775,7 @@ export const InputOffice365MgmtPqEnabledFalseConstraint$outboundSchema:
     ).optional(),
     ingestionLag: z.number().default(0),
     retryRules: RetryRulesType1$outboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$outboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -840,7 +840,7 @@ export const InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint$inboun
     ).optional(),
     ingestionLag: z.number().default(0),
     retryRules: RetryRulesType1$inboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$inboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -912,7 +912,7 @@ export const InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint$outbou
     ).optional(),
     ingestionLag: z.number().default(0),
     retryRules: RetryRulesType1$outboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$outboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -975,7 +975,7 @@ export const InputOffice365MgmtSendToRoutesTrueConstraint$inboundSchema:
     ).optional(),
     ingestionLag: z.number().default(0),
     retryRules: RetryRulesType1$inboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$inboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -1046,7 +1046,7 @@ export const InputOffice365MgmtSendToRoutesTrueConstraint$outboundSchema:
     ).optional(),
     ingestionLag: z.number().default(0),
     retryRules: RetryRulesType1$outboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$outboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),

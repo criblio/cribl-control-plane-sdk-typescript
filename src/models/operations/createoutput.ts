@@ -7,21 +7,6 @@ import * as openEnums from "../../types/enums.js";
 import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import * as models from "../index.js";
 
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const AuthenticationMethodCloudflareR2 = {
-  Auto: "auto",
-  Secret: "secret",
-  Manual: "manual",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type AuthenticationMethodCloudflareR2 = OpenEnum<
-  typeof AuthenticationMethodCloudflareR2
->;
-
 export type OutputCloudflareR2 = {
   /**
    * Unique ID for this output
@@ -55,7 +40,7 @@ export type OutputCloudflareR2 = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: AuthenticationMethodCloudflareR2 | undefined;
+  awsAuthenticationMethod?: string | undefined;
   /**
    * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
    */
@@ -2314,7 +2299,7 @@ export type OutputSecurityLake = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   /**
    * Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
    */
@@ -2546,7 +2531,7 @@ export type OutputDlS3 = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   /**
    * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
    */
@@ -3731,7 +3716,7 @@ export type OutputDataset = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: models.AuthenticationMethodOptions3 | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -5225,7 +5210,7 @@ export type OutputDatadog = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: models.AuthenticationMethodOptions3 | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -5561,7 +5546,7 @@ export type OutputSqs = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -5719,7 +5704,7 @@ export type OutputSns = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the SNS is located
@@ -6215,7 +6200,7 @@ export type OutputMinio = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   /**
    * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
    */
@@ -6442,7 +6427,7 @@ export type OutputCloudwatch = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the CloudWatchLogs is located
@@ -6908,7 +6893,7 @@ export type OutputNewrelicEvents = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: models.AuthenticationMethodOptions3 | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
@@ -7084,7 +7069,7 @@ export type OutputNewrelic = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: models.AuthenticationMethodOptions3 | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -7661,7 +7646,7 @@ export type OutputMsk = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -8633,7 +8618,7 @@ export type OutputGoogleCloudLogging = {
   pqControls?: PqControlsGoogleCloudLogging | undefined;
 };
 
-export const AuthenticationMethodGoogleCloudStorage = {
+export const AwsAuthenticationMethodAuthenticationMethod = {
   /**
    * auto
    */
@@ -8647,8 +8632,8 @@ export const AuthenticationMethodGoogleCloudStorage = {
    */
   Secret: "secret",
 } as const;
-export type AuthenticationMethodGoogleCloudStorage = OpenEnum<
-  typeof AuthenticationMethodGoogleCloudStorage
+export type AwsAuthenticationMethodAuthenticationMethod = OpenEnum<
+  typeof AwsAuthenticationMethodAuthenticationMethod
 >;
 
 export type OutputGoogleCloudStorage = {
@@ -8689,7 +8674,9 @@ export type OutputGoogleCloudStorage = {
    * Signature version to use for signing Google Cloud Storage requests
    */
   signatureVersion?: models.SignatureVersionOptions4 | undefined;
-  awsAuthenticationMethod?: AuthenticationMethodGoogleCloudStorage | undefined;
+  awsAuthenticationMethod?:
+    | AwsAuthenticationMethodAuthenticationMethod
+    | undefined;
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
@@ -9350,7 +9337,7 @@ export type OutputHoneycomb = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: models.AuthenticationMethodOptions3 | undefined;
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -9452,7 +9439,7 @@ export type OutputKinesis = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the Kinesis stream is located
@@ -10311,7 +10298,7 @@ export type OutputAzureBlob = {
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
-  authType?: models.AuthenticationMethodOptions | undefined;
+  authType?: models.AuthenticationMethodOptions1 | undefined;
   storageClass?: BlobAccessTier | undefined;
   description?: string | undefined;
   /**
@@ -10454,7 +10441,7 @@ export type OutputS3 = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: models.AuthenticationMethodOptions | undefined;
   /**
    * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
    */
@@ -12952,13 +12939,6 @@ export type CreateOutputRequest =
   | OutputCloudflareR2;
 
 /** @internal */
-export const AuthenticationMethodCloudflareR2$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AuthenticationMethodCloudflareR2
-> = openEnums.outboundSchema(AuthenticationMethodCloudflareR2);
-
-/** @internal */
 export type OutputCloudflareR2$Outbound = {
   id: string;
   type: "cloudflare_r2";
@@ -13035,8 +13015,7 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   endpoint: z.string(),
   bucket: z.string(),
-  awsAuthenticationMethod: AuthenticationMethodCloudflareR2$outboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: z.string().default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.any().optional(),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
@@ -14826,7 +14805,8 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionSecurityLake$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
@@ -14979,7 +14959,8 @@ export const OutputDlS3$outboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string().optional(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   endpoint: z.string().optional(),
   signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
     .default("v4"),
@@ -15858,7 +15839,7 @@ export const OutputDataset$outboundSchema: z.ZodType<
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
     "block",
   ),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.default(
+  authType: models.AuthenticationMethodOptions3$outboundSchema.default(
     "manual",
   ),
   totalMemoryLimitKB: z.number().optional(),
@@ -16998,7 +16979,7 @@ export const OutputDatadog$outboundSchema: z.ZodType<
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
     "block",
   ),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.default(
+  authType: models.AuthenticationMethodOptions3$outboundSchema.default(
     "manual",
   ),
   totalMemoryLimitKB: z.number().optional(),
@@ -17294,7 +17275,8 @@ export const OutputSqs$outboundSchema: z.ZodType<
   awsAccountId: z.string().optional(),
   messageGroupId: z.string().default("cribl"),
   createQueue: z.boolean().default(true),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -17411,7 +17393,8 @@ export const OutputSns$outboundSchema: z.ZodType<
   topicArn: z.string(),
   messageGroupId: z.string(),
   maxRetries: z.number().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -17868,7 +17851,8 @@ export const OutputMinio$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   endpoint: z.string(),
   bucket: z.string(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
@@ -18012,7 +17996,8 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   logGroupName: z.string(),
   logStreamName: z.string(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -18328,7 +18313,7 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
     "block",
   ),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.default(
+  authType: models.AuthenticationMethodOptions3$outboundSchema.default(
     "manual",
   ),
   description: z.string().optional(),
@@ -18491,7 +18476,7 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
     "block",
   ),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.default(
+  authType: models.AuthenticationMethodOptions3$outboundSchema.default(
     "manual",
   ),
   totalMemoryLimitKB: z.number().optional(),
@@ -18994,7 +18979,8 @@ export const OutputMsk$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -19680,11 +19666,9 @@ export function outputGoogleCloudLoggingToJSON(
 }
 
 /** @internal */
-export const AuthenticationMethodGoogleCloudStorage$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AuthenticationMethodGoogleCloudStorage
-> = openEnums.outboundSchema(AuthenticationMethodGoogleCloudStorage);
+export const AwsAuthenticationMethodAuthenticationMethod$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, AwsAuthenticationMethodAuthenticationMethod> =
+    openEnums.outboundSchema(AwsAuthenticationMethodAuthenticationMethod);
 
 /** @internal */
 export type OutputGoogleCloudStorage$Outbound = {
@@ -19765,8 +19749,10 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   signatureVersion: models.SignatureVersionOptions4$outboundSchema.default(
     "v4",
   ),
-  awsAuthenticationMethod: AuthenticationMethodGoogleCloudStorage$outboundSchema
-    .default("manual"),
+  awsAuthenticationMethod:
+    AwsAuthenticationMethodAuthenticationMethod$outboundSchema.default(
+      "manual",
+    ),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   destPath: z.string().default(""),
   verifyPermissions: z.boolean().default(true),
@@ -20267,7 +20253,7 @@ export const OutputHoneycomb$outboundSchema: z.ZodType<
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
     "block",
   ),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.default(
+  authType: models.AuthenticationMethodOptions3$outboundSchema.default(
     "manual",
   ),
   description: z.string().optional(),
@@ -20376,7 +20362,8 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   streamName: z.string(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -21022,7 +21009,9 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .default("block"),
   forceCloseOnShutdown: z.boolean().default(false),
-  authType: models.AuthenticationMethodOptions$outboundSchema.default("manual"),
+  authType: models.AuthenticationMethodOptions1$outboundSchema.default(
+    "manual",
+  ),
   storageClass: BlobAccessTier$outboundSchema.default("Inferred"),
   description: z.string().optional(),
   compress: models.CompressionOptions2$outboundSchema.default("gzip"),
@@ -21151,7 +21140,8 @@ export const OutputS3$outboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string().optional(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: models.AuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   endpoint: z.string().optional(),
   signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
     .default("v4"),

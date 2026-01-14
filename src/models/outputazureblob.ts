@@ -8,10 +8,10 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
-  AuthenticationMethodOptions,
-  AuthenticationMethodOptions$inboundSchema,
-  AuthenticationMethodOptions$outboundSchema,
-} from "./authenticationmethodoptions.js";
+  AuthenticationMethodOptions1,
+  AuthenticationMethodOptions1$inboundSchema,
+  AuthenticationMethodOptions1$outboundSchema,
+} from "./authenticationmethodoptions1.js";
 import {
   BackpressureBehaviorOptions1,
   BackpressureBehaviorOptions1$inboundSchema,
@@ -191,7 +191,7 @@ export type OutputAzureBlob = {
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
-  authType?: AuthenticationMethodOptions | undefined;
+  authType?: AuthenticationMethodOptions1 | undefined;
   storageClass?: BlobAccessTier | undefined;
   description?: string | undefined;
   /**
@@ -349,7 +349,7 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
     "block",
   ),
   forceCloseOnShutdown: z.boolean().default(false),
-  authType: AuthenticationMethodOptions$inboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
   storageClass: BlobAccessTier$inboundSchema.default("Inferred"),
   description: z.string().optional(),
   compress: CompressionOptions2$inboundSchema.default("gzip"),
@@ -481,7 +481,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
     "block",
   ),
   forceCloseOnShutdown: z.boolean().default(false),
-  authType: AuthenticationMethodOptions$outboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
   storageClass: BlobAccessTier$outboundSchema.default("Inferred"),
   description: z.string().optional(),
   compress: CompressionOptions2$outboundSchema.default("gzip"),

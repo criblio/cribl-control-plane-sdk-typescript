@@ -1,11 +1,11 @@
-# AuthenticationMethodGoogleCloudStorage
+# AwsAuthenticationMethodAuthenticationMethod
 
 ## Example Usage
 
 ```typescript
-import { AuthenticationMethodGoogleCloudStorage } from "cribl-control-plane/models/operations";
+import { AwsAuthenticationMethodAuthenticationMethod } from "cribl-control-plane/models/operations";
 
-let value: AuthenticationMethodGoogleCloudStorage = "secret";
+let value: AwsAuthenticationMethodAuthenticationMethod = "auto";
 ```
 
 ## Values

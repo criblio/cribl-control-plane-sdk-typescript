@@ -6,12 +6,26 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
 export const AuthenticationMethodOptions = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
-  ClientSecret: "clientSecret",
-  ClientCert: "clientCert",
 } as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
 export type AuthenticationMethodOptions = OpenEnum<
   typeof AuthenticationMethodOptions
 >;

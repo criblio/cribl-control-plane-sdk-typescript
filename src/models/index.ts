@@ -11,6 +11,7 @@ export * from "./apitypesystemsettingsconf.js";
 export * from "./authenticationmethodoptions.js";
 export * from "./authenticationmethodoptions1.js";
 export * from "./authenticationmethodoptions2.js";
+export * from "./authenticationmethodoptions3.js";
 export * from "./authenticationmethodoptionsauth.js";
 export * from "./authenticationmethodoptionsauthtokensitems.js";
 export * from "./authenticationmethodoptionssasl.js";

@@ -7,10 +7,10 @@ import { safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
-  AuthenticationMethodOptions1,
-  AuthenticationMethodOptions1$inboundSchema,
-  AuthenticationMethodOptions1$outboundSchema,
-} from "./authenticationmethodoptions1.js";
+  AuthenticationMethodOptions2,
+  AuthenticationMethodOptions2$inboundSchema,
+  AuthenticationMethodOptions2$outboundSchema,
+} from "./authenticationmethodoptions2.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -151,7 +151,7 @@ export type InputOffice365ServicePqEnabledTrueWithPqConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -243,7 +243,7 @@ export type InputOffice365ServicePqEnabledFalseConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -335,7 +335,7 @@ export type InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -427,7 +427,7 @@ export type InputOffice365ServiceSendToRoutesTrueConstraint = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -539,7 +539,7 @@ export const InputOffice365ServicePqEnabledTrueWithPqConstraint$inboundSchema:
       z.lazy(() => InputOffice365ServiceContentConfig$inboundSchema),
     ).optional(),
     retryRules: RetryRulesType1$inboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$inboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -608,7 +608,7 @@ export const InputOffice365ServicePqEnabledTrueWithPqConstraint$outboundSchema:
       z.lazy(() => InputOffice365ServiceContentConfig$outboundSchema),
     ).optional(),
     retryRules: RetryRulesType1$outboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$outboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -671,7 +671,7 @@ export const InputOffice365ServicePqEnabledFalseConstraint$inboundSchema:
       z.lazy(() => InputOffice365ServiceContentConfig$inboundSchema),
     ).optional(),
     retryRules: RetryRulesType1$inboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$inboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -740,7 +740,7 @@ export const InputOffice365ServicePqEnabledFalseConstraint$outboundSchema:
       z.lazy(() => InputOffice365ServiceContentConfig$outboundSchema),
     ).optional(),
     retryRules: RetryRulesType1$outboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$outboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -803,7 +803,7 @@ export const InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$inb
       z.lazy(() => InputOffice365ServiceContentConfig$inboundSchema),
     ).optional(),
     retryRules: RetryRulesType1$inboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$inboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -873,7 +873,7 @@ export const InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint$out
       z.lazy(() => InputOffice365ServiceContentConfig$outboundSchema),
     ).optional(),
     retryRules: RetryRulesType1$outboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$outboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -934,7 +934,7 @@ export const InputOffice365ServiceSendToRoutesTrueConstraint$inboundSchema:
       z.lazy(() => InputOffice365ServiceContentConfig$inboundSchema),
     ).optional(),
     retryRules: RetryRulesType1$inboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$inboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -1003,7 +1003,7 @@ export const InputOffice365ServiceSendToRoutesTrueConstraint$outboundSchema:
       z.lazy(() => InputOffice365ServiceContentConfig$outboundSchema),
     ).optional(),
     retryRules: RetryRulesType1$outboundSchema.optional(),
-    authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
+    authType: AuthenticationMethodOptions2$outboundSchema.default("manual"),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),

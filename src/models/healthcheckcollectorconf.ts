@@ -76,17 +76,8 @@ export type HealthCheckAuthenticationOauthSecretDiscovery = {
  * Health check HTTP method.
  */
 export const HealthCheckAuthenticationOauthSecretHealthCheckMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -236,17 +227,8 @@ export type HealthCheckAuthenticationOauthDiscovery = {
  * Health check HTTP method.
  */
 export const HealthCheckAuthenticationOauthHealthCheckMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -394,17 +376,8 @@ export type HealthCheckAuthenticationLoginSecretDiscovery = {
  * Health check HTTP method.
  */
 export const HealthCheckAuthenticationLoginSecretHealthCheckMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -548,17 +521,8 @@ export type HealthCheckAuthenticationLoginDiscovery = {
  * Health check HTTP method.
  */
 export const HealthCheckAuthenticationLoginHealthCheckMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -704,17 +668,8 @@ export type HealthCheckAuthenticationBasicSecretDiscovery = {
  * Health check HTTP method.
  */
 export const HealthCheckAuthenticationBasicSecretHealthCheckMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -836,17 +791,8 @@ export type HealthCheckAuthenticationBasicDiscovery = {
  * Health check HTTP method.
  */
 export const HealthCheckAuthenticationBasicHealthCheckMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -970,17 +916,8 @@ export type HealthCheckAuthenticationNoneDiscovery = {
  * Health check HTTP method.
  */
 export const HealthCheckAuthenticationNoneHealthCheckMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -1061,17 +998,8 @@ export type HealthCheckAuthenticationNone = {
  * Health check HTTP method.
  */
 export const HealthCheckCollectMethodPostWithBodyHealthCheckMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -1210,17 +1138,8 @@ export type HealthCheckCollectMethodPostWithBody = {
  * Health check HTTP method.
  */
 export const HealthCheckCollectMethodPostHealthCheckMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
 } as const;
 /**
@@ -1355,17 +1274,8 @@ export type HealthCheckCollectMethodPost = {
  * Health check HTTP method.
  */
 export const HealthCheckCollectMethodGetHealthCheckMethod = {
-  /**
-   * GET
-   */
   Get: "get",
-  /**
-   * POST
-   */
   Post: "post",
-  /**
-   * POST with Body
-   */
   PostWithBody: "post_with_body",
 } as const;
 /**

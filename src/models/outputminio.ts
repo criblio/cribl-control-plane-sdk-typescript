@@ -6,6 +6,11 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+  AuthenticationMethodOptions$outboundSchema,
+} from "./authenticationmethodoptions.js";
+import {
   BackpressureBehaviorOptions1,
   BackpressureBehaviorOptions1$inboundSchema,
   BackpressureBehaviorOptions1$outboundSchema,
@@ -101,7 +106,7 @@ export type OutputMinio = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   /**
    * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
    */
@@ -307,7 +312,9 @@ export const OutputMinio$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   endpoint: z.string(),
   bucket: z.string(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
@@ -440,7 +447,9 @@ export const OutputMinio$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   endpoint: z.string(),
   bucket: z.string(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),

@@ -6,6 +6,11 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+  AuthenticationMethodOptions$outboundSchema,
+} from "./authenticationmethodoptions.js";
+import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
@@ -62,7 +67,7 @@ export type OutputCloudwatch = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the CloudWatchLogs is located
@@ -208,7 +213,9 @@ export const OutputCloudwatch$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   logGroupName: z.string(),
   logStreamName: z.string(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -291,7 +298,9 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   logGroupName: z.string(),
   logStreamName: z.string(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),

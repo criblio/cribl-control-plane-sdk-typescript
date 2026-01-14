@@ -8,6 +8,11 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+  AuthenticationMethodOptions$outboundSchema,
+} from "./authenticationmethodoptions.js";
+import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
@@ -82,7 +87,7 @@ export type OutputSns = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the SNS is located
@@ -234,7 +239,9 @@ export const OutputSns$inboundSchema: z.ZodType<
   topicArn: z.string(),
   messageGroupId: z.string(),
   maxRetries: z.number().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -315,7 +322,9 @@ export const OutputSns$outboundSchema: z.ZodType<
   topicArn: z.string(),
   messageGroupId: z.string(),
   maxRetries: z.number().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),

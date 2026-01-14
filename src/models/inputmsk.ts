@@ -6,6 +6,11 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+  AuthenticationMethodOptions$outboundSchema,
+} from "./authenticationmethodoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -161,7 +166,7 @@ export type InputMskPqEnabledTrueWithPqConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -341,7 +346,7 @@ export type InputMskPqEnabledFalseConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -521,7 +526,7 @@ export type InputMskSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -701,7 +706,7 @@ export type InputMskSendToRoutesTrueConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -815,7 +820,9 @@ export const InputMskPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -923,7 +930,9 @@ export const InputMskPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -999,7 +1008,9 @@ export const InputMskPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -1107,7 +1118,9 @@ export const InputMskPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -1183,7 +1196,9 @@ export const InputMskSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
     backoffRate: z.number().default(2),
     authenticationTimeout: z.number().default(10000),
     reauthenticationThreshold: z.number().default(10000),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+      "auto",
+    ),
     awsSecretKey: z.string().optional(),
     region: z.string(),
     endpoint: z.string().optional(),
@@ -1293,7 +1308,9 @@ export const InputMskSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
     backoffRate: z.number().default(2),
     authenticationTimeout: z.number().default(10000),
     reauthenticationThreshold: z.number().default(10000),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+      "auto",
+    ),
     awsSecretKey: z.string().optional(),
     region: z.string(),
     endpoint: z.string().optional(),
@@ -1375,7 +1392,9 @@ export const InputMskSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -1483,7 +1502,9 @@ export const InputMskSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),

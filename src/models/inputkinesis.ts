@@ -7,6 +7,11 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+  AuthenticationMethodOptions$outboundSchema,
+} from "./authenticationmethodoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -166,7 +171,7 @@ export type InputKinesisPqEnabledTrueWithPqConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the Kinesis stream is located
@@ -291,7 +296,7 @@ export type InputKinesisPqEnabledFalseConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the Kinesis stream is located
@@ -416,7 +421,7 @@ export type InputKinesisSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the Kinesis stream is located
@@ -541,7 +546,7 @@ export type InputKinesisSendToRoutesTrueConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the Kinesis stream is located
@@ -679,7 +684,9 @@ export const InputKinesisPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.default(
     "ConsistentHashing",
   ),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -766,7 +773,9 @@ export const InputKinesisPqEnabledTrueWithPqConstraint$outboundSchema:
     loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.default(
       "ConsistentHashing",
     ),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+      "auto",
+    ),
     awsSecretKey: z.string().optional(),
     region: z.string(),
     endpoint: z.string().optional(),
@@ -837,7 +846,9 @@ export const InputKinesisPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.default(
     "ConsistentHashing",
   ),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -920,7 +931,9 @@ export const InputKinesisPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.default(
     "ConsistentHashing",
   ),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -986,7 +999,9 @@ export const InputKinesisSendToRoutesFalseWithConnectionsConstraint$inboundSchem
     loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.default(
       "ConsistentHashing",
     ),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+      "auto",
+    ),
     awsSecretKey: z.string().optional(),
     region: z.string(),
     endpoint: z.string().optional(),
@@ -1073,7 +1088,9 @@ export const InputKinesisSendToRoutesFalseWithConnectionsConstraint$outboundSche
     loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.default(
       "ConsistentHashing",
     ),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+      "auto",
+    ),
     awsSecretKey: z.string().optional(),
     region: z.string(),
     endpoint: z.string().optional(),
@@ -1143,7 +1160,9 @@ export const InputKinesisSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.default(
     "ConsistentHashing",
   ),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -1226,7 +1245,9 @@ export const InputKinesisSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.default(
     "ConsistentHashing",
   ),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),

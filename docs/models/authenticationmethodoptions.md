@@ -1,11 +1,13 @@
 # AuthenticationMethodOptions
 
+AWS authentication method. Choose Auto to use IAM roles.
+
 ## Example Usage
 
 ```typescript
 import { AuthenticationMethodOptions } from "cribl-control-plane/models";
 
-let value: AuthenticationMethodOptions = "clientCert";
+let value: AuthenticationMethodOptions = "secret";
 ```
 
 ## Values
@@ -13,5 +15,5 @@ let value: AuthenticationMethodOptions = "clientCert";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"manual" | "secret" | "clientSecret" | "clientCert" | Unrecognized<string>
+"auto" | "manual" | "secret" | Unrecognized<string>
 ```

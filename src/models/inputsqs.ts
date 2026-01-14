@@ -7,6 +7,11 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+  AuthenticationMethodOptions$outboundSchema,
+} from "./authenticationmethodoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -106,7 +111,7 @@ export type InputSqsPqEnabledTrueWithPqConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -223,7 +228,7 @@ export type InputSqsPqEnabledFalseConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -340,7 +345,7 @@ export type InputSqsSendToRoutesFalseWithConnectionsConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -457,7 +462,7 @@ export type InputSqsSendToRoutesTrueConstraint = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -569,7 +574,9 @@ export const InputSqsPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
   queueType: InputSqsQueueType$inboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -646,7 +653,9 @@ export const InputSqsPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
   queueType: InputSqsQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -707,7 +716,9 @@ export const InputSqsPqEnabledFalseConstraint$inboundSchema: z.ZodType<
   queueType: InputSqsQueueType$inboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -784,7 +795,9 @@ export const InputSqsPqEnabledFalseConstraint$outboundSchema: z.ZodType<
   queueType: InputSqsQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -845,7 +858,9 @@ export const InputSqsSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
     queueType: InputSqsQueueType$inboundSchema,
     awsAccountId: z.string().optional(),
     createQueue: z.boolean().default(false),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+      "auto",
+    ),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -924,7 +939,9 @@ export const InputSqsSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
     queueType: InputSqsQueueType$outboundSchema,
     awsAccountId: z.string().optional(),
     createQueue: z.boolean().default(false),
-    awsAuthenticationMethod: z.string().default("auto"),
+    awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+      "auto",
+    ),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
@@ -991,7 +1008,9 @@ export const InputSqsSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
   queueType: InputSqsQueueType$inboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -1068,7 +1087,9 @@ export const InputSqsSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
   queueType: InputSqsQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
