@@ -59,6 +59,7 @@ const myFleet: ConfigGroup = {
 const syslogSource: InputSyslog = {
   id: "my-syslog-source",
   type: "syslog",
+  host: "0.0.0.0",
   tcpPort: SYSLOG_PORT,
   tls: {
     disabled: true,
@@ -73,6 +74,7 @@ const s3Destination: OutputS3 = {
   region: AWS_REGION,
   awsSecretKey: AWS_SECRET_KEY,
   awsApiKey: AWS_API_KEY,
+  stagePath: "/tmp/s3-staging",
   compress: "gzip",
   compressionLevel: "best_speed",
   emptyDirCleanupSec: 300,
