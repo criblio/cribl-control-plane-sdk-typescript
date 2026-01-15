@@ -6,6 +6,7 @@
 import { PipelineFunctionMvPull } from "cribl-control-plane/models";
 
 let value: PipelineFunctionMvPull = {
+  filter: "<value>",
   id: "mv_pull",
   description:
     "victoriously uh-huh considerate unwieldy readily thoroughly inspection powerfully cleave",
@@ -16,6 +17,7 @@ let value: PipelineFunctionMvPull = {
     relativeKeyPath: "<value>",
     relativeValuePath: "<value>",
     targetBagPath: "<value>",
+    deleteOriginal: false,
   },
   groupId: "<id>",
 };

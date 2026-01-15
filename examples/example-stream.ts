@@ -48,6 +48,7 @@ const myWorkerGroup: ConfigGroup = {
 const tcpJsonSource: InputTcpjson = {
   id: "my-tcp-json",
   type: "tcpjson",
+  host: "0.0.0.0",
   port: PORT,
   authType: "manual",
   authToken: AUTH_TOKEN,

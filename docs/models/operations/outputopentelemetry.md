@@ -17,26 +17,42 @@ let value: OutputOpenTelemetry = {
     "<value 1>",
     "<value 2>",
   ],
+  protocol: "http",
   endpoint: "<value>",
+  otlpVersion: "0.10.0",
+  compress: "gzip",
+  httpCompress: "none",
+  authType: "none",
   httpTracesEndpointOverride: "<value>",
   httpMetricsEndpointOverride: "<value>",
   httpLogsEndpointOverride: "<value>",
   metadata: [
     {
+      key: "<key>",
       value: "<value>",
     },
   ],
-  description:
-    "emphasise exactly defrag ack uselessly gee fully oddball highly authorized",
-  username: "Vincenzo57",
-  password: "zZ2SM7au29H34sL",
+  concurrency: 7382.24,
+  maxPayloadSizeKB: 3362.81,
+  timeoutSec: 2829.42,
+  flushPeriodSec: 9168.5,
+  failedRequestLoggingMode: "payloadAndHeaders",
+  connectionTimeout: 7598.59,
+  keepAliveTime: 9622.53,
+  keepAlive: false,
+  onBackpressure: "block",
+  description: "defrag ack uselessly gee",
+  username: "Marcelo.Kub9",
+  password: "i5lWQ6mBhCJSFj5",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://proper-sundae.info/",
+  loginUrl: "https://well-worn-minor.org",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
+  authHeaderExpr: "<value>",
+  tokenTimeoutSecs: 9435.33,
   oauthParams: [
     {
       name: "<value>",
@@ -49,6 +65,8 @@ let value: OutputOpenTelemetry = {
       value: "<value>",
     },
   ],
+  rejectUnauthorized: false,
+  useRoundRobinDns: false,
   extraHttpHeaders: [
     {
       name: "<value>",
@@ -57,24 +75,43 @@ let value: OutputOpenTelemetry = {
   ],
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 2591.04,
+      initialBackoff: 4815.7,
+      backoffRate: 5576.87,
+      maxBackoff: 1844.93,
     },
   ],
-  timeoutRetrySettings: {},
+  timeoutRetrySettings: {
+    timeoutRetry: false,
+    initialBackoff: 4289.71,
+    backoffRate: 7830.71,
+    maxBackoff: 6330,
+  },
+  responseHonorRetryAfterHeader: true,
   tls: {
+    disabled: false,
+    rejectUnauthorized: false,
     certificateName: "<value>",
     caPath: "<value>",
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1",
   },
+  pqStrictOrdering: true,
+  pqRatePerSec: 5363.58,
+  pqMode: "backpressure",
+  pqMaxBufferSize: 4698.94,
+  pqMaxBackpressureSec: 2348.58,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "none",
+  pqOnBackpressure: "block",
   pqControls: {},
 };
 ```
@@ -129,7 +166,7 @@ let value: OutputOpenTelemetry = {
 | `responseRetrySettings`                                                                                                                                                                                                                                                                                                                          | [models.ItemsTypeResponseRetrySettings](../../models/itemstyperesponseretrysettings.md)[]                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)                                                                                                                                                                                                                       |
 | `timeoutRetrySettings`                                                                                                                                                                                                                                                                                                                           | [models.TimeoutRetrySettingsType](../../models/timeoutretrysettingstype.md)                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `responseHonorRetryAfterHeader`                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored. |
-| `tls`                                                                                                                                                                                                                                                                                                                                            | [models.TlsSettingsClientSideType3](../../models/tlssettingsclientsidetype3.md)                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
+| `tls`                                                                                                                                                                                                                                                                                                                                            | [models.TlsSettingsClientSideType2](../../models/tlssettingsclientsidetype2.md)                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `pqStrictOrdering`                                                                                                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.                                                                                                                                                                                                                                   |
 | `pqRatePerSec`                                                                                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.                                                                                                                                                                                                                |
 | `pqMode`                                                                                                                                                                                                                                                                                                                                         | [models.ModeOptions](../../models/modeoptions.md)                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.                                                                                   |

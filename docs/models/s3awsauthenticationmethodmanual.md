@@ -11,8 +11,11 @@ let value: S3AwsAuthenticationMethodManual = {
   awsSecretKey: "<value>",
   outputName: "<value>",
   bucket: "<value>",
+  parquetChunkSizeMB: 6093.88,
+  parquetChunkDownloadTimeout: 6177.24,
   region: "<value>",
-  path: "/sys",
+  path: "/var/mail",
+  partitioningScheme: "ddss",
   extractors: [
     {
       key: "<key>",
@@ -20,9 +23,17 @@ let value: S3AwsAuthenticationMethodManual = {
     },
   ],
   endpoint: "<value>",
+  signatureVersion: "v4",
+  enableAssumeRole: true,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  durationSeconds: 1583.72,
+  maxBatchSize: 1694.29,
   recurse: "<value>",
+  reuseConnections: true,
+  rejectUnauthorized: false,
+  verifyPermissions: false,
+  disableTimeFilter: true,
 };
 ```
 

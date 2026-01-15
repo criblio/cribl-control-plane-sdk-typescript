@@ -23,7 +23,7 @@ export type PipelineFunctionMvPullConf = {
   /**
    * Optionally, specify a bag as the target for K-V entries. If not specified, these entries are stored on each top-level event.
    */
-  targetBagPath?: string | null | undefined;
+  targetBagPath?: string | undefined;
   /**
    * Toggle this on to remove each original array of data objects after extraction. If toggled off, arrays are retained.
    */
@@ -67,16 +67,16 @@ export const PipelineFunctionMvPullConf$inboundSchema: z.ZodType<
   arrayPath: z.string(),
   relativeKeyPath: z.string(),
   relativeValuePath: z.string(),
-  targetBagPath: z.nullable(z.string()).default(null),
-  deleteOriginal: z.boolean().default(false),
+  targetBagPath: z.string().optional(),
+  deleteOriginal: z.boolean().optional(),
 });
 /** @internal */
 export type PipelineFunctionMvPullConf$Outbound = {
   arrayPath: string;
   relativeKeyPath: string;
   relativeValuePath: string;
-  targetBagPath: string | null;
-  deleteOriginal: boolean;
+  targetBagPath?: string | undefined;
+  deleteOriginal?: boolean | undefined;
 };
 
 /** @internal */
@@ -88,8 +88,8 @@ export const PipelineFunctionMvPullConf$outboundSchema: z.ZodType<
   arrayPath: z.string(),
   relativeKeyPath: z.string(),
   relativeValuePath: z.string(),
-  targetBagPath: z.nullable(z.string()).default(null),
-  deleteOriginal: z.boolean().default(false),
+  targetBagPath: z.string().optional(),
+  deleteOriginal: z.boolean().optional(),
 });
 
 export function pipelineFunctionMvPullConfToJSON(
@@ -115,7 +115,7 @@ export const PipelineFunctionMvPull$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("mv_pull"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -125,7 +125,7 @@ export const PipelineFunctionMvPull$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionMvPull$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "mv_pull";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -140,7 +140,7 @@ export const PipelineFunctionMvPull$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionMvPull
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("mv_pull"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

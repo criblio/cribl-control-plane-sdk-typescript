@@ -23,13 +23,13 @@ export const ItemsTypeAuthTokens1$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   tokenSecret: z.string(),
-  enabled: z.boolean().default(true),
+  enabled: z.boolean().optional(),
   description: z.string().optional(),
 });
 /** @internal */
 export type ItemsTypeAuthTokens1$Outbound = {
   tokenSecret: string;
-  enabled: boolean;
+  enabled?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -40,7 +40,7 @@ export const ItemsTypeAuthTokens1$outboundSchema: z.ZodType<
   ItemsTypeAuthTokens1
 > = z.object({
   tokenSecret: z.string(),
-  enabled: z.boolean().default(true),
+  enabled: z.boolean().optional(),
   description: z.string().optional(),
 });
 

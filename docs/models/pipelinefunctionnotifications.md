@@ -6,6 +6,7 @@
 import { PipelineFunctionNotifications } from "cribl-control-plane/models";
 
 let value: PipelineFunctionNotifications = {
+  filter: "<value>",
   id: "notifications",
   description: "warming rewarding from drat hovercraft marvelous brr before",
   disabled: true,

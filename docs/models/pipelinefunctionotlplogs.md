@@ -6,11 +6,15 @@
 import { PipelineFunctionOtlpLogs } from "cribl-control-plane/models";
 
 let value: PipelineFunctionOtlpLogs = {
+  filter: "<value>",
   id: "otlp_logs",
   description: "nutritious swiftly athwart",
   disabled: false,
   final: true,
-  conf: {},
+  conf: {
+    dropNonLogEvents: false,
+    batchOTLPLogs: true,
+  },
   groupId: "<id>",
 };
 ```

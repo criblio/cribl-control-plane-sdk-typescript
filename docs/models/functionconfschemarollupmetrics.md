@@ -10,6 +10,8 @@ let value: FunctionConfSchemaRollupMetrics = {
     "<value 1>",
     "<value 2>",
   ],
+  timeWindow: "<value>",
+  gaugeRollup: "min",
 };
 ```
 

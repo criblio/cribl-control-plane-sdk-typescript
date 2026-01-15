@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -27,38 +27,24 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 
-export const InputExecPqEnabledTrueWithPqConstraintType = {
-  Exec: "exec",
-} as const;
-export type InputExecPqEnabledTrueWithPqConstraintType = ClosedEnum<
-  typeof InputExecPqEnabledTrueWithPqConstraintType
->;
-
 /**
  * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
  */
-export const PqEnabledTrueWithPqConstraintScheduleType = {
+export const ScheduleType = {
   Interval: "interval",
   CronSchedule: "cronSchedule",
 } as const;
 /**
  * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
  */
-export type PqEnabledTrueWithPqConstraintScheduleType = OpenEnum<
-  typeof PqEnabledTrueWithPqConstraintScheduleType
->;
+export type ScheduleType = OpenEnum<typeof ScheduleType>;
 
-export type InputExecPqEnabledTrueWithPqConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
+export type InputExec = {
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputExecPqEnabledTrueWithPqConstraintType;
+  type: "exec";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -68,266 +54,6 @@ export type InputExecPqEnabledTrueWithPqConstraint = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Command to execute; supports Bourne shell (or CMD on Windows) syntax
-   */
-  command: string;
-  /**
-   * Maximum number of retry attempts in the event that the command fails
-   */
-  retries?: number | undefined;
-  /**
-   * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
-   */
-  scheduleType?: PqEnabledTrueWithPqConstraintScheduleType | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-  /**
-   * Interval between command executions in seconds.
-   */
-  interval?: number | undefined;
-  /**
-   * Cron schedule to execute the command on.
-   */
-  cronSchedule?: string | undefined;
-};
-
-export const InputExecPqEnabledFalseConstraintType = {
-  Exec: "exec",
-} as const;
-export type InputExecPqEnabledFalseConstraintType = ClosedEnum<
-  typeof InputExecPqEnabledFalseConstraintType
->;
-
-/**
- * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
- */
-export const PqEnabledFalseConstraintScheduleType = {
-  Interval: "interval",
-  CronSchedule: "cronSchedule",
-} as const;
-/**
- * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
- */
-export type PqEnabledFalseConstraintScheduleType = OpenEnum<
-  typeof PqEnabledFalseConstraintScheduleType
->;
-
-export type InputExecPqEnabledFalseConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputExecPqEnabledFalseConstraintType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Command to execute; supports Bourne shell (or CMD on Windows) syntax
-   */
-  command: string;
-  /**
-   * Maximum number of retry attempts in the event that the command fails
-   */
-  retries?: number | undefined;
-  /**
-   * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
-   */
-  scheduleType?: PqEnabledFalseConstraintScheduleType | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-  /**
-   * Interval between command executions in seconds.
-   */
-  interval?: number | undefined;
-  /**
-   * Cron schedule to execute the command on.
-   */
-  cronSchedule?: string | undefined;
-};
-
-export const InputExecSendToRoutesFalseWithConnectionsConstraintType = {
-  Exec: "exec",
-} as const;
-export type InputExecSendToRoutesFalseWithConnectionsConstraintType =
-  ClosedEnum<typeof InputExecSendToRoutesFalseWithConnectionsConstraintType>;
-
-/**
- * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
- */
-export const SendToRoutesFalseWithConnectionsConstraintScheduleType = {
-  Interval: "interval",
-  CronSchedule: "cronSchedule",
-} as const;
-/**
- * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
- */
-export type SendToRoutesFalseWithConnectionsConstraintScheduleType = OpenEnum<
-  typeof SendToRoutesFalseWithConnectionsConstraintScheduleType
->;
-
-export type InputExecSendToRoutesFalseWithConnectionsConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputExecSendToRoutesFalseWithConnectionsConstraintType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Command to execute; supports Bourne shell (or CMD on Windows) syntax
-   */
-  command: string;
-  /**
-   * Maximum number of retry attempts in the event that the command fails
-   */
-  retries?: number | undefined;
-  /**
-   * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
-   */
-  scheduleType?:
-    | SendToRoutesFalseWithConnectionsConstraintScheduleType
-    | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-  /**
-   * Interval between command executions in seconds.
-   */
-  interval?: number | undefined;
-  /**
-   * Cron schedule to execute the command on.
-   */
-  cronSchedule?: string | undefined;
-};
-
-export const InputExecSendToRoutesTrueConstraintType = {
-  Exec: "exec",
-} as const;
-export type InputExecSendToRoutesTrueConstraintType = ClosedEnum<
-  typeof InputExecSendToRoutesTrueConstraintType
->;
-
-/**
- * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
- */
-export const SendToRoutesTrueConstraintScheduleType = {
-  Interval: "interval",
-  CronSchedule: "cronSchedule",
-} as const;
-/**
- * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
- */
-export type SendToRoutesTrueConstraintScheduleType = OpenEnum<
-  typeof SendToRoutesTrueConstraintScheduleType
->;
-
-export type InputExecSendToRoutesTrueConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputExecSendToRoutesTrueConstraintType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -356,7 +82,7 @@ export type InputExecSendToRoutesTrueConstraint = {
   /**
    * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
    */
-  scheduleType?: SendToRoutesTrueConstraintScheduleType | undefined;
+  scheduleType?: ScheduleType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -379,550 +105,95 @@ export type InputExecSendToRoutesTrueConstraint = {
    */
   cronSchedule?: string | undefined;
 };
-
-export type InputExec =
-  | InputExecSendToRoutesTrueConstraint
-  | InputExecSendToRoutesFalseWithConnectionsConstraint
-  | InputExecPqEnabledFalseConstraint
-  | InputExecPqEnabledTrueWithPqConstraint;
 
 /** @internal */
-export const InputExecPqEnabledTrueWithPqConstraintType$inboundSchema:
-  z.ZodNativeEnum<typeof InputExecPqEnabledTrueWithPqConstraintType> = z
-    .nativeEnum(InputExecPqEnabledTrueWithPqConstraintType);
-/** @internal */
-export const InputExecPqEnabledTrueWithPqConstraintType$outboundSchema:
-  z.ZodNativeEnum<typeof InputExecPqEnabledTrueWithPqConstraintType> =
-    InputExecPqEnabledTrueWithPqConstraintType$inboundSchema;
-
-/** @internal */
-export const PqEnabledTrueWithPqConstraintScheduleType$inboundSchema: z.ZodType<
-  PqEnabledTrueWithPqConstraintScheduleType,
+export const ScheduleType$inboundSchema: z.ZodType<
+  ScheduleType,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(PqEnabledTrueWithPqConstraintScheduleType);
+> = openEnums.inboundSchema(ScheduleType);
 /** @internal */
-export const PqEnabledTrueWithPqConstraintScheduleType$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, PqEnabledTrueWithPqConstraintScheduleType> =
-    openEnums.outboundSchema(PqEnabledTrueWithPqConstraintScheduleType);
-
-/** @internal */
-export const InputExecPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
-  InputExecPqEnabledTrueWithPqConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  pq: PqType$inboundSchema.optional(),
-  id: z.string().optional(),
-  type: InputExecPqEnabledTrueWithPqConstraintType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  command: z.string(),
-  retries: z.number().default(10),
-  scheduleType: PqEnabledTrueWithPqConstraintScheduleType$inboundSchema.default(
-    "interval",
-  ),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-  interval: z.number().default(60),
-  cronSchedule: z.string().default("* * * * *"),
-});
-/** @internal */
-export type InputExecPqEnabledTrueWithPqConstraint$Outbound = {
-  pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  command: string;
-  retries: number;
-  scheduleType: string;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-  interval: number;
-  cronSchedule: string;
-};
-
-/** @internal */
-export const InputExecPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
-  InputExecPqEnabledTrueWithPqConstraint$Outbound,
-  z.ZodTypeDef,
-  InputExecPqEnabledTrueWithPqConstraint
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  pq: PqType$outboundSchema.optional(),
-  id: z.string().optional(),
-  type: InputExecPqEnabledTrueWithPqConstraintType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  command: z.string(),
-  retries: z.number().default(10),
-  scheduleType: PqEnabledTrueWithPqConstraintScheduleType$outboundSchema
-    .default("interval"),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-  interval: z.number().default(60),
-  cronSchedule: z.string().default("* * * * *"),
-});
-
-export function inputExecPqEnabledTrueWithPqConstraintToJSON(
-  inputExecPqEnabledTrueWithPqConstraint:
-    InputExecPqEnabledTrueWithPqConstraint,
-): string {
-  return JSON.stringify(
-    InputExecPqEnabledTrueWithPqConstraint$outboundSchema.parse(
-      inputExecPqEnabledTrueWithPqConstraint,
-    ),
-  );
-}
-export function inputExecPqEnabledTrueWithPqConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<InputExecPqEnabledTrueWithPqConstraint, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputExecPqEnabledTrueWithPqConstraint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputExecPqEnabledTrueWithPqConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputExecPqEnabledFalseConstraintType$inboundSchema:
-  z.ZodNativeEnum<typeof InputExecPqEnabledFalseConstraintType> = z.nativeEnum(
-    InputExecPqEnabledFalseConstraintType,
-  );
-/** @internal */
-export const InputExecPqEnabledFalseConstraintType$outboundSchema:
-  z.ZodNativeEnum<typeof InputExecPqEnabledFalseConstraintType> =
-    InputExecPqEnabledFalseConstraintType$inboundSchema;
-
-/** @internal */
-export const PqEnabledFalseConstraintScheduleType$inboundSchema: z.ZodType<
-  PqEnabledFalseConstraintScheduleType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(PqEnabledFalseConstraintScheduleType);
-/** @internal */
-export const PqEnabledFalseConstraintScheduleType$outboundSchema: z.ZodType<
+export const ScheduleType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  PqEnabledFalseConstraintScheduleType
-> = openEnums.outboundSchema(PqEnabledFalseConstraintScheduleType);
-
-/** @internal */
-export const InputExecPqEnabledFalseConstraint$inboundSchema: z.ZodType<
-  InputExecPqEnabledFalseConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  id: z.string().optional(),
-  type: InputExecPqEnabledFalseConstraintType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  command: z.string(),
-  retries: z.number().default(10),
-  scheduleType: PqEnabledFalseConstraintScheduleType$inboundSchema.default(
-    "interval",
-  ),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-  interval: z.number().default(60),
-  cronSchedule: z.string().default("* * * * *"),
-});
-/** @internal */
-export type InputExecPqEnabledFalseConstraint$Outbound = {
-  pqEnabled: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  command: string;
-  retries: number;
-  scheduleType: string;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-  interval: number;
-  cronSchedule: string;
-};
-
-/** @internal */
-export const InputExecPqEnabledFalseConstraint$outboundSchema: z.ZodType<
-  InputExecPqEnabledFalseConstraint$Outbound,
-  z.ZodTypeDef,
-  InputExecPqEnabledFalseConstraint
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  id: z.string().optional(),
-  type: InputExecPqEnabledFalseConstraintType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  command: z.string(),
-  retries: z.number().default(10),
-  scheduleType: PqEnabledFalseConstraintScheduleType$outboundSchema.default(
-    "interval",
-  ),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-  interval: z.number().default(60),
-  cronSchedule: z.string().default("* * * * *"),
-});
-
-export function inputExecPqEnabledFalseConstraintToJSON(
-  inputExecPqEnabledFalseConstraint: InputExecPqEnabledFalseConstraint,
-): string {
-  return JSON.stringify(
-    InputExecPqEnabledFalseConstraint$outboundSchema.parse(
-      inputExecPqEnabledFalseConstraint,
-    ),
-  );
-}
-export function inputExecPqEnabledFalseConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<InputExecPqEnabledFalseConstraint, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputExecPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputExecPqEnabledFalseConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputExecSendToRoutesFalseWithConnectionsConstraintType$inboundSchema:
-  z.ZodNativeEnum<
-    typeof InputExecSendToRoutesFalseWithConnectionsConstraintType
-  > = z.nativeEnum(InputExecSendToRoutesFalseWithConnectionsConstraintType);
-/** @internal */
-export const InputExecSendToRoutesFalseWithConnectionsConstraintType$outboundSchema:
-  z.ZodNativeEnum<
-    typeof InputExecSendToRoutesFalseWithConnectionsConstraintType
-  > = InputExecSendToRoutesFalseWithConnectionsConstraintType$inboundSchema;
-
-/** @internal */
-export const SendToRoutesFalseWithConnectionsConstraintScheduleType$inboundSchema:
-  z.ZodType<
-    SendToRoutesFalseWithConnectionsConstraintScheduleType,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    SendToRoutesFalseWithConnectionsConstraintScheduleType,
-  );
-/** @internal */
-export const SendToRoutesFalseWithConnectionsConstraintScheduleType$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    SendToRoutesFalseWithConnectionsConstraintScheduleType
-  > = openEnums.outboundSchema(
-    SendToRoutesFalseWithConnectionsConstraintScheduleType,
-  );
-
-/** @internal */
-export const InputExecSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputExecSendToRoutesFalseWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputExecSendToRoutesFalseWithConnectionsConstraintType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    command: z.string(),
-    retries: z.number().default(10),
-    scheduleType:
-      SendToRoutesFalseWithConnectionsConstraintScheduleType$inboundSchema
-        .default("interval"),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    description: z.string().optional(),
-    interval: z.number().default(60),
-    cronSchedule: z.string().default("* * * * *"),
-  });
-/** @internal */
-export type InputExecSendToRoutesFalseWithConnectionsConstraint$Outbound = {
-  sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  pq?: PqType$Outbound | undefined;
-  command: string;
-  retries: number;
-  scheduleType: string;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-  interval: number;
-  cronSchedule: string;
-};
-
-/** @internal */
-export const InputExecSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputExecSendToRoutesFalseWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputExecSendToRoutesFalseWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    id: z.string().optional(),
-    type:
-      InputExecSendToRoutesFalseWithConnectionsConstraintType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    command: z.string(),
-    retries: z.number().default(10),
-    scheduleType:
-      SendToRoutesFalseWithConnectionsConstraintScheduleType$outboundSchema
-        .default("interval"),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-    interval: z.number().default(60),
-    cronSchedule: z.string().default("* * * * *"),
-  });
-
-export function inputExecSendToRoutesFalseWithConnectionsConstraintToJSON(
-  inputExecSendToRoutesFalseWithConnectionsConstraint:
-    InputExecSendToRoutesFalseWithConnectionsConstraint,
-): string {
-  return JSON.stringify(
-    InputExecSendToRoutesFalseWithConnectionsConstraint$outboundSchema.parse(
-      inputExecSendToRoutesFalseWithConnectionsConstraint,
-    ),
-  );
-}
-export function inputExecSendToRoutesFalseWithConnectionsConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputExecSendToRoutesFalseWithConnectionsConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputExecSendToRoutesFalseWithConnectionsConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputExecSendToRoutesFalseWithConnectionsConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputExecSendToRoutesTrueConstraintType$inboundSchema:
-  z.ZodNativeEnum<typeof InputExecSendToRoutesTrueConstraintType> = z
-    .nativeEnum(InputExecSendToRoutesTrueConstraintType);
-/** @internal */
-export const InputExecSendToRoutesTrueConstraintType$outboundSchema:
-  z.ZodNativeEnum<typeof InputExecSendToRoutesTrueConstraintType> =
-    InputExecSendToRoutesTrueConstraintType$inboundSchema;
-
-/** @internal */
-export const SendToRoutesTrueConstraintScheduleType$inboundSchema: z.ZodType<
-  SendToRoutesTrueConstraintScheduleType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SendToRoutesTrueConstraintScheduleType);
-/** @internal */
-export const SendToRoutesTrueConstraintScheduleType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  SendToRoutesTrueConstraintScheduleType
-> = openEnums.outboundSchema(SendToRoutesTrueConstraintScheduleType);
-
-/** @internal */
-export const InputExecSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
-  InputExecSendToRoutesTrueConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputExecSendToRoutesTrueConstraintType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  command: z.string(),
-  retries: z.number().default(10),
-  scheduleType: SendToRoutesTrueConstraintScheduleType$inboundSchema.default(
-    "interval",
-  ),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-  interval: z.number().default(60),
-  cronSchedule: z.string().default("* * * * *"),
-});
-/** @internal */
-export type InputExecSendToRoutesTrueConstraint$Outbound = {
-  sendToRoutes: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  command: string;
-  retries: number;
-  scheduleType: string;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-  interval: number;
-  cronSchedule: string;
-};
-
-/** @internal */
-export const InputExecSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
-  InputExecSendToRoutesTrueConstraint$Outbound,
-  z.ZodTypeDef,
-  InputExecSendToRoutesTrueConstraint
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputExecSendToRoutesTrueConstraintType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  command: z.string(),
-  retries: z.number().default(10),
-  scheduleType: SendToRoutesTrueConstraintScheduleType$outboundSchema.default(
-    "interval",
-  ),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-  interval: z.number().default(60),
-  cronSchedule: z.string().default("* * * * *"),
-});
-
-export function inputExecSendToRoutesTrueConstraintToJSON(
-  inputExecSendToRoutesTrueConstraint: InputExecSendToRoutesTrueConstraint,
-): string {
-  return JSON.stringify(
-    InputExecSendToRoutesTrueConstraint$outboundSchema.parse(
-      inputExecSendToRoutesTrueConstraint,
-    ),
-  );
-}
-export function inputExecSendToRoutesTrueConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<InputExecSendToRoutesTrueConstraint, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputExecSendToRoutesTrueConstraint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputExecSendToRoutesTrueConstraint' from JSON`,
-  );
-}
+  ScheduleType
+> = openEnums.outboundSchema(ScheduleType);
 
 /** @internal */
 export const InputExec$inboundSchema: z.ZodType<
   InputExec,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => InputExecSendToRoutesTrueConstraint$inboundSchema),
-  z.lazy(() =>
-    InputExecSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-  ),
-  z.lazy(() => InputExecPqEnabledFalseConstraint$inboundSchema),
-  z.lazy(() => InputExecPqEnabledTrueWithPqConstraint$inboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("exec"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  command: z.string(),
+  retries: z.number().optional(),
+  scheduleType: ScheduleType$inboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+  interval: z.number().optional(),
+  cronSchedule: z.string().optional(),
+});
 /** @internal */
-export type InputExec$Outbound =
-  | InputExecSendToRoutesTrueConstraint$Outbound
-  | InputExecSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputExecPqEnabledFalseConstraint$Outbound
-  | InputExecPqEnabledTrueWithPqConstraint$Outbound;
+export type InputExec$Outbound = {
+  id?: string | undefined;
+  type: "exec";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  command: string;
+  retries?: number | undefined;
+  scheduleType?: string | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  interval?: number | undefined;
+  cronSchedule?: string | undefined;
+};
 
 /** @internal */
 export const InputExec$outboundSchema: z.ZodType<
   InputExec$Outbound,
   z.ZodTypeDef,
   InputExec
-> = z.union([
-  z.lazy(() => InputExecSendToRoutesTrueConstraint$outboundSchema),
-  z.lazy(() =>
-    InputExecSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-  ),
-  z.lazy(() => InputExecPqEnabledFalseConstraint$outboundSchema),
-  z.lazy(() => InputExecPqEnabledTrueWithPqConstraint$outboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("exec"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  command: z.string(),
+  retries: z.number().optional(),
+  scheduleType: ScheduleType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+  interval: z.number().optional(),
+  cronSchedule: z.string().optional(),
+});
 
 export function inputExecToJSON(inputExec: InputExec): string {
   return JSON.stringify(InputExec$outboundSchema.parse(inputExec));

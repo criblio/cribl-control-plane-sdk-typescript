@@ -18,6 +18,12 @@ const value: models.AzureBlobAuthTypeManual = {
       expression: "<value>",
     },
   ],
+  recurse: false,
+  includeMetadata: true,
+  includeTags: false,
+  maxBatchSize: 5816.74,
+  parquetChunkSizeMB: 5632.14,
+  parquetChunkDownloadTimeout: 6143.11,
 };
 ```
 
@@ -36,6 +42,12 @@ const value: models.AzureBlobAuthTypeSecret = {
       expression: "<value>",
     },
   ],
+  recurse: false,
+  includeMetadata: true,
+  includeTags: false,
+  maxBatchSize: 434.23,
+  parquetChunkSizeMB: 3297.83,
+  parquetChunkDownloadTimeout: 1878.93,
 };
 ```
 
@@ -49,6 +61,7 @@ const value: models.AzureBlobAuthTypeClientSecret = {
   clientId: "<id>",
   clientTextSecret: "<value>",
   endpointSuffix: "<value>",
+  azureCloud: "<value>",
   outputName: "<value>",
   containerName: "<value>",
   path: "/private",
@@ -58,6 +71,12 @@ const value: models.AzureBlobAuthTypeClientSecret = {
       expression: "<value>",
     },
   ],
+  recurse: true,
+  includeMetadata: false,
+  includeTags: true,
+  maxBatchSize: 7129.12,
+  parquetChunkSizeMB: 924.83,
+  parquetChunkDownloadTimeout: 3879.64,
 };
 ```
 
@@ -83,6 +102,12 @@ const value: models.AzureBlobAuthTypeClientCert = {
       expression: "<value>",
     },
   ],
+  recurse: false,
+  includeMetadata: true,
+  includeTags: true,
+  maxBatchSize: 6646.64,
+  parquetChunkSizeMB: 2653.83,
+  parquetChunkDownloadTimeout: 2784.48,
 };
 ```
 

@@ -10,6 +10,7 @@ let value: PipelineFunctionTeeConf = {
   args: [
     "<value 1>",
   ],
+  restartOnExit: true,
   env: {
     "key": "<value>",
   },

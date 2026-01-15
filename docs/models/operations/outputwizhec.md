@@ -17,38 +17,67 @@ let value: OutputWizHec = {
     "<value 1>",
     "<value 2>",
   ],
+  loadBalanced: false,
+  nextQueue: "<value>",
+  tcpRouting: "<value>",
   tls: {
+    disabled: false,
     servername: "<value>",
     certificateName: "<value>",
     caPath: "<value>",
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.1",
   },
+  concurrency: 7267.85,
+  maxPayloadSizeKB: 8195.84,
+  maxPayloadEvents: 6455.86,
+  compress: false,
+  rejectUnauthorized: false,
+  timeoutSec: 9513.59,
+  flushPeriodSec: 9969.3,
   extraHttpHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  failedRequestLoggingMode: "payloadAndHeaders",
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
+  enableMultiMetrics: false,
+  authType: "manual",
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 2591.04,
+      initialBackoff: 4815.7,
+      backoffRate: 5576.87,
+      maxBackoff: 1844.93,
     },
   ],
-  timeoutRetrySettings: {},
-  description:
-    "prestigious till tinderbox record sturdy worst absent glittering",
+  timeoutRetrySettings: {
+    timeoutRetry: false,
+    initialBackoff: 4289.71,
+    backoffRate: 7830.71,
+    maxBackoff: 6330,
+  },
+  responseHonorRetryAfterHeader: true,
+  onBackpressure: "drop",
+  description: "with following serene",
+  url: "https://soupy-creator.net",
+  useRoundRobinDns: false,
+  excludeSelf: false,
   urls: [
-    {},
+    {
+      url: "https://worst-chap.net",
+      weight: 6711.27,
+    },
   ],
+  dnsResolvePeriodSec: 7305.71,
+  loadBalanceStatsPeriodSec: 104.93,
   token: "<value>",
   textSecret: "<value>",
 };
@@ -67,7 +96,7 @@ let value: OutputWizHec = {
 | `loadBalanced`                                                                                                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.                                                                                                                                                                                                    |
 | `nextQueue`                                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | In the Splunk app, define which Splunk processing queue to send the events after HEC processing.                                                                                                                                                                                                                                                 |
 | `tcpRouting`                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.                                                                                                                                                                                                                                             |
-| `tls`                                                                                                                                                                                                                                                                                                                                            | [models.TlsSettingsClientSideType2](../../models/tlssettingsclientsidetype2.md)                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
+| `tls`                                                                                                                                                                                                                                                                                                                                            | [models.TlsSettingsClientSideType1](../../models/tlssettingsclientsidetype1.md)                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `concurrency`                                                                                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum number of ongoing requests before blocking                                                                                                                                                                                                                                                                                               |
 | `maxPayloadSizeKB`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum size, in KB, of the request body                                                                                                                                                                                                                                                                                                         |
 | `maxPayloadEvents`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum number of events to include in the request body. Default is 0 (unlimited).                                                                                                                                                                                                                                                               |

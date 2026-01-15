@@ -440,41 +440,41 @@ export const OutputSyslog$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: OutputSyslogProtocol$inboundSchema.default("tcp"),
-  facility: Facility$inboundSchema.default(1),
-  severity: OutputSyslogSeverity$inboundSchema.default(5),
-  appName: z.string().default("Cribl"),
-  messageFormat: MessageFormat$inboundSchema.default("rfc3164"),
-  timestampFormat: TimestampFormat$inboundSchema.default("syslog"),
-  throttleRatePerSec: z.string().default("0"),
+  protocol: OutputSyslogProtocol$inboundSchema.optional(),
+  facility: Facility$inboundSchema.optional(),
+  severity: OutputSyslogSeverity$inboundSchema.optional(),
+  appName: z.string().optional(),
+  messageFormat: MessageFormat$inboundSchema.optional(),
+  timestampFormat: TimestampFormat$inboundSchema.optional(),
+  throttleRatePerSec: z.string().optional(),
   octetCountFraming: z.boolean().optional(),
-  logFailedRequests: z.boolean().default(false),
+  logFailedRequests: z.boolean().optional(),
   description: z.string().optional(),
-  loadBalanced: z.boolean().default(true),
+  loadBalanced: z.boolean().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
-  excludeSelf: z.boolean().default(false),
+  excludeSelf: z.boolean().optional(),
   hosts: z.array(ItemsTypeHosts$inboundSchema).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  maxConcurrentSenders: z.number().default(0),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  maxConcurrentSenders: z.number().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
   tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
-  maxRecordSize: z.number().default(1500),
-  udpDnsResolvePeriodSec: z.number().default(0),
-  enableIpSpoofing: z.boolean().default(false),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
+  maxRecordSize: z.number().optional(),
+  udpDnsResolvePeriodSec: z.number().optional(),
+  enableIpSpoofing: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputSyslogPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -485,41 +485,41 @@ export type OutputSyslog$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  protocol: string;
-  facility: number;
-  severity: number;
-  appName: string;
-  messageFormat: string;
-  timestampFormat: string;
-  throttleRatePerSec: string;
+  protocol?: string | undefined;
+  facility?: number | undefined;
+  severity?: number | undefined;
+  appName?: string | undefined;
+  messageFormat?: string | undefined;
+  timestampFormat?: string | undefined;
+  throttleRatePerSec?: string | undefined;
   octetCountFraming?: boolean | undefined;
-  logFailedRequests: boolean;
+  logFailedRequests?: boolean | undefined;
   description?: string | undefined;
-  loadBalanced: boolean;
+  loadBalanced?: boolean | undefined;
   host?: string | undefined;
   port?: number | undefined;
-  excludeSelf: boolean;
+  excludeSelf?: boolean | undefined;
   hosts?: Array<ItemsTypeHosts$Outbound> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
-  maxConcurrentSenders: number;
-  connectionTimeout: number;
-  writeTimeout: number;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  maxConcurrentSenders?: number | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
   tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
-  onBackpressure: string;
-  maxRecordSize: number;
-  udpDnsResolvePeriodSec: number;
-  enableIpSpoofing: boolean;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  onBackpressure?: string | undefined;
+  maxRecordSize?: number | undefined;
+  udpDnsResolvePeriodSec?: number | undefined;
+  enableIpSpoofing?: boolean | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputSyslogPqControls$Outbound | undefined;
 };
 
@@ -535,41 +535,41 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: OutputSyslogProtocol$outboundSchema.default("tcp"),
-  facility: Facility$outboundSchema.default(1),
-  severity: OutputSyslogSeverity$outboundSchema.default(5),
-  appName: z.string().default("Cribl"),
-  messageFormat: MessageFormat$outboundSchema.default("rfc3164"),
-  timestampFormat: TimestampFormat$outboundSchema.default("syslog"),
-  throttleRatePerSec: z.string().default("0"),
+  protocol: OutputSyslogProtocol$outboundSchema.optional(),
+  facility: Facility$outboundSchema.optional(),
+  severity: OutputSyslogSeverity$outboundSchema.optional(),
+  appName: z.string().optional(),
+  messageFormat: MessageFormat$outboundSchema.optional(),
+  timestampFormat: TimestampFormat$outboundSchema.optional(),
+  throttleRatePerSec: z.string().optional(),
   octetCountFraming: z.boolean().optional(),
-  logFailedRequests: z.boolean().default(false),
+  logFailedRequests: z.boolean().optional(),
   description: z.string().optional(),
-  loadBalanced: z.boolean().default(true),
+  loadBalanced: z.boolean().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
-  excludeSelf: z.boolean().default(false),
+  excludeSelf: z.boolean().optional(),
   hosts: z.array(ItemsTypeHosts$outboundSchema).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  maxConcurrentSenders: z.number().default(0),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  maxConcurrentSenders: z.number().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
   tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
-  maxRecordSize: z.number().default(1500),
-  udpDnsResolvePeriodSec: z.number().default(0),
-  enableIpSpoofing: z.boolean().default(false),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
+  maxRecordSize: z.number().optional(),
+  udpDnsResolvePeriodSec: z.number().optional(),
+  enableIpSpoofing: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputSyslogPqControls$outboundSchema).optional(),
 });
 

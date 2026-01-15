@@ -6,6 +6,8 @@
 import { CreateOutputAuthToken } from "cribl-control-plane/models/operations";
 
 let value: CreateOutputAuthToken = {
+  authType: "manual",
+  authToken: "<value>",
   textSecret: "<value>",
 };
 ```

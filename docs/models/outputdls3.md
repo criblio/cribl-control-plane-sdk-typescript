@@ -21,27 +21,67 @@ let value: OutputDlS3 = {
   bucket: "<value>",
   region: "<value>",
   awsSecretKey: "<value>",
+  awsAuthenticationMethod: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v4",
+  reuseConnections: false,
+  rejectUnauthorized: true,
+  enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  storageClass: "DEEP_ARCHIVE",
+  durationSeconds: 3104.88,
+  stagePath: "<value>",
+  addIdToStagePath: false,
+  destPath: "<value>",
+  objectACL: "bucket-owner-full-control",
+  storageClass: "STANDARD",
   serverSideEncryption: "aws:kms",
   kmsKeyId: "<id>",
+  removeEmptyDirs: true,
+  format: "parquet",
+  baseFileName: "<value>",
+  fileNameSuffix: "<value>",
+  maxFileSizeMB: 9370.62,
+  maxOpenFiles: 6495.64,
+  headerLine: "<value>",
+  writeHighWaterMark: 8903.47,
+  onBackpressure: "drop",
+  deadletterEnabled: true,
+  onDiskFullBackpressure: "drop",
+  forceCloseOnShutdown: true,
+  maxFileOpenTimeSec: 2132.03,
+  maxFileIdleTimeSec: 9555.69,
+  maxConcurrentFileParts: 1867.02,
+  verifyPermissions: true,
+  maxClosingFilesToBackpressure: 5150.94,
   partitioningFields: [
     "<value 1>",
-    "<value 2>",
   ],
-  description:
-    "upside-down incidentally even microblog bleakly triumphantly modulo",
+  description: "microblog bleakly triumphantly modulo",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  compress: "gzip",
+  compressionLevel: "normal",
+  automaticSchema: false,
   parquetSchema: "<value>",
-  shouldLogInvalidRows: false,
+  parquetVersion: "PARQUET_1_0",
+  parquetDataPageVersion: "DATA_PAGE_V2",
+  parquetRowGroupLength: 5136.17,
+  parquetPageSize: "<value>",
+  shouldLogInvalidRows: true,
   keyValueMetadata: [
     {
+      key: "<key>",
       value: "<value>",
     },
   ],
+  enableStatistics: false,
+  enableWritePageIndex: false,
+  enablePageChecksum: true,
+  emptyDirCleanupSec: 5895.14,
+  directoryBatchSize: 1705.56,
+  deadletterPath: "<value>",
+  maxRetryNum: 1158.67,
 };
 ```
 
@@ -67,7 +107,7 @@ let value: OutputDlS3 = {
 | `assumeRoleArn`                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Amazon Resource Name (ARN) of the role to assume                                                                                                                                                                                                                     |
 | `assumeRoleExternalId`                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | External ID to use when assuming role                                                                                                                                                                                                                                |
 | `durationSeconds`                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).                                                                                                                          |
-| `stagePath`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.                                                                                                                                 |
+| `stagePath`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                   | Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.                                                                                                                                 |
 | `addIdToStagePath`                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Add the Output ID value to staging location                                                                                                                                                                                                                          |
 | `destPath`                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`     |
 | `objectACL`                                                                                                                                                                                                                                                          | [models.ObjectAclOptions](../models/objectacloptions.md)                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Object ACL to assign to uploaded objects                                                                                                                                                                                                                             |

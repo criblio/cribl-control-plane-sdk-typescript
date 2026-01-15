@@ -6,12 +6,16 @@
 import { PipelineFunctionCode } from "cribl-control-plane/models";
 
 let value: PipelineFunctionCode = {
+  filter: "<value>",
   id: "code",
   description: "unethically gee after volleyball frankly contradict opposite",
   disabled: false,
   final: false,
   conf: {
     code: "<value>",
+    maxNumOfIterations: 2501.08,
+    activeLogSampleRate: 309.95,
+    useUniqueLogChannel: false,
   },
   groupId: "<id>",
 };

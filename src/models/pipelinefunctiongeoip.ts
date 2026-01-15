@@ -7,7 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type PipelineFunctionGeoipAdditionalField = {
+export type AdditionalField = {
   /**
    * Field name in which to find an IP to look up. Can be nested.
    */
@@ -21,7 +21,7 @@ export type PipelineFunctionGeoipAdditionalField = {
 /**
  * Search-specific mappings for granular control over event enrichment
  */
-export type PipelineFunctionGeoipOutputFieldMappings = {};
+export type OutputFieldMappings = {};
 
 export type PipelineFunctionGeoipConf = {
   /**
@@ -36,11 +36,11 @@ export type PipelineFunctionGeoipConf = {
    * Field name in which to store the GeoIP lookup results
    */
   outField?: string | undefined;
-  additionalFields?: Array<PipelineFunctionGeoipAdditionalField> | undefined;
+  additionalFields?: Array<AdditionalField> | undefined;
   /**
    * Search-specific mappings for granular control over event enrichment
    */
-  outFieldMappings?: PipelineFunctionGeoipOutputFieldMappings | undefined;
+  outFieldMappings?: OutputFieldMappings | undefined;
 };
 
 export type PipelineFunctionGeoip = {
@@ -72,8 +72,8 @@ export type PipelineFunctionGeoip = {
 };
 
 /** @internal */
-export const PipelineFunctionGeoipAdditionalField$inboundSchema: z.ZodType<
-  PipelineFunctionGeoipAdditionalField,
+export const AdditionalField$inboundSchema: z.ZodType<
+  AdditionalField,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -81,80 +81,66 @@ export const PipelineFunctionGeoipAdditionalField$inboundSchema: z.ZodType<
   extraOutField: z.string(),
 });
 /** @internal */
-export type PipelineFunctionGeoipAdditionalField$Outbound = {
+export type AdditionalField$Outbound = {
   extraInField: string;
   extraOutField: string;
 };
 
 /** @internal */
-export const PipelineFunctionGeoipAdditionalField$outboundSchema: z.ZodType<
-  PipelineFunctionGeoipAdditionalField$Outbound,
+export const AdditionalField$outboundSchema: z.ZodType<
+  AdditionalField$Outbound,
   z.ZodTypeDef,
-  PipelineFunctionGeoipAdditionalField
+  AdditionalField
 > = z.object({
   extraInField: z.string(),
   extraOutField: z.string(),
 });
 
-export function pipelineFunctionGeoipAdditionalFieldToJSON(
-  pipelineFunctionGeoipAdditionalField: PipelineFunctionGeoipAdditionalField,
+export function additionalFieldToJSON(
+  additionalField: AdditionalField,
 ): string {
-  return JSON.stringify(
-    PipelineFunctionGeoipAdditionalField$outboundSchema.parse(
-      pipelineFunctionGeoipAdditionalField,
-    ),
-  );
+  return JSON.stringify(AdditionalField$outboundSchema.parse(additionalField));
 }
-export function pipelineFunctionGeoipAdditionalFieldFromJSON(
+export function additionalFieldFromJSON(
   jsonString: string,
-): SafeParseResult<PipelineFunctionGeoipAdditionalField, SDKValidationError> {
+): SafeParseResult<AdditionalField, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      PipelineFunctionGeoipAdditionalField$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionGeoipAdditionalField' from JSON`,
+    (x) => AdditionalField$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AdditionalField' from JSON`,
   );
 }
 
 /** @internal */
-export const PipelineFunctionGeoipOutputFieldMappings$inboundSchema: z.ZodType<
-  PipelineFunctionGeoipOutputFieldMappings,
+export const OutputFieldMappings$inboundSchema: z.ZodType<
+  OutputFieldMappings,
   z.ZodTypeDef,
   unknown
 > = z.object({});
 /** @internal */
-export type PipelineFunctionGeoipOutputFieldMappings$Outbound = {};
+export type OutputFieldMappings$Outbound = {};
 
 /** @internal */
-export const PipelineFunctionGeoipOutputFieldMappings$outboundSchema: z.ZodType<
-  PipelineFunctionGeoipOutputFieldMappings$Outbound,
+export const OutputFieldMappings$outboundSchema: z.ZodType<
+  OutputFieldMappings$Outbound,
   z.ZodTypeDef,
-  PipelineFunctionGeoipOutputFieldMappings
+  OutputFieldMappings
 > = z.object({});
 
-export function pipelineFunctionGeoipOutputFieldMappingsToJSON(
-  pipelineFunctionGeoipOutputFieldMappings:
-    PipelineFunctionGeoipOutputFieldMappings,
+export function outputFieldMappingsToJSON(
+  outputFieldMappings: OutputFieldMappings,
 ): string {
   return JSON.stringify(
-    PipelineFunctionGeoipOutputFieldMappings$outboundSchema.parse(
-      pipelineFunctionGeoipOutputFieldMappings,
-    ),
+    OutputFieldMappings$outboundSchema.parse(outputFieldMappings),
   );
 }
-export function pipelineFunctionGeoipOutputFieldMappingsFromJSON(
+export function outputFieldMappingsFromJSON(
   jsonString: string,
-): SafeParseResult<
-  PipelineFunctionGeoipOutputFieldMappings,
-  SDKValidationError
-> {
+): SafeParseResult<OutputFieldMappings, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      PipelineFunctionGeoipOutputFieldMappings$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'PipelineFunctionGeoipOutputFieldMappings' from JSON`,
+    (x) => OutputFieldMappings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputFieldMappings' from JSON`,
   );
 }
 
@@ -165,26 +151,19 @@ export const PipelineFunctionGeoipConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   file: z.string(),
-  inField: z.string().default("ip"),
-  outField: z.string().default("geoip"),
-  additionalFields: z.array(
-    z.lazy(() => PipelineFunctionGeoipAdditionalField$inboundSchema),
-  ).optional(),
-  outFieldMappings: z.lazy(() =>
-    PipelineFunctionGeoipOutputFieldMappings$inboundSchema
-  ).optional(),
+  inField: z.string().optional(),
+  outField: z.string().optional(),
+  additionalFields: z.array(z.lazy(() => AdditionalField$inboundSchema))
+    .optional(),
+  outFieldMappings: z.lazy(() => OutputFieldMappings$inboundSchema).optional(),
 });
 /** @internal */
 export type PipelineFunctionGeoipConf$Outbound = {
   file: string;
-  inField: string;
-  outField: string;
-  additionalFields?:
-    | Array<PipelineFunctionGeoipAdditionalField$Outbound>
-    | undefined;
-  outFieldMappings?:
-    | PipelineFunctionGeoipOutputFieldMappings$Outbound
-    | undefined;
+  inField?: string | undefined;
+  outField?: string | undefined;
+  additionalFields?: Array<AdditionalField$Outbound> | undefined;
+  outFieldMappings?: OutputFieldMappings$Outbound | undefined;
 };
 
 /** @internal */
@@ -194,14 +173,11 @@ export const PipelineFunctionGeoipConf$outboundSchema: z.ZodType<
   PipelineFunctionGeoipConf
 > = z.object({
   file: z.string(),
-  inField: z.string().default("ip"),
-  outField: z.string().default("geoip"),
-  additionalFields: z.array(
-    z.lazy(() => PipelineFunctionGeoipAdditionalField$outboundSchema),
-  ).optional(),
-  outFieldMappings: z.lazy(() =>
-    PipelineFunctionGeoipOutputFieldMappings$outboundSchema
-  ).optional(),
+  inField: z.string().optional(),
+  outField: z.string().optional(),
+  additionalFields: z.array(z.lazy(() => AdditionalField$outboundSchema))
+    .optional(),
+  outFieldMappings: z.lazy(() => OutputFieldMappings$outboundSchema).optional(),
 });
 
 export function pipelineFunctionGeoipConfToJSON(
@@ -227,7 +203,7 @@ export const PipelineFunctionGeoip$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("geoip"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -237,7 +213,7 @@ export const PipelineFunctionGeoip$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionGeoip$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "geoip";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -252,7 +228,7 @@ export const PipelineFunctionGeoip$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionGeoip
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("geoip"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

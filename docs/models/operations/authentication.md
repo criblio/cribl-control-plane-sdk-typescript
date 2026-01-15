@@ -8,12 +8,17 @@ Authentication parameters to use when connecting to bootstrap server. Using TLS 
 import { Authentication } from "cribl-control-plane/models/operations";
 
 let value: Authentication = {
+  disabled: true,
+  mechanism: "oauthbearer",
+  username: "Wilburn60",
   textSecret: "<value>",
+  clientSecretAuthType: "certificate",
   clientTextSecret: "<value>",
   certificateName: "<value>",
   certPath: "<value>",
   privKeyPath: "<value>",
   passphrase: "<value>",
+  oauthEndpoint: "https://login.partner.microsoftonline.cn",
   clientId: "<id>",
   tenantId: "<id>",
   scope: "<value>",
@@ -24,7 +29,7 @@ let value: Authentication = {
 
 | Field                                                                                                                         | Type                                                                                                                          | Required                                                                                                                      | Description                                                                                                                   |
 | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `disabled`                                                                                                                    | *boolean*                                                                                                                     | :heavy_minus_sign:                                                                                                            | N/A                                                                                                                           |
+| `disabled`                                                                                                                    | *boolean*                                                                                                                     | :heavy_check_mark:                                                                                                            | N/A                                                                                                                           |
 | `mechanism`                                                                                                                   | [models.SaslMechanismOptionsSasl1](../../models/saslmechanismoptionssasl1.md)                                                 | :heavy_minus_sign:                                                                                                            | N/A                                                                                                                           |
 | `username`                                                                                                                    | *string*                                                                                                                      | :heavy_minus_sign:                                                                                                            | The username for authentication. This should always be $ConnectionString.                                                     |
 | `textSecret`                                                                                                                  | *string*                                                                                                                      | :heavy_minus_sign:                                                                                                            | Select or create a stored text secret corresponding to the SASL JASS Password Primary or Password Secondary                   |

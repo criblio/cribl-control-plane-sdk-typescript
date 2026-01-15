@@ -6,13 +6,17 @@
 import { PipelineFunctionRedis } from "cribl-control-plane/models";
 
 let value: PipelineFunctionRedis = {
+  filter: "<value>",
   id: "redis",
   description: "irresponsible probe er woot delete though",
   disabled: false,
   final: false,
   conf: {
     commands: [],
-    enableClientSideCaching: true,
+    deploymentType: "cluster",
+    authType: "textSecret",
+    maxBlockSecs: 5990.87,
+    enableClientSideCaching: false,
   },
   groupId: "<id>",
 };

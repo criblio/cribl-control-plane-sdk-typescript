@@ -6,12 +6,19 @@
 import { PipelineFunctionSuppress } from "cribl-control-plane/models";
 
 let value: PipelineFunctionSuppress = {
+  filter: "<value>",
   id: "suppress",
   description: "whack as made-up",
   disabled: true,
   final: true,
   conf: {
     keyExpr: "<value>",
+    allow: 9961.65,
+    suppressPeriodSec: 7229.55,
+    dropEventsMode: false,
+    maxCacheSize: 7960.57,
+    cacheIdleTimeoutPeriods: 8777.82,
+    numEventsIdleTimeoutTrigger: 4091.01,
   },
   groupId: "<id>",
 };

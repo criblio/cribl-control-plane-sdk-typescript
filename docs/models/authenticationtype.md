@@ -8,14 +8,19 @@ Authentication parameters to use when connecting to brokers. Using TLS is highly
 import { AuthenticationType } from "cribl-control-plane/models";
 
 let value: AuthenticationType = {
-  username: "Brayan.Hilpert50",
+  disabled: true,
+  username: "Nina_Kerluke31",
   password: "ljk8icrJwlokeiN",
+  authType: "manual",
   credentialsSecret: "<value>",
+  mechanism: "kerberos",
   keytabLocation: "<value>",
   principal: "<value>",
   brokerServiceClass: "<value>",
-  tokenUrl: "https://spiffy-typeface.name/",
+  oauthEnabled: false,
+  tokenUrl: "https://far-lawmaker.biz",
   clientId: "<id>",
+  oauthSecretType: "<value>",
   clientTextSecret: "<value>",
   oauthParams: [
     {
@@ -36,7 +41,7 @@ let value: AuthenticationType = {
 
 | Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
 | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `disabled`                                                                             | *boolean*                                                                              | :heavy_minus_sign:                                                                     | N/A                                                                                    |
+| `disabled`                                                                             | *boolean*                                                                              | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `username`                                                                             | *string*                                                                               | :heavy_minus_sign:                                                                     | N/A                                                                                    |
 | `password`                                                                             | *string*                                                                               | :heavy_minus_sign:                                                                     | N/A                                                                                    |
 | `authType`                                                                             | [models.AuthenticationMethodOptionsSasl](../models/authenticationmethodoptionssasl.md) | :heavy_minus_sign:                                                                     | Enter credentials directly, or select a stored secret                                  |

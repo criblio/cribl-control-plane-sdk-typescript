@@ -19,7 +19,8 @@ let value: OutputSnmp = {
     "<value 1>",
   ],
   hosts: [],
-  description: "pertain suspiciously fooey",
+  dnsResolvePeriodSec: 1204.36,
+  description: "soft put um alongside though",
 };
 ```
 

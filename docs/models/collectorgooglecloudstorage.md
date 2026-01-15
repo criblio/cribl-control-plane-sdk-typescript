@@ -22,11 +22,11 @@ let value: CollectorGoogleCloudStorage = {
       },
     ],
     endpoint: "<value>",
-    disableTimeFilter: false,
-    recurse: true,
-    maxBatchSize: 10,
-    parquetChunkSizeMB: 5,
-    parquetChunkDownloadTimeout: 600,
+    disableTimeFilter: true,
+    recurse: false,
+    maxBatchSize: 60.67,
+    parquetChunkSizeMB: 2920.25,
+    parquetChunkDownloadTimeout: 430.44,
   },
 };
 ```

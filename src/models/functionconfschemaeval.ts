@@ -42,13 +42,13 @@ export const FunctionConfSchemaEvalAdd$inboundSchema: z.ZodType<
 > = z.object({
   name: z.string().optional(),
   value: z.string(),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
 });
 /** @internal */
 export type FunctionConfSchemaEvalAdd$Outbound = {
   name?: string | undefined;
   value: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
 };
 
 /** @internal */
@@ -59,7 +59,7 @@ export const FunctionConfSchemaEvalAdd$outboundSchema: z.ZodType<
 > = z.object({
   name: z.string().optional(),
   value: z.string(),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
 });
 
 export function functionConfSchemaEvalAddToJSON(

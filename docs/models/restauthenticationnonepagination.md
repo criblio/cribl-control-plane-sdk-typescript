@@ -5,11 +5,13 @@
 ```typescript
 import { RestAuthenticationNonePagination } from "cribl-control-plane/models";
 
-let value: RestAuthenticationNonePagination = {};
+let value: RestAuthenticationNonePagination = {
+  type: "request_offset",
+};
 ```
 
 ## Fields
 
 | Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
 | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
-| `type`                                                                                           | [models.RestAuthenticationNonePaginationEnum](../models/restauthenticationnonepaginationenum.md) | :heavy_minus_sign:                                                                               | N/A                                                                                              |
+| `type`                                                                                           | [models.RestAuthenticationNonePaginationEnum](../models/restauthenticationnonepaginationenum.md) | :heavy_check_mark:                                                                               | N/A                                                                                              |

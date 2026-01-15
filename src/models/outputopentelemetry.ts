@@ -90,11 +90,11 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
-  TlsSettingsClientSideType3,
-  TlsSettingsClientSideType3$inboundSchema,
-  TlsSettingsClientSideType3$Outbound,
-  TlsSettingsClientSideType3$outboundSchema,
-} from "./tlssettingsclientsidetype3.js";
+  TlsSettingsClientSideType2,
+  TlsSettingsClientSideType2$inboundSchema,
+  TlsSettingsClientSideType2$Outbound,
+  TlsSettingsClientSideType2$outboundSchema,
+} from "./tlssettingsclientsidetype2.js";
 
 /**
  * The version of OTLP Protobuf definitions to use when structuring data to send
@@ -292,7 +292,7 @@ export type OutputOpenTelemetry = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  tls?: TlsSettingsClientSideType3 | undefined;
+  tls?: TlsSettingsClientSideType2 | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -396,26 +396,26 @@ export const OutputOpenTelemetry$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  protocol: ProtocolOptions$inboundSchema.optional(),
   endpoint: z.string(),
-  otlpVersion: OutputOpenTelemetryOTLPVersion$inboundSchema.default("0.10.0"),
-  compress: CompressionOptions4$inboundSchema.default("gzip"),
-  httpCompress: CompressionOptions5$inboundSchema.default("gzip"),
-  authType: AuthenticationTypeOptions$inboundSchema.default("none"),
+  otlpVersion: OutputOpenTelemetryOTLPVersion$inboundSchema.optional(),
+  compress: CompressionOptions4$inboundSchema.optional(),
+  httpCompress: CompressionOptions5$inboundSchema.optional(),
+  authType: AuthenticationTypeOptions$inboundSchema.optional(),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
   metadata: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
-    .default("none"),
-  connectionTimeout: z.number().default(10000),
-  keepAliveTime: z.number().default(30),
-  keepAlive: z.boolean().default(true),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+    .optional(),
+  connectionTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  keepAlive: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -426,29 +426,29 @@ export const OutputOpenTelemetry$inboundSchema: z.ZodType<
   secretParamName: z.string().optional(),
   secret: z.string().optional(),
   tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
-  rejectUnauthorized: z.boolean().default(true),
-  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().optional(),
+  useRoundRobinDns: z.boolean().optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  tls: TlsSettingsClientSideType3$inboundSchema.optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  tls: TlsSettingsClientSideType2$inboundSchema.optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputOpenTelemetryPqControls$inboundSchema)
     .optional(),
 });
@@ -460,25 +460,25 @@ export type OutputOpenTelemetry$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  protocol: string;
+  protocol?: string | undefined;
   endpoint: string;
-  otlpVersion: string;
-  compress: string;
-  httpCompress: string;
-  authType: string;
+  otlpVersion?: string | undefined;
+  compress?: string | undefined;
+  httpCompress?: string | undefined;
+  authType?: string | undefined;
   httpTracesEndpointOverride?: string | undefined;
   httpMetricsEndpointOverride?: string | undefined;
   httpLogsEndpointOverride?: string | undefined;
   metadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  timeoutSec: number;
-  flushPeriodSec: number;
-  failedRequestLoggingMode: string;
-  connectionTimeout: number;
-  keepAliveTime: number;
-  keepAlive: boolean;
-  onBackpressure: string;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  connectionTimeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  keepAlive?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -489,30 +489,30 @@ export type OutputOpenTelemetry$Outbound = {
   secretParamName?: string | undefined;
   secret?: string | undefined;
   tokenAttributeName?: string | undefined;
-  authHeaderExpr: string;
-  tokenTimeoutSecs: number;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
-  rejectUnauthorized: boolean;
-  useRoundRobinDns: boolean;
+  rejectUnauthorized?: boolean | undefined;
+  useRoundRobinDns?: boolean | undefined;
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  tls?: TlsSettingsClientSideType3$Outbound | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  tls?: TlsSettingsClientSideType2$Outbound | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputOpenTelemetryPqControls$Outbound | undefined;
 };
 
@@ -528,26 +528,26 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  protocol: ProtocolOptions$outboundSchema.optional(),
   endpoint: z.string(),
-  otlpVersion: OutputOpenTelemetryOTLPVersion$outboundSchema.default("0.10.0"),
-  compress: CompressionOptions4$outboundSchema.default("gzip"),
-  httpCompress: CompressionOptions5$outboundSchema.default("gzip"),
-  authType: AuthenticationTypeOptions$outboundSchema.default("none"),
+  otlpVersion: OutputOpenTelemetryOTLPVersion$outboundSchema.optional(),
+  compress: CompressionOptions4$outboundSchema.optional(),
+  httpCompress: CompressionOptions5$outboundSchema.optional(),
+  authType: AuthenticationTypeOptions$outboundSchema.optional(),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
   metadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema).optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
-    .default("none"),
-  connectionTimeout: z.number().default(10000),
-  keepAliveTime: z.number().default(30),
-  keepAlive: z.boolean().default(true),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+    .optional(),
+  connectionTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  keepAlive: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -558,30 +558,30 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   secretParamName: z.string().optional(),
   secret: z.string().optional(),
   tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
-  rejectUnauthorized: z.boolean().default(true),
-  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().optional(),
+  useRoundRobinDns: z.boolean().optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  tls: TlsSettingsClientSideType3$outboundSchema.optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  tls: TlsSettingsClientSideType2$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputOpenTelemetryPqControls$outboundSchema)
     .optional(),
 });

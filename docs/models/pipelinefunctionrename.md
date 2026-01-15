@@ -6,6 +6,7 @@
 import { PipelineFunctionRename } from "cribl-control-plane/models";
 
 let value: PipelineFunctionRename = {
+  filter: "<value>",
   id: "rename",
   description: "eek hmph vainly and",
   disabled: true,
@@ -23,6 +24,7 @@ let value: PipelineFunctionRename = {
       },
     ],
     renameExpr: "<value>",
+    wildcardDepth: 400895,
   },
   groupId: "<id>",
 };

@@ -31,7 +31,7 @@ import {
  * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
  */
 export type AuthenticationType1 = {
-  disabled?: boolean | undefined;
+  disabled: boolean;
   /**
    * Enter password directly, or select a stored secret
    */
@@ -89,15 +89,14 @@ export const AuthenticationType1$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean().default(false),
-  authType: AuthenticationMethodOptionsSasl1$inboundSchema.default("manual"),
+  disabled: z.boolean(),
+  authType: AuthenticationMethodOptionsSasl1$inboundSchema.optional(),
   password: z.string().optional(),
   textSecret: z.string().optional(),
-  mechanism: SaslMechanismOptionsSasl1$inboundSchema.default("plain"),
-  username: z.string().default("$ConnectionString"),
-  clientSecretAuthType: AuthenticationMethodOptionsSasl2$inboundSchema.default(
-    "manual",
-  ),
+  mechanism: SaslMechanismOptionsSasl1$inboundSchema.optional(),
+  username: z.string().optional(),
+  clientSecretAuthType: AuthenticationMethodOptionsSasl2$inboundSchema
+    .optional(),
   clientSecret: z.string().optional(),
   clientTextSecret: z.string().optional(),
   certificateName: z.string().optional(),
@@ -105,7 +104,7 @@ export const AuthenticationType1$inboundSchema: z.ZodType<
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   oauthEndpoint: MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema
-    .default("https://login.microsoftonline.com"),
+    .optional(),
   clientId: z.string().optional(),
   tenantId: z.string().optional(),
   scope: z.string().optional(),
@@ -113,19 +112,19 @@ export const AuthenticationType1$inboundSchema: z.ZodType<
 /** @internal */
 export type AuthenticationType1$Outbound = {
   disabled: boolean;
-  authType: string;
+  authType?: string | undefined;
   password?: string | undefined;
   textSecret?: string | undefined;
-  mechanism: string;
-  username: string;
-  clientSecretAuthType: string;
+  mechanism?: string | undefined;
+  username?: string | undefined;
+  clientSecretAuthType?: string | undefined;
   clientSecret?: string | undefined;
   clientTextSecret?: string | undefined;
   certificateName?: string | undefined;
   certPath?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
-  oauthEndpoint: string;
+  oauthEndpoint?: string | undefined;
   clientId?: string | undefined;
   tenantId?: string | undefined;
   scope?: string | undefined;
@@ -137,15 +136,14 @@ export const AuthenticationType1$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AuthenticationType1
 > = z.object({
-  disabled: z.boolean().default(false),
-  authType: AuthenticationMethodOptionsSasl1$outboundSchema.default("manual"),
+  disabled: z.boolean(),
+  authType: AuthenticationMethodOptionsSasl1$outboundSchema.optional(),
   password: z.string().optional(),
   textSecret: z.string().optional(),
-  mechanism: SaslMechanismOptionsSasl1$outboundSchema.default("plain"),
-  username: z.string().default("$ConnectionString"),
-  clientSecretAuthType: AuthenticationMethodOptionsSasl2$outboundSchema.default(
-    "manual",
-  ),
+  mechanism: SaslMechanismOptionsSasl1$outboundSchema.optional(),
+  username: z.string().optional(),
+  clientSecretAuthType: AuthenticationMethodOptionsSasl2$outboundSchema
+    .optional(),
   clientSecret: z.string().optional(),
   clientTextSecret: z.string().optional(),
   certificateName: z.string().optional(),
@@ -153,9 +151,7 @@ export const AuthenticationType1$outboundSchema: z.ZodType<
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   oauthEndpoint:
-    MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema.default(
-      "https://login.microsoftonline.com",
-    ),
+    MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema.optional(),
   clientId: z.string().optional(),
   tenantId: z.string().optional(),
   scope: z.string().optional(),

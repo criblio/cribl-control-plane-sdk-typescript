@@ -17,7 +17,7 @@ import {
 /**
  * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
  */
-export const PipelineFunctionSerdeOperationMode = {
+export const OperationMode = {
   /**
    * Extract
    */
@@ -30,19 +30,17 @@ export const PipelineFunctionSerdeOperationMode = {
 /**
  * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
  */
-export type PipelineFunctionSerdeOperationMode = OpenEnum<
-  typeof PipelineFunctionSerdeOperationMode
->;
+export type OperationMode = OpenEnum<typeof OperationMode>;
 
 export type PipelineFunctionSerdeConf = {
   /**
    * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
    */
-  mode?: PipelineFunctionSerdeOperationMode | undefined;
+  mode: OperationMode;
   /**
    * Parser or formatter type to use
    */
-  type?: TypeOptions | undefined;
+  type: TypeOptions;
   delimChar?: any | undefined;
   quoteChar?: any | undefined;
   escapeChar?: any | undefined;
@@ -87,17 +85,17 @@ export type PipelineFunctionSerde = {
 };
 
 /** @internal */
-export const PipelineFunctionSerdeOperationMode$inboundSchema: z.ZodType<
-  PipelineFunctionSerdeOperationMode,
+export const OperationMode$inboundSchema: z.ZodType<
+  OperationMode,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(PipelineFunctionSerdeOperationMode);
+> = openEnums.inboundSchema(OperationMode);
 /** @internal */
-export const PipelineFunctionSerdeOperationMode$outboundSchema: z.ZodType<
+export const OperationMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  PipelineFunctionSerdeOperationMode
-> = openEnums.outboundSchema(PipelineFunctionSerdeOperationMode);
+  OperationMode
+> = openEnums.outboundSchema(OperationMode);
 
 /** @internal */
 export const PipelineFunctionSerdeConf$inboundSchema: z.ZodType<
@@ -105,13 +103,13 @@ export const PipelineFunctionSerdeConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: PipelineFunctionSerdeOperationMode$inboundSchema.default("extract"),
-  type: TypeOptions$inboundSchema.default("csv"),
+  mode: OperationMode$inboundSchema,
+  type: TypeOptions$inboundSchema,
   delimChar: z.any().optional(),
   quoteChar: z.any().optional(),
   escapeChar: z.any().optional(),
   nullValue: z.any().optional(),
-  srcField: z.string().default("_raw"),
+  srcField: z.string().optional(),
   dstField: z.string().optional(),
   cleanFields: z.any().optional(),
 });
@@ -123,7 +121,7 @@ export type PipelineFunctionSerdeConf$Outbound = {
   quoteChar?: any | undefined;
   escapeChar?: any | undefined;
   nullValue?: any | undefined;
-  srcField: string;
+  srcField?: string | undefined;
   dstField?: string | undefined;
   cleanFields?: any | undefined;
 };
@@ -134,13 +132,13 @@ export const PipelineFunctionSerdeConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionSerdeConf
 > = z.object({
-  mode: PipelineFunctionSerdeOperationMode$outboundSchema.default("extract"),
-  type: TypeOptions$outboundSchema.default("csv"),
+  mode: OperationMode$outboundSchema,
+  type: TypeOptions$outboundSchema,
   delimChar: z.any().optional(),
   quoteChar: z.any().optional(),
   escapeChar: z.any().optional(),
   nullValue: z.any().optional(),
-  srcField: z.string().default("_raw"),
+  srcField: z.string().optional(),
   dstField: z.string().optional(),
   cleanFields: z.any().optional(),
 });
@@ -168,7 +166,7 @@ export const PipelineFunctionSerde$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("serde"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -178,7 +176,7 @@ export const PipelineFunctionSerde$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionSerde$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "serde";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -193,7 +191,7 @@ export const PipelineFunctionSerde$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionSerde
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("serde"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

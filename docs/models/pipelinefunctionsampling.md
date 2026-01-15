@@ -6,13 +6,17 @@
 import { PipelineFunctionSampling } from "cribl-control-plane/models";
 
 let value: PipelineFunctionSampling = {
+  filter: "<value>",
   id: "sampling",
   description: "reckon fortunately pull a heavenly only",
   disabled: false,
   final: false,
   conf: {
     rules: [
-      {},
+      {
+        filter: "<value>",
+        rate: 749891,
+      },
     ],
   },
   groupId: "<id>",

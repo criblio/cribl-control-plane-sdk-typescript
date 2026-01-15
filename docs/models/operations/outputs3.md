@@ -20,23 +20,65 @@ let value: OutputS3 = {
   bucket: "<value>",
   region: "<value>",
   awsSecretKey: "<value>",
+  awsAuthenticationMethod: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v2",
+  reuseConnections: false,
+  rejectUnauthorized: false,
+  enableAssumeRole: true,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  storageClass: "STANDARD",
-  serverSideEncryption: "aws:kms",
+  durationSeconds: 4963.76,
+  stagePath: "<value>",
+  addIdToStagePath: false,
+  destPath: "<value>",
+  objectACL: "aws-exec-read",
+  storageClass: "ONEZONE_IA",
+  serverSideEncryption: "AES256",
   kmsKeyId: "<id>",
-  description:
-    "yowza cap antelope peninsula pace what likely cantaloupe nor brightly",
+  removeEmptyDirs: true,
+  partitionExpr: "<value>",
+  format: "parquet",
+  baseFileName: "<value>",
+  fileNameSuffix: "<value>",
+  maxFileSizeMB: 5794.09,
+  maxOpenFiles: 1571.88,
+  headerLine: "<value>",
+  writeHighWaterMark: 4304.42,
+  onBackpressure: "drop",
+  deadletterEnabled: false,
+  onDiskFullBackpressure: "block",
+  forceCloseOnShutdown: false,
+  maxFileOpenTimeSec: 5949.32,
+  maxFileIdleTimeSec: 3226.81,
+  maxConcurrentFileParts: 9540.34,
+  verifyPermissions: true,
+  maxClosingFilesToBackpressure: 3045.71,
+  description: "peninsula pace what",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  compress: "none",
+  compressionLevel: "best_compression",
+  automaticSchema: false,
   parquetSchema: "<value>",
+  parquetVersion: "PARQUET_2_6",
+  parquetDataPageVersion: "DATA_PAGE_V2",
+  parquetRowGroupLength: 323.76,
+  parquetPageSize: "<value>",
   shouldLogInvalidRows: true,
   keyValueMetadata: [
     {
+      key: "<key>",
       value: "<value>",
     },
   ],
+  enableStatistics: true,
+  enableWritePageIndex: true,
+  enablePageChecksum: true,
+  emptyDirCleanupSec: 8082.77,
+  directoryBatchSize: 178.18,
+  deadletterPath: "<value>",
+  maxRetryNum: 4672.73,
 };
 ```
 
@@ -62,7 +104,7 @@ let value: OutputS3 = {
 | `assumeRoleArn`                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Amazon Resource Name (ARN) of the role to assume                                                                                                                                                                                                                     |
 | `assumeRoleExternalId`                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | External ID to use when assuming role                                                                                                                                                                                                                                |
 | `durationSeconds`                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).                                                                                                                          |
-| `stagePath`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.                                                                                                                                 |
+| `stagePath`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                   | Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.                                                                                                                                 |
 | `addIdToStagePath`                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Add the Output ID value to staging location                                                                                                                                                                                                                          |
 | `destPath`                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`     |
 | `objectACL`                                                                                                                                                                                                                                                          | [models.ObjectAclOptions](../../models/objectacloptions.md)                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Object ACL to assign to uploaded objects                                                                                                                                                                                                                             |

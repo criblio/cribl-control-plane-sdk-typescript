@@ -32,14 +32,14 @@ export const ExecutorTypeSavedJobExecutor$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   type: z.string(),
-  storeTaskResults: z.boolean().default(true),
+  storeTaskResults: z.boolean().optional(),
   conf: ExecutorSpecificSettingsTypeSavedJobExecutorExecutor$inboundSchema
     .optional(),
 });
 /** @internal */
 export type ExecutorTypeSavedJobExecutor$Outbound = {
   type: string;
-  storeTaskResults: boolean;
+  storeTaskResults?: boolean | undefined;
   conf?:
     | ExecutorSpecificSettingsTypeSavedJobExecutorExecutor$Outbound
     | undefined;
@@ -52,7 +52,7 @@ export const ExecutorTypeSavedJobExecutor$outboundSchema: z.ZodType<
   ExecutorTypeSavedJobExecutor
 > = z.object({
   type: z.string(),
-  storeTaskResults: z.boolean().default(true),
+  storeTaskResults: z.boolean().optional(),
   conf: ExecutorSpecificSettingsTypeSavedJobExecutorExecutor$outboundSchema
     .optional(),
 });

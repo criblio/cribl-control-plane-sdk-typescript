@@ -8,9 +8,12 @@
 ```typescript
 const value: models.SplunkAuthenticationNone = {
   authentication: "none",
+  searchHead: "<value>",
   search: "<value>",
   earliest: "<value>",
   latest: "<value>",
+  endpoint: "<value>",
+  outputMode: "json",
   collectRequestParams: [
     {
       name: "<value>",
@@ -23,7 +26,13 @@ const value: models.SplunkAuthenticationNone = {
       value: "<value>",
     },
   ],
+  timeout: 5419.69,
+  useRoundRobinDns: false,
+  disableTimeFilter: false,
+  rejectUnauthorized: false,
+  handleEscapedChars: false,
   retryRules: {
+    type: "static",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -42,9 +51,12 @@ const value: models.SplunkAuthenticationBasic = {
   authentication: "basic",
   username: "Rosalyn_Wisoky",
   password: "Hwqh2mRqngRWb8D",
+  searchHead: "<value>",
   search: "<value>",
   earliest: "<value>",
   latest: "<value>",
+  endpoint: "<value>",
+  outputMode: "json",
   collectRequestParams: [
     {
       name: "<value>",
@@ -57,7 +69,13 @@ const value: models.SplunkAuthenticationBasic = {
       value: "<value>",
     },
   ],
+  timeout: 7103.1,
+  useRoundRobinDns: true,
+  disableTimeFilter: false,
+  rejectUnauthorized: false,
+  handleEscapedChars: true,
   retryRules: {
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -75,9 +93,12 @@ const value: models.SplunkAuthenticationBasic = {
 const value: models.SplunkAuthenticationBasicSecret = {
   authentication: "basicSecret",
   credentialsSecret: "<value>",
+  searchHead: "<value>",
   search: "<value>",
   earliest: "<value>",
   latest: "<value>",
+  endpoint: "<value>",
+  outputMode: "csv",
   collectRequestParams: [
     {
       name: "<value>",
@@ -90,7 +111,13 @@ const value: models.SplunkAuthenticationBasicSecret = {
       value: "<value>",
     },
   ],
+  timeout: 723.75,
+  useRoundRobinDns: true,
+  disableTimeFilter: false,
+  rejectUnauthorized: true,
+  handleEscapedChars: false,
   retryRules: {
+    type: "none",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -108,9 +135,12 @@ const value: models.SplunkAuthenticationBasicSecret = {
 const value: models.SplunkAuthenticationToken = {
   authentication: "token",
   token: "<value>",
+  searchHead: "<value>",
   search: "<value>",
   earliest: "<value>",
   latest: "<value>",
+  endpoint: "<value>",
+  outputMode: "json",
   collectRequestParams: [
     {
       name: "<value>",
@@ -123,7 +153,13 @@ const value: models.SplunkAuthenticationToken = {
       value: "<value>",
     },
   ],
+  timeout: 2075.62,
+  useRoundRobinDns: true,
+  disableTimeFilter: false,
+  rejectUnauthorized: true,
+  handleEscapedChars: false,
   retryRules: {
+    type: "none",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -141,9 +177,12 @@ const value: models.SplunkAuthenticationToken = {
 const value: models.SplunkAuthenticationTokenSecret = {
   authentication: "tokenSecret",
   tokenSecret: "<value>",
+  searchHead: "<value>",
   search: "<value>",
   earliest: "<value>",
   latest: "<value>",
+  endpoint: "<value>",
+  outputMode: "csv",
   collectRequestParams: [
     {
       name: "<value>",
@@ -156,7 +195,13 @@ const value: models.SplunkAuthenticationTokenSecret = {
       value: "<value>",
     },
   ],
+  timeout: 2514.26,
+  useRoundRobinDns: false,
+  disableTimeFilter: true,
+  rejectUnauthorized: true,
+  handleEscapedChars: false,
   retryRules: {
+    type: "static",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -173,11 +218,18 @@ const value: models.SplunkAuthenticationTokenSecret = {
 ```typescript
 const value: models.SplunkAuthenticationLogin = {
   authentication: "login",
-  username: "Frank.Morar9",
-  password: "PlUUnhU5e52mz0O",
+  loginUrl: "https://incomplete-object.info/",
+  username: "Augustus.Kuvalis",
+  password: "UUnhU5e52mz0OGv",
+  loginBody: "<value>",
+  tokenRespAttribute: "<value>",
+  authHeaderExpr: "<value>",
+  searchHead: "<value>",
   search: "<value>",
   earliest: "<value>",
   latest: "<value>",
+  endpoint: "<value>",
+  outputMode: "json",
   collectRequestParams: [
     {
       name: "<value>",
@@ -190,7 +242,13 @@ const value: models.SplunkAuthenticationLogin = {
       value: "<value>",
     },
   ],
+  timeout: 5625.55,
+  useRoundRobinDns: true,
+  disableTimeFilter: false,
+  rejectUnauthorized: true,
+  handleEscapedChars: true,
   retryRules: {
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -207,10 +265,17 @@ const value: models.SplunkAuthenticationLogin = {
 ```typescript
 const value: models.SplunkAuthenticationLoginSecret = {
   authentication: "loginSecret",
+  loginUrl: "https://cruel-monster.name/",
   credentialsSecret: "<value>",
+  loginBody: "<value>",
+  tokenRespAttribute: "<value>",
+  authHeaderExpr: "<value>",
+  searchHead: "<value>",
   search: "<value>",
   earliest: "<value>",
   latest: "<value>",
+  endpoint: "<value>",
+  outputMode: "json",
   collectRequestParams: [
     {
       name: "<value>",
@@ -223,7 +288,13 @@ const value: models.SplunkAuthenticationLoginSecret = {
       value: "<value>",
     },
   ],
+  timeout: 4231.82,
+  useRoundRobinDns: true,
+  disableTimeFilter: true,
+  rejectUnauthorized: true,
+  handleEscapedChars: false,
   retryRules: {
+    type: "static",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",

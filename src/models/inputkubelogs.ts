@@ -4,7 +4,6 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   DiskSpoolingType,
@@ -32,11 +31,6 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 
-export const InputKubeLogsType = {
-  KubeLogs: "kube_logs",
-} as const;
-export type InputKubeLogsType = ClosedEnum<typeof InputKubeLogsType>;
-
 export type InputKubeLogsRule = {
   /**
    * JavaScript expression applied to Pod objects. Return 'true' to include it.
@@ -48,17 +42,12 @@ export type InputKubeLogsRule = {
   description?: string | undefined;
 };
 
-export type InputKubeLogsPqEnabledTrueWithPqConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
+export type InputKubeLogs = {
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputKubeLogsType;
+  type: "kube_logs";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -68,193 +57,6 @@ export type InputKubeLogsPqEnabledTrueWithPqConstraint = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Time, in seconds, between checks for new containers. Default is 15 secs.
-   */
-  interval?: number | undefined;
-  /**
-   * Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
-   */
-  rules?: Array<InputKubeLogsRule> | undefined;
-  /**
-   * For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
-   */
-  timestamps?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  persistence?: DiskSpoolingType | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
-   * Load balance traffic across all Worker Processes
-   */
-  enableLoadBalancing?: boolean | undefined;
-  description?: string | undefined;
-};
-
-export type InputKubeLogsPqEnabledFalseConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputKubeLogsType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Time, in seconds, between checks for new containers. Default is 15 secs.
-   */
-  interval?: number | undefined;
-  /**
-   * Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
-   */
-  rules?: Array<InputKubeLogsRule> | undefined;
-  /**
-   * For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
-   */
-  timestamps?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  persistence?: DiskSpoolingType | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
-   * Load balance traffic across all Worker Processes
-   */
-  enableLoadBalancing?: boolean | undefined;
-  description?: string | undefined;
-};
-
-export type InputKubeLogsSendToRoutesFalseWithConnectionsConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputKubeLogsType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Time, in seconds, between checks for new containers. Default is 15 secs.
-   */
-  interval?: number | undefined;
-  /**
-   * Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
-   */
-  rules?: Array<InputKubeLogsRule> | undefined;
-  /**
-   * For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
-   */
-  timestamps?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  persistence?: DiskSpoolingType | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
-   * Load balance traffic across all Worker Processes
-   */
-  enableLoadBalancing?: boolean | undefined;
-  description?: string | undefined;
-};
-
-export type InputKubeLogsSendToRoutesTrueConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputKubeLogsType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -303,21 +105,6 @@ export type InputKubeLogsSendToRoutesTrueConstraint = {
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
 };
-
-export type InputKubeLogs =
-  | InputKubeLogsSendToRoutesTrueConstraint
-  | InputKubeLogsSendToRoutesFalseWithConnectionsConstraint
-  | InputKubeLogsPqEnabledFalseConstraint
-  | InputKubeLogsPqEnabledTrueWithPqConstraint;
-
-/** @internal */
-export const InputKubeLogsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeLogsType
-> = z.nativeEnum(InputKubeLogsType);
-/** @internal */
-export const InputKubeLogsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputKubeLogsType
-> = InputKubeLogsType$inboundSchema;
 
 /** @internal */
 export const InputKubeLogsRule$inboundSchema: z.ZodType<
@@ -362,442 +149,80 @@ export function inputKubeLogsRuleFromJSON(
 }
 
 /** @internal */
-export const InputKubeLogsPqEnabledTrueWithPqConstraint$inboundSchema:
-  z.ZodType<InputKubeLogsPqEnabledTrueWithPqConstraint, z.ZodTypeDef, unknown> =
-    z.object({
-      pqEnabled: z.boolean().default(false),
-      pq: PqType$inboundSchema.optional(),
-      id: z.string().optional(),
-      type: InputKubeLogsType$inboundSchema,
-      disabled: z.boolean().default(false),
-      pipeline: z.string().optional(),
-      sendToRoutes: z.boolean().default(true),
-      environment: z.string().optional(),
-      streamtags: z.array(z.string()).optional(),
-      connections: z.array(ItemsTypeConnectionsOptional$inboundSchema)
-        .optional(),
-      interval: z.number().default(15),
-      rules: z.array(z.lazy(() => InputKubeLogsRule$inboundSchema)).optional(),
-      timestamps: z.boolean().default(false),
-      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-      persistence: DiskSpoolingType$inboundSchema.optional(),
-      breakerRulesets: z.array(z.string()).optional(),
-      staleChannelFlushMs: z.number().default(10000),
-      enableLoadBalancing: z.boolean().default(false),
-      description: z.string().optional(),
-    });
-/** @internal */
-export type InputKubeLogsPqEnabledTrueWithPqConstraint$Outbound = {
-  pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  interval: number;
-  rules?: Array<InputKubeLogsRule$Outbound> | undefined;
-  timestamps: boolean;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  persistence?: DiskSpoolingType$Outbound | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  enableLoadBalancing: boolean;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputKubeLogsPqEnabledTrueWithPqConstraint$outboundSchema:
-  z.ZodType<
-    InputKubeLogsPqEnabledTrueWithPqConstraint$Outbound,
-    z.ZodTypeDef,
-    InputKubeLogsPqEnabledTrueWithPqConstraint
-  > = z.object({
-    pqEnabled: z.boolean().default(false),
-    pq: PqType$outboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputKubeLogsType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    interval: z.number().default(15),
-    rules: z.array(z.lazy(() => InputKubeLogsRule$outboundSchema)).optional(),
-    timestamps: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    persistence: DiskSpoolingType$outboundSchema.optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    enableLoadBalancing: z.boolean().default(false),
-    description: z.string().optional(),
-  });
-
-export function inputKubeLogsPqEnabledTrueWithPqConstraintToJSON(
-  inputKubeLogsPqEnabledTrueWithPqConstraint:
-    InputKubeLogsPqEnabledTrueWithPqConstraint,
-): string {
-  return JSON.stringify(
-    InputKubeLogsPqEnabledTrueWithPqConstraint$outboundSchema.parse(
-      inputKubeLogsPqEnabledTrueWithPqConstraint,
-    ),
-  );
-}
-export function inputKubeLogsPqEnabledTrueWithPqConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputKubeLogsPqEnabledTrueWithPqConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputKubeLogsPqEnabledTrueWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputKubeLogsPqEnabledTrueWithPqConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKubeLogsPqEnabledFalseConstraint$inboundSchema: z.ZodType<
-  InputKubeLogsPqEnabledFalseConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  id: z.string().optional(),
-  type: InputKubeLogsType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  interval: z.number().default(15),
-  rules: z.array(z.lazy(() => InputKubeLogsRule$inboundSchema)).optional(),
-  timestamps: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  persistence: DiskSpoolingType$inboundSchema.optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  enableLoadBalancing: z.boolean().default(false),
-  description: z.string().optional(),
-});
-/** @internal */
-export type InputKubeLogsPqEnabledFalseConstraint$Outbound = {
-  pqEnabled: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  interval: number;
-  rules?: Array<InputKubeLogsRule$Outbound> | undefined;
-  timestamps: boolean;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  persistence?: DiskSpoolingType$Outbound | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  enableLoadBalancing: boolean;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputKubeLogsPqEnabledFalseConstraint$outboundSchema: z.ZodType<
-  InputKubeLogsPqEnabledFalseConstraint$Outbound,
-  z.ZodTypeDef,
-  InputKubeLogsPqEnabledFalseConstraint
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  id: z.string().optional(),
-  type: InputKubeLogsType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  interval: z.number().default(15),
-  rules: z.array(z.lazy(() => InputKubeLogsRule$outboundSchema)).optional(),
-  timestamps: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  persistence: DiskSpoolingType$outboundSchema.optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  enableLoadBalancing: z.boolean().default(false),
-  description: z.string().optional(),
-});
-
-export function inputKubeLogsPqEnabledFalseConstraintToJSON(
-  inputKubeLogsPqEnabledFalseConstraint: InputKubeLogsPqEnabledFalseConstraint,
-): string {
-  return JSON.stringify(
-    InputKubeLogsPqEnabledFalseConstraint$outboundSchema.parse(
-      inputKubeLogsPqEnabledFalseConstraint,
-    ),
-  );
-}
-export function inputKubeLogsPqEnabledFalseConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKubeLogsPqEnabledFalseConstraint, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputKubeLogsPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeLogsPqEnabledFalseConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKubeLogsSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputKubeLogsSendToRoutesFalseWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputKubeLogsType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    interval: z.number().default(15),
-    rules: z.array(z.lazy(() => InputKubeLogsRule$inboundSchema)).optional(),
-    timestamps: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    persistence: DiskSpoolingType$inboundSchema.optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    enableLoadBalancing: z.boolean().default(false),
-    description: z.string().optional(),
-  });
-/** @internal */
-export type InputKubeLogsSendToRoutesFalseWithConnectionsConstraint$Outbound = {
-  sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  pq?: PqType$Outbound | undefined;
-  interval: number;
-  rules?: Array<InputKubeLogsRule$Outbound> | undefined;
-  timestamps: boolean;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  persistence?: DiskSpoolingType$Outbound | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  enableLoadBalancing: boolean;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputKubeLogsSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputKubeLogsSendToRoutesFalseWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputKubeLogsSendToRoutesFalseWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    id: z.string().optional(),
-    type: InputKubeLogsType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    interval: z.number().default(15),
-    rules: z.array(z.lazy(() => InputKubeLogsRule$outboundSchema)).optional(),
-    timestamps: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    persistence: DiskSpoolingType$outboundSchema.optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    enableLoadBalancing: z.boolean().default(false),
-    description: z.string().optional(),
-  });
-
-export function inputKubeLogsSendToRoutesFalseWithConnectionsConstraintToJSON(
-  inputKubeLogsSendToRoutesFalseWithConnectionsConstraint:
-    InputKubeLogsSendToRoutesFalseWithConnectionsConstraint,
-): string {
-  return JSON.stringify(
-    InputKubeLogsSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-      .parse(inputKubeLogsSendToRoutesFalseWithConnectionsConstraint),
-  );
-}
-export function inputKubeLogsSendToRoutesFalseWithConnectionsConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputKubeLogsSendToRoutesFalseWithConnectionsConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputKubeLogsSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeLogsSendToRoutesFalseWithConnectionsConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKubeLogsSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
-  InputKubeLogsSendToRoutesTrueConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputKubeLogsType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  interval: z.number().default(15),
-  rules: z.array(z.lazy(() => InputKubeLogsRule$inboundSchema)).optional(),
-  timestamps: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  persistence: DiskSpoolingType$inboundSchema.optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  enableLoadBalancing: z.boolean().default(false),
-  description: z.string().optional(),
-});
-/** @internal */
-export type InputKubeLogsSendToRoutesTrueConstraint$Outbound = {
-  sendToRoutes: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  interval: number;
-  rules?: Array<InputKubeLogsRule$Outbound> | undefined;
-  timestamps: boolean;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  persistence?: DiskSpoolingType$Outbound | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  enableLoadBalancing: boolean;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputKubeLogsSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
-  InputKubeLogsSendToRoutesTrueConstraint$Outbound,
-  z.ZodTypeDef,
-  InputKubeLogsSendToRoutesTrueConstraint
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputKubeLogsType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  interval: z.number().default(15),
-  rules: z.array(z.lazy(() => InputKubeLogsRule$outboundSchema)).optional(),
-  timestamps: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  persistence: DiskSpoolingType$outboundSchema.optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  enableLoadBalancing: z.boolean().default(false),
-  description: z.string().optional(),
-});
-
-export function inputKubeLogsSendToRoutesTrueConstraintToJSON(
-  inputKubeLogsSendToRoutesTrueConstraint:
-    InputKubeLogsSendToRoutesTrueConstraint,
-): string {
-  return JSON.stringify(
-    InputKubeLogsSendToRoutesTrueConstraint$outboundSchema.parse(
-      inputKubeLogsSendToRoutesTrueConstraint,
-    ),
-  );
-}
-export function inputKubeLogsSendToRoutesTrueConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputKubeLogsSendToRoutesTrueConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputKubeLogsSendToRoutesTrueConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputKubeLogsSendToRoutesTrueConstraint' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputKubeLogs$inboundSchema: z.ZodType<
   InputKubeLogs,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => InputKubeLogsSendToRoutesTrueConstraint$inboundSchema),
-  z.lazy(() =>
-    InputKubeLogsSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-  ),
-  z.lazy(() => InputKubeLogsPqEnabledFalseConstraint$inboundSchema),
-  z.lazy(() => InputKubeLogsPqEnabledTrueWithPqConstraint$inboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("kube_logs"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  interval: z.number().optional(),
+  rules: z.array(z.lazy(() => InputKubeLogsRule$inboundSchema)).optional(),
+  timestamps: z.boolean().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  persistence: DiskSpoolingType$inboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  enableLoadBalancing: z.boolean().optional(),
+  description: z.string().optional(),
+});
 /** @internal */
-export type InputKubeLogs$Outbound =
-  | InputKubeLogsSendToRoutesTrueConstraint$Outbound
-  | InputKubeLogsSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputKubeLogsPqEnabledFalseConstraint$Outbound
-  | InputKubeLogsPqEnabledTrueWithPqConstraint$Outbound;
+export type InputKubeLogs$Outbound = {
+  id?: string | undefined;
+  type: "kube_logs";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  interval?: number | undefined;
+  rules?: Array<InputKubeLogsRule$Outbound> | undefined;
+  timestamps?: boolean | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  persistence?: DiskSpoolingType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  enableLoadBalancing?: boolean | undefined;
+  description?: string | undefined;
+};
 
 /** @internal */
 export const InputKubeLogs$outboundSchema: z.ZodType<
   InputKubeLogs$Outbound,
   z.ZodTypeDef,
   InputKubeLogs
-> = z.union([
-  z.lazy(() => InputKubeLogsSendToRoutesTrueConstraint$outboundSchema),
-  z.lazy(() =>
-    InputKubeLogsSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-  ),
-  z.lazy(() => InputKubeLogsPqEnabledFalseConstraint$outboundSchema),
-  z.lazy(() => InputKubeLogsPqEnabledTrueWithPqConstraint$outboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("kube_logs"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  interval: z.number().optional(),
+  rules: z.array(z.lazy(() => InputKubeLogsRule$outboundSchema)).optional(),
+  timestamps: z.boolean().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  persistence: DiskSpoolingType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  enableLoadBalancing: z.boolean().optional(),
+  description: z.string().optional(),
+});
 
 export function inputKubeLogsToJSON(inputKubeLogs: InputKubeLogs): string {
   return JSON.stringify(InputKubeLogs$outboundSchema.parse(inputKubeLogs));

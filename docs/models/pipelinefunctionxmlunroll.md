@@ -6,6 +6,7 @@
 import { PipelineFunctionXmlUnroll } from "cribl-control-plane/models";
 
 let value: PipelineFunctionXmlUnroll = {
+  filter: "<value>",
   id: "xml_unroll",
   description: "waft account apropos plus woot opposite recede",
   disabled: true,
@@ -13,6 +14,8 @@ let value: PipelineFunctionXmlUnroll = {
   conf: {
     unroll: "<value>",
     inherit: "<value>",
+    unrollIdxField: "<value>",
+    pretty: true,
   },
   groupId: "<id>",
 };

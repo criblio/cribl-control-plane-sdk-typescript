@@ -6,6 +6,7 @@
 import { PipelineFunctionEventstats } from "cribl-control-plane/models";
 
 let value: PipelineFunctionEventstats = {
+  filter: "<value>",
   id: "eventstats",
   description: "boo whine log legislature spring a psst hmph submissive once",
   disabled: true,
@@ -17,6 +18,8 @@ let value: PipelineFunctionEventstats = {
       "<value 2>",
       "<value 3>",
     ],
+    maxEvents: 4168.76,
+    flushOnInputClose: false,
   },
   groupId: "<id>",
 };

@@ -4,8 +4,6 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   BackpressureBehaviorOptions1,
@@ -23,6 +21,11 @@ import {
   FormatOptionsCriblLakeDataset$inboundSchema,
   FormatOptionsCriblLakeDataset$outboundSchema,
 } from "./formatoptionscribllakedataset.js";
+import {
+  MethodOptionsCredentials,
+  MethodOptionsCredentials$inboundSchema,
+  MethodOptionsCredentials$outboundSchema,
+} from "./methodoptionscredentials.js";
 import {
   ObjectAclOptions,
   ObjectAclOptions$inboundSchema,
@@ -43,13 +46,6 @@ import {
   StorageClassOptions$inboundSchema,
   StorageClassOptions$outboundSchema,
 } from "./storageclassoptions.js";
-
-export const AwsAuthenticationMethod = {
-  Auto: "auto",
-  AutoRpc: "auto_rpc",
-  Manual: "manual",
-} as const;
-export type AwsAuthenticationMethod = OpenEnum<typeof AwsAuthenticationMethod>;
 
 export type OutputCriblLake = {
   /**
@@ -204,7 +200,7 @@ export type OutputCriblLake = {
    * Maximum number of files that can be waiting for upload before backpressure is applied
    */
   maxClosingFilesToBackpressure?: number | undefined;
-  awsAuthenticationMethod?: AwsAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: MethodOptionsCredentials | undefined;
   format?: FormatOptionsCriblLakeDataset | undefined;
   /**
    * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
@@ -230,19 +226,6 @@ export type OutputCriblLake = {
 };
 
 /** @internal */
-export const AwsAuthenticationMethod$inboundSchema: z.ZodType<
-  AwsAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(AwsAuthenticationMethod);
-/** @internal */
-export const AwsAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AwsAuthenticationMethod
-> = openEnums.outboundSchema(AwsAuthenticationMethod);
-
-/** @internal */
 export const OutputCriblLake$inboundSchema: z.ZodType<
   OutputCriblLake,
   z.ZodTypeDef,
@@ -259,50 +242,44 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
-    .default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  addIdToStagePath: z.boolean().default(true),
+  durationSeconds: z.number().optional(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().optional(),
   destPath: z.string().optional(),
-  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  objectACL: ObjectAclOptions$inboundSchema.optional(),
   storageClass: StorageClassOptions$inboundSchema.optional(),
   serverSideEncryption:
     ServerSideEncryptionForUploadedObjectsOptions$inboundSchema.optional(),
   kmsKeyId: z.string().optional(),
-  removeEmptyDirs: z.boolean().default(true),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(64),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.default("block"),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.default(
-    "block",
-  ),
-  forceCloseOnShutdown: z.boolean().default(false),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(300),
-  verifyPermissions: z.boolean().default(true),
-  maxClosingFilesToBackpressure: z.number().default(100),
-  awsAuthenticationMethod: AwsAuthenticationMethod$inboundSchema.default(
-    "auto",
-  ),
+  removeEmptyDirs: z.boolean().optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
+  awsAuthenticationMethod: MethodOptionsCredentials$inboundSchema.optional(),
   format: FormatOptionsCriblLakeDataset$inboundSchema.optional(),
-  maxConcurrentFileParts: z.number().default(1),
+  maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 /** @internal */
 export type OutputCriblLake$Outbound = {
@@ -316,43 +293,43 @@ export type OutputCriblLake$Outbound = {
   region?: string | undefined;
   awsSecretKey?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  stagePath: string;
-  addIdToStagePath: boolean;
+  durationSeconds?: number | undefined;
+  stagePath?: string | undefined;
+  addIdToStagePath?: boolean | undefined;
   destPath?: string | undefined;
-  objectACL: string;
+  objectACL?: string | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
   kmsKeyId?: string | undefined;
-  removeEmptyDirs: boolean;
-  baseFileName: string;
-  fileNameSuffix: string;
-  maxFileSizeMB: number;
-  maxOpenFiles: number;
-  headerLine: string;
-  writeHighWaterMark: number;
-  onBackpressure: string;
-  deadletterEnabled: boolean;
-  onDiskFullBackpressure: string;
-  forceCloseOnShutdown: boolean;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  verifyPermissions: boolean;
-  maxClosingFilesToBackpressure: number;
-  awsAuthenticationMethod: string;
+  removeEmptyDirs?: boolean | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
+  awsAuthenticationMethod?: string | undefined;
   format?: string | undefined;
-  maxConcurrentFileParts: number;
+  maxConcurrentFileParts?: number | undefined;
   description?: string | undefined;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
-  deadletterPath: string;
-  maxRetryNum: number;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
 };
 
 /** @internal */
@@ -372,50 +349,44 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   endpoint: z.string().optional(),
   signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  addIdToStagePath: z.boolean().default(true),
+  durationSeconds: z.number().optional(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().optional(),
   destPath: z.string().optional(),
-  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  objectACL: ObjectAclOptions$outboundSchema.optional(),
   storageClass: StorageClassOptions$outboundSchema.optional(),
   serverSideEncryption:
     ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
   kmsKeyId: z.string().optional(),
-  removeEmptyDirs: z.boolean().default(true),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(64),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.default("block"),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.default(
-    "block",
-  ),
-  forceCloseOnShutdown: z.boolean().default(false),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(300),
-  verifyPermissions: z.boolean().default(true),
-  maxClosingFilesToBackpressure: z.number().default(100),
-  awsAuthenticationMethod: AwsAuthenticationMethod$outboundSchema.default(
-    "auto",
-  ),
+  removeEmptyDirs: z.boolean().optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
+  awsAuthenticationMethod: MethodOptionsCredentials$outboundSchema.optional(),
   format: FormatOptionsCriblLakeDataset$outboundSchema.optional(),
-  maxConcurrentFileParts: z.number().default(1),
+  maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 
 export function outputCriblLakeToJSON(

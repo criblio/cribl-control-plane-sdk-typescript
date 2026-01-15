@@ -87,24 +87,24 @@ export function pqTypePqControlsFromJSON(
 /** @internal */
 export const PqType$inboundSchema: z.ZodType<PqType, z.ZodTypeDef, unknown> = z
   .object({
-    mode: ModeOptionsPq$inboundSchema.default("always"),
-    maxBufferSize: z.number().default(1000),
-    commitFrequency: z.number().default(42),
-    maxFileSize: z.string().default("1 MB"),
-    maxSize: z.string().default("5GB"),
-    path: z.string().default("$CRIBL_HOME/state/queues"),
-    compress: CompressionOptionsPq$inboundSchema.default("none"),
+    mode: ModeOptionsPq$inboundSchema.optional(),
+    maxBufferSize: z.number().optional(),
+    commitFrequency: z.number().optional(),
+    maxFileSize: z.string().optional(),
+    maxSize: z.string().optional(),
+    path: z.string().optional(),
+    compress: CompressionOptionsPq$inboundSchema.optional(),
     pqControls: z.lazy(() => PqTypePqControls$inboundSchema).optional(),
   });
 /** @internal */
 export type PqType$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
+  mode?: string | undefined;
+  maxBufferSize?: number | undefined;
+  commitFrequency?: number | undefined;
+  maxFileSize?: string | undefined;
+  maxSize?: string | undefined;
+  path?: string | undefined;
+  compress?: string | undefined;
   pqControls?: PqTypePqControls$Outbound | undefined;
 };
 
@@ -114,13 +114,13 @@ export const PqType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PqType
 > = z.object({
-  mode: ModeOptionsPq$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: CompressionOptionsPq$outboundSchema.default("none"),
+  mode: ModeOptionsPq$outboundSchema.optional(),
+  maxBufferSize: z.number().optional(),
+  commitFrequency: z.number().optional(),
+  maxFileSize: z.string().optional(),
+  maxSize: z.string().optional(),
+  path: z.string().optional(),
+  compress: CompressionOptionsPq$outboundSchema.optional(),
   pqControls: z.lazy(() => PqTypePqControls$outboundSchema).optional(),
 });
 

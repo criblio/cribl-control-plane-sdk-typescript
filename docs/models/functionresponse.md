@@ -23,25 +23,9 @@ const value: models.FunctionAggregateMetrics = {
   },
   version: "<value>",
   schema: {
-    prefix: "<value>",
-    aggregations: [
-      {
-        agg: "<value>",
-      },
-    ],
-    groupbys: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    flushEventLimit: 9419.26,
-    flushMemLimit: "<value>",
-    add: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
 };
 ```
@@ -67,24 +51,8 @@ const value: models.FunctionAggregation = {
   },
   version: "<value>",
   schema: {
-    prefix: "<value>",
-    aggregations: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    groupbys: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    flushEventLimit: 956.07,
-    flushMemLimit: "<value>",
-    searchAggMode: "<value>",
-    add: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -111,13 +79,9 @@ const value: models.FunctionAutoTimestamp = {
   },
   version: "<value>",
   schema: {
-    spacer: "<value>",
-    timestamps: [
-      {
-        regex: "<value>",
-        strptime: "<value>",
-      },
-    ],
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
 };
 ```
@@ -143,18 +107,7 @@ const value: models.FunctionCef = {
   },
   version: "<value>",
   schema: {
-    header: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    extension: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
+    "key": "<value>",
   },
 };
 ```
@@ -179,7 +132,9 @@ const value: models.FunctionChain = {
   },
   version: "<value>",
   schema: {
-    processor: "<value>",
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
 };
 ```
@@ -206,13 +161,7 @@ const value: models.FunctionClone = {
   },
   version: "<value>",
   schema: {
-    clones: [
-      {
-        "key": "<value>",
-        "key1": "<value>",
-        "key2": "<value>",
-      },
-    ],
+    "key": "<value>",
   },
 };
 ```
@@ -238,7 +187,8 @@ const value: models.FunctionCode = {
   },
   version: "<value>",
   schema: {
-    code: "<value>",
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -265,8 +215,7 @@ const value: models.FunctionComment = {
   },
   version: "<value>",
   schema: {
-    comment:
-      "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
+    "key": "<value>",
   },
 };
 ```
@@ -289,11 +238,8 @@ const value: models.FunctionDistinct = {
   uischema: {},
   version: "<value>",
   schema: {
-    groupBy: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    suppressPreviews: true,
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -318,24 +264,7 @@ const value: models.FunctionDnsLookup = {
   },
   version: "<value>",
   schema: {
-    dnsLookupFields: [
-      {
-        inFieldName: "<value>",
-        outFieldName: "<value>",
-      },
-    ],
-    reverseLookupFields: [
-      {
-        inFieldName: "<value>",
-        outFieldName: "<value>",
-      },
-    ],
-    dnsServers: [
-      "<value 1>",
-    ],
-    domainOverrides: [
-      "<value 1>",
-    ],
+    "key": "<value>",
   },
 };
 ```
@@ -360,7 +289,9 @@ const value: models.FunctionDrop = {
     "key1": "<value>",
   },
   version: "<value>",
-  schema: {},
+  schema: {
+    "key": "<value>",
+  },
 };
 ```
 
@@ -385,9 +316,7 @@ const value: models.FunctionDropDimensions = {
   },
   version: "<value>",
   schema: {
-    dropDimensions: [
-      "<value 1>",
-    ],
+    "key": "<value>",
   },
 };
 ```
@@ -412,7 +341,10 @@ const value: models.FunctionDynamicSampling = {
     "key1": "<value>",
   },
   version: "<value>",
-  schema: {},
+  schema: {
+    "key": "<value>",
+    "key1": "<value>",
+  },
 };
 ```
 
@@ -434,19 +366,7 @@ const value: models.FunctionEval = {
   uischema: {},
   version: "<value>",
   schema: {
-    add: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    keep: [
-      "<value 1>",
-    ],
-    remove: [
-      "<value 1>",
-      "<value 2>",
-    ],
+    "key": "<value>",
   },
 };
 ```
@@ -468,7 +388,9 @@ const value: models.FunctionEventBreaker = {
   sync: true,
   uischema: {},
   version: "<value>",
-  schema: {},
+  schema: {
+    "key": "<value>",
+  },
 };
 ```
 
@@ -494,14 +416,8 @@ const value: models.FunctionEventstats = {
   },
   version: "<value>",
   schema: {
-    aggregations: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    groupBys: [
-      "<value 1>",
-      "<value 2>",
-    ],
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -525,7 +441,9 @@ const value: models.FunctionExternaldata = {
     "key": "<value>",
   },
   version: "<value>",
-  schema: {},
+  schema: {
+    "key": "<value>",
+  },
 };
 ```
 
@@ -551,11 +469,9 @@ const value: models.FunctionFlatten = {
   },
   version: "<value>",
   schema: {
-    fields: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
 };
 ```
@@ -581,7 +497,8 @@ const value: models.FunctionFoldkeys = {
   },
   version: "<value>",
   schema: {
-    selectionRegExp: "<value>",
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -606,10 +523,8 @@ const value: models.FunctionGenStats = {
   },
   version: "<value>",
   schema: {
-    fields: [
-      "<value 1>",
-      "<value 2>",
-    ],
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -632,14 +547,9 @@ const value: models.FunctionGeoip = {
   uischema: {},
   version: "<value>",
   schema: {
-    file: "<value>",
-    additionalFields: [
-      {
-        extraInField: "<value>",
-        extraOutField: "<value>",
-      },
-    ],
-    outFieldMappings: {},
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
 };
 ```
@@ -664,12 +574,7 @@ const value: models.FunctionGrok = {
   },
   version: "<value>",
   schema: {
-    pattern: "<value>",
-    patternList: [
-      {
-        pattern: "<value>",
-      },
-    ],
+    "key": "<value>",
   },
 };
 ```
@@ -696,14 +601,8 @@ const value: models.FunctionHandlebars = {
   },
   version: "<value>",
   schema: {
-    templates: [
-      {
-        id: "<id>",
-        content: "<value>",
-        description:
-          "zesty red contrail fiercely international sympathetically yum",
-      },
-    ],
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -730,20 +629,9 @@ const value: models.FunctionJoin = {
   },
   version: "<value>",
   schema: {
-    kind: "<value>",
-    hints: {
-      "key": "<value>",
-      "key1": "<value>",
-      "key2": "<value>",
-    },
-    fieldConditions: [
-      {
-        leftFieldName: "<value>",
-        rightFieldName: "<value>",
-      },
-    ],
-    searchJobId: "<id>",
-    stageId: "<id>",
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
 };
 ```
@@ -766,8 +654,9 @@ const value: models.FunctionJsonUnroll = {
   uischema: {},
   version: "<value>",
   schema: {
-    path: "/var/tmp",
-    name: "<value>",
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
 };
 ```
@@ -790,9 +679,8 @@ const value: models.FunctionLakeExport = {
   uischema: {},
   version: "<value>",
   schema: {
-    searchJobId: "<id>",
-    dataset: "<value>",
-    suppressPreviews: true,
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -814,7 +702,9 @@ const value: models.FunctionLimit = {
   sync: true,
   uischema: {},
   version: "<value>",
-  schema: {},
+  schema: {
+    "key": "<value>",
+  },
 };
 ```
 
@@ -838,7 +728,10 @@ const value: models.FunctionLocalSearchDatatypeParser = {
     "key1": "<value>",
   },
   version: "<value>",
-  schema: {},
+  schema: {
+    "key": "<value>",
+    "key1": "<value>",
+  },
 };
 ```
 
@@ -862,9 +755,9 @@ const value: models.FunctionLocalSearchRulesetRunner = {
   },
   version: "<value>",
   schema: {
-    rulesetType: "datatype",
-    rulesetId: "<id>",
-    ruleset: {},
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
 };
 ```
@@ -890,24 +783,9 @@ const value: models.FunctionLookup = {
   },
   version: "<value>",
   schema: {
-    file: "<value>",
-    matchMode: "<value>",
-    matchType: "<value>",
-    reloadPeriodSec: "<value>",
-    inFields: [
-      {
-        eventField: "<value>",
-        lookupField: "<value>",
-      },
-    ],
-    outFields: [
-      {
-        lookupField: "<value>",
-        eventField: "<value>",
-        defaultValue: "<value>",
-      },
-    ],
-    ignoreCase: "<value>",
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
 };
 ```
@@ -930,20 +808,7 @@ const value: models.FunctionMask = {
   uischema: {},
   version: "<value>",
   schema: {
-    rules: [
-      {
-        matchRegex: "<value>",
-      },
-    ],
-    fields: [
-      "<value 1>",
-    ],
-    flags: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
+    "key": "<value>",
   },
 };
 ```
@@ -968,14 +833,8 @@ const value: models.FunctionMvExpand = {
   },
   version: "<value>",
   schema: {
-    sourceFields: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    targetNames: [
-      "<value 1>",
-    ],
-    itemIndexName: "<value>",
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -1000,10 +859,7 @@ const value: models.FunctionMvPull = {
   },
   version: "<value>",
   schema: {
-    arrayPath: "<value>",
-    relativeKeyPath: "<value>",
-    relativeValuePath: "<value>",
-    targetBagPath: "<value>",
+    "key": "<value>",
   },
 };
 ```
@@ -1028,36 +884,7 @@ const value: models.FunctionNotificationPolicies = {
   },
   version: "<value>",
   schema: {
-    policies: [
-      {
-        id: "<id>",
-        waitToGroup: 8810.59,
-        groupByLabels: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-        conditions: [
-          [
-            {
-              key: "<key>",
-              operator: "!=",
-              value: 4612.54,
-            },
-          ],
-          [
-            {
-              key: "<key>",
-              operator: "!=",
-              value: 4612.54,
-            },
-          ],
-          [],
-        ],
-        templateTargetPairs: [],
-        order: 2760.74,
-      },
-    ],
+    "key": "<value>",
   },
 };
 ```
@@ -1082,9 +909,8 @@ const value: models.FunctionNotifications = {
   },
   version: "<value>",
   schema: {
-    id: "<id>",
-    field: "<value>",
-    deduplicate: true,
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -1109,16 +935,9 @@ const value: models.FunctionNotify = {
   },
   version: "<value>",
   schema: {
-    searchId: "<id>",
-    savedQueryId: "<id>",
-    trigger: "<value>",
-    triggerType: "resultsCount",
-    triggerComparator: "!==",
-    searchUrl: "https://caring-decision.name",
-    message: "<value>",
-    authToken: "<value>",
-    messagesEndpoint: "<value>",
-    tenantId: "<id>",
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
 };
 ```
@@ -1144,10 +963,7 @@ const value: models.FunctionNumerify = {
   },
   version: "<value>",
   schema: {
-    ignoreFields: [
-      "<value 1>",
-    ],
-    filterExpr: "<value>",
+    "key": "<value>",
   },
 };
 ```
@@ -1169,7 +985,9 @@ const value: models.FunctionOtlpLogs = {
   sync: true,
   uischema: {},
   version: "<value>",
-  schema: {},
+  schema: {
+    "key": "<value>",
+  },
 };
 ```
 
@@ -1191,11 +1009,9 @@ const value: models.FunctionOtlpMetrics = {
   uischema: {},
   version: "<value>",
   schema: {
-    resourceAttributePrefixes: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
 };
 ```
@@ -1220,7 +1036,11 @@ const value: models.FunctionOtlpTraces = {
     "key1": "<value>",
   },
   version: "<value>",
-  schema: {},
+  schema: {
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
+  },
 };
 ```
 
@@ -1246,9 +1066,7 @@ const value: models.FunctionPack = {
   },
   version: "<value>",
   schema: {
-    unpackedFields: [
-      "<value 1>",
-    ],
+    "key": "<value>",
   },
 };
 ```
@@ -1273,14 +1091,8 @@ const value: models.FunctionPivot = {
   },
   version: "<value>",
   schema: {
-    labelField: "<value>",
-    dataFields: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    qualifierFields: [
-      "<value 1>",
-    ],
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -1303,25 +1115,9 @@ const value: models.FunctionPublishMetrics = {
   uischema: {},
   version: "<value>",
   schema: {
-    fields: [
-      {
-        inFieldName: "<value>",
-        outFieldExpr: "<value>",
-      },
-    ],
-    dimensions: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    removeMetrics: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    removeDimensions: [
-      "<value 1>",
-    ],
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
 };
 ```
@@ -1348,15 +1144,7 @@ const value: models.FunctionRedis = {
   },
   version: "<value>",
   schema: {
-    commands: [
-      {
-        outField: "<value>",
-        command: "<value>",
-        keyExpr: "<value>",
-        argsExpr: "<value>",
-      },
-    ],
-    enableClientSideCaching: true,
+    "key": "<value>",
   },
 };
 ```
@@ -1381,13 +1169,7 @@ const value: models.FunctionRegexExtract = {
   },
   version: "<value>",
   schema: {
-    regex: "<value>",
-    regexList: [
-      {
-        regex: "<value>",
-      },
-    ],
-    fieldNameExpression: "<value>",
+    "key": "<value>",
   },
 };
 ```
@@ -1412,12 +1194,7 @@ const value: models.FunctionRegexFilter = {
   },
   version: "<value>",
   schema: {
-    regex: "<value>",
-    regexList: [
-      {
-        regex: "<value>",
-      },
-    ],
+    "key": "<value>",
   },
 };
 ```
@@ -1440,16 +1217,7 @@ const value: models.FunctionRename = {
   uischema: {},
   version: "<value>",
   schema: {
-    baseFields: [
-      "<value 1>",
-    ],
-    rename: [
-      {
-        currentName: "<value>",
-        newName: "<value>",
-      },
-    ],
-    renameExpr: "<value>",
+    "key": "<value>",
   },
 };
 ```
@@ -1475,9 +1243,7 @@ const value: models.FunctionRollupMetrics = {
   },
   version: "<value>",
   schema: {
-    dimensions: [
-      "<value 1>",
-    ],
+    "key": "<value>",
   },
 };
 ```
@@ -1502,9 +1268,9 @@ const value: models.FunctionSampling = {
   },
   version: "<value>",
   schema: {
-    rules: [
-      {},
-    ],
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
 };
 ```
@@ -1529,11 +1295,8 @@ const value: models.FunctionSend = {
   },
   version: "<value>",
   schema: {
-    url: "https://somber-feather.name",
-    sendUrlTemplate: "<value>",
-    searchId: "<id>",
-    suppressPreviews: false,
-    mode: "metrics",
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -1558,24 +1321,7 @@ const value: models.FunctionSensitiveDataScanner = {
   },
   version: "<value>",
   schema: {
-    rules: [
-      {
-        rulesetId: "<id>",
-      },
-    ],
-    fields: [
-      "<value 1>",
-    ],
-    excludeFields: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    flags: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
+    "key": "<value>",
   },
 };
 ```
@@ -1598,12 +1344,7 @@ const value: models.FunctionSerde = {
   uischema: {},
   version: "<value>",
   schema: {
-    delimChar: "<value>",
-    quoteChar: "<value>",
-    escapeChar: "<value>",
-    nullValue: "<value>",
-    dstField: "<value>",
-    cleanFields: "<value>",
+    "key": "<value>",
   },
 };
 ```
@@ -1630,14 +1371,7 @@ const value: models.FunctionSerialize = {
   },
   version: "<value>",
   schema: {
-    delimChar: "<value>",
-    quoteChar: "<value>",
-    escapeChar: "<value>",
-    nullValue: "<value>",
-    fields: [
-      "<value 1>",
-    ],
-    srcField: "<value>",
+    "key": "<value>",
   },
 };
 ```
@@ -1664,12 +1398,8 @@ const value: models.FunctionSidlookup = {
   },
   version: "<value>",
   schema: {
-    fields: [
-      {
-        name: "<value>",
-        expr: "<value>",
-      },
-    ],
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -1695,10 +1425,7 @@ const value: models.FunctionSnmpTrapSerialize = {
   },
   version: "<value>",
   schema: {
-    v3User: {
-      name: "<value>",
-      authKey: "<value>",
-    },
+    "key": "<value>",
   },
 };
 ```
@@ -1723,11 +1450,8 @@ const value: models.FunctionSort = {
   },
   version: "<value>",
   schema: {
-    sortId: "<id>",
-    comparisonExpression: "<value>",
-    topN: 5324.59,
-    maxEvents: 8600.95,
-    suppressPreviews: true,
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -1752,9 +1476,8 @@ const value: models.FunctionStore = {
   },
   version: "<value>",
   schema: {
-    destination: "<value>",
-    description: "once platypus huddle dreamily deployment potentially",
-    fieldMapping: {},
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -1777,7 +1500,7 @@ const value: models.FunctionSuppress = {
   uischema: {},
   version: "<value>",
   schema: {
-    keyExpr: "<value>",
+    "key": "<value>",
   },
 };
 ```
@@ -1802,15 +1525,8 @@ const value: models.FunctionTee = {
   },
   version: "<value>",
   schema: {
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    env: {
-      "key": "<value>",
-      "key1": "<value>",
-    },
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -1833,7 +1549,8 @@ const value: models.FunctionTrimTimestamp = {
   uischema: {},
   version: "<value>",
   schema: {
-    field: "<value>",
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -1860,11 +1577,8 @@ const value: models.FunctionUnion = {
   },
   version: "<value>",
   schema: {
-    searchJobId: "<id>",
-    stageIds: [
-      "<value 1>",
-      "<value 2>",
-    ],
+    "key": "<value>",
+    "key1": "<value>",
   },
 };
 ```
@@ -1889,7 +1603,10 @@ const value: models.FunctionUnroll = {
     "key1": "<value>",
   },
   version: "<value>",
-  schema: {},
+  schema: {
+    "key": "<value>",
+    "key1": "<value>",
+  },
 };
 ```
 
@@ -1915,12 +1632,7 @@ const value: models.FunctionWindow = {
   },
   version: "<value>",
   schema: {
-    eventWindowId: 456.2,
-    registeredFunctions: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
+    "key": "<value>",
   },
 };
 ```
@@ -1947,8 +1659,9 @@ const value: models.FunctionXmlUnroll = {
   },
   version: "<value>",
   schema: {
-    unroll: "<value>",
-    inherit: "<value>",
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
 };
 ```

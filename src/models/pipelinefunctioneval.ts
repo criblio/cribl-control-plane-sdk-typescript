@@ -47,7 +47,7 @@ export const PipelineFunctionEval$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("eval"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionEval$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionEval$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "eval";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionEval$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionEval
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("eval"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

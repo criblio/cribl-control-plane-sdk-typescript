@@ -70,18 +70,18 @@ export const LakeExportConfiguration$inboundSchema: z.ZodType<
 > = z.object({
   searchJobId: z.string(),
   dataset: z.string(),
-  lake: z.string().default("default"),
-  tee: z.string().default("false"),
-  flushMs: z.number().default(1000),
+  lake: z.string().optional(),
+  tee: z.string().optional(),
+  flushMs: z.number().optional(),
   suppressPreviews: z.boolean().optional(),
 });
 /** @internal */
 export type LakeExportConfiguration$Outbound = {
   searchJobId: string;
   dataset: string;
-  lake: string;
-  tee: string;
-  flushMs: number;
+  lake?: string | undefined;
+  tee?: string | undefined;
+  flushMs?: number | undefined;
   suppressPreviews?: boolean | undefined;
 };
 
@@ -93,9 +93,9 @@ export const LakeExportConfiguration$outboundSchema: z.ZodType<
 > = z.object({
   searchJobId: z.string(),
   dataset: z.string(),
-  lake: z.string().default("default"),
-  tee: z.string().default("false"),
-  flushMs: z.number().default(1000),
+  lake: z.string().optional(),
+  tee: z.string().optional(),
+  flushMs: z.number().optional(),
   suppressPreviews: z.boolean().optional(),
 });
 
@@ -122,7 +122,7 @@ export const PipelineFunctionLakeExport$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("lake_export"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -132,7 +132,7 @@ export const PipelineFunctionLakeExport$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionLakeExport$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "lake_export";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -147,7 +147,7 @@ export const PipelineFunctionLakeExport$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionLakeExport
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("lake_export"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

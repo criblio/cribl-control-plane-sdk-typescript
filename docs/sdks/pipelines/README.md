@@ -109,6 +109,7 @@ async function run() {
     id: "empty-pipeline",
     conf: {
       asyncFuncTimeout: 1000,
+      output: "default",
       description: "",
       streamtags: [],
       functions: [],
@@ -146,6 +147,7 @@ async function run() {
     id: "empty-pipeline",
     conf: {
       asyncFuncTimeout: 1000,
+      output: "default",
       description: "",
       streamtags: [],
       functions: [],
@@ -289,6 +291,7 @@ async function run() {
       id: "empty-pipeline",
       conf: {
         asyncFuncTimeout: 1000,
+        output: "default",
         description: "",
         streamtags: [],
         functions: [],
@@ -329,6 +332,7 @@ async function run() {
       id: "empty-pipeline",
       conf: {
         asyncFuncTimeout: 1000,
+        output: "default",
         description: "",
         streamtags: [],
         functions: [],

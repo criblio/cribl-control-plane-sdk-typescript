@@ -8,14 +8,20 @@ Authentication parameters to use when connecting to brokers. Using TLS is highly
 import { AuthenticationType1 } from "cribl-control-plane/models";
 
 let value: AuthenticationType1 = {
-  password: "_fkMkpqtdwAbONy",
+  disabled: true,
+  authType: "secret",
+  password: "fkMkpqtdwAbONy9",
   textSecret: "<value>",
+  mechanism: "oauthbearer",
+  username: "Marge.Kris",
+  clientSecretAuthType: "certificate",
   clientSecret: "<value>",
   clientTextSecret: "<value>",
   certificateName: "<value>",
   certPath: "<value>",
   privKeyPath: "<value>",
   passphrase: "<value>",
+  oauthEndpoint: "https://login.microsoftonline.us",
   clientId: "<id>",
   tenantId: "<id>",
   scope: "<value>",
@@ -26,7 +32,7 @@ let value: AuthenticationType1 = {
 
 | Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
 | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `disabled`                                                                                                                 | *boolean*                                                                                                                  | :heavy_minus_sign:                                                                                                         | N/A                                                                                                                        |
+| `disabled`                                                                                                                 | *boolean*                                                                                                                  | :heavy_check_mark:                                                                                                         | N/A                                                                                                                        |
 | `authType`                                                                                                                 | [models.AuthenticationMethodOptionsSasl1](../models/authenticationmethodoptionssasl1.md)                                   | :heavy_minus_sign:                                                                                                         | Enter password directly, or select a stored secret                                                                         |
 | `password`                                                                                                                 | *string*                                                                                                                   | :heavy_minus_sign:                                                                                                         | Connection-string primary key, or connection-string secondary key, from the Event Hubs workspace                           |
 | `textSecret`                                                                                                               | *string*                                                                                                                   | :heavy_minus_sign:                                                                                                         | Select or create a stored text secret                                                                                      |

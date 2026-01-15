@@ -103,7 +103,7 @@ export const PipelineFunctionNotifications$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("notifications"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -113,7 +113,7 @@ export const PipelineFunctionNotifications$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionNotifications$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "notifications";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -128,7 +128,7 @@ export const PipelineFunctionNotifications$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionNotifications
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("notifications"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

@@ -6,6 +6,8 @@
 import { OutputSplunkLbAuthToken } from "cribl-control-plane/models";
 
 let value: OutputSplunkLbAuthToken = {
+  authType: "secret",
+  authToken: "<value>",
   textSecret: "<value>",
 };
 ```

@@ -18,9 +18,14 @@ let value: OutputRing = {
     "<value 2>",
     "<value 3>",
   ],
+  format: "raw",
   partitionExpr: "<value>",
+  maxDataSize: "<value>",
+  maxDataTime: "<value>",
+  compress: "gzip",
   destPath: "<value>",
-  description: "shoulder via willfully hence quaintly hmph incidentally that",
+  onBackpressure: "block",
+  description: "nifty nifty expert manipulate annual fabricate plus pfft",
 };
 ```
 

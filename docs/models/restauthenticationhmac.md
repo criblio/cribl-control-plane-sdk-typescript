@@ -8,8 +8,11 @@ import { RestAuthenticationHmac } from "cribl-control-plane/models";
 let value: RestAuthenticationHmac = {
   authentication: "hmac",
   hmacFunctionId: "<id>",
-  discovery: {},
+  discovery: {
+    discoverType: "http",
+  },
   collectUrl: "https://giving-partridge.org/",
+  collectMethod: "get",
   collectVerb: "<value>",
   collectRequestParams: "<value>",
   collectBody: "<value>",
@@ -19,11 +22,21 @@ let value: RestAuthenticationHmac = {
       value: "<value>",
     },
   ],
-  pagination: {},
+  pagination: {
+    type: "response_header",
+  },
+  timeout: 1068.68,
+  useRoundRobinDns: false,
+  disableTimeFilter: false,
+  decodeUrl: false,
+  rejectUnauthorized: false,
+  captureHeaders: true,
+  stopOnEmptyResults: true,
   safeHeaders: [
     "<value 1>",
   ],
   retryRules: {
+    type: "none",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -35,7 +48,7 @@ let value: RestAuthenticationHmac = {
   },
   __scheduling: {
     stateTracking: {
-      enabled: true,
+      enabled: false,
     },
   },
 };
@@ -49,7 +62,7 @@ let value: RestAuthenticationHmac = {
 | `hmacFunctionId`                                                                                                                                   | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | Select or create an HMAC Function to use with authentication                                                                                       |
 | `discovery`                                                                                                                                        | [models.RestAuthenticationHmacDiscovery](../models/restauthenticationhmacdiscovery.md)                                                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | URL (constant or JavaScript expression) to use for the Collect operation                                                                           |
-| `collectMethod`                                                                                                                                    | [models.RestAuthenticationHmacCollectMethod](../models/restauthenticationhmaccollectmethod.md)                                                     | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `collectMethod`                                                                                                                                    | [models.RestAuthenticationHmacCollectMethod](../models/restauthenticationhmaccollectmethod.md)                                                     | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectVerb`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |

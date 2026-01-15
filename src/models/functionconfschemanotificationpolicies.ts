@@ -175,7 +175,7 @@ export function conditionFromJSON(
 export const Policy$inboundSchema: z.ZodType<Policy, z.ZodTypeDef, unknown> = z
   .object({
     id: z.string(),
-    disabled: z.boolean().default(false),
+    disabled: z.boolean().optional(),
     waitToGroup: z.number().optional(),
     groupByLabels: z.array(z.string()).optional(),
     conditions: z.array(z.array(z.lazy(() => Condition$inboundSchema)))
@@ -183,20 +183,20 @@ export const Policy$inboundSchema: z.ZodType<Policy, z.ZodTypeDef, unknown> = z
     templateTargetPairs: z.array(
       ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema,
     ),
-    final: z.boolean().default(false),
+    final: z.boolean().optional(),
     order: z.number(),
   });
 /** @internal */
 export type Policy$Outbound = {
   id: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   waitToGroup?: number | undefined;
   groupByLabels?: Array<string> | undefined;
   conditions?: Array<Array<Condition$Outbound>> | undefined;
   templateTargetPairs: Array<
     ItemsTypePoliciesItemsTemplateTargetPairs$Outbound
   >;
-  final: boolean;
+  final?: boolean | undefined;
   order: number;
 };
 
@@ -207,7 +207,7 @@ export const Policy$outboundSchema: z.ZodType<
   Policy
 > = z.object({
   id: z.string(),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   waitToGroup: z.number().optional(),
   groupByLabels: z.array(z.string()).optional(),
   conditions: z.array(z.array(z.lazy(() => Condition$outboundSchema)))
@@ -215,7 +215,7 @@ export const Policy$outboundSchema: z.ZodType<
   templateTargetPairs: z.array(
     ItemsTypePoliciesItemsTemplateTargetPairs$outboundSchema,
   ),
-  final: z.boolean().default(false),
+  final: z.boolean().optional(),
   order: z.number(),
 });
 

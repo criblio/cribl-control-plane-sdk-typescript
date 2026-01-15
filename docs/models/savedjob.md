@@ -10,60 +10,110 @@ const value: models.SavedJobCollection = {
   id: "<id>",
   description: "shrilly alongside fluffy magnetize offensively",
   type: "collection",
+  ttl: "<value>",
+  ignoreGroupJobsLimit: true,
   removeFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  schedule: {
-    enabled: true,
-    run: {
-      type: "collection",
-      earliest: 475.38,
-      latest: 1125.35,
-      timestampTimezone: "<value>",
-      timeWarning: {},
-    },
-  },
-  streamtags: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  collector: {
-    type: "google_cloud_storage",
-    conf: {
-      authType: "auto",
-      outputName: "<value>",
-      bucket: "<value>",
-      path: "/Applications",
-      extractors: [
-        {
-          key: "<key>",
-          expression: "<value>",
-        },
-      ],
-      endpoint: "<value>",
-      disableTimeFilter: false,
-      recurse: true,
-      maxBatchSize: 10,
-      parquetChunkSizeMB: 5,
-      parquetChunkDownloadTimeout: 600,
+  resumeOnBoot: true,
+  environment: "<value>",
+  schedule: {
+    enabled: true,
+    skippable: false,
+    resumeMissed: true,
+    cronSchedule: "<value>",
+    maxConcurrentRuns: 6515.34,
+    run: {
+      type: "collection",
+      rescheduleDroppedTasks: true,
+      maxTaskReschedule: 981.31,
+      logLevel: "warn",
+      jobTimeout: "<value>",
+      mode: "<value>",
+      timeRangeType: "<value>",
+      earliest: 6541.75,
+      latest: 2881.28,
+      timestampTimezone: "<value>",
+      timeWarning: {},
+      expression: "<value>",
+      minTaskSize: "<value>",
+      maxTaskSize: "<value>",
     },
   },
-  input: {
-    breakerRulesets: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    preprocess: {
-      command: "<value>",
-      args: [
+  streamtags: [
+    "<value 1>",
+  ],
+  workerAffinity: true,
+  collector: {
+    type: "health_check",
+    conf: {
+      authentication: "oauth",
+      loginUrl: "https://proper-majority.info/",
+      tokenRespAttribute: "<value>",
+      authHeaderExpr: "<value>",
+      clientSecretParamName: "<value>",
+      clientSecretParamValue: "<value>",
+      authRequestParams: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      authRequestHeaders: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      discovery: {
+        discoverType: "none",
+      },
+      collectUrl: "https://zesty-fundraising.net/",
+      collectMethod: "post",
+      collectRequestParams: "<value>",
+      collectBody: "<value>",
+      collectRequestHeaders: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      authenticateCollect: false,
+      timeout: 3050.03,
+      rejectUnauthorized: false,
+      defaultBreakers: "Cribl",
+      safeHeaders: [
         "<value 1>",
         "<value 2>",
         "<value 3>",
       ],
+      retryRules: {
+        type: "none",
+        interval: "<value>",
+        limit: "<value>",
+        multiplier: "<value>",
+        codes: "<value>",
+        enableHeader: "<value>",
+      },
     },
+  },
+  input: {
+    type: "collection",
+    breakerRulesets: [
+      "<value 1>",
+    ],
+    staleChannelFlushMs: 640.43,
+    sendToRoutes: false,
+    preprocess: {
+      disabled: false,
+      command: "<value>",
+      args: [
+        "<value 1>",
+      ],
+    },
+    throttleRatePerSec: "<value>",
     metadata: [
       {
         name: "<value>",
@@ -84,19 +134,35 @@ const value: models.SavedJobExecutor = {
   description:
     "aw definitive shoddy phooey naturally unselfish plain strange funny",
   type: "executor",
+  ttl: "<value>",
+  ignoreGroupJobsLimit: false,
   removeFields: [
     "<value 1>",
     "<value 2>",
   ],
+  resumeOnBoot: false,
   environment: "<value>",
   schedule: {
     enabled: true,
+    skippable: false,
+    resumeMissed: true,
+    cronSchedule: "<value>",
+    maxConcurrentRuns: 6515.34,
     run: {
       type: "collection",
-      earliest: 475.38,
-      latest: 1125.35,
+      rescheduleDroppedTasks: true,
+      maxTaskReschedule: 981.31,
+      logLevel: "warn",
+      jobTimeout: "<value>",
+      mode: "<value>",
+      timeRangeType: "<value>",
+      earliest: 6541.75,
+      latest: 2881.28,
       timestampTimezone: "<value>",
       timeWarning: {},
+      expression: "<value>",
+      minTaskSize: "<value>",
+      maxTaskSize: "<value>",
     },
   },
   streamtags: [
@@ -105,6 +171,7 @@ const value: models.SavedJobExecutor = {
   ],
   executor: {
     type: "<value>",
+    storeTaskResults: true,
     conf: {},
   },
 };
@@ -117,25 +184,40 @@ const value: models.SavedJobScheduledSearch = {
   id: "<id>",
   description: "hoof profane woot",
   type: "collection",
+  ttl: "<value>",
+  ignoreGroupJobsLimit: true,
   removeFields: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
+  resumeOnBoot: true,
   environment: "<value>",
   schedule: {
     enabled: true,
+    skippable: false,
+    resumeMissed: true,
+    cronSchedule: "<value>",
+    maxConcurrentRuns: 6515.34,
     run: {
       type: "collection",
-      earliest: 475.38,
-      latest: 1125.35,
+      rescheduleDroppedTasks: true,
+      maxTaskReschedule: 981.31,
+      logLevel: "warn",
+      jobTimeout: "<value>",
+      mode: "<value>",
+      timeRangeType: "<value>",
+      earliest: 6541.75,
+      latest: 2881.28,
       timestampTimezone: "<value>",
       timeWarning: {},
+      expression: "<value>",
+      minTaskSize: "<value>",
+      maxTaskSize: "<value>",
     },
   },
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   savedQueryId: "<id>",
 };

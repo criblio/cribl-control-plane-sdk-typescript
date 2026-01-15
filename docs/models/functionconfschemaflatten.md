@@ -11,6 +11,9 @@ let value: FunctionConfSchemaFlatten = {
     "<value 2>",
     "<value 3>",
   ],
+  prefix: "<value>",
+  depth: 7805.15,
+  delimiter: "<value>",
 };
 ```
 

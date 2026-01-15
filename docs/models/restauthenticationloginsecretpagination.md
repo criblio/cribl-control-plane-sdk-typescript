@@ -5,11 +5,13 @@
 ```typescript
 import { RestAuthenticationLoginSecretPagination } from "cribl-control-plane/models";
 
-let value: RestAuthenticationLoginSecretPagination = {};
+let value: RestAuthenticationLoginSecretPagination = {
+  type: "response_header",
+};
 ```
 
 ## Fields
 
 | Field                                                                                                          | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
 | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                         | [models.RestAuthenticationLoginSecretPaginationEnum](../models/restauthenticationloginsecretpaginationenum.md) | :heavy_minus_sign:                                                                                             | N/A                                                                                                            |
+| `type`                                                                                                         | [models.RestAuthenticationLoginSecretPaginationEnum](../models/restauthenticationloginsecretpaginationenum.md) | :heavy_check_mark:                                                                                             | N/A                                                                                                            |

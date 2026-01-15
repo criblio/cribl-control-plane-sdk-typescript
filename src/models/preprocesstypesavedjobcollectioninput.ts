@@ -8,7 +8,7 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PreprocessTypeSavedJobCollectionInput = {
-  disabled?: boolean | undefined;
+  disabled: boolean;
   /**
    * Command to feed the data through (via stdin) and process its output (stdout)
    */
@@ -25,7 +25,7 @@ export const PreprocessTypeSavedJobCollectionInput$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean().default(true),
+  disabled: z.boolean(),
   command: z.string().optional(),
   args: z.array(z.string()).optional(),
 });
@@ -42,7 +42,7 @@ export const PreprocessTypeSavedJobCollectionInput$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PreprocessTypeSavedJobCollectionInput
 > = z.object({
-  disabled: z.boolean().default(true),
+  disabled: z.boolean(),
   command: z.string().optional(),
   args: z.array(z.string()).optional(),
 });

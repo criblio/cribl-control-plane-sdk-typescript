@@ -65,11 +65,11 @@ export type OutputExabeam = {
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
-  stagePath?: string | undefined;
+  stagePath: string;
   /**
    * Google Cloud Storage service endpoint
    */
-  endpoint?: string | undefined;
+  endpoint: string;
   /**
    * Signature version to use for signing Google Cloud Storage requests
    */
@@ -186,24 +186,22 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   bucket: z.string(),
   region: z.string(),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  endpoint: z.string().default("https://storage.googleapis.com"),
-  signatureVersion: SignatureVersionOptions4$inboundSchema.default("v4"),
-  objectACL: ObjectAclOptions1$inboundSchema.default("private"),
+  stagePath: z.string(),
+  endpoint: z.string(),
+  signatureVersion: SignatureVersionOptions4$inboundSchema.optional(),
+  objectACL: ObjectAclOptions1$inboundSchema.optional(),
   storageClass: StorageClassOptions1$inboundSchema.optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  addIdToStagePath: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxOpenFiles: z.number().default(100),
-  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.default("block"),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.default(
-    "block",
-  ),
-  maxFileSizeMB: z.number().default(10),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  addIdToStagePath: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.optional(),
+  maxFileSizeMB: z.number().optional(),
   encodedConfiguration: z.string().optional(),
   collectorInstanceId: z.string(),
   siteName: z.string().optional(),
@@ -212,10 +210,10 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   description: z.string().optional(),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 /** @internal */
 export type OutputExabeam$Outbound = {
@@ -229,20 +227,20 @@ export type OutputExabeam$Outbound = {
   region: string;
   stagePath: string;
   endpoint: string;
-  signatureVersion: string;
-  objectACL: string;
+  signatureVersion?: string | undefined;
+  objectACL?: string | undefined;
   storageClass?: string | undefined;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  addIdToStagePath: boolean;
-  removeEmptyDirs: boolean;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  maxOpenFiles: number;
-  onBackpressure: string;
-  deadletterEnabled: boolean;
-  onDiskFullBackpressure: string;
-  maxFileSizeMB: number;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  addIdToStagePath?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  maxFileSizeMB?: number | undefined;
   encodedConfiguration?: string | undefined;
   collectorInstanceId: string;
   siteName?: string | undefined;
@@ -251,10 +249,10 @@ export type OutputExabeam$Outbound = {
   awsApiKey?: string | undefined;
   awsSecretKey?: string | undefined;
   description?: string | undefined;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
-  deadletterPath: string;
-  maxRetryNum: number;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
 };
 
 /** @internal */
@@ -271,24 +269,22 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   bucket: z.string(),
   region: z.string(),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  endpoint: z.string().default("https://storage.googleapis.com"),
-  signatureVersion: SignatureVersionOptions4$outboundSchema.default("v4"),
-  objectACL: ObjectAclOptions1$outboundSchema.default("private"),
+  stagePath: z.string(),
+  endpoint: z.string(),
+  signatureVersion: SignatureVersionOptions4$outboundSchema.optional(),
+  objectACL: ObjectAclOptions1$outboundSchema.optional(),
   storageClass: StorageClassOptions1$outboundSchema.optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  addIdToStagePath: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxOpenFiles: z.number().default(100),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.default("block"),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.default(
-    "block",
-  ),
-  maxFileSizeMB: z.number().default(10),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  addIdToStagePath: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
+  maxFileSizeMB: z.number().optional(),
   encodedConfiguration: z.string().optional(),
   collectorInstanceId: z.string(),
   siteName: z.string().optional(),
@@ -297,10 +293,10 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   description: z.string().optional(),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 
 export function outputExabeamToJSON(outputExabeam: OutputExabeam): string {

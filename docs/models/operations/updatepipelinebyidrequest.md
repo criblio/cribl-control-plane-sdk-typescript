@@ -11,6 +11,7 @@ let value: UpdatePipelineByIdRequest = {
     id: "<id>",
     conf: {
       asyncFuncTimeout: 603520,
+      output: "<value>",
       description: "republican subsidy marketplace uh-huh",
       streamtags: [
         "<value 1>",
@@ -18,7 +19,7 @@ let value: UpdatePipelineByIdRequest = {
       ],
       functions: [
         {
-          filter: "true",
+          filter: "<value>",
           id: "tee",
           description: "per decision truthfully abnormally woot zealous limply",
           disabled: false,
@@ -41,7 +42,7 @@ let value: UpdatePipelineByIdRequest = {
         "key": {
           name: "<value>",
           description:
-            "ack regularly uh-huh naturally kettledrum before frenetically beard inasmuch quickly",
+            "march meanwhile potentially although trouser wearily furthermore weary whereas",
           disabled: true,
         },
       },

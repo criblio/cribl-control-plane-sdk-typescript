@@ -30,6 +30,12 @@ import {
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
+  ItemsTypeKeyValueMetadata,
+  ItemsTypeKeyValueMetadata$inboundSchema,
+  ItemsTypeKeyValueMetadata$Outbound,
+  ItemsTypeKeyValueMetadata$outboundSchema,
+} from "./itemstypekeyvaluemetadata.js";
+import {
   ItemsTypeResponseRetrySettings,
   ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
@@ -105,11 +111,6 @@ export type ExtraLogType = {
   description?: string | undefined;
 };
 
-export type OutputGoogleChronicleCustomLabel = {
-  key: string;
-  value: string;
-};
-
 /**
  * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
  */
@@ -157,7 +158,7 @@ export type OutputGoogleChronicle = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  logFormatType?: SendEventsAs | undefined;
+  logFormatType: SendEventsAs;
   /**
    * Regional endpoint to send events to
    */
@@ -242,7 +243,7 @@ export type OutputGoogleChronicle = {
   /**
    * Custom labels to be added to every batch
    */
-  customLabels?: Array<OutputGoogleChronicleCustomLabel> | undefined;
+  customLabels?: Array<ItemsTypeKeyValueMetadata> | undefined;
   /**
    * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
    */
@@ -382,50 +383,6 @@ export function extraLogTypeFromJSON(
 }
 
 /** @internal */
-export const OutputGoogleChronicleCustomLabel$inboundSchema: z.ZodType<
-  OutputGoogleChronicleCustomLabel,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputGoogleChronicleCustomLabel$Outbound = {
-  key: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputGoogleChronicleCustomLabel$outboundSchema: z.ZodType<
-  OutputGoogleChronicleCustomLabel$Outbound,
-  z.ZodTypeDef,
-  OutputGoogleChronicleCustomLabel
-> = z.object({
-  key: z.string(),
-  value: z.string(),
-});
-
-export function outputGoogleChronicleCustomLabelToJSON(
-  outputGoogleChronicleCustomLabel: OutputGoogleChronicleCustomLabel,
-): string {
-  return JSON.stringify(
-    OutputGoogleChronicleCustomLabel$outboundSchema.parse(
-      outputGoogleChronicleCustomLabel,
-    ),
-  );
-}
-export function outputGoogleChronicleCustomLabelFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGoogleChronicleCustomLabel, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGoogleChronicleCustomLabel$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGoogleChronicleCustomLabel' from JSON`,
-  );
-}
-
-/** @internal */
 export const UDMType$inboundSchema: z.ZodType<UDMType, z.ZodTypeDef, unknown> =
   openEnums.inboundSchema(UDMType);
 /** @internal */
@@ -479,28 +436,28 @@ export const OutputGoogleChronicle$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  apiVersion: OutputGoogleChronicleAPIVersion$inboundSchema.default("v1"),
+  apiVersion: OutputGoogleChronicleAPIVersion$inboundSchema.optional(),
   authenticationMethod: OutputGoogleChronicleAuthenticationMethod$inboundSchema
-    .default("serviceAccount"),
+    .optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
-  logFormatType: SendEventsAs$inboundSchema.default("unstructured"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  logFormatType: SendEventsAs$inboundSchema,
   region: z.string().optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(1024),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(90),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
-    .default("none"),
+    .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  useRoundRobinDns: z.boolean().default(false),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  useRoundRobinDns: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   extraLogTypes: z.array(z.lazy(() => ExtraLogType$inboundSchema)).optional(),
@@ -508,24 +465,22 @@ export const OutputGoogleChronicle$inboundSchema: z.ZodType<
   logTextField: z.string().optional(),
   customerId: z.string().optional(),
   namespace: z.string().optional(),
-  customLabels: z.array(
-    z.lazy(() => OutputGoogleChronicleCustomLabel$inboundSchema),
-  ).optional(),
-  udmType: UDMType$inboundSchema.default("logs"),
+  customLabels: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
+  udmType: UDMType$inboundSchema.optional(),
   apiKey: z.string().optional(),
   apiKeySecret: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
   serviceAccountCredentialsSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputGoogleChroniclePqControls$inboundSchema)
     .optional(),
 });
@@ -537,27 +492,27 @@ export type OutputGoogleChronicle$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  apiVersion: string;
-  authenticationMethod: string;
+  apiVersion?: string | undefined;
+  authenticationMethod?: string | undefined;
   responseRetrySettings?:
     | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
+  responseHonorRetryAfterHeader?: boolean | undefined;
   logFormatType: string;
   region?: string | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
-  failedRequestLoggingMode: string;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  useRoundRobinDns: boolean;
-  onBackpressure: string;
+  useRoundRobinDns?: boolean | undefined;
+  onBackpressure?: string | undefined;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   extraLogTypes?: Array<ExtraLogType$Outbound> | undefined;
@@ -565,22 +520,22 @@ export type OutputGoogleChronicle$Outbound = {
   logTextField?: string | undefined;
   customerId?: string | undefined;
   namespace?: string | undefined;
-  customLabels?: Array<OutputGoogleChronicleCustomLabel$Outbound> | undefined;
-  udmType: string;
+  customLabels?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  udmType?: string | undefined;
   apiKey?: string | undefined;
   apiKeySecret?: string | undefined;
   serviceAccountCredentials?: string | undefined;
   serviceAccountCredentialsSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputGoogleChroniclePqControls$Outbound | undefined;
 };
 
@@ -596,29 +551,29 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  apiVersion: OutputGoogleChronicleAPIVersion$outboundSchema.default("v1"),
+  apiVersion: OutputGoogleChronicleAPIVersion$outboundSchema.optional(),
   authenticationMethod: OutputGoogleChronicleAuthenticationMethod$outboundSchema
-    .default("serviceAccount"),
+    .optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
-  logFormatType: SendEventsAs$outboundSchema.default("unstructured"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  logFormatType: SendEventsAs$outboundSchema,
   region: z.string().optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(1024),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(90),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
-    .default("none"),
+    .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  useRoundRobinDns: z.boolean().default(false),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  useRoundRobinDns: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   extraLogTypes: z.array(z.lazy(() => ExtraLogType$outboundSchema)).optional(),
@@ -626,24 +581,22 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   logTextField: z.string().optional(),
   customerId: z.string().optional(),
   namespace: z.string().optional(),
-  customLabels: z.array(
-    z.lazy(() => OutputGoogleChronicleCustomLabel$outboundSchema),
-  ).optional(),
-  udmType: UDMType$outboundSchema.default("logs"),
+  customLabels: z.array(ItemsTypeKeyValueMetadata$outboundSchema).optional(),
+  udmType: UDMType$outboundSchema.optional(),
   apiKey: z.string().optional(),
   apiKeySecret: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
   serviceAccountCredentialsSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputGoogleChroniclePqControls$outboundSchema)
     .optional(),
 });

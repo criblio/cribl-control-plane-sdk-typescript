@@ -68,10 +68,10 @@ export const SavedJobScheduledSearch$inboundSchema: z.ZodType<
   id: z.string().optional(),
   description: z.string().optional(),
   type: JobTypeOptionsSavedJobCollection$inboundSchema,
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
   removeFields: z.array(z.string()).optional(),
-  resumeOnBoot: z.boolean().default(false),
+  resumeOnBoot: z.boolean().optional(),
   environment: z.string().optional(),
   schedule: ScheduleTypeSavedJobCollection$inboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),
@@ -82,10 +82,10 @@ export type SavedJobScheduledSearch$Outbound = {
   id?: string | undefined;
   description?: string | undefined;
   type: string;
-  ttl: string;
-  ignoreGroupJobsLimit: boolean;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
   removeFields?: Array<string> | undefined;
-  resumeOnBoot: boolean;
+  resumeOnBoot?: boolean | undefined;
   environment?: string | undefined;
   schedule?: ScheduleTypeSavedJobCollection$Outbound | undefined;
   streamtags?: Array<string> | undefined;
@@ -101,10 +101,10 @@ export const SavedJobScheduledSearch$outboundSchema: z.ZodType<
   id: z.string().optional(),
   description: z.string().optional(),
   type: JobTypeOptionsSavedJobCollection$outboundSchema,
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
   removeFields: z.array(z.string()).optional(),
-  resumeOnBoot: z.boolean().default(false),
+  resumeOnBoot: z.boolean().optional(),
   environment: z.string().optional(),
   schedule: ScheduleTypeSavedJobCollection$outboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),

@@ -13,8 +13,11 @@ let value: RestAuthenticationGoogleOauthSecret = {
   ],
   textSecret: "<value>",
   subject: "<value>",
-  discovery: {},
-  collectUrl: "https://tall-cruelty.biz",
+  discovery: {
+    discoverType: "list",
+  },
+  collectUrl: "https://dull-earth.com",
+  collectMethod: "get",
   collectVerb: "<value>",
   collectRequestParams: "<value>",
   collectBody: "<value>",
@@ -24,11 +27,21 @@ let value: RestAuthenticationGoogleOauthSecret = {
       value: "<value>",
     },
   ],
-  pagination: {},
+  pagination: {
+    type: "none",
+  },
+  timeout: 1050.08,
+  useRoundRobinDns: false,
+  disableTimeFilter: false,
+  decodeUrl: true,
+  rejectUnauthorized: true,
+  captureHeaders: false,
+  stopOnEmptyResults: false,
   safeHeaders: [
     "<value 1>",
   ],
   retryRules: {
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -56,7 +69,7 @@ let value: RestAuthenticationGoogleOauthSecret = {
 | `subject`                                                                                                                                          | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | Email address of a user account with Super Admin permissions to the resources the collector will retrieve                                          |
 | `discovery`                                                                                                                                        | [models.RestAuthenticationGoogleOauthSecretDiscovery](../models/restauthenticationgoogleoauthsecretdiscovery.md)                                   | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | URL (constant or JavaScript expression) to use for the Collect operation                                                                           |
-| `collectMethod`                                                                                                                                    | [models.RestAuthenticationGoogleOauthSecretCollectMethod](../models/restauthenticationgoogleoauthsecretcollectmethod.md)                           | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `collectMethod`                                                                                                                                    | [models.RestAuthenticationGoogleOauthSecretCollectMethod](../models/restauthenticationgoogleoauthsecretcollectmethod.md)                           | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectVerb`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |

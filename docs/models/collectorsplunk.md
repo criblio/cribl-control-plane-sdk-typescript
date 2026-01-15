@@ -13,11 +13,11 @@ let value: CollectorSplunk = {
     authentication: "basic",
     username: "Enrico53",
     password: "a6l5mrPhEvtGkTu",
-    searchHead: "https://localhost:8089",
+    searchHead: "<value>",
     search: "<value>",
     earliest: "<value>",
     latest: "<value>",
-    endpoint: "/services/search/v2/jobs/export",
+    endpoint: "<value>",
     outputMode: "json",
     collectRequestParams: [
       {
@@ -31,10 +31,10 @@ let value: CollectorSplunk = {
         value: "<value>",
       },
     ],
-    timeout: 0,
-    useRoundRobinDns: false,
+    timeout: 2992.03,
+    useRoundRobinDns: true,
     disableTimeFilter: true,
-    rejectUnauthorized: false,
+    rejectUnauthorized: true,
     handleEscapedChars: false,
     retryRules: {
       type: "backoff",

@@ -8,10 +8,11 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
-  AuthenticationMethodOptionsAuth,
-  AuthenticationMethodOptionsAuth$inboundSchema,
-  AuthenticationMethodOptionsAuth$outboundSchema,
-} from "./authenticationmethodoptionsauth.js";
+  AuthType,
+  AuthType$inboundSchema,
+  AuthType$Outbound,
+  AuthType$outboundSchema,
+} from "./authtype.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -62,28 +63,6 @@ import {
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
-
-export type OutputElasticAuth = {
-  disabled?: boolean | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  /**
-   * Enter credentials directly, or select a stored secret
-   */
-  authType?: AuthenticationMethodOptionsAuth | undefined;
-  /**
-   * Select or create a secret that references your credentials
-   */
-  credentialsSecret?: string | undefined;
-  /**
-   * Enter API key directly
-   */
-  manualAPIKey?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-};
 
 /**
  * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
@@ -226,7 +205,7 @@ export type OutputElastic = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   extraParams?: Array<ItemsTypeSaslSaslExtensions> | undefined;
-  auth?: OutputElasticAuth | undefined;
+  auth?: AuthType | undefined;
   /**
    * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
    */
@@ -317,63 +296,6 @@ export type OutputElastic = {
 };
 
 /** @internal */
-export const OutputElasticAuth$inboundSchema: z.ZodType<
-  OutputElasticAuth,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  authType: AuthenticationMethodOptionsAuth$inboundSchema.default("manual"),
-  credentialsSecret: z.string().optional(),
-  manualAPIKey: z.string().optional(),
-  textSecret: z.string().optional(),
-});
-/** @internal */
-export type OutputElasticAuth$Outbound = {
-  disabled: boolean;
-  username?: string | undefined;
-  password?: string | undefined;
-  authType: string;
-  credentialsSecret?: string | undefined;
-  manualAPIKey?: string | undefined;
-  textSecret?: string | undefined;
-};
-
-/** @internal */
-export const OutputElasticAuth$outboundSchema: z.ZodType<
-  OutputElasticAuth$Outbound,
-  z.ZodTypeDef,
-  OutputElasticAuth
-> = z.object({
-  disabled: z.boolean().default(true),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  authType: AuthenticationMethodOptionsAuth$outboundSchema.default("manual"),
-  credentialsSecret: z.string().optional(),
-  manualAPIKey: z.string().optional(),
-  textSecret: z.string().optional(),
-});
-
-export function outputElasticAuthToJSON(
-  outputElasticAuth: OutputElasticAuth,
-): string {
-  return JSON.stringify(
-    OutputElasticAuth$outboundSchema.parse(outputElasticAuth),
-  );
-}
-export function outputElasticAuthFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputElasticAuth, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputElasticAuth$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputElasticAuth' from JSON`,
-  );
-}
-
-/** @internal */
 export const ElasticVersion$inboundSchema: z.ZodType<
   ElasticVersion,
   z.ZodTypeDef,
@@ -406,12 +328,12 @@ export const OutputElasticUrl$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   url: z.string(),
-  weight: z.number().default(1),
+  weight: z.number().optional(),
 });
 /** @internal */
 export type OutputElasticUrl$Outbound = {
   url: string;
-  weight: number;
+  weight?: number | undefined;
 };
 
 /** @internal */
@@ -421,7 +343,7 @@ export const OutputElasticUrl$outboundSchema: z.ZodType<
   OutputElasticUrl
 > = z.object({
   url: z.string(),
-  weight: z.number().default(1),
+  weight: z.number().optional(),
 });
 
 export function outputElasticUrlToJSON(
@@ -486,49 +408,49 @@ export const OutputElastic$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(true),
+  loadBalanced: z.boolean().optional(),
   index: z.string(),
   docType: z.string().optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
-    .default("none"),
+    .optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
   extraParams: z.array(ItemsTypeSaslSaslExtensions$inboundSchema).optional(),
-  auth: z.lazy(() => OutputElasticAuth$inboundSchema).optional(),
-  elasticVersion: ElasticVersion$inboundSchema.default("auto"),
+  auth: AuthType$inboundSchema.optional(),
+  elasticVersion: ElasticVersion$inboundSchema.optional(),
   elasticPipeline: z.string().optional(),
-  includeDocId: z.boolean().default(false),
-  writeAction: WriteAction$inboundSchema.default("create"),
-  retryPartialErrors: z.boolean().default(false),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  includeDocId: z.boolean().optional(),
+  writeAction: WriteAction$inboundSchema.optional(),
+  retryPartialErrors: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   description: z.string().optional(),
   url: z.string().optional(),
-  useRoundRobinDns: z.boolean().default(false),
-  excludeSelf: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
+  excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => OutputElasticUrl$inboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputElasticPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -539,49 +461,49 @@ export type OutputElastic$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced: boolean;
+  loadBalanced?: boolean | undefined;
   index: string;
   docType?: string | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
-  failedRequestLoggingMode: string;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
+  responseHonorRetryAfterHeader?: boolean | undefined;
   extraParams?: Array<ItemsTypeSaslSaslExtensions$Outbound> | undefined;
-  auth?: OutputElasticAuth$Outbound | undefined;
-  elasticVersion: string;
+  auth?: AuthType$Outbound | undefined;
+  elasticVersion?: string | undefined;
   elasticPipeline?: string | undefined;
-  includeDocId: boolean;
-  writeAction: string;
-  retryPartialErrors: boolean;
-  onBackpressure: string;
+  includeDocId?: boolean | undefined;
+  writeAction?: string | undefined;
+  retryPartialErrors?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   url?: string | undefined;
-  useRoundRobinDns: boolean;
-  excludeSelf: boolean;
+  useRoundRobinDns?: boolean | undefined;
+  excludeSelf?: boolean | undefined;
   urls?: Array<OutputElasticUrl$Outbound> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputElasticPqControls$Outbound | undefined;
 };
 
@@ -597,50 +519,50 @@ export const OutputElastic$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(true),
+  loadBalanced: z.boolean().optional(),
   index: z.string(),
   docType: z.string().optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
-    .default("none"),
+    .optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
   extraParams: z.array(ItemsTypeSaslSaslExtensions$outboundSchema).optional(),
-  auth: z.lazy(() => OutputElasticAuth$outboundSchema).optional(),
-  elasticVersion: ElasticVersion$outboundSchema.default("auto"),
+  auth: AuthType$outboundSchema.optional(),
+  elasticVersion: ElasticVersion$outboundSchema.optional(),
   elasticPipeline: z.string().optional(),
-  includeDocId: z.boolean().default(false),
-  writeAction: WriteAction$outboundSchema.default("create"),
-  retryPartialErrors: z.boolean().default(false),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  includeDocId: z.boolean().optional(),
+  writeAction: WriteAction$outboundSchema.optional(),
+  retryPartialErrors: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   url: z.string().optional(),
-  useRoundRobinDns: z.boolean().default(false),
-  excludeSelf: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
+  excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => OutputElasticUrl$outboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputElasticPqControls$outboundSchema).optional(),
 });
 

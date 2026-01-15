@@ -9,17 +9,15 @@ let value: CountedInputSplunkHec = {
   count: 389746,
   items: [
     {
-      sendToRoutes: true,
       id: "<id>",
       type: "splunk_hec",
-      disabled: false,
+      disabled: true,
       pipeline: "<value>",
+      sendToRoutes: false,
       environment: "<value>",
-      pqEnabled: false,
+      pqEnabled: true,
       streamtags: [
         "<value 1>",
-        "<value 2>",
-        "<value 3>",
       ],
       connections: [
         {
@@ -29,23 +27,24 @@ let value: CountedInputSplunkHec = {
       ],
       pq: {
         mode: "always",
-        maxBufferSize: 1000,
-        commitFrequency: 42,
-        maxFileSize: "1 MB",
-        maxSize: "5GB",
-        path: "$CRIBL_HOME/state/queues",
+        maxBufferSize: 357.77,
+        commitFrequency: 1717.96,
+        maxFileSize: "<value>",
+        maxSize: "<value>",
+        path: "/etc/namedb",
         compress: "none",
         pqControls: {},
       },
-      host: "0.0.0.0",
-      port: 3717.49,
+      host: "important-cycle.biz",
+      port: 44.48,
       authTokens: [
         {
-          authType: "manual",
+          authType: "secret",
           tokenSecret: "<value>",
           token: "<value>",
-          enabled: true,
-          description: "motionless jubilant agile",
+          enabled: false,
+          description:
+            "jubilant agile bowed what mockingly excluding maintainer",
           allowedIndexesAtToken: [
             "<value 1>",
             "<value 2>",
@@ -60,30 +59,30 @@ let value: CountedInputSplunkHec = {
         },
       ],
       tls: {
-        disabled: true,
-        requestCert: false,
+        disabled: false,
+        requestCert: true,
         rejectUnauthorized: true,
-        commonNameRegex: "/.*/",
+        commonNameRegex: "<value>",
         certificateName: "<value>",
         privKeyPath: "<value>",
         passphrase: "<value>",
         certPath: "<value>",
         caPath: "<value>",
         minVersion: "TLSv1",
-        maxVersion: "TLSv1.2",
+        maxVersion: "TLSv1",
       },
-      maxActiveReq: 256,
-      maxRequestsPerSocket: 0,
-      enableProxyHeader: false,
-      captureHeaders: false,
-      activityLogSampleRate: 100,
-      requestTimeout: 0,
-      socketTimeout: 0,
-      keepAliveTimeout: 5,
+      maxActiveReq: 7299.01,
+      maxRequestsPerSocket: 903141,
+      enableProxyHeader: true,
+      captureHeaders: true,
+      activityLogSampleRate: 8760.36,
+      requestTimeout: 2007.6,
+      socketTimeout: 1609.87,
+      keepAliveTimeout: 1925.51,
       enableHealthCheck: "<value>",
-      ipAllowlistRegex: "/.*/",
-      ipDenylistRegex: "/^$/",
-      splunkHecAPI: "/services/collector",
+      ipAllowlistRegex: "<value>",
+      ipDenylistRegex: "<value>",
+      splunkHecAPI: "<value>",
       metadata: [
         {
           name: "<value>",
@@ -98,18 +97,22 @@ let value: CountedInputSplunkHec = {
         "<value 1>",
         "<value 2>",
       ],
-      staleChannelFlushMs: 10000,
+      staleChannelFlushMs: 2766.37,
       useFwdTimezone: true,
-      dropControlFields: true,
+      dropControlFields: false,
       extractMetrics: false,
       accessControlAllowOrigin: [
         "<value 1>",
+        "<value 2>",
+        "<value 3>",
       ],
       accessControlAllowHeaders: [
         "<value 1>",
+        "<value 2>",
       ],
-      emitTokenMetrics: false,
-      description: "coast hmph jealously",
+      emitTokenMetrics: true,
+      description:
+        "rapidly dismal while anti easily regularly crackle energetically save",
     },
   ],
 };
@@ -117,7 +120,7 @@ let value: CountedInputSplunkHec = {
 
 ## Fields
 
-| Field                                      | Type                                       | Required                                   | Description                                |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| `count`                                    | *number*                                   | :heavy_minus_sign:                         | number of items present in the items array |
-| `items`                                    | *models.InputSplunkHec*[]                  | :heavy_minus_sign:                         | N/A                                        |
+| Field                                                  | Type                                                   | Required                                               | Description                                            |
+| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
+| `count`                                                | *number*                                               | :heavy_minus_sign:                                     | number of items present in the items array             |
+| `items`                                                | [models.InputSplunkHec](../models/inputsplunkhec.md)[] | :heavy_minus_sign:                                     | N/A                                                    |

@@ -6,10 +6,6 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaPublishMetrics,
-  FunctionConfSchemaPublishMetrics$inboundSchema,
-} from "./functionconfschemapublishmetrics.js";
 
 export type FunctionPublishMetrics = {
   __filename: string;
@@ -25,7 +21,7 @@ export type FunctionPublishMetrics = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionConfSchemaPublishMetrics | undefined;
+  schema?: { [k: string]: any } | undefined;
 };
 
 /** @internal */
@@ -47,7 +43,7 @@ export const FunctionPublishMetrics$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: FunctionConfSchemaPublishMetrics$inboundSchema.optional(),
+  schema: z.record(z.any()).optional(),
 });
 
 export function functionPublishMetricsFromJSON(

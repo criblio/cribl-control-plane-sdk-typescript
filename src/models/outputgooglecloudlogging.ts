@@ -420,24 +420,22 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   logLocationType: LogLocationType$inboundSchema,
   logNameExpression: z.string(),
-  sanitizeLogNames: z.boolean().default(false),
-  payloadFormat: PayloadFormat$inboundSchema.default("text"),
+  sanitizeLogNames: z.boolean().optional(),
+  payloadFormat: PayloadFormat$inboundSchema.optional(),
   logLabels: z.array(ItemsTypeLogLabels$inboundSchema).optional(),
   resourceTypeExpression: z.string().optional(),
   resourceTypeLabels: z.array(ItemsTypeLogLabels$inboundSchema).optional(),
   severityExpression: z.string().optional(),
   insertIdExpression: z.string().optional(),
-  googleAuthMethod: GoogleAuthenticationMethodOptions$inboundSchema.default(
-    "manual",
-  ),
+  googleAuthMethod: GoogleAuthenticationMethodOptions$inboundSchema.optional(),
   serviceAccountCredentials: z.string().optional(),
   secret: z.string().optional(),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  flushPeriodSec: z.number().default(1),
-  concurrency: z.number().default(5),
-  connectionTimeout: z.number().default(10000),
-  timeoutSec: z.number().default(30),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  concurrency: z.number().optional(),
+  connectionTimeout: z.number().optional(),
+  timeoutSec: z.number().optional(),
   throttleRateReqPerSec: z.number().int().optional(),
   requestMethodExpression: z.string().optional(),
   requestUrlExpression: z.string().optional(),
@@ -467,21 +465,21 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
   traceExpression: z.string().optional(),
   spanIdExpression: z.string().optional(),
   traceSampledExpression: z.string().optional(),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   logLocationExpression: z.string(),
   payloadExpression: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputGoogleCloudLoggingPqControls$inboundSchema)
     .optional(),
 });
@@ -495,22 +493,22 @@ export type OutputGoogleCloudLogging$Outbound = {
   streamtags?: Array<string> | undefined;
   logLocationType: string;
   logNameExpression: string;
-  sanitizeLogNames: boolean;
-  payloadFormat: string;
+  sanitizeLogNames?: boolean | undefined;
+  payloadFormat?: string | undefined;
   logLabels?: Array<ItemsTypeLogLabels$Outbound> | undefined;
   resourceTypeExpression?: string | undefined;
   resourceTypeLabels?: Array<ItemsTypeLogLabels$Outbound> | undefined;
   severityExpression?: string | undefined;
   insertIdExpression?: string | undefined;
-  googleAuthMethod: string;
+  googleAuthMethod?: string | undefined;
   serviceAccountCredentials?: string | undefined;
   secret?: string | undefined;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  flushPeriodSec: number;
-  concurrency: number;
-  connectionTimeout: number;
-  timeoutSec: number;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  concurrency?: number | undefined;
+  connectionTimeout?: number | undefined;
+  timeoutSec?: number | undefined;
   throttleRateReqPerSec?: number | undefined;
   requestMethodExpression?: string | undefined;
   requestUrlExpression?: string | undefined;
@@ -540,21 +538,21 @@ export type OutputGoogleCloudLogging$Outbound = {
   traceExpression?: string | undefined;
   spanIdExpression?: string | undefined;
   traceSampledExpression?: string | undefined;
-  onBackpressure: string;
+  onBackpressure?: string | undefined;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   logLocationExpression: string;
   payloadExpression?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputGoogleCloudLoggingPqControls$Outbound | undefined;
 };
 
@@ -572,24 +570,22 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   logLocationType: LogLocationType$outboundSchema,
   logNameExpression: z.string(),
-  sanitizeLogNames: z.boolean().default(false),
-  payloadFormat: PayloadFormat$outboundSchema.default("text"),
+  sanitizeLogNames: z.boolean().optional(),
+  payloadFormat: PayloadFormat$outboundSchema.optional(),
   logLabels: z.array(ItemsTypeLogLabels$outboundSchema).optional(),
   resourceTypeExpression: z.string().optional(),
   resourceTypeLabels: z.array(ItemsTypeLogLabels$outboundSchema).optional(),
   severityExpression: z.string().optional(),
   insertIdExpression: z.string().optional(),
-  googleAuthMethod: GoogleAuthenticationMethodOptions$outboundSchema.default(
-    "manual",
-  ),
+  googleAuthMethod: GoogleAuthenticationMethodOptions$outboundSchema.optional(),
   serviceAccountCredentials: z.string().optional(),
   secret: z.string().optional(),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  flushPeriodSec: z.number().default(1),
-  concurrency: z.number().default(5),
-  connectionTimeout: z.number().default(10000),
-  timeoutSec: z.number().default(30),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  concurrency: z.number().optional(),
+  connectionTimeout: z.number().optional(),
+  timeoutSec: z.number().optional(),
   throttleRateReqPerSec: z.number().int().optional(),
   requestMethodExpression: z.string().optional(),
   requestUrlExpression: z.string().optional(),
@@ -619,21 +615,21 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   traceExpression: z.string().optional(),
   spanIdExpression: z.string().optional(),
   traceSampledExpression: z.string().optional(),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   logLocationExpression: z.string(),
   payloadExpression: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputGoogleCloudLoggingPqControls$outboundSchema)
     .optional(),
 });

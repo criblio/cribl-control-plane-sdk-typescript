@@ -62,15 +62,15 @@ export const EventstatsConfiguration$inboundSchema: z.ZodType<
 > = z.object({
   aggregations: z.array(z.string()),
   groupBys: z.array(z.string()).optional(),
-  maxEvents: z.number().default(50000),
-  flushOnInputClose: z.boolean().default(false),
+  maxEvents: z.number().optional(),
+  flushOnInputClose: z.boolean().optional(),
 });
 /** @internal */
 export type EventstatsConfiguration$Outbound = {
   aggregations: Array<string>;
   groupBys?: Array<string> | undefined;
-  maxEvents: number;
-  flushOnInputClose: boolean;
+  maxEvents?: number | undefined;
+  flushOnInputClose?: boolean | undefined;
 };
 
 /** @internal */
@@ -81,8 +81,8 @@ export const EventstatsConfiguration$outboundSchema: z.ZodType<
 > = z.object({
   aggregations: z.array(z.string()),
   groupBys: z.array(z.string()).optional(),
-  maxEvents: z.number().default(50000),
-  flushOnInputClose: z.boolean().default(false),
+  maxEvents: z.number().optional(),
+  flushOnInputClose: z.boolean().optional(),
 });
 
 export function eventstatsConfigurationToJSON(
@@ -108,7 +108,7 @@ export const PipelineFunctionEventstats$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("eventstats"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -118,7 +118,7 @@ export const PipelineFunctionEventstats$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionEventstats$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "eventstats";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -133,7 +133,7 @@ export const PipelineFunctionEventstats$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionEventstats
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("eventstats"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

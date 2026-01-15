@@ -9,60 +9,72 @@ let value: RunnableJobCollection = {
   id: "<id>",
   description: "pro speedily woot sundae topsail instead issue about",
   type: "collection",
+  ttl: "<value>",
+  ignoreGroupJobsLimit: false,
   removeFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  schedule: {
-    enabled: false,
-    run: {
-      type: "collection",
-      earliest: 3143.53,
-      latest: 995.72,
-      timestampTimezone: "<value>",
-      timeWarning: {},
-    },
-  },
-  streamtags: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
+  resumeOnBoot: true,
+  environment: "<value>",
+  schedule: {
+    enabled: true,
+    skippable: true,
+    resumeMissed: true,
+    cronSchedule: "<value>",
+    maxConcurrentRuns: 1167.02,
+    run: {
+      type: "collection",
+      rescheduleDroppedTasks: false,
+      maxTaskReschedule: 613.65,
+      logLevel: "info",
+      jobTimeout: "<value>",
+      mode: "<value>",
+      timeRangeType: "<value>",
+      earliest: 5558.09,
+      latest: 8290.6,
+      timestampTimezone: "<value>",
+      timeWarning: {},
+      expression: "<value>",
+      minTaskSize: "<value>",
+      maxTaskSize: "<value>",
+    },
+  },
+  streamtags: [
+    "<value 1>",
+  ],
+  workerAffinity: false,
   collector: {
-    type: "google_cloud_storage",
+    type: "filesystem",
     conf: {
-      authType: "auto",
       outputName: "<value>",
-      bucket: "<value>",
-      path: "/usr/bin",
+      path: "/Library",
       extractors: [
         {
           key: "<key>",
           expression: "<value>",
         },
       ],
-      endpoint: "<value>",
-      disableTimeFilter: false,
-      recurse: true,
-      maxBatchSize: 10,
-      parquetChunkSizeMB: 5,
-      parquetChunkDownloadTimeout: 600,
+      recurse: false,
+      maxBatchSize: 4087.23,
     },
   },
   input: {
+    type: "collection",
     breakerRulesets: [
       "<value 1>",
-      "<value 2>",
     ],
+    staleChannelFlushMs: 640.43,
+    sendToRoutes: false,
     preprocess: {
+      disabled: false,
       command: "<value>",
       args: [
         "<value 1>",
-        "<value 2>",
-        "<value 3>",
       ],
     },
+    throttleRatePerSec: "<value>",
     metadata: [
       {
         name: "<value>",
@@ -73,10 +85,25 @@ let value: RunnableJobCollection = {
     output: "<value>",
   },
   run: {
-    earliest: 3511.81,
-    latest: 4537.69,
+    rescheduleDroppedTasks: true,
+    maxTaskReschedule: 9029.54,
+    logLevel: "silly",
+    jobTimeout: "<value>",
+    mode: "list",
+    timeRangeType: "relative",
+    earliest: 4690.93,
+    latest: 7522.84,
+    timestampTimezone: "<value>",
     timeWarning: {},
-    capture: {},
+    expression: "<value>",
+    minTaskSize: "<value>",
+    maxTaskSize: "<value>",
+    discoverToRoutes: false,
+    capture: {
+      duration: 2517.82,
+      maxEvents: 7307.09,
+      level: 2,
+    },
   },
 };
 ```
@@ -97,5 +124,5 @@ let value: RunnableJobCollection = {
 | `streamtags`                                                                                                                                                                                             | *string*[]                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                       | Tags for filtering and grouping in @{product}                                                                                                                                                            |
 | `workerAffinity`                                                                                                                                                                                         | *boolean*                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                       | If enabled, tasks are created and run by the same Worker Node                                                                                                                                            |
 | `collector`                                                                                                                                                                                              | *models.Collector*                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                       | Collector configuration                                                                                                                                                                                  |
-| `input`                                                                                                                                                                                                  | [models.InputTypeSavedJobCollection](../models/inputtypesavedjobcollection.md)                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                       | N/A                                                                                                                                                                                                      |
+| `input`                                                                                                                                                                                                  | [models.TypeCollectionWithBreakerRulesetsConstraint](../models/typecollectionwithbreakerrulesetsconstraint.md)                                                                                           | :heavy_minus_sign:                                                                                                                                                                                       | N/A                                                                                                                                                                                                      |
 | `run`                                                                                                                                                                                                    | [models.RunnableJobCollectionRun](../models/runnablejobcollectionrun.md)                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                       | N/A                                                                                                                                                                                                      |

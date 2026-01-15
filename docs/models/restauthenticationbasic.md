@@ -9,8 +9,11 @@ let value: RestAuthenticationBasic = {
   authentication: "basic",
   username: "Tito40",
   password: "4Drf49LK5Hpg6tC",
-  discovery: {},
-  collectUrl: "https://courageous-secret.net/",
+  discovery: {
+    discoverType: "json",
+  },
+  collectUrl: "https://stark-sightseeing.org/",
+  collectMethod: "other",
   collectVerb: "<value>",
   collectRequestParams: "<value>",
   collectBody: "<value>",
@@ -20,13 +23,23 @@ let value: RestAuthenticationBasic = {
       value: "<value>",
     },
   ],
-  pagination: {},
+  pagination: {
+    type: "request_page",
+  },
+  timeout: 8801.26,
+  useRoundRobinDns: false,
+  disableTimeFilter: false,
+  decodeUrl: true,
+  rejectUnauthorized: true,
+  captureHeaders: false,
+  stopOnEmptyResults: true,
   safeHeaders: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
   retryRules: {
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -53,7 +66,7 @@ let value: RestAuthenticationBasic = {
 | `password`                                                                                                                                         | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
 | `discovery`                                                                                                                                        | [models.RestAuthenticationBasicDiscovery](../models/restauthenticationbasicdiscovery.md)                                                           | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | URL (constant or JavaScript expression) to use for the Collect operation                                                                           |
-| `collectMethod`                                                                                                                                    | [models.RestAuthenticationBasicCollectMethod](../models/restauthenticationbasiccollectmethod.md)                                                   | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `collectMethod`                                                                                                                                    | [models.RestAuthenticationBasicCollectMethod](../models/restauthenticationbasiccollectmethod.md)                                                   | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectVerb`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |

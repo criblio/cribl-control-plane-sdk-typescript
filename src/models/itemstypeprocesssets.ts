@@ -21,13 +21,13 @@ export const ItemsTypeProcessSets$inboundSchema: z.ZodType<
 > = z.object({
   name: z.string(),
   filter: z.string(),
-  includeChildren: z.boolean().default(false),
+  includeChildren: z.boolean().optional(),
 });
 /** @internal */
 export type ItemsTypeProcessSets$Outbound = {
   name: string;
   filter: string;
-  includeChildren: boolean;
+  includeChildren?: boolean | undefined;
 };
 
 /** @internal */
@@ -38,7 +38,7 @@ export const ItemsTypeProcessSets$outboundSchema: z.ZodType<
 > = z.object({
   name: z.string(),
   filter: z.string(),
-  includeChildren: z.boolean().default(false),
+  includeChildren: z.boolean().optional(),
 });
 
 export function itemsTypeProcessSetsToJSON(

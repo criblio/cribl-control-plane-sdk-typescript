@@ -9,6 +9,9 @@ let value: DistinctConfiguration = {
   groupBy: [
     "<value 1>",
   ],
+  maxCombinations: 7502,
+  maxDepth: 9151.42,
+  isFederated: true,
   suppressPreviews: false,
 };
 ```

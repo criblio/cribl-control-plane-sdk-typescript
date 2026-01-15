@@ -11,6 +11,8 @@ let value: PipelineFunctionWindowConf = {
     "<value 1>",
     "<value 2>",
   ],
+  tailEventCount: 2912.96,
+  headEventCount: 1353.76,
 };
 ```
 

@@ -12,7 +12,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 /**
  * decides if bag-values are expanded to bags or arrays
  */
-export const PipelineFunctionMvExpandBagExpansionMode = {
+export const BagExpansionMode = {
   /**
    * Store as object
    */
@@ -25,9 +25,7 @@ export const PipelineFunctionMvExpandBagExpansionMode = {
 /**
  * decides if bag-values are expanded to bags or arrays
  */
-export type PipelineFunctionMvExpandBagExpansionMode = OpenEnum<
-  typeof PipelineFunctionMvExpandBagExpansionMode
->;
+export type BagExpansionMode = OpenEnum<typeof BagExpansionMode>;
 
 export type PipelineFunctionMvExpandConf = {
   /**
@@ -49,7 +47,7 @@ export type PipelineFunctionMvExpandConf = {
   /**
    * decides if bag-values are expanded to bags or arrays
    */
-  bagExpansionMode?: PipelineFunctionMvExpandBagExpansionMode | undefined;
+  bagExpansionMode?: BagExpansionMode | undefined;
 };
 
 export type PipelineFunctionMvExpand = {
@@ -81,17 +79,17 @@ export type PipelineFunctionMvExpand = {
 };
 
 /** @internal */
-export const PipelineFunctionMvExpandBagExpansionMode$inboundSchema: z.ZodType<
-  PipelineFunctionMvExpandBagExpansionMode,
+export const BagExpansionMode$inboundSchema: z.ZodType<
+  BagExpansionMode,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(PipelineFunctionMvExpandBagExpansionMode);
+> = openEnums.inboundSchema(BagExpansionMode);
 /** @internal */
-export const PipelineFunctionMvExpandBagExpansionMode$outboundSchema: z.ZodType<
+export const BagExpansionMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  PipelineFunctionMvExpandBagExpansionMode
-> = openEnums.outboundSchema(PipelineFunctionMvExpandBagExpansionMode);
+  BagExpansionMode
+> = openEnums.outboundSchema(BagExpansionMode);
 
 /** @internal */
 export const PipelineFunctionMvExpandConf$inboundSchema: z.ZodType<
@@ -101,18 +99,17 @@ export const PipelineFunctionMvExpandConf$inboundSchema: z.ZodType<
 > = z.object({
   sourceFields: z.array(z.string()),
   targetNames: z.array(z.string()).optional(),
-  rowLimit: z.number().default(9007199254740991),
+  rowLimit: z.number().optional(),
   itemIndexName: z.string().optional(),
-  bagExpansionMode: PipelineFunctionMvExpandBagExpansionMode$inboundSchema
-    .default("bag"),
+  bagExpansionMode: BagExpansionMode$inboundSchema.optional(),
 });
 /** @internal */
 export type PipelineFunctionMvExpandConf$Outbound = {
   sourceFields: Array<string>;
   targetNames?: Array<string> | undefined;
-  rowLimit: number;
+  rowLimit?: number | undefined;
   itemIndexName?: string | undefined;
-  bagExpansionMode: string;
+  bagExpansionMode?: string | undefined;
 };
 
 /** @internal */
@@ -123,10 +120,9 @@ export const PipelineFunctionMvExpandConf$outboundSchema: z.ZodType<
 > = z.object({
   sourceFields: z.array(z.string()),
   targetNames: z.array(z.string()).optional(),
-  rowLimit: z.number().default(9007199254740991),
+  rowLimit: z.number().optional(),
   itemIndexName: z.string().optional(),
-  bagExpansionMode: PipelineFunctionMvExpandBagExpansionMode$outboundSchema
-    .default("bag"),
+  bagExpansionMode: BagExpansionMode$outboundSchema.optional(),
 });
 
 export function pipelineFunctionMvExpandConfToJSON(
@@ -154,7 +150,7 @@ export const PipelineFunctionMvExpand$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("mv_expand"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -164,7 +160,7 @@ export const PipelineFunctionMvExpand$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionMvExpand$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "mv_expand";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -179,7 +175,7 @@ export const PipelineFunctionMvExpand$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionMvExpand
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("mv_expand"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

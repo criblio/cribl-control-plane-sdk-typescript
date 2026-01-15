@@ -49,7 +49,7 @@ export type PipelineFunctionSerializeConf = {
   /**
    * Data output format
    */
-  type?: PipelineFunctionSerializeType | undefined;
+  type: PipelineFunctionSerializeType;
   delimChar?: any | undefined;
   quoteChar?: any | undefined;
   escapeChar?: any | undefined;
@@ -115,14 +115,14 @@ export const PipelineFunctionSerializeConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: PipelineFunctionSerializeType$inboundSchema.default("csv"),
+  type: PipelineFunctionSerializeType$inboundSchema,
   delimChar: z.any().optional(),
   quoteChar: z.any().optional(),
   escapeChar: z.any().optional(),
   nullValue: z.any().optional(),
   fields: z.array(z.string()).optional(),
   srcField: z.string().optional(),
-  dstField: z.string().default("_raw"),
+  dstField: z.string().optional(),
 });
 /** @internal */
 export type PipelineFunctionSerializeConf$Outbound = {
@@ -133,7 +133,7 @@ export type PipelineFunctionSerializeConf$Outbound = {
   nullValue?: any | undefined;
   fields?: Array<string> | undefined;
   srcField?: string | undefined;
-  dstField: string;
+  dstField?: string | undefined;
 };
 
 /** @internal */
@@ -142,14 +142,14 @@ export const PipelineFunctionSerializeConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionSerializeConf
 > = z.object({
-  type: PipelineFunctionSerializeType$outboundSchema.default("csv"),
+  type: PipelineFunctionSerializeType$outboundSchema,
   delimChar: z.any().optional(),
   quoteChar: z.any().optional(),
   escapeChar: z.any().optional(),
   nullValue: z.any().optional(),
   fields: z.array(z.string()).optional(),
   srcField: z.string().optional(),
-  dstField: z.string().default("_raw"),
+  dstField: z.string().optional(),
 });
 
 export function pipelineFunctionSerializeConfToJSON(
@@ -177,7 +177,7 @@ export const PipelineFunctionSerialize$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("serialize"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -187,7 +187,7 @@ export const PipelineFunctionSerialize$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionSerialize$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "serialize";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -202,7 +202,7 @@ export const PipelineFunctionSerialize$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionSerialize
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("serialize"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

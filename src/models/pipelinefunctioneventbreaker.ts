@@ -9,7 +9,7 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export const PipelineFunctionEventBreakerExistingOrNew = {
+export const ExistingOrNew = {
   /**
    * Use Existing
    */
@@ -19,12 +19,10 @@ export const PipelineFunctionEventBreakerExistingOrNew = {
    */
   New: "new",
 } as const;
-export type PipelineFunctionEventBreakerExistingOrNew = OpenEnum<
-  typeof PipelineFunctionEventBreakerExistingOrNew
->;
+export type ExistingOrNew = OpenEnum<typeof ExistingOrNew>;
 
 export type PipelineFunctionEventBreakerConf = {
-  existingOrNew?: PipelineFunctionEventBreakerExistingOrNew | undefined;
+  existingOrNew: ExistingOrNew;
   /**
    * Add this Function name to the cribl_breaker field
    */
@@ -60,15 +58,17 @@ export type PipelineFunctionEventBreaker = {
 };
 
 /** @internal */
-export const PipelineFunctionEventBreakerExistingOrNew$inboundSchema: z.ZodType<
-  PipelineFunctionEventBreakerExistingOrNew,
+export const ExistingOrNew$inboundSchema: z.ZodType<
+  ExistingOrNew,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(PipelineFunctionEventBreakerExistingOrNew);
+> = openEnums.inboundSchema(ExistingOrNew);
 /** @internal */
-export const PipelineFunctionEventBreakerExistingOrNew$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, PipelineFunctionEventBreakerExistingOrNew> =
-    openEnums.outboundSchema(PipelineFunctionEventBreakerExistingOrNew);
+export const ExistingOrNew$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ExistingOrNew
+> = openEnums.outboundSchema(ExistingOrNew);
 
 /** @internal */
 export const PipelineFunctionEventBreakerConf$inboundSchema: z.ZodType<
@@ -76,14 +76,13 @@ export const PipelineFunctionEventBreakerConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  existingOrNew: PipelineFunctionEventBreakerExistingOrNew$inboundSchema
-    .default("existing"),
-  shouldMarkCriblBreaker: z.boolean().default(true),
+  existingOrNew: ExistingOrNew$inboundSchema,
+  shouldMarkCriblBreaker: z.boolean().optional(),
 });
 /** @internal */
 export type PipelineFunctionEventBreakerConf$Outbound = {
   existingOrNew: string;
-  shouldMarkCriblBreaker: boolean;
+  shouldMarkCriblBreaker?: boolean | undefined;
 };
 
 /** @internal */
@@ -92,9 +91,8 @@ export const PipelineFunctionEventBreakerConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionEventBreakerConf
 > = z.object({
-  existingOrNew: PipelineFunctionEventBreakerExistingOrNew$outboundSchema
-    .default("existing"),
-  shouldMarkCriblBreaker: z.boolean().default(true),
+  existingOrNew: ExistingOrNew$outboundSchema,
+  shouldMarkCriblBreaker: z.boolean().optional(),
 });
 
 export function pipelineFunctionEventBreakerConfToJSON(
@@ -122,7 +120,7 @@ export const PipelineFunctionEventBreaker$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("event_breaker"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -132,7 +130,7 @@ export const PipelineFunctionEventBreaker$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionEventBreaker$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "event_breaker";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -147,7 +145,7 @@ export const PipelineFunctionEventBreaker$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionEventBreaker
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("event_breaker"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
