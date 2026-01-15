@@ -47,7 +47,7 @@ export type FunctionConfSchemaSend = {
   /**
    * Tee results to search. When set to true results will be shipped instead of stats
    */
-  tee?: string | undefined;
+  tee?: boolean | undefined;
   /**
    * How often are stats flushed in ms
    */
@@ -80,7 +80,7 @@ export const FunctionConfSchemaSend$inboundSchema: z.ZodType<
   workspace: z.string().optional(),
   sendUrlTemplate: z.string().optional(),
   searchId: z.string().optional(),
-  tee: z.string().optional(),
+  tee: z.boolean().optional(),
   flushMs: z.number().optional(),
   suppressPreviews: z.boolean().optional(),
   mode: FunctionConfSchemaSendMode$inboundSchema.optional(),

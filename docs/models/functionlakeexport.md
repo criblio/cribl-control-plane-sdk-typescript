@@ -23,8 +23,8 @@ let value: FunctionLakeExport = {
     searchJobId: "<id>",
     dataset: "<value>",
     lake: "<value>",
-    tee: "<value>",
-    flushMs: 4244.78,
+    tee: true,
+    flushMs: 398.47,
     suppressPreviews: true,
   },
 };

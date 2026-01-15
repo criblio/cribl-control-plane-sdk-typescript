@@ -855,8 +855,8 @@ const value: models.FunctionLakeExport = {
     searchJobId: "<id>",
     dataset: "<value>",
     lake: "<value>",
-    tee: "<value>",
-    flushMs: 4244.78,
+    tee: true,
+    flushMs: 398.47,
     suppressPreviews: true,
   },
 };
@@ -1639,10 +1639,10 @@ const value: models.FunctionSend = {
     workspace: "<value>",
     sendUrlTemplate: "<value>",
     searchId: "<id>",
-    tee: "<value>",
-    flushMs: 9785.46,
+    tee: false,
+    flushMs: 5284.9,
     suppressPreviews: false,
-    mode: "metrics",
+    mode: "sender",
   },
 };
 ```

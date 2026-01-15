@@ -27,10 +27,10 @@ let value: FunctionSend = {
     workspace: "<value>",
     sendUrlTemplate: "<value>",
     searchId: "<id>",
-    tee: "<value>",
-    flushMs: 9785.46,
+    tee: false,
+    flushMs: 5284.9,
     suppressPreviews: false,
-    mode: "metrics",
+    mode: "sender",
   },
 };
 ```
